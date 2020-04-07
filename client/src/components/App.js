@@ -15,7 +15,7 @@ import { kebabCase } from '../utils/utils';
 
 moment.locale('ca');
 
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 export const AgrupacionsContext = createContext(null);
 export const LoadingAgrupacionsContext = createContext(null);
@@ -44,10 +44,6 @@ const App = () => {
             <Layout style={{ minHeight: '100vh' }}>
               <MainSider collapsed={collapsed} setCollapsed={setCollapsed} />
               <Layout className="site-layout">
-                <Header
-                  className="app-layout-header site-layout-background"
-                  style={{ marginLeft: collapsed ? 80 : 200 }}
-                />
                 <Content
                   className="app-layout-content site-layout-background"
                   style={{ marginLeft: collapsed ? 80 : 200 }}>
@@ -69,7 +65,6 @@ const App = () => {
                     <Route exact path="/socis/:username" component={PerfilSociPage} />
                   </Switch>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>&copy; 2020 Associació Musical Catalana Crescendo</Footer>
               </Layout>
             </Layout>
           </ConfigProvider>

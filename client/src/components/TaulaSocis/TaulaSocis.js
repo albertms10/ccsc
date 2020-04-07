@@ -65,7 +65,7 @@ export default ({ socis, getSocis, loading }) => {
             render: (text, row) => (
               <>
                 <Avatar style={{ marginRight: '1rem', marginBottom: '-1.25rem' }}>
-                  {text[0]}
+                  {row.nom[0]}{row.cognoms[0]}
                 </Avatar>
                 <div style={{ display: 'inline-grid' }}>
                   <Text style={{ marginBottom: 0 }}>{text}</Text>

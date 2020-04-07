@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 const connection = require('./connection');
 app.set('connection', connection);
 
+require('./routes/agrupacions')(app);
 require('./routes/associacio')(app);
 require('./routes/esdeveniments')(app);
 require('./routes/localitzacions')(app);

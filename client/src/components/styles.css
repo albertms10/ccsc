@@ -1,3 +1,4 @@
+/*
 .app-layout-header {
     position: fixed;
     z-index: 100;
@@ -7,10 +8,10 @@
     background-color: white !important;
     box-shadow: 0 0 8px rgba(0, 0, 0, .15);
 }
+ */
 
 .app-layout-content {
-    margin-top: 64px;
-    padding: 3rem;
+    padding: 3rem 10rem;
     transition-duration: 200ms;
     background-color: #fafafa;
 }

@@ -13,7 +13,7 @@ export const stripAccents = (s) => {
  * Given an integer, finds the propper unit in order to express its value
  *
  * @param {number} value
- * @param {string} unit
+ * @param {('s'|'min'|'h'|'d'|'m'|'y')} unit
  * @returns {string}
  */
 export const closestTimeValue = (value, unit = 's') => {
@@ -58,7 +58,7 @@ export const kebabCase = (s) => s.toLowerCase().replace(/[ _]/g, '-');
  * @param {string} s
  * @returns {string}
  */
-export const snakeCase = s => s.toLowerCase().replace(/[ -]/g, '_');
+export const snakeCase = (s) => s.toLowerCase().replace(/[ -]/g, '_');
 
 /**
  * Converts the given string into upper snake case.
@@ -66,7 +66,15 @@ export const snakeCase = s => s.toLowerCase().replace(/[ -]/g, '_');
  * @param {string} s
  * @returns {string}
  */
-export const upperSnakeCase = s => s.toUpperCase().replace(/[ -]/g, '_');
+export const upperSnakeCase = (s) => s.toUpperCase().replace(/[ -]/g, '_');
+
+/**
+ * Converts the given string into Pascal case.
+ *
+ * @param {string} s
+ * @returns {string}
+ */
+export const pascalCase = (s) => s.toLowerCase().split(/[ _-]/g).map(capitalizeFirst).join('');
 
 /**
  * Returns the index of the nth occurence of a value in a string.

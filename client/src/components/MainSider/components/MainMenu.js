@@ -4,8 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { kebabCase, nIndexOf } from '../../../utils/utils';
 import './styles.css';
 import { HomeOutlined, LoadingOutlined, ScheduleOutlined, SolutionOutlined, TeamOutlined } from '@ant-design/icons';
-import IconCorDeCambra from '../../../icons/IconCorDeCambra';
 import { AgrupacionsContext, LoadingAgrupacionsContext } from '../../App';
+import IconAgrupacio from '../../../icons/IconAgrupacio';
 
 const { SubMenu, Item, ItemGroup } = Menu;
 
@@ -69,7 +69,7 @@ export default ({ collapsed }) => {
     setItemsAgrupacions(agrupacions.map(agrupacio => (
       {
         title: agrupacio.nom_curt,
-        icon: <IconCorDeCambra />,
+        icon: <IconAgrupacio name={agrupacio.nom_curt} />,
         path: '/' + kebabCase(agrupacio.nom_curt),
       }
     )));
