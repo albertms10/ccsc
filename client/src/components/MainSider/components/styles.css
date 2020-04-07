@@ -1,0 +1,25 @@
+.main-menu {
+    padding-top: 1rem !important;
+    border-right: none;
+    background: none !important;
+}
+
+.main-menu-item-group {
+    margin: 1rem 0;
+}
+
+/*
+.main-menu-item-group::before {
+    position: absolute;
+    width: 100%;
+    margin-top: 2.25rem;
+    margin-right: -1rem;
+    margin-left: 1rem;
+    content: '';
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+ */
+
+.ant-menu-item-group-title {
+    color: rgba(255, 255, 255, .4) !important;
+}
