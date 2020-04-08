@@ -74,11 +74,25 @@ module.exports = (app) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT projectes.id_projecte, titol, descripcio, inicials, color, id_curs
+        `SELECT projectes.id_projecte,
+                titol,
+                descripcio,
+                inicials,
+                color,
+                id_curs,
+                (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id_director, 'nom', nom_complet))
+                 FROM directors_projectes
+                          INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
+                 WHERE id_projecte = (SELECT projectes.id_projecte)) AS directors,
+                (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', agrupacions.id_agrupacio, 'nom', nom))
+                 FROM projectes_agrupacions
+                          INNER JOIN agrupacions USING (id_agrupacio)
+                 WHERE id_projecte = (SELECT projectes.id_projecte)
+                   AND agrupacions.id_agrupacio <> ?)                AS agrupacions
          FROM projectes
                   INNER JOIN projectes_agrupacions USING (id_projecte)
          WHERE id_agrupacio = ?;`,
-      [id_agrupacio],
+      [id_agrupacio, id_agrupacio],
       (err, rows) => {
         if (err) next(err);
         res.send(rows);

@@ -1,29 +1,29 @@
 import React from 'react';
-import { Button, Col, List, Row, Typography } from 'antd';
+import { List, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-const { Title } = Typography;
+import BorderlessButton from '../Buttons/BorderlessButton';
+import './styles.css';
+import { Link } from 'react-router-dom';
 
 export default ({ title, loading, data, style }) => {
   return (
     <div style={style}>
-      <Row>
-        <Col span={20}>
-          <Title level={4}>{title}</Title>
-        </Col>
-        <Col span={4} style={{ textAlign: 'right' }}>
-          <Button shape="circle" icon={<PlusOutlined />} />
-        </Col>
-      </Row>
+      <Space style={{ marginBottom: '.5rem' }}>
+        <div className="content-list-title">{title}</div>
+        <BorderlessButton shape="circle" icon={<PlusOutlined />} />
+      </Space>
       <List
         bordered
         loading={loading}
         dataSource={data}
-        renderItem={({ title, avatar, extra }) => (
-          <List.Item>
-            <List.Item.Meta avatar={avatar} title={title} />
-            <div style={{ fontSize: 'smaller', color: 'gray' }}>{extra}</div>
-          </List.Item>
+        renderItem={item => (
+          <Link className="content-list-item" to={`/cor-de-cambra/${title.toLowerCase()}/${item.id}`}>
+            <List.Item>
+              <List.Item.Meta avatar={item.avatar} title={item.title} description={item.description} />
+              <div style={{ fontSize: 'smaller', color: 'gray' }}>{item.extra}</div>
+            </List.Item>
+          </Link>
         )}
         style={{ backgroundColor: '#fff' }}
       />

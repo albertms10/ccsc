@@ -13,6 +13,7 @@ app.set('connection', connection);
 require('./routes/agrupacions')(app);
 require('./routes/associacio')(app);
 require('./routes/esdeveniments')(app);
+require('./routes/establiments')(app);
 require('./routes/localitzacions')(app);
 require('./routes/socis')(app);
 require('./routes/usuaris')(app);

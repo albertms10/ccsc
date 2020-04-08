@@ -53,9 +53,9 @@ module.exports = (app) => {
   app.get('/api/socis', (req, res, next) => {
     connection.query(
         `SELECT id_persona,
-                CONCAT(nom, ' ', cognoms)  AS nom_complet,
                 nom,
                 cognoms,
+                nom_complet,
                 username,
                 email,
                 telefon,

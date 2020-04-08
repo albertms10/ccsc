@@ -4,6 +4,7 @@ import IconAgrupacio from '../../icons/IconAgrupacio';
 import HeaderTitle from '../../components/HeaderTitle/HeaderTitle';
 import ContentList from '../../components/ContentList/ContentList';
 import moment from 'moment';
+import CalendarBadge from '../../components/CalendarBadge/CalendarBadge';
 
 export default ({ agrupacio }) => {
   const [assajos, setAssajos] = useState([]);
@@ -21,8 +22,14 @@ export default ({ agrupacio }) => {
 
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/projectes`)
       .then(res => res.json())
-      .then(data => setProjectes(data));
-  }, []);
+      .then(data => {
+        data.forEach(projecte => {
+          projecte.directors = JSON.parse(projecte.directors);
+          projecte.agrupacions = JSON.parse(projecte.agrupacions);
+        });
+        setProjectes(data);
+      });
+  }, [agrupacio.id_agrupacio]);
 
   return (
     <>
@@ -36,31 +43,43 @@ export default ({ agrupacio }) => {
         <Col span={12}>
           <ContentList
             title="Assajos"
-            data={assajos.map(({ data_inici, es_extra }) => (
-              {
+            data={assajos.map(({ id_assaig, data_inici, es_extra }) => {
+              const date = moment(data_inici);
+
+              return ({
+                id: id_assaig,
                 title: 'Assaig' + (es_extra ? ' extra' : ''),
-                extra: moment(data_inici).format('LLL'),
-              }
-            ))}
+                extra: date.format('LT'),
+                avatar: <CalendarBadge moment={date} />,
+              });
+            })}
           />
           <ContentList
             title="Concerts"
-            data={concerts.map(({ titol, data_inici }) => (
-              {
+            data={concerts.map(({ id_concert, titol, data_inici }) => {
+              const date = moment(data_inici);
+
+              return ({
+                id: id_concert,
                 title: titol,
-                extra: moment(data_inici).format('LLL'),
-              }
-            ))}
+                extra: date.format('LT'),
+                avatar: <CalendarBadge moment={date} />,
+              });
+            })}
             style={{ marginTop: '3rem' }}
           />
         </Col>
         <Col span={12}>
           <ContentList
             title="Projectes"
-            data={projectes.map(({ titol, inicials, color }) => (
+            data={projectes.map(({ id_projecte, titol, directors, agrupacions, inicials, color }) => (
               {
+                id: id_projecte,
                 title: titol,
-                avatar: <Avatar style={{ backgroundColor: `#${color}` }}>{inicials}</Avatar>,
+                description: directors || agrupacions
+                  ? <>Amb la col·laboració de <b>{directors[0].nom}</b></>
+                  : null,
+                avatar: <Avatar shape="square" style={{ backgroundColor: `#${color}` }}>{inicials}</Avatar>,
               }
             ))}
           />
