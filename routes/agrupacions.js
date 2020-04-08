@@ -29,13 +29,25 @@ module.exports = (app) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT *,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio
+        `SELECT DISTINCT a.*,
+                         data_inici,
+                         data_final,
+                         (SELECT estat
+                          FROM estats_confirmacio
+                          WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
+                         (SELECT estat
+                          FROM estats_confirmacio
+                          WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
+                         (SELECT JSON_ARRAYAGG(
+                                         JSON_OBJECT(
+                                                 'titol', titol,
+                                                 'inicials', inicials,
+                                                 'color', color
+                                             )
+                                     )
+                          FROM projectes
+                                   INNER JOIN assajos_projectes USING (id_projecte)
+                          WHERE id_assaig = (SELECT a.id_assaig))                      AS projectes
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
                   INNER JOIN assajos_projectes USING (id_assaig)
@@ -44,6 +56,16 @@ module.exports = (app) => {
       [id_agrupacio],
       (err, rows) => {
         if (err) next(err);
+
+        try {
+          rows.forEach(assaig => {
+            assaig.projectes = JSON.parse(assaig.projectes);
+          });
+        } catch (e) {
+          next(e);
+          res.end();
+        }
+
         res.send(rows);
       });
   });
@@ -52,7 +74,12 @@ module.exports = (app) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT *,
+        `SELECT id_concert,
+                data_inici,
+                c.titol                                                       AS titol_concert,
+                p.titol                                                       AS titol_projecte,
+                inicials                                                      AS inicials_projecte,
+                color                                                         AS color_projecte,
                 (SELECT estat
                  FROM estats_confirmacio
                  WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
@@ -61,6 +88,7 @@ module.exports = (app) => {
                  WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
+                  INNER JOIN projectes p USING (id_projecte)
                   INNER JOIN projectes_agrupacions USING (id_projecte)
          WHERE id_agrupacio = ?;`,
       [id_agrupacio],
@@ -95,6 +123,17 @@ module.exports = (app) => {
       [id_agrupacio, id_agrupacio],
       (err, rows) => {
         if (err) next(err);
+
+        try {
+          rows.forEach(projecte => {
+            projecte.directors = JSON.parse(projecte.directors);
+            projecte.agrupacions = JSON.parse(projecte.agrupacions);
+          });
+        } catch (e) {
+          next(e);
+          res.end();
+        }
+
         res.send(rows);
       });
   });

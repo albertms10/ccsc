@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Col, Row } from 'antd';
+import { Avatar, Col, Row, Tooltip } from 'antd';
 import IconAgrupacio from '../../icons/IconAgrupacio';
 import HeaderTitle from '../../components/HeaderTitle/HeaderTitle';
 import ContentList from '../../components/ContentList/ContentList';
 import moment from 'moment';
 import CalendarBadge from '../../components/CalendarBadge/CalendarBadge';
+import FixedTag from '../../components/FixedTag/FixedTag';
 
 export default ({ agrupacio }) => {
   const [assajos, setAssajos] = useState([]);
@@ -36,10 +37,6 @@ export default ({ agrupacio }) => {
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/projectes`)
       .then(res => res.json())
       .then(data => {
-        data.forEach(projecte => {
-          projecte.directors = JSON.parse(projecte.directors);
-          projecte.agrupacions = JSON.parse(projecte.agrupacions);
-        });
         setProjectes(data);
         setLoadingProjectes(false);
       });
@@ -52,19 +49,27 @@ export default ({ agrupacio }) => {
         subtitle={agrupacio.descripcio}
         icon={<IconAgrupacio name={agrupacio.nom_curt} style={{ color: '#1d71b8', fontSize: '4rem' }} />}
       />
-
       <Row gutter={32}>
         <Col span={12}>
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
-            data={assajos.map(({ id_assaig, data_inici, es_extra }) => {
+            data={assajos.map(({ id_assaig, data_inici, es_extra, projectes }) => {
               const date = moment(data_inici);
 
               return ({
                 id: id_assaig,
                 title: 'Assaig' + (es_extra ? ' extra' : ''),
-                extra: date.format('LT'),
+                description: date.format('LT'),
+                extra: projectes
+                  ? (projectes.map(projecte => (
+                    <Tooltip title={`Projecte «${projecte.titol}»`}>
+                      <FixedTag color={'#' + projecte.color}>
+                        {projecte.inicials}
+                      </FixedTag>
+                    </Tooltip>
+                  )))
+                  : null,
                 avatar: <CalendarBadge moment={date} />,
               });
             })}
@@ -72,13 +77,22 @@ export default ({ agrupacio }) => {
           <ContentList
             title="Concerts"
             loading={loadingConcerts}
-            data={concerts.map(({ id_concert, titol, data_inici }) => {
+            data={concerts.map(({ id_concert, titol_concert, data_inici, titol_projecte, inicials_projecte, color_projecte }) => {
               const date = moment(data_inici);
 
               return ({
                 id: id_concert,
-                title: titol,
-                extra: date.format('LT'),
+                title: titol_concert,
+                description: date.format('LT'),
+                extra: titol_projecte
+                  ? (
+                    <Tooltip title={`Projecte «${titol_projecte}»`}>
+                      <FixedTag color={'#' + color_projecte}>
+                        {inicials_projecte}
+                      </FixedTag>
+                    </Tooltip>
+                  )
+                  : null,
                 avatar: <CalendarBadge moment={date} />,
               });
             })}

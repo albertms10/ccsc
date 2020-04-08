@@ -26,4 +26,5 @@
 
 .ant-list-item-meta-description {
     font-size: small !important;
+    line-height: 1 !important;
 }
