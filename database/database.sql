@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS socis
 
     experiencia_coral TEXT,
     estudis_musicals  TEXT,
-    id_veu            CHAR(1),
+    id_veu            CHAR(1), /* TODO id_veu a `persones`, `socis` o `socis_agrpuacions`? */
 
     PRIMARY KEY (id_soci),
     FOREIGN KEY (id_soci) REFERENCES persones (id_persona),
@@ -59,18 +59,18 @@ CREATE TABLE IF NOT EXISTS socis
 CREATE TABLE IF NOT EXISTS socis_perfils
 (
     id_soci        SMALLINT UNSIGNED NOT NULL,
-    id_perfil_soci SMALLINT UNSIGNED NOT NULL,
+    id_perfil_soci TINYINT UNSIGNED  NOT NULL,
 
     PRIMARY KEY (id_soci, id_perfil_soci),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
-    FOREIGN KEY (id_perfil_soci) REFERENCES perfils_socis (id_perfil_soci)
+    FOREIGN KEY (id_perfil_soci) REFERENCES perfils_soci (id_perfil_soci)
 );
 
-CREATE TABLE IF NOT EXISTS perfils_socis
+CREATE TABLE IF NOT EXISTS perfils_soci
 (
-    id_perfil_soci SMALLINT UNSIGNED NOT NULL,
+    id_perfil_soci TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom            VARCHAR(100)      NOT NULL,
+    nom            VARCHAR(100)     NOT NULL,
 
     PRIMARY KEY (id_perfil_soci)
 );
@@ -87,12 +87,12 @@ Responsable de secretaria
 
 CREATE TABLE IF NOT EXISTS perfils_accions
 (
-    id_perfil     SMALLINT UNSIGNED   NOT NULL,
-    id_accio_soci SMALLINT UNSIGNED   NOT NULL,
-    valor         TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    id_perfil_soci TINYINT UNSIGNED    NOT NULL,
+    id_accio_soci  SMALLINT UNSIGNED   NOT NULL,
+    valor          TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 
-    PRIMARY KEY (id_perfil, id_accio_soci),
-    FOREIGN KEY (id_perfil) REFERENCES perfils_socis (id_perfil_soci),
+    PRIMARY KEY (id_perfil_soci, id_accio_soci),
+    FOREIGN KEY (id_perfil_soci) REFERENCES perfils_soci (id_perfil_soci),
     FOREIGN KEY (id_accio_soci) REFERENCES accions_socis (id_accio_soci)
 );
 
@@ -171,13 +171,23 @@ CREATE TABLE IF NOT EXISTS tipus_agrupacions
     PRIMARY KEY (id_tipus_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS direccio_agrupacions
+CREATE TABLE IF NOT EXISTS directors_agrupacions
 (
     id_director  SMALLINT UNSIGNED NOT NULL,
     id_agrupacio SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_director, id_agrupacio),
     FOREIGN KEY (id_director) REFERENCES directors (id_director),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+);
+
+CREATE TABLE IF NOT EXISTS socis_agrupacions
+(
+    id_soci      SMALLINT UNSIGNED NOT NULL,
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_soci, id_agrupacio),
+    FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
@@ -880,9 +890,10 @@ CREATE TABLE IF NOT EXISTS socis_quotes
 
 CREATE TABLE IF NOT EXISTS assajos
 (
-    id_assaig SMALLINT UNSIGNED NOT NULL,
+    id_assaig  SMALLINT UNSIGNED NOT NULL,
 
-    es_extra  BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_general BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_extra   BOOLEAN           NOT NULL DEFAULT FALSE,
 
     PRIMARY KEY (id_assaig),
     FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
@@ -1166,7 +1177,9 @@ DELIMITER ;
 
 /*
  DBML
-    cd database
-    sql2dbml --mysql database-sql -o database.dbml
-    dbdocs build database.dbml
+
+cd database
+sql2dbml --mysql database.sql -o database.dbml
+dbdocs build database.dbml
+
  */

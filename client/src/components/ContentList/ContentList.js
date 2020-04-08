@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-import BorderlessButton from '../Buttons/BorderlessButton';
+import BorderlessButton from '../templates/BorderlessButton/BorderlessButton';
 import './styles.css';
 import { Link } from 'react-router-dom';
 

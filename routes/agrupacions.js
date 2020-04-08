@@ -137,4 +137,27 @@ module.exports = (app) => {
         res.send(rows);
       });
   });
+
+  app.get('/api/agrupacions/:id/participants', (req, res, next) => {
+    const id_agrupacio = req.params.id;
+
+    connection.query(
+        `SELECT id_persona,
+                p.nom,
+                cognoms,
+                nom_complet,
+                (SELECT nom FROM veus WHERE id_veu = (SELECT sa.id_veu))         AS veu,
+                (SELECT abreviatura FROM veus WHERE id_veu = (SELECT sa.id_veu)) AS abreviatura_veu
+         FROM socis
+                  INNER JOIN persones p ON socis.id_soci = p.id_persona
+                  INNER JOIN socis_agrupacions sa USING (id_soci)
+                  INNER JOIN agrupacions USING (id_agrupacio)
+         WHERE id_agrupacio = ?
+         ORDER BY id_veu;`,
+      [id_agrupacio],
+      (err, rows) => {
+        if (err) next(err);
+        res.send(rows);
+      });
+  });
 };

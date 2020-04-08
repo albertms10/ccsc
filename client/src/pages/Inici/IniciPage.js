@@ -3,7 +3,7 @@ import { Col, Row } from 'antd';
 
 import Page from '../Page';
 import HistorialSocisChart from '../../components/Charts/HistorialSocisChart';
-import SocisCountStatistic from '../../components/Statistics/SocisCountStatistic';
+import SocisCountStatistic from '../../components/templates/Statistics/SocisCountStatistic';
 
 const IniciPage = () => {
   return (

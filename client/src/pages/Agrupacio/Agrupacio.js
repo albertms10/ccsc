@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Col, Row, Tooltip } from 'antd';
 import IconAgrupacio from '../../icons/IconAgrupacio';
-import HeaderTitle from '../../components/HeaderTitle/HeaderTitle';
+import HeaderTitle from '../../components/templates/HeaderTitle/HeaderTitle';
 import ContentList from '../../components/ContentList/ContentList';
 import moment from 'moment';
-import CalendarBadge from '../../components/CalendarBadge/CalendarBadge';
-import FixedTag from '../../components/FixedTag/FixedTag';
+import CalendarBadge from '../../components/templates/CalendarAvatar/CalendarBadge';
+import FixedTag from '../../components/templates/FixedTag/FixedTag';
+import SmallBadge from '../../components/templates/SmallBadge/SmallBadge';
 
 export default ({ agrupacio }) => {
   const [assajos, setAssajos] = useState([]);
@@ -14,11 +15,14 @@ export default ({ agrupacio }) => {
   const [loadingConcerts, setLoadingConcerts] = useState(false);
   const [projectes, setProjectes] = useState([]);
   const [loadingProjectes, setLoadingProjectes] = useState(false);
+  const [participants, setParticipants] = useState([]);
+  const [loadingParticipants, setLoadingParticipants] = useState(false);
 
   useEffect(() => {
     setLoadingAssajos(true);
     setLoadingConcerts(true);
     setLoadingProjectes(true);
+    setLoadingParticipants(true);
 
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/assajos`)
       .then(res => res.json())
@@ -40,6 +44,13 @@ export default ({ agrupacio }) => {
         setProjectes(data);
         setLoadingProjectes(false);
       });
+
+    fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/participants`)
+      .then(res => res.json())
+      .then(data => {
+        setParticipants(data);
+        setLoadingParticipants(false);
+      });
   }, [agrupacio.id_agrupacio]);
 
   return (
@@ -54,13 +65,13 @@ export default ({ agrupacio }) => {
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
-            data={assajos.map(({ id_assaig, data_inici, es_extra, projectes }) => {
+            data={assajos.map(({ id_assaig, data_inici, es_general, es_extra, projectes }) => {
               const date = moment(data_inici);
 
               return ({
                 id: id_assaig,
-                title: 'Assaig' + (es_extra ? ' extra' : ''),
-                description: date.format('LT'),
+                title: `Assaig${es_general ? ' general' : ''}${es_extra ? ' extra' : ''}`,
+                description: `a les ${date.format('LT')}`,
                 extra: projectes
                   ? (projectes.map(projecte => (
                     <Tooltip title={`Projecte «${projecte.titol}»`}>
@@ -83,7 +94,7 @@ export default ({ agrupacio }) => {
               return ({
                 id: id_concert,
                 title: titol_concert,
-                description: date.format('LT'),
+                description: `a les ${date.format('LT')}`,
                 extra: titol_projecte
                   ? (
                     <Tooltip title={`Projecte «${titol_projecte}»`}>
@@ -113,6 +124,29 @@ export default ({ agrupacio }) => {
                 avatar: <Avatar shape="square" style={{ backgroundColor: `#${color}` }}>{inicials}</Avatar>,
               }
             ))}
+          />
+          <ContentList
+            title="Participants"
+            loading={loadingParticipants}
+            data={participants.map(({ id_persona, nom, cognoms, nom_complet, veu, abreviatura_veu }) => ({
+                id: id_persona,
+                title: nom_complet,
+                description: veu,
+                avatar: (
+                  <SmallBadge
+                    count={abreviatura_veu}
+                    style={{
+                      backgroundColor: '#fff',
+                      color: '#999',
+                      boxShadow: '0 0 0 1px #d9d9d9 inset',
+                    }}
+                  >
+                    <Avatar shape="circle">{nom[0]}{cognoms[0]}</Avatar>
+                  </SmallBadge>
+                ),
+              }),
+            )}
+            style={{ marginTop: '3rem' }}
           />
         </Col>
       </Row>
