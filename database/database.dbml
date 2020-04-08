@@ -1,0 +1,869 @@
+Table "usuaris" {
+  "id_usuari" SMALLINT [pk, not null, increment]
+  "username" VARCHAR(20) [not null]
+  "creacio" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+  "id_persona" SMALLINT [not null]
+  "salt" VARCHAR(255) [not null]
+  "encrypted_password" VARCHAR(255) [not null]
+
+Indexes {
+  id_persona [unique]
+}
+}
+
+Table "persones" {
+  "id_persona" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
+  "cognoms" VARCHAR(50) [not null]
+  "nom_complet" VARCHAR(101)
+  "naixement" DATE
+  "id_pais" CHAR(2)
+  "dni" VARCHAR(12)
+  "email" VARCHAR(50)
+  "telefon" INT(10)
+  "es_institucio" BOOLEAN [not null, default: FALSE]
+  "accepta_proteccio_dades" BOOLEAN [not null, default: FALSE]
+  "accepta_drets_imatge" BOOLEAN [not null, default: FALSE]
+  "es_anonim" BOOLEAN [not null, default: FALSE]
+  "id_localitzacio" SMALLINT
+}
+
+Table "socis" {
+  "id_soci" SMALLINT [pk, not null]
+  "experiencia_coral" TEXT
+  "estudis_musicals" TEXT
+  "id_veu" CHAR(1)
+}
+
+Table "socis_perfils" {
+  "id_soci" SMALLINT [not null]
+  "id_perfil_soci" SMALLINT [not null]
+
+Indexes {
+  (id_soci, id_perfil_soci) [pk]
+}
+}
+
+Table "perfils_socis" {
+  "id_perfil_soci" SMALLINT [pk, not null]
+  "nom" VARCHAR(100) [not null]
+}
+
+Table "perfils_accions" {
+  "id_perfil" SMALLINT [not null]
+  "id_accio_soci" SMALLINT [not null]
+  "valor" TINYINT(1) [not null, default: 0]
+
+Indexes {
+  (id_perfil, id_accio_soci) [pk]
+}
+}
+
+Table "accions_socis" {
+  "id_accio_soci" SMALLINT [pk, not null]
+  "nom" VARCHAR(50) [not null]
+  "descripcio" TEXT
+}
+
+Table "historial_socis" {
+  "id_historial_soci" SMALLINT [not null]
+  "data_alta" DATE [not null]
+  "data_baixa" DATE
+
+Indexes {
+  (id_historial_soci, data_alta) [pk]
+}
+}
+
+Table "solistes" {
+  "id_solista" SMALLINT [pk, not null]
+}
+
+Table "directors" {
+  "id_director" SMALLINT [pk, not null]
+}
+
+Table "agrupacions" {
+  "id_agrupacio" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "nom_curt" VARCHAR(50)
+  "descripcio" VARCHAR(255)
+  "num_persones" TINYINT(3)
+  "id_tipus_agrupacio" TINYINT [not null]
+}
+
+Table "tipus_agrupacions" {
+  "id_tipus_agrupacio" TINYINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
+}
+
+Table "direccio_agrupacions" {
+  "id_director" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
+
+Indexes {
+  (id_director, id_agrupacio) [pk]
+}
+}
+
+Table "insignies" {
+  "id_insignia" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "descripcio" VARCHAR(255) [not null]
+}
+
+Table "insignies_socis_curs" {
+  "id_insignia" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+  "id_curs" VARCHAR(5) [not null]
+
+Indexes {
+  (id_insignia, id_soci, id_curs) [pk]
+}
+}
+
+Table "paisos" {
+  "id_pais" CHAR(2) [pk, not null]
+  "nom" VARCHAR(50) [not null]
+}
+
+Table "provincies" {
+  "id_provincia" SMALLINT [pk, not null]
+  "id_pais" CHAR(2) [not null]
+}
+
+Table "ciutats" {
+  "id_ciutat" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
+  "id_provincia" SMALLINT
+}
+
+Table "localitzacions" {
+  "id_localitzacio" SMALLINT [pk, not null, increment]
+  "id_tipus_via" TINYINT [not null]
+  "carrer" VARCHAR(100) [not null]
+  "numero" SMALLINT
+  "fins_numero" SMALLINT
+  "codi_postal" SMALLINT [not null]
+  "gmaps" VARCHAR(512)
+  "id_ciutat" SMALLINT
+}
+
+Table "tipus_vies" {
+  "id_tipus_via" TINYINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "abreviatura" VARCHAR(10)
+}
+
+Table "establiments" {
+  "id_establiment" SMALLINT [pk, not null]
+  "nom" VARCHAR(100) [not null]
+  "descripcio" TEXT [not null]
+  "lloc_web" VARCHAR(255)
+  "id_tipus_establiment" SMALLINT
+}
+
+Table "tipus_establiments" {
+  "id_tipus_establiment" SMALLINT [pk, not null]
+  "nom" VARCHAR(100) [not null]
+}
+
+Table "carrecs_junta" {
+  "id_carrec_junta" TINYINT [pk, not null, increment]
+  "carrec" VARCHAR(20) [not null]
+}
+
+Table "integrants_junta" {
+  "id_soci" SMALLINT [not null]
+  "id_carrec_junta" TINYINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_soci, id_carrec_junta, data_inici) [pk]
+}
+}
+
+Table "equips" {
+  "id_equip" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "descripcio" TEXT
+}
+
+Table "responsables_equips" {
+  "id_soci" SMALLINT [not null]
+  "id_equip" SMALLINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_soci, id_equip, data_inici) [pk]
+}
+}
+
+Table "feines_equips" {
+  "id_feina_equip" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "descripcio" TEXT
+  "id_equip" SMALLINT [not null]
+}
+
+Table "responsables_feines_equips" {
+  "id_soci" SMALLINT [not null]
+  "id_feina_equip" SMALLINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_soci, id_feina_equip, data_inici) [pk]
+}
+}
+
+Table "activitats" {
+  "id_activitat" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
+  "descripcio" TEXT [not null]
+}
+
+Table "responsables_activitats" {
+  "id_activitat" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_activitat, id_soci, data_inici) [pk]
+}
+}
+
+Table "socis_activitats" {
+  "id_soci" SMALLINT [not null]
+  "id_activitat" SMALLINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_soci, id_activitat, data_inici) [pk]
+}
+}
+
+Table "esdeveniments" {
+  "id_esdeveniment" SMALLINT [pk, not null, increment]
+  "data_inici" DATETIME [not null]
+  "data_final" DATETIME
+  "id_estat_esdeveniment" TINYINT [not null, default: 2]
+  "id_localitzacio" SMALLINT [not null]
+  "id_estat_localitzacio" TINYINT [not null, default: 2]
+  "id_esdeveniment_ajornat" SMALLINT
+}
+
+Table "estats_confirmacio" {
+  "id_estat_confirmacio" TINYINT [pk, not null, increment]
+  "estat" VARCHAR(50) [not null]
+}
+
+Table "assistents_esdeveniment" {
+  "id_esdeveniment" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+
+Indexes {
+  (id_esdeveniment, id_soci) [pk]
+}
+}
+
+Table "reunions" {
+  "id_reunio" SMALLINT [pk, not null]
+}
+
+Table "punts_reunio" {
+  "id_punt_reunio" SMALLINT [pk, not null, increment]
+  "ordre" TINYINT(2) [not null]
+  "titol" VARCHAR(255) [not null]
+  "descripcio" TEXT
+  "id_reunio" SMALLINT [not null]
+}
+
+Table "actes_reunions" {
+  "id_acta_reunio" SMALLINT [pk, not null]
+}
+
+Table "socis_signants_acta_reunio" {
+  "id_acta_reunio" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+
+Indexes {
+  (id_acta_reunio, id_soci) [pk]
+}
+}
+
+Table "assemblees" {
+  "id_assemblea" SMALLINT [pk, not null]
+  "es_extraordinaria" BOOLEAN [not null, default: FALSE]
+}
+
+Table "delegacionsvot_assemblea" {
+  "id_soci_delegant" SMALLINT [not null]
+  "id_soci_delegat" SMALLINT [not null]
+  "id_assemblea" SMALLINT [not null]
+
+Indexes {
+  (id_soci_delegant, id_soci_delegat) [pk]
+}
+}
+
+Table "classes_activitat" {
+  "id_classe_activitat" SMALLINT [pk, not null]
+  "id_activitat" SMALLINT [not null]
+}
+
+Table "compositors" {
+  "id_compositor" SMALLINT [pk, not null]
+  "defuncio" DATE
+  "cataleg" VARCHAR(10)
+}
+
+Table "rols" {
+  "id_rol" TINYINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
+}
+
+Table "obres" {
+  "id_obra" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(100) [not null]
+  "subtitol" VARCHAR(200) [not null]
+  "num_cataleg" SMALLINT
+  "any_inici" SMALLINT(4)
+  "any_final" SMALLINT(4)
+  "id_idioma" SMALLINT
+}
+
+Table "obres_rols_compositors" {
+  "id_obra" SMALLINT [not null]
+  "id_rol" TINYINT [not null]
+  "id_compositor" SMALLINT [not null]
+
+Indexes {
+  (id_obra, id_rol, id_compositor) [pk]
+}
+}
+
+Table "moviments" {
+  "id_moviment" SMALLINT [pk, not null, increment]
+  "ordre" SMALLINT [not null]
+  "titol" VARCHAR(100) [not null]
+  "durada" TIME
+  "tonalitat" VARCHAR(10)
+  "id_obra" SMALLINT [not null]
+}
+
+Table "llibrets_moviments" {
+  "id_llibret_moviment" SMALLINT [pk, not null]
+  "text" TEXT [not null]
+  "any" SMALLINT(4) [not null]
+  "id_idioma" CHAR(2)
+  "id_font_traduccio" SMALLINT [not null]
+}
+
+Table "idiomes" {
+  "id_idioma" CHAR(2) [pk, not null]
+  "nom" VARCHAR(50) [not null]
+}
+
+Table "fonts_traduccions" {
+  "id_font_traduccio" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "descripcio" TEXT
+}
+
+Table "veus" {
+  "id_veu" CHAR(1) [pk, not null]
+  "nom" VARCHAR(20) [not null]
+}
+
+Table "veus_moviments" {
+  "id_veu_moviment" SMALLINT [pk, not null, increment]
+  "id_veu" CHAR(1) [not null]
+  "divisi" TINYINT(1) [not null]
+  "id_moviment" SMALLINT [not null]
+}
+
+Table "socis_veus_projectes" {
+  "id_soci" SMALLINT [not null]
+  "id_veu_moviment" SMALLINT [not null]
+  "id_projecte" SMALLINT [not null]
+
+Indexes {
+  (id_soci, id_veu_moviment, id_projecte) [pk]
+}
+}
+
+Table "cursos" {
+  "id_curs" VARCHAR(5) [pk, not null]
+  "inici" DATE [not null]
+  "final" DATE
+}
+
+Table "projectes" {
+  "id_projecte" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(50) [not null]
+  "descripcio" TEXT
+  "inicials" VARCHAR(3) [not null]
+  "color" CHAR(6)
+  "id_curs" VARCHAR(5) [not null]
+}
+
+Table "projectes_agrupacions" {
+  "id_projecte" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
+
+Indexes {
+  (id_projecte, id_agrupacio) [pk]
+}
+}
+
+Table "directors_projectes" {
+  "id_projecte" SMALLINT [not null]
+  "id_director" SMALLINT [not null]
+
+Indexes {
+  (id_projecte, id_director) [pk]
+}
+}
+
+Table "concerts" {
+  "id_concert" SMALLINT [pk, not null]
+  "titol" VARCHAR(50) [not null]
+  "id_projecte" SMALLINT [not null]
+}
+
+Table "directors_concerts" {
+  "id_director" SMALLINT [not null]
+  "id_concert" SMALLINT [not null]
+
+Indexes {
+  (id_director, id_concert) [pk]
+}
+}
+
+Table "solistes_concerts" {
+  "id_solista" SMALLINT [not null]
+  "id_concert" SMALLINT [not null]
+
+Indexes {
+  (id_solista, id_concert) [pk]
+}
+}
+
+Table "agrupacions_concerts" {
+  "id_agrupacio" SMALLINT [not null]
+  "id_concert" SMALLINT [not null]
+
+Indexes {
+  (id_agrupacio, id_concert) [pk]
+}
+}
+
+Table "parts_concert" {
+  "id_part_concert" SMALLINT [pk, not null, increment]
+  "id_concert" SMALLINT [not null]
+  "part" TINYINT(1) [not null]
+}
+
+Table "moviments_parts" {
+  "id_moviment_part" SMALLINT [pk, not null, increment]
+  "id_moviment" SMALLINT [not null]
+  "id_part" SMALLINT [not null]
+  "es_bis" BOOLEAN [not null, default: FALSE]
+}
+
+Table "instruments" {
+  "id_instrument" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+}
+
+Table "instruments_interpretacio" {
+  "id_moviment_part" SMALLINT [not null]
+  "id_instrument" SMALLINT [not null]
+
+Indexes {
+  (id_moviment_part, id_instrument) [pk]
+}
+}
+
+Table "valoracions" {
+  "id_valoracio" SMALLINT [pk, not null, increment]
+  "valoracio" TINYINT(1) [not null]
+  "opinio" TEXT
+}
+
+Table "valoracions_socis_concerts" {
+  "id_concert" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+  "id_valoracio" SMALLINT [not null]
+
+Indexes {
+  id_valoracio [unique]
+  (id_concert, id_soci) [pk]
+}
+}
+
+Table "valoracions_socis_projectes" {
+  "id_projecte" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+  "id_valoracio" SMALLINT [not null]
+
+Indexes {
+  id_valoracio [unique]
+  (id_projecte, id_soci) [pk]
+}
+}
+
+Table "trimestres" {
+  "id_trimestre" SMALLINT [pk, not null, increment]
+  "num" TINYINT(1) [not null]
+  "id_curs" VARCHAR(5) [not null]
+}
+
+Table "quotes" {
+  "id_quota" SMALLINT [pk, not null, increment]
+  "import" DECIMAL(15,2) [not null]
+  "id_trimestre" SMALLINT [not null]
+}
+
+Table "socis_quotes" {
+  "id_soci" SMALLINT [not null]
+  "id_quota" SMALLINT [not null]
+  "data" DATE [not null]
+
+Indexes {
+  (id_quota, id_soci) [pk]
+}
+}
+
+Table "assajos" {
+  "id_assaig" SMALLINT [pk, not null]
+  "es_extra" BOOLEAN [not null, default: FALSE]
+}
+
+Table "assajos_projectes" {
+  "id_assaig" SMALLINT [not null]
+  "id_projecte" SMALLINT [not null]
+
+Indexes {
+  (id_assaig, id_projecte) [pk]
+}
+}
+
+Table "moviments_assajos" {
+  "id_moviment" SMALLINT [not null]
+  "id_assaig" SMALLINT [not null]
+
+Indexes {
+  (id_moviment, id_assaig) [pk]
+}
+}
+
+Table "associacio" {
+  "id_associacio" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+  "nif" VARCHAR(12) [not null]
+}
+
+Table "agrupacions_associacio" {
+  "id_associacio" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
+
+Indexes {
+  (id_associacio, id_agrupacio) [pk]
+}
+}
+
+Table "direccions_fiscals_associacio" {
+  "id_direccio_fiscal_associacio" SMALLINT [not null]
+  "id_localitzacio" SMALLINT [not null]
+  "data_inici" DATE [not null]
+
+Indexes {
+  (id_direccio_fiscal_associacio, id_localitzacio, data_inici) [pk]
+}
+}
+
+Table "direccions_socials_associacio" {
+  "id_direccio_social_associacio" SMALLINT [not null]
+  "id_localitzacio" SMALLINT [not null]
+  "data_inici" DATE [not null]
+
+Indexes {
+  (id_direccio_social_associacio, id_localitzacio, data_inici) [pk]
+}
+}
+
+Table "adreces_electroniques_associacio" {
+  "id_adreca_electronica_associacio" SMALLINT [pk, not null, increment]
+  "direccio" VARCHAR(50) [not null]
+  "descripcio" VARCHAR(50) [not null]
+  "id_associacio" SMALLINT [not null]
+
+Indexes {
+  direccio [unique]
+}
+}
+
+Table "encarregats_correus_associacio" {
+  "id_adreca_electronica_associacio" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
+
+Indexes {
+  (id_adreca_electronica_associacio, id_soci, data_inici) [pk]
+}
+}
+
+Table "documentacions" {
+  "id_documentacio" SMALLINT [pk, not null, increment]
+  "data" DATE [not null]
+  "id_tipus_documentacio" TINYINT
+}
+
+Table "tipus_documentacio" {
+  "id_tipus_documentacio" TINYINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+}
+
+Table "capitols_documentacio" {
+  "id_capitol_documentacio" SMALLINT [pk, not null, increment]
+  "numero" TINYINT(2) [not null]
+  "titol" VARCHAR(100) [not null]
+  "id_documentacio" SMALLINT [not null]
+}
+
+Table "articles_documentacio" {
+  "id_article_documentacio" SMALLINT [pk, not null, increment]
+  "numero" TINYINT(2) [not null]
+  "id_capitol" SMALLINT [not null]
+}
+
+Ref:"persones"."id_persona" < "usuaris"."id_persona"
+
+Ref:"paisos"."id_pais" < "persones"."id_pais"
+
+Ref:"localitzacions"."id_localitzacio" < "persones"."id_localitzacio"
+
+Ref:"persones"."id_persona" < "socis"."id_soci"
+
+Ref:"veus"."id_veu" < "socis"."id_veu"
+
+Ref:"socis"."id_soci" < "socis_perfils"."id_soci"
+
+Ref:"perfils_socis"."id_perfil_soci" < "socis_perfils"."id_perfil_soci"
+
+Ref:"perfils_socis"."id_perfil_soci" < "perfils_accions"."id_perfil"
+
+Ref:"accions_socis"."id_accio_soci" < "perfils_accions"."id_accio_soci"
+
+Ref:"socis"."id_soci" < "historial_socis"."id_historial_soci"
+
+Ref:"persones"."id_persona" < "solistes"."id_solista"
+
+Ref:"persones"."id_persona" < "directors"."id_director"
+
+Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
+
+Ref:"directors"."id_director" < "direccio_agrupacions"."id_director"
+
+Ref:"agrupacions"."id_agrupacio" < "direccio_agrupacions"."id_agrupacio"
+
+Ref:"insignies"."id_insignia" < "insignies_socis_curs"."id_insignia"
+
+Ref:"socis"."id_soci" < "insignies_socis_curs"."id_soci"
+
+Ref:"cursos"."id_curs" < "insignies_socis_curs"."id_curs"
+
+Ref:"ciutats"."id_ciutat" < "provincies"."id_provincia"
+
+Ref:"paisos"."id_pais" < "provincies"."id_pais"
+
+Ref:"provincies"."id_provincia" < "ciutats"."id_provincia"
+
+Ref:"tipus_vies"."id_tipus_via" < "localitzacions"."id_tipus_via"
+
+Ref:"ciutats"."id_ciutat" < "localitzacions"."id_ciutat"
+
+Ref:"localitzacions"."id_localitzacio" < "establiments"."id_establiment"
+
+Ref:"tipus_establiments"."id_tipus_establiment" < "establiments"."id_tipus_establiment"
+
+Ref:"socis"."id_soci" < "integrants_junta"."id_soci"
+
+Ref:"carrecs_junta"."id_carrec_junta" < "integrants_junta"."id_carrec_junta"
+
+Ref:"socis"."id_soci" < "responsables_equips"."id_soci"
+
+Ref:"equips"."id_equip" < "responsables_equips"."id_equip"
+
+Ref:"equips"."id_equip" < "feines_equips"."id_equip"
+
+Ref:"socis"."id_soci" < "responsables_feines_equips"."id_soci"
+
+Ref:"feines_equips"."id_feina_equip" < "responsables_feines_equips"."id_feina_equip"
+
+Ref:"activitats"."id_activitat" < "responsables_activitats"."id_activitat"
+
+Ref:"socis"."id_soci" < "responsables_activitats"."id_soci"
+
+Ref:"socis"."id_soci" < "socis_activitats"."id_soci"
+
+Ref:"activitats"."id_activitat" < "socis_activitats"."id_activitat"
+
+Ref:"estats_confirmacio"."id_estat_confirmacio" < "esdeveniments"."id_estat_esdeveniment"
+
+Ref:"localitzacions"."id_localitzacio" < "esdeveniments"."id_localitzacio"
+
+Ref:"estats_confirmacio"."id_estat_confirmacio" < "esdeveniments"."id_estat_localitzacio"
+
+Ref:"esdeveniments"."id_esdeveniment" < "esdeveniments"."id_esdeveniment_ajornat"
+
+Ref:"esdeveniments"."id_esdeveniment" < "assistents_esdeveniment"."id_esdeveniment"
+
+Ref:"socis"."id_soci" < "assistents_esdeveniment"."id_soci"
+
+Ref:"esdeveniments"."id_esdeveniment" < "reunions"."id_reunio"
+
+Ref:"reunions"."id_reunio" < "punts_reunio"."id_reunio"
+
+Ref:"reunions"."id_reunio" < "actes_reunions"."id_acta_reunio"
+
+Ref:"actes_reunions"."id_acta_reunio" < "socis_signants_acta_reunio"."id_acta_reunio"
+
+Ref:"socis"."id_soci" < "socis_signants_acta_reunio"."id_soci"
+
+Ref:"reunions"."id_reunio" < "assemblees"."id_assemblea"
+
+Ref:"socis"."id_soci" < "delegacionsvot_assemblea"."id_soci_delegant"
+
+Ref:"socis"."id_soci" < "delegacionsvot_assemblea"."id_soci_delegat"
+
+Ref:"assemblees"."id_assemblea" < "delegacionsvot_assemblea"."id_assemblea"
+
+Ref:"esdeveniments"."id_esdeveniment" < "classes_activitat"."id_classe_activitat"
+
+Ref:"activitats"."id_activitat" < "classes_activitat"."id_activitat"
+
+Ref:"persones"."id_persona" < "compositors"."id_compositor"
+
+Ref:"idiomes"."id_idioma" < "obres"."id_idioma"
+
+Ref:"obres"."id_obra" < "obres_rols_compositors"."id_obra"
+
+Ref:"rols"."id_rol" < "obres_rols_compositors"."id_rol"
+
+Ref:"compositors"."id_compositor" < "obres_rols_compositors"."id_compositor"
+
+Ref:"obres"."id_obra" < "moviments"."id_obra"
+
+Ref:"moviments"."id_moviment" < "llibrets_moviments"."id_llibret_moviment"
+
+Ref:"idiomes"."id_idioma" < "llibrets_moviments"."id_idioma"
+
+Ref:"fonts_traduccions"."id_font_traduccio" < "llibrets_moviments"."id_font_traduccio"
+
+Ref:"veus"."id_veu" < "veus_moviments"."id_veu"
+
+Ref:"moviments"."id_moviment" < "veus_moviments"."id_moviment"
+
+Ref:"socis"."id_soci" < "socis_veus_projectes"."id_soci"
+
+Ref:"veus_moviments"."id_veu_moviment" < "socis_veus_projectes"."id_veu_moviment"
+
+Ref:"projectes"."id_projecte" < "socis_veus_projectes"."id_projecte"
+
+Ref:"cursos"."id_curs" < "projectes"."id_curs"
+
+Ref:"projectes"."id_projecte" < "projectes_agrupacions"."id_projecte"
+
+Ref:"agrupacions"."id_agrupacio" < "projectes_agrupacions"."id_agrupacio"
+
+Ref:"projectes"."id_projecte" < "directors_projectes"."id_projecte"
+
+Ref:"directors"."id_director" < "directors_projectes"."id_director"
+
+Ref:"esdeveniments"."id_esdeveniment" < "concerts"."id_concert"
+
+Ref:"projectes"."id_projecte" < "concerts"."id_projecte"
+
+Ref:"directors"."id_director" < "directors_concerts"."id_director"
+
+Ref:"concerts"."id_concert" < "directors_concerts"."id_concert"
+
+Ref:"solistes"."id_solista" < "solistes_concerts"."id_solista"
+
+Ref:"concerts"."id_concert" < "solistes_concerts"."id_concert"
+
+Ref:"agrupacions"."id_agrupacio" < "agrupacions_concerts"."id_agrupacio"
+
+Ref:"concerts"."id_concert" < "agrupacions_concerts"."id_concert"
+
+Ref:"concerts"."id_concert" < "parts_concert"."id_concert"
+
+Ref:"moviments"."id_moviment" < "moviments_parts"."id_moviment"
+
+Ref:"parts_concert"."id_part_concert" < "moviments_parts"."id_part"
+
+Ref:"moviments_parts"."id_moviment_part" < "instruments_interpretacio"."id_moviment_part"
+
+Ref:"instruments"."id_instrument" < "instruments_interpretacio"."id_instrument"
+
+Ref:"concerts"."id_concert" < "valoracions_socis_concerts"."id_concert"
+
+Ref:"socis"."id_soci" < "valoracions_socis_concerts"."id_soci"
+
+Ref:"valoracions"."id_valoracio" < "valoracions_socis_concerts"."id_valoracio"
+
+Ref:"projectes"."id_projecte" < "valoracions_socis_projectes"."id_projecte"
+
+Ref:"socis"."id_soci" < "valoracions_socis_projectes"."id_soci"
+
+Ref:"valoracions"."id_valoracio" < "valoracions_socis_projectes"."id_valoracio"
+
+Ref:"cursos"."id_curs" < "trimestres"."id_curs"
+
+Ref:"trimestres"."id_trimestre" < "quotes"."id_trimestre"
+
+Ref:"socis"."id_soci" < "socis_quotes"."id_soci"
+
+Ref:"quotes"."id_quota" < "socis_quotes"."id_quota"
+
+Ref:"esdeveniments"."id_esdeveniment" < "assajos"."id_assaig"
+
+Ref:"assajos"."id_assaig" < "assajos_projectes"."id_assaig"
+
+Ref:"projectes"."id_projecte" < "assajos_projectes"."id_projecte"
+
+Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
+
+Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
+
+Ref:"associacio"."id_associacio" < "agrupacions_associacio"."id_associacio"
+
+Ref:"agrupacions"."id_agrupacio" < "agrupacions_associacio"."id_agrupacio"
+
+Ref:"associacio"."id_associacio" < "direccions_fiscals_associacio"."id_direccio_fiscal_associacio"
+
+Ref:"localitzacions"."id_localitzacio" < "direccions_fiscals_associacio"."id_localitzacio"
+
+Ref:"associacio"."id_associacio" < "direccions_socials_associacio"."id_direccio_social_associacio"
+
+Ref:"localitzacions"."id_localitzacio" < "direccions_socials_associacio"."id_localitzacio"
+
+Ref:"associacio"."id_associacio" < "adreces_electroniques_associacio"."id_associacio"
+
+Ref:"adreces_electroniques_associacio"."id_adreca_electronica_associacio" < "encarregats_correus_associacio"."id_adreca_electronica_associacio"
+
+Ref:"socis"."id_soci" < "encarregats_correus_associacio"."id_soci"
+
+Ref:"tipus_documentacio"."id_tipus_documentacio" < "documentacions"."id_tipus_documentacio"
+
+Ref:"documentacions"."id_documentacio" < "capitols_documentacio"."id_documentacio"
+
+Ref:"capitols_documentacio"."id_capitol_documentacio" < "articles_documentacio"."id_capitol"

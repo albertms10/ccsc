@@ -8,17 +8,30 @@ import CalendarBadge from '../../components/CalendarBadge/CalendarBadge';
 
 export default ({ agrupacio }) => {
   const [assajos, setAssajos] = useState([]);
+  const [loadingAssajos, setLoadingAssajos] = useState(false);
   const [concerts, setConcerts] = useState([]);
+  const [loadingConcerts, setLoadingConcerts] = useState(false);
   const [projectes, setProjectes] = useState([]);
+  const [loadingProjectes, setLoadingProjectes] = useState(false);
 
   useEffect(() => {
+    setLoadingAssajos(true);
+    setLoadingConcerts(true);
+    setLoadingProjectes(true);
+
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/assajos`)
       .then(res => res.json())
-      .then(data => setAssajos(data));
+      .then(data => {
+        setAssajos(data);
+        setLoadingAssajos(false);
+      });
 
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/concerts`)
       .then(res => res.json())
-      .then(data => setConcerts(data));
+      .then(data => {
+        setConcerts(data);
+        setLoadingConcerts(false);
+      });
 
     fetch(`/api/agrupacions/${agrupacio.id_agrupacio}/projectes`)
       .then(res => res.json())
@@ -28,6 +41,7 @@ export default ({ agrupacio }) => {
           projecte.agrupacions = JSON.parse(projecte.agrupacions);
         });
         setProjectes(data);
+        setLoadingProjectes(false);
       });
   }, [agrupacio.id_agrupacio]);
 
@@ -43,6 +57,7 @@ export default ({ agrupacio }) => {
         <Col span={12}>
           <ContentList
             title="Assajos"
+            loading={loadingAssajos}
             data={assajos.map(({ id_assaig, data_inici, es_extra }) => {
               const date = moment(data_inici);
 
@@ -56,6 +71,7 @@ export default ({ agrupacio }) => {
           />
           <ContentList
             title="Concerts"
+            loading={loadingConcerts}
             data={concerts.map(({ id_concert, titol, data_inici }) => {
               const date = moment(data_inici);
 
@@ -72,6 +88,7 @@ export default ({ agrupacio }) => {
         <Col span={12}>
           <ContentList
             title="Projectes"
+            loading={loadingProjectes}
             data={projectes.map(({ id_projecte, titol, directors, agrupacions, inicials, color }) => (
               {
                 id: id_projecte,
