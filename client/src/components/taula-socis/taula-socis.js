@@ -50,13 +50,14 @@ export default ({ socis, getSocis, loading }) => {
         onChange={e => {
           setSearchValue(e.target.value.toLowerCase());
         }}
-        style={{ width: '100%', marginBottom: '1rem', border: 'none' }}
+        style={{ width: '100%', marginBottom: '1rem' }}
       />
       <Table
         dataSource={searchValue ? filteredSocis : socis}
         rowKey="id_persona"
         loading={loading}
         pagination={{ hideOnSinglePage: true, responsive: true }}
+        style={{ border: '1px solid #eee' }}
         columns={[
           {
             title: 'Nom',

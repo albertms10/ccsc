@@ -11,7 +11,6 @@
  */
 
 .app-layout-content {
-    padding: 3rem 10rem;
     transition-duration: 200ms;
-    background-color: #fafafa;
+    background-color: #f4f5f7;
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import { Page } from '../../standalone/page';
 import { TaulaSocis } from '../../components/taula-socis';
 import { ModalAfegirSoci } from '../../components/modal-afegir-soci';
-import Page from '../../standalone/page/Page';
+import { Container } from '../../standalone/container';
 
 export default () => {
   /**
@@ -34,11 +35,13 @@ export default () => {
   };
 
   return (
-    <Page
-      title="Socis"
-      action={<ModalAfegirSoci getSocis={getSocis} />}
-    >
-      <TaulaSocis socis={socis} getSocis={getSocis} loading={loading} />
-    </Page>
+    <Container>
+      <Page
+        title="Socis"
+        action={<ModalAfegirSoci getSocis={getSocis} />}
+      >
+        <TaulaSocis socis={socis} getSocis={getSocis} loading={loading} />
+      </Page>
+    </Container>
   );
 };
