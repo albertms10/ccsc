@@ -1,0 +1,20 @@
+.calendar-badge {
+    line-height: 1;
+    display: table-cell;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.calendar-badge-month {
+    font-size: .45rem;
+    text-transform: uppercase;
+}
+
+.calendar-badge-date {
+    font-size: 1rem;
+}

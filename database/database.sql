@@ -899,6 +899,7 @@ CREATE TABLE IF NOT EXISTS assajos
     FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
 );
 
+/* TODO Tots els assajos han d'estar assignats a un projecte? */
 CREATE TABLE IF NOT EXISTS assajos_projectes
 (
     id_assaig   SMALLINT UNSIGNED NOT NULL,
