@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Avatar, Col, Row, Tooltip } from 'antd';
+import { Avatar, Col, Row } from 'antd';
 import { ContentList } from '../../../../standalone/content-list';
 import { FixedTag } from '../../../../standalone/fixed-tag';
 import { CalendarAvatar } from '../../../../standalone/calendar-avatar';
@@ -30,11 +30,14 @@ export default ({ idAgrupacio }) => {
                 description: `a les ${date.format('LT')}`,
                 extra: projectes
                   ? (projectes.map(projecte => (
-                    <Tooltip title={`Projecte «${projecte.titol}»`}>
-                      <FixedTag color={'#' + projecte.color}>
-                        {projecte.inicials}
-                      </FixedTag>
-                    </Tooltip>
+                    <FixedTag
+                      key={projecte.id_projecte}
+                      childKey={projecte.id_projecte}
+                      tooltip={`Projecte «${projecte.titol}»`}
+                      color={'#' + projecte.color}
+                    >
+                      {projecte.inicials}
+                    </FixedTag>
                   )))
                   : null,
                 avatar: <CalendarAvatar moment={date} />,
@@ -53,11 +56,9 @@ export default ({ idAgrupacio }) => {
                 description: `a les ${date.format('LT')}`,
                 extra: titol_projecte
                   ? (
-                    <Tooltip title={`Projecte «${titol_projecte}»`}>
-                      <FixedTag color={'#' + color_projecte}>
-                        {inicials_projecte}
-                      </FixedTag>
-                    </Tooltip>
+                    <FixedTag tooltip={`Projecte «${titol_projecte}»`} color={'#' + color_projecte}>
+                      {inicials_projecte}
+                    </FixedTag>
                   )
                   : null,
                 avatar: <CalendarAvatar moment={date} />,

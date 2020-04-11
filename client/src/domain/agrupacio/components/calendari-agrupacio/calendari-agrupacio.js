@@ -21,6 +21,7 @@ export default () => {
         {esdevenimentsActuals.map(({ id_esdeveniment, data_inici, tipus, es_general, es_extra }) => (
           <CalendarTag
             key={id_esdeveniment}
+            childDey={id_esdeveniment}
             statusId={id_esdeveniment - 1}
             time={moment(data_inici).format('LT')}
             text={`

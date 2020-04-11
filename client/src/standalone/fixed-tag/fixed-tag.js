@@ -1,6 +1,10 @@
 import React from 'react';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 
-export default (props) => (
-  <Tag {...props} style={{ width: '1.41rem', textAlign: 'center', padding: 0 }} />
+export default ({ childKey, tooltip, color, style, children }) => (
+  <Tooltip key={childKey} title={tooltip}>
+    <Tag color={color} style={{ ...style, width: '1.41rem', textAlign: 'center', padding: 0 }}>
+      {children}
+    </Tag>
+  </Tooltip>
 )

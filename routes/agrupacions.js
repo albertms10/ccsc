@@ -40,6 +40,7 @@ module.exports = (app) => {
                           WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
                          (SELECT JSON_ARRAYAGG(
                                          JSON_OBJECT(
+                                                 'id_projecte', id_projecte,
                                                  'titol', titol,
                                                  'inicials', inicials,
                                                  'color', color
