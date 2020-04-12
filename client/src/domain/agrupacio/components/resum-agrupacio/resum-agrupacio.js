@@ -15,7 +15,7 @@ export default ({ idAgrupacio }) => {
   const [participants, loadingParticipants] = useParticipants(idAgrupacio);
 
   return (
-    <Container style={{ backgroundColor: '#f4f5f7' }}>
+    <Container>
       <Row gutter={32}>
         <Col span={12}>
           <ContentList

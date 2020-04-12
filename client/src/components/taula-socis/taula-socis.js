@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Badge, Button, Dropdown, Input, Menu, Modal, Table, Tooltip, Typography } from 'antd';
+import { Avatar, Badge, Dropdown, Input, Menu, Modal, Table, Tooltip, Typography } from 'antd';
 import { ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { closestTimeValue } from '../../utils';
 
 import './taula-socis.css';
+import { BorderlessButton } from '../../standalone/borderless-button';
 
 const { Text, Paragraph } = Typography;
 const { Search } = Input;
@@ -122,7 +123,7 @@ export default ({ socis, getSocis, loading }) => {
                   </Menu.Item>
                 </Menu>
               )}>
-                <Button shape="circle" icon={<MoreOutlined />} />
+                <BorderlessButton shape="circle" icon={<MoreOutlined />} />
               </Dropdown>
             ),
           },

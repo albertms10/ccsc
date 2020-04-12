@@ -1,7 +1,15 @@
 import React from 'react';
 
-export default ({ noPadding, children, style }) => (
-  <div style={{ ...style, padding: noPadding ? 0 : '3rem 10rem' }}>
+import './container.css';
+
+export default ({ noPadding, noBackground, children, style }) => (
+  <div
+    style={{
+      padding: noPadding ? 0 : '3rem 10rem',
+      backgroundColor: noBackground ? 'none' : '#f4f5f7',
+      ...style,
+    }}
+  >
     {children}
   </div>
 )

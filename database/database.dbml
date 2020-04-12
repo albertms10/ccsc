@@ -258,12 +258,16 @@ Indexes {
 
 Table "esdeveniments" {
   "id_esdeveniment" SMALLINT [pk, not null, increment]
-  "data_inici" DATETIME [not null]
-  "data_final" DATETIME
-  "id_estat_esdeveniment" TINYINT [not null, default: 2]
+  "data_inici" DATE [not null]
+  "hora_inici" TIME
+  "data_final" DATE
+  "hora_final" TIME
+  "es_hora_curs" BOOLEAN [not null, default: FALSE]
+  "id_estat_esdeveniment" TINYINT [not null, default: 1]
   "id_localitzacio" SMALLINT [not null]
-  "id_estat_localitzacio" TINYINT [not null, default: 2]
+  "id_estat_localitzacio" TINYINT [not null, default: 1]
   "id_esdeveniment_ajornat" SMALLINT
+  "CONSTRAINT" hora_curs
 }
 
 Table "estats_confirmacio" {
@@ -564,6 +568,15 @@ Indexes {
 }
 }
 
+Table "assajos_agrupacions" {
+  "id_assaig" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
+
+Indexes {
+  (id_assaig, id_agrupacio) [pk]
+}
+}
+
 Table "moviments_assajos" {
   "id_moviment" SMALLINT [not null]
   "id_assaig" SMALLINT [not null]
@@ -853,6 +866,10 @@ Ref:"esdeveniments"."id_esdeveniment" < "assajos"."id_assaig"
 Ref:"assajos"."id_assaig" < "assajos_projectes"."id_assaig"
 
 Ref:"projectes"."id_projecte" < "assajos_projectes"."id_projecte"
+
+Ref:"assajos"."id_assaig" < "assajos_agrupacions"."id_assaig"
+
+Ref:"agrupacions"."id_agrupacio" < "assajos_agrupacions"."id_agrupacio"
 
 Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
 

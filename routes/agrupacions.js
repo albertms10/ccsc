@@ -25,13 +25,109 @@ module.exports = (app) => {
       });
   });
 
+  app.get('/api/agrupacions/:id/esdeveniments', (req, res, next) => {
+    const id_agrupacio = req.params.id;
+
+    connection.query(
+        `SELECT id_esdeveniment,
+                CONCAT(dia_inici, ' ', hora_inici)                                           AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d')                                           AS dia_inici,
+                hora_inici,
+                CONCAT(dia_final, ' ', hora_final)                                           AS data_final,
+                DATE_FORMAT(dia_final, '%Y-%m-%d')                                           AS dia_final,
+                hora_final,
+                id_estat_esdeveniment,
+                id_estat_localitzacio,
+                (SELECT estat
+                 FROM estats_confirmacio
+                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment))                AS estat_esdeveniment,
+                (SELECT estat
+                 FROM estats_confirmacio
+                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio))                AS estat_localitzacio,
+                id_esdeveniment_ajornat,
+                CONCAT('Assaig', IF(es_general, ' general', ''), IF(es_extra, ' extra', '')) AS titol,
+                (SELECT JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                        'id_projecte', id_projecte,
+                                        'titol', titol,
+                                        'inicials', inicials,
+                                        'color', color
+                                    )
+                            )
+                 FROM projectes
+                          INNER JOIN assajos_projectes USING (id_projecte)
+                 WHERE id_assaig = (SELECT a.id_assaig))                                     AS projectes,
+                'assaig'                                                                     AS tipus
+         FROM esdeveniments
+                  INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
+                  INNER JOIN assajos_agrupacions USING (id_assaig)
+         WHERE id_agrupacio = ?
+
+         UNION ALL
+
+         SELECT id_esdeveniment,
+                CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                hora_inici,
+                CONCAT(dia_final, ' ', hora_final)                            AS data_final,
+                DATE_FORMAT(dia_final, '%Y-%m-%d')                            AS dia_final,
+                hora_final,
+                id_estat_esdeveniment,
+                id_estat_localitzacio,
+                (SELECT estat
+                 FROM estats_confirmacio
+                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
+                (SELECT estat
+                 FROM estats_confirmacio
+                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
+                id_esdeveniment_ajornat,
+                CONCAT('Concert ', titol)                                     AS titol,
+                (SELECT JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                        'id_projecte', id_projecte,
+                                        'titol', titol,
+                                        'inicials', inicials,
+                                        'color', color
+                                    )
+                            )
+                 FROM projectes
+                 WHERE id_projecte = (SELECT c.id_projecte))                  AS projectes,
+                'assaig'                                                      AS tipus
+         FROM esdeveniments
+                  INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
+                  INNER JOIN agrupacions_concerts USING (id_concert)
+         WHERE id_agrupacio = ?
+
+         ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
+      [id_agrupacio, id_agrupacio],
+      (err, rows) => {
+        if (err) next(err);
+
+        try {
+          rows.forEach(esdeveniment => {
+            esdeveniment.projectes = JSON.parse(esdeveniment.projectes);
+          });
+        } catch (e) {
+          next(e);
+          res.end();
+        }
+
+        res.send(rows);
+      },
+    );
+  });
+
   app.get('/api/agrupacions/:id/assajos', (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
         `SELECT DISTINCT a.*,
-                         data_inici,
-                         data_final,
+                         CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
+                         DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                         hora_inici,
+                         CONCAT(dia_final, ' ', hora_final)                            AS data_final,
+                         DATE_FORMAT(dia_final, '%Y-%m-%d')                            AS dia_final,
+                         hora_final,
                          (SELECT estat
                           FROM estats_confirmacio
                           WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
@@ -51,9 +147,9 @@ module.exports = (app) => {
                           WHERE id_assaig = (SELECT a.id_assaig))                      AS projectes
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
-                  INNER JOIN assajos_projectes USING (id_assaig)
-                  INNER JOIN projectes_agrupacions USING (id_projecte)
-         WHERE id_agrupacio = ?;`,
+                  INNER JOIN assajos_agrupacions USING (id_assaig)
+         WHERE id_agrupacio = ?
+         ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
       [id_agrupacio],
       (err, rows) => {
         if (err) next(err);
@@ -76,7 +172,9 @@ module.exports = (app) => {
 
     connection.query(
         `SELECT id_concert,
-                data_inici,
+                CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                hora_inici,
                 c.titol                                                       AS titol_concert,
                 p.titol                                                       AS titol_projecte,
                 inicials                                                      AS inicials_projecte,
@@ -89,9 +187,10 @@ module.exports = (app) => {
                  WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
-                  INNER JOIN projectes p USING (id_projecte)
-                  INNER JOIN projectes_agrupacions USING (id_projecte)
-         WHERE id_agrupacio = ?;`,
+                  INNER JOIN agrupacions_concerts USING (id_concert)
+                  LEFT JOIN projectes p USING (id_projecte)
+         WHERE id_agrupacio = ?
+         ORDER BY dia_inici, hora_inici;`,
       [id_agrupacio],
       (err, rows) => {
         if (err) next(err);

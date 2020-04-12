@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS persones
     es_institucio           BOOLEAN           NOT NULL DEFAULT FALSE,
     accepta_proteccio_dades BOOLEAN           NOT NULL DEFAULT FALSE,
     accepta_drets_imatge    BOOLEAN           NOT NULL DEFAULT FALSE,
-    es_anonim               BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_anonim               BOOLEAN           NOT NULL DEFAULT FALSE, /* TODO Cal afegir algun CHECK? */
 
     id_localitzacio         SMALLINT UNSIGNED,
 
@@ -421,13 +421,19 @@ CREATE TABLE IF NOT EXISTS esdeveniments
 (
     id_esdeveniment         SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    data_inici              DATETIME          NOT NULL,
-    data_final              DATETIME,
-    id_estat_esdeveniment   TINYINT UNSIGNED  NOT NULL DEFAULT 2,
+    dia_inici               DATE              NOT NULL,
+    hora_inici              TIME,
+    dia_final               DATE,
+    hora_final              TIME,
+    es_hora_curs            BOOLEAN           NOT NULL DEFAULT FALSE,
+    id_estat_esdeveniment   TINYINT UNSIGNED  NOT NULL DEFAULT 1,
     id_localitzacio         SMALLINT UNSIGNED NOT NULL,
-    id_estat_localitzacio   TINYINT UNSIGNED  NOT NULL DEFAULT 2,
+    id_estat_localitzacio   TINYINT UNSIGNED  NOT NULL DEFAULT 1,
 
     id_esdeveniment_ajornat SMALLINT UNSIGNED,
+
+    CONSTRAINT hora_curs CHECK ((es_hora_curs IS TRUE AND NOT hora_inici AND NOT hora_final) OR
+                                (es_hora_curs IS FALSE)),
 
     PRIMARY KEY (id_esdeveniment),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio),
@@ -899,7 +905,8 @@ CREATE TABLE IF NOT EXISTS assajos
     FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
 );
 
-/* TODO Tots els assajos han d'estar assignats a un projecte? */
+/* TODO Tots els assajos *poden* estar assignats a un projecte.
+   Per tant, cal que estiguin assignats a una agrupació. */
 CREATE TABLE IF NOT EXISTS assajos_projectes
 (
     id_assaig   SMALLINT UNSIGNED NOT NULL,
@@ -908,6 +915,16 @@ CREATE TABLE IF NOT EXISTS assajos_projectes
     PRIMARY KEY (id_assaig, id_projecte),
     FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
     FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
+);
+
+CREATE TABLE IF NOT EXISTS assajos_agrupacions
+(
+    id_assaig    SMALLINT UNSIGNED NOT NULL,
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_assaig, id_agrupacio),
+    FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
 CREATE TABLE IF NOT EXISTS moviments_assajos

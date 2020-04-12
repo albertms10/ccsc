@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 
-export default () => {
+export default (id_agrupacio) => {
   const [esdeveniments, setEsdeveniments] = useState([]);
 
   useEffect(() => {
-    fetch('/api/esdeveniments')
+    fetch(`/api/agrupacions/${id_agrupacio}/esdeveniments`)
       .then(res => res.json())
-      .then(data => setEsdeveniments(data));
-  }, []);
+      .then(data => {
+        console.log(data);
+        setEsdeveniments(data);
+      });
+  }, [id_agrupacio]);
 
   return esdeveniments;
 }

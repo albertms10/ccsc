@@ -1,0 +1,9 @@
+.ant-tabs-bar {
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #eee !important;
+    background-color: #fff;
+}
+
+.ant-tabs-nav-container {
+    margin-left: 10rem !important;
+}

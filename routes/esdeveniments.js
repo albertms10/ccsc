@@ -4,8 +4,10 @@ module.exports = (app) => {
   app.get('/api/esdeveniments', (req, res, next) => {
     connection.query(
         `SELECT id_esdeveniment,
-                data_inici,
-                data_final,
+                dia_inici,
+                hora_inici,
+                dia_final,
+                hora_final,
                 id_estat_esdeveniment,
                 (SELECT estat
                  FROM estats_confirmacio
@@ -39,8 +41,8 @@ module.exports = (app) => {
     const { data_inici, data_final, estat_esdeveniment } = req.body.esdeveniment;
 
     connection.query(
-        `INSERT INTO esdeveniments (data_inici, data_final, id_estat_esdeveniment)
-         VALUES (?, ?, ?);`,
+        `INSERT INTO esdeveniments (dia_inici, hora_inici, dia_final, hora_final, id_estat_esdeveniment)
+         VALUES (?, ?, ?, ?, ?);`,
       [data_inici, data_final, estat_esdeveniment || 'DEFAULT'],
       (err, rows) => {
         if (err) next(err);

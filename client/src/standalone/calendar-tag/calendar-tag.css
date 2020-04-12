@@ -1,0 +1,16 @@
+.calendar-tag {
+    max-width: calc(100% - 1rem) !important;
+    margin: 0 .5rem !important;
+}
+
+.calendar-tag-time {
+    margin-right: .2rem;
+}
+
+.calendar-tag-title {
+    display: inline-block;
+    overflow: hidden;
+    width: 70%;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+}
