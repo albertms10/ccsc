@@ -105,8 +105,8 @@ module.exports = (app) => {
     const password = usuari.naixement.split('-').reverse().join('-');
 
     connection.query(
-        `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, accepta_proteccio_dades,
-                               accepta_drets_imatge)
+        `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
+                               accepta_proteccio_dades, accepta_drets_imatge)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
       [usuari.nom, usuari.cognoms, usuari.naixement, usuari.nacionalitat, usuari.dni, usuari.email, usuari.acceptaProteccioDades, usuari.acceptaDretsImatge],
       (err, rows_persones) => {

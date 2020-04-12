@@ -30,34 +30,44 @@ module.exports = (app) => {
 
     connection.query(
         `SELECT id_esdeveniment,
-                CONCAT(dia_inici, ' ', hora_inici)                                           AS data_inici,
-                DATE_FORMAT(dia_inici, '%Y-%m-%d')                                           AS dia_inici,
+                CONCAT(dia_inici, ' ', hora_inici) AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d') AS dia_inici,
                 hora_inici,
-                CONCAT(dia_final, ' ', hora_final)                                           AS data_final,
-                DATE_FORMAT(dia_final, '%Y-%m-%d')                                           AS dia_final,
+                CONCAT(dia_final, ' ', hora_final) AS data_final,
+                DATE_FORMAT(dia_final, '%Y-%m-%d') AS dia_final,
                 hora_final,
                 id_estat_esdeveniment,
                 id_estat_localitzacio,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment))                AS estat_esdeveniment,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio))                AS estat_localitzacio,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+                )                                  AS estat_esdeveniment,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+                )                                  AS estat_localitzacio,
                 id_esdeveniment_ajornat,
-                CONCAT('Assaig', IF(es_general, ' general', ''), IF(es_extra, ' extra', '')) AS titol,
-                (SELECT JSON_ARRAYAGG(
-                                JSON_OBJECT(
-                                        'id_projecte', id_projecte,
-                                        'titol', titol,
-                                        'inicials', inicials,
-                                        'color', color
-                                    )
-                            )
-                 FROM projectes
-                          INNER JOIN assajos_projectes USING (id_projecte)
-                 WHERE id_assaig = (SELECT a.id_assaig))                                     AS projectes,
-                'assaig'                                                                     AS tipus
+                CONCAT(
+                        'Assaig',
+                        IF(es_general, ' general', ''),
+                        IF(es_extra, ' extra', '')
+                    )                              AS titol,
+                (
+                    SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                           'id_projecte', id_projecte,
+                                           'titol', titol,
+                                           'inicials', inicials,
+                                           'color', color
+                                       )
+                               )
+                    FROM projectes
+                             INNER JOIN assajos_projectes USING (id_projecte)
+                    WHERE id_assaig = (SELECT a.id_assaig)
+                )                                  AS projectes,
+                'assaig'                           AS tipus
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
                   INNER JOIN assajos_agrupacions USING (id_assaig)
@@ -66,33 +76,39 @@ module.exports = (app) => {
          UNION ALL
 
          SELECT id_esdeveniment,
-                CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
-                DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                CONCAT(dia_inici, ' ', hora_inici) AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d') AS dia_inici,
                 hora_inici,
-                CONCAT(dia_final, ' ', hora_final)                            AS data_final,
-                DATE_FORMAT(dia_final, '%Y-%m-%d')                            AS dia_final,
+                CONCAT(dia_final, ' ', hora_final) AS data_final,
+                DATE_FORMAT(dia_final, '%Y-%m-%d') AS dia_final,
                 hora_final,
                 id_estat_esdeveniment,
                 id_estat_localitzacio,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+                )                                  AS estat_esdeveniment,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+                )                                  AS estat_localitzacio,
                 id_esdeveniment_ajornat,
-                CONCAT('Concert ', titol)                                     AS titol,
-                (SELECT JSON_ARRAYAGG(
-                                JSON_OBJECT(
-                                        'id_projecte', id_projecte,
-                                        'titol', titol,
-                                        'inicials', inicials,
-                                        'color', color
-                                    )
-                            )
-                 FROM projectes
-                 WHERE id_projecte = (SELECT c.id_projecte))                  AS projectes,
-                'assaig'                                                      AS tipus
+                CONCAT('Concert ', titol)          AS titol,
+                (
+                    SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                           'id_projecte', id_projecte,
+                                           'titol', titol,
+                                           'inicials', inicials,
+                                           'color', color
+                                       )
+                               )
+                    FROM projectes
+                    WHERE id_projecte = (SELECT c.id_projecte)
+                )                                  AS projectes,
+                'assaig'                           AS tipus
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
                   INNER JOIN agrupacions_concerts USING (id_concert)
@@ -122,29 +138,35 @@ module.exports = (app) => {
 
     connection.query(
         `SELECT DISTINCT a.*,
-                         CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
-                         DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                         CONCAT(dia_inici, ' ', hora_inici) AS data_inici,
+                         DATE_FORMAT(dia_inici, '%Y-%m-%d') AS dia_inici,
                          hora_inici,
-                         CONCAT(dia_final, ' ', hora_final)                            AS data_final,
-                         DATE_FORMAT(dia_final, '%Y-%m-%d')                            AS dia_final,
+                         CONCAT(dia_final, ' ', hora_final) AS data_final,
+                         DATE_FORMAT(dia_final, '%Y-%m-%d') AS dia_final,
                          hora_final,
-                         (SELECT estat
-                          FROM estats_confirmacio
-                          WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
-                         (SELECT estat
-                          FROM estats_confirmacio
-                          WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
-                         (SELECT JSON_ARRAYAGG(
-                                         JSON_OBJECT(
-                                                 'id_projecte', id_projecte,
-                                                 'titol', titol,
-                                                 'inicials', inicials,
-                                                 'color', color
-                                             )
-                                     )
-                          FROM projectes
-                                   INNER JOIN assajos_projectes USING (id_projecte)
-                          WHERE id_assaig = (SELECT a.id_assaig))                      AS projectes
+                         (
+                             SELECT estat
+                             FROM estats_confirmacio
+                             WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+                         )                                  AS estat_esdeveniment,
+                         (
+                             SELECT estat
+                             FROM estats_confirmacio
+                             WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+                         )                                  AS estat_localitzacio,
+                         (
+                             SELECT JSON_ARRAYAGG(
+                                            JSON_OBJECT(
+                                                    'id_projecte', id_projecte,
+                                                    'titol', titol,
+                                                    'inicials', inicials,
+                                                    'color', color
+                                                )
+                                        )
+                             FROM projectes
+                                      INNER JOIN assajos_projectes USING (id_projecte)
+                             WHERE id_assaig = (SELECT a.id_assaig)
+                         )                                  AS projectes
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
                   INNER JOIN assajos_agrupacions USING (id_assaig)
@@ -172,19 +194,23 @@ module.exports = (app) => {
 
     connection.query(
         `SELECT id_concert,
-                CONCAT(dia_inici, ' ', hora_inici)                            AS data_inici,
-                DATE_FORMAT(dia_inici, '%Y-%m-%d')                            AS dia_inici,
+                CONCAT(dia_inici, ' ', hora_inici) AS data_inici,
+                DATE_FORMAT(dia_inici, '%Y-%m-%d') AS dia_inici,
                 hora_inici,
-                c.titol                                                       AS titol_concert,
-                p.titol                                                       AS titol_projecte,
-                inicials                                                      AS inicials_projecte,
-                color                                                         AS color_projecte,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio
+                c.titol                            AS titol_concert,
+                p.titol                            AS titol_projecte,
+                inicials                           AS inicials_projecte,
+                color                              AS color_projecte,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+                )                                  AS estat_esdeveniment,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+                )                                  AS estat_localitzacio
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
                   INNER JOIN agrupacions_concerts USING (id_concert)
@@ -208,15 +234,19 @@ module.exports = (app) => {
                 inicials,
                 color,
                 id_curs,
-                (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id_director, 'nom', nom_complet))
-                 FROM directors_projectes
-                          INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
-                 WHERE id_projecte = (SELECT projectes.id_projecte)) AS directors,
-                (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', agrupacions.id_agrupacio, 'nom', nom))
-                 FROM projectes_agrupacions
-                          INNER JOIN agrupacions USING (id_agrupacio)
-                 WHERE id_projecte = (SELECT projectes.id_projecte)
-                   AND agrupacions.id_agrupacio <> ?)                AS agrupacions
+                (
+                    SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id_director, 'nom', nom_complet))
+                    FROM directors_projectes
+                             INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
+                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                ) AS directors,
+                (
+                    SELECT JSON_ARRAYAGG(JSON_OBJECT('id', agrupacions.id_agrupacio, 'nom', nom))
+                    FROM projectes_agrupacions
+                             INNER JOIN agrupacions USING (id_agrupacio)
+                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                      AND agrupacions.id_agrupacio <> ?
+                ) AS agrupacions
          FROM projectes
                   INNER JOIN projectes_agrupacions USING (id_projecte)
          WHERE id_agrupacio = ?;`,
@@ -246,8 +276,16 @@ module.exports = (app) => {
                 p.nom,
                 cognoms,
                 nom_complet,
-                (SELECT nom FROM veus WHERE id_veu = (SELECT sa.id_veu))         AS veu,
-                (SELECT abreviatura FROM veus WHERE id_veu = (SELECT sa.id_veu)) AS abreviatura_veu
+                (
+                    SELECT nom
+                    FROM veus
+                    WHERE id_veu = (SELECT sa.id_veu)
+                ) AS veu,
+                (
+                    SELECT abreviatura
+                    FROM veus
+                    WHERE id_veu = (SELECT sa.id_veu)
+                ) AS abreviatura_veu
          FROM socis
                   INNER JOIN persones p ON socis.id_soci = p.id_persona
                   INNER JOIN socis_agrupacions sa USING (id_soci)

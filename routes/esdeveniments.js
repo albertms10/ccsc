@@ -9,14 +9,18 @@ module.exports = (app) => {
                 dia_final,
                 hora_final,
                 id_estat_esdeveniment,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)) AS estat_esdeveniment,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+                )     AS estat_esdeveniment,
                 id_localitzacio,
                 id_estat_localitzacio,
-                (SELECT estat
-                 FROM estats_confirmacio
-                 WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)) AS estat_localitzacio,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+                )     AS estat_localitzacio,
                 id_esdeveniment_ajornat,
                 IF(id_assaig, 'assaig',
                    IF(id_concert, 'concert',
@@ -24,7 +28,7 @@ module.exports = (app) => {
                          IF(id_reunio, 'reunió', NULL)
                           )
                        )
-                    )                                                         AS tipus,
+                    ) AS tipus,
                 es_extra
          FROM esdeveniments
                   LEFT JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig

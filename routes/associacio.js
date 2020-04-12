@@ -13,7 +13,11 @@ module.exports = (app) => {
 
   app.get('/api/associacio/agrupacions', (req, res, next) => {
     connection.query(
-        `SELECT id_agrupacio, a.nom, IFNULL(nom_curt, a.nom) AS nom_curt, descripcio, num_persones
+        `SELECT id_agrupacio,
+                a.nom,
+                IFNULL(nom_curt, a.nom) AS nom_curt,
+                descripcio,
+                num_persones
          FROM associacio
                   INNER JOIN agrupacions_associacio aa USING (id_associacio)
                   INNER JOIN agrupacions a USING (id_agrupacio);`,
