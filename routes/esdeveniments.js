@@ -58,10 +58,10 @@ module.exports = (app) => {
     const esdeveniment = req.params.id;
 
     connection.query(
-        `SELECT *
+        `SELECT persones.*
          FROM assistents_esdeveniment
                   INNER JOIN persones ON (id_soci = id_persona)
-         WHERE id_soci = ?;`,
+         WHERE id_esdeveniment = ?;`,
       [esdeveniment],
       (err, rows) => {
         if (err) next(err);

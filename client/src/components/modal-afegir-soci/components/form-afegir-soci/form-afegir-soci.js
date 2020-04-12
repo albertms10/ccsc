@@ -50,7 +50,9 @@ export default ({ form, current, username, loadingUsername, alertProteccio, setA
   return (
     <Form
       colon={false}
-      form={form}>
+      form={form}
+      initialValues={{ data_alta: moment() }}
+    >
       <div style={{ display: current === 0 ? 'block' : 'none' }}>
         <Divider orientation="left">Dades personals</Divider>
         <Form.Item style={{ marginBottom: 0 }}>
@@ -111,7 +113,12 @@ export default ({ form, current, username, loadingUsername, alertProteccio, setA
             rules={[
               { required: true, message: 'Si us plau, introdueixi la seva data de naixement.' },
             ]}>
-            <DatePicker format="L" disabledDate={d => !d || d.isAfter(moment())} />
+            <DatePicker
+              format="L"
+              allowClear={false}
+              showToday={false}
+              disabledDate={d => !d || d.isAfter(moment())}
+            />
           </Form.Item>
         </Form.Item>
         <Divider orientation="left" style={{ marginTop: '2rem' }}>Dades de contacte</Divider>
@@ -161,9 +168,12 @@ export default ({ form, current, username, loadingUsername, alertProteccio, setA
             <Form.Item
               name="data_alta"
               label="Data d’alta"
-              help="Seleccioneu-ne si no és el dia d’avui."
             >
-              <DatePicker format="L" disabledDate={d => !d || d.isAfter(moment())} />
+              <DatePicker
+                format="L"
+                allowClear={false}
+                disabledDate={d => !d || d.isAfter(moment())}
+              />
             </Form.Item>
           </Panel>
         </Collapse>

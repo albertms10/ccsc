@@ -1,8 +1,29 @@
-import { Badge, Tooltip } from 'antd';
-import React from 'react';
+import React, { cloneElement } from 'react';
+import { Tooltip } from 'antd';
+import {
+  CheckCircleTwoTone,
+  CloseCircleTwoTone,
+  GiftTwoTone,
+  QuestionCircleTwoTone,
+  WarningTwoTone,
+} from '@ant-design/icons';
 
-export default ({ tooltip, statusId, style }) => (
-  <Tooltip title={tooltip}>
-    <Badge status={['success', 'processing', 'error', 'warning'][statusId - 1]} style={style} />
-  </Tooltip>
-)
+export default ({ tooltip, statusId, esAniversari, style }) => {
+  const status = [
+    <CheckCircleTwoTone twoToneColor="#52c41a" />,
+    <QuestionCircleTwoTone twoToneColor="#1890ff" />,
+    <CloseCircleTwoTone twoToneColor="#ff4d4f" />,
+    <WarningTwoTone twoToneColor="#faad14" />,
+  ];
+
+  return (
+    <Tooltip title={tooltip}>
+      {esAniversari
+        ? <GiftTwoTone twoToneColor="#eb2f96" style={style} />
+        : statusId
+          ? cloneElement(status[statusId - 1], { style })
+          : ''
+      }
+    </Tooltip>
+  );
+}

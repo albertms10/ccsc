@@ -20,7 +20,7 @@ export default ({ idAgrupacio }) => {
     );
 
     return (
-      <Space direction="vertical">
+      <Space size={-5} direction="vertical">
         {esdevenimentsActuals.map((esdeveniment) => (
           <CalendarTag key={esdeveniment.id_esdeveniment} event={esdeveniment} />
         ))}
@@ -31,8 +31,9 @@ export default ({ idAgrupacio }) => {
   return (
     <Container style={{ padding: '2rem 3rem' }}>
       <Calendar
+        className="calendari-agrupacio"
         dateCellRender={cellRender}
-        headerRender={({ value, type, onChange, onTypeChange }) => (
+        headerRender={({ value, onChange }) => (
           <div className="ant-picker-calendar-header">
             <Space size="middle">
               <Button onClick={() => onChange(moment())}>Avui</Button>

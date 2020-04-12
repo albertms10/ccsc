@@ -19,15 +19,23 @@ export default ({ childKey, event }) => {
       onVisibleChange={handleVisibility}
       style={{ width: 600 }}
     >
-      <Tag className="calendar-tag" key={childKey} style={{ opacity: moment().isAfter(event.data_inici) ? .6 : 1 }}>
-        <StatusBadge tooltip={event.estat_esdeveniment} statusId={event.id_estat_esdeveniment} />
+      <Tag
+        className="calendar-tag"
+        key={childKey}
+        style={{ opacity: moment().isAfter(event.data_inici) ? .6 : 1 }}
+      >
+        <StatusBadge
+          tooltip={event.estat_esdeveniment}
+          esAniversari={event.tipus === 'aniversari'}
+          statusId={event.id_estat_esdeveniment}
+        />
         {event.hora_inici
           ? <span className="calendar-tag-time">
               {moment(`${event.dia_inici} ${event.hora_inici}`).format('LT')}
             </span>
           : ''
         }
-        <b className="calendar-tag-title">{event.titol}</b>
+        <span className="calendar-tag-title">{event.titol}</span>
       </Tag>
     </Popover>
   );

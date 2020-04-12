@@ -135,7 +135,7 @@ module.exports = (app) => {
             connection.query(
                 `INSERT INTO historial_socis (id_historial_soci, data_alta)
                  VALUES (?, ?);`,
-              [id_persona, usuari.data_alta || 'CURRENT_DATE'],
+              [id_persona, usuari.data_alta],
               (err) => {
                 if (err) next(err);
                 console.log('1 record inserted into `historial_socis`');
@@ -155,16 +155,19 @@ module.exports = (app) => {
         `DELETE
          FROM usuaris
          WHERE id_persona = ?;
+
             DELETE
             FROM historial_socis
             WHERE id_historial_soci = ?;
+
             DELETE
             FROM socis
             WHERE id_soci = ?;
+
             DELETE
             FROM persones
             WHERE id_persona = ?;`,
-      [id_persona, id_persona, id_persona],
+      [id_persona, id_persona, id_persona, id_persona],
       (err) => {
         if (err) next(err);
       });

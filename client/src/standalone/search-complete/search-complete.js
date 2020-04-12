@@ -17,7 +17,7 @@ export default ({ data, onSelect }) => {
         label: (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {option.titol}
-            <span>{moment(option.data_inici).format('LLL')}</span>
+            <span>{`${moment(option.data_inici).format('L')} ${option.hora_inici ? moment(option.data_inici).format('LT') : ''}`}</span>
           </div>
         ),
       }))

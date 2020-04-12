@@ -14,7 +14,8 @@ export default ({ event }) => (
             <StatusBadge
               tooltip={event.estat_esdeveniment}
               statusId={event.id_estat_esdeveniment}
-              style={{ transform: 'scale(1.8) translate(5px)' }}
+              esAniversari={event.tipus === 'aniversari'}
+              style={{ transform: 'scale(1.5) translate(3px)' }}
             />
             <div style={{ fontSize: 'large' }}>{event.titol}</div>
           </Space>
@@ -25,9 +26,18 @@ export default ({ event }) => (
       </Row>
       <div style={{ marginLeft: '1.9rem', color: '#333' }}>
         {moment(event.dia_inici).format('dddd, LL')}
-        <span style={{ padding: '0 .25rem' }}>·</span>
-        {moment(`${event.dia_inici} ${event.hora_inici}`).format('LT') + (event.hora_final ? '–' + moment(`${event.dia_final} ${event.hora_final}`).format('LT') : '')}
+        {event.hora_inici
+          ? (
+            <>
+              <span style={{ padding: '0 .25rem' }}>·</span>
+              {moment(`${event.dia_inici} ${event.hora_inici}`).format('LT')
+              + (event.hora_final
+                ? '–' + moment(`${event.dia_final} ${event.hora_final}`).format('LT')
+                : '')}
+            </>
+          ) : ''}
+
       </div>
     </Space>
   </>
-)
+);

@@ -1,6 +1,18 @@
 .calendar-tag {
-    max-width: calc(100% - 1rem) !important;
-    margin: 0 .5rem !important;
+    overflow: hidden;
+    /*min-width: 100%;*/
+    max-width: calc(100% - .3rem) !important;
+    margin: 0 .2rem !important;
+    padding: 0 4px !important;
+    transition-duration: 200ms;
+    text-overflow: ellipsis;
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
+
+.calendar-tag:hover {
+    border-color: #d9d9d9dd !important;
+    background-color: #fafafa82 !important;
 }
 
 .calendar-tag-time {
@@ -8,9 +20,8 @@
 }
 
 .calendar-tag-title {
-    display: inline-block;
+    font-weight: bold;
     overflow: hidden;
     width: 70%;
     vertical-align: bottom;
-    text-overflow: ellipsis;
 }

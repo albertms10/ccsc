@@ -31,7 +31,7 @@ export default ({ getSocis }) => {
         values.username = username;
         values.acceptaDretsImatge = !!values.acceptaDretsImatge;
         values.naixement = values.naixement.format('YYYY-MM-DD');
-        if (values.data_alta) values.data_alta = values.data_alta.format('YYYY-MM-DD');
+        values.data_alta = values.data_alta.format('YYYY-MM-DD');
 
         fetch('/api/socis', {
           method: 'POST',
@@ -59,7 +59,6 @@ export default ({ getSocis }) => {
   const handleValidateError = error => {
     setCurrent(0);
     console.log(error);
-    form.scrollToField(error.errorFields[0].nom);
   };
 
   const handleErrorProteccio = () => {

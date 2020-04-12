@@ -21,13 +21,13 @@ export default ({ idAgrupacio }) => {
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
-            data={assajos.map(({ id_assaig, data_inici, es_general, es_extra, projectes }) => {
+            data={assajos.map(({ id_assaig, data_inici, hora_inici, es_general, es_extra, projectes }) => {
               const date = moment(data_inici);
 
               return ({
                 id: id_assaig,
                 title: `Assaig${es_general ? ' general' : ''}${es_extra ? ' extra' : ''}`,
-                description: `a les ${date.format('LT')}`,
+                description: hora_inici ? `a les ${date.format('LT')}` : '',
                 extra: projectes
                   ? (projectes.map(projecte => (
                     <FixedTag
