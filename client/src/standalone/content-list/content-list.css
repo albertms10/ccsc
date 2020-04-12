@@ -1,0 +1,30 @@
+.content-list-item .ant-list-item {
+    transition-duration: 200ms;
+    color: rgba(0, 0, 0, 0.65);
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.content-list-item:last-child .ant-list-item {
+    border-bottom: none !important;
+}
+
+.content-list-item:hover .ant-list-item {
+    background-color: rgba(0, 0, 0, .041);
+}
+
+.content-list-title {
+    font-size: 1.2rem;
+}
+
+.ant-list-item-meta {
+    align-items: center !important;
+}
+
+.ant-list-item-meta-title {
+    margin-bottom: 0 !important;
+}
+
+.ant-list-item-meta-description {
+    font-size: small !important;
+    line-height: 1 !important;
+}

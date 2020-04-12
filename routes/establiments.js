@@ -18,8 +18,7 @@ module.exports = (app) => {
         `SELECT *
          FROM establiments
                   INNER JOIN localitzacions l ON establiments.id_establiment = l.id_localitzacio
-                  INNER JOIN estat_localitzacions el ON l.id_localitzacio = el.id_localitzacio
-                  INNER JOIN esdeveniments e ON el.id_esdeveniment = e.id_esdeveniment
+                  INNER JOIN esdeveniments e ON l.id_localitzacio = e.id_localitzacio
          WHERE id_establiment = ?;`,
       [establiment],
       (err, rows) => {
