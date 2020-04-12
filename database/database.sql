@@ -51,9 +51,12 @@ CREATE TABLE IF NOT EXISTS socis
     estudis_musicals  TEXT,
     id_veu            CHAR(1), /* TODO id_veu a `persones`, `socis` o `socis_agrpuacions`? */
 
+    id_associacio     SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+
     PRIMARY KEY (id_soci),
     FOREIGN KEY (id_soci) REFERENCES persones (id_persona),
-    FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
+    FOREIGN KEY (id_veu) REFERENCES veus (id_veu),
+    FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
 );
 
 CREATE TABLE IF NOT EXISTS socis_perfils
@@ -678,12 +681,15 @@ CREATE TABLE IF NOT EXISTS socis_veus_projectes
 
 CREATE TABLE IF NOT EXISTS cursos
 (
-    id_curs VARCHAR(5) NOT NULL,
+    id_curs       VARCHAR(5)        NOT NULL,
 
-    inici   DATE       NOT NULL,
-    final   DATE,
+    inici         DATE              NOT NULL,
+    final         DATE,
 
-    PRIMARY KEY (id_curs)
+    id_associacio SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (id_curs),
+    FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
 );
 
 CREATE TABLE IF NOT EXISTS projectes
