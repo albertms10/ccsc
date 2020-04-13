@@ -25,21 +25,18 @@ export default () => {
 
   const getSocis = (next) => {
     setLoading(true);
-    fetch('/api/socis')
-      .then(response => response.json())
-      .then(data => {
+    fetch("/api/socis")
+      .then((response) => response.json())
+      .then((data) => {
         setSocis(data);
         setLoading(false);
-        if (typeof next === 'function') next();
+        if (typeof next === "function") next();
       });
   };
 
   return (
     <Container>
-      <Page
-        title="Socis"
-        action={<ModalAfegirSoci getSocis={getSocis} />}
-      >
+      <Page title="Socis" action={<ModalAfegirSoci getSocis={getSocis} />}>
         <TaulaSocis socis={socis} getSocis={getSocis} loading={loading} />
       </Page>
     </Container>

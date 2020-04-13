@@ -9,7 +9,7 @@ import './content-list.css';
 export default ({ title, loading, data, style }) => {
   return (
     <div style={style}>
-      <Space style={{ marginBottom: '.5rem' }}>
+      <Space style={{ marginBottom: ".5rem" }}>
         <div className="content-list-title">{title}</div>
         <BorderlessButton shape="circle" icon={<PlusOutlined />} />
       </Space>
@@ -17,16 +17,25 @@ export default ({ title, loading, data, style }) => {
         bordered
         loading={loading}
         dataSource={data}
-        renderItem={item => (
-          <Link className="content-list-item" to={`/cor-de-cambra/${title.toLowerCase()}/${item.id}`}>
+        renderItem={(item) => (
+          <Link
+            className="content-list-item"
+            to={`/cor-de-cambra/${title.toLowerCase()}/${item.id}`}
+          >
             <List.Item>
-              <List.Item.Meta avatar={item.avatar} title={item.title} description={item.description} />
-              <div style={{ fontSize: 'smaller', color: 'gray' }}>{item.extra}</div>
+              <List.Item.Meta
+                avatar={item.avatar}
+                title={item.title}
+                description={item.description}
+              />
+              <div style={{ fontSize: "smaller", color: "gray" }}>
+                {item.extra}
+              </div>
             </List.Item>
           </Link>
         )}
-        style={{ backgroundColor: '#fff' }}
+        style={{ backgroundColor: "#fff" }}
       />
     </div>
   );
-}
+};

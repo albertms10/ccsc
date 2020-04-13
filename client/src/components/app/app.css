@@ -11,6 +11,6 @@
  */
 
 .app-layout-content {
-    transition-duration: 200ms;
-    background-color: #f4f5f7;
+  transition-duration: 200ms;
+  background-color: #f4f5f7;
 }

@@ -8,12 +8,12 @@ export default (id_agrupacio) => {
     setLoadingParticipants(true);
 
     fetch(`/api/agrupacions/${id_agrupacio}/participants`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setParticipants(data);
         setLoadingParticipants(false);
       });
   }, [id_agrupacio]);
 
   return [participants, loadingParticipants];
-}
+};

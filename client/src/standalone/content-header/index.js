@@ -1,1 +1,1 @@
-export { default as ContentHeader } from './content-header';
+export { default as ContentHeader } from "./content-header";

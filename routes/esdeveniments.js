@@ -1,9 +1,9 @@
 module.exports = (app) => {
-  const connection = app.get('connection');
+  const connection = app.get("connection");
 
-  app.get('/api/esdeveniments', (req, res, next) => {
+  app.get("/api/esdeveniments", (req, res, next) => {
     connection.query(
-        `SELECT id_esdeveniment,
+      `SELECT id_esdeveniment,
                 dia_inici,
                 hora_inici,
                 dia_final,
@@ -38,27 +38,33 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.post('/api/esdeveniments', (req, res, next) => {
-    const { data_inici, data_final, estat_esdeveniment } = req.body.esdeveniment;
+  app.post("/api/esdeveniments", (req, res, next) => {
+    const {
+      data_inici,
+      data_final,
+      estat_esdeveniment,
+    } = req.body.esdeveniment;
 
     connection.query(
-        `INSERT INTO esdeveniments (dia_inici, hora_inici, dia_final, hora_final, id_estat_esdeveniment)
+      `INSERT INTO esdeveniments (dia_inici, hora_inici, dia_final, hora_final, id_estat_esdeveniment)
          VALUES (?, ?, ?, ?, ?);`,
-      [data_inici, data_final, estat_esdeveniment || 'DEFAULT'],
+      [data_inici, data_final, estat_esdeveniment || "DEFAULT"],
       (err, rows) => {
         if (err) next(err);
         res.end(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/esdeveniments/:id/assistents', (req, res, next) => {
+  app.get("/api/esdeveniments/:id/assistents", (req, res, next) => {
     const esdeveniment = req.params.id;
 
     connection.query(
-        `SELECT persones.*
+      `SELECT persones.*
          FROM assistents_esdeveniment
                   INNER JOIN persones ON (id_soci = id_persona)
          WHERE id_esdeveniment = ?;`,
@@ -66,6 +72,7 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 };

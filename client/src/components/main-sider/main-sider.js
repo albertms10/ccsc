@@ -16,11 +16,14 @@ export default ({ collapsed, setCollapsed }) => (
     onCollapse={setCollapsed}
   >
     <div className="main-layout-title-wrapper">
-      {collapsed
-        ? <div className="main-layout-title-short">AMCC</div>
-        : <div className="main-layout-title-long">Associació Musical Catalana Crescendo</div>
-      }
+      {collapsed ? (
+        <div className="main-layout-title-short">AMCC</div>
+      ) : (
+        <div className="main-layout-title-long">
+          Associació Musical Catalana Crescendo
+        </div>
+      )}
     </div>
     <MainMenu collapsed={collapsed} />
   </Sider>
-)
+);

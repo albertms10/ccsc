@@ -4,4 +4,4 @@
  * @param {string} s
  * @returns {string}
  */
-export default (s) => s.toLowerCase().replace(/[ -]/g, '_');
+export default (s) => s.toLowerCase().replace(/[ -]/g, "_");

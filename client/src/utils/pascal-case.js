@@ -6,4 +6,5 @@ import { upperCaseFirst } from './';
  * @param {string} s
  * @returns {string}
  */
-export default (s) => s.toLowerCase().split(/[ _-]/g).map(upperCaseFirst).join('');
+export default (s) =>
+  s.toLowerCase().split(/[ _-]/g).map(upperCaseFirst).join("");

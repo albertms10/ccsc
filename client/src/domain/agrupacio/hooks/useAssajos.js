@@ -8,12 +8,12 @@ export default (id_agrupacio) => {
     setLoadingAssajos(true);
 
     fetch(`/api/agrupacions/${id_agrupacio}/assajos`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setAssajos(data);
         setLoadingAssajos(false);
       });
   }, [id_agrupacio]);
 
   return [assajos, loadingAssajos];
-}
+};

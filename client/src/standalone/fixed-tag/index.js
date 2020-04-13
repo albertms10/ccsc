@@ -1,1 +1,1 @@
-export { default as FixedTag } from './fixed-tag';
+export { default as FixedTag } from "./fixed-tag";

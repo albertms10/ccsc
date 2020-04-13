@@ -1,1 +1,1 @@
-export { default as CalendarTag } from './calendar-tag';
+export { default as CalendarTag } from "./calendar-tag";

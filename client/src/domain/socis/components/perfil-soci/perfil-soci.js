@@ -8,13 +8,9 @@ export default () => {
 
   useEffect(() => {
     fetch(`/api/socis/${username}`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(setSoci);
   }, [username]);
 
-  return (
-    <SubPage title={soci.nom_complet} subtitle={username}>
-
-    </SubPage>
-  );
-}
+  return <SubPage title={soci.nom_complet} subtitle={username}></SubPage>;
+};

@@ -15,8 +15,6 @@ export default ({ routes, title, subtitle, action, children }) => (
       subTitle={subtitle}
       extra={[action]}
     />
-    <Page>
-      {children}
-    </Page>
+    <Page>{children}</Page>
   </>
-)
+);

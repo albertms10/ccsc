@@ -1,13 +1,13 @@
 .action-text {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .action-text > .ant-typography-copy {
-    transition-duration: 200ms;
-    transition-property: opacity;
-    opacity: 0;
+  transition-duration: 200ms;
+  transition-property: opacity;
+  opacity: 0;
 }
 
 .action-text:hover > .ant-typography-copy {
-    opacity: 1;
+  opacity: 1;
 }

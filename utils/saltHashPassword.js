@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 /**
  * Generates a random string given the size of random
@@ -7,7 +7,7 @@ const crypto = require('crypto');
  * @param {number} size
  * @returns {string}
  */
-const randomString = (size) => crypto.randomBytes(size).toString('hex');
+const randomString = (size) => crypto.randomBytes(size).toString("hex");
 
 /**
  * Generates a pair salt and hash for a given pass word.
@@ -17,13 +17,8 @@ const randomString = (size) => crypto.randomBytes(size).toString('hex');
  * @returns {[*, string]}
  */
 const saltHashPassword = ({ password, salt = randomString(4) }) => {
-  const hash = crypto
-    .createHmac('sha512', salt)
-    .update(password);
-  return [
-    salt,
-    hash.digest('hex'),
-  ];
+  const hash = crypto.createHmac("sha512", salt).update(password);
+  return [salt, hash.digest("hex")];
 };
 
 module.exports = saltHashPassword;

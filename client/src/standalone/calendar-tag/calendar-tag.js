@@ -14,7 +14,12 @@ export default ({ childKey, event }) => {
   return (
     <Popover
       visible={visible}
-      content={<CalendarEventPopover hidePopover={() => setVisible(false)} event={event} />}
+      content={
+        <CalendarEventPopover
+          hidePopover={() => setVisible(false)}
+          event={event}
+        />
+      }
       trigger="click"
       onVisibleChange={handleVisibility}
       style={{ width: 600 }}
@@ -22,21 +27,22 @@ export default ({ childKey, event }) => {
       <Tag
         className="calendar-tag"
         key={childKey}
-        style={{ opacity: moment().isAfter(event.data_inici) ? .6 : 1 }}
+        style={{ opacity: moment().isAfter(event.data_inici) ? 0.6 : 1 }}
       >
         <StatusBadge
           tooltip={event.estat_esdeveniment}
-          esAniversari={event.tipus === 'aniversari'}
+          esAniversari={event.tipus === "aniversari"}
           statusId={event.id_estat_esdeveniment}
         />
-        {event.hora_inici
-          ? <span className="calendar-tag-time">
-              {moment(`${event.dia_inici} ${event.hora_inici}`).format('LT')}
-            </span>
-          : ''
-        }
+        {event.hora_inici ? (
+          <span className="calendar-tag-time">
+            {moment(`${event.dia_inici} ${event.hora_inici}`).format("LT")}
+          </span>
+        ) : (
+          ""
+        )}
         <span className="calendar-tag-title">{event.titol}</span>
       </Tag>
     </Popover>
   );
-}
+};

@@ -1,1 +1,1 @@
-export { default as useCalendariEsdeveniments } from './use-calendari-esdeveniments';
+export { default as useCalendariEsdeveniments } from "./use-calendari-esdeveniments";

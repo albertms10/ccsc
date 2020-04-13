@@ -8,12 +8,12 @@ export default (id_agrupacio) => {
     setLoadingConcerts(true);
 
     fetch(`/api/agrupacions/${id_agrupacio}/concerts`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setConcerts(data);
         setLoadingConcerts(false);
       });
   }, [id_agrupacio]);
 
   return [concerts, loadingConcerts];
-}
+};

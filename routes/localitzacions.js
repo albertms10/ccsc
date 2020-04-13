@@ -1,34 +1,44 @@
 module.exports = (app) => {
-  const connection = app.get('connection');
+  const connection = app.get("connection");
 
-  app.post('/api/localitzacions', (req, res, next) => {
-    const { tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, ciutat } = req.body.localitzacio;
+  app.post("/api/localitzacions", (req, res, next) => {
+    const {
+      tipus_via,
+      carrer,
+      numero,
+      fins_numero,
+      codi_postal,
+      gmaps,
+      ciutat,
+    } = req.body.localitzacio;
 
     connection.query(
-        `INSERT INTO localitzacions (id_tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, id_ciutat)
+      `INSERT INTO localitzacions (id_tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, id_ciutat)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, ciutat],
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/localitzacions/tipus-vies', (req, res, next) => {
+  app.get("/api/localitzacions/tipus-vies", (req, res, next) => {
     connection.query(
-        `SELECT *
+      `SELECT *
          FROM tipus_vies;`,
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/localitzacions/localitzacio/:id', (req, res, next) => {
+  app.get("/api/localitzacions/localitzacio/:id", (req, res, next) => {
     const id_localitzacio = req.params.id;
 
     connection.query(
-        `SELECT id_localitzacio,
+      `SELECT id_localitzacio,
                 tv.*,
                 carrer,
                 IFNULL(CONCAT(numero, '–', fins_numero), numero) AS numero,
@@ -54,13 +64,13 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      },
+      }
     );
   });
 
-  app.get('/api/localitzacions/ciutats', (req, res, next) => {
+  app.get("/api/localitzacions/ciutats", (req, res, next) => {
     connection.query(
-        `SELECT id_ciutat,
+      `SELECT id_ciutat,
                 ciutats.nom                             AS ciutat,
                 IFNULL(ciutats.id_provincia, id_ciutat) AS id_provincia,
                 (
@@ -76,28 +86,31 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/localitzacions/provincies', (req, res, next) => {
+  app.get("/api/localitzacions/provincies", (req, res, next) => {
     connection.query(
-        `SELECT provincies.id_provincia, c.nom, p.*
+      `SELECT provincies.id_provincia, c.nom, p.*
          FROM provincies
                   INNER JOIN ciutats c ON provincies.id_provincia = c.id_ciutat
                   LEFT JOIN paisos p ON provincies.id_pais = p.id_pais;`,
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/localitzacions/paisos', (req, res, next) => {
+  app.get("/api/localitzacions/paisos", (req, res, next) => {
     connection.query(
-        `SELECT *
+      `SELECT *
          FROM paisos;`,
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 };
