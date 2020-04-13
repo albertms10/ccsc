@@ -1,35 +1,37 @@
 module.exports = (app) => {
-  const connection = app.get('connection');
+  const connection = app.get("connection");
 
-  app.get('/api/agrupacions', (req, res, next) => {
+  app.get("/api/agrupacions", (req, res, next) => {
     connection.query(
-        `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
+      `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
          FROM agrupacions;`,
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/agrupacions/:id', (req, res, next) => {
+  app.get("/api/agrupacions/:id", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
+      `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
          FROM agrupacions
          WHERE id_agrupacio = ?;`,
       [id_agrupacio],
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/agrupacions/:id/esdeveniments', (req, res, next) => {
+  app.get("/api/agrupacions/:id/esdeveniments", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT id_esdeveniment,
+      `SELECT id_esdeveniment,
                 IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
                 DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
                 hora_inici,
@@ -143,7 +145,7 @@ module.exports = (app) => {
         if (err) next(err);
 
         try {
-          rows.forEach(esdeveniment => {
+          rows.forEach((esdeveniment) => {
             esdeveniment.projectes = JSON.parse(esdeveniment.projectes);
           });
         } catch (e) {
@@ -152,15 +154,15 @@ module.exports = (app) => {
         }
 
         res.send(rows);
-      },
+      }
     );
   });
 
-  app.get('/api/agrupacions/:id/assajos', (req, res, next) => {
+  app.get("/api/agrupacions/:id/assajos", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT DISTINCT a.*,
+      `SELECT DISTINCT a.*,
                          IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
                          DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
                          hora_inici,
@@ -200,7 +202,7 @@ module.exports = (app) => {
         if (err) next(err);
 
         try {
-          rows.forEach(assaig => {
+          rows.forEach((assaig) => {
             assaig.projectes = JSON.parse(assaig.projectes);
           });
         } catch (e) {
@@ -209,14 +211,15 @@ module.exports = (app) => {
         }
 
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/agrupacions/:id/concerts', (req, res, next) => {
+  app.get("/api/agrupacions/:id/concerts", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT id_concert,
+      `SELECT id_concert,
                 IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
                 DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
                 hora_inici,
@@ -244,14 +247,15 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/agrupacions/:id/projectes', (req, res, next) => {
+  app.get("/api/agrupacions/:id/projectes", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT projectes.id_projecte,
+      `SELECT projectes.id_projecte,
                 titol,
                 descripcio,
                 inicials,
@@ -278,7 +282,7 @@ module.exports = (app) => {
         if (err) next(err);
 
         try {
-          rows.forEach(projecte => {
+          rows.forEach((projecte) => {
             projecte.directors = JSON.parse(projecte.directors);
             projecte.agrupacions = JSON.parse(projecte.agrupacions);
           });
@@ -288,14 +292,15 @@ module.exports = (app) => {
         }
 
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/agrupacions/:id/participants', (req, res, next) => {
+  app.get("/api/agrupacions/:id/participants", (req, res, next) => {
     const id_agrupacio = req.params.id;
 
     connection.query(
-        `SELECT id_persona,
+      `SELECT id_persona,
                 p.nom,
                 cognoms,
                 nom_complet,
@@ -319,6 +324,7 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 };

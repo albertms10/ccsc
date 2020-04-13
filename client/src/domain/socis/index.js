@@ -1,1 +1,1 @@
-export { default as Socis } from './socis';
+export { default as Socis } from "./socis";

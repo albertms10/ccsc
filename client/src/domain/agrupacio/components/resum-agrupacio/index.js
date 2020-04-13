@@ -1,1 +1,1 @@
-export { default as ResumAgrupacio } from './resum-agrupacio';
+export { default as ResumAgrupacio } from "./resum-agrupacio";

@@ -1,1 +1,1 @@
-export { default as Inici } from './inici';
+export { default as Inici } from "./inici";

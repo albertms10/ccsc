@@ -1,1 +1,1 @@
-export { default as PerfilSoci } from './perfil-soci';
+export { default as PerfilSoci } from "./perfil-soci";

@@ -1,1 +1,1 @@
-export { default as StatusBadge } from './status-badge';
+export { default as StatusBadge } from "./status-badge";

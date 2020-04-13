@@ -1,1 +1,1 @@
-export { default as Agrupacio } from './agrupacio';
+export { default as Agrupacio } from "./agrupacio";

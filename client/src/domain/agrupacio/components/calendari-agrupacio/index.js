@@ -1,1 +1,1 @@
-export { default as CalendariAgrupacio } from './calendari-agrupacio';
+export { default as CalendariAgrupacio } from "./calendari-agrupacio";

@@ -10,14 +10,9 @@ import { IconAgrupacio } from '../../../../icons';
 const { SubMenu, Item, ItemGroup } = Menu;
 
 export default ({ collapsed }) => {
-  const initialPaths = [
-    '/',
-    '/socis',
-    '/reunions',
-    '/pagaments',
-  ];
+  const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
 
-  const [menuPosition, setMenuPosition] = useState('');
+  const [menuPosition, setMenuPosition] = useState("");
   const [paths, setPaths] = useState(initialPaths);
   const [itemsAgrupacions, setItemsAgrupacions] = useState([]);
 
@@ -28,99 +23,114 @@ export default ({ collapsed }) => {
 
   const items = [
     {
-      title: 'Inici',
+      title: "Inici",
       icon: <HomeOutlined />,
-      path: '/',
+      path: "/",
     },
     {
-      key: 'group1',
-      title: 'Agrupacions',
+      key: "group1",
+      title: "Agrupacions",
       loading: loadingAgrupacions,
       groupedItems: itemsAgrupacions,
     },
     {
-      key: 'group2',
-      title: 'Associació',
+      key: "group2",
+      title: "Associació",
       groupedItems: [
         {
-          title: 'Socis',
+          title: "Socis",
           icon: <TeamOutlined />,
-          path: '/socis',
+          path: "/socis",
         },
         {
-          title: 'Reunions',
+          title: "Reunions",
           icon: <SolutionOutlined />,
-          path: '/reunions',
+          path: "/reunions",
         },
         {
-          title: 'Pagaments',
+          title: "Pagaments",
           icon: <ScheduleOutlined />,
-          path: '/pagaments',
+          path: "/pagaments",
         },
       ],
     },
   ];
 
   useEffect(() => {
-    setPaths(prevPaths => prevPaths.splice(1, 0,
-      ...agrupacions.map(agrupacio => '/' + kebabCase(agrupacio.nom_curt)),
-    ));
+    setPaths((prevPaths) =>
+      prevPaths.splice(
+        1,
+        0,
+        ...agrupacions.map((agrupacio) => "/" + kebabCase(agrupacio.nom_curt))
+      )
+    );
 
-    setItemsAgrupacions(agrupacions.map(agrupacio => (
-      {
+    setItemsAgrupacions(
+      agrupacions.map((agrupacio) => ({
         title: agrupacio.nom_curt,
         icon: <IconAgrupacio name={agrupacio.nom_curt} />,
-        path: '/' + kebabCase(agrupacio.nom_curt),
-      }
-    )));
+        path: "/" + kebabCase(agrupacio.nom_curt),
+      }))
+    );
   }, [agrupacions]);
 
   useEffect(() => {
-    setMenuPosition(paths.find(path => {
-      const numDirectories = path.split('/').length - 1;
+    setMenuPosition(
+      paths.find((path) => {
+        const numDirectories = path.split("/").length - 1;
 
-      const getBasename = (pathname, n) => {
-        const subPathsIndex = nIndexOf(location.pathname, '/', n);
-        return subPathsIndex !== -1
-          ? pathname.substr(0, subPathsIndex)
-          : pathname;
-      };
+        const getBasename = (pathname, n) => {
+          const subPathsIndex = nIndexOf(location.pathname, "/", n);
+          return subPathsIndex !== -1
+            ? pathname.substr(0, subPathsIndex)
+            : pathname;
+        };
 
-      return path === getBasename(location.pathname, numDirectories + 1);
-    }));
+        return path === getBasename(location.pathname, numDirectories + 1);
+      })
+    );
   }, [location, paths]);
 
-  const renderGroup = item => (
+  const renderGroup = (item) => (
     <ItemGroup
       key={item.key}
       className="main-menu-item-group"
-      title={collapsed ? '' : item.title}
+      title={collapsed ? "" : item.title}
     >
-      {item.loading
-        ? (
-          <Item>
-            <Spin indicator={<LoadingOutlined style={{ color: 'white', paddingLeft: '1rem' }} />} />
-          </Item>
-        )
-        : item.groupedItems.map(item => {
-          if (item.hasOwnProperty('subItems')) return renderSubMenu(item);
+      {item.loading ? (
+        <Item>
+          <Spin
+            indicator={
+              <LoadingOutlined
+                style={{ color: "white", paddingLeft: "1rem" }}
+              />
+            }
+          />
+        </Item>
+      ) : (
+        item.groupedItems.map((item) => {
+          if (item.hasOwnProperty("subItems")) return renderSubMenu(item);
           return renderItem(item);
-        })}
+        })
+      )}
     </ItemGroup>
   );
 
-  const renderSubMenu = item => (
-    <SubMenu key={item.key} title={
-      <span>
-        {item.icon}
-        <span>{item.title}</span>
-      </span>
-    }>
+  const renderSubMenu = (item) => (
+    <SubMenu
+      key={item.key}
+      title={
+        <span>
+          {item.icon}
+          <span>{item.title}</span>
+        </span>
+      }
+    >
       {item.subItems.map(renderItem)}
     </SubMenu>
   );
 
-  const renderItem = item => (
+  const renderItem = (item) => (
     <Item key={item.path}>
       <Link to={item.path}>
         {item.icon}
@@ -136,13 +146,9 @@ export default ({ collapsed }) => {
       defaultSelectedKeys={[menuPosition]}
       mode="inline"
     >
-      {items.map(item => {
-        if (item.hasOwnProperty('groupedItems'))
-          return renderGroup(item);
-
-        else if (item.hasOwnProperty('subItems'))
-          return renderSubMenu(item);
-
+      {items.map((item) => {
+        if (item.hasOwnProperty("groupedItems")) return renderGroup(item);
+        else if (item.hasOwnProperty("subItems")) return renderSubMenu(item);
         return renderItem(item);
       })}
     </Menu>

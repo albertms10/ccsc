@@ -14,13 +14,20 @@ export default ({ agrupacio }) => (
   <ContentHeader
     title={agrupacio.nom}
     subtitle={agrupacio.descripcio}
-    icon={<IconAgrupacio name={agrupacio.nom_curt} style={{ color: '#1d71b8', fontSize: '4rem' }} />}
+    icon={
+      <IconAgrupacio
+        name={agrupacio.nom_curt}
+        style={{ color: "#1d71b8", fontSize: "4rem" }}
+      />
+    }
     footer={
-      <Tabs renderTabBar={(props, DefaultTabBar) => (
-        <Sticky bottomOffset={80} innerZ={5}>
-          <DefaultTabBar {...props} />
-        </Sticky>
-      )}>
+      <Tabs
+        renderTabBar={(props, DefaultTabBar) => (
+          <Sticky bottomOffset={80} innerZ={5}>
+            <DefaultTabBar {...props} />
+          </Sticky>
+        )}
+      >
         <TabPane tab="Resum" key="resum">
           <ResumAgrupacio idAgrupacio={agrupacio.id_agrupacio} />
         </TabPane>
@@ -32,4 +39,4 @@ export default ({ agrupacio }) => (
       </Tabs>
     }
   />
-)
+);

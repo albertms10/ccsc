@@ -1,1 +1,1 @@
-export { default as SmallBadge } from './small-badge';
+export { default as SmallBadge } from "./small-badge";

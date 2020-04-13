@@ -5,7 +5,12 @@ export default (props) => (
   <Tooltip title={props.tooltip} placement={props.tooltipPlacement}>
     <Button
       {...props}
-      style={{ border: 'none', backgroundColor: 'transparent', boxShadow: 'none', opacity: .8 }}
+      style={{
+        border: "none",
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        opacity: 0.8,
+      }}
     />
   </Tooltip>
-)
+);

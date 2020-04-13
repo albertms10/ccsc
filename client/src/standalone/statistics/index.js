@@ -1,1 +1,1 @@
-export { default as SocisCountStatistics } from './socis-count-statistics';
+export { default as SocisCountStatistics } from "./socis-count-statistics";

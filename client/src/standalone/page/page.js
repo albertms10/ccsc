@@ -9,14 +9,14 @@ export default ({ title, action, children }) => (
       <Col span={action ? 12 : 24}>
         <Title level={1}>{title}</Title>
       </Col>
-      {action
-        ? (
-          <Col span={12} style={{ textAlign: 'right' }}>
-            {action}
-          </Col>
-        )
-        : ''}
+      {action ? (
+        <Col span={12} style={{ textAlign: "right" }}>
+          {action}
+        </Col>
+      ) : (
+        ""
+      )}
     </Row>
     {children}
   </>
-)
+);

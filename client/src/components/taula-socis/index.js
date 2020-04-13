@@ -1,1 +1,1 @@
-export { default as TaulaSocis } from './taula-socis';
+export { default as TaulaSocis } from "./taula-socis";

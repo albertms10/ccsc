@@ -18,12 +18,13 @@ export default ({ tooltip, statusId, esAniversari, style }) => {
 
   return (
     <Tooltip title={tooltip}>
-      {esAniversari
-        ? <GiftTwoTone twoToneColor="#eb2f96" style={style} />
-        : statusId
-          ? cloneElement(status[statusId - 1], { style })
-          : ''
-      }
+      {esAniversari ? (
+        <GiftTwoTone twoToneColor="#eb2f96" style={style} />
+      ) : statusId ? (
+        cloneElement(status[statusId - 1], { style })
+      ) : (
+        ""
+      )}
     </Tooltip>
   );
-}
+};

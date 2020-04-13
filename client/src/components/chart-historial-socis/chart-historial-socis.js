@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card } from 'antd';
 import { AreaChart } from '@opd/g2plot-react';
+import useHistorialSocis from './hooks/useHistorialSocis';
 
 export default ({ title, description }) => {
-  const [historial, setHistorial] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/socis/historial')
-      .then(res => res.json())
-      .then(data => setHistorial(data));
-  }, []);
+  const historial = useHistorialSocis();
 
   return (
     <Card>
@@ -19,13 +14,13 @@ export default ({ title, description }) => {
         data={historial}
         xField="trimestre"
         yField="socis"
-        smooth={true}
+        color="#3f8dc4"
         meta={{
-          trimestre: { alias: 'Trimestre' },
-          socis: { alias: 'Socis' },
+          trimestre: { alias: "Trimestre" },
+          socis: { alias: "Socis" },
         }}
         yAxis={{ min: 0 }}
       />
     </Card>
   );
-}
+};

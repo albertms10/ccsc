@@ -1,1 +1,1 @@
-export { default as CalendarAvatar } from './calendar-avatar';
+export { default as CalendarAvatar } from "./calendar-avatar";

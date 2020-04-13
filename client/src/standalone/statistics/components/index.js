@@ -1,1 +1,1 @@
-export { default as MultipleStatistics } from './multiple-statistics';
+export { default as MultipleStatistics } from "./multiple-statistics";

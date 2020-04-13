@@ -1,19 +1,20 @@
 module.exports = (app) => {
-  const connection = app.get('connection');
+  const connection = app.get("connection");
 
-  app.get('/api/associacio', (req, res, next) => {
+  app.get("/api/associacio", (req, res, next) => {
     connection.query(
-        `SELECT *
+      `SELECT *
          FROM associacio;`,
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/associacio/agrupacions', (req, res, next) => {
+  app.get("/api/associacio/agrupacions", (req, res, next) => {
     connection.query(
-        `SELECT id_agrupacio,
+      `SELECT id_agrupacio,
                 a.nom,
                 IFNULL(nom_curt, a.nom) AS nom_curt,
                 descripcio,
@@ -24,6 +25,7 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 };

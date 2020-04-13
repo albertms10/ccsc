@@ -1,11 +1,11 @@
-const saltHashPassword = require('../utils/saltHashPassword');
+const saltHashPassword = require("../utils/saltHashPassword");
 
 module.exports = (app) => {
-  const connection = app.get('connection');
+  const connection = app.get("connection");
 
-  app.get('/api/socis/count', (req, res, next) => {
+  app.get("/api/socis/count", (req, res, next) => {
     connection.query(
-        `SELECT (
+      `SELECT (
                     SELECT COUNT(id_soci)
                     FROM socis
                              INNER JOIN persones ON socis.id_soci = persones.id_persona
@@ -29,12 +29,13 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.json(rows);
-      });
+      }
+    );
   });
 
-  app.get('/api/socis/historial', (req, res, next) => {
+  app.get("/api/socis/historial", (req, res, next) => {
     connection.query(
-        `SELECT CONCAT('T', num, '\n(', id_curs, ')') AS trimestre, COUNT(*) AS socis
+      `SELECT CONCAT('T', num, '\n(', id_curs, ')') AS trimestre, COUNT(*) AS socis
          FROM socis
                   INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
                   INNER JOIN associacio USING (id_associacio)
@@ -46,7 +47,8 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
 
   // TODO
@@ -66,9 +68,9 @@ module.exports = (app) => {
   });
    */
 
-  app.get('/api/socis', (req, res, next) => {
+  app.get("/api/socis", (req, res, next) => {
     connection.query(
-        `SELECT id_persona,
+      `SELECT id_persona,
                 nom,
                 cognoms,
                 nom_complet,
@@ -113,60 +115,74 @@ module.exports = (app) => {
       (err, rows) => {
         if (err) next(err);
         res.json(rows);
-      });
+      }
+    );
   });
 
-  app.post('/api/socis', (req, res, next) => {
+  app.post("/api/socis", (req, res, next) => {
     const usuari = req.body;
-    const password = usuari.naixement.split('-').reverse().join('-');
+    const password = usuari.naixement.split("-").reverse().join("-");
 
     connection.query(
-        `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
+      `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
                                accepta_proteccio_dades, accepta_drets_imatge)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
-      [usuari.nom, usuari.cognoms, usuari.naixement, usuari.nacionalitat, usuari.dni, usuari.email, usuari.acceptaProteccioDades, usuari.acceptaDretsImatge],
+      [
+        usuari.nom,
+        usuari.cognoms,
+        usuari.naixement,
+        usuari.nacionalitat,
+        usuari.dni,
+        usuari.email,
+        usuari.acceptaProteccioDades,
+        usuari.acceptaDretsImatge,
+      ],
       (err, rows_persones) => {
         if (err) next(err);
-        console.log('1 record inserted into `persones`');
+        console.log("1 record inserted into `persones`");
 
         const id_persona = rows_persones.insertId;
 
         connection.query(
-            `INSERT INTO usuaris (username, id_persona, salt, encrypted_password)
+          `INSERT INTO usuaris (username, id_persona, salt, encrypted_password)
              VALUES (?, ?, ?, ?);`,
           [usuari.username, id_persona, ...saltHashPassword({ password })],
           (err) => {
             if (err) next(err);
-            console.log('1 record inserted into `usuaris`');
-          });
+            console.log("1 record inserted into `usuaris`");
+          }
+        );
 
         connection.query(
-            `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
+          `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
              VALUES (?, ?, ?);`,
           [id_persona, usuari.experiencia_musical, usuari.estudis_musicals],
           (err) => {
             if (err) next(err);
-            console.log('1 record inserted into `socis`');
+            console.log("1 record inserted into `socis`");
 
             connection.query(
-                `INSERT INTO historial_socis (id_historial_soci, data_alta)
+              `INSERT INTO historial_socis (id_historial_soci, data_alta)
                  VALUES (?, ?);`,
               [id_persona, usuari.data_alta],
               (err) => {
                 if (err) next(err);
-                console.log('1 record inserted into `historial_socis`');
-              });
-          });
-      });
+                console.log("1 record inserted into `historial_socis`");
+              }
+            );
+          }
+        );
+      }
+    );
 
     res.end();
   });
 
-  app.delete('/api/socis/:id', (req, res, next) => {
+  app.delete("/api/socis/:id", (req, res, next) => {
     const id_persona = req.params.id;
 
     connection.query(
-        `DELETE
+      `DELETE
          FROM usuaris
          WHERE id_persona = ?;
 
@@ -184,7 +200,8 @@ module.exports = (app) => {
       [id_persona, id_persona, id_persona, id_persona],
       (err) => {
         if (err) next(err);
-      });
+      }
+    );
 
     res.end();
   });
