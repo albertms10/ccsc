@@ -40,7 +40,9 @@ CREATE TABLE IF NOT EXISTS persones
 
     PRIMARY KEY (id_persona),
     FOREIGN KEY (id_pais) REFERENCES paisos (id_pais),
-    FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
+    FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio),
+    UNIQUE (dni),
+    UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS socis
