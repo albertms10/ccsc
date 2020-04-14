@@ -1,5 +1,5 @@
-import React from 'react';
-import Icon from '@ant-design/icons';
+import React from "react";
+import Icon from "@ant-design/icons";
 
 export default (props) => <Icon {...props} component={SVGCorDeCambra} />;
 

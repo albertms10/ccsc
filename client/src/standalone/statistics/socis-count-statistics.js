@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Space, Statistic } from 'antd';
-import { Link } from 'react-router-dom';
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
-import { MultipleStatistics } from './components';
+import React, { useEffect, useState } from "react";
+import { Card, Space, Statistic } from "antd";
+import { Link } from "react-router-dom";
+import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import { MultipleStatistics } from "./components";
 
 export default () => {
   const [countSocis, setCountSocis] = useState({});

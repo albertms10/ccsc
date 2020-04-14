@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card } from 'antd';
-import { AreaChart } from '@opd/g2plot-react';
-import useHistorialSocis from './hooks/useHistorialSocis';
+import React from "react";
+import { Card } from "antd";
+import { AreaChart } from "@opd/g2plot-react";
+import useHistorialSocis from "./hooks/useHistorialSocis";
 
 export default ({ title, description }) => {
   const historial = useHistorialSocis();

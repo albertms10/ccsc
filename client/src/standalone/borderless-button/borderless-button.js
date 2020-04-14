@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Tooltip } from 'antd';
+import React from "react";
+import { Button, Tooltip } from "antd";
 
 export default (props) => (
   <Tooltip title={props.tooltip} placement={props.tooltipPlacement}>

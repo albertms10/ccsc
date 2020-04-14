@@ -1,5 +1,5 @@
-import { Badge } from 'antd';
-import React from 'react';
+import { Badge } from "antd";
+import React from "react";
 
 export default (props) => (
   <Badge

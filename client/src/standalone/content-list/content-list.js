@@ -1,10 +1,10 @@
-import React from 'react';
-import { List, Space } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { List, Space } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
-import { BorderlessButton } from '../borderless-button';
-import './content-list.css';
+import { BorderlessButton } from "../borderless-button";
+import "./content-list.css";
 
 export default ({ title, loading, data, style }) => {
   return (

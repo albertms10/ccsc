@@ -1,14 +1,14 @@
-import React from 'react';
-import moment from 'moment';
-import { Button, Calendar, Space } from 'antd';
-import { CalendarTag } from '../../../../standalone/calendar-tag';
-import { useCalendariEsdeveniments } from './hooks';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { BorderlessButton } from '../../../../standalone/borderless-button';
-import { Container } from '../../../../standalone/container';
-import { SearchComplete } from '../../../../standalone/search-complete';
+import React from "react";
+import moment from "moment";
+import { Button, Calendar, Space } from "antd";
+import { CalendarTag } from "../../../../standalone/calendar-tag";
+import { useCalendariEsdeveniments } from "./hooks";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { BorderlessButton } from "../../../../standalone/borderless-button";
+import { Container } from "../../../../standalone/container";
+import { SearchComplete } from "../../../../standalone/search-complete";
 
-import './calendari-agrupacio.css';
+import "./calendari-agrupacio.css";
 
 export default ({ idAgrupacio }) => {
   const esdeveniments = useCalendariEsdeveniments(idAgrupacio);

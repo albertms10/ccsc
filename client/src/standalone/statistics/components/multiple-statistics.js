@@ -1,6 +1,6 @@
-import React from 'react';
-import { Space, Statistic } from 'antd';
-import { MinusOutlined } from '@ant-design/icons';
+import React from "react";
+import { Space, Statistic } from "antd";
+import { MinusOutlined } from "@ant-design/icons";
 
 export default ({ title, statistics }) => (
   <div style={{ display: "inline-block" }}>

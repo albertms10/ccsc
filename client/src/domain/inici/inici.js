@@ -1,10 +1,10 @@
-import React from 'react';
-import { Col, Row } from 'antd';
+import React from "react";
+import { Col, Row } from "antd";
 
-import { Page } from '../../standalone/page';
-import { ChartHistorialSocis } from '../../components/chart-historial-socis';
-import { SocisCountStatistics } from '../../standalone/statistics';
-import { Container } from '../../standalone/container';
+import { Page } from "../../standalone/page";
+import { ChartHistorialSocis } from "../../components/chart-historial-socis";
+import { SocisCountStatistics } from "../../standalone/statistics";
+import { Container } from "../../standalone/container";
 
 const Inici = () => {
   return (

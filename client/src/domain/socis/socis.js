@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { Page } from '../../standalone/page';
-import { TaulaSocis } from '../../components/taula-socis';
-import { ModalAfegirSoci } from '../../components/modal-afegir-soci';
-import { Container } from '../../standalone/container';
+import { Page } from "../../standalone/page";
+import { TaulaSocis } from "../../components/taula-socis";
+import { ModalAfegirSoci } from "../../components/modal-afegir-soci";
+import { Container } from "../../standalone/container";
 
 export default () => {
   /**

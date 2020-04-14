@@ -1,12 +1,17 @@
-import React from 'react';
-import moment from 'moment';
-import { Avatar, Col, Row } from 'antd';
-import { ContentList } from '../../../../standalone/content-list';
-import { FixedTag } from '../../../../standalone/fixed-tag';
-import { CalendarAvatar } from '../../../../standalone/calendar-avatar';
-import { SmallBadge } from '../../../../standalone/small-badge';
-import { Container } from '../../../../standalone/container';
-import { useAssajos, useConcerts, useParticipants, useProjectes } from '../../hooks';
+import React from "react";
+import moment from "moment";
+import { Avatar, Col, Row } from "antd";
+import { ContentList } from "../../../../standalone/content-list";
+import { FixedTag } from "../../../../standalone/fixed-tag";
+import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
+import { SmallBadge } from "../../../../standalone/small-badge";
+import { Container } from "../../../../standalone/container";
+import {
+  useAssajos,
+  useConcerts,
+  useParticipants,
+  useProjectes,
+} from "../../hooks";
 
 export default ({ idAgrupacio }) => {
   const [assajos, loadingAssajos] = useAssajos(idAgrupacio);

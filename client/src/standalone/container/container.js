@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './container.css';
+import "./container.css";
 
 export default ({ noPadding, noBackground, children, style }) => (
   <div

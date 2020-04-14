@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Button, Form, message, Modal, Steps } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Button, Form, message, Modal, Steps } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
-import { FormAfegirSoci } from './components/form-afegir-soci';
-import { stripAccents } from '../../utils';
-import './modal-afegir-soci.css';
+import { FormAfegirSoci } from "./components/form-afegir-soci";
+import { stripAccents } from "../../utils";
+import "./modal-afegir-soci.css";
 
 const { Step } = Steps;
 

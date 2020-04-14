@@ -1,9 +1,9 @@
-import React from 'react';
-import moment from 'moment';
-import { Col, Row, Space } from 'antd';
-import { EditFilled } from '@ant-design/icons';
-import { BorderlessButton } from '../borderless-button';
-import { StatusBadge } from '../status-badge';
+import React from "react";
+import moment from "moment";
+import { Col, Row, Space } from "antd";
+import { EditFilled } from "@ant-design/icons";
+import { BorderlessButton } from "../borderless-button";
+import { StatusBadge } from "../status-badge";
 
 export default ({ event }) => (
   <>

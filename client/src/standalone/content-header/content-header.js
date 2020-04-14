@@ -1,8 +1,8 @@
-import React from 'react';
-import { PageHeader } from 'antd';
-import { HeaderTitle } from '../header-title';
+import React from "react";
+import { PageHeader } from "antd";
+import { HeaderTitle } from "../header-title";
 
-import './content-header.css';
+import "./content-header.css";
 
 export default ({ title, subtitle, icon, footer }) => (
   <div className="content-header">

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import { Popover, Tag } from 'antd';
-import { CalendarEventPopover } from '../calendar-event-popover';
-import { StatusBadge } from '../status-badge';
+import React, { useState } from "react";
+import moment from "moment";
+import { Popover, Tag } from "antd";
+import { CalendarEventPopover } from "../calendar-event-popover";
+import { StatusBadge } from "../status-badge";
 
-import './calendar-tag.css';
+import "./calendar-tag.css";
 
 export default ({ childKey, event }) => {
   const [visible, setVisible] = useState(false);

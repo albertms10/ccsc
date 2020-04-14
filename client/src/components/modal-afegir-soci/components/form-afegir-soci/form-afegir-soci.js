@@ -1,7 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Collapse, DatePicker, Descriptions, Divider, Form, Input, Select, Spin, Switch } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import {
+  Alert,
+  Collapse,
+  DatePicker,
+  Descriptions,
+  Divider,
+  Form,
+  Input,
+  Select,
+  Spin,
+  Switch,
+} from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const { TextArea } = Input;
 const { Option } = Select;

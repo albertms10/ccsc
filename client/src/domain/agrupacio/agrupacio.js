@@ -1,12 +1,12 @@
-import React from 'react';
-import Sticky from 'react-stickynode';
-import { Tabs } from 'antd';
-import { ContentHeader } from '../../standalone/content-header';
-import { IconAgrupacio } from '../../icons';
-import { ResumAgrupacio } from './components/resum-agrupacio';
-import { CalendariAgrupacio } from './components/calendari-agrupacio';
+import React from "react";
+import Sticky from "react-stickynode";
+import { Tabs } from "antd";
+import { ContentHeader } from "../../standalone/content-header";
+import { IconAgrupacio } from "../../icons";
+import { ResumAgrupacio } from "./components/resum-agrupacio";
+import { CalendariAgrupacio } from "./components/calendari-agrupacio";
 
-import './agrupacio.css';
+import "./agrupacio.css";
 
 const { TabPane } = Tabs;
 

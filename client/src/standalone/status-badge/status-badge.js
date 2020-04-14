@@ -1,12 +1,12 @@
-import React, { cloneElement } from 'react';
-import { Tooltip } from 'antd';
+import React, { cloneElement } from "react";
+import { Tooltip } from "antd";
 import {
   CheckCircleTwoTone,
   CloseCircleTwoTone,
   GiftTwoTone,
   QuestionCircleTwoTone,
   WarningTwoTone,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
 export default ({ tooltip, statusId, esAniversari, style }) => {
   const status = [
