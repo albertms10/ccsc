@@ -61,23 +61,30 @@ CREATE TABLE IF NOT EXISTS socis
     FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
 );
 
-CREATE TABLE IF NOT EXISTS socis_perfils
-(
-    id_soci        SMALLINT UNSIGNED NOT NULL,
-    id_perfil_soci TINYINT UNSIGNED  NOT NULL,
+/*
+ usuari
+ junta_directiva
+ director_musical
+ admin
+ */
 
-    PRIMARY KEY (id_soci, id_perfil_soci),
-    FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
-    FOREIGN KEY (id_perfil_soci) REFERENCES perfils_soci (id_perfil_soci)
+CREATE TABLE IF NOT EXISTS perfils
+(
+    id_perfil TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    nom       VARCHAR(50)     NOT NULL,
+
+    PRIMARY KEY (id_perfil)
 );
 
-CREATE TABLE IF NOT EXISTS perfils_soci
+CREATE TABLE IF NOT EXISTS perfils_usuaris
 (
-    id_perfil_soci TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_usuari SMALLINT UNSIGNED NOT NULL,
+    id_perfil TINYINT UNSIGNED  NOT NULL,
 
-    nom            VARCHAR(100)     NOT NULL,
-
-    PRIMARY KEY (id_perfil_soci)
+    PRIMARY KEY (id_usuari, id_perfil),
+    FOREIGN KEY (id_usuari) REFERENCES usuaris (id_usuari),
+    FOREIGN KEY (id_perfil) REFERENCES perfils (id_perfil)
 );
 
 /*
@@ -90,14 +97,15 @@ Responsable de tresoreria
 Responsable de secretaria
  */
 
+/*
 CREATE TABLE IF NOT EXISTS perfils_accions
 (
-    id_perfil_soci TINYINT UNSIGNED    NOT NULL,
+    id_perfil TINYINT UNSIGNED    NOT NULL,
     id_accio_soci  SMALLINT UNSIGNED   NOT NULL,
     valor          TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 
-    PRIMARY KEY (id_perfil_soci, id_accio_soci),
-    FOREIGN KEY (id_perfil_soci) REFERENCES perfils_soci (id_perfil_soci),
+    PRIMARY KEY (id_perfil, id_accio_soci),
+    FOREIGN KEY (id_perfil) REFERENCES perfils (id_perfil),
     FOREIGN KEY (id_accio_soci) REFERENCES accions_socis (id_accio_soci)
 );
 
@@ -110,6 +118,7 @@ CREATE TABLE IF NOT EXISTS accions_socis
 
     PRIMARY KEY (id_accio_soci)
 );
+ */
 
 /*
 Perfil propi
@@ -1014,7 +1023,8 @@ CREATE TABLE IF NOT EXISTS encarregats_correus_associacio
     data_final                       DATE,
 
     PRIMARY KEY (id_adreca_electronica_associacio, id_soci, data_inici),
-    FOREIGN KEY (id_adreca_electronica_associacio) REFERENCES adreces_electroniques_associacio (id_adreca_electronica_associacio),
+    FOREIGN KEY (id_adreca_electronica_associacio)
+        REFERENCES adreces_electroniques_associacio (id_adreca_electronica_associacio),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
 );
 
@@ -1100,8 +1110,10 @@ CREATE TABLE IF NOT EXISTS articles_documentacio
    També podem tenir aquests `col·laboradors` en `esdeveniments->assajos`.
 
    Podem distingir entre:
-     - `esdeveniments` musicals (assajos i concerts) -> [Repertori treballat/interpretat, Persones col·laboradores]
-     - `esdeveniments` legals (reunions i assemblees) -> [Delegar vots, Punts tractats]
+     - `esdeveniments` musicals (assajos i concerts)
+            -> [Repertori treballat/interpretat, Persones col·laboradores]
+     - `esdeveniments` legals (reunions i assemblees)
+            -> [Delegar vots, Punts tractats]
 
    L'arbre quedaria:
      (esdeveniments) : List<Soci> assistents

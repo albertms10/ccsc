@@ -120,43 +120,57 @@ module.exports = (app) => {
   });
 
   app.post("/api/socis", (req, res, next) => {
-    const usuari = req.body;
-    const password = usuari.naixement.split("-").reverse().join("-");
+    const soci = req.body;
+    const password = soci.naixement.split("-").reverse().join("-");
 
+    // TODO És correcta aquesta anidació de consultes?
     connection.query(
       `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
                                accepta_proteccio_dades, accepta_drets_imatge)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
       [
-        usuari.nom,
-        usuari.cognoms,
-        usuari.naixement,
-        usuari.nacionalitat,
-        usuari.dni,
-        usuari.email,
-        usuari.acceptaProteccioDades,
-        usuari.acceptaDretsImatge,
+        soci.nom,
+        soci.cognoms,
+        soci.naixement,
+        soci.nacionalitat,
+        soci.dni,
+        soci.email,
+        soci.acceptaProteccioDades,
+        soci.acceptaDretsImatge,
       ],
-      (err, rows_persones) => {
+      (err, rows_persona) => {
         if (err) next(err);
         console.log("1 record inserted into `persones`");
 
-        const id_persona = rows_persones.insertId;
+        const id_persona = rows_persona.insertId;
 
+        // TODO Hauria de realitzar aquesta consulta com a POST /api/usuaris?
         connection.query(
           `INSERT INTO usuaris (username, id_persona, salt, encrypted_password)
              VALUES (?, ?, ?, ?);`,
-          [usuari.username, id_persona, ...saltHashPassword({ password })],
-          (err) => {
+          [soci.username, id_persona, ...saltHashPassword({ password })],
+          (err, rows_usuari) => {
             if (err) next(err);
             console.log("1 record inserted into `usuaris`");
+
+            const id_usuari = rows_usuari.insertId;
+
+            connection.query(
+              `INSERT INTO perfils_usuaris
+                 VALUES (?, ?);`,
+              [id_usuari, 1],
+              (err) => {
+                if (err) next(err);
+                console.log("1 record inserted into `perfils_usuaris`");
+              }
+            );
           }
         );
 
         connection.query(
           `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
              VALUES (?, ?, ?);`,
-          [id_persona, usuari.experiencia_musical, usuari.estudis_musicals],
+          [id_persona, soci.experiencia_musical, soci.estudis_musicals],
           (err) => {
             if (err) next(err);
             console.log("1 record inserted into `socis`");
@@ -164,7 +178,7 @@ module.exports = (app) => {
             connection.query(
               `INSERT INTO historial_socis (id_historial_soci, data_alta)
                  VALUES (?, ?);`,
-              [id_persona, usuari.data_alta],
+              [id_persona, soci.data_alta],
               (err) => {
                 if (err) next(err);
                 console.log("1 record inserted into `historial_socis`");
