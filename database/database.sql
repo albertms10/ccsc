@@ -496,6 +496,7 @@ CREATE TABLE IF NOT EXISTS punts_reunio
     FOREIGN KEY (id_reunio) REFERENCES reunions (id_reunio)
 );
 
+/* TODO Relació actes-documentacions? */
 CREATE TABLE IF NOT EXISTS actes_reunions
 (
     id_acta_reunio SMALLINT UNSIGNED NOT NULL,
