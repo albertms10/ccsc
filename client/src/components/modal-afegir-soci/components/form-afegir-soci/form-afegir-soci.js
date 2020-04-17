@@ -42,6 +42,7 @@ export default ({
       });
   }, []);
 
+  // TODO Extreure la lògica a `utils` i retornar una `Promise`
   const validatorDniES = (rule, value) => {
     const XIFRES = 8;
 

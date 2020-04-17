@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 const connection = require("./connection");
 app.set("connection", connection);
 
+// Routes
 require("./routes/agrupacions")(app);
 require("./routes/associacio")(app);
 require("./routes/esdeveniments")(app);
@@ -18,8 +19,10 @@ require("./routes/localitzacions")(app);
 require("./routes/socis")(app);
 require("./routes/usuaris")(app);
 
-app.listen(PORT, HOST);
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
 
+app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 process

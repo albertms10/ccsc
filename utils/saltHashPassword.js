@@ -14,11 +14,11 @@ const randomString = (size) => crypto.randomBytes(size).toString("hex");
  *
  * @param {string} password
  * @param {string} salt
- * @returns {[string, string]}
+ * @returns {{salt: string, hash: string}}
  */
 const saltHashPassword = ({ password, salt = randomString(4) }) => {
   const hash = crypto.createHmac("sha512", salt).update(password);
-  return [salt, hash.digest("hex")];
+  return { salt, hash: hash.digest("hex") };
 };
 
 module.exports = saltHashPassword;

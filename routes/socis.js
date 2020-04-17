@@ -143,12 +143,13 @@ module.exports = (app) => {
         console.log("1 record inserted into `persones`");
 
         const id_persona = rows_persona.insertId;
+        const { salt, hash } = saltHashPassword({ password });
 
         // TODO Hauria de realitzar aquesta consulta com a POST /api/usuaris?
         connection.query(
           `INSERT INTO usuaris (username, id_persona, salt, encrypted_password)
              VALUES (?, ?, ?, ?);`,
-          [soci.username, id_persona, ...saltHashPassword({ password })],
+          [soci.username, id_persona, salt, hash],
           (err, rows_usuari) => {
             if (err) next(err);
             console.log("1 record inserted into `usuaris`");
@@ -156,7 +157,7 @@ module.exports = (app) => {
             const id_usuari = rows_usuari.insertId;
 
             connection.query(
-              `INSERT INTO perfils_usuaris
+              `INSERT INTO roles_usuaris
                  VALUES (?, ?);`,
               [id_usuari, 1],
               (err) => {

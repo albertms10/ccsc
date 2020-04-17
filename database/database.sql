@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS perfils_usuaris
 
     PRIMARY KEY (id_usuari, id_perfil),
     FOREIGN KEY (id_usuari) REFERENCES usuaris (id_usuari),
-    FOREIGN KEY (id_perfil) REFERENCES perfils (id_perfil)
+    FOREIGN KEY (id_perfil) REFERENCES roles (id_role)
 );
 
 /*
