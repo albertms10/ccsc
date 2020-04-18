@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
+// TODO És correcte aquest import? Hauria de fer servir el mateix que a l'app del `server.js`?
 const connection = require("../../connection");
 
 verifyToken = (req, res, next) => {
