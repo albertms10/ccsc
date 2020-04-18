@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { kebabCase, nIndexOf } from '../../../../utils';
 import './main-menu.css';
 import { HomeOutlined, LoadingOutlined, ScheduleOutlined, SolutionOutlined, TeamOutlined } from '@ant-design/icons';
-import { AgrupacionsContext, LoadingAgrupacionsContext } from '../../../app/app';
+import { AgrupacionsContext, LoadingAgrupacionsContext } from '../../../tauler/tauler';
 import { IconAgrupacio } from '../../../../icons';
 
 const { SubMenu, Item, ItemGroup } = Menu;

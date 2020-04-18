@@ -51,7 +51,7 @@ module.exports = (app) => {
     );
   });
 
-  // TODO
+  // TODO Quina id hauria de fer servir per referenciar documents a les URL?
   /*
   app.get('/api/socis/:username', (req, res, next) => {
     const username = req.params.username;

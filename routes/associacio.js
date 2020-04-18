@@ -1,11 +1,6 @@
 module.exports = (app) => {
   const connection = app.get("connection");
 
-  // TODO Proves
-  app.get("/", (req, res) => {
-    res.json({ message: "Welcome!" });
-  });
-
   // TODO Com hauria de gestionar les consultes en relació amb les rutes?
   //      -> Exportant les consultes a arxius externs?
   app.get("/api/associacio", (req, res, next) => {
