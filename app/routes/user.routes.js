@@ -19,4 +19,6 @@ module.exports = (app) => {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  app.get("/api/auth/user", [authJwt.verifyToken, authJwt.userInfo]);
 };

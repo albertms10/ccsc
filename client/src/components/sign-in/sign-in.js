@@ -1,26 +1,37 @@
-import React from "react";
-import { Button, Space } from "antd";
-import { logoutUserClean, signinUserFetch } from "../../redux";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getProfileFetch, logoutUser, signinUserFetch } from "../../redux";
+import { Button, Space } from "antd";
 
 export default () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
-  console.log("Current user", currentUser);
+  useEffect(() => {
+    dispatch(getProfileFetch());
+  }, [dispatch]);
 
   return (
     <Space>
+      {currentUser.hasOwnProperty("id")
+        ? currentUser.username
+        : "Please sign in"}
       <Button
         onClick={() =>
           dispatch(
             signinUserFetch({ username: "albertm", password: "10-03-2020" })
           )
         }
+        disabled={!!currentUser.hasOwnProperty("id")}
       >
         Sign in
       </Button>
-      <Button onClick={() => dispatch(logoutUserClean())}>Log out</Button>
+      <Button
+        onClick={() => dispatch(logoutUser())}
+        disabled={!currentUser.hasOwnProperty("id")}
+      >
+        Log out
+      </Button>
     </Space>
   );
 };

@@ -1,4 +1,4 @@
-import { LOGOUT_USER, SIGNIN_USER } from "./user-types";
+import { REMOVE_USER, SAVE_USER } from "./user-types";
 
 const initialState = {
   currentUser: {},
@@ -6,12 +6,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SIGNIN_USER:
+    case SAVE_USER:
       return {
         ...state,
         currentUser: action.payload,
       };
-    case LOGOUT_USER:
+    case REMOVE_USER:
       return {
         ...state,
         currentUser: {},

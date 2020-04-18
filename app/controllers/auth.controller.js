@@ -11,6 +11,7 @@ exports.signin = (req, res, next) => {
       .status(400)
       .send({ message: "Username or password not provided" });
 
+  // TODO Aquesta consulta hauria d'estar a un endpoint concret?
   connection.query(
     `SELECT id_usuari AS id,
               username,
@@ -70,7 +71,7 @@ exports.signin = (req, res, next) => {
           (role) => "ROLE_" + role.toUpperCase()
         );
 
-        res.send({
+        res.status(200).send({
           user: {
             id: user.id,
             username: user.username,
@@ -84,7 +85,10 @@ exports.signin = (req, res, next) => {
         next(e);
         res
           .status(500)
-          .send({ message: "Error during role assignment", accessToken: null });
+          .send({
+            message: "Error during role list processing",
+            accessToken: null,
+          });
       }
     }
   );
