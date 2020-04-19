@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileFetch, signinUserFetch } from "../../redux";
 import { Button, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import "./inicia-sessio.css";
 import { Container } from "../../standalone/container";
@@ -36,6 +36,15 @@ export default () => {
     !loading && (
       <Container className="signin-container">
         <div className="signin-form-wrapper">
+          <Link to="/">
+            <Button
+              className="signin-form-back-button"
+              type="link"
+              icon={<LeftOutlined />}
+            >
+              Inici
+            </Button>
+          </Link>
           <LogoCorDeCambra
             className="signin-logo"
             style={{ color: "#1d71b8" }}

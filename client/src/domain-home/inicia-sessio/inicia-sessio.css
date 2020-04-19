@@ -17,11 +17,20 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .05);
 }
 
+.signin-form-wrapper > a {
+    place-self: start;
+}
+
+.signin-form-back-button {
+    padding-left: 0 !important;
+}
+
 .signin-form {
     width: 250px;
 }
 
 .signin-logo {
+    margin-top: 1rem;
     margin-bottom: 2rem;
 }
 
