@@ -140,6 +140,7 @@ module.exports = (app) => {
            AND id_agrupacio = ?
 
          ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
+      // TODO En cas que diversos paràmetres facin referència a una mateixa variable, com ho soluciono?
       [id_agrupacio, id_agrupacio, 2020, id_agrupacio],
       (err, rows) => {
         if (err) next(err);
