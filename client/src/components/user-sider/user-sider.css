@@ -1,0 +1,37 @@
+.user-sider-dropdown .ant-dropdown {
+    padding: 0 1rem;
+}
+
+.user-menu-item {
+    padding: 1rem;
+    transition-duration: 300ms;
+    color: rgba(255, 255, 255, .65);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.user-menu-item:hover {
+    color: #fff;
+}
+
+.user-menu-item .ant-avatar {
+    margin-right: .5rem;
+}
+
+.ant-layout-sider-collapsed .user-menu-item .ant-avatar {
+    margin-right: 0;
+    margin-left: .41rem;
+}
+
+.user-menu-item-name {
+    -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    white-space: nowrap;
+    opacity: 1;
+}
+
+.ant-layout-sider-collapsed .user-menu-item-name {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+}

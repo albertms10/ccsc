@@ -1,47 +1,44 @@
-.ant-menu-dark .ant-menu-inline.ant-menu-sub {
-  background: none !important;
+.main-layout-sider .ant-layout-sider-children {
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.ant-menu.ant-menu-dark .ant-menu-item-selected,
-.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-  background-color: #105391 !important;
+.main-layout-sider .ant-layout-sider-trigger {
+    background-color: #06376b;
 }
 
-.ant-layout-sider-trigger {
-  background-color: #06376b !important;
-}
-
-.ant-layout-sider-children {
-  overflow: auto;
+.main-layout-sider .ant-layout-sider-children {
+    overflow: auto;
 }
 
 .main-layout-sider {
-  position: fixed !important;
-  z-index: 20;
-  left: 0;
-  overflow: auto;
-  height: 100vh;
-  background-color: #1d71b8 !important;
+    position: fixed !important;
+    z-index: 20;
+    left: 0;
+    overflow: auto;
+    height: 100vh;
+    background-color: #1d71b8 !important;
 }
 
 .main-layout-title-wrapper {
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 1.65rem;
-  position: relative;
-  overflow: hidden;
-  height: 64px;
-  color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.65rem;
+    position: relative;
+    overflow: hidden;
+    height: 64px;
+    color: white;
 }
 
 .main-layout-title-short {
-  position: absolute;
-  top: 50%;
-  margin-top: -1.2rem;
-  margin-left: 0.5rem;
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -1.2rem;
+    margin-left: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .main-layout-title-long {
-  padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.25rem;
 }

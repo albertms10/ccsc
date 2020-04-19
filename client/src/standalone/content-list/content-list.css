@@ -16,15 +16,20 @@
   font-size: 1.2rem;
 }
 
-.ant-list-item-meta {
-  align-items: center !important;
+.content-list .ant-list-item-meta {
+  align-items: center;
 }
 
-.ant-list-item-meta-title {
-  margin-bottom: 0 !important;
+.content-list .ant-list-item-meta-title {
+  line-height: 18px;
+  margin-bottom: 0;
 }
 
-.ant-list-item-meta-description {
-  font-size: small !important;
-  line-height: 1 !important;
+.content-list .ant-list-item-meta-title+.ant-list-item-meta-description {
+  margin-top: .2rem;
+}
+
+.content-list .ant-list-item-meta-description {
+  font-size: small;
+  line-height: 14px;
 }

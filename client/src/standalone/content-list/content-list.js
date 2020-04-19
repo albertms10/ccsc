@@ -8,7 +8,7 @@ import "./content-list.css";
 
 export default ({ title, loading, data, style }) => {
   return (
-    <div style={style}>
+    <div className="content-list" style={style}>
       <Space style={{ marginBottom: ".5rem" }}>
         <div className="content-list-title">{title}</div>
         <BorderlessButton shape="circle" icon={<PlusOutlined />} />

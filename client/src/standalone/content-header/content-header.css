@@ -1,3 +1,7 @@
 .content-header {
   background-color: #fff !important;
 }
+
+.content-header .ant-page-header-heading-title {
+  width: 100%;
+}

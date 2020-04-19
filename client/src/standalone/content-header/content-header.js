@@ -12,7 +12,13 @@ export default ({ title, subtitle, icon, footer }) => (
           title={title}
           subtitle={subtitle}
           icon={icon}
-          style={{ padding: "3rem 10rem 0 10rem" }}
+          style={{
+            paddingTop: "3rem",
+            paddingRight: 0,
+            paddingBottom: 0,
+            paddingLeft: "15%",
+            width: "max-content",
+          }}
         />
       }
       footer={footer}

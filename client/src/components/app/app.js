@@ -13,8 +13,8 @@ export default () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/inicia-sessio" component={IniciaSessio} />
-          <RouteTauler exact path="/tauler" component={TaulerApp} />
-          <Route path="*" component={HomeApp} />
+          <RouteTauler path="/tauler" component={TaulerApp} />
+          <Route path="/" component={HomeApp} />
         </Switch>
       </BrowserRouter>
     </Provider>
