@@ -32,9 +32,9 @@ const menuItems = [
     path: "/contacte",
   },
   {
-    key: "tauler",
-    title: "Tauler",
-    path: "/tauler",
+    key: "inicia-sessio",
+    title: "Inicia sessió",
+    path: "/inicia-sessio",
   },
 ];
 
