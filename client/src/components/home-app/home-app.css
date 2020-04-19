@@ -1,0 +1,28 @@
+.home-page-header.ant-layout-header {
+    background-color: #1d71b8 !important;
+}
+
+.home-page-header .ant-menu.ant-menu-dark {
+    float: right;
+    background-color: transparent;
+}
+
+.home-page-header .header-logo {
+    margin: .75rem;
+}
+
+.home-page-header .ant-menu.ant-menu-dark .ant-menu-item {
+    line-height: 2.5rem;
+    height: 2.5rem;
+    margin: .75rem .25rem;
+    border-radius: 2rem;
+}
+
+.home-page-header .ant-menu.ant-menu-dark .ant-menu-item-selected {
+    background-color: #fff !important;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, .1);
+}
+
+.home-page-header .ant-menu.ant-menu-dark .ant-menu-item-selected > a {
+    color: #1d71b8 !important;
+}

@@ -1,19 +1,19 @@
-import React, { createContext, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ConfigProvider, Layout } from 'antd';
-import caES from 'antd/es/locale/ca_ES';
-import moment from 'moment';
-import 'moment/locale/ca';
+import React, { createContext, useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ConfigProvider, Layout } from "antd";
+import caES from "antd/es/locale/ca_ES";
+import moment from "moment";
+import "moment/locale/ca";
 
-import { MainSider } from '../main-sider';
-import { Inici } from '../../domain/inici';
-import { Agrupacio } from '../../domain/agrupacio';
-import { Socis } from '../../domain/socis';
-import { PerfilSoci } from '../../domain/socis/components/perfil-soci';
+import { MainSider } from "../main-sider";
+import { Inici } from "../../domain-tauler/inici";
+import { Agrupacio } from "../../domain-tauler/agrupacio";
+import { Socis } from "../../domain-tauler/socis";
+import { PerfilSoci } from "../../domain-tauler/socis/components/perfil-soci";
 
-import useAgrupacions from './hooks/useAgrupacions';
-import { kebabCase } from '../../utils';
-import './tauler.css';
+import useAgrupacions from "./hooks/useAgrupacions";
+import { kebabCase } from "../../utils";
+import "./tauler-app.css";
 
 moment.locale("ca");
 const { Content } = Layout;

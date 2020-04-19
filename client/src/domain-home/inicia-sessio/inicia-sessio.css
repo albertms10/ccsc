@@ -1,0 +1,38 @@
+.signin-container {
+    display: grid;
+    height: 100vh;
+}
+
+.signin-form-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    padding: 2rem;
+    transform: translateY(-15%);
+    border-radius: .3rem;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, .05);
+}
+
+.signin-form {
+    width: 250px;
+}
+
+.signin-logo {
+    margin-bottom: 2rem;
+}
+
+.signin-form-forgot {
+    float: right;
+}
+
+.ant-col-rtl .signin-form-forgot {
+    float: left;
+}
+
+.signin-form-button {
+    width: 100%;
+}

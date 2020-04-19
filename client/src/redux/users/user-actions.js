@@ -43,13 +43,10 @@ export const signinUserFetch = (user) => (dispatch) =>
         localStorage.setItem("access-token", data.accessToken);
         dispatch(saveUser(data.user));
       }
-    })
-    .catch((error) => {
-      console.log(error.message);
     });
 
 /**
- * Fetches the API for a given JWT access token.
+ * Fetches the API for a given JWT access token in `localStorage`.
  *
  * @returns {function(...[*]=)}
  */
@@ -75,6 +72,7 @@ export const getProfileFetch = () => (dispatch) => {
         }
       });
   }
+  return Promise.resolve();
 };
 
 /**

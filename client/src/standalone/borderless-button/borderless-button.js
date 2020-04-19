@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Tooltip } from "antd";
 
-export default (props) => (
-  <Tooltip title={props.tooltip} placement={props.tooltipPlacement}>
+export default ({ tooltip, tooltipPlacement, ...rest }) => (
+  <Tooltip title={tooltip} placement={tooltipPlacement}>
     <Button
-      {...props}
+      {...rest}
       style={{
         border: "none",
         backgroundColor: "transparent",
