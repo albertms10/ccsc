@@ -29,6 +29,7 @@
     overflow: hidden;
     height: 64px;
     color: white;
+    flex-shrink: 0;
 }
 
 .main-layout-title-short {

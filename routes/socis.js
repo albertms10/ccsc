@@ -52,21 +52,21 @@ module.exports = (app) => {
   });
 
   // TODO Quina id hauria de fer servir per referenciar documents a les URL?
-  /*
-  app.get('/api/socis/:username', (req, res, next) => {
-    const username = req.params.username;
+  app.get("/api/socis/:id", (req, res, next) => {
+    const id_soci = req.params.id;
 
     connection.query(
-        `SELECT *
+      `SELECT *
          FROM socis
-                  INNER JOIN persones ON (id_soci = id_persona)`,
-      [],
+                  INNER JOIN persones ON (id_soci = id_persona)
+         WHERE id_soci = ?;`,
+      [id_soci],
       (err, rows) => {
         if (err) next(err);
         res.send(rows);
-      });
+      }
+    );
   });
-   */
 
   app.get("/api/socis", (req, res, next) => {
     connection.query(

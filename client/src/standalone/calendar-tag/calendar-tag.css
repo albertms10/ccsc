@@ -11,8 +11,7 @@
 }
 
 .calendar-tag:hover {
-  border-color: #d9d9d9dd !important;
-  background-color: #fafafa82 !important;
+  background-color: #bbbbbb82 !important;
 }
 
 .calendar-tag-time {
