@@ -20,5 +20,5 @@ module.exports = (app) => {
     controller.adminBoard
   );
 
-  app.get("/api/auth/user", [authJwt.verifyToken, authJwt.userInfo]);
+  app.get("/api/auth/user", [authJwt.verifyToken], controller.userInfo);
 };
