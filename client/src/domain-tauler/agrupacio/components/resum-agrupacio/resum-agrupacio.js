@@ -22,7 +22,7 @@ export default ({ idAgrupacio }) => {
   return (
     <Container>
       <Row type="flex" gutter={[32, 32]}>
-        <Col sm={24} lg={12}>
+        <Col sm={24} lg={12} flex={1}>
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
@@ -93,7 +93,7 @@ export default ({ idAgrupacio }) => {
             style={{ marginTop: 32 }}
           />
         </Col>
-        <Col sm={24} lg={12}>
+        <Col sm={24} lg={12} flex={1}>
           <ContentList
             title="Projectes"
             loading={loadingProjectes}

@@ -6,8 +6,6 @@ import { IconAgrupacio } from "../../icons";
 import { ResumAgrupacio } from "./components/resum-agrupacio";
 import { CalendariAgrupacio } from "./components/calendari-agrupacio";
 
-import "./agrupacio.css";
-
 const { TabPane } = Tabs;
 
 export default ({ agrupacio }) => (

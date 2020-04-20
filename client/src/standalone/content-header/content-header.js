@@ -4,23 +4,10 @@ import { HeaderTitle } from "../header-title";
 
 import "./content-header.css";
 
-export default ({ title, subtitle, icon, footer }) => (
-  <div className="content-header">
+export default ({ title, subtitle, icon, footer, ...rest }) => (
+  <div {...rest} className="content-header">
     <PageHeader
-      title={
-        <HeaderTitle
-          title={title}
-          subtitle={subtitle}
-          icon={icon}
-          style={{
-            paddingTop: "3rem",
-            paddingRight: 0,
-            paddingBottom: 0,
-            paddingLeft: "15%",
-            width: "max-content",
-          }}
-        />
-      }
+      title={<HeaderTitle title={title} subtitle={subtitle} icon={icon} />}
       footer={footer}
     />
   </div>

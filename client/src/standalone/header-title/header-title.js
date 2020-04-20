@@ -3,9 +3,9 @@ import React from "react";
 
 const { Title } = Typography;
 
-export default ({ title, subtitle, icon, style }) => {
-  return (
-    <Space size="large" style={{ ...style, marginBottom: "1rem" }}>
+export default ({ title, subtitle, icon, ...rest }) => (
+  <div className="header-title" {...rest}>
+    <Space size="large" style={{ marginBottom: "1rem" }}>
       {icon}
       <Space direction="vertical" size="0">
         <Title level={2} style={{ marginBottom: 0 }}>
@@ -16,5 +16,5 @@ export default ({ title, subtitle, icon, style }) => {
         </div>
       </Space>
     </Space>
-  );
-};
+  </div>
+);

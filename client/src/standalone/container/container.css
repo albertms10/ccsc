@@ -10,13 +10,13 @@
     background-color: #f4f5f7;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
     .main-container-padding {
         padding: 3rem 2rem;
     }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 575.98px) {
     .main-container-padding {
         padding: 3rem 1rem;
     }

@@ -111,7 +111,7 @@ module.exports = (app) => {
          FROM socis
                   INNER JOIN persones ON socis.id_soci = persones.id_persona
                   LEFT JOIN usuaris USING (id_persona)
-         ORDER BY cognoms, nom;`,
+         ORDER BY estat_actiu DESC, cognoms, nom;`,
       (err, rows) => {
         if (err) next(err);
         res.json(rows);

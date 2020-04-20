@@ -7,17 +7,17 @@ import {
   Menu,
   Modal,
   Table,
-  Tooltip,
   Typography,
+  Tooltip,
 } from "antd";
 import { ExclamationCircleOutlined, MoreOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Media from "react-media";
-import { closestTimeValue } from "../../utils";
 
 import "./taula-socis.css";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { useSearchSocis } from "./hooks";
+import { closestTimeValue } from "../../utils";
 
 const { Text, Paragraph } = Typography;
 const { Search } = Input;
@@ -31,21 +31,35 @@ export default ({ socis, getSocis, loading }) => {
       dataIndex: "nom_complet",
       key: "nom_complet",
       render: (text, row) => (
-        <>
-          <Avatar style={{ marginRight: "1rem", marginBottom: "-1.25rem" }}>
-            {row.nom[0]}
-            {row.cognoms[0]}
-          </Avatar>
-          <div style={{ display: "inline-grid" }}>
-            <Text style={{ marginBottom: 0 }}>{text}</Text>
-            <Text type="secondary" style={{ marginBottom: 0 }}>
+        <div className="socis-table-username-wrapper">
+          <Tooltip
+            title={`${closestTimeValue(row.dies_activitat, "d")} d’${
+              row.data_inactiu ? "in" : ""
+            }activitat`}
+          >
+            <Badge dot status={row.estat_actiu ? "success" : "danger"}>
+              <Avatar className="socis-table-avatar">
+                {row.nom[0]}
+                {row.cognoms[0]}
+              </Avatar>
+            </Badge>
+          </Tooltip>
+          <div className="socis-table-username-container">
+            <Text className="socis-table-username-text">{text}</Text>
+            <Text className="socis-table-username-text" type="secondary">
               {row.username}
             </Text>
           </div>
-        </>
+        </div>
       ),
       sorter: (a, b) => a.nom_complet.length - b.nom_complet.length,
       sortDirections: ["descend", "ascend"],
+      filters: [
+        { text: "Actiu", value: 1 },
+        { text: "Inactiu", value: 0 },
+      ],
+      filterMultiple: false,
+      onFilter: (value, record) => value === record.estat_actiu,
     },
     {
       title: "Adreça electrònica",
@@ -62,31 +76,7 @@ export default ({ socis, getSocis, loading }) => {
       title: "Telèfon",
       dataIndex: "telefon",
       key: "telefon",
-      hideOnSmall: true,
-    },
-    {
-      title: "Estat",
-      dataIndex: "estat_actiu",
-      key: "estat",
-      render: (estat_actiu, row) => (
-        <Tooltip
-          title={`${closestTimeValue(row.dies_activitat, "d")} d’${
-            row.data_inactiu ? "in" : ""
-          }activitat`}
-        >
-          {!estat_actiu || row.data_inactiu ? (
-            <Badge status="error" text="Inactiu" />
-          ) : (
-            <Badge status="success" text="Actiu" />
-          )}
-        </Tooltip>
-      ),
-      filters: [
-        { text: "Actiu", value: 1 },
-        { text: "Inactiu", value: 0 },
-      ],
-      filterMultiple: false,
-      onFilter: (value, record) => value === record.estat_actiu,
+      hideOnMedium: true,
     },
     {
       title: "",
@@ -117,8 +107,11 @@ export default ({ socis, getSocis, loading }) => {
     fetch(`/api/socis/${id}`, { method: "DELETE" }).then(() => getSocis());
   };
 
-  const getResponsiveColumns = (smallScreen) =>
-    columns.filter(({ hideOnSmall = false }) => !(smallScreen && hideOnSmall));
+  const getResponsiveColumns = ({ small, medium }) =>
+    columns.filter(
+      ({ hideOnSmall = false, hideOnMedium = false }) =>
+        !(small && hideOnSmall) && !(medium && hideOnMedium)
+    );
 
   const showDeleteConfirm = (id) => {
     Modal.confirm({
@@ -134,7 +127,7 @@ export default ({ socis, getSocis, loading }) => {
   };
 
   return (
-    <>
+    <div className="socis-table">
       <Search
         placeholder="Cerca socis"
         size="large"
@@ -144,18 +137,18 @@ export default ({ socis, getSocis, loading }) => {
         }}
         style={{ width: "100%", marginBottom: "1rem" }}
       />
-      <Media query="(max-width: 999px)">
-        {(smallScreen) => (
+      <Media queries={{ small: { maxWidth: 599 }, medium: { maxWidth: 999 } }}>
+        {(matches) => (
           <Table
             dataSource={searchValue ? filteredSocis : socis}
             rowKey="id_persona"
             loading={loading}
             pagination={{ hideOnSinglePage: true, responsive: true }}
             style={{ border: "1px solid #eee" }}
-            columns={getResponsiveColumns(smallScreen)}
+            columns={getResponsiveColumns(matches)}
           />
         )}
       </Media>
-    </>
+    </div>
   );
 };

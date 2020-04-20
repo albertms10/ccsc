@@ -1,13 +1,34 @@
-.action-text {
-  margin-bottom: 0 !important;
+.socis-table .socis-table-username-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.action-text > .ant-typography-copy {
-  transition-duration: 200ms;
-  transition-property: opacity;
-  opacity: 0;
+.socis-table .socis-table-avatar {
+    flex-shrink: 0;
 }
 
-.action-text:hover > .ant-typography-copy {
-  opacity: 1;
+.socis-table .socis-table-username-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.socis-table .socis-table-username-text {
+    margin-bottom: 0;
+}
+
+.socis-table .action-text {
+    margin-bottom: 0 !important;
+}
+
+.socis-table .action-text > .ant-typography-copy {
+    transition-duration: 200ms;
+    transition-property: opacity;
+    opacity: 0;
+}
+
+.socis-table .action-text:hover > .ant-typography-copy {
+    opacity: 1;
 }
