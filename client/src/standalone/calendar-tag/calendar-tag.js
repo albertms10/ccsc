@@ -9,8 +9,6 @@ import "./calendar-tag.css";
 export default ({ childKey, event }) => {
   const [visible, setVisible] = useState(false);
 
-  const handleVisibility = (visible) => setVisible(visible);
-
   return (
     <Popover
       visible={visible}
@@ -21,7 +19,7 @@ export default ({ childKey, event }) => {
         />
       }
       trigger="click"
-      onVisibleChange={handleVisibility}
+      onVisibleChange={setVisible}
       style={{ width: 600 }}
     >
       <Tag

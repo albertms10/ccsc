@@ -1,4 +1,23 @@
 .main-container {
     position: relative;
+}
+
+.main-container-padding {
+    padding: 3rem 15%;
+}
+
+.main-container-background {
     background-color: #f4f5f7;
+}
+
+@media only screen and (max-width: 768px) {
+    .main-container-padding {
+        padding: 3rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .main-container-padding {
+        padding: 3rem 1rem;
+    }
 }

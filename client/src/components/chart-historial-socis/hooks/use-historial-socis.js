@@ -9,5 +9,5 @@ export default () => {
       .then((data) => setHistorial(data));
   }, []);
 
-  return historial;
+  return [historial];
 };

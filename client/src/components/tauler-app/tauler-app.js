@@ -25,6 +25,7 @@ export const LoadingAgrupacionsContext = createContext(null);
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
   const [agrupacions, loadingAgrupacions] = useAgrupacions();
+  const [broken, setBroken] = useState(false);
 
   return (
     <AgrupacionsContext.Provider value={agrupacions}>
@@ -32,11 +33,16 @@ export default () => {
         <BrowserRouter basename="/tauler">
           <ConfigProvider locale={caES}>
             <Layout style={{ minHeight: "100vh" }}>
-              <MainSider collapsed={collapsed} setCollapsed={setCollapsed} />
+              <MainSider
+                collapsed={collapsed}
+                setCollapsed={setCollapsed}
+                broken={broken}
+                setBroken={setBroken}
+              />
               <Layout className="site-layout">
                 <Content
                   className="app-layout-content site-layout-background"
-                  style={{ marginLeft: collapsed ? 80 : 200 }}
+                  style={{ marginLeft: broken ? 0 : collapsed ? 80 : 200 }}
                 >
                   <Switch>
                     <Route exact path="/" component={Inici} />

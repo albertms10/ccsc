@@ -4,7 +4,7 @@ import { AreaChart } from "@opd/g2plot-react";
 import { useHistorialSocis } from "./hooks";
 
 export default ({ title, description }) => {
-  const historial = useHistorialSocis();
+  const [historial] = useHistorialSocis();
 
   return (
     <Card>

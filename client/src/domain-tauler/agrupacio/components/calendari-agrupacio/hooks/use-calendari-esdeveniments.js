@@ -6,11 +6,8 @@ export default (id_agrupacio) => {
   useEffect(() => {
     fetch(`/api/agrupacions/${id_agrupacio}/esdeveniments`)
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setEsdeveniments(data);
-      });
+      .then(setEsdeveniments);
   }, [id_agrupacio]);
 
-  return esdeveniments;
+  return [esdeveniments];
 };

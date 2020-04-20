@@ -1,1 +1,1 @@
-export { default as useAssociacio } from "./use-associacio";
+export { default as useNomAssociacio } from "./use-nom-associacio";

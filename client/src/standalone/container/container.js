@@ -2,13 +2,13 @@ import React from "react";
 
 import "./container.css";
 
-export default ({ noPadding, noBackground, style, ...rest }) => (
+export default ({ noPadding, noBackground, ...rest }) => (
   <div
+    className={`
+    main-container
+    ${noPadding ? "" : "main-container-padding"}
+    ${noBackground ? "" : "main-container-background"}
+    `}
     {...rest}
-    style={{
-      padding: noPadding ? 0 : "3rem 15%",
-      backgroundColor: noBackground ? "none" : "#f4f5f7",
-      ...style,
-    }}
   />
 );

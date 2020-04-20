@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import moment from "moment";
 import { Button, Calendar, Space } from "antd";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
@@ -11,24 +11,27 @@ import { SearchComplete } from "../../../../standalone/search-complete";
 import "./calendari-agrupacio.css";
 
 export default ({ idAgrupacio }) => {
-  const esdeveniments = useCalendariEsdeveniments(idAgrupacio);
+  const [esdeveniments] = useCalendariEsdeveniments(idAgrupacio);
 
-  const cellRender = (currentDay) => {
-    const esdevenimentsActuals = esdeveniments.filter(({ dia_inici }) =>
-      currentDay.isSame(dia_inici, "day")
-    );
+  const cellRender = useCallback(
+    (currentDay) => {
+      const esdevenimentsActuals = esdeveniments.filter(({ dia_inici }) =>
+        currentDay.isSame(dia_inici, "day")
+      );
 
-    return (
-      <Space size={-5} direction="vertical">
-        {esdevenimentsActuals.map((esdeveniment) => (
-          <CalendarTag
-            key={esdeveniment.id_esdeveniment}
-            event={esdeveniment}
-          />
-        ))}
-      </Space>
-    );
-  };
+      return (
+        <Space size={-5} direction="vertical">
+          {esdevenimentsActuals.map((esdeveniment) => (
+            <CalendarTag
+              key={esdeveniment.id_esdeveniment}
+              event={esdeveniment}
+            />
+          ))}
+        </Space>
+      );
+    },
+    [esdeveniments]
+  );
 
   return (
     <Container style={{ padding: "2rem 3rem" }}>

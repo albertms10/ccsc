@@ -18,7 +18,7 @@ import { IconAgrupacio } from "../../../../icons";
 
 const { SubMenu, Item, ItemGroup } = Menu;
 
-export default ({ collapsed }) => {
+export default ({ collapsed, setCollapsed }) => {
   const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
 
   const [menuPosition, setMenuPosition] = useState("");
@@ -30,6 +30,7 @@ export default ({ collapsed }) => {
 
   const location = useLocation();
 
+  // TODO Reorganitzar els Hooks
   const items = [
     {
       title: "Inici",
@@ -154,6 +155,7 @@ export default ({ collapsed }) => {
       theme="dark"
       defaultSelectedKeys={[menuPosition]}
       mode="inline"
+      onClick={() => setCollapsed(true)}
     >
       {items.map((item) => {
         if (item.hasOwnProperty("groupedItems")) return renderGroup(item);

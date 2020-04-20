@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { SubPage } from '../../../../standalone/sub-page';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { SubPage } from "../../../../standalone/sub-page";
+import { useSoci } from "./hooks";
 
 export default () => {
-  const [soci, setSoci] = useState({});
-  const { username } = useParams();
+  const { idSoci } = useParams();
+  const [soci] = useSoci(idSoci);
 
-  useEffect(() => {
-    fetch(`/api/socis/${username}`)
-      .then((res) => res.json())
-      .then(setSoci);
-  }, [username]);
-
-  return <SubPage title={soci.nom_complet} subtitle={username} />;
+  return (
+    <SubPage
+      title={soci.nom_complet}
+      subtitle={soci.username ?? "Sense usuari"}
+    />
+  );
 };
