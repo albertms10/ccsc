@@ -1,28 +1,29 @@
 import React, { useState } from "react";
+import moment from "moment";
 import { Button, Form, message, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import { FormAfegirSoci } from "./components/form-afegir-soci";
-import { stripAccents } from "../../utils";
 import "./modal-afegir-soci.css";
+import { useUsername } from "./hooks";
 
 const { Step } = Steps;
+
+const steps = [
+  "Dades del soci",
+  "Protecció de dades",
+  "Drets d’imatge",
+  "Resum",
+];
 
 export default ({ getSocis }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setConfirmLoading] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [username, setUsername] = useState("");
-  const [loadingUsername, setLoadingUsername] = useState(false);
   const [alertProteccio, setAlertProteccio] = useState(false);
+  const [username, loadingUsername, generateUsername] = useUsername();
 
   const [form] = Form.useForm();
-  const steps = [
-    "Dades del soci",
-    "Protecció de dades",
-    "Drets d’imatge",
-    "Resum",
-  ];
 
   const showModal = () => {
     setVisible(true);
@@ -38,7 +39,9 @@ export default ({ getSocis }) => {
           values.username = username;
           values.acceptaDretsImatge = !!values.acceptaDretsImatge;
           values.naixement = values.naixement.format("YYYY-MM-DD");
-          values.data_alta = values.data_alta.format("YYYY-MM-DD");
+          values.data_alta = values.data_alta
+            ? values.data_alta.format("YYYY-MM-DD")
+            : moment().format("YYYY-MM-DD");
 
           fetch("/api/socis", {
             method: "POST",
@@ -80,6 +83,7 @@ export default ({ getSocis }) => {
     setVisible(false);
   };
 
+  // TODO És correcta aquesta funció asíncrona pel que fa a l'ús de `generateUsername`?
   const handleChange = async (current) => {
     try {
       const data = await form.validateFields();
@@ -99,37 +103,12 @@ export default ({ getSocis }) => {
     setCurrent(current);
   };
 
-  const next = () => {
-    handleChange(current + 1);
+  const next = async () => {
+    await handleChange(current + 1);
   };
 
-  const previous = () => {
-    handleChange(current - 1);
-  };
-
-  const generateUsername = async ({ nom, cognoms }) => {
-    setLoadingUsername(true);
-
-    const username = stripAccents(
-      nom
-        .split(" ")
-        .map((n, i) => (i > 0 ? n[0] : n))
-        .join("")
-        .toLowerCase() +
-        cognoms
-          .split(" ")
-          .map((n) => (n[0] === n[0].toUpperCase() ? n[0] : ""))
-          .join("")
-          .toLowerCase()
-    );
-
-    fetch(`/api/usuaris/${username}/first-available-num`)
-      .then((res) => res.json())
-      .then((data) => {
-        const count = data[0] ? parseInt(data[0].first_available_num) : 0;
-        setUsername(`${username}${count > 0 ? count : ""}`);
-        setLoadingUsername(false);
-      });
+  const previous = async () => {
+    await handleChange(current - 1);
   };
 
   return (

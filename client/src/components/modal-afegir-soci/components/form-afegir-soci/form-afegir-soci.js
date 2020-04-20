@@ -119,6 +119,9 @@ export default ({
               showSearch
               loading={loadingPaisos}
               onSelect={(value) => setPais(value)}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
             >
               {paisos.map((pais) => (
                 <Option key={pais.id_pais}>{pais.nom}</Option>
