@@ -12,6 +12,7 @@ export default () => {
   return (
     <Dropdown
       placement="topLeft"
+      trigger={["click"]}
       overlay={
         <Menu>
           <Menu.Item>Perfil</Menu.Item>
@@ -23,7 +24,7 @@ export default () => {
       }
     >
       <div className="user-menu-item">
-        <Avatar style={{ backgroundColor: "#e9f3f7", color: "#1d71b8" }}>
+        <Avatar className="user-menu-item-avatar">
           {currentUser.nom[0] + currentUser.cognoms[0]}
         </Avatar>
         <span className="user-menu-item-name">

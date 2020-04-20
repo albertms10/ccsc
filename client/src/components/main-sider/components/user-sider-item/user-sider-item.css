@@ -4,18 +4,21 @@
 
 .user-menu-item {
     padding: 1rem;
-    transition-duration: 300ms;
-    color: rgba(255, 255, 255, .65);
     -webkit-user-select: none;
     user-select: none;
+    transition-duration: 300ms;
+    color: rgba(255, 255, 255, .65);
+    cursor: pointer;
 }
 
 .user-menu-item:hover {
     color: #fff;
 }
 
-.user-menu-item .ant-avatar {
+.user-menu-item .user-menu-item-avatar {
     margin-right: .5rem;
+    color: #1d71b8;
+    background-color: #e9f3f7;
 }
 
 .ant-layout-sider-collapsed .user-menu-item .ant-avatar {

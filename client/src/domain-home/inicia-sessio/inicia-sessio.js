@@ -1,36 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getProfileFetch, signinUserFetch } from "../../redux";
+import React from "react";
+import { Link } from "react-router-dom";
+import { signinUserFetch } from "../../redux";
 import { Button, Form, Input } from "antd";
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-
-import "./inicia-sessio.css";
 import { Container } from "../../standalone/container";
 import { LogoCorDeCambra } from "../../icons";
+import { useIniciUsuari } from "./hooks";
+
+import "./inicia-sessio.css";
 
 export default () => {
-  const [loading, setLoading] = useState(false);
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const [loading, dispatch] = useIniciUsuari();
 
   const onFinish = (values) => {
     dispatch(signinUserFetch(values)).catch(({ message }) => {
       console.log(message);
     });
   };
-
-  useEffect(() => {
-    setLoading(true);
-    dispatch(getProfileFetch()).finally(() => {
-      setLoading(false);
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (currentUser.hasOwnProperty("id")) history.push("/tauler");
-  });
 
   return (
     !loading && (
