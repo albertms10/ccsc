@@ -11,11 +11,12 @@ import { Agrupacio } from "../../domain-tauler/agrupacio";
 import { Socis } from "../../domain-tauler/socis";
 import { PerfilSoci } from "../../domain-tauler/socis/components/perfil-soci";
 
-import useAgrupacions from "./hooks/useAgrupacions";
+import { useAgrupacions } from "./hooks";
 import { kebabCase } from "../../utils";
 import "./tauler-app.css";
 
 moment.locale("ca");
+
 const { Content } = Layout;
 
 export const AgrupacionsContext = createContext(null);

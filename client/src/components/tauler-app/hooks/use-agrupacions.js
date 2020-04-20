@@ -15,7 +15,7 @@ export default () => {
         setAgrupacions(data);
         setLoadingAgrupacions(false);
       });
-  }, []);
+  }, [id_usuari]);
 
   return [agrupacions, loadingAgrupacions];
 };
