@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 import store from "../../redux/store";
 
 import { HomeApp } from "../home-app";
 import { TaulerApp } from "../tauler-app";
 import { IniciaSessio } from "../../domain-home/inicia-sessio";
+import { RouteTauler } from "./components/route-tauler";
 
 export default () => {
   return (
@@ -18,26 +19,5 @@ export default () => {
         </Switch>
       </BrowserRouter>
     </Provider>
-  );
-};
-
-const RouteTauler = ({ component, ...rest }) => {
-  const user = useSelector((store) => store.user.currentUser);
-  const Component = component;
-  return (
-    <Route
-      {...rest}
-      render={() => {
-        return user.hasOwnProperty("id") ? (
-          <Component />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/inicia-sessio",
-            }}
-          />
-        );
-      }}
-    />
   );
 };
