@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Alert,
   Collapse,
@@ -13,6 +13,7 @@ import {
 } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { usePaisos } from "./hooks";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -27,23 +28,11 @@ export default ({
   setAlertProteccio,
 }) => {
   const [dniValidation, setDniValidation] = useState("");
-
-  const [loadingPaisos, setLoadingPaisos] = useState(false);
-  const [paisos, setPaisos] = useState([]);
+  const [paisos, loadingPaisos] = usePaisos();
   const [pais, setPais] = useState("");
 
-  useEffect(() => {
-    setLoadingPaisos(true);
-    fetch("/api/localitzacions/paisos")
-      .then((res) => res.json())
-      .then((data) => {
-        setPaisos(data);
-        setLoadingPaisos(false);
-      });
-  }, []);
-
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
-  const validatorDniES = (rule, value) => {
+  const validatorDniES = useCallback((rule, value) => {
     const XIFRES = 8;
 
     const letter = value.charAt(value.length - 1);
@@ -64,7 +53,7 @@ export default ({
 
     setDniValidation("error");
     return Promise.reject("La lletra no es correspon amb el número del DNI.");
-  };
+  }, []);
 
   return (
     <Form colon={false} form={form} initialValues={{ data_alta: moment() }}>
