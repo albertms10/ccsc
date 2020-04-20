@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Avatar,
   Badge,
@@ -17,13 +17,13 @@ import { closestTimeValue } from "../../utils";
 
 import "./taula-socis.css";
 import { BorderlessButton } from "../../standalone/borderless-button";
+import { useSearchSocis } from "./hooks";
 
 const { Text, Paragraph } = Typography;
 const { Search } = Input;
 
 export default ({ socis, getSocis, loading }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const [filteredSocis, setFilteredSocis] = useState(socis);
+  const [searchValue, setSearchValue, filteredSocis] = useSearchSocis(socis);
 
   const columns = [
     {
@@ -112,18 +112,6 @@ export default ({ socis, getSocis, loading }) => {
       ),
     },
   ];
-
-  useEffect(() => {
-    const filteredSocis = socis.filter((soci) => {
-      return (
-        soci.nom_complet.toLowerCase().includes(searchValue) ||
-        soci.username.includes(searchValue) ||
-        soci.email.includes(searchValue) ||
-        (soci.telefon ? soci.telefon.includes(searchValue) : "")
-      );
-    });
-    setFilteredSocis(filteredSocis);
-  }, [searchValue, socis]);
 
   const handleEliminar = (id) => {
     fetch(`/api/socis/${id}`, { method: "DELETE" }).then(() => getSocis());
