@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { signinUserFetch } from "../../redux";
 import { Button, Form, Input } from "antd";
@@ -12,11 +12,14 @@ import "./inicia-sessio.css";
 export default () => {
   const [loading, dispatch] = useIniciUsuari();
 
-  const onFinish = (values) => {
-    dispatch(signinUserFetch(values)).catch(({ message }) => {
-      console.log(message);
-    });
-  };
+  const onFinish = useCallback(
+    (values) => {
+      dispatch(signinUserFetch(values)).catch(({ message }) => {
+        console.log(message);
+      });
+    },
+    [dispatch]
+  );
 
   return (
     !loading && (
@@ -33,7 +36,7 @@ export default () => {
           </Link>
           <LogoCorDeCambra
             className="signin-logo"
-            style={{ color: "#1d71b8" }}
+            style={{ color: "var(--primary-color)" }}
           />
           <Form className="signin-form" onFinish={onFinish}>
             <Form.Item
