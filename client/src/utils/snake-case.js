@@ -1,7 +1,10 @@
 /**
- * Converts the given string into snake case.
+ * Returns the given string into snake case.
  *
  * @param {string} s
  * @returns {string}
  */
-export default (s) => s.toLowerCase().replace(/[ -]/g, "_");
+export default (s) => {
+  if (typeof s !== "string") return "";
+  return s.toLowerCase().replace(/[ -]/g, "_");
+};

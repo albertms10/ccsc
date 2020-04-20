@@ -1,5 +1,5 @@
 /**
- * Makes the first character of the string uppercase.
+ * Returns a string with its first character uppercased.
  *
  * @param {string} s
  * @returns {string}

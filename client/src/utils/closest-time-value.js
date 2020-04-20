@@ -1,11 +1,13 @@
 /**
- * Given an integer, finds the propper unit in order to express its value
+ * Given an integer, finds the propper unit in order to express its value.
  *
  * @param {number} value
  * @param {('s'|'min'|'h'|'d'|'m'|'y')} unit
  * @returns {string}
  */
 export default (value, unit = "s") => {
+  if (isNaN(value)) return "";
+
   const units = ["s", "min", "h", "d", "m", "y"];
   const strTime = ["segon", "minut", "hora", "dia", "mes", "any"];
   const strTimes = ["segons", "minuts", "hores", "dies", "mesos", "anys"];

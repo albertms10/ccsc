@@ -1,4 +1,5 @@
 export { default as closestTimeValue } from "./closest-time-value";
+export { default as initials } from "./initials";
 export { default as kebabCase } from "./kebab-case";
 export { default as nIndexOf } from "./n-index-of";
 export { default as pascalCase } from "./pascal-case";
