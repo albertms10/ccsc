@@ -11,7 +11,7 @@ import {
   useConcerts,
   useParticipants,
   useProjectes,
-} from "../../hooks";
+} from "./hooks";
 
 export default ({ idAgrupacio }) => {
   const [assajos, loadingAssajos] = useAssajos(idAgrupacio);

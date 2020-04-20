@@ -1,1 +1,1 @@
-export { default as useSearchSocis } from "use-search-socis";
+export { default as useSearchSocis } from "./use-search-socis";
