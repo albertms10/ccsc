@@ -38,28 +38,26 @@ const menuItems = [
   },
 ];
 
-export default () => {
-  return (
-    <Layout className="layout">
-      <Header className="home-page-header">
-        <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["inici"]}>
-          {menuItems.map((item) => (
-            <Menu.Item key={item.key}>
-              <Link to={item.path}>{item.title}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/qui-som" component={QuiSom} />
-        <Route exact path="/concerts" component={Concerts} />
-        <Route exact path="/contacte" component={Contacte} />
-      </Content>
-      <Footer style={{ textAlign: "center" }}>
-        &copy; 2020 Cor de Cambra Sant Cugat
-      </Footer>
-    </Layout>
-  );
-};
+export default () => (
+  <Layout className="layout">
+    <Header className="home-page-header">
+      <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["inici"]}>
+        {menuItems.map((item) => (
+          <Menu.Item key={item.key}>
+            <Link to={item.path}>{item.title}</Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </Header>
+    <Content style={{ padding: "0 50px" }}>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/qui-som" component={QuiSom} />
+      <Route exact path="/concerts" component={Concerts} />
+      <Route exact path="/contacte" component={Contacte} />
+    </Content>
+    <Footer style={{ textAlign: "center" }}>
+      &copy; 2020 Cor de Cambra Sant Cugat
+    </Footer>
+  </Layout>
+);

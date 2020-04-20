@@ -1,9 +1,9 @@
 import { Avatar, Dropdown, Menu } from "antd";
-import { logoutUser } from "../../redux";
+import { logoutUser } from "../../../../redux";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./user-sider.css";
+import "./user-sider-item.css";
 
 export default () => {
   const currentUser = useSelector((state) => state.user.currentUser);

@@ -8,16 +8,14 @@ import { TaulerApp } from "../tauler-app";
 import { IniciaSessio } from "../../domain-home/inicia-sessio";
 import { RouteTauler } from "./components/route-tauler";
 
-export default () => {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/inicia-sessio" component={IniciaSessio} />
-          <RouteTauler path="/tauler" component={TaulerApp} />
-          <Route path="/" component={HomeApp} />
-        </Switch>
-      </BrowserRouter>
-    </Provider>
-  );
-};
+export default () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/inicia-sessio" component={IniciaSessio} />
+        <RouteTauler path="/tauler" component={TaulerApp} />
+        <Route path="/" component={HomeApp} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>
+);

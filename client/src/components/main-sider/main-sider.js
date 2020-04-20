@@ -1,9 +1,9 @@
 import React from "react";
 import { Layout } from "antd";
 import { MainMenu } from "./components/main-menu";
+import { UserSiderItem } from "./components/user-sider-item";
 
 import "./main-sider.css";
-import { UserSider } from "../user-sider";
 
 const { Sider } = Layout;
 
@@ -27,7 +27,7 @@ export default ({ collapsed, setCollapsed }) => {
         )}
       </div>
       <MainMenu collapsed={collapsed} />
-      <UserSider />
+      <UserSiderItem />
     </Sider>
   );
 };
