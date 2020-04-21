@@ -47,7 +47,12 @@
     }
 
     .content-header .header-title {
-        padding-left: var(--horizontal-inset);
+        padding-left: calc(var(--horizontal-inset) + .5rem);
+    }
+
+    .content-header .header-title-text {
+        position: relative;
+        bottom: .2rem;
     }
 }
 
