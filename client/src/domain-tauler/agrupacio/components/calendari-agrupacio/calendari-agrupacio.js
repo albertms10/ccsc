@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import moment from "moment";
-import { Button, Calendar, Space } from "antd";
+import { Button, Calendar, Col, Row, Space } from "antd";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
 import { useCalendariEsdeveniments } from "./hooks";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
@@ -34,44 +34,50 @@ export default ({ idAgrupacio }) => {
   );
 
   return (
-    <Container style={{ padding: "2rem 3rem" }}>
+    <Container reducedPadding>
       <Calendar
         className="calendari-agrupacio"
         dateCellRender={cellRender}
         headerRender={({ value, onChange }) => (
           <div className="ant-picker-calendar-header">
-            <Space size="middle">
-              <Button onClick={() => onChange(moment())}>Avui</Button>
-              <Space>
-                <BorderlessButton
-                  shape="circle"
-                  tooltip="Mes anterior"
-                  tooltipPlacement="bottom"
-                  icon={<LeftOutlined />}
-                  onClick={() =>
-                    onChange(value.clone().month(value.month() - 1))
-                  }
+            <Row align="middle" gutter={16}>
+              <Col type="flex">
+                <Button onClick={() => onChange(moment())}>Avui</Button>
+              </Col>
+              <Col type="flex">
+                <Space>
+                  <BorderlessButton
+                    shape="circle"
+                    tooltip="Mes anterior"
+                    tooltipPlacement="bottom"
+                    icon={<LeftOutlined />}
+                    onClick={() =>
+                      onChange(value.clone().month(value.month() - 1))
+                    }
+                  />
+                  <BorderlessButton
+                    shape="circle"
+                    tooltip="Mes següent"
+                    tooltipPlacement="bottom"
+                    icon={<RightOutlined />}
+                    onClick={() =>
+                      onChange(value.clone().month(value.month() + 1))
+                    }
+                  />
+                </Space>
+              </Col>
+              <Col type="flex" flex={2}>
+                <div style={{ fontSize: "2rem", fontWeight: "300" }}>
+                  {moment(value).format("MMMM [de] YYYY")}
+                </div>
+              </Col>
+              <Col type="flex" flex={1}>
+                <SearchComplete
+                  data={esdeveniments}
+                  onSelect={(_, { date }) => onChange(moment(date))}
                 />
-                <BorderlessButton
-                  shape="circle"
-                  tooltip="Mes següent"
-                  tooltipPlacement="bottom"
-                  icon={<RightOutlined />}
-                  onClick={() =>
-                    onChange(value.clone().month(value.month() + 1))
-                  }
-                />
-              </Space>
-              <div style={{ fontSize: "2rem", fontWeight: "300" }}>
-                {moment(value).format("MMMM [de] YYYY")}
-              </div>
-            </Space>
-            <Space>
-              <SearchComplete
-                data={esdeveniments}
-                onSelect={(_, { date }) => onChange(moment(date))}
-              />
-            </Space>
+              </Col>
+            </Row>
           </div>
         )}
         style={{ margin: "1rem" }}

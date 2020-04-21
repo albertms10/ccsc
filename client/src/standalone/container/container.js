@@ -2,11 +2,17 @@ import React from "react";
 
 import "./container.css";
 
-export default ({ noPadding, noBackground, ...rest }) => (
+export default ({ reducedPadding, noPadding, noBackground, ...rest }) => (
   <div
     className={`
     main-container
-    ${noPadding ? "" : "main-container-padding"}
+    ${
+      reducedPadding
+        ? "main-container-padding-reduced"
+        : noPadding
+        ? ""
+        : "main-container-padding"
+    }
     ${noBackground ? "" : "main-container-background"}
     `}
     {...rest}
