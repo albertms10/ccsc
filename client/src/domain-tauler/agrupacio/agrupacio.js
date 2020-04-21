@@ -12,12 +12,7 @@ export default ({ agrupacio }) => (
   <ContentHeader
     title={agrupacio.nom}
     subtitle={agrupacio.descripcio}
-    icon={
-      <IconAgrupacio
-        name={agrupacio.nom_curt}
-        style={{ color: "#1d71b8", fontSize: "4rem" }}
-      />
-    }
+    icon={<IconAgrupacio name={agrupacio.nom_curt} />}
     footer={
       <Tabs
         renderTabBar={(props, DefaultTabBar) => (

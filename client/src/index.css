@@ -1,6 +1,9 @@
 :root {
     --background-color: #f4f5f4;
     --primary-color: #1d71b8;
+
+    --horizontal-inset: 15%;
+
     --max-width-xs: 575.98px;
     --min-width-xs: 576px;
     --max-width-sm: 767.98px;
@@ -9,6 +12,24 @@
     --min-width-md: 992px;
     --max-width-lg: 1199.98px;
     --min-width-lg: 1200px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    :root {
+        --horizontal-inset: 3rem;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+    :root {
+        --horizontal-inset: 2rem;
+    }
+}
+
+@media only screen and (max-width: 575.98px) {
+    :root {
+        --horizontal-inset: 1rem;
+    }
 }
 
 .ant-pagination-item {

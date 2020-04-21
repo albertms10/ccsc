@@ -13,33 +13,41 @@
 }
 
 .content-header .header-title {
-    width: max-content;
-    padding: 3rem 0 0 15%;
+    padding: 3rem var(--horizontal-inset) 0;
 }
 
-@media only screen and (min-width: 768px) {
+.content-header .ant-tabs-nav-container {
+    margin-left: var(--horizontal-inset);
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
     .content-header .ant-tabs-nav-container {
-        margin-left: 15%;
+        margin-left: var(--horizontal-inset);
+    }
+
+    .content-header .header-title {
+        padding-left: var(--horizontal-inset);
     }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767.98px) {
     .content-header .ant-tabs-nav-container {
-        margin-left: 2rem;
+        margin-left: var(--horizontal-inset);
     }
 
     .content-header .header-title {
-        padding-left: 2rem;
+        padding-left: var(--horizontal-inset);
     }
 }
 
 @media only screen and (max-width: 575.98px) {
     .content-header .ant-tabs-nav-container {
-        margin-left: 1rem;
+        margin-left: var(--horizontal-inset);
     }
 
     .content-header .header-title {
-        padding-left: 1rem;
+        padding-left: var(--horizontal-inset);
     }
 }
 
