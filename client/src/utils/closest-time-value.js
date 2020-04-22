@@ -6,8 +6,6 @@
  * @returns {string}
  */
 export default (value, unit = "s") => {
-  if (isNaN(value)) return "";
-
   const units = ["s", "min", "h", "d", "m", "y"];
   const strTime = ["segon", "minut", "hora", "dia", "mes", "any"];
   const strTimes = ["segons", "minuts", "hores", "dies", "mesos", "anys"];

@@ -30,7 +30,7 @@ export default ({ collapsed, setCollapsed }) => {
 
   const location = useLocation();
 
-  // TODO Reorganitzar els Hooks
+  // TODO Reorganitzar-ho en hooks propis
   const items = [
     {
       title: "Inici",

@@ -4,7 +4,4 @@
  * @param {string} s
  * @returns {string}
  */
-export default (s) => {
-  if (typeof s !== "string") return "";
-  return s.toLowerCase().replace(/[ _]/g, "-");
-};
+export default (s) => s.toLowerCase().replace(/[ _]/g, "-");

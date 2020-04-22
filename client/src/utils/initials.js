@@ -4,11 +4,9 @@
  * @param {string} s
  * @returns {string}
  */
-export default (s) => {
-  if (typeof s !== "string") return "";
-  return s
+export default (s) =>
+  s
     .split(" ")
     .map((w) => w[0])
     .join("")
     .toUpperCase();
-};
