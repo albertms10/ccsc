@@ -1,14 +1,29 @@
-import { SAVE_USER, REMOVE_USER } from "./user-types";
+import {
+  LOGOUT_USER,
+  SIGNIN_USER_FAILURE,
+  SIGNIN_USER_SUCCESS,
+} from "./user-types";
 
 /**
  * Saves the user information to the Redux store.
  *
  * @param {User} user
- * @returns {{payload: object, type: string}}
+ * @returns {{payload: User, type: string}}
  */
-const saveUser = (user) => ({
-  type: SAVE_USER,
+const signinUserSuccess = (user) => ({
+  type: SIGNIN_USER_SUCCESS,
   payload: user,
+});
+
+/**
+ * Sets the error to the Redux store.
+ *
+ * @param error
+ * @returns {{payload: *, type: string}}
+ */
+const signinUserFailure = (error) => ({
+  type: SIGNIN_USER_FAILURE,
+  payload: error,
 });
 
 /**
@@ -16,8 +31,8 @@ const saveUser = (user) => ({
  *
  * @returns {{type: string}}
  */
-const removeUser = () => ({
-  type: REMOVE_USER,
+const logoutUser = () => ({
+  type: LOGOUT_USER,
 });
 
 /**
@@ -37,10 +52,11 @@ export const signinUserFetch = (user) => (dispatch) =>
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      if (data.ok) {
+      if (data.hasOwnProperty("error")) {
+        dispatch(signinUserFailure(data.error));
+      } else {
         localStorage.setItem("access-token", data.accessToken);
-        dispatch(saveUser(data.user));
+        dispatch(signinUserSuccess(data.user));
       }
     })
     .catch((error) => error);
@@ -65,10 +81,11 @@ export const getProfileFetch = () => (dispatch) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        if (data.hasOwnProperty("message")) {
+        if (data.hasOwnProperty("error")) {
+          dispatch(signinUserFailure(data.error));
           localStorage.removeItem("access-token");
         } else {
-          dispatch(saveUser(data.user));
+          dispatch(signinUserSuccess(data.user));
         }
       });
   }
@@ -80,7 +97,7 @@ export const getProfileFetch = () => (dispatch) => {
  *
  * @returns {function(...[*]=)}
  */
-export const logoutUser = () => (dispatch) => {
+export const logoutRemoveUser = () => (dispatch) => {
   localStorage.removeItem("access-token");
-  dispatch(removeUser());
+  dispatch(logoutUser());
 };

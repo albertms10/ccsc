@@ -1,20 +1,32 @@
-import { REMOVE_USER, SAVE_USER } from "./user-types";
+import {
+  LOGOUT_USER,
+  SIGNIN_USER_FAILURE,
+  SIGNIN_USER_SUCCESS,
+} from "./user-types";
 
 const initialState = {
   currentUser: {},
+  error: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SAVE_USER:
+    case SIGNIN_USER_SUCCESS:
       return {
-        ...state,
         currentUser: action.payload,
+        error: {},
       };
-    case REMOVE_USER:
+
+    case SIGNIN_USER_FAILURE:
       return {
-        ...state,
         currentUser: {},
+        error: action.payload,
+      };
+
+    case LOGOUT_USER:
+      return {
+        currentUser: {},
+        error: {},
       };
 
     default:

@@ -1,16 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { signinUserFetch } from "../../redux";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Container } from "../../standalone/container";
 import { LogoCorDeCambra } from "../../icons";
 import { useIniciUsuari } from "./hooks";
 
 import "./inicia-sessio.css";
+import { useSelector } from "react-redux";
 
 export default () => {
   const [loading, dispatch] = useIniciUsuari();
+  const error = useSelector((state) => state.user.error);
 
   const onFinish = useCallback(
     (values) => {
@@ -18,6 +20,11 @@ export default () => {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    if (error.statusCode >= 500) message.error(error.message);
+    if (error.statusCode >= 400) message.warning(error.message);
+  }, [error]);
 
   return (
     !loading && (

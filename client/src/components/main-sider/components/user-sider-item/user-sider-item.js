@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Menu } from "antd";
-import { logoutUser } from "../../../../redux";
+import { logoutRemoveUser } from "../../../../redux";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,7 +17,7 @@ export default () => {
         <Menu>
           <Menu.Item>Perfil</Menu.Item>
           <Menu.Divider />
-          <Menu.Item onClick={() => dispatch(logoutUser())}>
+          <Menu.Item onClick={() => dispatch(logoutRemoveUser())}>
             Tanca la sessió
           </Menu.Item>
         </Menu>
