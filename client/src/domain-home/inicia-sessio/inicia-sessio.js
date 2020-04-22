@@ -14,9 +14,7 @@ export default () => {
 
   const onFinish = useCallback(
     (values) => {
-      dispatch(signinUserFetch(values)).catch(({ message }) => {
-        console.log(message);
-      });
+      dispatch(signinUserFetch(values));
     },
     [dispatch]
   );

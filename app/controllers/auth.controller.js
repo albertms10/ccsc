@@ -35,18 +35,6 @@ exports.signin = (req, res, next) => {
     (err, rows) => {
       if (err) next(err);
 
-      /**
-       * @typedef User
-       * @type {Object}
-       * @property {number} id
-       * @property {string} username
-       * @property {string} nom
-       * @property {string} cognoms
-       * @property {string} salt
-       * @property {string} encrypted_password
-       * @property {string} roles
-       */
-
       /** @type {User} */
       const user = rows[0];
 

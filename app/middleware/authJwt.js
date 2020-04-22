@@ -4,13 +4,16 @@ const config = require("../config/auth.config.js");
 const connection = require("../../connection");
 
 verifyToken = (req, res, next) => {
-  let accessToken = req.headers["x-access-token"];
+  /** @type {string} */
+  const accessToken = req.headers["x-access-token"];
 
   if (!accessToken)
-    return res.status(403).send({ message: "No token provided!" });
+    return res
+      .status(403)
+      .send({ message: "Cal proporcionar un token d’accés." });
 
   jwt.verify(accessToken, config.secret, (err, decoded) => {
-    if (err) return res.status(401).send({ message: "Unauthorized!" });
+    if (err) return res.status(401).send({ message: "Sense autorizació" });
 
     req.userId = decoded.id;
     next();
@@ -18,6 +21,7 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
+  /** @type {number} */
   const id = req.userId;
 
   connection.query(
@@ -34,61 +38,9 @@ isAdmin = (req, res, next) => {
         return;
       }
 
-      res.status(403).send({ message: "Require Admin Role!" });
-    }
-  );
-};
-
-userInfo = (req, res, next) => {
-  const id = req.userId;
-  const accessToken = req.headers["x-access-token"];
-
-  connection.query(
-    `SELECT id_usuari AS id,
-            username,
-            nom,
-            cognoms,
-            (
-                SELECT JSON_ARRAYAGG(role)
-                FROM roles_usuaris
-                         INNER JOIN roles USING (id_role)
-                WHERE id_usuari = (SELECT usuaris.id_usuari)
-            )         AS roles
-     FROM usuaris
-              LEFT JOIN persones USING (id_persona)
-     WHERE id_usuari = ?`,
-    [id],
-    (err, rows) => {
-      if (err) next(err);
-      if (rows[0]) {
-        const user = rows[0];
-
-        let authorities = [];
-        try {
-          authorities = JSON.parse(user.roles).map(
-            (role) => "ROLE_" + role.toUpperCase()
-          );
-
-          return res.status(200).send({
-            user: {
-              id: user.id,
-              username: user.username,
-              nom: user.nom,
-              cognoms: user.cognoms,
-              roles: authorities,
-            },
-            accessToken,
-          });
-        } catch (e) {
-          next(e);
-          res.status(500).send({
-            message: "Error during role list processing",
-            accessToken: null,
-          });
-        }
-      }
-
-      res.status(404).send({ message: "User not found" });
+      res
+        .status(403)
+        .send({ message: "Cal tenir assignat un rol d’usuari superior." });
     }
   );
 };
@@ -96,5 +48,4 @@ userInfo = (req, res, next) => {
 module.exports = {
   verifyToken,
   isAdmin,
-  userInfo,
 };

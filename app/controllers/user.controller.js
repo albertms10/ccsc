@@ -16,8 +16,11 @@ exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
+// TODO Part de la lògica d'aquesta funció és compartida amb la d'autorització a auth.controller.js
 exports.userInfo = (req, res, next) => {
+  /** @type {number} */
   const id = req.userId;
+  /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
   connection.query(
@@ -37,9 +40,12 @@ exports.userInfo = (req, res, next) => {
     [id],
     (err, rows) => {
       if (err) next(err);
-      if (rows[0]) {
-        const user = rows[0];
 
+      /** @type {User} */
+      const user = rows[0];
+
+      if (user) {
+        /** @type {string[]} */
         let authorities = [];
         try {
           authorities = JSON.parse(user.roles).map(
@@ -59,13 +65,14 @@ exports.userInfo = (req, res, next) => {
         } catch (e) {
           next(e);
           res.status(500).send({
-            message: "Error during role list processing",
+            message:
+              "Hi ha hagut un error en el processament dels rols d’usuari.",
             accessToken: null,
           });
         }
       }
 
-      res.status(404).send({ message: "User not found" });
+      res.status(404).send({ message: "L’usuari no s’ha trobat." });
     }
   );
 };

@@ -3,7 +3,7 @@ import { SAVE_USER, REMOVE_USER } from "./user-types";
 /**
  * Saves the user information to the Redux store.
  *
- * @param user
+ * @param {User} user
  * @returns {{payload: object, type: string}}
  */
 const saveUser = (user) => ({
@@ -23,7 +23,7 @@ const removeUser = () => ({
 /**
  * Fetches the API for a given user credentials (username and password).
  *
- * @param user
+ * @param {User} user
  * @returns {function(function): Promise<any>}
  */
 export const signinUserFetch = (user) => (dispatch) =>
@@ -37,13 +37,13 @@ export const signinUserFetch = (user) => (dispatch) =>
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.hasOwnProperty("message")) {
-        console.log(data);
-      } else {
+      console.log(data);
+      if (data.ok) {
         localStorage.setItem("access-token", data.accessToken);
         dispatch(saveUser(data.user));
       }
-    });
+    })
+    .catch((error) => error);
 
 /**
  * Fetches the API for a given JWT access token in `localStorage`.
