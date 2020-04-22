@@ -10,9 +10,12 @@ exports.signin = (req, res, next) => {
   } = req.body;
 
   if (!username || !password)
-    return res
-      .status(400)
-      .send({ message: "Cal introduir el nom d’usuari i la contrasenya." });
+    return res.status(400).send({
+      error: {
+        statusCode: 400,
+        message: "Cal introduir el nom d’usuari i la contrasenya.",
+      },
+    });
 
   // TODO Aquesta consulta hauria d'estar a un endpoint concret?
   connection.query(
@@ -39,7 +42,12 @@ exports.signin = (req, res, next) => {
       const user = rows[0];
 
       if (!user)
-        return res.status(404).send({ message: "L’usuari no s’ha trobat." });
+        return res.status(404).send({
+          error: {
+            statusCode: 404,
+            message: "L’usuari no s’ha trobat.",
+          },
+        });
 
       const { hash } = saltHashPassword({
         password,
@@ -50,8 +58,10 @@ exports.signin = (req, res, next) => {
 
       if (!passwordIsValid)
         return res.status(401).send({
-          message: "La contrasenya és incorrecta.",
-          accessToken: null,
+          error: {
+            statusCode: 401,
+            message: "La contrasenya és incorrecta.",
+          },
         });
 
       /** @type {string} */
@@ -79,9 +89,11 @@ exports.signin = (req, res, next) => {
       } catch (e) {
         next(e);
         res.status(500).send({
-          message:
-            "Hi ha hagut un error en el processament dels rols d’usuari.",
-          accessToken: null,
+          error: {
+            statusCode: 500,
+            message:
+              "Hi ha hagut un error en el processament dels rols d’usuari.",
+          },
         });
       }
     }

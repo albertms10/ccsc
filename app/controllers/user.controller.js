@@ -65,14 +65,21 @@ exports.userInfo = (req, res, next) => {
         } catch (e) {
           next(e);
           res.status(500).send({
-            message:
-              "Hi ha hagut un error en el processament dels rols d’usuari.",
-            accessToken: null,
+            error: {
+              statusCode: 500,
+              message:
+                "Hi ha hagut un error en el processament dels rols d’usuari.",
+            },
           });
         }
       }
 
-      res.status(404).send({ message: "L’usuari no s’ha trobat." });
+      res.status(404).send({
+        error: {
+          statusCode: 404,
+          message: "L’usuari no s’ha trobat.",
+        },
+      });
     }
   );
 };
