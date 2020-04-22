@@ -12,8 +12,9 @@ const randomString = (size) => crypto.randomBytes(size).toString("hex");
 /**
  * Generates a pair salt and hash for a given pass word.
  *
- * @param {string} password
- * @param {string} salt
+ * @param {Object} securePassword
+ * @param {string} securePassword.password
+ * @param {string} [securePassword.salt]
  * @returns {{salt: string, hash: string}}
  */
 const saltHashPassword = ({ password, salt = randomString(4) }) => {

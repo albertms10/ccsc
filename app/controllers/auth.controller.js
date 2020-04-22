@@ -4,12 +4,15 @@ const connection = require("../../connection");
 const saltHashPassword = require("../../utils/saltHashPassword");
 
 exports.signin = (req, res, next) => {
-  const { username, password } = req.body;
+  const {
+    /** @type {string} */ username,
+    /** @type {string} */ password,
+  } = req.body;
 
   if (!username || !password)
     return res
       .status(400)
-      .send({ message: "Username or password not provided" });
+      .send({ message: "Cal introduir el nom d’usuari i la contrasenya." });
 
   // TODO Aquesta consulta hauria d'estar a un endpoint concret?
   connection.query(
@@ -33,20 +36,22 @@ exports.signin = (req, res, next) => {
       if (err) next(err);
 
       /**
-       * @param {Object} user
-       * @param {number} user.id
-       * @param {string} user.username
-       * @param {string} user.nom
-       * @param {string} user.cognoms
-       * @param {string} user.salt
-       * @param {string} user.encrypted_password
-       * @param {string} user.roles
+       * @typedef User
+       * @type {Object}
+       * @property {number} id
+       * @property {string} username
+       * @property {string} nom
+       * @property {string} cognoms
+       * @property {string} salt
+       * @property {string} encrypted_password
+       * @property {string} roles
        */
+
+      /** @type {User} */
       const user = rows[0];
 
-      if (!user) return res.status(404).send({ message: "User not found" });
-
-      console.log(`Authenticating user ${username}`);
+      if (!user)
+        return res.status(404).send({ message: "L’usuari no s’ha trobat." });
 
       const { hash } = saltHashPassword({
         password,
@@ -57,14 +62,16 @@ exports.signin = (req, res, next) => {
 
       if (!passwordIsValid)
         return res.status(401).send({
-          message: "Invalid password",
+          message: "La contrasenya és incorrecta.",
           accessToken: null,
         });
 
+      /** @type {string} */
       const token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 10800, // 3 hours
       });
 
+      /** @type {string[]} */
       let authorities = [];
       try {
         authorities = JSON.parse(user.roles).map(
@@ -83,12 +90,11 @@ exports.signin = (req, res, next) => {
         });
       } catch (e) {
         next(e);
-        res
-          .status(500)
-          .send({
-            message: "Error during role list processing",
-            accessToken: null,
-          });
+        res.status(500).send({
+          message:
+            "Hi ha hagut un error en el processament dels rols d’usuari.",
+          accessToken: null,
+        });
       }
     }
   );
