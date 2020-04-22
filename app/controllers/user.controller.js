@@ -12,10 +12,6 @@ exports.adminBoard = (req, res) => {
   res.status(200).send("Admin Content.");
 };
 
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
-};
-
 // TODO Part de la lògica d'aquesta funció és compartida amb la d'autorització a auth.controller.js
 exports.userInfo = (req, res, next) => {
   /** @type {number} */

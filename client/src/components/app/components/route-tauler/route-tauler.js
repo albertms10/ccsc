@@ -5,6 +5,7 @@ import React from "react";
 export default ({ component, ...rest }) => {
   const user = useSelector((store) => store.user.currentUser);
   const Component = component;
+
   return (
     <Route
       {...rest}

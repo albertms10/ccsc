@@ -1,6 +1,5 @@
 /**
- * @typedef User
- * @type {Object}
+ * @typedef {Object} User
  * @property {number} id
  * @property {string} username
  * @property {string} nom

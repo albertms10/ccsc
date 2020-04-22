@@ -59,11 +59,7 @@ export default () => {
                           />
                         ))}
                     <Route exact path="/socis" component={Socis} />
-                    <Route
-                      exact
-                      path="/socis/:username"
-                      component={PerfilSoci}
-                    />
+                    <Route exact path="/socis/:id" component={PerfilSoci} />
                   </Switch>
                 </Content>
               </Layout>

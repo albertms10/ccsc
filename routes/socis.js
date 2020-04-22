@@ -1,4 +1,4 @@
-const saltHashPassword = require("../utils/saltHashPassword");
+const { saltHashPassword } = require("../utils");
 
 module.exports = (app) => {
   const connection = app.get("connection");

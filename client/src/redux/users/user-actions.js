@@ -18,8 +18,8 @@ const signinUserSuccess = (user) => ({
 /**
  * Sets the error to the Redux store.
  *
- * @param error
- * @returns {{payload: *, type: string}}
+ * @param {SigninError} error
+ * @returns {{payload: SigninError, type: string}}
  */
 const signinUserFailure = (error) => ({
   type: SIGNIN_USER_FAILURE,
@@ -39,7 +39,6 @@ const logoutUser = () => ({
  * Fetches the API for a given user credentials (username and password).
  *
  * @param {User} user
- * @returns {function(function): Promise<any>}
  */
 export const signinUserFetch = (user) => (dispatch) =>
   fetch("/api/auth/signin", {
@@ -63,8 +62,6 @@ export const signinUserFetch = (user) => (dispatch) =>
 
 /**
  * Fetches the API for a given JWT access token in `localStorage`.
- *
- * @returns {function(...[*]=)}
  */
 export const getProfileFetch = () => (dispatch) => {
   const accessToken = localStorage.getItem("access-token");
@@ -94,8 +91,6 @@ export const getProfileFetch = () => (dispatch) => {
 
 /**
  * Removes the JWT access token from the localStorage and dispatches the user logout action.
- *
- * @returns {function(...[*]=)}
  */
 export const logoutRemoveUser = () => (dispatch) => {
   localStorage.removeItem("access-token");
