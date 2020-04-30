@@ -77,6 +77,15 @@ CREATE TABLE IF NOT EXISTS perfils
     PRIMARY KEY (id_perfil)
 );
 
+CREATE TABLE IF NOT EXISTS roles
+(
+    id_role TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    role    VARCHAR(50)      NOT NULL,
+
+    PRIMARY KEY (id_role)
+);
+
 CREATE TABLE IF NOT EXISTS perfils_usuaris
 (
     id_usuari SMALLINT UNSIGNED NOT NULL,
@@ -554,24 +563,15 @@ CREATE TABLE IF NOT EXISTS classes_activitat
  Obres
  */
 
-CREATE TABLE IF NOT EXISTS compositors
+CREATE TABLE IF NOT EXISTS autors
 (
-    id_compositor SMALLINT UNSIGNED NOT NULL,
+    id_autor SMALLINT UNSIGNED NOT NULL,
 
-    defuncio      DATE,
-    cataleg       VARCHAR(10),
+    defuncio DATE,
+    cataleg  VARCHAR(10),
 
-    PRIMARY KEY (id_compositor),
-    FOREIGN KEY (id_compositor) REFERENCES persones (id_persona)
-);
-
-CREATE TABLE IF NOT EXISTS rols
-(
-    id_rol TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-
-    nom    VARCHAR(50)      NOT NULL,
-
-    PRIMARY KEY (id_rol)
+    PRIMARY KEY (id_autor),
+    FOREIGN KEY (id_autor) REFERENCES persones (id_persona)
 );
 
 CREATE TABLE IF NOT EXISTS obres
@@ -584,22 +584,31 @@ CREATE TABLE IF NOT EXISTS obres
     any_inici   SMALLINT(4) UNSIGNED,
     any_final   SMALLINT(4) UNSIGNED,
 
-    id_idioma   SMALLINT UNSIGNED,
+    id_idioma   CHAR(2),
 
     PRIMARY KEY (id_obra),
     FOREIGN KEY (id_idioma) REFERENCES idiomes (id_idioma)
 );
 
-CREATE TABLE IF NOT EXISTS obres_rols_compositors
+CREATE TABLE IF NOT EXISTS tipus_autoria
 (
-    id_obra       SMALLINT UNSIGNED NOT NULL,
-    id_rol        TINYINT UNSIGNED  NOT NULL,
-    id_compositor SMALLINT UNSIGNED NOT NULL,
+    id_tipus_autoria TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    PRIMARY KEY (id_obra, id_rol, id_compositor),
+    tipus_autoria    VARCHAR(50)      NOT NULL,
+
+    PRIMARY KEY (id_tipus_autoria)
+);
+
+CREATE TABLE IF NOT EXISTS obres_tipus_autories
+(
+    id_obra          SMALLINT UNSIGNED NOT NULL,
+    id_tipus_autoria TINYINT UNSIGNED  NOT NULL,
+    id_autoria       SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_obra, id_tipus_autoria, id_autoria),
     FOREIGN KEY (id_obra) REFERENCES obres (id_obra),
-    FOREIGN KEY (id_rol) REFERENCES rols (id_rol),
-    FOREIGN KEY (id_compositor) REFERENCES compositors (id_compositor)
+    FOREIGN KEY (id_tipus_autoria) REFERENCES tipus_autoria (id_tipus_autoria),
+    FOREIGN KEY (id_autoria) REFERENCES autors (id_autor)
 );
 
 CREATE TABLE IF NOT EXISTS moviments
@@ -1111,6 +1120,16 @@ CREATE TABLE IF NOT EXISTS concerts_entrades
     PRIMARY KEY (id_concert, id_entrada),
     FOREIGN KEY (id_concert) REFERENCES concerts (id_concert),
     FOREIGN KEY (id_entrada) REFERENCES entrades (id_entrada)
+);
+
+CREATE TABLE IF NOT EXISTS retalls
+(
+    id_retall SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    titol     VARCHAR(255),
+    subtitol  TEXT,
+    link      VARCHAR(255),
+
+    PRIMARY KEY (id_retall)
 );
 
 /*
