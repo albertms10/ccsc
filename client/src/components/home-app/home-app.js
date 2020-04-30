@@ -50,7 +50,7 @@ export default () => (
         ))}
       </Menu>
     </Header>
-    <Content style={{ padding: "0 50px" }}>
+    <Content>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/qui-som" component={QuiSom} />
       <Route exact path="/concerts" component={Concerts} />

@@ -1,7 +1,7 @@
 .carousel-item {
     display: flex;
     flex-direction: column-reverse;
-    height: 80vh;
+    height: calc(100vh - var(--header-height));
     padding-bottom: 5rem;
     text-align: center;
     background-color: var(--primary-color);

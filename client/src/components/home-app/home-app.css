@@ -1,3 +1,7 @@
+:root {
+    --header-height: 64px;
+}
+
 .home-page-header.ant-layout-header {
     background-color: #1d71b8 !important;
 }

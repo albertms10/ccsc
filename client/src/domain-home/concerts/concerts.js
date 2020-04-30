@@ -1,5 +1,4 @@
 import React from "react";
+import { PageSkeleton } from "../../components/page-skeleton";
 
-export default () => {
-  return <h2>Concerts</h2>;
-};
+export default () => <PageSkeleton title="Concerts" />;
