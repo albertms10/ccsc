@@ -7,6 +7,7 @@ import { HomePage } from "../../domain-home/home-page";
 import { QuiSom } from "../../domain-home/qui-som";
 import { Concerts } from "../../domain-home/concerts";
 import { Contacte } from "../../domain-home/contacte";
+import { Premsa } from "../../domain-home/premsa";
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,6 +26,11 @@ const menuItems = [
     key: "concerts",
     title: "Concerts",
     path: "/concerts",
+  },
+  {
+    key: "premsa",
+    title: "Premsa",
+    path: "/premsa",
   },
   {
     key: "contacte",
@@ -56,6 +62,7 @@ export default () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/qui-som" component={QuiSom} />
       <Route exact path="/concerts" component={Concerts} />
+      <Route exact path="/premsa" component={Premsa} />
       <Route exact path="/contacte" component={Contacte} />
     </Content>
     <Footer style={{ textAlign: "center" }}>
