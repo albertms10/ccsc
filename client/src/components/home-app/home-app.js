@@ -41,7 +41,9 @@ const menuItems = [
 export default () => (
   <Layout className="layout">
     <Header className="home-page-header">
-      <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
+      <Link to="/">
+        <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
+      </Link>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["inici"]}>
         {menuItems.map((item) => (
           <Menu.Item key={item.key}>
