@@ -22,8 +22,9 @@ export default () => {
   );
 
   useEffect(() => {
-    if (error.statusCode >= 500) message.error(error.message);
-    if (error.statusCode >= 400) message.warning(error.message);
+    if (error.statusCode >= 400 && error.statusCode < 500)
+      message.warning(error.message);
+    else if (error.message) message.error(error.message);
   }, [error]);
 
   return (
@@ -74,7 +75,7 @@ export default () => {
               />
             </Form.Item>
             <Form.Item>
-              <a className="signin-form-forgot" href="#">
+              <a className="signin-form-forgot" href="/#">
                 Has oblidat la contrasenya?
               </a>
             </Form.Item>
