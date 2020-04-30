@@ -197,9 +197,14 @@ module.exports = (app) => {
     const id_persona = req.params.id;
 
     connection.query(
-      `DELETE
-         FROM usuaris
+      `DELETE ru
+         FROM roles_usuaris ru
+                  INNER JOIN usuaris USING (id_usuari)
          WHERE id_persona = ?;
+
+            DELETE
+            FROM usuaris
+            WHERE id_persona = ?;
 
             DELETE
             FROM historial_socis
@@ -212,7 +217,8 @@ module.exports = (app) => {
             DELETE
             FROM persones
             WHERE id_persona = ?;`,
-      [id_persona, id_persona, id_persona, id_persona],
+      // TODO: Múltiples paràmetres a la consulta -> una sola variable
+      [id_persona, id_persona, id_persona, id_persona, id_persona],
       (err) => {
         if (err) next(err);
       }
