@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS perfils
 (
     id_perfil TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom       VARCHAR(50)     NOT NULL,
+    nom       VARCHAR(50)      NOT NULL,
 
     PRIMARY KEY (id_perfil)
 );
@@ -1077,6 +1077,41 @@ CREATE TABLE IF NOT EXISTS articles_documentacio
 
 /* TODO: Implementar paràgrafs i llistes */
 
+/*
+ Pàgina principal
+ */
+
+CREATE TABLE IF NOT EXISTS titulars
+(
+    id_titular SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    titol      VARCHAR(255)      NOT NULL,
+    imatge     VARCHAR(255),
+    data_inici DATETIME,
+    data_final DATETIME,
+    link       VARCHAR(255),
+    ordre      TINYINT(2),
+
+    PRIMARY KEY (id_titular)
+);
+
+CREATE TABLE IF NOT EXISTS entrades
+(
+    id_entrada SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    titol      VARCHAR(255)      NOT NULL,
+    cos        TEXT              NOT NULL,
+
+    PRIMARY KEY (id_entrada)
+);
+
+CREATE TABLE IF NOT EXISTS concerts_entrades
+(
+    id_concert SMALLINT UNSIGNED NOT NULL,
+    id_entrada SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_concert, id_entrada),
+    FOREIGN KEY (id_concert) REFERENCES concerts (id_concert),
+    FOREIGN KEY (id_entrada) REFERENCES entrades (id_entrada)
+);
 
 /*
 
