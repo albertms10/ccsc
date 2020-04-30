@@ -7,7 +7,7 @@ const HOST = "localhost";
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-const connection = require("./connection");
+const connection = require("./connection.config");
 app.set("connection", connection);
 
 // Routes
@@ -15,6 +15,7 @@ require("./routes/agrupacions")(app);
 require("./routes/associacio")(app);
 require("./routes/esdeveniments")(app);
 require("./routes/establiments")(app);
+require("./routes/home")(app);
 require("./routes/localitzacions")(app);
 require("./routes/socis")(app);
 require("./routes/usuaris")(app);

@@ -1,4 +1,4 @@
-const connection = require("../../connection");
+const connection = require("../../connection.config");
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
