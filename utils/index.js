@@ -1,1 +1,1 @@
-export { default as saltHashPassword } from "./salt-hash-password";
+exports.saltHashPassword = require("./salt-hash-password");
