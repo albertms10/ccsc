@@ -1,5 +1,13 @@
 .carousel-item {
+    display: flex;
+    flex-direction: column-reverse;
     height: 80vh;
-    color: #fff;
-    background-color: #06376b;
+    padding-bottom: 5rem;
+    text-align: center;
+    background-color: var(--primary-color);
+}
+
+.carousel-item-title {
+    color: #fff !important;
+    text-shadow: 1px 3px 14px rgba(0, 0, 0, .2)
 }
