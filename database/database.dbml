@@ -26,6 +26,11 @@ Table "persones" {
   "accepta_drets_imatge" BOOLEAN [not null, default: FALSE]
   "es_anonim" BOOLEAN [not null, default: FALSE]
   "id_localitzacio" SMALLINT
+
+Indexes {
+  dni [unique]
+  email [unique]
+}
 }
 
 Table "socis" {
@@ -33,36 +38,21 @@ Table "socis" {
   "experiencia_coral" TEXT
   "estudis_musicals" TEXT
   "id_veu" CHAR(1)
+  "id_associacio" SMALLINT [not null, default: 1]
 }
 
-Table "socis_perfils" {
-  "id_soci" SMALLINT [not null]
-  "id_perfil_soci" TINYINT [not null]
-
-Indexes {
-  (id_soci, id_perfil_soci) [pk]
-}
+Table "roles" {
+  "id_role" TINYINT [pk, not null, increment]
+  "role" VARCHAR(50) [not null]
 }
 
-Table "perfils_soci" {
-  "id_perfil_soci" TINYINT [pk, not null, increment]
-  "nom" VARCHAR(100) [not null]
-}
-
-Table "perfils_accions" {
-  "id_perfil_soci" TINYINT [not null]
-  "id_accio_soci" SMALLINT [not null]
-  "valor" TINYINT(1) [not null, default: 0]
+Table "roles_usuaris" {
+  "id_usuari" SMALLINT [not null]
+  "id_role" TINYINT [not null]
 
 Indexes {
-  (id_perfil_soci, id_accio_soci) [pk]
+  (id_usuari, id_role) [pk]
 }
-}
-
-Table "accions_socis" {
-  "id_accio_soci" SMALLINT [pk, not null]
-  "nom" VARCHAR(50) [not null]
-  "descripcio" TEXT
 }
 
 Table "historial_socis" {
@@ -258,9 +248,9 @@ Indexes {
 
 Table "esdeveniments" {
   "id_esdeveniment" SMALLINT [pk, not null, increment]
-  "data_inici" DATE [not null]
+  "dia_inici" DATE [not null]
   "hora_inici" TIME
-  "data_final" DATE
+  "dia_final" DATE
   "hora_final" TIME
   "es_hora_curs" BOOLEAN [not null, default: FALSE]
   "id_estat_esdeveniment" TINYINT [not null, default: 1]
@@ -329,15 +319,10 @@ Table "classes_activitat" {
   "id_activitat" SMALLINT [not null]
 }
 
-Table "compositors" {
-  "id_compositor" SMALLINT [pk, not null]
+Table "autors" {
+  "id_autor" SMALLINT [pk, not null]
   "defuncio" DATE
   "cataleg" VARCHAR(10)
-}
-
-Table "rols" {
-  "id_rol" TINYINT [pk, not null, increment]
-  "nom" VARCHAR(50) [not null]
 }
 
 Table "obres" {
@@ -347,16 +332,21 @@ Table "obres" {
   "num_cataleg" SMALLINT
   "any_inici" SMALLINT(4)
   "any_final" SMALLINT(4)
-  "id_idioma" SMALLINT
+  "id_idioma" CHAR(2)
 }
 
-Table "obres_rols_compositors" {
+Table "tipus_autoria" {
+  "id_tipus_autoria" TINYINT [pk, not null, increment]
+  "tipus_autoria" VARCHAR(50) [not null]
+}
+
+Table "obres_tipus_autories" {
   "id_obra" SMALLINT [not null]
-  "id_rol" TINYINT [not null]
-  "id_compositor" SMALLINT [not null]
+  "id_tipus_autoria" TINYINT [not null]
+  "id_autoria" SMALLINT [not null]
 
 Indexes {
-  (id_obra, id_rol, id_compositor) [pk]
+  (id_obra, id_tipus_autoria, id_autoria) [pk]
 }
 }
 
@@ -414,6 +404,7 @@ Table "cursos" {
   "id_curs" VARCHAR(5) [pk, not null]
   "inici" DATE [not null]
   "final" DATE
+  "id_associacio" SMALLINT [not null, default: 1]
 }
 
 Table "projectes" {
@@ -667,6 +658,38 @@ Table "articles_documentacio" {
   "id_capitol" SMALLINT [not null]
 }
 
+Table "titulars" {
+  "id_titular" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(255) [not null]
+  "imatge" VARCHAR(255)
+  "data_inici" DATETIME
+  "data_final" DATETIME
+  "link" VARCHAR(255)
+  "ordre" TINYINT(2)
+}
+
+Table "entrades" {
+  "id_entrada" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(255) [not null]
+  "cos" TEXT [not null]
+}
+
+Table "concerts_entrades" {
+  "id_concert" SMALLINT [not null]
+  "id_entrada" SMALLINT [not null]
+
+Indexes {
+  (id_concert, id_entrada) [pk]
+}
+}
+
+Table "retalls" {
+  "id_retall" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(255)
+  "subtitol" TEXT
+  "link" VARCHAR(255)
+}
+
 Ref:"persones"."id_persona" < "usuaris"."id_persona"
 
 Ref:"paisos"."id_pais" < "persones"."id_pais"
@@ -677,13 +700,11 @@ Ref:"persones"."id_persona" < "socis"."id_soci"
 
 Ref:"veus"."id_veu" < "socis"."id_veu"
 
-Ref:"socis"."id_soci" < "socis_perfils"."id_soci"
+Ref:"associacio"."id_associacio" < "socis"."id_associacio"
 
-Ref:"perfils_soci"."id_perfil_soci" < "socis_perfils"."id_perfil_soci"
+Ref:"usuaris"."id_usuari" < "roles_usuaris"."id_usuari"
 
-Ref:"perfils_soci"."id_perfil_soci" < "perfils_accions"."id_perfil_soci"
-
-Ref:"accions_socis"."id_accio_soci" < "perfils_accions"."id_accio_soci"
+Ref:"roles"."id_role" < "roles_usuaris"."id_role"
 
 Ref:"socis"."id_soci" < "historial_socis"."id_historial_soci"
 
@@ -777,15 +798,15 @@ Ref:"esdeveniments"."id_esdeveniment" < "classes_activitat"."id_classe_activitat
 
 Ref:"activitats"."id_activitat" < "classes_activitat"."id_activitat"
 
-Ref:"persones"."id_persona" < "compositors"."id_compositor"
+Ref:"persones"."id_persona" < "autors"."id_autor"
 
 Ref:"idiomes"."id_idioma" < "obres"."id_idioma"
 
-Ref:"obres"."id_obra" < "obres_rols_compositors"."id_obra"
+Ref:"obres"."id_obra" < "obres_tipus_autories"."id_obra"
 
-Ref:"rols"."id_rol" < "obres_rols_compositors"."id_rol"
+Ref:"tipus_autoria"."id_tipus_autoria" < "obres_tipus_autories"."id_tipus_autoria"
 
-Ref:"compositors"."id_compositor" < "obres_rols_compositors"."id_compositor"
+Ref:"autors"."id_autor" < "obres_tipus_autories"."id_autoria"
 
 Ref:"obres"."id_obra" < "moviments"."id_obra"
 
@@ -804,6 +825,8 @@ Ref:"socis"."id_soci" < "socis_veus_projectes"."id_soci"
 Ref:"veus_moviments"."id_veu_moviment" < "socis_veus_projectes"."id_veu_moviment"
 
 Ref:"projectes"."id_projecte" < "socis_veus_projectes"."id_projecte"
+
+Ref:"associacio"."id_associacio" < "cursos"."id_associacio"
 
 Ref:"cursos"."id_curs" < "projectes"."id_curs"
 
@@ -898,3 +921,7 @@ Ref:"tipus_documentacio"."id_tipus_documentacio" < "documentacions"."id_tipus_do
 Ref:"documentacions"."id_documentacio" < "capitols_documentacio"."id_documentacio"
 
 Ref:"capitols_documentacio"."id_capitol_documentacio" < "articles_documentacio"."id_capitol"
+
+Ref:"concerts"."id_concert" < "concerts_entrades"."id_concert"
+
+Ref:"entrades"."id_entrada" < "concerts_entrades"."id_entrada"
