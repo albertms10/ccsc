@@ -86,6 +86,7 @@ export default ({ socis, getSocis, loading }) => {
       render: (idPersona, row) => (
         <Dropdown
           placement="bottomRight"
+          trigger="click"
           overlay={
             <Menu>
               <Menu.Item>
