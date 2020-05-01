@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS roles
 CREATE TABLE IF NOT EXISTS roles_usuaris
 (
     id_usuari SMALLINT UNSIGNED NOT NULL,
-    id_role TINYINT UNSIGNED  NOT NULL,
+    id_role   TINYINT UNSIGNED  NOT NULL,
 
     PRIMARY KEY (id_usuari, id_role),
     FOREIGN KEY (id_usuari) REFERENCES usuaris (id_usuari),
@@ -1121,6 +1121,17 @@ CREATE TABLE IF NOT EXISTS retalls
     link      VARCHAR(255),
 
     PRIMARY KEY (id_retall)
+);
+
+CREATE TABLE IF NOT EXISTS missatges
+(
+    id_missatge SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nom         VARCHAR(255)      NOT NULL,
+    email       VARCHAR(255)      NOT NULL,
+    missatge    TEXT              NOT NULL,
+    data        TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id_missatge)
 );
 
 /*
