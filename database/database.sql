@@ -1138,6 +1138,7 @@ CREATE TABLE IF NOT EXISTS missatges
 
  DUBTES
 
+ TODO
  - Quin ús hauria de fer de les VIEWS i les STORED PROCEDURES?
    (Una vista per a cada consulta i un procediment
    per a executar-la amb uns paràmetres concrets?)
@@ -1195,11 +1196,12 @@ CREATE TABLE IF NOT EXISTS missatges
    (Els responsables segueixen la mateixa estructura de dades en junta, equips i feines.)
 
 
+ TODO
  - Col·laboració en concerts de solistes i corals:
    (múltiples moviments) -> una sola factura per concert/projecte.
 
-
- - Com gestiono els rebuts i factures entrants/sortints?
+ TODO
+ - Com gestiono les factures entrants/sortints?
 
 
  - En realitzar un pagament de quota (quota -> soci),
@@ -1221,7 +1223,7 @@ CREATE TABLE IF NOT EXISTS missatges
 
  - Gestió d'empresa/projecte (CRM - Gestió de projectes)
 
-
+ TODO
  - Analitzar i dissenyar nous processos per a l'associació
 
 
@@ -1236,7 +1238,7 @@ CREATE TABLE IF NOT EXISTS missatges
    -> De projectes
    -> De concerts
 
-
+ TODO
  - Col·laboracions en esdeveniments
    -> De solistes
    -> De directors
@@ -1245,10 +1247,13 @@ CREATE TABLE IF NOT EXISTS missatges
       -> Com a coral
       -> Com a cantant
 
-
+ TODO
  - Com emmagatzemo informació de caràcter estàtic?
    (una sola associació -> una taula amb un únic registre?)
    L'associació té una cor, però en podria tenir més (?)
+
+ TODO
+ - Rutes del backend privades.
 
  */
 
