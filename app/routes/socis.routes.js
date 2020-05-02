@@ -1,7 +1,8 @@
+const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/socis.controller");
 
 module.exports = (app) => {
-  app.get("/api/socis/count", controller.socis_count);
+  app.get("/api/socis/count", [authJWT.verifyToken], controller.socis_count);
 
   app.get("/api/socis/historial", controller.socis_historial);
 

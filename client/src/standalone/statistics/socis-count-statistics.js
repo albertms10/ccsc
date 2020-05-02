@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, Space, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { MultipleStatistics } from "./components";
+import { useCountSocis } from "./hooks";
 
 export default () => {
-  const [countSocis, setCountSocis] = useState({});
-
-  useEffect(() => {
-    fetch("/api/socis/count")
-      .then((res) => res.json())
-      .then((data) => setCountSocis(data[0]));
-  }, []);
+  const [countSocis] = useCountSocis();
 
   return (
     <Link to="/socis">
