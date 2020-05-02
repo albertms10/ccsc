@@ -8,7 +8,16 @@ import {
   WarningTwoTone,
 } from "@ant-design/icons";
 
-export default ({ tooltip, statusId, esAniversari, style }) => {
+/**
+ *
+ * @param {string} [tooltip]
+ * @param {('middle'|'large')} [size]
+ * @param {number} [statusId]
+ * @param {boolean} [esAniversari=false]
+ * @param {Object} [style]
+ * @returns {React.Component}
+ */
+export default ({ tooltip, size, statusId, esAniversari = false, style }) => {
   const status = [
     <CheckCircleTwoTone twoToneColor="#52c41a" />,
     <QuestionCircleTwoTone twoToneColor="#1890ff" />,
@@ -16,12 +25,17 @@ export default ({ tooltip, statusId, esAniversari, style }) => {
     <WarningTwoTone twoToneColor="#faad14" />,
   ];
 
+  const newStyle = {
+    ...style,
+    transform: size === "large" ? "scale(1.5) translate(3px)" : "",
+  };
+
   return (
     <Tooltip title={tooltip}>
       {esAniversari ? (
-        <GiftTwoTone twoToneColor="#eb2f96" style={style} />
+        <GiftTwoTone twoToneColor="#eb2f96" style={newStyle} />
       ) : statusId ? (
-        cloneElement(status[statusId - 1], { style })
+        cloneElement(status[statusId - 1], { style: newStyle })
       ) : (
         ""
       )}

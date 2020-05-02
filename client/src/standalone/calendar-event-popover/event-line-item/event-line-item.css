@@ -1,0 +1,16 @@
+.event-line-item {
+    display: flex;
+}
+
+.event-line-item-icon {
+    width: 2rem;
+    padding-left: .2rem;
+}
+
+.event-line-item-text {
+    flex: 1;
+}
+
+.event-line-item-text.large {
+    font-size: larger;
+}

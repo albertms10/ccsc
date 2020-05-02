@@ -1,0 +1,9 @@
+.calendar-event-popover {
+    padding-top: .2rem;
+    padding-bottom: .5rem;
+}
+
+.calendar-event-popover--item-light {
+    color: #999;
+    font-size: small;
+}

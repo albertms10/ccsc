@@ -50,6 +50,23 @@ module.exports = (app) => {
                     FROM estats_confirmacio
                     WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
                 )                                                     AS estat_localitzacio,
+                (
+                    SELECT CONCAT_WS(' ', tv.nom, CONCAT(carrer, ','),
+                                     CONCAT(IFNULL(CONCAT(numero, '–', fins_numero), CONCAT(numero)), ','), c.nom,
+                                     CONCAT('(',
+                                            (SELECT nom FROM ciutats WHERE id_ciutat = (SELECT c.id_provincia)),
+                                            ')'))
+                    FROM localitzacions
+                             INNER JOIN tipus_vies tv USING (id_tipus_via)
+                             INNER JOIN ciutats c USING (id_ciutat)
+                    WHERE id_localitzacio = (SELECT esdeveniments.id_localitzacio)
+                )                                                     AS localitzacio,
+                (
+                    SELECT e.nom
+                    FROM localitzacions
+                             INNER JOIN establiments e ON localitzacions.id_localitzacio = e.id_establiment
+                    WHERE id_localitzacio = (SELECT esdeveniments.id_localitzacio)
+                )                                                     AS establiment,
                 id_esdeveniment_ajornat,
                 CONCAT(
                         'Assaig',
@@ -96,6 +113,23 @@ module.exports = (app) => {
                     FROM estats_confirmacio
                     WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
                 )                                                     AS estat_localitzacio,
+                (
+                    SELECT CONCAT_WS(' ', tv.nom, CONCAT(carrer, ','),
+                                     CONCAT(IFNULL(CONCAT(numero, '–', fins_numero), CONCAT(numero)), ','), c.nom,
+                                     CONCAT('(',
+                                            (SELECT nom FROM ciutats WHERE id_ciutat = (SELECT c.id_provincia)),
+                                            ')'))
+                    FROM localitzacions
+                             INNER JOIN tipus_vies tv USING (id_tipus_via)
+                             INNER JOIN ciutats c USING (id_ciutat)
+                    WHERE id_localitzacio = (SELECT esdeveniments.id_localitzacio)
+                )                                                     AS localitzacio,
+                (
+                    SELECT e.nom
+                    FROM localitzacions
+                             INNER JOIN establiments e ON localitzacions.id_localitzacio = e.id_establiment
+                    WHERE id_localitzacio = (SELECT esdeveniments.id_localitzacio)
+                )                                                     AS establiment,
                 id_esdeveniment_ajornat,
                 CONCAT('Concert ', titol)                             AS titol,
                 (
@@ -129,6 +163,8 @@ module.exports = (app) => {
                 NULL                                                                AS id_estat_localitzacio,
                 NULL                                                                AS estat_esdeveniment,
                 NULL                                                                AS estat_localitzacio,
+                NULL                                                                AS localitzacio,
+                NULL                                                                AS establiment,
                 NULL                                                                AS id_esdeveniment_ajornat,
                 nom_complet                                                         AS titol,
                 NULL                                                                AS projectes,

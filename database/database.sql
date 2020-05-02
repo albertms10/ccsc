@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS establiments
     id_establiment       SMALLINT UNSIGNED NOT NULL,
 
     nom                  VARCHAR(100)      NOT NULL,
-    descripcio           TEXT              NOT NULL,
+    descripcio           TEXT,
     lloc_web             VARCHAR(255),
 
     id_tipus_establiment SMALLINT UNSIGNED,
