@@ -11,17 +11,15 @@ const connection = require("./connection.config");
 app.set("connection", connection);
 
 // Routes
-require("./routes/agrupacions.routes")(app);
-require("./routes/associacions.routes")(app);
-require("./routes/esdeveniments.routes")(app);
-require("./routes/establiments.routes")(app);
-require("./routes/titulars.routes")(app);
-require("./routes/localitzacions.routes")(app);
-require("./routes/socis.routes")(app);
-require("./routes/usuaris.routes")(app);
-
+require("./app/routes/agrupacions.routes")(app);
+require("./app/routes/associacions.routes")(app);
 require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+require("./app/routes/esdeveniments.routes")(app);
+require("./app/routes/establiments.routes")(app);
+require("./app/routes/localitzacions.routes")(app);
+require("./app/routes/socis.routes")(app);
+require("./app/routes/titulars.routes")(app);
+require("./app/routes/usuaris.routes")(app);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
