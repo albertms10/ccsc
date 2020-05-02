@@ -6,12 +6,21 @@ verifyToken = (req, res, next) => {
   const accessToken = req.headers["x-access-token"];
 
   if (!accessToken)
-    return res
-      .status(403)
-      .send({ message: "Cal proporcionar un token d’accés." });
+    return res.status(403).send({
+      error: {
+        statusCode: 403,
+        message: "Cal proporcionar un token d’accés.",
+      },
+    });
 
   jwt.verify(accessToken, config.secret, (err, decoded) => {
-    if (err) return res.status(401).send({ message: "Sense autorizació" });
+    if (err)
+      return res.status(401).send({
+        error: {
+          statusCode: 401,
+          message: "Sense autorizació",
+        },
+      });
 
     req.userId = decoded.id;
     next();
@@ -38,9 +47,12 @@ isAdmin = (req, res, next) => {
         return;
       }
 
-      res
-        .status(403)
-        .send({ message: "Cal tenir assignat un rol d’usuari superior." });
+      res.status(403).send({
+        error: {
+          statusCode: 403,
+          message: "Cal tenir assignat un rol d’usuari superior.",
+        },
+      });
     }
   );
 };
