@@ -17,7 +17,8 @@ export default () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser.hasOwnProperty("id")) history.push("/tauler");
+    if (currentUser && currentUser.hasOwnProperty("id"))
+      history.push("/tauler");
   });
 
   return [loading, dispatch];
