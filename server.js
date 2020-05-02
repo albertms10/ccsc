@@ -11,14 +11,14 @@ const connection = require("./connection.config");
 app.set("connection", connection);
 
 // Routes
-require("./routes/agrupacions")(app);
-require("./routes/associacio")(app);
-require("./routes/esdeveniments")(app);
-require("./routes/establiments")(app);
-require("./routes/home")(app);
-require("./routes/localitzacions")(app);
-require("./routes/socis")(app);
-require("./routes/usuaris")(app);
+require("./routes/agrupacions.routes")(app);
+require("./routes/associacions.routes")(app);
+require("./routes/esdeveniments.routes")(app);
+require("./routes/establiments.routes")(app);
+require("./routes/titulars.routes")(app);
+require("./routes/localitzacions.routes")(app);
+require("./routes/socis.routes")(app);
+require("./routes/usuaris.routes")(app);
 
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);

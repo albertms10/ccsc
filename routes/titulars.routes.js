@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const connection = app.get("connection");
 
-  app.get("/api/home/titulars", (req, res, next) => {
+  app.get("/api/titulars", (req, res, next) => {
     connection.query(
       `SELECT *
          FROM titulars
