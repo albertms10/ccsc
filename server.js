@@ -7,7 +7,7 @@ const HOST = "localhost";
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-const connection = require("./connection.config");
+const connection = require("./app/config/connection.config");
 app.set("connection", connection);
 
 // Routes
