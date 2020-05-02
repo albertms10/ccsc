@@ -4,7 +4,7 @@ export default () => {
   const [titulars, setTitulars] = useState([]);
 
   useEffect(() => {
-    fetch("/api/home/titulars")
+    fetch("/api/titulars")
       .then((res) => res.json())
       .then(setTitulars);
   }, []);
