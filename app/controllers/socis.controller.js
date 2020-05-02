@@ -1,4 +1,4 @@
-const { saltHashPassword } = require("../../utils");
+const { saltHashPassword } = require("../utils");
 
 exports.socis_count = (req, res, next) => {
   const connection = req.app.get("connection");
