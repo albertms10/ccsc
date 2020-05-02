@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
-const connection = require("../../connection.config");
 const saltHashPassword = require("../../utils/salt-hash-password");
 
 exports.signin = (req, res, next) => {
+  const connection = req.app.get("connection");
+
   const {
     /** @type {string} */ username,
     /** @type {string} */ password,

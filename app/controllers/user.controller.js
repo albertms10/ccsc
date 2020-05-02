@@ -1,5 +1,3 @@
-const connection = require("../../connection.config");
-
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
@@ -14,6 +12,8 @@ exports.adminBoard = (req, res) => {
 
 // TODO Part de la lògica d'aquesta funció és compartida amb la d'autorització a auth.controller.js
 exports.userInfo = (req, res, next) => {
+  const connection = req.app.get("connection");
+
   /** @type {number} */
   const id = req.userId;
   /** @type {string} */
