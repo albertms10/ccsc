@@ -7,6 +7,6 @@
 export default (s) =>
   s
     .split(" ")
-    .map((w) => w[0])
+    .map((w) => w.charAt(0))
     .join("")
     .toUpperCase();
