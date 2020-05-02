@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Menu, Spin } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { kebabCase, nIndexOf } from "../../../../utils";
-import "./main-menu.css";
 import {
   HomeOutlined,
   LoadingOutlined,
@@ -15,10 +14,11 @@ import {
   LoadingAgrupacionsContext,
 } from "../../../tauler-app/tauler-app";
 import { IconAgrupacio } from "../../../../icons";
+import "./main-menu.css";
 
-const { SubMenu, Item, ItemGroup } = Menu;
+const { Item, ItemGroup } = Menu;
 
-export default ({ collapsed, setCollapsed }) => {
+export default ({ collapsed }) => {
   const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
 
   const [menuPosition, setMenuPosition] = useState("");
@@ -31,6 +31,21 @@ export default ({ collapsed, setCollapsed }) => {
   const location = useLocation();
 
   // TODO Reorganitzar-ho en hooks propis
+  /**
+   * @typedef {Object} MenuItem
+   * @property {string} title
+   * @property {React.Component} icon
+   * @property {string} path
+   */
+
+  /**
+   * @typedef {Object} MenuGroup
+   * @property {string} key
+   * @property {string} title
+   * @property {boolean} [loading]
+   * @property {MenuItem[]} groupedItems
+   */
+
   const items = [
     {
       title: "Inici",
@@ -38,13 +53,13 @@ export default ({ collapsed, setCollapsed }) => {
       path: "/",
     },
     {
-      key: "group1",
+      key: "grup_agrupacions",
       title: "Agrupacions",
       loading: loadingAgrupacions,
       groupedItems: itemsAgrupacions,
     },
     {
-      key: "group2",
+      key: "grup_associacio",
       title: "Associació",
       groupedItems: [
         {
@@ -101,6 +116,10 @@ export default ({ collapsed, setCollapsed }) => {
     );
   }, [location, paths]);
 
+  /**
+   * @param {MenuGroup} item
+   * @returns {React.Component}
+   */
   const renderGroup = (item) => (
     <ItemGroup
       key={item.key}
@@ -118,29 +137,12 @@ export default ({ collapsed, setCollapsed }) => {
           />
         </Item>
       ) : (
-        item.groupedItems.map((item) => {
-          if (item.hasOwnProperty("subItems")) return renderSubMenu(item);
-          return renderItem(item);
-        })
+        item.groupedItems.map(renderItem)
       )}
     </ItemGroup>
   );
 
-  const renderSubMenu = (item) => (
-    <SubMenu
-      key={item.key}
-      title={
-        <span>
-          {item.icon}
-          <span>{item.title}</span>
-        </span>
-      }
-    >
-      {item.subItems.map(renderItem)}
-    </SubMenu>
-  );
-
-  const renderItem = (item) => (
+  const renderItem = (/** MenuItem */ item) => (
     <Item key={item.path}>
       <Link to={item.path}>
         {item.icon}
@@ -155,11 +157,9 @@ export default ({ collapsed, setCollapsed }) => {
       theme="dark"
       defaultSelectedKeys={[menuPosition]}
       mode="inline"
-      onClick={() => setCollapsed(true)}
     >
-      {items.map((item) => {
+      {items.map((/** MenuItem */ item) => {
         if (item.hasOwnProperty("groupedItems")) return renderGroup(item);
-        else if (item.hasOwnProperty("subItems")) return renderSubMenu(item);
         return renderItem(item);
       })}
     </Menu>
