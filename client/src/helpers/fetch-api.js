@@ -1,12 +1,7 @@
 /**
- * @typedef {Function} FetchCallback
- * @param {Object} data
- */
-
-/**
  * Fetches the API using the appropriate JWT Access Token.
  * @param {string} url
- * @param {FetchCallback} callback
+ * @param {Function} callback
  * @param {RequestInit} init
  */
 export default (url, callback, init = {}) => {
@@ -21,7 +16,6 @@ export default (url, callback, init = {}) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data.hasOwnProperty("error")) {
         /* TODO: Dispatch `signinUserFailure`
             Show alert modal or redirect? */
