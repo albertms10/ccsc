@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { FormAfegirSoci } from "./components/form-afegir-soci";
 import "./modal-afegir-soci.css";
 import { useUsername } from "./hooks";
+import { upperCaseFirst } from "../../utils";
 
 const { Step } = Steps;
 
@@ -37,6 +38,8 @@ export default ({ getSocis }) => {
           setConfirmLoading(true);
 
           values.username = username;
+          values.nom = upperCaseFirst(values.nom);
+          values.cognoms = upperCaseFirst(values.cognoms);
           values.acceptaDretsImatge = !!values.acceptaDretsImatge;
           values.naixement = values.naixement.format("YYYY-MM-DD");
           values.data_alta = values.data_alta
