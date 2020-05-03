@@ -1,5 +1,5 @@
 /**
  * @typedef {Object} SigninError
- * @property {number} statusCode
+ * @property {number} status
  * @property {string} message
  */

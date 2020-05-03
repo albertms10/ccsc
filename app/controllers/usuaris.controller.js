@@ -50,7 +50,7 @@ exports.userInfo = (req, res, next) => {
           next(e);
           res.status(500).send({
             error: {
-              statusCode: 500,
+              status: 500,
               message:
                 "Hi ha hagut un error en el processament dels rols d’usuari.",
             },
@@ -60,7 +60,7 @@ exports.userInfo = (req, res, next) => {
 
       res.status(404).send({
         error: {
-          statusCode: 404,
+          status: 404,
           message: "L’usuari no s’ha trobat.",
         },
       });

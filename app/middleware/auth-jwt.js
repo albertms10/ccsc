@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
   if (!accessToken)
     return res.status(403).send({
       error: {
-        statusCode: 403,
+        status: 403,
         message: "Cal proporcionar un token d’accés.",
       },
     });
@@ -17,7 +17,7 @@ const verifyToken = (req, res, next) => {
     if (err)
       return res.status(401).send({
         error: {
-          statusCode: 401,
+          status: 401,
           message: "Sense autorizació",
         },
       });
@@ -49,7 +49,7 @@ const isRole = (req, res, next, roles) => {
 
       res.status(403).send({
         error: {
-          statusCode: 403,
+          status: 403,
           message: "Cal tenir assignat un rol superior d’usuari.",
         },
       });

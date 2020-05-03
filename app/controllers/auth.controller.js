@@ -13,7 +13,7 @@ exports.signin = (req, res, next) => {
   if (!username || !password)
     return res.status(400).send({
       error: {
-        statusCode: 400,
+        status: 400,
         message: "Cal introduir el nom d’usuari i la contrasenya.",
       },
     });
@@ -45,7 +45,7 @@ exports.signin = (req, res, next) => {
       if (!user)
         return res.status(404).send({
           error: {
-            statusCode: 404,
+            status: 404,
             message: "L’usuari no s’ha trobat.",
           },
         });
@@ -60,7 +60,7 @@ exports.signin = (req, res, next) => {
       if (!passwordIsValid)
         return res.status(401).send({
           error: {
-            statusCode: 401,
+            status: 401,
             message: "La contrasenya és incorrecta.",
           },
         });
@@ -91,7 +91,7 @@ exports.signin = (req, res, next) => {
         next(e);
         res.status(500).send({
           error: {
-            statusCode: 500,
+            status: 500,
             message:
               "Hi ha hagut un error en el processament dels rols d’usuari.",
           },

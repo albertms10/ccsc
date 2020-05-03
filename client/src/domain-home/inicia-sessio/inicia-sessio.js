@@ -22,7 +22,7 @@ export default () => {
   );
 
   useEffect(() => {
-    if (error.statusCode >= 400 && error.statusCode < 500)
+    if (error.status >= 400 && error.status < 500)
       message.warning(error.message);
     else if (error.message) message.error(error.message);
   }, [error]);
