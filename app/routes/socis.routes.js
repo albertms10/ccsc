@@ -4,7 +4,11 @@ const controller = require("../controllers/socis.controller");
 module.exports = (app) => {
   app.get("/api/socis/count", [authJWT.verifyToken], controller.socis_count);
 
-  app.get("/api/socis/historial", controller.socis_historial);
+  app.get(
+    "/api/socis/historial",
+    [authJWT.verifyToken],
+    controller.socis_historial
+  );
 
   app.get("/api/socis/:id", controller.socis_detall);
 
