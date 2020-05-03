@@ -115,7 +115,7 @@ export default ({ collapsed, setCollapsed, broken }) => {
         return path === getBasename(location.pathname, numDirectories + 1);
       })
     );
-  }, [location, paths]);
+  }, [location, paths, itemsAgrupacions]);
 
   /**
    * @param {MenuGroup} item
