@@ -18,11 +18,14 @@ import "./taula-socis.css";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { useSearchSocis } from "./hooks";
 import { closestTimeValue } from "../../utils";
+import { useDispatch } from "react-redux";
+import { fetchAPI } from "../../helpers";
 
 const { Text, Paragraph } = Typography;
 const { Search } = Input;
 
 export default ({ socis, getSocis, loading }) => {
+  const dispatch = useDispatch();
   const [searchValue, setSearchValue, filteredSocis] = useSearchSocis(socis);
 
   const columns = [
@@ -105,7 +108,9 @@ export default ({ socis, getSocis, loading }) => {
   ];
 
   const handleEliminar = (id) => {
-    fetch(`/api/socis/${id}`, { method: "DELETE" }).then(() => getSocis());
+    fetchAPI(`/api/socis/${id}`, () => getSocis(), dispatch, {
+      method: "DELETE",
+    });
   };
 
   const getResponsiveColumns = ({ small, medium }) =>

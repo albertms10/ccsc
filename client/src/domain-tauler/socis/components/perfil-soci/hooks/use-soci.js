@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import { fetchAPI } from "../../../../../helpers";
 
 export default (idSoci) => {
   const [soci, setSoci] = useState({});
 
   useEffect(() => {
-    fetch(`/api/socis/${idSoci}`)
-      .then((res) => res.json())
-      .then(setSoci);
+    fetchAPI(`/api/socis/${idSoci}`, setSoci);
   }, [idSoci]);
 
   return [soci];

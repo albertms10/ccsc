@@ -10,11 +10,11 @@ module.exports = (app) => {
     controller.socis_historial
   );
 
-  app.get("/api/socis/:id", controller.socis_detall);
+  app.get("/api/socis/:id", [authJWT.verifyToken], controller.socis_detall);
 
-  app.get("/api/socis", controller.socis_get);
+  app.get("/api/socis", [authJWT.verifyToken], controller.socis_get);
 
-  app.post("/api/socis", controller.socis_post);
+  app.post("/api/socis", [authJWT.verifyToken], controller.socis_post);
 
-  app.delete("/api/socis/:id", controller.socis_delete);
+  app.delete("/api/socis/:id", [authJWT.verifyToken], controller.socis_delete);
 };

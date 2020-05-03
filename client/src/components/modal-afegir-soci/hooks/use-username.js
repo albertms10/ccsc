@@ -1,25 +1,14 @@
 import { useState } from "react";
-import { stripAccents } from "../../../utils";
+import { generateUsername } from "../../../utils";
 
 export default () => {
   const [username, setUsername] = useState("");
   const [loadingUsername, setLoadingUsername] = useState(false);
 
-  const generateUsername = async ({ nom, cognoms }) => {
+  const getUsername = async ({ nom, cognoms }) => {
     setLoadingUsername(true);
 
-    const username = stripAccents(
-      nom
-        .split(" ")
-        .map((n, i) => (i > 0 ? n[0] : n))
-        .join("")
-        .toLowerCase() +
-        cognoms
-          .split(" ")
-          .map((n) => (n[0] === n[0].toUpperCase() ? n[0] : ""))
-          .join("")
-          .toLowerCase()
-    );
+    const username = generateUsername(nom, cognoms);
 
     await fetch(`/api/usuaris/${username}/first-available-num`)
       .then((res) => res.json())
@@ -30,5 +19,5 @@ export default () => {
       });
   };
 
-  return [username, loadingUsername, generateUsername];
+  return [username, loadingUsername, getUsername];
 };

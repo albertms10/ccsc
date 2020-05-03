@@ -7,6 +7,9 @@ import { FormAfegirSoci } from "./components/form-afegir-soci";
 import "./modal-afegir-soci.css";
 import { useUsername } from "./hooks";
 import { upperCaseFirst } from "../../utils";
+import { fetchAPI } from "../../helpers";
+
+import { useDispatch } from "react-redux";
 
 const { Step } = Steps;
 
@@ -18,11 +21,12 @@ const steps = [
 ];
 
 export default ({ getSocis }) => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [loading, setConfirmLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [alertProteccio, setAlertProteccio] = useState(false);
-  const [username, loadingUsername, generateUsername] = useUsername();
+  const [username, loadingUsername, getUsername] = useUsername();
 
   const [form] = Form.useForm();
 
@@ -46,25 +50,20 @@ export default ({ getSocis }) => {
             ? values.data_alta.format("YYYY-MM-DD")
             : moment().format("YYYY-MM-DD");
 
-          fetch("/api/socis", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-          }).then((res) => {
-            setConfirmLoading(false);
-            if (res.ok) {
+          fetchAPI(
+            "/api/socis",
+            () => {
+              setConfirmLoading(false);
               setVisible(false);
               message.success(`El soci s'ha afegit correctament.`);
               getSocis(() => {
                 setCurrent(0);
                 form.resetFields();
               });
-            } else {
-              message.error(
-                `Hi ha hagut un error en la consulta: ${res.status} ${res.statusText}`
-              );
-            }
-          });
+            },
+            dispatch,
+            { method: "POST", body: JSON.stringify(values) }
+          );
         } else {
           handleErrorProteccio();
         }
@@ -86,7 +85,7 @@ export default ({ getSocis }) => {
     setVisible(false);
   };
 
-  // TODO És correcta aquesta funció asíncrona pel que fa a l'ús de `generateUsername`?
+  // TODO És correcta aquesta funció asíncrona pel que fa a l'ús de `getUsername`?
   const handleChange = async (current) => {
     try {
       const data = await form.validateFields();
@@ -97,7 +96,7 @@ export default ({ getSocis }) => {
       }
 
       if (current === 3)
-        await generateUsername({ nom: data.nom, cognoms: data.cognoms });
+        await getUsername({ nom: data.nom, cognoms: data.cognoms });
     } catch (error) {
       handleValidateError(error);
       return;
