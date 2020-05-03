@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
+import { fetchAPI } from "../../../../../helpers";
+import { useDispatch } from "react-redux";
 
 export default (id_agrupacio) => {
+  const dispatch = useDispatch();
   const [concerts, setConcerts] = useState([]);
   const [loadingConcerts, setLoadingConcerts] = useState(false);
 
   useEffect(() => {
     setLoadingConcerts(true);
 
-    fetch(`/api/agrupacions/${id_agrupacio}/concerts`)
-      .then((res) => res.json())
-      .then((data) => {
+    fetchAPI(
+      `/api/agrupacions/${id_agrupacio}/concerts`,
+      (data) => {
         setConcerts(data);
         setLoadingConcerts(false);
-      });
-  }, [id_agrupacio]);
+      },
+      dispatch
+    );
+  }, [id_agrupacio, dispatch]);
 
   return [concerts, loadingConcerts];
 };

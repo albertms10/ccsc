@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAPI } from "../../../../../helpers";
 
 export default (id_agrupacio) => {
+  const dispatch = useDispatch();
   const [esdeveniments, setEsdeveniments] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/agrupacions/${id_agrupacio}/esdeveniments`)
-      .then((res) => res.json())
-      .then(setEsdeveniments);
-  }, [id_agrupacio]);
+    fetchAPI(
+      `/api/agrupacions/${id_agrupacio}/esdeveniments`,
+      setEsdeveniments,
+      dispatch
+    );
+  }, [id_agrupacio, dispatch]);
 
   return [esdeveniments];
 };

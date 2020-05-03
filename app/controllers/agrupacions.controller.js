@@ -1,16 +1,3 @@
-exports.agrupacions_get = (req, res, next) => {
-  const connection = req.app.get("connection");
-
-  connection.query(
-    `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
-       FROM agrupacions;`,
-    (err, rows) => {
-      if (err) next(err);
-      res.send(rows);
-    }
-  );
-};
-
 exports.agrupacions_detall = (req, res, next) => {
   const connection = req.app.get("connection");
   const id_agrupacio = req.params.id;

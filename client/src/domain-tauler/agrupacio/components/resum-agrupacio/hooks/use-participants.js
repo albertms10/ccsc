@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
+import { fetchAPI } from "../../../../../helpers";
+import { useDispatch } from "react-redux";
 
 export default (id_agrupacio) => {
+  const dispatch = useDispatch();
   const [participants, setParticipants] = useState([]);
   const [loadingParticipants, setLoadingParticipants] = useState(false);
 
   useEffect(() => {
     setLoadingParticipants(true);
 
-    fetch(`/api/agrupacions/${id_agrupacio}/participants`)
-      .then((res) => res.json())
-      .then((data) => {
+    fetchAPI(
+      `/api/agrupacions/${id_agrupacio}/participants`,
+      (data) => {
         setParticipants(data);
         setLoadingParticipants(false);
-      });
-  }, [id_agrupacio]);
+      },
+      dispatch
+    );
+  }, [id_agrupacio, dispatch]);
 
   return [participants, loadingParticipants];
 };
