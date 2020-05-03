@@ -18,7 +18,7 @@ import "./main-menu.css";
 
 const { Item, ItemGroup } = Menu;
 
-export default ({ collapsed }) => {
+export default ({ collapsed, setCollapsed, broken }) => {
   const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
 
   const [menuPosition, setMenuPosition] = useState("");
@@ -158,6 +158,9 @@ export default ({ collapsed }) => {
       theme="dark"
       selectedKeys={[menuPosition]}
       mode="inline"
+      onClick={() => {
+        if (broken) setCollapsed(true);
+      }}
     >
       {items.map((/** MenuItem */ item) => {
         if (item.hasOwnProperty("groupedItems")) return renderGroup(item);

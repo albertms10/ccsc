@@ -32,7 +32,11 @@ export default ({ collapsed, setCollapsed, broken, setBroken }) => {
           <div className="main-layout-title-long">{nomAssociacio}</div>
         )}
       </div>
-      <MainMenu collapsed={collapsed} />
+      <MainMenu
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        broken={broken}
+      />
       <UserSiderItem />
     </Sider>
   );
