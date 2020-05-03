@@ -60,7 +60,7 @@ exports.socis_detall = (req, res, next) => {
     `SELECT persones.*, usuaris.*, socis.*
        FROM socis
                 INNER JOIN persones ON (id_soci = id_persona)
-                LEFT JOIN usuaris USING(id_persona)
+                LEFT JOIN usuaris USING (id_persona)
        WHERE id_soci = ?;`,
     [id_soci],
     (err, rows) => {
@@ -131,9 +131,9 @@ exports.socis_post = (req, res, next) => {
 
   // TODO: És correcta aquesta anidació de consultes?
   connection.query(
-    `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
+    `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon,
                              accepta_proteccio_dades, accepta_drets_imatge)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
     [
       soci.nom,
       soci.cognoms,
@@ -141,6 +141,7 @@ exports.socis_post = (req, res, next) => {
       soci.nacionalitat,
       soci.dni,
       soci.email,
+      soci.telefon,
       soci.acceptaProteccioDades,
       soci.acceptaDretsImatge,
     ],
