@@ -25,10 +25,15 @@ export default (url, callback, dispatch, init = {}) => {
         res.json().then((data) => {
           if (data.hasOwnProperty("error")) {
             localStorage.removeItem("access-token");
-            Modal.info({
+            Modal.warn({
+              title: data.error.message,
               content:
-                "Has de tornar a iniciar sessió per comprovar la teva identitat.",
-              onOk: () => dispatch(logoutRemoveUser()),
+                "Torna a iniciar sessió per comprovar la teva identitat.",
+              okText: "Inicia sessió",
+              onOk: () => {
+                dispatch(logoutRemoveUser());
+                Modal.destroyAll();
+              },
             });
           } else {
             callback(data);
