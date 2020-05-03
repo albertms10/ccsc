@@ -19,7 +19,9 @@ export default () => {
 
   useEffect(() => {
     if (currentUser && currentUser.hasOwnProperty("id")) {
-      const prevLocation = location.state.prevLocation;
+      let prevLocation;
+      if (location.state) prevLocation = location.state.prevLocation;
+
       history.push(prevLocation ? prevLocation.pathname : "/tauler");
     }
   });
