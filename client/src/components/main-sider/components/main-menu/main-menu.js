@@ -82,13 +82,14 @@ export default ({ collapsed }) => {
   ];
 
   useEffect(() => {
-    setPaths((prevPaths) =>
+    setPaths((prevPaths) => {
       prevPaths.splice(
         1,
         0,
         ...agrupacions.map((agrupacio) => "/" + kebabCase(agrupacio.nom_curt))
-      )
-    );
+      );
+      return prevPaths;
+    });
 
     setItemsAgrupacions(
       agrupacions.map((agrupacio) => ({
@@ -118,7 +119,7 @@ export default ({ collapsed }) => {
 
   /**
    * @param {MenuGroup} item
-   * @returns {React.Component}
+   * @returns {ItemGroup}
    */
   const renderGroup = (item) => (
     <ItemGroup
@@ -155,7 +156,7 @@ export default ({ collapsed }) => {
     <Menu
       className="main-menu"
       theme="dark"
-      defaultSelectedKeys={[menuPosition]}
+      selectedKeys={[menuPosition]}
       mode="inline"
     >
       {items.map((/** MenuItem */ item) => {
