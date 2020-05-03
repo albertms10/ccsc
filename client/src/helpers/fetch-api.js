@@ -1,10 +1,14 @@
+import { message, Modal } from "antd";
+import { logoutRemoveUser } from "../redux";
+
 /**
  * Fetches the API using the appropriate JWT Access Token.
  * @param {string} url
  * @param {Function} callback
- * @param {RequestInit} init
+ * @param {Function} dispatch
+ * @param {RequestInit} [init={}]
  */
-export default (url, callback, init = {}) => {
+export default (url, callback, dispatch, init = {}) => {
   fetch(url, {
     method: init.method ?? "GET",
     headers: {
@@ -13,16 +17,27 @@ export default (url, callback, init = {}) => {
       Accept: "application/json",
       "x-access-token": localStorage.getItem("access-token"),
     },
+    body: init.body ?? null,
   })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.hasOwnProperty("error")) {
-        /* TODO: Dispatch `signinUserFailure`
-            Show alert modal or redirect? */
-        // dispatch(signinUserFailure(data.error));
-        localStorage.removeItem("access-token");
-      } else {
-        callback(data);
-      }
+    .then((res) => {
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1)
+        res.json().then((data) => {
+          if (data.hasOwnProperty("error")) {
+            localStorage.removeItem("access-token");
+            Modal.info({
+              content:
+                "Has de tornar a iniciar sessió per comprovar la teva identitat.",
+              onOk: () => dispatch(logoutRemoveUser()),
+            });
+          } else {
+            callback(data);
+          }
+        });
+      else if (res.ok) callback();
+    })
+    .catch((e) => {
+      console.log(e);
+      message.error(e.toString());
     });
 };
