@@ -125,9 +125,10 @@ exports.socis_get = (req, res, next) => {
 exports.socis_post = (req, res, next) => {
   const connection = req.app.get("connection");
   const soci = req.body;
+  // TODO: Comprovar que la contrasenya s’apliqui correctament
   const password = soci.naixement.split("-").reverse().join("-");
 
-  // TODO És correcta aquesta anidació de consultes?
+  // TODO: És correcta aquesta anidació de consultes?
   connection.query(
     `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email,
                              accepta_proteccio_dades, accepta_drets_imatge)
