@@ -1,4 +1,4 @@
-const controller = require("../controllers/associacions.controller");
+const controller = require("../controllers/associacio.controller");
 
 module.exports = (app) => {
   app.get("/api/associacio", controller.associacio_get);

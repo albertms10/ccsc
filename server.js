@@ -20,7 +20,7 @@ app.set("connection", connection);
 
 // Routes
 require("./app/routes/agrupacions.routes")(app);
-require("./app/routes/associacions.routes")(app);
+require("./app/routes/associacio.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/esdeveniments.routes")(app);
 require("./app/routes/establiments.routes")(app);
