@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getProfileFetch } from "../../../redux";
 
 export default () => {
   const [loading, setLoading] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
@@ -17,8 +18,10 @@ export default () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser && currentUser.hasOwnProperty("id"))
-      history.push("/tauler");
+    if (currentUser && currentUser.hasOwnProperty("id")) {
+      const prevLocation = location.state.prevLocation;
+      history.push(prevLocation ? prevLocation.pathname : "/tauler");
+    }
   });
 
   return [loading, dispatch];
