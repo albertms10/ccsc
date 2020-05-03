@@ -50,7 +50,7 @@ const isRole = (req, res, next, roles) => {
       res.status(403).send({
         error: {
           statusCode: 403,
-          message: "Cal tenir assignat un rol d’usuari superior.",
+          message: "Cal tenir assignat un rol superior d’usuari.",
         },
       });
     }

@@ -1,7 +1,12 @@
+const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/localitzacions.controller");
 
 module.exports = (app) => {
-  app.post("/api/localitzacions", controller.localitzacions_post);
+  app.post(
+    "/api/localitzacions",
+    [authJWT.verifyToken, authJWT.isJuntaDirectiva],
+    controller.localitzacions_post
+  );
 
   app.get(
     "/api/localitzacions/tipus-vies",
