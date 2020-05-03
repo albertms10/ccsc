@@ -4,4 +4,5 @@
  * @param {string} s
  * @returns {string}
  */
-export default (s) => s.charAt(0).toUpperCase() + s.slice(1);
+export default (s) =>
+  s ? s.trim().charAt(0).toUpperCase() + s.trim().slice(1) : "";

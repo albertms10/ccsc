@@ -1,6 +1,5 @@
 /**
  * Returns the index of the nth occurence of a value in a string.
- *
  * @param {string} string
  * @param {string} searchValue
  * @param {number} occurence

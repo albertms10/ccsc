@@ -7,3 +7,4 @@ export { default as snakeCase } from "./snake-case";
 export { default as stripAccents } from "./strip-accents";
 export { default as upperCaseFirst } from "./upper-case-first";
 export { default as upperSnakeCase } from "./upper-snake-case";
+export { default as generateUsername } from "./generate-username";

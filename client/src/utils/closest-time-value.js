@@ -1,6 +1,5 @@
 /**
  * Given an integer, finds the propper unit in order to express its value.
- *
  * @param {number} value
  * @param {('s'|'min'|'h'|'d'|'m'|'y')} unit
  * @returns {string}
