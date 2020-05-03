@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
@@ -27,7 +27,7 @@ verifyToken = (req, res, next) => {
   });
 };
 
-isAdmin = (req, res, next) => {
+const isRole = (req, res, next, roles) => {
   const connection = req.app.get("connection");
 
   /** @type {number} */
@@ -38,8 +38,8 @@ isAdmin = (req, res, next) => {
        FROM roles
                 INNER JOIN roles_usuaris USING (id_role)
        WHERE id_usuari = ?
-         AND role = 'admin';`,
-    [id],
+         AND role IN (?);`,
+    [id, roles],
     (err, /** @param {number} rows[].es_admin */ rows) => {
       if (err) next(err);
       if (rows[0].es_admin) {
@@ -57,7 +57,17 @@ isAdmin = (req, res, next) => {
   );
 };
 
+const isJuntaDirectiva = (req, res, next) =>
+  isRole(req, res, next, ["junta_directiva", "director_musical", "admin"]);
+
+const isDirectorMusical = (req, res, next) =>
+  isRole(req, res, next, ["director_musical", "admin"]);
+
+const isAdmin = (req, res, next) => isRole(req, res, next, ["admin"]);
+
 module.exports = {
   verifyToken,
+  isJuntaDirectiva,
+  isDirectorMusical,
   isAdmin,
 };
