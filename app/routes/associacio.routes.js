@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   app.get(
     "/api/associacio/agrupacions",
-    [authJWT.verifyToken],
+    [authJWT.verifyToken, authJWT.isAdmin],
     controller.associacio_agrupacions
   );
 };
