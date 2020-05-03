@@ -57,9 +57,10 @@ exports.socis_detall = (req, res, next) => {
   const id_soci = req.params.id;
 
   connection.query(
-    `SELECT *
+    `SELECT persones.*, usuaris.*, socis.*
        FROM socis
                 INNER JOIN persones ON (id_soci = id_persona)
+                LEFT JOIN usuaris USING(id_persona)
        WHERE id_soci = ?;`,
     [id_soci],
     (err, rows) => {
@@ -152,12 +153,12 @@ exports.socis_post = (req, res, next) => {
 
       // TODO Hauria de realitzar aquesta consulta com a POST /api/usuaris?
       connection.query(
-        `INSERT INTO usuaris (username, id_persona, salt, encrypted_password)
+        `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
            VALUES (?, ?, ?, ?);`,
         [soci.username, id_persona, salt, hash],
         (err, rows_usuari) => {
           if (err) next(err);
-          console.log("1 record inserted into `usuaris`");
+          console.log("1 record inserted into `usuaris_complet`");
 
           const id_usuari = rows_usuari.insertId;
 
@@ -209,7 +210,7 @@ exports.socis_delete = (req, res, next) => {
        WHERE id_persona = ?;
 
           DELETE
-          FROM usuaris
+          FROM usuaris_complet
           WHERE id_persona = ?;
 
           DELETE

@@ -30,9 +30,9 @@ exports.signin = (req, res, next) => {
                   SELECT JSON_ARRAYAGG(role)
                   FROM roles_usuaris
                            INNER JOIN roles USING (id_role)
-                  WHERE id_usuari = (SELECT usuaris.id_usuari)
+                  WHERE id_usuari = (SELECT usuaris_complet.id_usuari)
               )         AS roles
-       FROM usuaris
+       FROM usuaris_complet
                 LEFT JOIN persones USING (id_persona)
        WHERE username = ?;`,
     [username],

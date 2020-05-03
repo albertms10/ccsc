@@ -2,7 +2,7 @@
  Persones
  */
 
-CREATE TABLE IF NOT EXISTS usuaris
+CREATE TABLE IF NOT EXISTS usuaris_complet
 (
     id_usuari          SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS roles_usuaris
     id_role   TINYINT UNSIGNED  NOT NULL,
 
     PRIMARY KEY (id_usuari, id_role),
-    FOREIGN KEY (id_usuari) REFERENCES usuaris (id_usuari),
+    FOREIGN KEY (id_usuari) REFERENCES usuaris_complet (id_usuari),
     FOREIGN KEY (id_role) REFERENCES roles (id_role)
 );
 
@@ -1133,6 +1133,17 @@ CREATE TABLE IF NOT EXISTS missatges
 
     PRIMARY KEY (id_missatge)
 );
+
+/*
+ VIEWS
+ */
+/*
+CREATE VIEW usuaris AS
+SELECT id_usuari, username, creacio, id_persona
+FROM usuaris_complet
+
+ */
+
 
 /*
 
