@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { fetchAPI } from "../../../helpers";
+import { useDispatch } from "react-redux";
 
 export default () => {
+  const dispatch = useDispatch();
   const [agrupacions, setAgrupacions] = useState([]);
   const [loadingAgrupacions, setLoadingAgrupacions] = useState(false);
   const { id: id_usuari } = useSelector((state) => state.user.currentUser);
@@ -9,13 +12,15 @@ export default () => {
   useEffect(() => {
     setLoadingAgrupacions(true);
 
-    fetch(`/api/usuaris/${id_usuari}/agrupacions`)
-      .then((res) => res.json())
-      .then((data) => {
+    fetchAPI(
+      `/api/usuaris/${id_usuari}/agrupacions`,
+      (data) => {
         setAgrupacions(data);
         setLoadingAgrupacions(false);
-      });
-  }, [id_usuari]);
+      },
+      dispatch
+    );
+  }, [id_usuari, dispatch]);
 
   return [agrupacions, loadingAgrupacions];
 };

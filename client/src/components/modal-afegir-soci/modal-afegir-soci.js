@@ -95,8 +95,7 @@ export default ({ getSocis }) => {
         return;
       }
 
-      if (current === 3)
-        await getUsername({ nom: data.nom, cognoms: data.cognoms });
+      if (current === 3) getUsername({ nom: data.nom, cognoms: data.cognoms });
     } catch (error) {
       handleValidateError(error);
       return;
