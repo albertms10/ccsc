@@ -1,0 +1,34 @@
+.perfil-soci {
+    padding: 2rem;
+    background-color: #fff;
+}
+
+.perfil-soci .avatar-soci {
+    font-size: larger;
+    display: flex;
+    width: 100%;
+    height: auto !important;
+}
+
+.perfil-soci .avatar-soci .ant-avatar-string {
+    font-size: 3rem;
+    align-self: center;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .perfil-soci .avatar-soci .ant-avatar-string {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 575.98px) {
+    .perfil-soci .avatar-soci .ant-avatar-string {
+        font-size: 1rem;
+    }
+}
+
+.perfil-soci .avatar-soci:after {
+    display: block;
+    padding-bottom: 100%;
+    content: '';
+}

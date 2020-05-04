@@ -7,8 +7,8 @@ import {
   Menu,
   Modal,
   Table,
-  Typography,
   Tooltip,
+  Typography,
 } from "antd";
 import { ExclamationCircleOutlined, MoreOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -86,14 +86,14 @@ export default ({ socis, getSocis, loading }) => {
       dataIndex: "id_persona",
       key: "id_persona",
       align: "right",
-      render: (idPersona, row) => (
+      render: (idPersona) => (
         <Dropdown
           placement="bottomRight"
           trigger="click"
           overlay={
             <Menu>
               <Menu.Item>
-                <Link to={`/socis/${row.username}`}>Detalls</Link>
+                <Link to={`/socis/${idPersona}`}>Detalls</Link>
               </Menu.Item>
               <Menu.Item onClick={() => showDeleteConfirm(idPersona)}>
                 <Text type="danger">Eliminar</Text>

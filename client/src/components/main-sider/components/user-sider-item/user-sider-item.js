@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./user-sider-item.css";
+import { Link } from "react-router-dom";
 
 export default () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -15,7 +16,9 @@ export default () => {
       trigger={["click"]}
       overlay={
         <Menu>
-          <Menu.Item>Perfil</Menu.Item>
+          <Menu.Item>
+            <Link to={`/socis/${currentUser.id}`}>Perfil</Link>
+          </Menu.Item>
           <Menu.Divider />
           <Menu.Item onClick={() => dispatch(logoutRemoveUser())}>
             Tanca la sessió

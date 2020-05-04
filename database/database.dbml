@@ -1,4 +1,4 @@
-Table "usuaris" {
+Table "usuaris_complet" {
   "id_usuari" SMALLINT [pk, not null, increment]
   "username" VARCHAR(20) [not null]
   "creacio" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
@@ -157,7 +157,7 @@ Table "tipus_vies" {
 Table "establiments" {
   "id_establiment" SMALLINT [pk, not null]
   "nom" VARCHAR(100) [not null]
-  "descripcio" TEXT [not null]
+  "descripcio" TEXT
   "lloc_web" VARCHAR(255)
   "id_tipus_establiment" SMALLINT
 }
@@ -690,7 +690,15 @@ Table "retalls" {
   "link" VARCHAR(255)
 }
 
-Ref:"persones"."id_persona" < "usuaris"."id_persona"
+Table "missatges" {
+  "id_missatge" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(255) [not null]
+  "email" VARCHAR(255) [not null]
+  "missatge" TEXT [not null]
+  "data" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Ref:"persones"."id_persona" < "usuaris_complet"."id_persona"
 
 Ref:"paisos"."id_pais" < "persones"."id_pais"
 
@@ -702,7 +710,7 @@ Ref:"veus"."id_veu" < "socis"."id_veu"
 
 Ref:"associacio"."id_associacio" < "socis"."id_associacio"
 
-Ref:"usuaris"."id_usuari" < "roles_usuaris"."id_usuari"
+Ref:"usuaris_complet"."id_usuari" < "roles_usuaris"."id_usuari"
 
 Ref:"roles"."id_role" < "roles_usuaris"."id_role"
 

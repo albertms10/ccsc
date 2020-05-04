@@ -2,6 +2,10 @@
     background-color: #fff !important;
 }
 
+.content-header .ant-page-header {
+    padding: 0;
+}
+
 .content-header .ant-page-header-heading-title {
     width: 100%;
 }
