@@ -234,3 +234,22 @@ exports.socis_delete = (req, res, next) => {
 
   res.end();
 };
+
+exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
+  const connection = req.app.get("connection");
+  const id_soci = req.params.id;
+  const accepta_proteccio_dades = req.body.accepta_proteccio_dades;
+
+  console.log(req.body);
+
+  connection.query(
+    `UPDATE persones
+       SET accepta_drets_imatge = ?
+       WHERE id_persona = ?;`,
+    [accepta_proteccio_dades, id_soci],
+    (err) => {
+      if (err) next(err);
+      res.send({ accepta_proteccio_dades });
+    }
+  );
+};

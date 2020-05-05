@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
 import { useHistory, useParams } from "react-router-dom";
 import { useSoci } from "./hooks";
@@ -7,9 +7,12 @@ import { initials } from "../../../../utils";
 
 import "./perfil-soci.css";
 import { SociTabGeneral } from "./components/soci-tab-general";
+import { SociTabAssociacio } from "./components/soci-tab-associacio";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
+
+export const SociContext = createContext(null);
 
 export default () => {
   const history = useHistory();
@@ -17,7 +20,7 @@ export default () => {
   const [soci] = useSoci(id);
 
   return (
-    <>
+    <SociContext.Provider value={soci}>
       <PageHeader
         ghost={false}
         title="Soci"
@@ -40,10 +43,10 @@ export default () => {
               </Title>
               <Tabs defaultActiveKey="1">
                 <TabPane tab="General" key="general">
-                  <SociTabGeneral soci={soci} />
+                  <SociTabGeneral />
                 </TabPane>
                 <TabPane tab="Associació" key="associacio">
-                  Content of Tab Pane 2
+                  <SociTabAssociacio />
                 </TabPane>
                 <TabPane tab="Musical" key="musical">
                   Content of Tab Pane 3
@@ -53,6 +56,6 @@ export default () => {
           </Row>
         </div>
       </Container>
-    </>
+    </SociContext.Provider>
   );
 };

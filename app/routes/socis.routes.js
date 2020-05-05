@@ -33,4 +33,10 @@ module.exports = (app) => {
     [authJWT.verifyToken, authJWT.isJuntaDirectiva],
     controller.socis_delete
   );
+
+  app.put(
+    "/api/socis/:id/accepta-drets-imatge",
+    [authJWT.verifyToken],
+    controller.socis_detall_acceptadretsimatge_put
+  );
 };
