@@ -36,7 +36,7 @@ exports.socis_historial = (req, res, next) => {
   const connection = req.app.get("connection");
 
   connection.query(
-    `SELECT CONCAT('T', num, '\n(', id_curs, ')') AS trimestre, COUNT(*) AS socis
+    `SELECT CONCAT('T', num, ' (', REPLACE(id_curs, '-', '–'), ')') AS x, COUNT(*) AS y
        FROM socis
                 INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
                 INNER JOIN associacio USING (id_associacio)
