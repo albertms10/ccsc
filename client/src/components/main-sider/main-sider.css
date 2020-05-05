@@ -3,7 +3,7 @@
     z-index: 20;
     left: 0;
     height: 100vh;
-    background-color: #1d71b8 !important;
+    /* background-color: #1d71b8 !important; */
     box-shadow: 2px 0 10px rgba(0, 0, 0, .1);
 }
 
@@ -15,9 +15,11 @@
     z-index: 2;
 }
 
+/*
 .main-layout-sider .ant-layout-sider-trigger {
     background-color: #06376b;
 }
+ */
 
 .main-layout-sider .ant-layout-sider-children {
     overflow: auto;
@@ -36,7 +38,7 @@
 
 .main-layout-sider .ant-layout-sider-zero-width-trigger:hover {
     color: #fff;
-    background-color: #1d71b8;
+    /* background-color: #1d71b8; */
 }
 
 .main-layout-title-wrapper {

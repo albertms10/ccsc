@@ -25,6 +25,7 @@
     background: none !important;
 }
 
+/*
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
     background-color: #105391 !important;
@@ -33,6 +34,8 @@
 .ant-menu-item-group-title {
     color: rgba(255, 255, 255, 0.4) !important;
 }
+
+ */
 
 .ant-menu-item-group-title[title=""]::before {
     position: absolute;
