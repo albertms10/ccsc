@@ -713,6 +713,9 @@ CREATE TABLE IF NOT EXISTS projectes
     inicials    VARCHAR(3)        NOT NULL,
     color       CHAR(6),
 
+    data_inici  DATE,
+    data_final  DATE,
+
     id_curs     VARCHAR(5)        NOT NULL,
 
     PRIMARY KEY (id_projecte),
