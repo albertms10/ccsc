@@ -20,11 +20,14 @@ app.set("connection", connection);
 
 // Routes
 require("./app/routes/agrupacions.routes")(app);
+require("./app/routes/assajos.routes")(app);
 require("./app/routes/associacio.routes")(app);
 require("./app/routes/auth.routes")(app);
+require("./app/routes/concerts.routes")(app);
 require("./app/routes/esdeveniments.routes")(app);
 require("./app/routes/establiments.routes")(app);
 require("./app/routes/localitzacions.routes")(app);
+require("./app/routes/projectes.routes")(app);
 require("./app/routes/socis.routes")(app);
 require("./app/routes/titulars.routes")(app);
 require("./app/routes/usuaris.routes")(app);
