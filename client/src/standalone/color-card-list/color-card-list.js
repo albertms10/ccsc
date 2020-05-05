@@ -22,8 +22,10 @@ export default ({ dataSource, loading, ...rest }) => (
           title={titol}
           color={"#" + color}
           description={
-            directors || agrupacions
-              ? `Amb la col·laboració de ${directors[0].nom}`
+            directors
+              ? `Amb la col·laboració de ${directors[0].nom}.`
+              : agrupacions
+              ? `Amb ${agrupacions[0].nom}.`
               : ""
           }
         />

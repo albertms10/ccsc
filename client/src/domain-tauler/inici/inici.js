@@ -1,16 +1,28 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { ChartHistorialSocis } from "../../components/chart-historial-socis";
-import { SocisCountStatistics } from "../../standalone/statistics";
+import {
+  AssajosCountStatistics,
+  ConcertsCountStatistics,
+  ProjectesCountStatistics,
+  SocisCountStatistics,
+} from "../../standalone/statistics";
 
 const Inici = () => (
-  <div style={{ margin: "1.5rem" }}>
-    <Row style={{ marginBottom: "2rem" }}>
-      <Col>
+  <div style={{ margin: 32 }}>
+    <Row type="flex" gutter={[32, 32]}>
+      <Col xs={24} sm={12} md={6} flex={1}>
         <SocisCountStatistics />
       </Col>
+      <Col xs={24} sm={12} md={6} flex={1}>
+        <ProjectesCountStatistics />
+      </Col>
+      <Col xs={24} sm={12} md={6} flex={1}>
+        <ConcertsCountStatistics />
+      </Col>
+      <Col xs={24} sm={12} md={6} flex={1}>
+        <AssajosCountStatistics />
+      </Col>
     </Row>
-    <ChartHistorialSocis title="Historial de socis" />
   </div>
 );
 

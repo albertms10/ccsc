@@ -1,42 +1,22 @@
 import React from "react";
-import { Card, Space, Statistic } from "antd";
-import { Link } from "react-router-dom";
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { MultipleStatistics } from "./components";
-import { useCountSocis } from "./hooks";
+import { useCountSocis, useHistorialSocis } from "./hooks";
+import { NumberInfo } from "../number-info";
+import { ChartCard, MiniArea } from "ant-design-pro/lib/Charts";
 
 export default () => {
   const [countSocis] = useCountSocis();
+  const [historial] = useHistorialSocis();
 
   return (
-    <Link to="/socis">
-      <Card hoverable style={{ display: "inline-block" }}>
-        <Space size="large">
-          <Statistic
-            key="count_actuals"
-            title="Socis actius"
-            value={countSocis.count_actuals}
-            style={{ display: "inline-block" }}
-          />
-          <MultipleStatistics
-            title="Últim trimestre"
-            statistics={[
-              {
-                key: "count_altes",
-                value: countSocis.count_altes,
-                icon: <ArrowUpOutlined />,
-                color: "#3f8600",
-              },
-              {
-                key: "count_baixes",
-                value: countSocis.count_baixes,
-                icon: <ArrowDownOutlined />,
-                color: "#cf1322",
-              },
-            ]}
-          />
-        </Space>
-      </Card>
-    </Link>
+    <ChartCard title="Socis">
+      <NumberInfo
+        total={countSocis.count_actuals}
+        status={
+          countSocis.count_altes > countSocis.count_baixes ? "up" : "down"
+        }
+        subTotal={Math.max(countSocis.count_altes, countSocis.count_baixes)}
+      />
+      <MiniArea line height={45} data={historial} />
+    </ChartCard>
   );
 };

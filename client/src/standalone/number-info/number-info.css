@@ -1,0 +1,14 @@
+.antd-pro-number-info-numberInfo .antd-pro-number-info-numberInfoValue .antd-pro-number-info-subTotal .anticon-caret-down {
+    color: #f5222d !important;
+}
+
+.antd-pro-number-info-numberInfo .antd-pro-number-info-numberInfoValue .antd-pro-number-info-subTotal .anticon-caret-up {
+    color: #52c41a !important;
+}
+
+.antd-pro-number-info-numberInfo .antd-pro-number-info-numberInfoValue .antd-pro-number-info-subTotal span {
+    font-size: 12px;
+    margin-left: 4px;
+    -webkit-transform: scale(.82);
+    transform: scale(.82);
+}
