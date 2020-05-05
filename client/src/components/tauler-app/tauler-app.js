@@ -17,7 +17,7 @@ import "./tauler-app.css";
 
 moment.locale("ca");
 
-const { Content } = Layout;
+const { Content, Header } = Layout;
 
 export const AgrupacionsContext = createContext(null);
 export const LoadingAgrupacionsContext = createContext(null);
@@ -32,7 +32,7 @@ export default () => {
       <LoadingAgrupacionsContext.Provider value={loadingAgrupacions}>
         <BrowserRouter basename="/tauler">
           <ConfigProvider locale={caES}>
-            <Layout style={{ minHeight: "100vh" }}>
+            <Layout hasSider style={{ minHeight: "100vh" }}>
               <MainSider
                 collapsed={collapsed}
                 setCollapsed={setCollapsed}
@@ -40,6 +40,7 @@ export default () => {
                 setBroken={setBroken}
               />
               <Layout className="site-layout">
+                <Header className="site-layout-background app-layout-header" />
                 <Content
                   className="app-layout-content site-layout-background"
                   style={{ marginLeft: broken ? 0 : collapsed ? 80 : 200 }}

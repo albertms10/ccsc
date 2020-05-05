@@ -150,7 +150,6 @@ export default ({ socis, getSocis, loading }) => {
             rowKey="id_persona"
             loading={loading}
             pagination={{ hideOnSinglePage: true, responsive: true }}
-            style={{ border: "1px solid #eee" }}
             columns={getResponsiveColumns(matches)}
           />
         )}

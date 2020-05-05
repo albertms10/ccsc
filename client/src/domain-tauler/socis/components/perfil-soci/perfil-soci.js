@@ -17,41 +17,42 @@ export default () => {
   const [soci] = useSoci(id);
 
   return (
-    <Container>
+    <>
       <PageHeader
         ghost={false}
         title="Soci"
         onBack={() => history.push("/socis")}
-        style={{ borderBottom: "1px solid #eee" }}
       />
-      <div className="perfil-soci">
-        <Row type="flex" gutter={[41, 41]}>
-          <Col xs={24} sm={6} flex={1}>
-            <Avatar className="avatar-soci" shape="square">
-              {initials(soci.nom_complet)}
-            </Avatar>
-          </Col>
-          <Col xs={24} sm={18} flex={1}>
-            <Title level={2} style={{ marginBottom: 0 }}>
-              {soci.nom_complet}
-            </Title>
-            <Title level={4} type="secondary" style={{ marginTop: 0 }}>
-              {soci.username}
-            </Title>
-            <Tabs defaultActiveKey="1">
-              <TabPane tab="General" key="general">
-                <SociTabGeneral soci={soci} />
-              </TabPane>
-              <TabPane tab="Associació" key="associacio">
-                Content of Tab Pane 2
-              </TabPane>
-              <TabPane tab="Musical" key="musical">
-                Content of Tab Pane 3
-              </TabPane>
-            </Tabs>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+      <Container>
+        <div className="perfil-soci">
+          <Row type="flex" gutter={[41, 41]}>
+            <Col xs={24} sm={6} flex={1}>
+              <Avatar className="avatar-soci" shape="square">
+                {initials(soci.nom_complet)}
+              </Avatar>
+            </Col>
+            <Col xs={24} sm={18} flex={1}>
+              <Title level={2} style={{ marginBottom: 0 }}>
+                {soci.nom_complet}
+              </Title>
+              <Title level={4} type="secondary" style={{ marginTop: 0 }}>
+                {soci.username}
+              </Title>
+              <Tabs defaultActiveKey="1">
+                <TabPane tab="General" key="general">
+                  <SociTabGeneral soci={soci} />
+                </TabPane>
+                <TabPane tab="Associació" key="associacio">
+                  Content of Tab Pane 2
+                </TabPane>
+                <TabPane tab="Musical" key="musical">
+                  Content of Tab Pane 3
+                </TabPane>
+              </Tabs>
+            </Col>
+          </Row>
+        </div>
+      </Container>
+    </>
   );
 };

@@ -1,19 +1,24 @@
 import React from "react";
-
-import { Page } from "../../standalone/page";
 import { TaulaSocis } from "../../components/taula-socis";
 import { ModalAfegirSoci } from "../../components/modal-afegir-soci";
-import { Container } from "../../standalone/container";
 import { useSocis } from "./hooks";
+import { PageHeader } from "antd";
+import { Container } from "../../standalone/container";
 
 export default () => {
   const [socis, loading, getSocis] = useSocis();
 
   return (
-    <Container>
-      <Page title="Socis" action={<ModalAfegirSoci getSocis={getSocis} />}>
+    <>
+      <PageHeader
+        className="main-page-header"
+        ghost={false}
+        title="Socis"
+        extra={<ModalAfegirSoci getSocis={getSocis} />}
+      />
+      <Container>
         <TaulaSocis socis={socis} getSocis={getSocis} loading={loading} />
-      </Page>
-    </Container>
+      </Container>
+    </>
   );
 };

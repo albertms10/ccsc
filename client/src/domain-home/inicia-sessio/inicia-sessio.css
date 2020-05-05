@@ -16,7 +16,7 @@
     transform: translateY(-15%);
     border-radius: .3rem;
     background-color: #fff;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, .05);
+    box-shadow: var(--container-box-shadow);
 }
 
 @media only screen and (max-width: 575.98px) {

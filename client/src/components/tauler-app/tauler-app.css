@@ -1,16 +1,8 @@
-/*
 .app-layout-header {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    padding: 0;
+    z-index: 1;
     transition-duration: 200ms;
-    background-color: white !important;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .15);
 }
- */
 
 .app-layout-content {
-  transition-duration: 200ms;
-  background-color: var(--background-color);
+    transition-duration: 200ms;
 }
