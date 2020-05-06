@@ -1,5 +1,5 @@
 exports.localitzacions_post = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const {
     tipus_via,
     carrer,
@@ -10,7 +10,7 @@ exports.localitzacions_post = (req, res, next) => {
     ciutat,
   } = req.body.localitzacio;
 
-  connection.query(
+  pool.query(
     `INSERT INTO localitzacions (id_tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, id_ciutat)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, ciutat],
@@ -22,9 +22,9 @@ exports.localitzacions_post = (req, res, next) => {
 };
 
 exports.localitzacions_tipusvies_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT *
        FROM tipus_vies;`,
     (err, rows) => {
@@ -35,10 +35,10 @@ exports.localitzacions_tipusvies_get = (req, res, next) => {
 };
 
 exports.localitzacions_localitzacio_detall = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_localitzacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT id_localitzacio,
               tv.*,
               carrer,
@@ -70,9 +70,9 @@ exports.localitzacions_localitzacio_detall = (req, res, next) => {
 };
 
 exports.localitzacions_ciutats_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT id_ciutat,
               ciutats.nom                             AS ciutat,
               IFNULL(ciutats.id_provincia, id_ciutat) AS id_provincia,
@@ -94,9 +94,9 @@ exports.localitzacions_ciutats_get = (req, res, next) => {
 };
 
 exports.localitzacions_provincies_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT provincies.id_provincia, c.nom, p.*
        FROM provincies
                 INNER JOIN ciutats c ON provincies.id_provincia = c.id_ciutat
@@ -109,9 +109,9 @@ exports.localitzacions_provincies_get = (req, res, next) => {
 };
 
 exports.localitzacions_paisos_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT *
        FROM paisos;`,
     (err, rows) => {

@@ -1,7 +1,7 @@
 exports.assajos_count = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT COUNT(*) AS assajos_count
        FROM assajos;`,
     (err, rows) => {
@@ -12,9 +12,9 @@ exports.assajos_count = (req, res, next) => {
 };
 
 exports.assajos_historial = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT CONCAT('T', num, ' (', REPLACE(id_curs, '-', '–'), ')') AS x,
               (
                   SELECT COUNT(*)

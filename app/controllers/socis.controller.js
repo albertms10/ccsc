@@ -1,9 +1,9 @@
 const { saltHashPassword } = require("../utils");
 
 exports.socis_count = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT (
                   SELECT COUNT(id_soci)
                   FROM socis
@@ -33,9 +33,9 @@ exports.socis_count = (req, res, next) => {
 };
 
 exports.socis_historial = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT CONCAT('T', num, ' (', REPLACE(id_curs, '-', '–'), ')') AS x, COUNT(*) AS y
        FROM socis
                 INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
@@ -53,10 +53,10 @@ exports.socis_historial = (req, res, next) => {
 };
 
 exports.socis_detall = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_soci = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT persones.*, usuaris.*, socis.*
        FROM socis
                 INNER JOIN persones ON (id_soci = id_persona)
@@ -71,9 +71,9 @@ exports.socis_detall = (req, res, next) => {
 };
 
 exports.socis_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT id_persona,
               nom,
               cognoms,
@@ -124,13 +124,13 @@ exports.socis_get = (req, res, next) => {
 };
 
 exports.socis_post = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const soci = req.body;
   // TODO: Comprovar que la contrasenya s’apliqui correctament
   const password = soci.naixement.split("-").reverse().join("-");
 
-  // TODO: És correcta aquesta anidació de consultes?
-  connection.query(
+  // TODO: Refaccionar amb pool.getConnection()
+  pool.query(
     `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon,
                              accepta_proteccio_dades, accepta_drets_imatge)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
@@ -153,7 +153,7 @@ exports.socis_post = (req, res, next) => {
       const { salt, hash } = saltHashPassword({ password });
 
       // TODO Hauria de realitzar aquesta consulta com a POST /api/usuaris?
-      connection.query(
+      pool.query(
         `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
            VALUES (?, ?, ?, ?);`,
         [soci.username, id_persona, salt, hash],
@@ -163,7 +163,7 @@ exports.socis_post = (req, res, next) => {
 
           const id_usuari = rows_usuari.insertId;
 
-          connection.query(
+          pool.query(
             `INSERT INTO roles_usuaris
                VALUES (?, ?);`,
             [id_usuari, 1],
@@ -175,7 +175,7 @@ exports.socis_post = (req, res, next) => {
         }
       );
 
-      connection.query(
+      pool.query(
         `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
            VALUES (?, ?, ?);`,
         [id_persona, soci.experiencia_musical, soci.estudis_musicals],
@@ -183,7 +183,7 @@ exports.socis_post = (req, res, next) => {
           if (err) next(err);
           console.log("1 record inserted into `socis`");
 
-          connection.query(
+          pool.query(
             `INSERT INTO historial_socis (id_historial_soci, data_alta)
                VALUES (?, ?);`,
             [id_persona, soci.data_alta],
@@ -201,10 +201,10 @@ exports.socis_post = (req, res, next) => {
 };
 
 exports.socis_delete = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_persona = req.params.id;
 
-  connection.query(
+  pool.query(
     `DELETE ru
        FROM roles_usuaris ru
                 INNER JOIN usuaris USING (id_usuari)
@@ -236,13 +236,13 @@ exports.socis_delete = (req, res, next) => {
 };
 
 exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_soci = req.params.id;
   const accepta_drets_imatge = req.body.accepta_drets_imatge;
 
   console.log(req.body);
 
-  connection.query(
+  pool.query(
     `UPDATE persones
        SET accepta_drets_imatge = ?
        WHERE id_persona = ?;`,

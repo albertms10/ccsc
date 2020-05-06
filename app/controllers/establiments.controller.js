@@ -1,7 +1,7 @@
 exports.establiments_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT *
        FROM establiments;`,
     (err, rows) => {
@@ -12,10 +12,10 @@ exports.establiments_get = (req, res, next) => {
 };
 
 exports.establiments_detall_esdeveniments = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const establiment = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT *
        FROM establiments
                 INNER JOIN localitzacions l ON establiments.id_establiment = l.id_localitzacio

@@ -1,7 +1,7 @@
 exports.projectes_count = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT COUNT(*) AS projectes_count
        FROM projectes;`,
     (err, rows) => {
@@ -12,10 +12,10 @@ exports.projectes_count = (req, res, next) => {
 };
 
 exports.projectes_historial = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
   // TODO: Com tenir en compte els projectes que s’allarguin més d‘un curs?
-  connection.query(
+  pool.query(
     `SELECT REPLACE(id_curs, '-', '–') AS x, COUNT(*) AS y
        FROM projectes
                 INNER JOIN cursos USING (id_curs)

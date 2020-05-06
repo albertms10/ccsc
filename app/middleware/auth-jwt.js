@@ -28,12 +28,12 @@ const verifyToken = (req, res, next) => {
 };
 
 const isRole = (req, res, next, roles) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
   /** @type {number} */
   const id = req.userId;
 
-  connection.query(
+  pool.query(
     `SELECT COUNT(*) AS es_admin
        FROM roles
                 INNER JOIN roles_usuaris USING (id_role)

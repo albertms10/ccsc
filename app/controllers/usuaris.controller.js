@@ -1,13 +1,13 @@
 // TODO Part de la lògica d'aquesta funció és compartida amb la d'autorització a auth.controller.js
 exports.userInfo = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
   /** @type {number} */
   const id = req.userId;
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
-  connection.query(
+  pool.query(
     `SELECT id_usuari AS id,
               username,
               nom,
@@ -71,10 +71,10 @@ exports.userInfo = (req, res, next) => {
 };
 
 exports.usuaris_detall_firstavailablenum = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const username = req.params.username;
 
-  connection.query(
+  pool.query(
     `SELECT MAX(CAST(REGEXP_SUBSTR(username, '[0-9]*$') AS UNSIGNED)) + 1 AS first_available_num
        FROM usuaris
        WHERE REGEXP_SUBSTR(username, '[a-zA-Z.]+') = ?;`,
@@ -87,10 +87,10 @@ exports.usuaris_detall_firstavailablenum = (req, res, next) => {
 };
 
 exports.usuaris_detall_agrupacions = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_usuari = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT DISTINCT agrupacions.*
        FROM agrupacions
                 INNER JOIN agrupacions_associacio USING (id_agrupacio)

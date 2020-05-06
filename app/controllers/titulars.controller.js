@@ -1,7 +1,7 @@
 exports.titulars_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT *
        FROM titulars
        ORDER BY ordre IS NULL, data_inici;`,

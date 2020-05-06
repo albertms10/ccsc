@@ -1,7 +1,7 @@
 exports.esdeveniments_get = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT id_esdeveniment,
               dia_inici,
               hora_inici,
@@ -42,10 +42,10 @@ exports.esdeveniments_get = (req, res, next) => {
 };
 
 exports.esdeveniments_post = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const { data_inici, data_final, estat_esdeveniment } = req.body.esdeveniment;
 
-  connection.query(
+  pool.query(
     `INSERT INTO esdeveniments (dia_inici, hora_inici, dia_final, hora_final, id_estat_esdeveniment)
        VALUES (?, ?, ?, ?, ?);`,
     [data_inici, data_final, estat_esdeveniment || "DEFAULT"],
@@ -57,10 +57,10 @@ exports.esdeveniments_post = (req, res, next) => {
 };
 
 exports.esdeveniments_detall_assistents = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const esdeveniment = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT persones.*
        FROM assistents_esdeveniment
                 INNER JOIN persones ON (id_soci = id_persona)

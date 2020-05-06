@@ -1,8 +1,8 @@
 exports.agrupacions_detall = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
        FROM agrupacions
        WHERE id_agrupacio = ?;`,
@@ -15,10 +15,10 @@ exports.agrupacions_detall = (req, res, next) => {
 };
 
 exports.agrupacions_detall_esdeveniments = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT id_esdeveniment,
               IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
               DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
@@ -183,10 +183,10 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
 };
 
 exports.agrupacions_detall_assajos = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT DISTINCT a.*,
                        IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
                        DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
@@ -241,10 +241,10 @@ exports.agrupacions_detall_assajos = (req, res, next) => {
 };
 
 exports.agrupacions_detall_concerts = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT id_concert,
               IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
               DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
@@ -278,10 +278,10 @@ exports.agrupacions_detall_concerts = (req, res, next) => {
 };
 
 exports.agrupacions_detall_projectes = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT projectes.id_projecte,
               titol,
               descripcio,
@@ -324,10 +324,10 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
 };
 
 exports.agrupacions_detall_integrants = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
 
-  connection.query(
+  pool.query(
     `SELECT id_persona,
               p.nom,
               cognoms,

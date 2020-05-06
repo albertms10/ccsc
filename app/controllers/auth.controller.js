@@ -3,7 +3,7 @@ const config = require("../config/auth.config");
 const saltHashPassword = require("../utils/salt-hash-password");
 
 exports.signin = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
   const {
     /** @type {string} */ username,
@@ -19,7 +19,7 @@ exports.signin = (req, res, next) => {
     });
 
   // TODO Aquesta consulta hauria d'estar a un endpoint concret?
-  connection.query(
+  pool.query(
     `SELECT id_usuari AS id,
               username,
               nom,

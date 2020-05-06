@@ -4,6 +4,15 @@ const app = express();
 const PORT = 5000;
 const HOST = "localhost";
 
+process
+  .on("unhandledRejection", (reason, p) => {
+    console.error(reason, "Unhandled Rejection at Promise", p);
+  })
+  .on("uncaughtException", (err) => {
+    console.error(err, "Uncaught Exception thrown");
+    process.exit(1);
+  });
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
@@ -15,8 +24,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const connection = require("./app/config/connection.config");
-app.set("connection", connection);
+const pool = require("./app/config/pool.config");
+app.set("pool", pool);
 
 // Routes
 require("./app/routes/agrupacions.routes")(app);
@@ -34,12 +43,3 @@ require("./app/routes/usuaris.routes")(app);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-
-process
-  .on("unhandledRejection", (reason, p) => {
-    console.error(reason, "Unhandled Rejection at Promise", p);
-  })
-  .on("uncaughtException", (err) => {
-    console.error(err, "Uncaught Exception thrown");
-    process.exit(1);
-  });

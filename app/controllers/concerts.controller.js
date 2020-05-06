@@ -1,7 +1,7 @@
 exports.concerts_count = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT COUNT(*) AS concerts_count
        FROM concerts;`,
     (err, rows) => {
@@ -12,9 +12,9 @@ exports.concerts_count = (req, res, next) => {
 };
 
 exports.concerts_historial = (req, res, next) => {
-  const connection = req.app.get("connection");
+  const pool = req.app.get("pool");
 
-  connection.query(
+  pool.query(
     `SELECT CONCAT(YEAR(dia_inici)) AS x, COUNT(*) AS y
        FROM concerts
                 INNER JOIN esdeveniments e ON concerts.id_concert = e.id_esdeveniment
