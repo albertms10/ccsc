@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Col, Row, Switch, Tooltip } from "antd";
+import { Col, message, Row, Switch, Tooltip } from "antd";
 import { SociContext } from "../../perfil-soci";
 import { SubHeader } from "../../../../../../standalone/sub-header";
 import { fetchAPI } from "../../../../../../helpers";
@@ -15,16 +15,21 @@ export default () => {
   }, [soci.accepta_drets_imatge]);
 
   const handleAcceptaDretsImatge = useCallback(
-    (accepta_proteccio_dades) => {
+    (accepta_drets_imatge) => {
       fetchAPI(
         `/api/socis/${soci.id_soci}/accepta-drets-imatge`,
-        ({ accepta_proteccio_dades }) => {
-          setAcceptaDretsImatge(accepta_proteccio_dades);
+        ({ accepta_drets_imatge }) => {
+          setAcceptaDretsImatge(accepta_drets_imatge);
+          message.success(
+            `S’ha ${
+              accepta_drets_imatge ? "" : "des"
+            }activat l’acceptació dels drets d’imatge.`
+          );
         },
         dispatch,
         {
           method: "PUT",
-          body: JSON.stringify({ accepta_proteccio_dades }),
+          body: JSON.stringify({ accepta_drets_imatge }),
         }
       );
     },
