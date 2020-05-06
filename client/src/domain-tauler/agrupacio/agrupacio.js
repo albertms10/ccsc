@@ -19,7 +19,7 @@ export default ({ agrupacio }) => (
       <div className="tabs-agrupacio">
         <Tabs
           renderTabBar={(props, DefaultTabBar) => (
-            <Sticky bottomOffset={80} innerZ={5}>
+            <Sticky top={64} bottomOffset={80} innerZ={5}>
               <DefaultTabBar {...props} />
             </Sticky>
           )}

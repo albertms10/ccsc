@@ -5,21 +5,23 @@
     align-items: center;
     width: 100%;
     transition-duration: 200ms;
+    transition-property: box-shadow;
 }
 
-.app-layout-header.scrolled {
+.header-scrolled .app-layout-header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
 }
 
 .app-layout-header .app-layout-header-title {
     visibility: hidden;
-    margin-bottom: .25rem;
+    flex: 1;
+    margin-bottom: 0;
     transition: opacity .15s ease, transform .15s ease, visibility .15s linear;
     transform: translate(0, 48px);
     opacity: 0;
 }
 
-.app-layout-header-title.scrolled {
+.header-scrolled .app-layout-header-title {
     visibility: visible;
     transform: translate(0, 0);
     opacity: 1;

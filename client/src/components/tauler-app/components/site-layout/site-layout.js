@@ -40,28 +40,22 @@ export default () => {
   const startInset = broken ? 0 : collapsed ? 80 : 200;
 
   return (
-    <Layout className="site-layout">
+    <Layout className={"site-layout" + (scrolled ? " header-scrolled" : "")}>
       <Header
-        className={
-          "site-layout-background app-layout-header" +
-          (scrolled ? " scrolled" : "")
-        }
+        className="site-layout-background app-layout-header"
         style={{
           marginInlineStart: startInset,
           width: `calc(100% - ${startInset}px)`,
         }}
       >
-        <Title
-          className={"app-layout-header-title" + (scrolled ? " scrolled" : "")}
-          level={4}
-        >
+        <Title className="app-layout-header-title" level={4}>
           {pageHeader}
         </Title>
         <UserDropdown />
       </Header>
       <Content
         className="app-layout-content site-layout-background"
-        style={{ marginLeft: broken ? 0 : collapsed ? 80 : 200 }}
+        style={{ marginInlineStart: startInset }}
       >
         <Switch>
           <Route
