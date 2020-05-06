@@ -24,6 +24,7 @@ exports.signin = (req, res, next) => {
               username,
               nom,
               cognoms,
+              es_dona,
               salt,
               encrypted_password,
               (
@@ -66,7 +67,7 @@ exports.signin = (req, res, next) => {
         });
 
       /** @type {string} */
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const accessToken = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 10800, // 3 hours
       });
 
@@ -83,9 +84,10 @@ exports.signin = (req, res, next) => {
             username: user.username,
             nom: user.nom,
             cognoms: user.cognoms,
+            es_dona: user.es_dona,
             roles: authorities,
           },
-          accessToken: token,
+          accessToken,
         });
       } catch (e) {
         next(e);

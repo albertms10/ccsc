@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS persones
     nom                     VARCHAR(50)       NOT NULL,
     cognoms                 VARCHAR(50)       NOT NULL,
     nom_complet             VARCHAR(101) /* GENERATED ALWAYS AS (CONCAT(nom, ' ', cognoms)) */,
+    es_dona                 BOOLEAN           NOT NULL DEFAULT TRUE,
     naixement               DATE,
     id_pais                 CHAR(2),
     dni                     VARCHAR(12),

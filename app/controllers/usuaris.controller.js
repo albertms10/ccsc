@@ -12,6 +12,7 @@ exports.userInfo = (req, res, next) => {
               username,
               nom,
               cognoms,
+              es_dona,
               (
                   SELECT JSON_ARRAYAGG(role)
                   FROM roles_usuaris
@@ -42,6 +43,7 @@ exports.userInfo = (req, res, next) => {
               username: user.username,
               nom: user.nom,
               cognoms: user.cognoms,
+              es_dona: user.es_dona,
               roles: authorities,
             },
             accessToken,
