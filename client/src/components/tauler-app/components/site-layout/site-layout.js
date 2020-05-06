@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { Inici } from "../../../../domain-tauler/inici";
 import { kebabCase } from "../../../../utils";
 import { Agrupacio } from "../../../../domain-tauler/agrupacio";
@@ -31,6 +31,7 @@ export default () => {
 
   const [scrolled, setScrolled] = useState(false);
   const [pageHeader, setPageHeader] = useState("");
+  const location = useLocation();
 
   useScrollPosition(({ _, currPos }) => {
     if (currPos.y < -15) setScrolled(true);
@@ -42,7 +43,10 @@ export default () => {
   return (
     <Layout className={"site-layout" + (scrolled ? " header-scrolled" : "")}>
       <Header
-        className="site-layout-background app-layout-header"
+        className={
+          "site-layout-background app-layout-header" +
+          (location.pathname === "/" ? " ghost" : "")
+        }
         style={{
           marginInlineStart: startInset,
           width: `calc(100% - ${startInset}px)`,

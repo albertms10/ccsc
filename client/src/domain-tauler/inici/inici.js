@@ -15,10 +15,10 @@ export default () => {
   const { es_dona } = useSelector((store) => store.user.currentUser);
 
   return (
-    <SafeMargin>
+    <SafeMargin style={{ marginTop: 8 }}>
       <Row type="flex" gutter={[32, 32]}>
         <Col span={24}>
-          <Title style={{ color: "#555" }}>
+          <Title style={{ margin: 0, color: "#555" }}>
             Benvingu{es_dona ? "da" : "t"} a l’Associació Musical Catalana
             Crescendo
           </Title>

@@ -8,6 +8,11 @@
     transition-property: box-shadow;
 }
 
+.site-layout .app-layout-header.ghost {
+    background-color: transparent!important;
+    box-shadow: none;
+}
+
 .header-scrolled .app-layout-header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
 }
