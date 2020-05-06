@@ -15,6 +15,7 @@ export default ({ component, ...rest }) => {
           <Component />
         ) : (
           <Redirect
+            replace
             to={{
               pathname: "/inicia-sessio",
               state: { prevLocation },
