@@ -323,7 +323,7 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
   );
 };
 
-exports.agrupacions_detall_participants = (req, res, next) => {
+exports.agrupacions_detall_integrants = (req, res, next) => {
   const connection = req.app.get("connection");
   const id_agrupacio = req.params.id;
 

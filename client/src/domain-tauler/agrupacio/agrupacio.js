@@ -35,7 +35,7 @@ export default ({ agrupacio }) => (
             <CalendariAgrupacio idAgrupacio={agrupacio.id_agrupacio} />
           </TabPane>
           <TabPane tab="Projectes" key="projectes" />
-          <TabPane tab="Participants" key="participants" />
+          <TabPane tab="Integrants" key="integrants" />
         </Tabs>
       </div>
     }

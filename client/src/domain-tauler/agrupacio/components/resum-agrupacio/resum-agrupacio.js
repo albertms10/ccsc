@@ -6,19 +6,14 @@ import { FixedTag } from "../../../../standalone/fixed-tag";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { SmallBadge } from "../../../../standalone/small-badge";
 import { Container } from "../../../../standalone/container";
-import {
-  useAssajos,
-  useConcerts,
-  useParticipants,
-  useProjectes,
-} from "./hooks";
+import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
 import { ColorCardList } from "../../../../standalone/color-card-list";
 
 export default ({ idAgrupacio }) => {
   const [assajos, loadingAssajos] = useAssajos(idAgrupacio);
   const [concerts, loadingConcerts] = useConcerts(idAgrupacio);
   const [projectes, loadingProjectes] = useProjectes(idAgrupacio);
-  const [participants, loadingParticipants] = useParticipants(idAgrupacio);
+  const [integrants, loadingIntegrants] = useIntegrants(idAgrupacio);
 
   return (
     <Container>
@@ -85,15 +80,15 @@ export default ({ idAgrupacio }) => {
         </Col>
         <Col sm={24} lg={12} flex={1}>
           <ContentList
-            title="Participants"
-            loading={loadingParticipants}
-            data={participants.map((participant) => ({
-              id: participant.id_persona,
-              title: participant.nom_complet,
-              description: participant.veu,
+            title="Integrants"
+            loading={loadingIntegrants}
+            data={integrants.map((integrant) => ({
+              id: integrant.id_persona,
+              title: integrant.nom_complet,
+              description: integrant.veu,
               avatar: (
                 <SmallBadge
-                  count={participant.abreviatura_veu}
+                  count={integrant.abreviatura_veu}
                   style={{
                     backgroundColor: "#fff",
                     color: "#999",
@@ -101,8 +96,8 @@ export default ({ idAgrupacio }) => {
                   }}
                 >
                   <Avatar shape="circle">
-                    {participant.nom[0]}
-                    {participant.cognoms[0]}
+                    {integrant.nom[0]}
+                    {integrant.cognoms[0]}
                   </Avatar>
                 </SmallBadge>
               ),

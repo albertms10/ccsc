@@ -33,8 +33,8 @@ module.exports = (app) => {
   );
 
   app.get(
-    "/api/agrupacions/:id/participants",
+    "/api/agrupacions/:id/integrants",
     [authJWT.verifyToken],
-    controller.agrupacions_detall_participants
+    controller.agrupacions_detall_integrants
   );
 };
