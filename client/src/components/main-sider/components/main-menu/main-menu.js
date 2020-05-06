@@ -9,24 +9,33 @@ import {
   SolutionOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import {
-  AgrupacionsContext,
-  LoadingAgrupacionsContext,
-} from "../../../tauler-app/tauler-app";
+
 import { IconAgrupacio } from "../../../../icons";
 import "./main-menu.css";
+import {
+  AgrupacionsListContext,
+  LoadingAgrupacionsContext,
+} from "../../../tauler-app/contexts/agrupacions-context";
+import {
+  SiderBrokenContext,
+  SiderCollapsedContext,
+  SiderSetCollapsedContext,
+} from "../../../tauler-app/contexts/sider-context";
 
 const { Item, ItemGroup } = Menu;
 
-export default ({ collapsed, setCollapsed, broken }) => {
+export default () => {
   const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
 
   const [menuPosition, setMenuPosition] = useState("");
   const [paths, setPaths] = useState(initialPaths);
   const [itemsAgrupacions, setItemsAgrupacions] = useState([]);
 
-  const agrupacions = useContext(AgrupacionsContext);
+  const agrupacions = useContext(AgrupacionsListContext);
   const loadingAgrupacions = useContext(LoadingAgrupacionsContext);
+  const collapsed = useContext(SiderCollapsedContext);
+  const setCollapsed = useContext(SiderSetCollapsedContext);
+  const broken = useContext(SiderBrokenContext);
 
   const location = useLocation();
 

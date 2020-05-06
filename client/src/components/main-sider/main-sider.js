@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Layout } from "antd";
 import { MainMenu } from "./components/main-menu";
 import { UserSiderItem } from "./components/user-sider-item";
@@ -6,11 +6,21 @@ import { useNomAssociacio } from "./hooks";
 import { initials } from "../../utils";
 
 import "./main-sider.css";
+import {
+  SiderBrokenContext,
+  SiderCollapsedContext,
+  SiderSetBrokenContext,
+  SiderSetCollapsedContext,
+} from "../tauler-app/contexts/sider-context";
 
 const { Sider } = Layout;
 
-export default ({ collapsed, setCollapsed, broken, setBroken }) => {
+export default () => {
   const [nomAssociacio] = useNomAssociacio();
+  const collapsed = useContext(SiderCollapsedContext);
+  const setCollapsed = useContext(SiderSetCollapsedContext);
+  const broken = useContext(SiderBrokenContext);
+  const setBroken = useContext(SiderSetBrokenContext);
 
   return (
     <Sider
@@ -32,11 +42,7 @@ export default ({ collapsed, setCollapsed, broken, setBroken }) => {
           <div className="main-layout-title-long">{nomAssociacio}</div>
         )}
       </div>
-      <MainMenu
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-        broken={broken}
-      />
+      <MainMenu />
       <UserSiderItem />
     </Sider>
   );

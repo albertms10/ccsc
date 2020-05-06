@@ -1,73 +1,29 @@
-import React, { createContext, useState } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider, Layout } from "antd";
 import caES from "antd/es/locale/ca_ES";
 import moment from "moment";
 import "moment/locale/ca";
 
 import { MainSider } from "../main-sider";
-import { Inici } from "../../domain-tauler/inici";
-import { Agrupacio } from "../../domain-tauler/agrupacio";
-import { Socis } from "../../domain-tauler/socis";
-import { PerfilSoci } from "../../domain-tauler/socis/components/perfil-soci";
-
-import { useAgrupacions } from "./hooks";
-import { kebabCase } from "../../utils";
-import "./tauler-app.css";
+import { SiteLayout } from "./components/site-layout";
+import { AgrupacionsContext, SiderContext } from "./contexts";
 
 moment.locale("ca");
 
-const { Content, Header } = Layout;
-
-export const AgrupacionsContext = createContext(null);
-export const LoadingAgrupacionsContext = createContext(null);
-
 export default () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [agrupacions, loadingAgrupacions] = useAgrupacions();
-  const [broken, setBroken] = useState(false);
-
   return (
-    <AgrupacionsContext.Provider value={agrupacions}>
-      <LoadingAgrupacionsContext.Provider value={loadingAgrupacions}>
+    <AgrupacionsContext>
+      <SiderContext>
         <BrowserRouter basename="/tauler">
           <ConfigProvider locale={caES}>
             <Layout hasSider style={{ minHeight: "100vh" }}>
-              <MainSider
-                collapsed={collapsed}
-                setCollapsed={setCollapsed}
-                broken={broken}
-                setBroken={setBroken}
-              />
-              <Layout className="site-layout">
-                <Header className="site-layout-background app-layout-header" />
-                <Content
-                  className="app-layout-content site-layout-background"
-                  style={{ marginLeft: broken ? 0 : collapsed ? 80 : 200 }}
-                >
-                  <Switch>
-                    <Route exact path="/" component={Inici} />
-                    {loadingAgrupacions
-                      ? ""
-                      : agrupacions.map((agrupacio) => (
-                          <Route
-                            key={agrupacio.id_agrupacio}
-                            exact
-                            path={"/" + kebabCase(agrupacio.nom_curt)}
-                            render={(props) => (
-                              <Agrupacio {...props} agrupacio={agrupacio} />
-                            )}
-                          />
-                        ))}
-                    <Route exact path="/socis" component={Socis} />
-                    <Route exact path="/socis/:id" component={PerfilSoci} />
-                  </Switch>
-                </Content>
-              </Layout>
+              <MainSider />
+              <SiteLayout />
             </Layout>
           </ConfigProvider>
         </BrowserRouter>
-      </LoadingAgrupacionsContext.Provider>
-    </AgrupacionsContext.Provider>
+      </SiderContext>
+    </AgrupacionsContext>
   );
 };

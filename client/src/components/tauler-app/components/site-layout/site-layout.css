@@ -1,0 +1,12 @@
+.app-layout-header {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    transition-duration: 200ms;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+.app-layout-content {
+    padding-top: 64px;
+    transition-duration: 200ms;
+}
