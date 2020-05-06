@@ -3,6 +3,7 @@
     display: flex;
     align-items: flex-start;
     height: 100%;
+    border: none;
     border-radius: .5rem;
     background-image: url(../../assets/fons-projectes.svg);
     background-repeat: no-repeat;
