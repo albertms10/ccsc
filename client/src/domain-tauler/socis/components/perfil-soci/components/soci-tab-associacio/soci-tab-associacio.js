@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Col, Row, Switch, Tooltip } from "antd";
 import { SociContext } from "../../perfil-soci";
 import { SubHeader } from "../../../../../../standalone/sub-header";
@@ -8,9 +8,11 @@ import { useDispatch } from "react-redux";
 export default () => {
   const dispatch = useDispatch();
   const soci = useContext(SociContext);
-  const [acceptaDretsImatge, setAcceptaDretsImatge] = useState(
-    soci.accepta_drets_imatge
-  );
+  const [acceptaDretsImatge, setAcceptaDretsImatge] = useState(false);
+
+  useEffect(() => {
+    setAcceptaDretsImatge(soci.accepta_drets_imatge);
+  }, [soci.accepta_drets_imatge]);
 
   const handleAcceptaDretsImatge = useCallback(
     (accepta_proteccio_dades) => {
