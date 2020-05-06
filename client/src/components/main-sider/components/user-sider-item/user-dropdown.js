@@ -3,7 +3,7 @@ import { logoutRemoveUser } from "../../../../redux";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./user-sider-item.css";
+import "./user-dropdown.css";
 import { Link } from "react-router-dom";
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
 
   return (
     <Dropdown
-      placement="topLeft"
+      placement="bottomRight"
       trigger={["click"]}
       overlay={
         <Menu>
@@ -27,12 +27,9 @@ export default () => {
       }
     >
       <div className="user-menu-item">
-        <Avatar className="user-menu-item-avatar">
+        <Avatar size="large" className="user-menu-item-avatar">
           {currentUser.nom[0] + currentUser.cognoms[0]}
         </Avatar>
-        <span className="user-menu-item-name">
-          {`${currentUser.nom} ${currentUser.cognoms}`}
-        </span>
       </div>
     </Dropdown>
   );

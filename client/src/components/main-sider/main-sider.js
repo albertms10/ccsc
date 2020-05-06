@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Layout } from "antd";
 import { MainMenu } from "./components/main-menu";
-import { UserSiderItem } from "./components/user-sider-item";
 import { useNomAssociacio } from "./hooks";
 import { initials } from "../../utils";
 
@@ -30,6 +29,7 @@ export default () => {
       onBreakpoint={setBroken}
       collapsedWidth={broken ? 0 : 80}
       collapsible
+      {...(broken ? { trigger: null } : "")}
       collapsed={collapsed}
       onCollapse={setCollapsed}
     >
@@ -43,7 +43,6 @@ export default () => {
         )}
       </div>
       <MainMenu />
-      <UserSiderItem />
     </Sider>
   );
 };

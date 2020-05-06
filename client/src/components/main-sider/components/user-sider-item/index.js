@@ -1,1 +1,1 @@
-export { default as UserSiderItem } from "./user-sider-item";
+export { default as UserDropdown } from "./user-dropdown";

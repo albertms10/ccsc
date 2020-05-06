@@ -18,6 +18,7 @@ import {
 
 import "./site-layout.css";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import { UserDropdown } from "../../../main-sider/components/user-sider-item";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
@@ -36,6 +37,8 @@ export default () => {
     else setScrolled(false);
   });
 
+  const startInset = broken ? 0 : collapsed ? 80 : 200;
+
   return (
     <Layout className="site-layout">
       <Header
@@ -43,7 +46,10 @@ export default () => {
           "site-layout-background app-layout-header" +
           (scrolled ? " scrolled" : "")
         }
-        style={{ marginLeft: broken ? 0 : collapsed ? 80 : 200 }}
+        style={{
+          marginInlineStart: startInset,
+          width: `calc(100% - ${startInset}px)`,
+        }}
       >
         <Title
           className={"app-layout-header-title" + (scrolled ? " scrolled" : "")}
@@ -51,6 +57,7 @@ export default () => {
         >
           {pageHeader}
         </Title>
+        <UserDropdown />
       </Header>
       <Content
         className="app-layout-content site-layout-background"

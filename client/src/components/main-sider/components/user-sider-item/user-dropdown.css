@@ -3,12 +3,13 @@
 }
 
 .user-menu-item {
-    padding: 1rem;
+    cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
     transition-duration: 300ms;
     color: rgba(255, 255, 255, .65);
-    cursor: pointer;
+    padding-inline-start: 1rem;
+    justify-self: flex-end;
 }
 
 .user-menu-item:hover {
@@ -17,8 +18,6 @@
 
 .user-menu-item .user-menu-item-avatar {
     margin-right: .5rem;
-    color: #1d71b8;
-    background-color: #e9f3f7;
 }
 
 .ant-layout-sider-collapsed .user-menu-item .ant-avatar {
