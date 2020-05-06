@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.0.4",
+    "@n8tb1t/use-scroll-position": "^1.0.43",
     "@opd/g2plot-react": "^1.1.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

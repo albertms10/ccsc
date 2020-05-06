@@ -1,9 +1,28 @@
 .app-layout-header {
     position: fixed;
     z-index: 10;
+    display: flex;
+    align-items: center;
     width: 100%;
     transition-duration: 200ms;
+}
+
+.app-layout-header.scrolled {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+.app-layout-header .app-layout-header-title {
+    visibility: hidden;
+    margin-bottom: .25rem;
+    transition: opacity .15s ease, transform .15s ease, visibility .15s linear;
+    transform: translate(0, 48px);
+    opacity: 0;
+}
+
+.app-layout-header-title.scrolled {
+    visibility: visible;
+    transform: translate(0, 0);
+    opacity: 1;
 }
 
 .app-layout-content {

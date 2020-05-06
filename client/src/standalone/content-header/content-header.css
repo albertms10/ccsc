@@ -17,7 +17,7 @@
 }
 
 .content-header .header-title {
-    padding: 3rem var(--horizontal-inset) 0;
+    padding: 1rem var(--horizontal-inset) 0;
 }
 
 .content-header .ant-tabs-nav-container {
