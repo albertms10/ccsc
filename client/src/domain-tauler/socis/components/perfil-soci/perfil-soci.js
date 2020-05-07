@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
 import { useHistory, useParams } from "react-router-dom";
 import { useSoci } from "./hooks";
@@ -8,6 +8,7 @@ import { initials } from "../../../../utils";
 import "./perfil-soci.css";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabAssociacio } from "./components/soci-tab-associacio";
+import { SetPageHeaderContext } from "../../../../components/tauler-app/components/site-layout/site-layout";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -15,9 +16,15 @@ const { TabPane } = Tabs;
 export const SociContext = createContext(null);
 
 export default () => {
+  const setPageHeader = useContext(SetPageHeaderContext);
   const history = useHistory();
   const { id } = useParams();
   const [soci] = useSoci(id);
+
+  useEffect(() => setPageHeader(soci.nom_complet), [
+    setPageHeader,
+    soci.nom_complet,
+  ]);
 
   return (
     <SociContext.Provider value={soci}>

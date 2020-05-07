@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Row, Typography } from "antd";
 import {
   AssajosCountStatistics,
@@ -8,11 +8,15 @@ import {
 } from "../../standalone/statistics";
 import { SafeMargin } from "../../standalone/safe-margin";
 import { useSelector } from "react-redux";
+import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 
 const { Title } = Typography;
 
 export default () => {
+  const setPageHeader = useContext(SetPageHeaderContext);
   const { es_dona } = useSelector((store) => store.user.currentUser);
+
+  useEffect(() => setPageHeader("Inici"), [setPageHeader]);
 
   return (
     <SafeMargin style={{ marginTop: 8 }}>
