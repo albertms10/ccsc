@@ -20,7 +20,7 @@ export default () => {
       </Descriptions>
       <SubHeader title="Dades de contacte" />
       <Descriptions size="middle" bordered>
-        <Item label="Adreça electrònica">
+        <Item label="Adreça electrònica" span={3}>
           <a href={`mailto:${soci.email}`}>{soci.email}</a>
         </Item>
         {soci.telefon ? <Item label="Telèfon">{soci.telefon}</Item> : ""}
