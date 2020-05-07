@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   app.get(
     "/api/projectes/historial",
-    [authJWT.verifyToken, authJWT.isJuntaDirectiva],
+    [authJWT.verifyToken],
     controller.projectes_historial
   );
 };
