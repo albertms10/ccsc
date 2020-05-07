@@ -5,15 +5,15 @@
     align-items: center;
     width: 100%;
     transition-duration: 200ms;
-    transition-property: box-shadow;
+    transition-property: box-shadow, background-color;
 }
 
-.site-layout .app-layout-header.ghost {
-    background-color: transparent!important;
-    box-shadow: none;
+.app-layout-header.ghost {
+    background-color: transparent;
 }
 
 .header-scrolled .app-layout-header {
+    background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
 }
 
