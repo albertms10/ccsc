@@ -21,6 +21,7 @@ import {
   SiderCollapsedContext,
   SiderSetCollapsedContext,
 } from "../../../tauler-app/contexts/sider-context";
+import { Authorized } from "../../../authorized";
 
 const { Item, ItemGroup } = Menu;
 
@@ -45,6 +46,7 @@ export default () => {
    * @property {string} title
    * @property {React.Component} icon
    * @property {string} path
+   * @property {string} [authorized]
    */
 
   /**
@@ -75,6 +77,7 @@ export default () => {
           title: "Socis",
           icon: <TeamOutlined />,
           path: "/socis",
+          authorized: "juntaDirectiva",
         },
         {
           title: "Reunions",
@@ -152,14 +155,22 @@ export default () => {
     </ItemGroup>
   );
 
-  const renderItem = (/** MenuItem */ item) => (
-    <Item key={item.path}>
-      <Link to={item.path}>
-        {item.icon}
-        <span>{item.title}</span>
-      </Link>
-    </Item>
-  );
+  const renderItem = (/** MenuItem */ item) => {
+    const itemComponent = (
+      <Item key={item.path}>
+        <Link to={item.path}>
+          {item.icon}
+          <span>{item.title}</span>
+        </Link>
+      </Item>
+    );
+
+    return item.authorized ? (
+      <Authorized authority={item.authorized}>{itemComponent}</Authorized>
+    ) : (
+      itemComponent
+    );
+  };
 
   return (
     <Menu

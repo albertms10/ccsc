@@ -19,6 +19,7 @@ import {
 import "./site-layout.css";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { UserDropdown } from "../../../main-sider/components/user-sider-item";
+import { Authorized } from "../../../authorized";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
@@ -78,7 +79,9 @@ export default () => {
                     )}
                   />
                 ))}
-            <Route exact path="/socis" component={Socis} />
+            <Authorized>
+              <Route exact path="/socis" component={Socis} />
+            </Authorized>
             <Route exact path="/socis/:id" component={PerfilSoci} />
           </Switch>
         </Content>
