@@ -276,7 +276,7 @@ export default ({
         </div>
         <Form.Item
           className="switch"
-          name="acceptaProteccioDades"
+          name="accepta_proteccio_dades"
           valuePropName="checked"
           wrapperCol={{}}
         >
@@ -312,7 +312,7 @@ export default ({
         </div>
         <Form.Item
           className="switch"
-          name="acceptaDretsImatge"
+          name="accepta_drets_imatge"
           valuePropName="checked"
           wrapperCol={{}}
         >
@@ -394,10 +394,10 @@ const ResumSoci = ({ data, username, loadingUsername }) => {
       </Divider>
       <Descriptions size="small">
         <Descriptions.Item label="Protecció de dades">
-          {data.acceptaProteccioDades ? "Sí" : "No"}
+          {data.accepta_proteccio_dades ? "Sí" : "No"}
         </Descriptions.Item>
         <Descriptions.Item label="Drets d’imatge">
-          {data.acceptaDretsImatge ? "Sí" : "No"}
+          {data.accepta_drets_imatge ? "Sí" : "No"}
         </Descriptions.Item>
       </Descriptions>
     </>

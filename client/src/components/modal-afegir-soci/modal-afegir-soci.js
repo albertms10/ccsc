@@ -38,13 +38,13 @@ export default ({ getSocis }) => {
     form
       .validateFields()
       .then((values) => {
-        if (values.acceptaProteccioDades) {
+        if (values.accepta_proteccio_dades) {
           setConfirmLoading(true);
 
           values.username = username;
           values.nom = upperCaseFirst(values.nom);
           values.cognoms = upperCaseFirst(values.cognoms);
-          values.acceptaDretsImatge = !!values.acceptaDretsImatge;
+          values.accepta_drets_imatge = !!values.accepta_drets_imatge;
           values.naixement = values.naixement.format("YYYY-MM-DD");
           values.data_alta = values.data_alta
             ? values.data_alta.format("YYYY-MM-DD")
@@ -90,7 +90,7 @@ export default ({ getSocis }) => {
     try {
       const data = await form.validateFields();
 
-      if (current > 1 && !data.acceptaProteccioDades) {
+      if (current > 1 && !data.accepta_proteccio_dades) {
         handleErrorProteccio();
         return;
       }

@@ -126,10 +126,8 @@ exports.socis_get = (req, res, next) => {
 exports.socis_post = (req, res, next) => {
   const pool = req.app.get("pool");
   const soci = req.body;
-  // TODO: Comprovar que la contrasenya s’apliqui correctament
-  const password = soci.naixement.split("-").reverse().join("-");
 
-  // TODO: Refaccionar amb pool.getConnection()
+  // TODO: Refaccionar amb pool.getConnection() com a transacció
   pool.query(
     `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon,
                              accepta_proteccio_dades, accepta_drets_imatge)
@@ -142,17 +140,20 @@ exports.socis_post = (req, res, next) => {
       soci.dni,
       soci.email,
       soci.telefon,
-      soci.acceptaProteccioDades,
-      soci.acceptaDretsImatge,
+      soci.accepta_proteccio_dades,
+      soci.accepta_drets_imatge,
     ],
     (err, rows_persona) => {
       if (err) next(err);
       console.log("1 record inserted into `persones`");
 
       const id_persona = rows_persona.insertId;
+
+      // TODO: Comprovar que la contrasenya s’apliqui correctament
+      const password = soci.naixement.split("-").reverse().join("-");
       const { salt, hash } = saltHashPassword({ password });
 
-      // TODO Hauria de realitzar aquesta consulta com a POST /api/usuaris?
+      // TODO Hauria de realitzar aquesta consulta p. ex. com a POST /api/usuaris?
       pool.query(
         `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
            VALUES (?, ?, ?, ?);`,
