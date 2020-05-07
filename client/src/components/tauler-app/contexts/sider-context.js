@@ -1,9 +1,9 @@
 import React, { createContext, useState } from "react";
 
 export const SiderBrokenContext = createContext(null);
-export const SiderSetBrokenContext = createContext(null);
+export const SiderSetBrokenContext = createContext((_) => {});
 export const SiderCollapsedContext = createContext(null);
-export const SiderSetCollapsedContext = createContext(null);
+export const SiderSetCollapsedContext = createContext((_) => {});
 
 export default ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
