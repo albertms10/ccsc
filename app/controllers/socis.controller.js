@@ -63,9 +63,11 @@ exports.socis_detall = (req, res, next) => {
                 LEFT JOIN usuaris USING (id_persona)
        WHERE id_soci = ?;`,
     [id_soci],
-    (err, rows) => {
+    (err, [user]) => {
       if (err) next(err);
-      res.send(rows);
+      user.accepta_proteccio_dades = !!user.accepta_proteccio_dades;
+      user.accepta_drets_imatge = !!user.accepta_drets_imatge;
+      res.send(user);
     }
   );
 };

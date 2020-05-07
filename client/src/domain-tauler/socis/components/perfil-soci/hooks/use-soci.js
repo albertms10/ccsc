@@ -7,7 +7,7 @@ export default (id) => {
   const [soci, setSoci] = useState({});
 
   useEffect(() => {
-    fetchAPI(`/api/socis/${id}`, (data) => setSoci(data[0]), dispatch);
+    fetchAPI(`/api/socis/${id}`, setSoci, dispatch);
   }, [id, dispatch]);
 
   return [soci];
