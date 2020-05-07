@@ -38,7 +38,7 @@ export default () => {
           <Row type="flex" gutter={[41, 41]}>
             <Col xs={24} sm={6} flex={1}>
               <Avatar className="avatar-soci" shape="square">
-                {initials(soci.nom_complet)}
+                {initials(soci.nom[0] + soci.cognoms[0])}
               </Avatar>
             </Col>
             <Col xs={24} sm={18} flex={1}>
