@@ -8,21 +8,25 @@ import {
 /**
  * @param props
  * @param {'juntaDirectiva' | 'directorMusical' | 'admin'} props.authority
+ * @param props.render
  * @param props.children
  * @returns {*}
  */
-export default ({ authority = "juntaDirectiva", children }) => {
+export default (props) => {
+  const { authority = "juntaDirectiva", render, children } = props;
   const { roles } = useSelector(({ user }) => user.currentUser);
+
+  const returnItem = render ? render(props) : children;
 
   switch (authority) {
     case "juntaDirectiva":
-      return isJuntaDirectiva(roles) ? children : "";
+      return isJuntaDirectiva(roles) ? returnItem : "";
 
     case "directorMusical":
-      return isDirectorMusical(roles) ? children : "";
+      return isDirectorMusical(roles) ? returnItem : "";
 
     case "admin":
-      return isAdmin(roles) ? children : "";
+      return isAdmin(roles) ? returnItem : "";
 
     default:
       return "";

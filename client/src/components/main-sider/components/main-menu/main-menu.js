@@ -46,7 +46,7 @@ export default () => {
    * @property {string} title
    * @property {React.Component} icon
    * @property {string} path
-   * @property {string} [authorized]
+   * @property {string} [authority]
    */
 
   /**
@@ -57,6 +57,7 @@ export default () => {
    * @property {MenuItem[]} groupedItems
    */
 
+  // TODO: Cal tenir els ítems del menú com a dades i després haver-les de processar?
   const items = [
     {
       title: "Inici",
@@ -77,7 +78,7 @@ export default () => {
           title: "Socis",
           icon: <TeamOutlined />,
           path: "/socis",
-          authorized: "juntaDirectiva",
+          authority: "juntaDirectiva",
         },
         {
           title: "Reunions",
@@ -155,8 +156,21 @@ export default () => {
     </ItemGroup>
   );
 
-  const renderItem = (/** MenuItem */ item) => {
-    const itemComponent = (
+  // TODO: Refaccionar el menuItem per no haver-lo de repetir
+  const renderItem = (/** MenuItem */ item) =>
+    item.authority ? (
+      <Authorized
+        authority={item.authority}
+        render={(props) => (
+          <Item {...props} key={item.path}>
+            <Link to={item.path}>
+              {item.icon}
+              <span>{item.title}</span>
+            </Link>
+          </Item>
+        )}
+      />
+    ) : (
       <Item key={item.path}>
         <Link to={item.path}>
           {item.icon}
@@ -164,13 +178,6 @@ export default () => {
         </Link>
       </Item>
     );
-
-    return item.authorized ? (
-      <Authorized authority={item.authorized}>{itemComponent}</Authorized>
-    ) : (
-      itemComponent
-    );
-  };
 
   return (
     <Menu
