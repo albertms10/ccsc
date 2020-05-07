@@ -4,9 +4,9 @@ exports.associacio_get = (req, res, next) => {
   pool.query(
     `SELECT *
        FROM associacio;`,
-    (err, rows) => {
+    (err, [associacio]) => {
       if (err) next(err);
-      res.send(rows);
+      res.send(associacio);
     }
   );
 };

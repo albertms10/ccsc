@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Layout } from "antd";
 import { MainMenu } from "./components/main-menu";
-import { useNomAssociacio } from "./hooks";
 import { initials } from "../../utils";
 
 import "./main-sider.css";
@@ -11,15 +10,20 @@ import {
   SiderSetBrokenContext,
   SiderSetCollapsedContext,
 } from "../tauler-app/contexts/sider-context";
+import { AssociacioContext } from "../tauler-app/components/site-layout/site-layout";
 
 const { Sider } = Layout;
 
 export default () => {
-  const [nomAssociacio] = useNomAssociacio();
+  const associacio = useContext(AssociacioContext);
   const collapsed = useContext(SiderCollapsedContext);
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
   const setBroken = useContext(SiderSetBrokenContext);
+
+  useEffect(() => {
+    console.log(associacio);
+  }, [associacio]);
 
   return (
     <Sider
@@ -36,10 +40,10 @@ export default () => {
       <div className="main-layout-title-wrapper">
         {collapsed ? (
           <div className="main-layout-title-short">
-            {initials(nomAssociacio)}
+            {initials(associacio.nom)}
           </div>
         ) : (
-          <div className="main-layout-title-long">{nomAssociacio}</div>
+          <div className="main-layout-title-long">{associacio.nom}</div>
         )}
       </div>
       <MainMenu />
