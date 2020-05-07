@@ -8,12 +8,18 @@ import {
 } from "../../standalone/statistics";
 import { SafeMargin } from "../../standalone/safe-margin";
 import { useSelector } from "react-redux";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import {
+  AssociacioContext,
+  SetPageHeaderContext,
+} from "../../components/tauler-app/components/site-layout/site-layout";
 import { Authorized } from "../../components/authorized";
+
+import "./inici.css";
 
 const { Title } = Typography;
 
 export default () => {
+  const { nom: nomAssociacio } = useContext(AssociacioContext);
   const setPageHeader = useContext(SetPageHeaderContext);
   const { es_dona } = useSelector((store) => store.user.currentUser);
 
@@ -21,13 +27,11 @@ export default () => {
 
   return (
     <SafeMargin style={{ marginTop: 8 }}>
+      <div className="title-wrapper">
+        <Title level={3}>Benvingu{es_dona ? "da" : "t"}</Title>
+        <Title>{nomAssociacio}</Title>
+      </div>
       <Row type="flex" gutter={[32, 32]}>
-        <Col span={24}>
-          <Title style={{ margin: 0, color: "#555" }}>
-            Benvingu{es_dona ? "da" : "t"} a l’Associació Musical Catalana
-            Crescendo
-          </Title>
-        </Col>
         <Authorized>
           <Col xs={24} sm={12} md={6} flex={1}>
             <SocisCountStatistics />
