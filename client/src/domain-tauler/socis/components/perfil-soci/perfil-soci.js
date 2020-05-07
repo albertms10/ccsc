@@ -48,7 +48,7 @@ export default () => {
               <Title level={4} type="secondary" style={{ marginTop: 0 }}>
                 {soci.username}
               </Title>
-              <Tabs defaultActiveKey="1">
+              <Tabs defaultActiveKey="general">
                 <TabPane tab="General" key="general">
                   <SociTabGeneral />
                 </TabPane>
