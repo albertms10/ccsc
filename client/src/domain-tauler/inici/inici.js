@@ -9,6 +9,7 @@ import {
 import { SafeMargin } from "../../standalone/safe-margin";
 import { useSelector } from "react-redux";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { Authorized } from "../../components/authorized";
 
 const { Title } = Typography;
 
@@ -27,9 +28,11 @@ export default () => {
             Crescendo
           </Title>
         </Col>
-        <Col xs={24} sm={12} md={6} flex={1}>
-          <SocisCountStatistics />
-        </Col>
+        <Authorized>
+          <Col xs={24} sm={12} md={6} flex={1}>
+            <SocisCountStatistics />
+          </Col>
+        </Authorized>
         <Col xs={24} sm={12} md={6} flex={1}>
           <ProjectesCountStatistics />
         </Col>
