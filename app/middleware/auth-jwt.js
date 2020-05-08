@@ -27,6 +27,15 @@ const verifyToken = (req, res, next) => {
   });
 };
 
+const isAuthor = (req, res, next) => {
+  if (req.userId !== parseInt(req.params.id))
+    return res
+      .status(401)
+      .send({ error: { status: 401, message: "Sense autorització" } });
+
+  next();
+};
+
 const isRole = (req, res, next, roles) => {
   const pool = req.app.get("pool");
 
@@ -40,9 +49,9 @@ const isRole = (req, res, next, roles) => {
        WHERE id_usuari = ?
          AND role IN (?);`,
     [id, roles],
-    (err, /** @param {number} rows[].es_admin */ rows) => {
+    (err, [{ es_admin }]) => {
       if (err) next(err);
-      if (rows[0].es_admin) {
+      if (es_admin) {
         next();
         return;
       }
@@ -67,6 +76,7 @@ const isAdmin = (req, res, next) => isRole(req, res, next, ["admin"]);
 
 module.exports = {
   verifyToken,
+  isAuthor,
   isJuntaDirectiva,
   isDirectorMusical,
   isAdmin,
