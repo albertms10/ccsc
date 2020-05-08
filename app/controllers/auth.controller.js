@@ -37,11 +37,8 @@ exports.signin = (req, res, next) => {
                 LEFT JOIN persones USING (id_persona)
        WHERE username = ?;`,
     [username],
-    (err, rows) => {
+    (err, [user]) => {
       if (err) next(err);
-
-      /** @type {User} */
-      const user = rows[0];
 
       if (!user)
         return res.status(404).send({

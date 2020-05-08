@@ -23,11 +23,8 @@ exports.userInfo = (req, res, next) => {
                 LEFT JOIN persones USING (id_persona)
        WHERE id_usuari = ?`,
     [id],
-    (err, rows) => {
+    (err, [user]) => {
       if (err) next(err);
-
-      /** @type {User} */
-      const user = rows[0];
 
       if (user) {
         /** @type {string[]} */
