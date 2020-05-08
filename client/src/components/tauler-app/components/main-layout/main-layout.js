@@ -8,13 +8,11 @@ export default () => {
   const broken = useContext(SiderBrokenContext);
 
   return (
-    <Layout
-      className={broken ? "broken-sider" : ""}
-      hasSider
-      style={{ minHeight: "100vh" }}
-    >
-      <MainSider />
-      <SiteLayout />
+    <Layout hasSider style={{ minHeight: "100vh" }}>
+      <div className={broken ? "broken-sider" : ""}>
+        <MainSider />
+        <SiteLayout />
+      </div>
     </Layout>
   );
 };
