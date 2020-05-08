@@ -160,6 +160,7 @@ export default () => {
   const renderItem = (/** MenuItem */ item) =>
     item.authority ? (
       <Authorized
+        key={item.path}
         authority={item.authority}
         render={(props) => (
           <Item {...props} key={item.path}>
