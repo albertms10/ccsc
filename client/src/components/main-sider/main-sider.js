@@ -10,7 +10,8 @@ import {
   SiderSetBrokenContext,
   SiderSetCollapsedContext,
 } from "../tauler-app/contexts/sider-context";
-import { AssociacioContext } from "../tauler-app/components/site-layout/site-layout";
+import { AssociacioContext } from "../tauler-app/tauler-app";
+import { MenuOutlined } from "@ant-design/icons";
 
 const { Sider } = Layout;
 
@@ -38,7 +39,15 @@ export default () => {
       onCollapse={setCollapsed}
     >
       <div className="main-layout-title-wrapper">
-        {collapsed ? (
+        {broken ? (
+          <MenuOutlined
+            className="main-sidebar-trigger"
+            onClick={() => setCollapsed(true)}
+          />
+        ) : (
+          ""
+        )}
+        {collapsed || broken ? (
           <div className="main-layout-title-short">
             {initials(associacio.nom)}
           </div>

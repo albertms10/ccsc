@@ -21,14 +21,12 @@ import "./site-layout.css";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { UserDropdown } from "../../../main-sider/components/user-dropdown";
 import { Authorized } from "../../../authorized";
-import { useAssociacio } from "./hooks";
 import { MenuOutlined } from "@ant-design/icons";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
 
 export const SetPageHeaderContext = createContext((_) => {});
-export const AssociacioContext = createContext({});
 
 export default () => {
   const agrupacions = useContext(AgrupacionsListContext);
@@ -37,7 +35,6 @@ export default () => {
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
 
-  const [associacio] = useAssociacio();
   const [scrolled, setScrolled] = useState(false);
   const [pageHeader, setPageHeader] = useState("");
   const location = useLocation();
@@ -51,65 +48,61 @@ export default () => {
 
   return (
     <SetPageHeaderContext.Provider value={setPageHeader}>
-      <AssociacioContext.Provider value={associacio}>
-        <Layout
-          className={"site-layout" + (scrolled ? " header-scrolled" : "")}
+      <Layout className={"site-layout" + (scrolled ? " header-scrolled" : "")}>
+        <Header
+          className={
+            "site-layout-background app-layout-header" +
+            (location.pathname === "/" ? " ghost" : "")
+          }
+          style={{
+            marginInlineStart: startInset,
+            width: `calc(100vw - ${startInset}px)`,
+          }}
         >
-          <Header
-            className={
-              "site-layout-background app-layout-header" +
-              (location.pathname === "/" ? " ghost" : "")
-            }
-            style={{
-              marginInlineStart: startInset,
-              width: `calc(100vw - ${startInset}px)`,
-            }}
-          >
-            {broken ? (
-              <MenuOutlined
-                className="trigger"
-                onClick={() => setCollapsed((collapsed) => !collapsed)}
-              />
-            ) : (
-              ""
-            )}
-            <Title className="app-layout-header-title" level={4}>
-              {pageHeader}
-            </Title>
-            <UserDropdown />
-          </Header>
-          <Content
-            className="app-layout-content site-layout-background"
-            style={{ marginInlineStart: startInset }}
-          >
-            <Switch>
-              <Route exact path="/" component={Inici} />
-              {loadingAgrupacions
-                ? ""
-                : agrupacions.map((agrupacio) => (
-                    <Route
-                      key={agrupacio.id_agrupacio}
-                      exact
-                      path={"/" + kebabCase(agrupacio.nom_curt)}
-                      render={(props) => (
-                        <Agrupacio {...props} agrupacio={agrupacio} />
-                      )}
-                    />
-                  ))}
-              <Route
-                exact
-                path="/socis"
-                render={() => (
-                  <Authorized>
-                    <Socis />
-                  </Authorized>
-                )}
-              />
-              <Route exact path="/socis/:id" component={PerfilSoci} />
-            </Switch>
-          </Content>
-        </Layout>
-      </AssociacioContext.Provider>
+          {broken ? (
+            <MenuOutlined
+              className="main-sidebar-trigger"
+              onClick={() => setCollapsed(false)}
+            />
+          ) : (
+            ""
+          )}
+          <Title className="app-layout-header-title" level={4}>
+            {pageHeader}
+          </Title>
+          <UserDropdown />
+        </Header>
+        <Content
+          className="app-layout-content site-layout-background"
+          style={{ marginInlineStart: startInset }}
+        >
+          <Switch>
+            <Route exact path="/" component={Inici} />
+            {loadingAgrupacions
+              ? ""
+              : agrupacions.map((agrupacio) => (
+                  <Route
+                    key={agrupacio.id_agrupacio}
+                    exact
+                    path={"/" + kebabCase(agrupacio.nom_curt)}
+                    render={(props) => (
+                      <Agrupacio {...props} agrupacio={agrupacio} />
+                    )}
+                  />
+                ))}
+            <Route
+              exact
+              path="/socis"
+              render={() => (
+                <Authorized>
+                  <Socis />
+                </Authorized>
+              )}
+            />
+            <Route exact path="/socis/:id" component={PerfilSoci} />
+          </Switch>
+        </Content>
+      </Layout>
     </SetPageHeaderContext.Provider>
   );
 };

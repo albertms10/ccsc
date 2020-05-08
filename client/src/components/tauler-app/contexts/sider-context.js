@@ -6,8 +6,8 @@ export const SiderCollapsedContext = createContext(null);
 export const SiderSetCollapsedContext = createContext((_) => {});
 
 export default ({ children }) => {
-  const [collapsed, setCollapsed] = useState(false);
   const [broken, setBroken] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <SiderBrokenContext.Provider value={broken}>

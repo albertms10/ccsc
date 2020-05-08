@@ -8,10 +8,8 @@ import {
 } from "../../standalone/statistics";
 import { SafeMargin } from "../../standalone/safe-margin";
 import { useSelector } from "react-redux";
-import {
-  AssociacioContext,
-  SetPageHeaderContext,
-} from "../../components/tauler-app/components/site-layout/site-layout";
+import { AssociacioContext } from "../../components/tauler-app/tauler-app";
+import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Authorized } from "../../components/authorized";
 
 import "./inici.css";
