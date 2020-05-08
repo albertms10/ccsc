@@ -34,26 +34,28 @@ export default ({ socis, getSocis, loading }) => {
       dataIndex: "nom_complet",
       key: "nom_complet",
       render: (text, row) => (
-        <div className="socis-table-username-wrapper">
-          <Tooltip
-            title={`${closestTimeValue(row.dies_activitat, "d")} d’${
-              row.data_inactiu ? "in" : ""
-            }activitat`}
-          >
-            <Badge dot status={row.estat_actiu ? "success" : "danger"}>
-              <Avatar className="socis-table-avatar">
-                {row.nom[0]}
-                {row.cognoms[0]}
-              </Avatar>
-            </Badge>
-          </Tooltip>
-          <div className="socis-table-username-container">
-            <Text className="socis-table-username-text">{text}</Text>
-            <Text className="socis-table-username-text" type="secondary">
-              {row.username}
-            </Text>
+        <Link to={`/socis/${row.id_persona}`}>
+          <div className="socis-table-username-wrapper">
+            <Tooltip
+              title={`${closestTimeValue(row.dies_activitat, "d")} d’${
+                row.data_inactiu ? "in" : ""
+              }activitat`}
+            >
+              <Badge dot status={row.estat_actiu ? "success" : "danger"}>
+                <Avatar className="socis-table-avatar">
+                  {row.nom.charAt(0)}
+                  {row.cognoms.charAt(0)}
+                </Avatar>
+              </Badge>
+            </Tooltip>
+            <div className="socis-table-username-container">
+              <Text className="socis-table-username-text">{text}</Text>
+              <Text className="socis-table-username-text" type="secondary">
+                {row.username}
+              </Text>
+            </div>
           </div>
-        </div>
+        </Link>
       ),
       sorter: (a, b) => a.nom_complet.length - b.nom_complet.length,
       sortDirections: ["descend", "ascend"],
