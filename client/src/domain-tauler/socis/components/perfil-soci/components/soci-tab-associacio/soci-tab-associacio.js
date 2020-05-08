@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Col, message, Row, Switch, Tooltip } from "antd";
+import { Alert, Col, message, Row, Switch, Tooltip } from "antd";
 import { SociContext } from "../../perfil-soci";
 import { SubHeader } from "../../../../../../standalone/sub-header";
 import { fetchAPI } from "../../../../../../helpers";
@@ -36,12 +36,24 @@ export default () => {
     [soci, dispatch]
   );
 
+  // TODO: Implementar l’acció del Switch de Protecció de dades
   return (
     <Row justify="center" align="middle" gutter={[16, 16]}>
       <Col span={24}>
         <SubHeader title="Protecció de dades" />
       </Col>
-      <Col span={20}>
+      {soci.accepta_proteccio_dades ? (
+        ""
+      ) : (
+        <Col span={24}>
+          <Alert
+            type="warning"
+            showIcon
+            message={"Has d’acceptar la protecció de dades."}
+          />
+        </Col>
+      )}
+      <Col span={18}>
         D’acord amb l’article 5 de la Llei orgànica 15/1999 de protecció de
         dades de caràcter personal, les vostres dades seran incorporades i
         tractades al fitxer intern el qual és responsable l'Associació Musical
@@ -58,15 +70,18 @@ export default () => {
         </a>
         .
       </Col>
-      <Col span={4}>
+      <Col span={6}>
         <Tooltip title="Cal acceptar la protecció de dades">
-          <Switch checked={soci.accepta_proteccio_dades} disabled />
+          <Switch
+            checked={soci.accepta_proteccio_dades}
+            disabled={soci.accepta_proteccio_dades}
+          />
         </Tooltip>
       </Col>
       <Col span={24}>
         <SubHeader title="Drets d’imatge" />
       </Col>
-      <Col span={20}>
+      <Col span={18}>
         Atès que el dret a la imatge es troba regulat per l'article 18.1 de la
         Constitució, per la Llei Orgànica 1/1982 sobre el dret a l'honor, a la
         intimitat personal i familiar, i per la Llei Orgànica 15/1999 de
@@ -80,7 +95,7 @@ export default () => {
         forma gratuïta i amb renúncia formal a qualsevol contraprestació
         econòmica.
       </Col>
-      <Col span={4}>
+      <Col span={6}>
         <Switch
           checked={acceptaDretsImatge}
           onChange={handleAcceptaDretsImatge}

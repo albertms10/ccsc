@@ -283,14 +283,15 @@ export default ({
           <Switch
             checkedChildren="Accepto"
             unCheckedChildren="No accepto"
-            onChange={(checked) => {
-              if (!checked) setAlertProteccio(true);
-              else setAlertProteccio(false);
-            }}
+            onChange={(checked) => setAlertProteccio(!checked)}
           />
         </Form.Item>
         {alertProteccio ? (
-          <Alert message="Heu d’acceptar la protecció de dades." type="error" />
+          <Alert
+            type="warning"
+            showIcon
+            message="Heu d’acceptar la protecció de dades."
+          />
         ) : (
           ""
         )}
