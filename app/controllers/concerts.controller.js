@@ -15,11 +15,14 @@ exports.concerts_historial = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool.query(
-    `SELECT CONCAT(YEAR(dia_inici)) AS x, COUNT(*) AS y
-       FROM concerts
-                INNER JOIN esdeveniments e ON concerts.id_concert = e.id_esdeveniment
-       GROUP BY x, YEAR(dia_inici)
-       ORDER BY YEAR(dia_inici);`,
+    `SELECT REPLACE(id_curs, '-', '–') AS x,
+              (
+                  SELECT COUNT(*)
+                  FROM concerts
+                           INNER JOIN esdeveniments e ON concerts.id_concert = e.id_esdeveniment
+                  WHERE e.dia_inici BETWEEN (SELECT c.inici) AND IFNULL((SELECT c.final), NOW())
+              )                          AS y
+       FROM cursos c;`,
     (err, rows) => {
       if (err) next(err);
       res.send(rows);
