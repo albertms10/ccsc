@@ -35,8 +35,14 @@ module.exports = (app) => {
   );
 
   app.put(
+    "/api/socis/:id/accepta-proteccio-dades",
+    [authJWT.verifyToken, authJWT.isAuthor],
+    controller.socis_detall_acceptaprotecciodades_put
+  );
+
+  app.put(
     "/api/socis/:id/accepta-drets-imatge",
-    [authJWT.verifyToken],
+    [authJWT.verifyToken, authJWT.isAuthor],
     controller.socis_detall_acceptadretsimatge_put
   );
 };
