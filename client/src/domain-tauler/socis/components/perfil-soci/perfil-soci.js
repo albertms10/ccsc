@@ -3,12 +3,12 @@ import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
 import { useHistory, useParams } from "react-router-dom";
 import { useSoci } from "./hooks";
 import { Container } from "../../../../standalone/container";
-import { initials } from "../../../../utils";
 
 import "./perfil-soci.css";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabAssociacio } from "./components/soci-tab-associacio";
 import { SetPageHeaderContext } from "../../../../components/tauler-app/components/site-layout/site-layout";
+import { initials } from "../../../../utils";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -38,7 +38,7 @@ export default () => {
           <Row type="flex" gutter={[41, 41]}>
             <Col xs={24} sm={6} flex={1}>
               <Avatar className="avatar-soci" shape="square">
-                {initials(soci.nom[0] + soci.cognoms[0])}
+                {initials(soci.nom_complet)}
               </Avatar>
             </Col>
             <Col xs={24} sm={18} flex={1}>
