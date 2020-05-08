@@ -8,12 +8,17 @@ import { SmallBadge } from "../../../../standalone/small-badge";
 import { Container } from "../../../../standalone/container";
 import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
 import { ColorCardList } from "../../../../standalone/color-card-list";
+import { kebabCase } from "../../../../utils";
 
-export default ({ idAgrupacio }) => {
+export default ({ agrupacio }) => {
+  const { id_agrupacio: idAgrupacio, nom_curt: nomCurt } = agrupacio;
+
   const [assajos, loadingAssajos] = useAssajos(idAgrupacio);
   const [concerts, loadingConcerts] = useConcerts(idAgrupacio);
   const [projectes, loadingProjectes] = useProjectes(idAgrupacio);
   const [integrants, loadingIntegrants] = useIntegrants(idAgrupacio);
+
+  const rootPathAgrupacio = kebabCase(nomCurt);
 
   return (
     <Container>
@@ -38,12 +43,13 @@ export default ({ idAgrupacio }) => {
                 description: assaig.hora_inici
                   ? `a les ${date.format("LT")}`
                   : "",
+                link: `/${rootPathAgrupacio}/assajos/${assaig.id_assaig}`,
                 extra: assaig.projectes
                   ? assaig.projectes.map((projecte) => (
                       <FixedTag
                         key={projecte.id_projecte}
                         childKey={projecte.id_projecte}
-                        tooltip={`Projecte «${projecte.titol}»`}
+                        tooltip={projecte.titol}
                         color={"#" + projecte.color}
                       >
                         {projecte.inicials}
@@ -64,6 +70,7 @@ export default ({ idAgrupacio }) => {
                 id: concert.id_concert,
                 title: concert.titol_concert,
                 description: `a les ${date.format("LT")}`,
+                link: `/${rootPathAgrupacio}/concerts/${concert.id_concert}`,
                 extra: concert.titol_projecte ? (
                   <FixedTag
                     tooltip={`Projecte «${concert.titol_projecte}»`}
@@ -86,6 +93,7 @@ export default ({ idAgrupacio }) => {
               id: integrant.id_persona,
               title: integrant.nom_complet,
               description: integrant.veu,
+              link: `/socis/${integrant.id_persona}`,
               avatar: (
                 <SmallBadge
                   count={integrant.abreviatura_veu}

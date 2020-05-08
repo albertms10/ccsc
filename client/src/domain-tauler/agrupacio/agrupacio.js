@@ -31,7 +31,7 @@ export default ({ agrupacio }) => {
             )}
           >
             <TabPane tab="Resum" key="resum">
-              <ResumAgrupacio idAgrupacio={agrupacio.id_agrupacio} />
+              <ResumAgrupacio agrupacio={agrupacio} />
             </TabPane>
             <TabPane
               tab="Calendari"
