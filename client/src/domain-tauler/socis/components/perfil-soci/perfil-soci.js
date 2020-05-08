@@ -9,6 +9,7 @@ import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabAssociacio } from "./components/soci-tab-associacio";
 import { SetPageHeaderContext } from "../../../../components/tauler-app/components/site-layout/site-layout";
 import { initials } from "../../../../utils";
+import { SociTabMusical } from "./components/soci-tab-musical";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -30,8 +31,8 @@ export default () => {
     <SociContext.Provider value={soci}>
       <PageHeader
         ghost={false}
-        title="Soci"
-        onBack={() => history.push("/socis")}
+        title={soci.nom_complet}
+        onBack={() => history.goBack()}
       />
       <Container>
         <div className="perfil-soci">
@@ -56,7 +57,7 @@ export default () => {
                   <SociTabAssociacio />
                 </TabPane>
                 <TabPane tab="Musical" key="musical">
-                  Content of Tab Pane 3
+                  <SociTabMusical />
                 </TabPane>
               </Tabs>
             </Col>
