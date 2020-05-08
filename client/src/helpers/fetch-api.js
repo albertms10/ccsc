@@ -42,7 +42,6 @@ export default (url, callback, dispatch, init = {}) => {
       else if (res.ok) callback();
     })
     .catch((e) => {
-      console.log(e);
       message.error(e.toString());
     });
 };

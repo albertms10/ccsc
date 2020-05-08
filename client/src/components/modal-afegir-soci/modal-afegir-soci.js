@@ -71,9 +71,8 @@ export default ({ getSocis }) => {
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (error) => {
+  const handleValidateError = (_) => {
     setCurrentPageIndex(0);
-    console.log(error);
   };
 
   const handleErrorProteccio = () => {

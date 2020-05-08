@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Layout } from "antd";
 import { MainMenu } from "./components/main-menu";
 import { initials } from "../../utils";
@@ -21,10 +21,6 @@ export default () => {
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
   const setBroken = useContext(SiderSetBrokenContext);
-
-  useEffect(() => {
-    console.log(associacio);
-  }, [associacio]);
 
   return (
     <Sider
