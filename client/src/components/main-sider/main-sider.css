@@ -41,6 +41,7 @@
     align-items: center;
     flex-shrink: 0;
     height: 64px;
+    padding-left: .5rem;
     color: white;
 }
 
@@ -55,6 +56,6 @@
 
 .main-layout-title-long {
     font-size: 1rem;
-    padding: .8rem 0.5rem 0.2rem 1.25rem;
+    padding: .8rem 0.5rem 0.2rem .75rem;
     white-space: pre-line;
 }
