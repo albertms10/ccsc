@@ -30,7 +30,7 @@
 
 @media only screen and (max-width: 575.98px) {
     :root {
-        --horizontal-inset: 1rem;
+        --horizontal-inset: .5rem;
     }
 }
 

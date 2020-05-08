@@ -62,13 +62,13 @@ export default () => {
             }
             style={{
               marginInlineStart: startInset,
-              width: `calc(100% - ${startInset}px)`,
+              width: `calc(100vw - ${startInset}px)`,
             }}
           >
             {broken ? (
               <MenuOutlined
                 className="trigger"
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setCollapsed((collapsed) => !collapsed)}
               />
             ) : (
               ""
