@@ -35,7 +35,7 @@ export default ({
   const validatorDniES = useCallback((rule, value) => {
     const XIFRES = 8;
 
-    const letter = value.charAt(value.length - 1);
+    const letter = value ? value.charAt(value.length - 1) : "";
     if (letter.match(/^[a-z]+$/))
       return Promise.reject("Introdueixi la lletra amb majúscules.");
 

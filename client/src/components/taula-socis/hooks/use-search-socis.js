@@ -5,14 +5,13 @@ export default (socis) => {
   const [filteredSocis, setFilteredSocis] = useState(socis);
 
   useEffect(() => {
-    const filteredSocis = socis.filter((soci) => {
-      return (
-        soci.nom_complet.toLowerCase().includes(searchValue) ||
-        soci.username.includes(searchValue) ||
-        soci.email.includes(searchValue) ||
-        (soci.telefon ? soci.telefon.includes(searchValue) : "")
-      );
-    });
+    const filteredSocis = socis.filter(
+      ({ email, nom_complet, telefon, username }) =>
+        (nom_complet && nom_complet.toLowerCase().includes(searchValue)) ||
+        (username && username.includes(searchValue)) ||
+        (email && email.includes(searchValue)) ||
+        (telefon && telefon.toString().includes(searchValue))
+    );
     setFilteredSocis(filteredSocis);
   }, [searchValue, socis]);
 
