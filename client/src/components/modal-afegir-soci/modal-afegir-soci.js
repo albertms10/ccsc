@@ -23,8 +23,8 @@ const steps = [
 export default ({ getSocis }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const [loading, setConfirmLoading] = useState(false);
-  const [current, setCurrent] = useState(0);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [alertProteccio, setAlertProteccio] = useState(false);
   const [username, loadingUsername, getUsername] = useUsername();
 
@@ -57,7 +57,7 @@ export default ({ getSocis }) => {
               setVisible(false);
               message.success(`El soci s'ha afegit correctament.`);
               getSocis(() => {
-                setCurrent(0);
+                setCurrentPageIndex(0);
                 form.resetFields();
               });
             },
@@ -72,12 +72,12 @@ export default ({ getSocis }) => {
   };
 
   const handleValidateError = (error) => {
-    setCurrent(0);
+    setCurrentPageIndex(0);
     console.log(error);
   };
 
   const handleErrorProteccio = () => {
-    setCurrent(1);
+    setCurrentPageIndex(1);
     setAlertProteccio(true);
   };
 
@@ -85,31 +85,34 @@ export default ({ getSocis }) => {
     setVisible(false);
   };
 
-  // TODO És correcta aquesta funció asíncrona pel que fa a l'ús de `getUsername`?
-  const handleChange = async (current) => {
+  const handleChange = async (pageIndex) => {
     try {
-      const data = await form.validateFields();
+      const {
+        nom,
+        cognoms,
+        accepta_proteccio_dades,
+      } = await form.validateFields();
 
-      if (current > 1 && !data.accepta_proteccio_dades) {
+      if (pageIndex > 1 && !accepta_proteccio_dades) {
         handleErrorProteccio();
         return;
       }
 
-      if (current === 3) getUsername({ nom: data.nom, cognoms: data.cognoms });
+      if (pageIndex === 3) getUsername({ nom, cognoms });
     } catch (error) {
       handleValidateError(error);
       return;
     }
 
-    setCurrent(current);
+    setCurrentPageIndex(pageIndex);
   };
 
   const next = async () => {
-    await handleChange(current + 1);
+    await handleChange(currentPageIndex + 1);
   };
 
   const previous = async () => {
-    await handleChange(current - 1);
+    await handleChange(currentPageIndex - 1);
   };
 
   return (
@@ -123,14 +126,14 @@ export default ({ getSocis }) => {
         onCancel={handleCancel}
         visible={visible}
         footer={[
-          current > 0 ? (
+          currentPageIndex > 0 ? (
             <Button key="previous" onClick={previous}>
               Anterior
             </Button>
           ) : (
             ""
           ),
-          current < steps.length - 1 ? (
+          currentPageIndex < steps.length - 1 ? (
             <Button key="next" type="primary" onClick={next}>
               Següent
             </Button>
@@ -139,14 +142,14 @@ export default ({ getSocis }) => {
               key="ok"
               type="primary"
               onClick={handleOk}
-              loading={loading}
+              loading={confirmLoading}
             >
               Afegeix
             </Button>
           ),
         ]}
       >
-        <Steps current={current} size="small" onChange={handleChange}>
+        <Steps current={currentPageIndex} size="small" onChange={handleChange}>
           {steps.map((step) => (
             <Step key={step} title={step} />
           ))}
@@ -154,7 +157,7 @@ export default ({ getSocis }) => {
         <div className="steps-content">
           <FormAfegirSoci
             form={form}
-            current={current}
+            current={currentPageIndex}
             username={username}
             loadingUsername={loadingUsername}
             alertProteccio={alertProteccio}
