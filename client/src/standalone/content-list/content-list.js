@@ -18,10 +18,7 @@ export default ({ title, loading, data, style }) => {
         loading={loading}
         dataSource={data}
         renderItem={(item) => (
-          <Link
-            className="content-list-item"
-            to={`/cor-de-cambra/${title.toLowerCase()}/${item.id}`}
-          >
+          <Link className="content-list-item" to={item.link}>
             <List.Item>
               <List.Item.Meta
                 avatar={item.avatar}
