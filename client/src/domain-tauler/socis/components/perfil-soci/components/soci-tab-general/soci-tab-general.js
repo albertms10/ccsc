@@ -14,7 +14,7 @@ export default () => {
   const descriptionsSize = broken ? "small" : "middle";
 
   return (
-    <Space size="middle" direction="vertical">
+    <Space size="middle" direction="vertical" style={{ marginTop: ".5rem" }}>
       <SubHeader title="Dades personals" />
       <Descriptions size={descriptionsSize} bordered column={1}>
         <Item label="DNI">{soci.dni}</Item>

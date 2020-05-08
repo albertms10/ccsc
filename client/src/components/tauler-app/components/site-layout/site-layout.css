@@ -4,10 +4,15 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding-right: .5rem;
-    padding-left: .5rem;
+    padding-right: 1rem;
+    padding-left: 2rem;
     transition-duration: 200ms;
     transition-property: box-shadow, background-color;
+}
+
+.broken-sider .app-layout-header {
+    padding-right: .5rem;
+    padding-left: .5rem;
 }
 
 .app-layout-header.ghost {

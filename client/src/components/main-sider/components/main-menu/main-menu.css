@@ -9,40 +9,16 @@
     margin: 1rem 0;
 }
 
-/*
-.main-menu-item-group::before {
-    position: absolute;
-    width: 100%;
-    margin-top: 2.25rem;
-    margin-right: -1rem;
-    margin-left: 1rem;
-    content: '';
-    border-bottom: 1px solid rgba(255, 255, 255, .3);
-}
- */
-
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
     background: none !important;
 }
 
-/*
-.ant-menu.ant-menu-dark .ant-menu-item-selected,
-.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-    background-color: #105391 !important;
-}
-
-.ant-menu-item-group-title {
-    color: rgba(255, 255, 255, 0.4) !important;
-}
-
- */
-
 .ant-menu-item-group-title[title=""]::before {
     position: absolute;
-    width: calc(100% - 1.5rem);
+    width: calc(100% - 2.5rem);
     height: 1px;
     margin-top: -7px;
-    margin-left: .5rem;
+    margin-left: 1rem;
     content: '';
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(255, 255, 255, .3);
 }

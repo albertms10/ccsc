@@ -15,8 +15,8 @@ export default ({
 }) => (
   <Card {...rest} className="setting-card">
     {alertCondition ? alert : ""}
-    <div style={{ display: "flex" }}>
-      <SubHeader title={title} style={{ flex: 1 }} />
+    <div className="setting-card-title">
+      <SubHeader title={title} />
       {actionItem ? <Tooltip title={actionTooltip}>{actionItem}</Tooltip> : ""}
     </div>
     {info ? (

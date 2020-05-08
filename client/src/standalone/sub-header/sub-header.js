@@ -1,14 +1,9 @@
 import React from "react";
 
+import "./sub-header.css";
+
 export default ({ title, style }) => (
-  <div
-    style={{
-      textTransform: "uppercase",
-      letterSpacing: ".1rem",
-      color: "#777",
-      ...style,
-    }}
-  >
+  <div className="sub-header" style={style}>
     {title}
   </div>
 );
