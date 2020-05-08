@@ -24,13 +24,13 @@ export default (url, callback, dispatch, init = {}) => {
       if (contentType && contentType.indexOf("application/json") !== -1)
         res.json().then((data) => {
           if (data.hasOwnProperty("error")) {
-            localStorage.removeItem("access-token");
             Modal.warn({
               title: data.error.message,
               content:
                 "Torna a iniciar sessió per comprovar la teva identitat.",
               okText: "Inicia sessió",
               onOk: () => {
+                localStorage.removeItem("access-token");
                 dispatch(logoutRemoveUser());
                 Modal.destroyAll();
               },
