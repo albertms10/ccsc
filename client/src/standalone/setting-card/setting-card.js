@@ -1,0 +1,31 @@
+import React from "react";
+import { Card, Divider, Tooltip } from "antd";
+import { SubHeader } from "../sub-header";
+
+import "./setting-card.css";
+
+export default ({
+  alert,
+  alertCondition,
+  title,
+  actionTooltip,
+  actionItem,
+  info,
+  ...rest
+}) => (
+  <Card {...rest} className="setting-card">
+    {alertCondition ? alert : ""}
+    <div style={{ display: "flex" }}>
+      <SubHeader title={title} style={{ flex: 1 }} />
+      {actionItem ? <Tooltip title={actionTooltip}>{actionItem}</Tooltip> : ""}
+    </div>
+    {info ? (
+      <>
+        <Divider />
+        {info}
+      </>
+    ) : (
+      ""
+    )}
+  </Card>
+);
