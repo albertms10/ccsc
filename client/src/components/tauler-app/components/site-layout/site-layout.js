@@ -22,7 +22,7 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { UserDropdown } from "../../../main-sider/components/user-dropdown";
 import { Authorized } from "../../../authorized";
 import { useAssociacio } from "./hooks";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
@@ -66,17 +66,10 @@ export default () => {
             }}
           >
             {broken ? (
-              collapsed ? (
-                <MenuUnfoldOutlined
-                  className="trigger"
-                  onClick={() => setCollapsed(false)}
-                />
-              ) : (
-                <MenuFoldOutlined
-                  className="trigger"
-                  onClick={() => setCollapsed(true)}
-                />
-              )
+              <MenuOutlined
+                className="trigger"
+                onClick={() => setCollapsed(!collapsed)}
+              />
             ) : (
               ""
             )}
