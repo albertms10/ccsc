@@ -7,11 +7,7 @@ export default () => {
   const [countConcerts, setCountConcerts] = useState(0);
 
   useEffect(() => {
-    fetchAPI(
-      "/api/concerts/count",
-      (data) => setCountConcerts(data[0].concerts_count),
-      dispatch
-    );
+    fetchAPI("/api/concerts/count", setCountConcerts, dispatch);
   }, [dispatch]);
 
   return [countConcerts];

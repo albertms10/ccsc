@@ -7,11 +7,7 @@ export default () => {
   const [countAssajos, setCountAssajos] = useState(0);
 
   useEffect(() => {
-    fetchAPI(
-      "/api/assajos/count",
-      (data) => setCountAssajos(data[0].assajos_count),
-      dispatch
-    );
+    fetchAPI("/api/assajos/count", setCountAssajos, dispatch);
   }, [dispatch]);
 
   return [countAssajos];

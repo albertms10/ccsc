@@ -7,7 +7,7 @@ export default () => {
   const [countSocis, setCountSocis] = useState({});
 
   useEffect(() => {
-    fetchAPI("/api/socis/count", (data) => setCountSocis(data[0]), dispatch);
+    fetchAPI("/api/socis/count", setCountSocis, dispatch);
   }, [dispatch]);
 
   return [countSocis];

@@ -7,11 +7,7 @@ export default () => {
   const [countProjectes, setCountProjectes] = useState(0);
 
   useEffect(() => {
-    fetchAPI(
-      "/api/projectes/count",
-      (data) => setCountProjectes(data[0].projectes_count),
-      dispatch
-    );
+    fetchAPI("/api/projectes/count", setCountProjectes, dispatch);
   }, [dispatch]);
 
   return [countProjectes];

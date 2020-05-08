@@ -4,9 +4,9 @@ exports.projectes_count = (req, res, next) => {
   pool.query(
     `SELECT COUNT(*) AS projectes_count
        FROM projectes;`,
-    (err, rows) => {
+    (err, [{ projectes_count }]) => {
       if (err) next(err);
-      res.json(rows);
+      res.json(projectes_count);
     }
   );
 };

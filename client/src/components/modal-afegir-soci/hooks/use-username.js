@@ -15,9 +15,8 @@ export default () => {
 
     fetchAPI(
       `/api/usuaris/${username}/first-available-num`,
-      (data) => {
-        const count = data[0] ? parseInt(data[0].first_available_num) : 0;
-        setUsername(`${username}${count > 0 ? count : ""}`);
+      (count) => {
+        setUsername((username) => `${username}${count > 0 ? count : ""}`);
         setLoadingUsername(false);
       },
       dispatch

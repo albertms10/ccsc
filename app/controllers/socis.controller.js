@@ -25,9 +25,9 @@ exports.socis_count = (req, res, next) => {
                            INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
                   WHERE data_baixa BETWEEN (CURRENT_DATE - INTERVAL 3 MONTH) AND CURRENT_DATE
               ) AS count_baixes;`,
-    (err, rows) => {
+    (err, [socis_count]) => {
       if (err) next(err);
-      res.json(rows);
+      res.json(socis_count);
     }
   );
 };

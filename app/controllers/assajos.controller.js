@@ -4,9 +4,9 @@ exports.assajos_count = (req, res, next) => {
   pool.query(
     `SELECT COUNT(*) AS assajos_count
        FROM assajos;`,
-    (err, rows) => {
+    (err, [{ assajos_count }]) => {
       if (err) next(err);
-      res.json(rows);
+      res.json(assajos_count);
     }
   );
 };

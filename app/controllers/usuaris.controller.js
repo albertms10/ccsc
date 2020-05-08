@@ -79,9 +79,9 @@ exports.usuaris_detall_firstavailablenum = (req, res, next) => {
        FROM usuaris
        WHERE REGEXP_SUBSTR(username, '[a-zA-Z.]+') = ?;`,
     [username],
-    (err, rows) => {
+    (err, [{ first_available_num }]) => {
       if (err) next(err);
-      res.send(rows);
+      res.send(parseInt(first_available_num) || 0);
     }
   );
 };
