@@ -10,6 +10,7 @@ import { Layout, Typography } from "antd";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
+  SiderSetCollapsedContext,
 } from "../../contexts/sider-context";
 import {
   AgrupacionsListContext,
@@ -18,9 +19,10 @@ import {
 
 import "./site-layout.css";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { UserDropdown } from "../../../main-sider/components/user-sider-item";
+import { UserDropdown } from "../../../main-sider/components/user-dropdown";
 import { Authorized } from "../../../authorized";
 import { useAssociacio } from "./hooks";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
@@ -32,6 +34,7 @@ export default () => {
   const agrupacions = useContext(AgrupacionsListContext);
   const loadingAgrupacions = useContext(LoadingAgrupacionsContext);
   const collapsed = useContext(SiderCollapsedContext);
+  const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
 
   const [associacio] = useAssociacio();
@@ -62,6 +65,21 @@ export default () => {
               width: `calc(100% - ${startInset}px)`,
             }}
           >
+            {broken ? (
+              collapsed ? (
+                <MenuUnfoldOutlined
+                  className="trigger"
+                  onClick={() => setCollapsed(false)}
+                />
+              ) : (
+                <MenuFoldOutlined
+                  className="trigger"
+                  onClick={() => setCollapsed(true)}
+                />
+              )
+            ) : (
+              ""
+            )}
             <Title className="app-layout-header-title" level={4}>
               {pageHeader}
             </Title>

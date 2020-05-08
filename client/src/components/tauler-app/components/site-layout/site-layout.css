@@ -4,6 +4,8 @@
     display: flex;
     align-items: center;
     width: 100%;
+    padding-right: .5rem;
+    padding-left: .5rem;
     transition-duration: 200ms;
     transition-property: box-shadow, background-color;
 }
@@ -15,6 +17,17 @@
 .header-scrolled .app-layout-header {
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+.app-layout-header .trigger {
+    font-size: 18px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.app-layout-header .trigger:hover {
+    color: var(--primary-color);
 }
 
 .app-layout-header .app-layout-header-title {
