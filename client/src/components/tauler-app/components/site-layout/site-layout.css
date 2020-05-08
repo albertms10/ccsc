@@ -54,3 +54,7 @@
     padding-top: 64px;
     transition-duration: 200ms;
 }
+
+.app-layout-content .ant-page-header {
+    box-shadow: var(--container-box-shadow);
+}
