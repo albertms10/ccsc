@@ -6,15 +6,11 @@ import {
 } from "../../helpers/role-checker";
 
 /**
- * @param props
- * @param {'juntaDirectiva' | 'directorMusical' | 'admin'} props.authority
- * @param props.render
- * @param props.component
- * @param props.children
- * @returns {*}
+ * @typedef {'juntaDirectiva' | 'directorMusical' | 'admin'} Authority
  */
-export default (props) => {
-  const { authority = "juntaDirectiva", render, component, children } = props;
+
+export default ({ render, component, ...props }) => {
+  const { authority = "juntaDirectiva", children } = props;
   const { roles } = useSelector(({ user }) => user.currentUser);
 
   const returnItem = render ? render(props) : component ? component : children;
