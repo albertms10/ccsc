@@ -99,3 +99,19 @@ exports.signin = (req, res, next) => {
     }
   );
 };
+
+exports.email_espera = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const email = req.body.email;
+
+  pool.query(
+    `SELECT COUNT(*) AS count
+       FROM emails_espera
+       WHERE ?;`,
+    { email },
+    (err, [{ count }]) => {
+      if (err) next(err);
+      res.json(count);
+    }
+  );
+};
