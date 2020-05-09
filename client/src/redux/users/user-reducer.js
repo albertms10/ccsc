@@ -9,7 +9,7 @@ import {
 const initialState = {
   currentUser: {},
   error: {},
-  inWaitingList: false,
+  waitingList: { inWaitingList: false, email: "" },
 };
 
 /**
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
       return {
         currentUser: action.payload,
         error: {},
-        inWaitingList: false,
+        waitingList: { inWaitingList: true, email: "" },
       };
 
     case SIGNIN_USER_FAILURE:
@@ -34,7 +34,10 @@ export default (state = initialState, action) => {
       };
 
     case VALIDATED_IN_WAITING_LIST:
-      return { ...state, inWaitingList: true };
+      return {
+        ...state,
+        waitingList: { inWaitingList: true, email: action.payload },
+      };
 
     case LOGOUT_USER:
       return {

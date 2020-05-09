@@ -30,8 +30,9 @@ const signinUserFailure = (error) => ({
  * Sets inWaitingList value to true.
  * @returns {ReduxAction}
  */
-export const validatedInWaitingList = () => ({
+export const validatedInWaitingList = (email) => ({
   type: VALIDATED_IN_WAITING_LIST,
+  payload: email,
 });
 
 /**
