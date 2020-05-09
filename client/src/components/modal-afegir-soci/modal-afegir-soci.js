@@ -1,15 +1,9 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, message, Modal, Steps } from "antd";
-import moment from "moment";
+import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../helpers";
-import { upperCaseFirst } from "../../utils";
-import { FormAfegirSoci } from "./components/form-afegir-soci";
-import { useUsername } from "./hooks";
+import { StepsAfegirSoci } from "../steps-afegir-soci";
+import { useStepsAfegirSoci } from "../steps-afegir-soci/components/hooks";
 import "./modal-afegir-soci.css";
-
-const { Step } = Steps;
 
 const steps = [
   "Dades del soci",
@@ -19,98 +13,23 @@ const steps = [
 ];
 
 export default ({ getSocis }) => {
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [alertProteccio, setAlertProteccio] = useState(false);
-  const [username, loadingUsername, getUsername] = useUsername();
+  const {
+    form,
+    handleOk,
+    handleChange,
+    currentPageIndex,
+    setCurrentPageIndex,
+    confirmLoading,
+    alertProteccio,
+    setAlertProteccio,
+    username,
+    loadingUsername,
+    next,
+    previous,
+  } = useStepsAfegirSoci();
 
-  const [form] = Form.useForm();
-
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        if (values.accepta_proteccio_dades) {
-          setConfirmLoading(true);
-
-          values.username = username;
-          values.nom = upperCaseFirst(values.nom);
-          values.cognoms = upperCaseFirst(values.cognoms);
-          values.accepta_drets_imatge = !!values.accepta_drets_imatge;
-          values.naixement = values.naixement.format("YYYY-MM-DD");
-          values.data_alta = values.data_alta
-            ? values.data_alta.format("YYYY-MM-DD")
-            : moment().format("YYYY-MM-DD");
-
-          fetchAPI(
-            "/api/socis",
-            () => {
-              setConfirmLoading(false);
-              setVisible(false);
-              message.success(`El soci s'ha afegit correctament.`);
-              getSocis(() => {
-                setCurrentPageIndex(0);
-                form.resetFields();
-              });
-            },
-            dispatch,
-            { method: "POST", body: JSON.stringify(values) }
-          );
-        } else {
-          handleErrorProteccio();
-        }
-      })
-      .catch(handleValidateError);
-  };
-
-  const handleValidateError = (_) => {
-    setCurrentPageIndex(0);
-  };
-
-  const handleErrorProteccio = () => {
-    setCurrentPageIndex(1);
-    setAlertProteccio(true);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
-  const handleChange = async (pageIndex) => {
-    try {
-      const {
-        nom,
-        cognoms,
-        accepta_proteccio_dades,
-      } = await form.validateFields();
-
-      if (pageIndex > 1 && !accepta_proteccio_dades) {
-        handleErrorProteccio();
-        return;
-      }
-
-      if (pageIndex === 3) getUsername({ nom, cognoms });
-    } catch (error) {
-      handleValidateError(error);
-      return;
-    }
-
-    setCurrentPageIndex(pageIndex);
-  };
-
-  const next = async () => {
-    await handleChange(currentPageIndex + 1);
-  };
-
-  const previous = async () => {
-    await handleChange(currentPageIndex - 1);
-  };
+  const showModal = () => setVisible(true);
 
   return (
     <>
@@ -120,7 +39,7 @@ export default ({ getSocis }) => {
       <Modal
         title="Afegir soci"
         width={720}
-        onCancel={handleCancel}
+        onCancel={() => setVisible(false)}
         visible={visible}
         footer={[
           currentPageIndex > 0 ? (
@@ -138,7 +57,15 @@ export default ({ getSocis }) => {
             <Button
               key="ok"
               type="primary"
-              onClick={handleOk}
+              onClick={() =>
+                handleOk(() =>
+                  getSocis(() => {
+                    setVisible(false);
+                    setCurrentPageIndex(0);
+                    form.resetFields();
+                  })
+                )
+              }
               loading={confirmLoading}
             >
               Afegeix
@@ -146,21 +73,16 @@ export default ({ getSocis }) => {
           ),
         ]}
       >
-        <Steps current={currentPageIndex} size="small" onChange={handleChange}>
-          {steps.map((step) => (
-            <Step key={step} title={step} />
-          ))}
-        </Steps>
-        <div className="steps-content">
-          <FormAfegirSoci
-            form={form}
-            current={currentPageIndex}
-            username={username}
-            loadingUsername={loadingUsername}
-            alertProteccio={alertProteccio}
-            setAlertProteccio={setAlertProteccio}
-          />
-        </div>
+        <StepsAfegirSoci
+          steps={steps}
+          form={form}
+          currentPageIndex={currentPageIndex}
+          handleChange={handleChange}
+          username={username}
+          loadingUsername={loadingUsername}
+          alertProteccio={alertProteccio}
+          setAlertProteccio={setAlertProteccio}
+        />
       </Modal>
     </>
   );
