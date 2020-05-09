@@ -1,6 +1,4 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config");
-const saltHashPassword = require("../utils/salt-hash-password");
+const { saltHashPassword, signJWT } = require("../utils");
 
 exports.signin = (req, res, next) => {
   const pool = req.app.get("pool");
@@ -63,9 +61,9 @@ exports.signin = (req, res, next) => {
           },
         });
 
-      /** @type {string} */
-      const accessToken = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 10800, // 3 hours
+      const accessToken = signJWT({
+        payload: { id: user.id },
+        expiresIn: 10800, // 3 h
       });
 
       /** @type {string[]} */
@@ -105,13 +103,23 @@ exports.email_espera = (req, res, next) => {
   const email = req.body.email;
 
   pool.query(
-    `SELECT COUNT(*) AS count
+    `SELECT COUNT(*) AS count_emails
        FROM emails_espera
        WHERE ?;`,
     { email },
-    (err, [{ count }]) => {
+    (err, [{ count_emails: count }]) => {
       if (err) next(err);
-      res.json(count);
+
+      if (count > 0) {
+        const accessToken = signJWT({
+          payload: { email },
+          expiresIn: 1200, // 20 min
+        });
+
+        return res.json({ count, accessToken });
+      }
+
+      res.json({ count });
     }
   );
 };

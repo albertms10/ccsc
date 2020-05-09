@@ -4,7 +4,7 @@ const controller = require("../controllers/localitzacions.controller");
 module.exports = (app) => {
   app.post(
     "/api/localitzacions",
-    [authJWT.verifyToken, authJWT.isJuntaDirectiva],
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.localitzacions_post
   );
 

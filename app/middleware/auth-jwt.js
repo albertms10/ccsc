@@ -1,7 +1,6 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
+const { verifyJWT } = require("../utils");
 
-const verifyToken = (req, res, next) => {
+const verifyAccessToken = (req, res, next) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
@@ -13,7 +12,7 @@ const verifyToken = (req, res, next) => {
       },
     });
 
-  jwt.verify(accessToken, config.secret, (err, decoded) => {
+  verifyJWT(accessToken, (err, decoded) => {
     if (err)
       return res.status(401).send({
         error: {
@@ -23,6 +22,33 @@ const verifyToken = (req, res, next) => {
       });
 
     req.userId = decoded.id;
+    next();
+  });
+};
+
+const verifyEmailToken = (req, res, next) => {
+  /** @type {string} */
+  const accessToken = req.headers["x-access-token"];
+  const email = req.body.email;
+
+  if (!accessToken)
+    return res.status(403).send({
+      error: {
+        status: 403,
+        message: "Cal proporcionar un token d’accés.",
+      },
+    });
+
+  verifyJWT(accessToken, (err, decoded) => {
+    if (err || email !== decoded.email)
+      return res.status(401).send({
+        error: {
+          status: 401,
+          message: "Sense autorizació",
+        },
+      });
+
+    req.email = decoded.email;
     next();
   });
 };
@@ -75,7 +101,8 @@ const isDirectorMusical = (req, res, next) =>
 const isAdmin = (req, res, next) => isRole(req, res, next, ["admin"]);
 
 module.exports = {
-  verifyToken,
+  verifyAccessToken,
+  verifyEmailToken,
   isAuthor,
   isJuntaDirectiva,
   isDirectorMusical,

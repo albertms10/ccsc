@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   app.post(
     "/api/esdeveniments",
-    [authJWT.verifyToken, authJWT.isJuntaDirectiva],
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.esdeveniments_post
   );
 
