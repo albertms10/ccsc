@@ -10,7 +10,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 314px;
+  width: 360px;
   margin: auto;
   padding: 2rem;
   transform: translateY(-15%);
@@ -34,7 +34,7 @@
 }
 
 .signin-form {
-  width: 250px;
+  width: 285px;
 }
 
 .signin-logo {
@@ -48,6 +48,10 @@
 
 .ant-col-rtl .signin-form-forgot {
   float: left;
+}
+
+.signin-form .ant-input-affix-wrapper > input.ant-input {
+  padding-left: .3rem;
 }
 
 .signin-form-button {

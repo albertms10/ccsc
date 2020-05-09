@@ -1,5 +1,5 @@
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message } from "antd";
+import { Button, Divider, Form, Input, message, Typography } from "antd";
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import { signinUserFetch } from "../../redux";
 import { Container } from "../../standalone/container";
 import { useIniciUsuari } from "./hooks";
 import "./inicia-sessio.css";
+
+const { Paragraph } = Typography;
 
 export default () => {
   const [loading, dispatch] = useIniciUsuari();
@@ -79,7 +81,7 @@ export default () => {
               </a>
             </Form.Item>
 
-            <Form.Item style={{ marginBottom: 0 }}>
+            <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -87,6 +89,15 @@ export default () => {
               >
                 Inicia sessió
               </Button>
+            </Form.Item>
+            <Divider />
+            <Form.Item style={{ marginBottom: 0 }}>
+              <Paragraph>Tenim la teva adreça a la llista d’espera?</Paragraph>
+              <Link to="/donar-alta">
+                <Button type="secondary" className="signin-form-button">
+                  Donar-se d’alta
+                </Button>
+              </Link>
             </Form.Item>
           </Form>
         </div>
