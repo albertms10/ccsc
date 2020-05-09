@@ -1,41 +1,19 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Alert, Button, message, Space, Switch, Tag, Typography } from "antd";
+import React, { useContext } from "react";
+import { Alert, Button, Space, Switch, Tag, Typography } from "antd";
 import { SociContext } from "../../perfil-soci";
-import { fetchAPI } from "../../../../../../helpers";
-import { useDispatch } from "react-redux";
 import { SettingCard } from "../../../../../../standalone/setting-card";
+import { useAcceptaDretsImatge, useAcceptaProteccioDades } from "./hooks";
 
 const { Paragraph } = Typography;
 
 export default () => {
-  const dispatch = useDispatch();
   const soci = useContext(SociContext);
-  const [acceptaDretsImatge, setAcceptaDretsImatge] = useState(false);
-
-  useEffect(() => {
-    setAcceptaDretsImatge(soci.accepta_drets_imatge);
-  }, [soci.accepta_drets_imatge]);
-
-  const handleAcceptaDretsImatge = useCallback(
-    (accepta_drets_imatge) => {
-      fetchAPI(
-        `/api/socis/${soci.id_soci}/accepta-drets-imatge`,
-        ({ accepta_drets_imatge }) => {
-          setAcceptaDretsImatge(accepta_drets_imatge);
-          message.success(
-            `S’ha ${
-              accepta_drets_imatge ? "" : "des"
-            }activat l’acceptació dels drets d’imatge.`
-          );
-        },
-        dispatch,
-        {
-          method: "PUT",
-          body: JSON.stringify({ accepta_drets_imatge }),
-        }
-      );
-    },
-    [soci, dispatch]
+  const [
+    acceptaProteccioDades,
+    putAcceptaProteccioDades,
+  ] = useAcceptaProteccioDades(soci);
+  const [acceptaDretsImatge, putAcceptaDretsImatge] = useAcceptaDretsImatge(
+    soci
   );
 
   // TODO: Implementar l’acció del Switch de Protecció de dades
@@ -50,11 +28,12 @@ export default () => {
             message={"Has d’acceptar la protecció de dades."}
           />
         }
-        alertCondition={!soci.accepta_proteccio_dades}
+        alertCondition={!acceptaProteccioDades}
         actionItem={
           <Switch
-            checked={soci.accepta_proteccio_dades}
-            disabled={soci.accepta_proteccio_dades}
+            checked={acceptaProteccioDades}
+            disabled={acceptaProteccioDades}
+            onChange={putAcceptaProteccioDades}
           />
         }
         actionTooltip="Cal acceptar la protecció de dades"
@@ -93,7 +72,7 @@ export default () => {
         actionItem={
           <Switch
             checked={acceptaDretsImatge}
-            onChange={handleAcceptaDretsImatge}
+            onChange={putAcceptaDretsImatge}
           />
         }
         info={
