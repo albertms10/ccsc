@@ -32,6 +32,8 @@ module.exports = (app) => {
     controller.socis_post
   );
 
+  app.post("/api/alta-soci", [authJWT.verifyEmailToken], controller.socis_post);
+
   app.delete(
     "/api/socis/:id",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],

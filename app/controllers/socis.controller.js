@@ -127,6 +127,7 @@ exports.socis_get = (req, res, next) => {
 
 exports.socis_post = (req, res, next) => {
   const pool = req.app.get("pool");
+  const email = req.email;
   const soci = req.body;
 
   // TODO: Refaccionar amb pool.getConnection() com a transacció
@@ -140,7 +141,7 @@ exports.socis_post = (req, res, next) => {
       soci.naixement,
       soci.nacionalitat,
       soci.dni,
-      soci.email,
+      email || soci.email,
       soci.telefon,
       soci.accepta_proteccio_dades,
       soci.accepta_drets_imatge,
