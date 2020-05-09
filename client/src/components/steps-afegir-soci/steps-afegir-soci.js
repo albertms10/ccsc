@@ -1,6 +1,7 @@
 import { Steps } from "antd";
 import React from "react";
 import { FormAfegirSoci } from "./components/form-afegir-soci";
+import "./steps-afegir-soci.css";
 
 const { Step } = Steps;
 
@@ -13,6 +14,7 @@ export default ({
   loadingUsername,
   alertProteccio,
   setAlertProteccio,
+  initialValues,
 }) => {
   return (
     <>
@@ -29,6 +31,7 @@ export default ({
           loadingUsername={loadingUsername}
           alertProteccio={alertProteccio}
           setAlertProteccio={setAlertProteccio}
+          initialValues={initialValues}
         />
       </div>
     </>

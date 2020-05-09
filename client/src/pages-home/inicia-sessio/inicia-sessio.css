@@ -12,6 +12,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  max-width: 840px;
   margin: auto;
   padding: 2rem;
   border-radius: 0.3rem;

@@ -1,0 +1,14 @@
+.form-afegir-soci .ant-form-item,
+.form-afegir-soci .ant-picker {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.form-afegir-soci .ant-collapse {
+  background-color: #fff;
+}
+
+.form-afegir-soci .ant-collapse-content-box {
+  padding-bottom: 0;
+}

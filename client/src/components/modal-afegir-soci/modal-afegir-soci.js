@@ -2,8 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { StepsAfegirSoci } from "../steps-afegir-soci";
-import { useStepsAfegirSoci } from "../steps-afegir-soci/components/hooks";
-import "./modal-afegir-soci.css";
+import { useStepsAfegirSoci } from "../steps-afegir-soci/hooks";
 
 export default ({ getSocis }) => {
   const [visible, setVisible] = useState(false);

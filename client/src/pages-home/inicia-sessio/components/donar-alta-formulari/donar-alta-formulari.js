@@ -2,13 +2,14 @@ import { LeftOutlined } from "@ant-design/icons";
 import { Button, Divider, Space } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
-import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/components/hooks";
+import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
 import { Container } from "../../../../standalone/container";
 
 export default () => {
-  const inWaitingList = useSelector(({ user }) => user.inWaitingList);
+  const { inWaitingList, email } = useSelector(({ user }) => user.waitingList);
+  const history = useHistory();
   const {
     steps,
     form,
@@ -19,7 +20,10 @@ export default () => {
     setAlertProteccio,
     username,
     loadingUsername,
-  } = useStepsAfegirSoci();
+  } = useStepsAfegirSoci("/api/alta-soci", () => {
+    localStorage.removeItem("access-token");
+    history.push({ pathname: "/inicia-sessio", state: { username } });
+  });
 
   return inWaitingList ? (
     <Container className="signin-container">
@@ -43,6 +47,7 @@ export default () => {
           loadingUsername={loadingUsername}
           alertProteccio={alertProteccio}
           setAlertProteccio={setAlertProteccio}
+          initialValues={{ email }}
         />
         <div className="signin-footer-actions">
           <Space>{footerActions}</Space>

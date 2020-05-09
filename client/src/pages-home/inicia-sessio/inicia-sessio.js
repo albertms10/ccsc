@@ -2,7 +2,7 @@ import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, message, Typography } from "antd";
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LogoCorDeCambra } from "../../assets/icons";
 import { signinUserFetch } from "../../redux";
 import { Container } from "../../standalone/container";
@@ -14,6 +14,7 @@ const { Paragraph } = Typography;
 export default () => {
   const [loading, dispatch] = useIniciUsuari();
   const error = useSelector((state) => state.user.error);
+  const { state: locationState } = useLocation();
 
   const onFinish = useCallback((values) => dispatch(signinUserFetch(values)), [
     dispatch,
@@ -42,7 +43,13 @@ export default () => {
             className="signin-logo"
             style={{ color: "var(--primary-color)" }}
           />
-          <Form className="signin-form" onFinish={onFinish}>
+          <Form
+            className="signin-form"
+            initialValues={{
+              username: locationState ? locationState.username : "",
+            }}
+            onFinish={onFinish}
+          >
             <Form.Item
               name="username"
               rules={[
@@ -55,6 +62,7 @@ export default () => {
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Nom d’usuari"
+                autoFocus={!locationState || !locationState.username}
               />
             </Form.Item>
             <Form.Item
@@ -70,6 +78,7 @@ export default () => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Contrasenya"
+                autoFocus={locationState && locationState.username}
               />
             </Form.Item>
             <Form.Item>

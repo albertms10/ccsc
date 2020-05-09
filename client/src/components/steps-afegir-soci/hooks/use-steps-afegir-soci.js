@@ -2,9 +2,9 @@ import { Button, Form, message } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../../helpers";
-import { upperCaseFirst } from "../../../../utils";
-import { useUsername } from "./";
+import { fetchAPI } from "../../../helpers";
+import { upperCaseFirst } from "../../../utils";
+import { useUsername } from "./index";
 
 const steps = [
   "Dades del soci",
@@ -13,7 +13,7 @@ const steps = [
   "Resum",
 ];
 
-export default (onSuccessCallback) => {
+export default (fetchURL = "/api/socis", onSuccessCallback) => {
   const dispatch = useDispatch();
 
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -40,7 +40,7 @@ export default (onSuccessCallback) => {
             : moment().format("YYYY-MM-DD");
 
           fetchAPI(
-            "/api/socis",
+            fetchURL,
             () => {
               setConfirmLoading(false);
               message.success(`El soci s'ha afegit correctament.`);
