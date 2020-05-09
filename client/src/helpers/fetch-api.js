@@ -28,7 +28,9 @@ export default (url, callback, dispatch, init = {}) => {
               title: data.error.message,
               content:
                 "Torna a iniciar sessió per comprovar la teva identitat.",
-              okText: "Inicia sessió",
+              okText: "Torna a iniciar sessió",
+              cancelText: "Ignora",
+              okCancel: true,
               onOk: () => {
                 dispatch(logoutRemoveUser());
                 Modal.destroyAll();
