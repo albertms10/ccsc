@@ -21,7 +21,9 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
 
 CREATE TABLE IF NOT EXISTS emails_espera
 (
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL,
+
+    UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS persones
