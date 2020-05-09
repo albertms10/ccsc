@@ -40,6 +40,10 @@ export default () => {
                 required: true,
                 message: "Si us plau, introdueix l’adreça electrònica.",
               },
+              {
+                whitespace: true,
+                message: "Si us plau, introdueix l’adreça electrònica.",
+              },
             ]}
           >
             <Input
