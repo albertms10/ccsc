@@ -1,14 +1,15 @@
+import { fetchAPI } from "../../helpers";
 import {
   LOGOUT_USER,
   SIGNIN_USER_FAILURE,
   SIGNIN_USER_SUCCESS,
+  VALIDATED_IN_WAITING_LIST,
 } from "./user-types";
 
 /**
  * Saves the user information to the Redux store.
- *
  * @param {User} user
- * @returns {{payload: User, type: string}}
+ * @returns {ReduxAction}
  */
 const signinUserSuccess = (user) => ({
   type: SIGNIN_USER_SUCCESS,
@@ -17,9 +18,8 @@ const signinUserSuccess = (user) => ({
 
 /**
  * Sets the error to the Redux store.
- *
  * @param {SigninError} error
- * @returns {{payload: SigninError, type: string}}
+ * @returns {ReduxAction}
  */
 const signinUserFailure = (error) => ({
   type: SIGNIN_USER_FAILURE,
@@ -27,9 +27,16 @@ const signinUserFailure = (error) => ({
 });
 
 /**
+ * Sets inWaitingList value to true.
+ * @returns {ReduxAction}
+ */
+export const validatedInWaitingList = () => ({
+  type: VALIDATED_IN_WAITING_LIST,
+});
+
+/**
  * Removes the user from the Redux store.
- *
- * @returns {{type: string}}
+ * @returns {ReduxAction}
  */
 const logoutUser = () => ({
   type: LOGOUT_USER,
@@ -37,10 +44,9 @@ const logoutUser = () => ({
 
 /**
  * Fetches the API for a given user credentials (username and password).
- *
  * @param {User} user
  */
-export const signinUserFetch = (user) => (dispatch) =>
+export const signinUserFetch = (user) => (dispatch) => {
   fetch("/api/auth/signin", {
     method: "POST",
     headers: {
@@ -59,6 +65,7 @@ export const signinUserFetch = (user) => (dispatch) =>
       }
     })
     .catch((error) => error);
+};
 
 /**
  * Fetches the API for a given JWT access token in `localStorage`.
@@ -67,24 +74,18 @@ export const getProfileFetch = () => (dispatch) => {
   const accessToken = localStorage.getItem("access-token");
 
   if (accessToken) {
-    return fetch("/api/auth/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        // TODO He d'enviar una autorització per cada consulta que faci al backend?
-        "x-access-token": accessToken,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
+    fetchAPI(
+      "/api/auth/user",
+      (data) => {
         if (data.hasOwnProperty("error")) {
           dispatch(signinUserFailure(data.error));
           localStorage.removeItem("access-token");
         } else {
           dispatch(signinUserSuccess(data.user));
         }
-      });
+      },
+      dispatch
+    );
   }
   return Promise.resolve();
 };

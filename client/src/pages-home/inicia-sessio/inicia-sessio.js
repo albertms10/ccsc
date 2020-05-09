@@ -15,12 +15,9 @@ export default () => {
   const [loading, dispatch] = useIniciUsuari();
   const error = useSelector((state) => state.user.error);
 
-  const onFinish = useCallback(
-    (values) => {
-      dispatch(signinUserFetch(values));
-    },
-    [dispatch]
-  );
+  const onFinish = useCallback((values) => dispatch(signinUserFetch(values)), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (error.status >= 400 && error.status < 500)

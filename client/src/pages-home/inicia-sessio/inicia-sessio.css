@@ -57,3 +57,11 @@
 .signin-form-button {
   width: 100%;
 }
+
+.signin-form .ant-form-item-explain {
+  margin-bottom: .5rem;
+}
+
+.signin-form .ant-alert {
+  margin-top: 1rem;
+}
