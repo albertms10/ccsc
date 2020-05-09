@@ -16,12 +16,12 @@ export default () => {
   return (
     <Space size="middle" direction="vertical" style={{ marginTop: ".5rem" }}>
       <SubHeader title="Dades personals" />
-      <Descriptions size={descriptionsSize} bordered column={1}>
+      <Descriptions size={descriptionsSize} layout="vertical">
         <Item label="DNI">{soci.dni}</Item>
         <Item label="Naixement">{moment(soci.naixement).format("LL")}</Item>
       </Descriptions>
       <SubHeader title="Dades de contacte" />
-      <Descriptions size={descriptionsSize} bordered column={1}>
+      <Descriptions size={descriptionsSize} layout="vertical">
         <Item label="Adreça electrònica">
           <a href={`mailto:${soci.email}`}>{soci.email}</a>
         </Item>

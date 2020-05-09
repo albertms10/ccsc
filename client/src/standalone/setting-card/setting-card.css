@@ -1,3 +1,7 @@
+.setting-card .ant-alert {
+    margin-bottom: 1rem;
+}
+
 .setting-card .setting-card-title {
     display: flex;
     align-items: center;
