@@ -24,7 +24,7 @@ export default () => {
           <Alert
             type="warning"
             showIcon
-            message={"Has d’acceptar la protecció de dades."}
+            message="Has d’acceptar la protecció de dades."
           />
         }
         alertCondition={!acceptaProteccioDades}
