@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { IniciaSessio } from "../../domain-home/inicia-sessio";
+import { IniciaSessio } from "../../pages-home/inicia-sessio";
 import store from "../../redux/store";
 import { HomeApp } from "../home-app";
 import { TaulerApp } from "../tauler-app";

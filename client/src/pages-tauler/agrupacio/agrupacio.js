@@ -2,7 +2,7 @@ import { Tabs } from "antd";
 import React, { useContext, useEffect } from "react";
 import Sticky from "react-stickynode";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { IconAgrupacio } from "../../icons";
+import { IconAgrupacio } from "../../assets/icons";
 import { ContentHeader } from "../../standalone/content-header";
 import "./agrupacio.css";
 import { CalendariAgrupacio } from "./components/calendari-agrupacio";

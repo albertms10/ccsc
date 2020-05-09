@@ -8,7 +8,7 @@ import {
 import { Menu, Spin } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IconAgrupacio } from "../../../../icons";
+import { IconAgrupacio } from "../../../../assets/icons";
 import { kebabCase, nIndexOf } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {

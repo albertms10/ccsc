@@ -3,7 +3,7 @@ import { Button, Form, Input, message } from "antd";
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { LogoCorDeCambra } from "../../icons";
+import { LogoCorDeCambra } from "../../assets/icons";
 import { signinUserFetch } from "../../redux";
 import { Container } from "../../standalone/container";
 import { useIniciUsuari } from "./hooks";

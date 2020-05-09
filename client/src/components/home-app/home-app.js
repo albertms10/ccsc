@@ -1,12 +1,12 @@
 import { Layout, Menu } from "antd";
 import React from "react";
 import { Link, Route } from "react-router-dom";
-import { Concerts } from "../../domain-home/concerts";
-import { Contacte } from "../../domain-home/contacte";
-import { HomePage } from "../../domain-home/home-page";
-import { Premsa } from "../../domain-home/premsa";
-import { QuiSom } from "../../domain-home/qui-som";
-import { LogoCorDeCambra } from "../../icons";
+import { Concerts } from "../../pages-home/concerts";
+import { Contacte } from "../../pages-home/contacte";
+import { HomePage } from "../../pages-home/home-page";
+import { Premsa } from "../../pages-home/premsa";
+import { QuiSom } from "../../pages-home/qui-som";
+import { LogoCorDeCambra } from "../../assets/icons";
 import "./home-app.css";
 
 const { Header, Content, Footer } = Layout;
