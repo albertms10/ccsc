@@ -78,7 +78,7 @@ exports.usuaris_detall_firstavailablenum = (req, res, next) => {
     [username],
     (err, [{ first_available_num }]) => {
       if (err) next(err);
-      res.send(parseInt(first_available_num) || 0);
+      res.json(parseInt(first_available_num) || 0);
     }
   );
 };
