@@ -30,7 +30,6 @@ export default (url, callback, dispatch, init = {}) => {
                 "Torna a iniciar sessió per comprovar la teva identitat.",
               okText: "Inicia sessió",
               onOk: () => {
-                localStorage.removeItem("access-token");
                 dispatch(logoutRemoveUser());
                 Modal.destroyAll();
               },
