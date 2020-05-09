@@ -1,5 +1,6 @@
 import { Layout, Menu } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, Route } from "react-router-dom";
 import { Concerts } from "../../pages-home/concerts";
 import { Contacte } from "../../pages-home/contacte";
@@ -44,29 +45,37 @@ const menuItems = [
   },
 ];
 
-export default () => (
-  <Layout className="layout">
-    <Header className="home-page-header">
-      <Link to="/">
-        <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
-      </Link>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["inici"]}>
-        {menuItems.map((item) => (
-          <Menu.Item key={item.key}>
-            <Link to={item.path}>{item.title}</Link>
-          </Menu.Item>
-        ))}
-      </Menu>
-    </Header>
-    <Content>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/qui-som" component={QuiSom} />
-      <Route exact path="/concerts" component={Concerts} />
-      <Route exact path="/premsa" component={Premsa} />
-      <Route exact path="/contacte" component={Contacte} />
-    </Content>
-    <Footer style={{ textAlign: "center" }}>
-      &copy; 2020 Cor de Cambra Sant Cugat
-    </Footer>
-  </Layout>
-);
+export default () => {
+  const user = useSelector(({ user }) => user.currentUser);
+
+  return (
+    <Layout className="layout">
+      <Header className="home-page-header">
+        <Link to="/">
+          <LogoCorDeCambra className="header-logo" style={{ color: "#fff" }} />
+        </Link>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["inici"]}>
+          {menuItems.map((item) => (
+            <Menu.Item key={item.key}>
+              <Link to={item.path}>
+                {item.key === "inicia-sessio" && user
+                  ? "Vés al tauler"
+                  : item.title}
+              </Link>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Header>
+      <Content>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/qui-som" component={QuiSom} />
+        <Route exact path="/concerts" component={Concerts} />
+        <Route exact path="/premsa" component={Premsa} />
+        <Route exact path="/contacte" component={Contacte} />
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        &copy; 2020 Cor de Cambra Sant Cugat
+      </Footer>
+    </Layout>
+  );
+};
