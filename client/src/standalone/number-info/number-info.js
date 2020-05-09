@@ -1,6 +1,5 @@
-import React from "react";
 import { CaretDownFilled, CaretUpFilled } from "@ant-design/icons";
-
+import React from "react";
 import "./number-info.css";
 
 export default ({ title, total, status, subTotal }) => (

@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
 import { Descriptions, Space } from "antd";
 import moment from "moment";
-import { SociContext } from "../../perfil-soci";
-import { SubHeader } from "../../../../../../standalone/sub-header";
+import React, { useContext } from "react";
 import { SiderBrokenContext } from "../../../../../../components/tauler-app/contexts/sider-context";
+import { SubHeader } from "../../../../../../standalone/sub-header";
+import { SociContext } from "../../perfil-soci";
 
 const { Item } = Descriptions;
 

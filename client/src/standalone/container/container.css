@@ -1,28 +1,28 @@
 .main-container {
-    position: relative;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--container-box-shadow);
+  position: relative;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--container-box-shadow);
 }
 
 .main-container-padding {
-    margin: 2rem var(--horizontal-inset);
+  margin: 2rem var(--horizontal-inset);
 }
 
 .main-container-padding-reduced {
-    margin: calc(var(--horizontal-inset) * .2);
+  margin: calc(var(--horizontal-inset) * 0.2);
 }
 
 .main-container-background {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 @media only screen and (max-width: 575.98px) {
-    .main-container {
-        padding: 1rem;
-    }
+  .main-container {
+    padding: 1rem;
+  }
 
-    .main-container-padding-reduced {
-        margin: calc(var(--horizontal-inset) * .5);
-    }
+  .main-container-padding-reduced {
+    margin: calc(var(--horizontal-inset) * 0.5);
+  }
 }

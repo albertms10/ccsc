@@ -1,13 +1,13 @@
-import React from "react";
 import { Layout, Menu } from "antd";
-import "./home-app.css";
-import { LogoCorDeCambra } from "../../icons";
+import React from "react";
 import { Link, Route } from "react-router-dom";
-import { HomePage } from "../../domain-home/home-page";
-import { QuiSom } from "../../domain-home/qui-som";
 import { Concerts } from "../../domain-home/concerts";
 import { Contacte } from "../../domain-home/contacte";
+import { HomePage } from "../../domain-home/home-page";
 import { Premsa } from "../../domain-home/premsa";
+import { QuiSom } from "../../domain-home/qui-som";
+import { LogoCorDeCambra } from "../../icons";
+import "./home-app.css";
 
 const { Header, Content, Footer } = Layout;
 

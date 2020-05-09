@@ -1,5 +1,5 @@
-import React from "react";
 import { Tag, Tooltip } from "antd";
+import React from "react";
 
 export default ({ childKey, tooltip, color, style, children }) => (
   <Tooltip key={childKey} title={tooltip}>

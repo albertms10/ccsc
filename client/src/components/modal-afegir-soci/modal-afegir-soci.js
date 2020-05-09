@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import moment from "moment";
-import { Button, Form, message, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-
-import { FormAfegirSoci } from "./components/form-afegir-soci";
-import "./modal-afegir-soci.css";
-import { useUsername } from "./hooks";
-import { upperCaseFirst } from "../../utils";
-import { fetchAPI } from "../../helpers";
-
+import { Button, Form, message, Modal, Steps } from "antd";
+import moment from "moment";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { fetchAPI } from "../../helpers";
+import { upperCaseFirst } from "../../utils";
+import { FormAfegirSoci } from "./components/form-afegir-soci";
+import { useUsername } from "./hooks";
+import "./modal-afegir-soci.css";
 
 const { Step } = Steps;
 

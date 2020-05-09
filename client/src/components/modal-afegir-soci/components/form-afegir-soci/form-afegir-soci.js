@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { CaretRightOutlined } from "@ant-design/icons";
 import {
   Alert,
   Collapse,
@@ -11,8 +11,8 @@ import {
   Spin,
   Switch,
 } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
 import moment from "moment";
+import React, { useCallback, useState } from "react";
 import { usePaisos } from "./hooks";
 
 const { TextArea } = Input;

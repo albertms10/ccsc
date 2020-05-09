@@ -1,14 +1,14 @@
-import React from "react";
-import moment from "moment";
 import { Avatar, Col, Row } from "antd";
+import moment from "moment";
+import React from "react";
+import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
+import { ColorCardList } from "../../../../standalone/color-card-list";
+import { Container } from "../../../../standalone/container";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
-import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { SmallBadge } from "../../../../standalone/small-badge";
-import { Container } from "../../../../standalone/container";
-import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
-import { ColorCardList } from "../../../../standalone/color-card-list";
 import { kebabCase } from "../../../../utils";
+import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
 
 export default ({ agrupacio }) => {
   const { id_agrupacio: idAgrupacio, nom_curt: nomCurt } = agrupacio;

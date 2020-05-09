@@ -1,7 +1,7 @@
-import React from "react";
-import { useCountProjectes, useHistorialProjectes } from "./hooks";
-import { NumberInfo } from "../number-info";
 import { ChartCard, MiniBar } from "ant-design-pro/lib/Charts";
+import React from "react";
+import { NumberInfo } from "../number-info";
+import { useCountProjectes, useHistorialProjectes } from "./hooks";
 
 export default () => {
   const [countProjectes] = useCountProjectes();

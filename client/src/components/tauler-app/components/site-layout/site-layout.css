@@ -1,60 +1,60 @@
 .app-layout-header {
-    position: fixed;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding-right: 1rem;
-    padding-left: 2rem;
-    transition-duration: 200ms;
-    transition-property: box-shadow, background-color;
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 2rem;
+  transition-duration: 200ms;
+  transition-property: box-shadow, background-color;
 }
 
 .broken-sider .app-layout-header {
-    padding-right: .5rem;
-    padding-left: .5rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .app-layout-header.ghost {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .header-scrolled .app-layout-header {
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .main-sidebar-trigger {
-    font-size: 18px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color 0.3s;
+  font-size: 18px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
 .main-sidebar-trigger:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .app-layout-header .app-layout-header-title {
-    visibility: hidden;
-    flex: 1;
-    margin-bottom: 0;
-    transition: opacity .15s ease, transform .15s ease, visibility .15s linear;
-    transform: translate(0, 48px);
-    opacity: 0;
+  visibility: hidden;
+  flex: 1;
+  margin-bottom: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s linear;
+  transform: translate(0, 48px);
+  opacity: 0;
 }
 
 .header-scrolled .app-layout-header-title {
-    visibility: visible;
-    transform: translate(0, 0);
-    opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+  opacity: 1;
 }
 
 .app-layout-content {
-    padding-top: 64px;
-    transition-duration: 200ms;
+  padding-top: 64px;
+  transition-duration: 200ms;
 }
 
 .app-layout-content .ant-page-header {
-    box-shadow: var(--container-box-shadow);
+  box-shadow: var(--container-box-shadow);
 }

@@ -1,61 +1,61 @@
 .main-layout-sider {
-    position: fixed !important;
-    z-index: 20;
-    left: 0;
-    height: 100vh;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, .1);
+  position: fixed !important;
+  z-index: 20;
+  left: 0;
+  height: 100vh;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .main-layout-sider .ant-layout-sider-children {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    overflow-x: hidden !important;
-    flex-direction: column;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  overflow-x: hidden !important;
+  flex-direction: column;
 }
 
 .main-layout-sider .ant-layout-sider-children {
-    overflow: auto;
+  overflow: auto;
 }
 
 .main-layout-sider .ant-layout-sider-zero-width-trigger {
-    line-height: 36px;
-    top: 0;
-    height: 36px;
-    color: #777;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: .25rem;
-    background-color: #fff;
-    box-shadow: 0 0 7px rgba(0, 0, 0, .1);
+  line-height: 36px;
+  top: 0;
+  height: 36px;
+  color: #777;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0.25rem;
+  background-color: #fff;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 }
 
 .main-layout-sider .ant-layout-sider-zero-width-trigger:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .main-layout-title-wrapper {
-    line-height: 1.65rem;
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    flex-shrink: 0;
-    height: 64px;
-    padding-left: .5rem;
-    color: white;
+  line-height: 1.65rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  height: 64px;
+  padding-left: 0.5rem;
+  color: white;
 }
 
 .broken-sider .main-layout-title-short {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 :not(.broken-sider) .main-layout-title-short {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
 }
 
 .main-layout-title-long {
-    font-size: 1rem;
-    padding: .8rem 0.5rem 0.2rem .75rem;
-    white-space: pre-line;
+  font-size: 1rem;
+  padding: 0.8rem 0.5rem 0.2rem 0.75rem;
+  white-space: pre-line;
 }

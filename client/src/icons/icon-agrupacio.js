@@ -1,5 +1,5 @@
-import React from "react";
 import { LayoutOutlined } from "@ant-design/icons";
+import React from "react";
 import IconCorDeCambra from "./icon-cor-de-cambra";
 
 export default ({ name, style }) => {

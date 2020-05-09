@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { generateUsername } from "../../../utils";
-import { fetchAPI } from "../../../helpers";
 import { useDispatch } from "react-redux";
+import { fetchAPI } from "../../../helpers";
+import { generateUsername } from "../../../utils";
 
 export default () => {
   const dispatch = useDispatch();

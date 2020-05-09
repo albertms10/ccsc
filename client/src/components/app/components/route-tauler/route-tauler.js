@@ -1,6 +1,6 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
-import React from "react";
 
 export default ({ component, ...rest }) => {
   const user = useSelector((store) => store.user.currentUser);

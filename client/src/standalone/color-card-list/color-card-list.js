@@ -1,7 +1,6 @@
 import { List } from "antd";
-import { ColorCard } from "../color-card";
 import React from "react";
-
+import { ColorCard } from "../color-card";
 import "./color-card-list.css";
 
 export default ({ dataSource, loading, ...rest }) => (

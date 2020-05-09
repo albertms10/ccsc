@@ -1,62 +1,60 @@
 .content-header {
-    background-color: #fff !important;
+  background-color: #fff !important;
 }
 
 .content-header .ant-page-header {
-    padding: 0;
+  padding: 0;
 }
 
 .content-header .ant-page-header-heading-title {
-    width: 100%;
+  width: 100%;
 }
 
 .content-header .ant-tabs-bar {
-    margin-bottom: 0;
-    border-bottom: 1px solid #eee;
-    background-color: #fff;
+  margin-bottom: 0;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
 }
 
 .content-header .header-title {
-    padding: 1rem var(--horizontal-inset) 0;
+  padding: 1rem var(--horizontal-inset) 0;
 }
 
 .content-header .ant-tabs-nav-container {
-    margin-left: var(--horizontal-inset);
+  margin-left: var(--horizontal-inset);
 }
 
-
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
-    .content-header .ant-tabs-nav-container {
-        margin-left: var(--horizontal-inset);
-    }
+  .content-header .ant-tabs-nav-container {
+    margin-left: var(--horizontal-inset);
+  }
 
-    .content-header .header-title {
-        padding-left: var(--horizontal-inset);
-    }
+  .content-header .header-title {
+    padding-left: var(--horizontal-inset);
+  }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767.98px) {
-    .content-header .ant-tabs-nav-container {
-        margin-left: var(--horizontal-inset);
-    }
+  .content-header .ant-tabs-nav-container {
+    margin-left: var(--horizontal-inset);
+  }
 
-    .content-header .header-title {
-        padding-left: var(--horizontal-inset);
-    }
+  .content-header .header-title {
+    padding-left: var(--horizontal-inset);
+  }
 }
 
 @media only screen and (max-width: 575.98px) {
-    .content-header .ant-tabs-nav-container {
-        margin-left: var(--horizontal-inset);
-    }
+  .content-header .ant-tabs-nav-container {
+    margin-left: var(--horizontal-inset);
+  }
 
-    .content-header .header-title {
-        padding-left: calc(var(--horizontal-inset) + .5rem);
-    }
+  .content-header .header-title {
+    padding-left: calc(var(--horizontal-inset) + 0.5rem);
+  }
 
-    .content-header .header-title-text {
-        position: relative;
-        bottom: .2rem;
-    }
+  .content-header .header-title-text {
+    position: relative;
+    bottom: 0.2rem;
+  }
 }
-

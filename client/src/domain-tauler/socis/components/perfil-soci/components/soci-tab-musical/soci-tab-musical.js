@@ -1,7 +1,7 @@
-import { Timeline } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import { SettingCard } from "../../../../../../standalone/setting-card";
+import { Timeline } from "antd";
 import React from "react";
+import { SettingCard } from "../../../../../../standalone/setting-card";
 
 export default () => {
   return (

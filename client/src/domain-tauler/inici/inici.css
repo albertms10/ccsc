@@ -1,29 +1,29 @@
 .title-wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .title-wrapper h1 {
-    font-weight: lighter;
-    margin: 0 0 3rem 0 !important;
+  font-weight: lighter;
+  margin: 0 0 3rem 0 !important;
 }
 
 @media only screen and (max-width: 425px) {
-    .title-wrapper h1 {
-        font-size: 32px;
-    }
+  .title-wrapper h1 {
+    font-size: 32px;
+  }
 }
 
 @media only screen and (max-width: 375px) {
-    .title-wrapper h1 {
-        font-size: 24px;
-        font-weight: normal;
-    }
+  .title-wrapper h1 {
+    font-size: 24px;
+    font-weight: normal;
+  }
 
-    .title-wrapper h3 {
-        font-size: 18px;
-        font-weight: normal;
-    }
+  .title-wrapper h3 {
+    font-size: 18px;
+    font-weight: normal;
+  }
 }

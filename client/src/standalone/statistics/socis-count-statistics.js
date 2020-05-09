@@ -1,7 +1,7 @@
-import React from "react";
-import { useCountSocis, useHistorialSocis } from "./hooks";
-import { NumberInfo } from "../number-info";
 import { ChartCard, MiniArea } from "ant-design-pro/lib/Charts";
+import React from "react";
+import { NumberInfo } from "../number-info";
+import { useCountSocis, useHistorialSocis } from "./hooks";
 
 export default () => {
   const [countSocis] = useCountSocis();

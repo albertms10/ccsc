@@ -1,11 +1,10 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { IniciaSessio } from "../../domain-home/inicia-sessio";
 import store from "../../redux/store";
-
 import { HomeApp } from "../home-app";
 import { TaulerApp } from "../tauler-app";
-import { IniciaSessio } from "../../domain-home/inicia-sessio";
 import { RouteTauler } from "./components/route-tauler";
 
 export default () => (

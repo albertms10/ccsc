@@ -1,13 +1,12 @@
+import { Tabs } from "antd";
 import React, { useContext, useEffect } from "react";
 import Sticky from "react-stickynode";
-import { Tabs } from "antd";
-import { ContentHeader } from "../../standalone/content-header";
-import { IconAgrupacio } from "../../icons";
-import { ResumAgrupacio } from "./components/resum-agrupacio";
-import { CalendariAgrupacio } from "./components/calendari-agrupacio";
-
-import "./agrupacio.css";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { IconAgrupacio } from "../../icons";
+import { ContentHeader } from "../../standalone/content-header";
+import "./agrupacio.css";
+import { CalendariAgrupacio } from "./components/calendari-agrupacio";
+import { ResumAgrupacio } from "./components/resum-agrupacio";
 
 const { TabPane } = Tabs;
 

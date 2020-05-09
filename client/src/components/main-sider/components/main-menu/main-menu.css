@@ -1,24 +1,24 @@
 .main-menu {
-    flex: 1;
-    padding-top: 1rem !important;
-    border-right: none;
-    background: none !important;
+  flex: 1;
+  padding-top: 1rem !important;
+  border-right: none;
+  background: none !important;
 }
 
 .main-menu-item-group {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-    background: none !important;
+  background: none !important;
 }
 
 .ant-menu-item-group-title[title=""]::before {
-    position: absolute;
-    width: calc(100% - 2.5rem);
-    height: 1px;
-    margin-top: -7px;
-    margin-left: 1rem;
-    content: '';
-    background-color: rgba(255, 255, 255, .3);
+  position: absolute;
+  width: calc(100% - 2.5rem);
+  height: 1px;
+  margin-top: -7px;
+  margin-left: 1rem;
+  content: "";
+  background-color: rgba(255, 255, 255, 0.3);
 }

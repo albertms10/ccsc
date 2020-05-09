@@ -1,23 +1,23 @@
 .calendar-badge {
-    line-height: 1;
-    display: table-cell;
-    min-width: 2rem;
-    height: 2rem;
-    text-align: center;
-    vertical-align: middle;
+  line-height: 1;
+  display: table-cell;
+  min-width: 2rem;
+  height: 2rem;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .calendar-badge-bordered {
-    border: 1px solid;
-    border-radius: 4px;
-    background-color: #fff;
+  border: 1px solid;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
 .calendar-badge-month {
-    font-size: 0.45rem;
-    text-transform: uppercase;
+  font-size: 0.45rem;
+  text-transform: uppercase;
 }
 
 .calendar-badge-date {
-    font-size: 1rem;
+  font-size: 1rem;
 }

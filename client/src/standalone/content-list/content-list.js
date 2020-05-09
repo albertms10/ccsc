@@ -1,8 +1,7 @@
-import React from "react";
-import { List, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { List, Space } from "antd";
+import React from "react";
 import { Link } from "react-router-dom";
-
 import { BorderlessButton } from "../borderless-button";
 import "./content-list.css";
 

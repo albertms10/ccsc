@@ -1,45 +1,45 @@
 :root {
-    --background-color: #f0f2f5;
-    --primary-color: #1d71b8;
+  --background-color: #f0f2f5;
+  --primary-color: #1d71b8;
 
-    --horizontal-inset: 15%;
-    --border-radius: 5px;
-    --container-box-shadow: 0 0 25px rgba(0, 0, 0, .03);
+  --horizontal-inset: 15%;
+  --border-radius: 5px;
+  --container-box-shadow: 0 0 25px rgba(0, 0, 0, 0.03);
 
-    --max-width-xs: 575.98px;
-    --min-width-xs: 576px;
-    --max-width-sm: 767.98px;
-    --min-width-sm: 768px;
-    --max-width-md: 991.98px;
-    --min-width-md: 992px;
-    --max-width-lg: 1199.98px;
-    --min-width-lg: 1200px;
+  --max-width-xs: 575.98px;
+  --min-width-xs: 576px;
+  --max-width-sm: 767.98px;
+  --min-width-sm: 768px;
+  --max-width-md: 991.98px;
+  --min-width-md: 992px;
+  --max-width-lg: 1199.98px;
+  --min-width-lg: 1200px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
-    :root {
-        --horizontal-inset: 3rem;
-    }
+  :root {
+    --horizontal-inset: 3rem;
+  }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767.98px) {
-    :root {
-        --horizontal-inset: 2rem;
-    }
+  :root {
+    --horizontal-inset: 2rem;
+  }
 }
 
 @media only screen and (max-width: 575.98px) {
-    :root {
-        --horizontal-inset: .5rem;
-    }
+  :root {
+    --horizontal-inset: 0.5rem;
+  }
 }
 
 .ant-pagination-item {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .main-page-header .ant-page-header-heading-title {
-    font-size: 32px;
+  font-size: 32px;
 }

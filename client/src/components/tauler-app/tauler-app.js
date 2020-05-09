@@ -1,11 +1,11 @@
-import React, { createContext } from "react";
-import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import caES from "antd/es/locale/ca_ES";
 import moment from "moment";
 import "moment/locale/ca";
-import { AgrupacionsContext, SiderContext } from "./contexts";
+import React, { createContext } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { MainLayout } from "./components/main-layout";
+import { AgrupacionsContext, SiderContext } from "./contexts";
 import { useAssociacio } from "./hooks";
 
 moment.locale("ca");

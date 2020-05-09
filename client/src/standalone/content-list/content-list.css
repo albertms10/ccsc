@@ -25,8 +25,8 @@
   margin-bottom: 0;
 }
 
-.content-list .ant-list-item-meta-title+.ant-list-item-meta-description {
-  margin-top: .2rem;
+.content-list .ant-list-item-meta-title + .ant-list-item-meta-description {
+  margin-top: 0.2rem;
 }
 
 .content-list .ant-list-item-meta-description {

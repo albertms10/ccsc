@@ -1,15 +1,14 @@
-import React, { createContext, useContext, useEffect } from "react";
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
+import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useSoci } from "./hooks";
-import { Container } from "../../../../standalone/container";
-
-import "./perfil-soci.css";
-import { SociTabGeneral } from "./components/soci-tab-general";
-import { SociTabAssociacio } from "./components/soci-tab-associacio";
 import { SetPageHeaderContext } from "../../../../components/tauler-app/components/site-layout/site-layout";
+import { Container } from "../../../../standalone/container";
 import { initials } from "../../../../utils";
+import { SociTabAssociacio } from "./components/soci-tab-associacio";
+import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";
+import { useSoci } from "./hooks";
+import "./perfil-soci.css";
 
 const { Title } = Typography;
 const { TabPane } = Tabs;

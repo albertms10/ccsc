@@ -1,7 +1,7 @@
+import { ChartCard, MiniArea } from "ant-design-pro/lib/Charts";
 import React from "react";
 import { NumberInfo } from "../number-info";
 import { useCountAssajos, useHistorialAssajos } from "./hooks";
-import { ChartCard, MiniArea } from "ant-design-pro/lib/Charts";
 
 export default () => {
   const [countAssajos] = useCountAssajos();

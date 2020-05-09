@@ -1,4 +1,4 @@
-import React from "react";
+import { ExclamationCircleOutlined, MoreOutlined } from "@ant-design/icons";
 import {
   Avatar,
   Badge,
@@ -10,16 +10,15 @@ import {
   Tooltip,
   Typography,
 } from "antd";
-import { ExclamationCircleOutlined, MoreOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import React from "react";
 import Media from "react-media";
-
-import "./taula-socis.css";
-import { BorderlessButton } from "../../standalone/borderless-button";
-import { useSearchSocis } from "./hooks";
-import { closestTimeValue } from "../../utils";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchAPI } from "../../helpers";
+import { BorderlessButton } from "../../standalone/borderless-button";
+import { closestTimeValue } from "../../utils";
+import { useSearchSocis } from "./hooks";
+import "./taula-socis.css";
 
 const { Text, Paragraph } = Typography;
 const { Search } = Input;

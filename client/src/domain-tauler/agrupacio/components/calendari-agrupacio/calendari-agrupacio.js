@@ -1,14 +1,13 @@
-import React, { useCallback } from "react";
-import moment from "moment";
-import { Button, Calendar, Col, Row, Space } from "antd";
-import { CalendarTag } from "../../../../standalone/calendar-tag";
-import { useCalendariEsdeveniments } from "./hooks";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Button, Calendar, Col, Row, Space } from "antd";
+import moment from "moment";
+import React, { useCallback } from "react";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
+import { CalendarTag } from "../../../../standalone/calendar-tag";
 import { Container } from "../../../../standalone/container";
 import { SearchComplete } from "../../../../standalone/search-complete";
-
 import "./calendari-agrupacio.css";
+import { useCalendariEsdeveniments } from "./hooks";
 
 export default ({ idAgrupacio }) => {
   const [esdeveniments] = useCalendariEsdeveniments(idAgrupacio);

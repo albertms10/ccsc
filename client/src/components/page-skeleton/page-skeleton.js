@@ -1,5 +1,5 @@
-import React from "react";
 import { Typography } from "antd";
+import React from "react";
 import { Container } from "../../standalone/container";
 import "./page-skeleton.css";
 

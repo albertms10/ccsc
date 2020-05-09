@@ -1,5 +1,5 @@
-import React from "react";
 import { Typography } from "antd";
+import React from "react";
 import { PageSkeleton } from "../../components/page-skeleton";
 
 const { Paragraph } = Typography;

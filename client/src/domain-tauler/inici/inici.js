@@ -1,17 +1,16 @@
-import React, { useContext, useEffect } from "react";
 import { Col, Row, Typography } from "antd";
+import React, { useContext, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Authorized } from "../../components/authorized";
+import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { AssociacioContext } from "../../components/tauler-app/tauler-app";
+import { SafeMargin } from "../../standalone/safe-margin";
 import {
   AssajosCountStatistics,
   ConcertsCountStatistics,
   ProjectesCountStatistics,
   SocisCountStatistics,
 } from "../../standalone/statistics";
-import { SafeMargin } from "../../standalone/safe-margin";
-import { useSelector } from "react-redux";
-import { AssociacioContext } from "../../components/tauler-app/tauler-app";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { Authorized } from "../../components/authorized";
-
 import "./inici.css";
 
 const { Title } = Typography;

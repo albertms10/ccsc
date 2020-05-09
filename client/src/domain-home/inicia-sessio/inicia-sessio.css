@@ -1,55 +1,55 @@
 .signin-container {
-    display: flex;
-    height: 100vh;
-    background-color: var(--background-color);
+  display: flex;
+  height: 100vh;
+  background-color: var(--background-color);
 }
 
 .signin-form-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    width: 314px;
-    margin: auto;
-    padding: 2rem;
-    transform: translateY(-15%);
-    border-radius: .3rem;
-    background-color: #fff;
-    box-shadow: var(--container-box-shadow);
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 314px;
+  margin: auto;
+  padding: 2rem;
+  transform: translateY(-15%);
+  border-radius: 0.3rem;
+  background-color: #fff;
+  box-shadow: var(--container-box-shadow);
 }
 
 @media only screen and (max-width: 575.98px) {
-    .signin-form-wrapper {
-        transform: translateY(-1rem);
-    }
+  .signin-form-wrapper {
+    transform: translateY(-1rem);
+  }
 }
 
 .signin-form-wrapper > a {
-    place-self: start;
+  place-self: start;
 }
 
 .signin-form-back-button {
-    padding-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 .signin-form {
-    width: 250px;
+  width: 250px;
 }
 
 .signin-logo {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .signin-form-forgot {
-    float: right;
+  float: right;
 }
 
 .ant-col-rtl .signin-form-forgot {
-    float: left;
+  float: left;
 }
 
 .signin-form-button {
-    width: 100%;
+  width: 100%;
 }

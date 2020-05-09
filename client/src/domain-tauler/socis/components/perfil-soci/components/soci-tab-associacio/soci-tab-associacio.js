@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
 import { Alert, Button, Space, Switch, Tag, Typography } from "antd";
-import { SociContext } from "../../perfil-soci";
+import React, { useContext } from "react";
 import { SettingCard } from "../../../../../../standalone/setting-card";
+import { SociContext } from "../../perfil-soci";
 import { useAcceptaDretsImatge, useAcceptaProteccioDades } from "./hooks";
 
 const { Paragraph } = Typography;

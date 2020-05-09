@@ -1,7 +1,7 @@
-import React from "react";
 import { Carousel, Typography } from "antd";
-import { useTitulars } from "./hooks";
+import React from "react";
 import "./home-carousel.css";
+import { useTitulars } from "./hooks";
 
 const { Title } = Typography;
 

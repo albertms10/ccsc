@@ -1,39 +1,41 @@
 .user-sider-dropdown .ant-dropdown {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 .user-menu-item {
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-    transition-duration: 300ms;
-    color: rgba(255, 255, 255, .65);
-    padding-inline-start: 1rem;
-    justify-self: flex-end;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  transition-duration: 300ms;
+  color: rgba(255, 255, 255, 0.65);
+  padding-inline-start: 1rem;
+  justify-self: flex-end;
 }
 
 .user-menu-item:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .user-menu-item .user-menu-item-avatar {
-    margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .ant-layout-sider-collapsed .user-menu-item .ant-avatar {
-    margin-right: 0;
-    margin-left: .41rem;
+  margin-right: 0;
+  margin-left: 0.41rem;
 }
 
 .user-menu-item-name {
-    -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    white-space: nowrap;
-    opacity: 1;
+  -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  white-space: nowrap;
+  opacity: 1;
 }
 
 .ant-layout-sider-collapsed .user-menu-item-name {
-    display: inline-block;
-    max-width: 0;
-    opacity: 0;
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
 }

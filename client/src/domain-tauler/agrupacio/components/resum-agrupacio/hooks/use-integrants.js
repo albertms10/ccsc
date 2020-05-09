@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchAPI } from "../../../../../helpers";
 import { useDispatch } from "react-redux";
+import { fetchAPI } from "../../../../../helpers";
 
 export default (id_agrupacio) => {
   const dispatch = useDispatch();

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import moment from "moment";
 import { AutoComplete, Input, Space } from "antd";
+import moment from "moment";
+import React, { useState } from "react";
 import { CalendarAvatar } from "../calendar-avatar";
-
-import "./search-complete.css";
 import { StatusBadge } from "../status-badge";
+import "./search-complete.css";
 
 const { Search } = Input;
 

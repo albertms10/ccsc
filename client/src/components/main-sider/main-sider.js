@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import { MenuOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
-import { MainMenu } from "./components/main-menu";
+import React, { useContext } from "react";
 import { initials } from "../../utils";
-
-import "./main-sider.css";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
@@ -11,7 +9,8 @@ import {
   SiderSetCollapsedContext,
 } from "../tauler-app/contexts/sider-context";
 import { AssociacioContext } from "../tauler-app/tauler-app";
-import { MenuOutlined } from "@ant-design/icons";
+import { MainMenu } from "./components/main-menu";
+import "./main-sider.css";
 
 const { Sider } = Layout;
 

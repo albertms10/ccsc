@@ -1,10 +1,9 @@
 import { Avatar, Dropdown, Menu } from "antd";
-import { logoutRemoveUser } from "../../../../redux";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import "./user-dropdown.css";
 import { Link } from "react-router-dom";
+import { logoutRemoveUser } from "../../../../redux";
+import "./user-dropdown.css";
 
 export default () => {
   const currentUser = useSelector((state) => state.user.currentUser);

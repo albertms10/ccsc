@@ -1,5 +1,3 @@
-import React, { cloneElement } from "react";
-import { Tooltip } from "antd";
 import {
   CheckCircleTwoTone,
   CloseCircleTwoTone,
@@ -7,6 +5,8 @@ import {
   QuestionCircleTwoTone,
   WarningTwoTone,
 } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import React, { cloneElement } from "react";
 
 /**
  *

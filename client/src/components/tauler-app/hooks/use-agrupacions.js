@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchAPI } from "../../../helpers";
-import { useDispatch } from "react-redux";
 
 export default () => {
   const dispatch = useDispatch();

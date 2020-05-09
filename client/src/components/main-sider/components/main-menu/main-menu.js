@@ -1,7 +1,3 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Menu, Spin } from "antd";
-import { Link, useLocation } from "react-router-dom";
-import { kebabCase, nIndexOf } from "../../../../utils";
 import {
   HomeOutlined,
   LoadingOutlined,
@@ -9,9 +5,12 @@ import {
   SolutionOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-
+import { Menu, Spin } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { IconAgrupacio } from "../../../../icons";
-import "./main-menu.css";
+import { kebabCase, nIndexOf } from "../../../../utils";
+import { Authorized } from "../../../authorized";
 import {
   AgrupacionsListContext,
   LoadingAgrupacionsContext,
@@ -21,7 +20,7 @@ import {
   SiderCollapsedContext,
   SiderSetCollapsedContext,
 } from "../../../tauler-app/contexts/sider-context";
-import { Authorized } from "../../../authorized";
+import "./main-menu.css";
 
 const { Item, ItemGroup } = Menu;
 

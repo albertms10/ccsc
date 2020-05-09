@@ -1,12 +1,12 @@
-import React from "react";
-import moment from "moment";
-import { Avatar, Col, Row, Space } from "antd";
 import { EditFilled, EnvironmentFilled, LayoutFilled } from "@ant-design/icons";
+import { Avatar, Col, Row, Space } from "antd";
+import moment from "moment";
+import React from "react";
+import { upperCaseFirst } from "../../utils";
 import { BorderlessButton } from "../borderless-button";
 import { StatusBadge } from "../status-badge";
 
 import "./calendar-event-popover.css";
-import { upperCaseFirst } from "../../utils";
 import { EventLineItem } from "./event-line-item";
 
 export default ({ event }) => (

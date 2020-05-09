@@ -1,18 +1,18 @@
 .search-complete .ant-select {
-    width: 100%;
+  width: 100%;
 }
 
 .search-complete .search-complete-input {
-    min-width: 150px;
-    height: 40px;
+  min-width: 150px;
+  height: 40px;
 }
 
 .search-complete-item {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .search-complete-item-extra {
-    font-size: small;
-    color: gray;
+  font-size: small;
+  color: gray;
 }

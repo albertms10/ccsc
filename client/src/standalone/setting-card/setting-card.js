@@ -1,5 +1,5 @@
-import React from "react";
 import { Card, Divider, Tooltip } from "antd";
+import React from "react";
 import { SubHeader } from "../sub-header";
 
 import "./setting-card.css";

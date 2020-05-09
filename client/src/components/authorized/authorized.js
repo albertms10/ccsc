@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import {
+  isAdmin,
   isDirectorMusical,
   isJuntaDirectiva,
-  isAdmin,
 } from "../../helpers/role-checker";
 
 /**

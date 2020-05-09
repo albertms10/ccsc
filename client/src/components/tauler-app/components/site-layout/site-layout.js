@@ -1,27 +1,25 @@
+import { MenuOutlined } from "@ant-design/icons";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import { Layout, Typography } from "antd";
 import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { Inici } from "../../../../domain-tauler/inici";
-import { kebabCase } from "../../../../utils";
 import { Agrupacio } from "../../../../domain-tauler/agrupacio";
+import { Inici } from "../../../../domain-tauler/inici";
 import { Socis } from "../../../../domain-tauler/socis";
 import { PerfilSoci } from "../../../../domain-tauler/socis/components/perfil-soci";
-import { Layout, Typography } from "antd";
-
+import { kebabCase } from "../../../../utils";
+import { Authorized } from "../../../authorized";
+import { UserDropdown } from "../../../main-sider/components/user-dropdown";
+import {
+  AgrupacionsListContext,
+  LoadingAgrupacionsContext,
+} from "../../contexts/agrupacions-context";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
   SiderSetCollapsedContext,
 } from "../../contexts/sider-context";
-import {
-  AgrupacionsListContext,
-  LoadingAgrupacionsContext,
-} from "../../contexts/agrupacions-context";
-
 import "./site-layout.css";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { UserDropdown } from "../../../main-sider/components/user-dropdown";
-import { Authorized } from "../../../authorized";
-import { MenuOutlined } from "@ant-design/icons";
 
 const { Content, Header } = Layout;
 const { Title } = Typography;
