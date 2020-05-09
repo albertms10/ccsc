@@ -21,7 +21,7 @@ const { Panel } = Collapse;
 
 export default ({
   form,
-  current,
+  currentPageIndex,
   username,
   loadingUsername,
   alertProteccio,
@@ -29,7 +29,7 @@ export default ({
 }) => {
   const [dniValidation, setDniValidation] = useState("");
   const [paisos, loadingPaisos] = usePaisos();
-  const [pais, setPais] = useState("");
+  const [selectedPais, setSelectedPais] = useState("");
 
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
   const validatorDniES = useCallback((rule, value) => {
@@ -57,7 +57,7 @@ export default ({
 
   return (
     <Form colon={false} form={form} initialValues={{ data_alta: moment() }}>
-      <div style={{ display: current === 0 ? "block" : "none" }}>
+      <div style={{ display: currentPageIndex === 0 ? "block" : "none" }}>
         <Divider orientation="left">Dades personals</Divider>
         <Form.Item style={{ marginBottom: 0 }}>
           <Form.Item
@@ -79,7 +79,7 @@ export default ({
               },
             ]}
           >
-            <Input />
+            <Input autoComplete="given-name" autoFocus />
           </Form.Item>
           <Form.Item
             name="cognoms"
@@ -96,7 +96,7 @@ export default ({
               },
             ]}
           >
-            <Input />
+            <Input autoComplete="family-name" />
           </Form.Item>
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
@@ -118,7 +118,7 @@ export default ({
             <Select
               showSearch
               loading={loadingPaisos}
-              onSelect={(value) => setPais(value)}
+              onSelect={(value) => setSelectedPais(value)}
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
@@ -132,7 +132,7 @@ export default ({
             name="dni"
             label="DNI"
             hasFeedback
-            validateStatus={pais === "es" ? dniValidation : ""}
+            validateStatus={selectedPais === "es" ? dniValidation : ""}
             style={{
               display: "inline-block",
               width: "45%",
@@ -147,7 +147,7 @@ export default ({
                 whitespace: true,
                 message: "Si us plau, introdueixi el seu DNI.",
               },
-              pais === "es" ? { validator: validatorDniES } : {},
+              selectedPais === "es" ? { validator: validatorDniES } : {},
             ]}
           >
             <Input />
@@ -212,7 +212,7 @@ export default ({
               },
             ]}
           >
-            <Input type="number" />
+            <Input type="tel" autoComplete="tel" />
           </Form.Item>
         </Form.Item>
         <Collapse
@@ -256,7 +256,7 @@ export default ({
           </Panel>
         </Collapse>
       </div>
-      <div style={{ display: current === 1 ? "block" : "none" }}>
+      <div style={{ display: currentPageIndex === 1 ? "block" : "none" }}>
         <div className="text-block">
           D’acord amb l’article 5 de la Llei orgànica 15/1999 de protecció de
           dades de caràcter personal, les vostres dades seran incorporades i
@@ -296,7 +296,7 @@ export default ({
           ""
         )}
       </div>
-      <div style={{ display: current === 2 ? "block" : "none" }}>
+      <div style={{ display: currentPageIndex === 2 ? "block" : "none" }}>
         <div className="text-block">
           Atès que el dret a la imatge es troba regulat per l'article 18.1 de la
           Constitució, per la Llei Orgànica 1/1982 sobre el dret a l'honor, a la
@@ -320,7 +320,7 @@ export default ({
           <Switch checkedChildren="Accepto" unCheckedChildren="No accepto" />
         </Form.Item>
       </div>
-      {current === 3 && (
+      {currentPageIndex === 3 && (
         <ResumSoci
           data={form.getFieldsValue()}
           username={username}
