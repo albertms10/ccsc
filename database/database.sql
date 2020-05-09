@@ -62,13 +62,6 @@ CREATE TABLE IF NOT EXISTS socis
     FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
 );
 
-/*
- usuari
- junta_directiva
- director_musical
- admin
- */
-
 CREATE TABLE IF NOT EXISTS roles
 (
     id_role TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -87,53 +80,6 @@ CREATE TABLE IF NOT EXISTS roles_usuaris
     FOREIGN KEY (id_usuari) REFERENCES usuaris_complet (id_usuari),
     FOREIGN KEY (id_role) REFERENCES roles (id_role)
 );
-
-/*
-Soci cantaires
-Soci col·laboradors
-Soci honorífics
-Responsable de direcció musical
-Responsable de presidència
-Responsable de tresoreria
-Responsable de secretaria
- */
-
-/*
-CREATE TABLE IF NOT EXISTS perfils_accions
-(
-    id_perfil TINYINT UNSIGNED    NOT NULL,
-    id_accio_soci  SMALLINT UNSIGNED   NOT NULL,
-    valor          TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-
-    PRIMARY KEY (id_perfil, id_accio_soci),
-    FOREIGN KEY (id_perfil) REFERENCES perfils (id_perfil),
-    FOREIGN KEY (id_accio_soci) REFERENCES accions_socis (id_accio_soci)
-);
-
-CREATE TABLE IF NOT EXISTS accions_socis
-(
-    id_accio_soci SMALLINT UNSIGNED NOT NULL,
-
-    nom           VARCHAR(50)       NOT NULL,
-    descripcio    TEXT,
-
-    PRIMARY KEY (id_accio_soci)
-);
- */
-
-/*
-Perfil propi
-Perfil d'altri
-Pagaments propis
-Pagaments d'altri
-Esdeveniments
-Documents
-Projectes
-Veu i vot
-Equips
-Activitats
-Tot
- */
 
 CREATE TABLE IF NOT EXISTS historial_socis
 (
@@ -440,21 +386,32 @@ CREATE TABLE IF NOT EXISTS esdeveniments
     hora_inici              TIME,
     dia_final               DATE,
     hora_final              TIME,
-    es_hora_curs            BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_assaig_ordinari      BOOLEAN           NOT NULL DEFAULT FALSE,
+
     id_estat_esdeveniment   TINYINT UNSIGNED  NOT NULL DEFAULT 1,
     id_localitzacio         SMALLINT UNSIGNED NOT NULL,
     id_estat_localitzacio   TINYINT UNSIGNED  NOT NULL DEFAULT 1,
-
     id_esdeveniment_ajornat SMALLINT UNSIGNED,
-
-    CONSTRAINT hora_curs CHECK ((es_hora_curs IS TRUE AND NOT hora_inici AND NOT hora_final) OR
-                                (es_hora_curs IS FALSE)),
 
     PRIMARY KEY (id_esdeveniment),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio),
     FOREIGN KEY (id_estat_esdeveniment) REFERENCES estats_confirmacio (id_estat_confirmacio),
     FOREIGN KEY (id_estat_localitzacio) REFERENCES estats_confirmacio (id_estat_confirmacio),
     FOREIGN KEY (id_esdeveniment_ajornat) REFERENCES esdeveniments (id_esdeveniment)
+);
+
+CREATE TABLE IF NOT EXISTS horaris_curs
+(
+    id_curs       VARCHAR(5) NOT NULL,
+
+    periode_inici DATE       NOT NULL,
+    periode_final DATE,
+
+    hora_inici    TIME       NOT NULL,
+    hora_final    TIME       NOT NULL,
+
+    PRIMARY KEY (id_curs, periode_inici),
+    FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
 );
 
 CREATE TABLE IF NOT EXISTS estats_confirmacio
@@ -495,25 +452,6 @@ CREATE TABLE IF NOT EXISTS punts_reunio
 
     PRIMARY KEY (id_punt_reunio),
     FOREIGN KEY (id_reunio) REFERENCES reunions (id_reunio)
-);
-
-/* TODO Relació actes-documentacions? */
-CREATE TABLE IF NOT EXISTS actes_reunions
-(
-    id_acta_reunio SMALLINT UNSIGNED NOT NULL,
-
-    PRIMARY KEY (id_acta_reunio),
-    FOREIGN KEY (id_acta_reunio) REFERENCES reunions (id_reunio)
-);
-
-CREATE TABLE IF NOT EXISTS socis_signants_acta_reunio
-(
-    id_acta_reunio SMALLINT UNSIGNED NOT NULL,
-    id_soci        SMALLINT UNSIGNED NOT NULL,
-
-    PRIMARY KEY (id_acta_reunio, id_soci),
-    FOREIGN KEY (id_acta_reunio) REFERENCES actes_reunions (id_acta_reunio),
-    FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
 );
 
 CREATE TABLE IF NOT EXISTS assemblees
@@ -1043,6 +981,25 @@ CREATE TABLE IF NOT EXISTS documentacions
 
     PRIMARY KEY (id_documentacio),
     FOREIGN KEY (id_tipus_documentacio) REFERENCES tipus_documentacio (id_tipus_documentacio)
+);
+
+CREATE TABLE IF NOT EXISTS socis_signants_documentacio
+(
+    id_documentacio SMALLINT UNSIGNED NOT NULL,
+    id_soci        SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_documentacio, id_soci),
+    FOREIGN KEY (id_documentacio) REFERENCES documentacions (id_documentacio),
+    FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
+);
+
+CREATE TABLE IF NOT EXISTS actes_reunions
+(
+    id_documentacio SMALLINT UNSIGNED NOT NULL,
+    id_reunio SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_documentacio),
+    FOREIGN KEY (id_reunio) REFERENCES reunions (id_reunio)
 );
 
 CREATE TABLE IF NOT EXISTS tipus_documentacio
