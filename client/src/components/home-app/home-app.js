@@ -58,7 +58,7 @@ export default () => {
           {menuItems.map((item) => (
             <Menu.Item key={item.key}>
               <Link to={item.path}>
-                {item.key === "inicia-sessio" && user
+                {item.key === "inicia-sessio" && Object.keys(user).length > 0
                   ? "Vés al tauler"
                   : item.title}
               </Link>
