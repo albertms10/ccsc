@@ -16,7 +16,6 @@ export default () => {
     soci
   );
 
-  // TODO: Implementar l’acció del Switch de Protecció de dades
   return (
     <Space size="large" direction="vertical">
       <SettingCard
