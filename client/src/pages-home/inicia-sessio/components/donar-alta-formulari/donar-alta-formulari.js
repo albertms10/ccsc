@@ -1,13 +1,25 @@
 import { LeftOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Divider, Space } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { LogoCorDeCambra } from "../../../../assets/icons";
+import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
+import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/components/hooks";
 import { Container } from "../../../../standalone/container";
 
 export default () => {
   const inWaitingList = useSelector(({ user }) => user.inWaitingList);
+  const {
+    steps,
+    form,
+    footerActions,
+    handleChange,
+    currentPageIndex,
+    alertProteccio,
+    setAlertProteccio,
+    username,
+    loadingUsername,
+  } = useStepsAfegirSoci();
 
   return inWaitingList ? (
     <Container className="signin-container">
@@ -21,10 +33,20 @@ export default () => {
             Tornar enrere
           </Button>
         </Link>
-        <LogoCorDeCambra
-          className="signin-logo"
-          style={{ color: "var(--primary-color)" }}
+        <Divider />
+        <StepsAfegirSoci
+          steps={steps}
+          form={form}
+          currentPageIndex={currentPageIndex}
+          handleChange={handleChange}
+          username={username}
+          loadingUsername={loadingUsername}
+          alertProteccio={alertProteccio}
+          setAlertProteccio={setAlertProteccio}
         />
+        <div className="signin-footer-actions">
+          <Space>{footerActions}</Space>
+        </div>
       </div>
     </Container>
   ) : (

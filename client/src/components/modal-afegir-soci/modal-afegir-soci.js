@@ -5,29 +5,26 @@ import { StepsAfegirSoci } from "../steps-afegir-soci";
 import { useStepsAfegirSoci } from "../steps-afegir-soci/components/hooks";
 import "./modal-afegir-soci.css";
 
-const steps = [
-  "Dades del soci",
-  "Protecció de dades",
-  "Drets d’imatge",
-  "Resum",
-];
-
 export default ({ getSocis }) => {
   const [visible, setVisible] = useState(false);
   const {
+    steps,
     form,
-    handleOk,
+    footerActions,
     handleChange,
     currentPageIndex,
     setCurrentPageIndex,
-    confirmLoading,
     alertProteccio,
     setAlertProteccio,
     username,
     loadingUsername,
-    next,
-    previous,
-  } = useStepsAfegirSoci();
+  } = useStepsAfegirSoci(() =>
+    getSocis(() => {
+      setVisible(false);
+      setCurrentPageIndex(0);
+      form.resetFields();
+    })
+  );
 
   const showModal = () => setVisible(true);
 
@@ -41,37 +38,7 @@ export default ({ getSocis }) => {
         width={720}
         onCancel={() => setVisible(false)}
         visible={visible}
-        footer={[
-          currentPageIndex > 0 ? (
-            <Button key="previous" onClick={previous}>
-              Anterior
-            </Button>
-          ) : (
-            ""
-          ),
-          currentPageIndex < steps.length - 1 ? (
-            <Button key="next" type="primary" onClick={next}>
-              Següent
-            </Button>
-          ) : (
-            <Button
-              key="ok"
-              type="primary"
-              onClick={() =>
-                handleOk(() =>
-                  getSocis(() => {
-                    setVisible(false);
-                    setCurrentPageIndex(0);
-                    form.resetFields();
-                  })
-                )
-              }
-              loading={confirmLoading}
-            >
-              Afegeix
-            </Button>
-          ),
-        ]}
+        footer={footerActions}
       >
         <StepsAfegirSoci
           steps={steps}

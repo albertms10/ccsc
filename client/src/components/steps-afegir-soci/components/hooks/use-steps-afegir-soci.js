@@ -1,12 +1,19 @@
-import { Form, message } from "antd";
+import { Button, Form, message } from "antd";
 import moment from "moment";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../../helpers";
 import { upperCaseFirst } from "../../../../utils";
 import { useUsername } from "./";
 
-export default () => {
+const steps = [
+  "Dades del soci",
+  "Protecció de dades",
+  "Drets d’imatge",
+  "Resum",
+];
+
+export default (onSuccessCallback) => {
   const dispatch = useDispatch();
 
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -82,18 +89,40 @@ export default () => {
 
   const previous = async () => await handleChange(currentPageIndex - 1);
 
+  const footerActions = [
+    currentPageIndex > 0 ? (
+      <Button key="previous" onClick={previous}>
+        Anterior
+      </Button>
+    ) : (
+      ""
+    ),
+    currentPageIndex < steps.length - 1 ? (
+      <Button key="next" type="primary" onClick={next}>
+        Següent
+      </Button>
+    ) : (
+      <Button
+        key="ok"
+        type="primary"
+        onClick={() => handleOk(onSuccessCallback)}
+        loading={confirmLoading}
+      >
+        Afegeix
+      </Button>
+    ),
+  ];
+
   return {
+    steps,
     form,
-    handleOk,
+    footerActions,
     handleChange,
     currentPageIndex,
     setCurrentPageIndex,
-    confirmLoading,
     alertProteccio,
     setAlertProteccio,
     username,
     loadingUsername,
-    next,
-    previous,
   };
 };

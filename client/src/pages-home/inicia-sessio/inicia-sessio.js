@@ -28,7 +28,7 @@ export default () => {
   return (
     !loading && (
       <Container className="signin-container">
-        <div className="signin-form-wrapper">
+        <div className="signin-form-wrapper tight">
           <Link to="/">
             <Button
               className="signin-form-back-button"

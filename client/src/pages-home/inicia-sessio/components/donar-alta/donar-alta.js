@@ -13,7 +13,7 @@ export default () => {
 
   return (
     <Container className="signin-container">
-      <div className="signin-form-wrapper">
+      <div className="signin-form-wrapper tight">
         <Link to="/inicia-sessio">
           <Button
             className="signin-form-back-button"
