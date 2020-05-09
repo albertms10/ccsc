@@ -19,6 +19,11 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
     UNIQUE (id_persona)
 );
 
+CREATE TABLE IF NOT EXISTS emails_espera
+(
+    email VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS persones
 (
     id_persona              SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -986,7 +991,7 @@ CREATE TABLE IF NOT EXISTS documentacions
 CREATE TABLE IF NOT EXISTS socis_signants_documentacio
 (
     id_documentacio SMALLINT UNSIGNED NOT NULL,
-    id_soci        SMALLINT UNSIGNED NOT NULL,
+    id_soci         SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_documentacio, id_soci),
     FOREIGN KEY (id_documentacio) REFERENCES documentacions (id_documentacio),
@@ -996,7 +1001,7 @@ CREATE TABLE IF NOT EXISTS socis_signants_documentacio
 CREATE TABLE IF NOT EXISTS actes_reunions
 (
     id_documentacio SMALLINT UNSIGNED NOT NULL,
-    id_reunio SMALLINT UNSIGNED NOT NULL,
+    id_reunio       SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_documentacio),
     FOREIGN KEY (id_reunio) REFERENCES reunions (id_reunio)
