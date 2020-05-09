@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS persones
     id_pais                 CHAR(2),
     dni                     VARCHAR(12),
     email                   VARCHAR(50),
-    telefon                 INT(10) UNSIGNED,
+    telefon                 VARCHAR(14),
     es_institucio           BOOLEAN           NOT NULL DEFAULT FALSE,
     accepta_proteccio_dades BOOLEAN           NOT NULL DEFAULT FALSE,
     accepta_drets_imatge    BOOLEAN           NOT NULL DEFAULT FALSE,
