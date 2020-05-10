@@ -21,6 +21,19 @@ const verifyAccessToken = (req, res, next) => {
         },
       });
 
+    if (decoded.email)
+      return res.status(401).send({
+        error: {
+          status: 401,
+          message: "Encara no has acabat d’introduir les teves dades.",
+          okText: "Torna a introduir-les",
+          location: {
+            pathname: "/donar-alta",
+            state: { email: decoded.email },
+          },
+        },
+      });
+
     req.userId = decoded.id;
     next();
   });
