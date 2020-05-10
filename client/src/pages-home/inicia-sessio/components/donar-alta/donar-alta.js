@@ -7,7 +7,7 @@ import { Container } from "../../../../standalone/container";
 import { useValidEmailEspera } from "./hooks";
 
 export default () => {
-  const [checkEmail, loading, showAlert] = useValidEmailEspera();
+  const [checkEmail, loading, alertMessage] = useValidEmailEspera();
 
   const onFinish = useCallback(({ email }) => checkEmail(email), [checkEmail]);
 
@@ -49,6 +49,7 @@ export default () => {
             <Input
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Adreça electrònica"
+              autoFocus
             />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0 }}>
@@ -61,14 +62,7 @@ export default () => {
               Endavant
             </Button>
           </Form.Item>
-          {showAlert ? (
-            <Alert
-              type="warning"
-              message="L’adreça no és a la llista d’espera."
-            />
-          ) : (
-            ""
-          )}
+          {alertMessage ? <Alert type="warning" message={alertMessage} /> : ""}
         </Form>
       </div>
     </Container>

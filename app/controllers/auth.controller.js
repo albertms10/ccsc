@@ -107,19 +107,33 @@ exports.email_espera = (req, res, next) => {
        FROM emails_espera
        WHERE ?;`,
     { email },
-    (err, [{ count_emails: count }]) => {
+    (err, [{ count_emails }]) => {
       if (err) next(err);
 
-      if (count > 0) {
+      if (count_emails > 0) {
         const accessToken = signJWT({
           payload: { email },
           expiresIn: 1200, // 20 min
         });
 
-        return res.json({ count, accessToken });
+        return res.json({ count: count_emails, accessToken });
       }
 
-      res.json({ count });
+      pool.query(
+        `SELECT COUNT(*) AS count_persones FROM persones WHERE ?;`,
+        { email },
+        (err, [{ count_persones: count }]) => {
+          if (err) next(err);
+
+          res.json({
+            count: count_emails,
+            message:
+              count > 0
+                ? "L’adreça ja està registrada."
+                : "L’adreça no és a la llista d’espera.",
+          });
+        }
+      );
     }
   );
 };

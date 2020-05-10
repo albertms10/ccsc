@@ -7,7 +7,7 @@ export default () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const checkEmail = (email) => {
     setLoading(true);
@@ -20,17 +20,17 @@ export default () => {
       body: JSON.stringify({ email }),
     })
       .then((res) => res.json())
-      .then(({ count, accessToken }) => {
+      .then(({ count, message, accessToken }) => {
         setLoading(false);
         if (!!count) {
           localStorage.setItem("access-token", accessToken);
           dispatch(validatedInWaitingList(email));
           history.push("/donar-alta/formulari");
-        } else {
-          setShowAlert(true);
+        } else if (message) {
+          setAlertMessage(message);
         }
       });
   };
 
-  return [checkEmail, loading, showAlert];
+  return [checkEmail, loading, alertMessage];
 };
