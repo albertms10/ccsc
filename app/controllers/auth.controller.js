@@ -39,14 +39,6 @@ exports.signin = (req, res, next) => {
     (err, [user]) => {
       if (err) next(err);
 
-      if (!user)
-        return res.status(404).send({
-          error: {
-            status: 404,
-            message: "L’usuari no s’ha trobat.",
-          },
-        });
-
       const { hash } = saltHashPassword({
         password,
         salt: user.salt,
@@ -54,11 +46,11 @@ exports.signin = (req, res, next) => {
 
       const passwordIsValid = hash === user.encrypted_password;
 
-      if (!passwordIsValid)
+      if (!user || !passwordIsValid)
         return res.status(401).send({
           error: {
             status: 401,
-            message: "La contrasenya és incorrecta.",
+            message: "Nom d’usuari o contrasenya incorrectes",
           },
         });
 
