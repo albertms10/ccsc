@@ -1,6 +1,5 @@
 import { CaretRightOutlined } from "@ant-design/icons";
 import {
-  Alert,
   Card,
   Col,
   Collapse,
@@ -11,10 +10,12 @@ import {
   Row,
   Select,
   Space,
-  Switch,
+  Tag,
+  Typography,
 } from "antd";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
+import { SettingCard } from "../../../../standalone/setting-card";
 import { SubHeader } from "../../../../standalone/sub-header";
 import { ResumAfegirSoci } from "../resum-afegir-soci";
 import "./form-afegir-soci.css";
@@ -23,15 +24,60 @@ import { usePaisos } from "./hooks";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
+const { Paragraph } = Typography;
+
+export const textProteccioDades = (
+  <>
+    <Paragraph>
+      D’acord amb l’article 5 de la Llei orgànica 15/1999 de protecció de dades
+      de caràcter personal, les vostres dades seran incorporades i tractades al
+      fitxer intern el qual és responsable l’Associació Musical Catalana
+      Crescendo.
+    </Paragraph>
+    <Paragraph>
+      La finalitat és poder dur a terme les tasques de gestió de l’associació,
+      oferir informació relacionada amb l’organització i actuació del Cor de
+      Cambra Sant Cugat, informar de la gestió dels òrgans de govern compartir
+      la documentació que es derivi de caràcter institucional o material
+      formatiu que pugui resultar de l’interès dels associats sempre relacionat
+      amb la finalitat de l’entitat.
+    </Paragraph>
+    <Paragraph>
+      Podeu exercir els drets d’accés, rectificació, cancel·lació i oposició
+      mitjançant un escrit adreçat a{" "}
+      <Tag style={{ marginRight: 2 }}>
+        <a href="mailto:secretaria@cordecambrasantcugat.cat">
+          secretaria@cordecambrasantcugat.cat
+        </a>
+      </Tag>
+      .
+    </Paragraph>
+  </>
+);
+
+export const textDretsImatge = (
+  <Paragraph>
+    Atès que el dret a la imatge es troba regulat per l’article 18.1 de la
+    Constitució, per la Llei Orgànica 1/1982 sobre el dret a l’honor, a la
+    intimitat personal i familiar, i per la Llei Orgànica 15/1999 de Protecció
+    de Dades de Caràcter Personal, sol·licitem el seu consentiment per publicar
+    la seva imatge o veu, de forma clarament identificable, en fotografies i
+    gravacions corresponents a les activitats pròpies de l'associació, i que
+    s’exposin públicament a la pàgina web, revistes, YouTube o altres
+    publicacions internes o de tercers, així com a reproduir-la públicament per
+    a la promoció de les activitats i serveis de les entitats. El present
+    consentiment i autorització s’atorga de forma gratuïta i amb renúncia formal
+    a qualsevol contraprestació econòmica.
+  </Paragraph>
+);
 
 export default ({
   form,
   currentPageIndex,
   username,
   loadingUsername,
-  alertProteccio,
-  setAlertProteccio,
   initialValues,
+  acceptaDretsImatge,
 }) => {
   const [dniValidation, setDniValidation] = useState("");
   const [paisos, loadingPaisos] = usePaisos();
@@ -69,6 +115,9 @@ export default ({
       initialValues={{ ...initialValues, data_alta: moment() }}
     >
       <div style={{ display: currentPageIndex === 0 ? "block" : "none" }}>
+        <SettingCard title="Protecció de dades" info={textProteccioDades} />
+      </div>
+      <div style={{ display: currentPageIndex === 1 ? "block" : "none" }}>
         <Space size="middle" direction="vertical">
           <Card>
             <SubHeader title="Dades personals" />
@@ -89,7 +138,7 @@ export default ({
                     },
                   ]}
                 >
-                  <Input autoComplete="given-name" autoFocus />
+                  <Input autoComplete="given-name" />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={14} flex={1}>
@@ -271,75 +320,15 @@ export default ({
           </Card>
         </Space>
       </div>
-      <div style={{ display: currentPageIndex === 1 ? "block" : "none" }}>
-        <div className="text-block">
-          D’acord amb l’article 5 de la Llei orgànica 15/1999 de protecció de
-          dades de caràcter personal, les vostres dades seran incorporades i
-          tractades al fitxer intern el qual és responsable l'Associació Musical
-          Catalana Crescendo. La finalitat és poder portar a termer les tasques
-          de gestió de l'associació, oferir informació relacionada amb
-          l'organització i actuació del Cor de Cambra Sant Cugat, informar de la
-          gestió dels òrgans de govern compartir la documentació que s'enderivi
-          de carácter institucional o material formatiu que pugui resultar de
-          l'interés dels associats sempre relacionat amb la finalitat de
-          l'entitat. Podeu exercir els drets d’accés, rectificació, cancel·lació
-          i oposició mitjançant un escrit adreçat a{" "}
-          <a href="mailto:secretaria@cordecambrasantcugat.cat">
-            secretaria@cordecambrasantcugat.cat
-          </a>
-          .
-        </div>
-        <Form.Item
-          className="switch"
-          name="accepta_proteccio_dades"
-          valuePropName="checked"
-          wrapperCol={{}}
-        >
-          <Switch
-            checkedChildren="Accepto"
-            unCheckedChildren="No accepto"
-            onChange={(checked) => setAlertProteccio(!checked)}
-          />
-        </Form.Item>
-        {alertProteccio ? (
-          <Alert
-            type="warning"
-            showIcon
-            message="Heu d’acceptar la protecció de dades."
-          />
-        ) : (
-          ""
-        )}
-      </div>
       <div style={{ display: currentPageIndex === 2 ? "block" : "none" }}>
-        <div className="text-block">
-          Atès que el dret a la imatge es troba regulat per l'article 18.1 de la
-          Constitució, per la Llei Orgànica 1/1982 sobre el dret a l'honor, a la
-          intimitat personal i familiar, i per la Llei Orgànica 15/1999 de
-          Protecció de Dades de Caràcter Personal, sol·licitem el seu
-          consentiment per publicar les seva imatge o veu, de forma clarament
-          identificable, en fotografies i gravacions corresponents a les
-          activitats pròpies de l'associació, i que s’exposin públicament a la
-          pàgina web, revistes, YouTube o altres publicacions internes o de
-          tercers, així com a reproduir-la públicament per a la promoció de les
-          activitats i serveis de les entitats. El present consentiment i
-          autorització s'atorga de forma gratuïta i amb renúncia formal a
-          qualsevol contraprestació econòmica.
-        </div>
-        <Form.Item
-          className="switch"
-          name="accepta_drets_imatge"
-          valuePropName="checked"
-          wrapperCol={{}}
-        >
-          <Switch checkedChildren="Accepto" unCheckedChildren="No accepto" />
-        </Form.Item>
+        <SettingCard title="Drets d’imatge" info={textDretsImatge} />
       </div>
       {currentPageIndex === 3 && (
         <ResumAfegirSoci
           data={form.getFieldsValue()}
           username={username}
           loadingUsername={loadingUsername}
+          acceptaDretsImatge={acceptaDretsImatge}
         />
       )}
     </Form>

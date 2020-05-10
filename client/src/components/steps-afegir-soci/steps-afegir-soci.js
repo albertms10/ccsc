@@ -12,9 +12,8 @@ export default ({
   handleChange,
   username,
   loadingUsername,
-  alertProteccio,
-  setAlertProteccio,
   initialValues,
+  acceptaDretsImatge,
 }) => {
   return (
     <>
@@ -29,9 +28,8 @@ export default ({
           currentPageIndex={currentPageIndex}
           username={username}
           loadingUsername={loadingUsername}
-          alertProteccio={alertProteccio}
-          setAlertProteccio={setAlertProteccio}
           initialValues={initialValues}
+          acceptaDretsImatge={acceptaDretsImatge}
         />
       </div>
     </>

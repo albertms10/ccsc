@@ -5,7 +5,7 @@ const modalWarn = (error, dispatch) => {
   Modal.warn({
     title: error.message,
     content: `Torna a iniciar sessió per comprovar la teva identitat.${
-      error.status ? `Codi d’error: ${error.status}` : ""
+      error.status ? ` Codi d’error: ${error.status}` : ""
     }`,
     okText: error.okText ?? "Torna a iniciar sessió",
     cancelText: "Ignora",

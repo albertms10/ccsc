@@ -1,4 +1,4 @@
-import { Button, Form, message } from "antd";
+import { Button, Form, message, Space } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -7,8 +7,8 @@ import { upperCaseFirst } from "../../../utils";
 import { useUsername } from "./index";
 
 const steps = [
-  "Dades del soci",
   "Protecció de dades",
+  "Dades del soci",
   "Drets d’imatge",
   "Resum",
 ];
@@ -18,7 +18,7 @@ export default (onSuccessCallback, fetchURL = "/api/socis") => {
 
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [alertProteccio, setAlertProteccio] = useState(false);
+  const [acceptaDretsImatge, setAcceptaDretsImatge] = useState(false);
   const [username, loadingUsername, getUsername] = useUsername();
 
   const [form] = Form.useForm();
@@ -27,60 +27,44 @@ export default (onSuccessCallback, fetchURL = "/api/socis") => {
     form
       .validateFields()
       .then((values) => {
-        if (values.accepta_proteccio_dades) {
-          setConfirmLoading(true);
+        setConfirmLoading(true);
 
-          values.username = username;
-          values.nom = upperCaseFirst(values.nom);
-          values.cognoms = upperCaseFirst(values.cognoms);
-          values.accepta_drets_imatge = !!values.accepta_drets_imatge;
-          values.naixement = values.naixement.format("YYYY-MM-DD");
-          values.data_alta = values.data_alta
-            ? values.data_alta.format("YYYY-MM-DD")
-            : moment().format("YYYY-MM-DD");
+        values.username = username;
+        values.nom = upperCaseFirst(values.nom);
+        values.cognoms = upperCaseFirst(values.cognoms);
+        values.accepta_proteccio_dades = true;
+        values.accepta_drets_imatge = acceptaDretsImatge;
+        values.naixement = values.naixement.format("YYYY-MM-DD");
+        values.data_alta = values.data_alta
+          ? values.data_alta.format("YYYY-MM-DD")
+          : moment().format("YYYY-MM-DD");
 
-          fetchAPI(
-            fetchURL,
-            () => {
-              setConfirmLoading(false);
-              message.success(`El soci s'ha afegit correctament.`);
-              if (typeof callback === "function") callback();
-            },
-            dispatch,
-            { method: "POST", body: JSON.stringify(values) }
-          );
-        } else {
-          handleErrorProteccio();
-        }
+        fetchAPI(
+          fetchURL,
+          () => {
+            setConfirmLoading(false);
+            message.success(`El soci s'ha afegit correctament.`);
+            if (typeof callback === "function") callback();
+          },
+          dispatch,
+          { method: "POST", body: JSON.stringify(values) }
+        );
       })
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (_) => setCurrentPageIndex(0);
-
-  const handleErrorProteccio = () => {
-    setCurrentPageIndex(1);
-    setAlertProteccio(true);
-  };
+  const handleValidateError = (_) => setCurrentPageIndex(1);
 
   const handleChange = async (pageIndex) => {
-    try {
-      const {
-        nom,
-        cognoms,
-        accepta_proteccio_dades,
-      } = await form.validateFields();
+    if (pageIndex > 1)
+      try {
+        const { nom, cognoms } = await form.validateFields();
 
-      if (pageIndex > 1 && !accepta_proteccio_dades) {
-        handleErrorProteccio();
+        if (pageIndex === 3) getUsername({ nom, cognoms });
+      } catch (error) {
+        handleValidateError(error);
         return;
       }
-
-      if (pageIndex === 3) getUsername({ nom, cognoms });
-    } catch (error) {
-      handleValidateError(error);
-      return;
-    }
 
     setCurrentPageIndex(pageIndex);
   };
@@ -90,27 +74,49 @@ export default (onSuccessCallback, fetchURL = "/api/socis") => {
   const previous = async () => await handleChange(currentPageIndex - 1);
 
   const footerActions = [
-    currentPageIndex > 0 ? (
-      <Button key="previous" onClick={previous}>
-        Anterior
-      </Button>
-    ) : (
-      ""
-    ),
-    currentPageIndex < steps.length - 1 ? (
-      <Button key="next" type="primary" onClick={next}>
-        Següent
-      </Button>
-    ) : (
-      <Button
-        key="ok"
-        type="primary"
-        onClick={() => handleOk(onSuccessCallback)}
-        loading={confirmLoading}
-      >
-        Afegeix
-      </Button>
-    ),
+    <div key="footer" style={{ display: "flex" }}>
+      <div style={{ flex: 1, textAlign: "start" }}>
+        {currentPageIndex > 0 ? (
+          <Button key="previous" onClick={previous}>
+            Anterior
+          </Button>
+        ) : (
+          ""
+        )}
+      </div>
+      <Space>
+        {currentPageIndex === 2 ? (
+          <Button
+            key="next"
+            onClick={() => next().then(() => setAcceptaDretsImatge(false))}
+          >
+            No accepto
+          </Button>
+        ) : (
+          ""
+        )}
+        {currentPageIndex < steps.length - 1 ? (
+          <Button
+            key="next"
+            type="primary"
+            onClick={() => next().then(() => setAcceptaDretsImatge(true))}
+          >
+            {currentPageIndex === 0 || currentPageIndex === 2
+              ? "Ho he llegit i dono el meu consentiment"
+              : "Següent"}
+          </Button>
+        ) : (
+          <Button
+            key="ok"
+            type="primary"
+            onClick={() => handleOk(onSuccessCallback)}
+            loading={confirmLoading}
+          >
+            Afegeix
+          </Button>
+        )}
+      </Space>
+    </div>,
   ];
 
   return {
@@ -120,9 +126,8 @@ export default (onSuccessCallback, fetchURL = "/api/socis") => {
     handleChange,
     currentPageIndex,
     setCurrentPageIndex,
-    alertProteccio,
-    setAlertProteccio,
     username,
     loadingUsername,
+    acceptaDretsImatge,
   };
 };

@@ -1,5 +1,5 @@
 import { LeftOutlined } from "@ant-design/icons";
-import { Button, Divider, Space } from "antd";
+import { Button, Divider } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
@@ -16,10 +16,9 @@ export default () => {
     footerActions,
     handleChange,
     currentPageIndex,
-    alertProteccio,
-    setAlertProteccio,
     username,
     loadingUsername,
+    acceptaDretsImatge,
   } = useStepsAfegirSoci(() => {
     localStorage.removeItem("access-token");
     history.push({ pathname: "/inicia-sessio", state: { username } });
@@ -45,13 +44,10 @@ export default () => {
           handleChange={handleChange}
           username={username}
           loadingUsername={loadingUsername}
-          alertProteccio={alertProteccio}
-          setAlertProteccio={setAlertProteccio}
+          acceptaDretsImatge={acceptaDretsImatge}
           initialValues={{ email }}
         />
-        <div className="signin-footer-actions">
-          <Space>{footerActions}</Space>
-        </div>
+        <div className="signin-footer-actions">{footerActions}</div>
       </div>
     </Container>
   ) : (
