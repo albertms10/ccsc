@@ -6,7 +6,7 @@ import { logoutRemoveUser } from "../../../../redux";
 import "./user-dropdown.css";
 
 export default () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
 
   return (
@@ -16,7 +16,7 @@ export default () => {
       overlay={
         <Menu>
           <Menu.Item>
-            <Link to={`/socis/${currentUser.id}`}>Perfil</Link>
+            <Link to={`/socis/${currentUser.id_persona}`}>Perfil</Link>
           </Menu.Item>
           <Menu.Divider />
           <Menu.Item onClick={() => dispatch(logoutRemoveUser())}>

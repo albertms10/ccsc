@@ -5,6 +5,7 @@
  * @property {string} nom
  * @property {string} cognoms
  * @property {boolean} es_dona
+ * @property {number} id_persona
  * @property {string | string[]} roles
  * @property {string} [salt]
  * @property {string} [encrypted_password]
