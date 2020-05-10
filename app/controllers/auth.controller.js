@@ -16,13 +16,14 @@ exports.signin = (req, res, next) => {
       },
     });
 
-  // TODO Aquesta consulta hauria d'estar a un endpoint concret?
   pool.query(
     `SELECT id_usuari AS id,
               username,
               nom,
               cognoms,
               es_dona,
+              id_persona,
+              accepta_proteccio_dades,
               salt,
               encrypted_password,
               (
@@ -80,6 +81,8 @@ exports.signin = (req, res, next) => {
             nom: user.nom,
             cognoms: user.cognoms,
             es_dona: user.es_dona,
+            id_persona: user.id_persona,
+            accepta_proteccio_dades: user.accepta_proteccio_dades,
             roles: authorities,
           },
           accessToken,
@@ -120,7 +123,9 @@ exports.email_espera = (req, res, next) => {
       }
 
       pool.query(
-        `SELECT COUNT(*) AS count_persones FROM persones WHERE ?;`,
+        `SELECT COUNT(*) AS count_persones
+           FROM persones
+           WHERE ?;`,
         { email },
         (err, [{ count_persones: count }]) => {
           if (err) next(err);
