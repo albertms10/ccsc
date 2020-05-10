@@ -14,10 +14,18 @@ import React, { cloneElement } from "react";
  * @param {('middle'|'large')} [size]
  * @param {number} [statusId]
  * @param {boolean} [esAniversari=false]
+ * @param {string} [label]
  * @param {Object} [style]
  * @returns {React.Component}
  */
-export default ({ tooltip, size, statusId, esAniversari = false, style }) => {
+export default ({
+  tooltip,
+  size,
+  statusId,
+  esAniversari = false,
+  label,
+  style,
+}) => {
   const status = [
     <CheckCircleTwoTone twoToneColor="#52c41a" />,
     <QuestionCircleTwoTone twoToneColor="#1890ff" />,
@@ -39,6 +47,7 @@ export default ({ tooltip, size, statusId, esAniversari = false, style }) => {
       ) : (
         ""
       )}
+      {label ? <span style={{ marginLeft: ".5rem" }}>{label}</span> : ""}
     </Tooltip>
   );
 };

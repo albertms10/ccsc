@@ -2,7 +2,7 @@ import { Popover, Tag } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { CalendarEventPopover } from "../calendar-event-popover";
-import { StatusBadge } from "../status-badge";
+import { StatusIcon } from "../status-icon";
 
 import "./calendar-tag.css";
 
@@ -27,7 +27,7 @@ export default ({ childKey, event }) => {
         key={childKey}
         style={{ opacity: moment().isAfter(event.data_inici) ? 0.6 : 1 }}
       >
-        <StatusBadge
+        <StatusIcon
           tooltip={event.estat_esdeveniment}
           esAniversari={event.tipus === "aniversari"}
           statusId={event.id_estat_esdeveniment}

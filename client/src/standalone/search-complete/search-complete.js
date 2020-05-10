@@ -2,7 +2,7 @@ import { AutoComplete, Input, Space } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
 import { CalendarAvatar } from "../calendar-avatar";
-import { StatusBadge } from "../status-badge";
+import { StatusIcon } from "../status-icon";
 import "./search-complete.css";
 
 const { Search } = Input;
@@ -24,7 +24,7 @@ export default ({ data, onSelect }) => {
         label: (
           <div className="search-complete-item">
             <Space>
-              <StatusBadge
+              <StatusIcon
                 tooltip={option.estat_esdeveniment}
                 statusId={option.id_estat_esdeveniment}
                 esAniversari={option.tipus === "aniversari"}

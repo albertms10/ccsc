@@ -4,7 +4,7 @@ import moment from "moment";
 import React from "react";
 import { upperCaseFirst } from "../../utils";
 import { BorderlessButton } from "../borderless-button";
-import { StatusBadge } from "../status-badge";
+import { StatusIcon } from "../status-icon";
 
 import "./calendar-event-popover.css";
 import { EventLineItem } from "./event-line-item";
@@ -17,7 +17,7 @@ export default ({ event }) => (
           <EventLineItem
             icon={
               event.tipus === "aniversari" ? (
-                <StatusBadge
+                <StatusIcon
                   size="large"
                   esAniversari={event.tipus === "aniversari"}
                 />
@@ -54,7 +54,7 @@ export default ({ event }) => (
               ) : null}
             </div>
             {event.tipus !== "aniversari" ? (
-              <StatusBadge
+              <StatusIcon
                 tooltip={event.estat_esdeveniment}
                 statusId={event.id_estat_esdeveniment}
               />
