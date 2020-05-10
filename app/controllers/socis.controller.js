@@ -65,9 +65,12 @@ exports.socis_detall = (req, res, next) => {
     [id_soci],
     (err, [user]) => {
       if (err) next(err);
-      user.accepta_proteccio_dades = !!user.accepta_proteccio_dades;
-      user.accepta_drets_imatge = !!user.accepta_drets_imatge;
-      res.send(user);
+      if (user) {
+        user.accepta_proteccio_dades = !!user.accepta_proteccio_dades;
+        user.accepta_drets_imatge = !!user.accepta_drets_imatge;
+        res.send(user);
+      }
+      res.end();
     }
   );
 };
@@ -194,6 +197,16 @@ exports.socis_post = (req, res, next) => {
             (err) => {
               if (err) next(err);
               console.log("1 record inserted into `historial_socis`");
+
+              pool.query(
+                `DELETE
+                   FROM emails_espera
+                   WHERE ?;`,
+                { email },
+                (err) => {
+                  if (err) next(err);
+                }
+              );
             }
           );
         }

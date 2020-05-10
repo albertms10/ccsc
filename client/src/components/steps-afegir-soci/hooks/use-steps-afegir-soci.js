@@ -13,7 +13,7 @@ const steps = [
   "Resum",
 ];
 
-export default (fetchURL = "/api/socis", onSuccessCallback) => {
+export default (onSuccessCallback, fetchURL = "/api/socis") => {
   const dispatch = useDispatch();
 
   const [confirmLoading, setConfirmLoading] = useState(false);

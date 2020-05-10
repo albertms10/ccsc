@@ -20,10 +20,10 @@ export default () => {
     setAlertProteccio,
     username,
     loadingUsername,
-  } = useStepsAfegirSoci("/api/alta-soci", () => {
+  } = useStepsAfegirSoci(() => {
     localStorage.removeItem("access-token");
     history.push({ pathname: "/inicia-sessio", state: { username } });
-  });
+  }, "/api/alta-soci");
 
   return inWaitingList ? (
     <Container className="signin-container">

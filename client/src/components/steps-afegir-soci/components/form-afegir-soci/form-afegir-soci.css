@@ -12,3 +12,7 @@
 .form-afegir-soci .ant-collapse-content-box {
   padding-bottom: 0;
 }
+
+.form-afegir-soci .ant-alert {
+  margin-top: 1rem;
+}
