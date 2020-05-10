@@ -53,11 +53,15 @@ const verifyEmailToken = (req, res, next) => {
     });
 
   verifyJWT(accessToken, (err, decoded) => {
+    console.log(email, decoded.email);
     if (err || email !== decoded.email)
       return res.status(401).send({
         error: {
           status: 401,
-          message: "Sense autorizació",
+          message:
+            email !== decoded.email
+              ? "Les adreces de correu no coincideixen"
+              : "Sense autorizació",
         },
       });
 
