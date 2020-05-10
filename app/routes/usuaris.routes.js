@@ -6,7 +6,6 @@ module.exports = (app) => {
 
   app.get(
     "/api/usuaris/:username/first-available-num",
-    [authJWT.verifyAccessToken],
     controller.usuaris_detall_firstavailablenum
   );
 
