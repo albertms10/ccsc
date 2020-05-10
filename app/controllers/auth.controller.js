@@ -39,12 +39,16 @@ exports.signin = (req, res, next) => {
     (err, [user]) => {
       if (err) next(err);
 
-      const { hash } = saltHashPassword({
-        password,
-        salt: user.salt,
-      });
+      let passwordIsValid = false;
 
-      const passwordIsValid = hash === user.encrypted_password;
+      if (user) {
+        const { hash } = saltHashPassword({
+          password,
+          salt: user.salt,
+        });
+
+        passwordIsValid = hash === user.encrypted_password;
+      }
 
       if (!user || !passwordIsValid)
         return res.status(401).send({
