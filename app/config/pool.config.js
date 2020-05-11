@@ -3,11 +3,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  connectionLimit: process.env.DB_LIMIT,
+  host: process.env.JAWSDB_HOST,
+  user: process.env.JAWSDB_USER,
+  password: process.env.JAWSDB_PASS,
+  database: process.env.JAWSDB_NAME,
+  connectionLimit: process.env.JAWSDB_LIMIT,
   multipleStatements: true,
 });
 
