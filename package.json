@@ -9,7 +9,7 @@
   "main": "server",
   "scripts": {
     "client-install": "cd client && npm install",
-    "start": "node server",
+    "start": "NPM_CONFIG_PRODUCTION=false node server",
     "build": "cd client && npm install && npm run build",
     "server": "nodemon server",
     "client": "npm start --prefix client",
