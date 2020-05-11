@@ -1,9 +1,6 @@
 const express = require("express");
 const app = express();
 
-const PORT = 5000;
-const HOST = "localhost";
-
 process
   .on("unhandledRejection", (reason, p) => {
     console.error(reason, "Unhandled Rejection at Promise", p);
@@ -41,5 +38,8 @@ require("./app/routes/socis.routes")(app);
 require("./app/routes/titulars.routes")(app);
 require("./app/routes/usuaris.routes")(app);
 
+const PORT = process.env.PORT || 5000;
+const HOST = "0.0.0.0";
+
 app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+console.log(`Running on http://localhost:${PORT}`);
