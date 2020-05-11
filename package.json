@@ -1,8 +1,10 @@
 {
   "name": "ccsc",
   "version": "0.1.0",
-  "private": true,
   "description": "Cor de Cambra Sant Cugat",
+  "engines": {
+    "node": "12.x"
+  },
   "main": "server",
   "scripts": {
     "client-install": "cd client && npm install",
