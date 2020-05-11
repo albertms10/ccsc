@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "description": "Cor de Cambra Sant Cugat",
-  "main": "server.js",
+  "main": "server",
   "scripts": {
     "client-install": "cd client && npm install",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node server",
+    "build": "cd client && npm install && npm run build",
+    "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
