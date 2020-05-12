@@ -14,6 +14,8 @@ process
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",
