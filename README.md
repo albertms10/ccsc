@@ -1,7 +1,7 @@
 # Desenvolupament d’una aplicació web per a la gestió d’una associació musical
 
 Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat.
-Desplegament del programari disponible a [cor-de-cambra-sant-cugat.herokuapp.com](https://cor-de-cambra-sant-cugat.herokuapp.com).
+Desplegament del programari disponible a [cordecambrasantcugat.herokuapp.com](https://cordecambrasantcugat.herokuapp.com).
 
 ## Base de dades
 
