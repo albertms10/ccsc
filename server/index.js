@@ -14,7 +14,7 @@ process
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.use((req, res, next) => {
   res.header(
@@ -42,7 +42,7 @@ require("./routes/titulars.routes")(app);
 require("./routes/usuaris.routes")(app);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
