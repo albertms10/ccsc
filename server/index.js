@@ -24,22 +24,22 @@ app.use((req, res, next) => {
   next();
 });
 
-const pool = require("./app/config/pool.config");
+const pool = require("./config/pool.config");
 app.set("pool", pool);
 
 // Routes
-require("./app/routes/agrupacions.routes")(app);
-require("./app/routes/assajos.routes")(app);
-require("./app/routes/associacio.routes")(app);
-require("./app/routes/auth.routes")(app);
-require("./app/routes/concerts.routes")(app);
-require("./app/routes/esdeveniments.routes")(app);
-require("./app/routes/establiments.routes")(app);
-require("./app/routes/localitzacions.routes")(app);
-require("./app/routes/projectes.routes")(app);
-require("./app/routes/socis.routes")(app);
-require("./app/routes/titulars.routes")(app);
-require("./app/routes/usuaris.routes")(app);
+require("./routes/agrupacions.routes")(app);
+require("./routes/assajos.routes")(app);
+require("./routes/associacio.routes")(app);
+require("./routes/auth.routes")(app);
+require("./routes/concerts.routes")(app);
+require("./routes/esdeveniments.routes")(app);
+require("./routes/establiments.routes")(app);
+require("./routes/localitzacions.routes")(app);
+require("./routes/projectes.routes")(app);
+require("./routes/socis.routes")(app);
+require("./routes/titulars.routes")(app);
+require("./routes/usuaris.routes")(app);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
