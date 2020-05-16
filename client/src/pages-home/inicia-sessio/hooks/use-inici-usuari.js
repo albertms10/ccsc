@@ -4,15 +4,15 @@ import { useHistory, useLocation } from "react-router-dom";
 import { getProfileFetch } from "../../../redux";
 
 export default () => {
-  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const currentUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
-    setLoading(true);
-    dispatch(getProfileFetch()).finally(() => setLoading(false));
+    setFetching(true);
+    dispatch(getProfileFetch()).finally(() => setFetching(false));
   }, [dispatch]);
 
   useEffect(() => {
@@ -28,5 +28,5 @@ export default () => {
     }
   });
 
-  return [loading, dispatch];
+  return [fetching, dispatch];
 };

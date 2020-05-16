@@ -1,6 +1,6 @@
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, message, Typography } from "antd";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { LogoCorDeCambra } from "../../assets/icons";
@@ -12,13 +12,18 @@ import "./inicia-sessio.css";
 const { Paragraph } = Typography;
 
 export default () => {
-  const [loading, dispatch] = useIniciUsuari();
+  const [fetching, dispatch] = useIniciUsuari();
+  const [loading, setLoading] = useState(false);
   const error = useSelector((state) => state.user.error);
   const { state: locationState } = useLocation();
 
-  const onFinish = useCallback((values) => dispatch(signinUserFetch(values)), [
-    dispatch,
-  ]);
+  const onFinish = useCallback(
+    (values) => {
+      setLoading(true);
+      dispatch(signinUserFetch(values));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (error.status >= 400 && error.status < 500)
@@ -27,7 +32,7 @@ export default () => {
   }, [error]);
 
   return (
-    !loading && (
+    !fetching && (
       <Container className="signin-container">
         <div className="signin-form-wrapper tight">
           <Link to="/">
@@ -92,6 +97,7 @@ export default () => {
                 type="primary"
                 htmlType="submit"
                 className="signin-form-button"
+                loading={loading}
               >
                 Inicia sessió
               </Button>
