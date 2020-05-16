@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
 
 export default ({ component, ...rest }) => {
-  const user = useSelector((store) => store.user.currentUser);
+  const user = useSelector(({ user }) => user.currentUser);
   const Component = component;
   const prevLocation = useLocation();
 
   return (
     <Route
       {...rest}
-      render={() => {
-        return user.hasOwnProperty("id") ? (
+      render={() =>
+        user.hasOwnProperty("id") ? (
           <Component />
         ) : (
           <Redirect
@@ -21,8 +21,8 @@ export default ({ component, ...rest }) => {
               state: { prevLocation },
             }}
           />
-        );
-      }}
+        )
+      }
     />
   );
 };
