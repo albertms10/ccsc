@@ -74,10 +74,14 @@ exports.usuaris_detall_firstavailablenum = (req, res, next) => {
   const username = req.params.username;
 
   pool.query(
-    `SELECT MAX(CAST(REGEXP_SUBSTR(username, '[0-9]*$') AS UNSIGNED)) + 1 AS first_available_num
+    `SELECT MAX(
+                      CAST(
+                              SUBSTR(username, LOCATE(?, username) + LENGTH(?)) AS UNSIGNED
+                          )
+                  ) + 1 AS first_available_num
        FROM usuaris
-       WHERE REGEXP_SUBSTR(username, '[a-zA-Z.]+') = ?;`,
-    [username],
+       WHERE LOCATE(?, username) = 1;`,
+    [username, username, username],
     (err, [{ first_available_num }]) => {
       if (err) next(err);
       res.json(parseInt(first_available_num) || 0);
