@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS socis
 
     experiencia_coral TEXT,
     estudis_musicals  TEXT,
-    id_veu            CHAR(1), /* TODO id_veu a `persones`, `socis` o `socis_agrpuacions`? */
+    id_veu            CHAR(1), /* TODO id_veu a `socis_agrpuacions` -> _veus i _instruments */
 
     PRIMARY KEY (id_soci),
     FOREIGN KEY (id_soci) REFERENCES persones (id_persona),
