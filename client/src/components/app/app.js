@@ -3,7 +3,7 @@ import caES from "antd/es/locale/ca_ES";
 import moment from "moment";
 import "moment/locale/ca";
 import React from "react";
-import { Provider } from "react-redux";
+import { Provider as StoreProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { IniciaSessio } from "../../pages-home/inicia-sessio";
 import { DonarAlta } from "../../pages-home/inicia-sessio/components/donar-alta";
@@ -17,7 +17,7 @@ import { RouteTauler } from "./components/route-tauler";
 moment.locale("ca");
 
 export default () => (
-  <Provider store={store}>
+  <StoreProvider store={store}>
     <ConfigProvider locale={caES}>
       <BrowserRouter>
         <Switch>
@@ -38,5 +38,5 @@ export default () => (
         </Switch>
       </BrowserRouter>
     </ConfigProvider>
-  </Provider>
+  </StoreProvider>
 );
