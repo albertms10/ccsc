@@ -1,5 +1,49 @@
 const { saltHashPassword, signJWT } = require("../utils");
 
+const trySendUser = (
+  res,
+  next,
+  {
+    id,
+    username,
+    nom,
+    cognoms,
+    es_dona,
+    id_persona,
+    accepta_proteccio_dades,
+    roles,
+  },
+  accessToken
+) => {
+  /** @type {string[]} */
+  let authorities = [];
+  try {
+    authorities = JSON.parse(roles).map((role) => "ROLE_" + role.toUpperCase());
+
+    res.status(200).send({
+      user: {
+        id,
+        username,
+        nom,
+        cognoms,
+        es_dona,
+        id_persona,
+        accepta_proteccio_dades,
+        roles: authorities,
+      },
+      accessToken,
+    });
+  } catch (e) {
+    next(e);
+    res.status(500).send({
+      error: {
+        status: 500,
+        message: "Hi ha hagut un error en el processament dels rols d’usuari.",
+      },
+    });
+  }
+};
+
 exports.signin = (req, res, next) => {
   const pool = req.app.get("pool");
 
@@ -63,36 +107,7 @@ exports.signin = (req, res, next) => {
         expiresIn: 10800, // 3 h
       });
 
-      /** @type {string[]} */
-      let authorities = [];
-      try {
-        authorities = JSON.parse(user.roles).map(
-          (role) => "ROLE_" + role.toUpperCase()
-        );
-
-        res.status(200).send({
-          user: {
-            id: user.id,
-            username: user.username,
-            nom: user.nom,
-            cognoms: user.cognoms,
-            es_dona: user.es_dona,
-            id_persona: user.id_persona,
-            accepta_proteccio_dades: user.accepta_proteccio_dades,
-            roles: authorities,
-          },
-          accessToken,
-        });
-      } catch (e) {
-        next(e);
-        res.status(500).send({
-          error: {
-            status: 500,
-            message:
-              "Hi ha hagut un error en el processament dels rols d’usuari.",
-          },
-        });
-      }
+      trySendUser(res, next, user, accessToken);
     }
   );
 };
@@ -135,6 +150,47 @@ exports.email_espera = (req, res, next) => {
           });
         }
       );
+    }
+  );
+};
+
+exports.userInfo = (req, res, next) => {
+  const pool = req.app.get("pool");
+
+  /** @type {number} */
+  const id = req.userId;
+  /** @type {string} */
+  const accessToken = req.headers["x-access-token"];
+
+  pool.query(
+    `SELECT id_usuari AS id,
+              username,
+              nom,
+              cognoms,
+              es_dona,
+              id_persona,
+              accepta_proteccio_dades,
+              (
+                  SELECT JSON_ARRAYAGG(role)
+                  FROM roles_usuaris
+                           INNER JOIN roles USING (id_role)
+                  WHERE id_usuari = (SELECT usuaris.id_usuari)
+              )         AS roles
+       FROM usuaris
+                LEFT JOIN persones USING (id_persona)
+       WHERE id_usuari = ?`,
+    [id],
+    (err, [user]) => {
+      if (err) next(err);
+
+      if (user) return trySendUser(res, next, user, accessToken);
+
+      res.status(404).send({
+        error: {
+          status: 404,
+          message: "L’usuari no s’ha trobat.",
+        },
+      });
     }
   );
 };
