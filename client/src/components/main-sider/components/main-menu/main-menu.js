@@ -1,6 +1,9 @@
 import {
+  BookOutlined,
   HomeOutlined,
   LoadingOutlined,
+  ProjectOutlined,
+  ReadOutlined,
   ScheduleOutlined,
   SolutionOutlined,
   TeamOutlined,
@@ -25,7 +28,15 @@ import "./main-menu.css";
 const { Item, ItemGroup } = Menu;
 
 export default () => {
-  const initialPaths = ["/", "/socis", "/reunions", "/pagaments"];
+  const initialPaths = [
+    "/",
+    "/socis",
+    "/projectes",
+    "/assajos",
+    "/obres",
+    "/reunions",
+    "/pagaments",
+  ];
 
   const [menuPosition, setMenuPosition] = useState("");
   const [paths, setPaths] = useState(initialPaths);
@@ -68,6 +79,27 @@ export default () => {
       title: "Agrupacions",
       loading: loadingAgrupacions,
       groupedItems: itemsAgrupacions,
+    },
+    {
+      key: "grup_gestio_musical",
+      title: "Gestió musical",
+      groupedItems: [
+        {
+          title: "Projectes",
+          icon: <ProjectOutlined />,
+          path: "/projectes",
+        },
+        {
+          title: "Assajos",
+          icon: <BookOutlined />,
+          path: "/assajos",
+        },
+        {
+          title: "Obres",
+          icon: <ReadOutlined />,
+          path: "/obres",
+        },
+      ],
     },
     {
       key: "grup_associacio",
