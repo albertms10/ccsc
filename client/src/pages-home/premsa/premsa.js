@@ -1,4 +1,4 @@
 import React from "react";
-import { PageSkeleton } from "../../components/page-skeleton";
+import { PageSkeleton } from "../../components/home-app/components/page-skeleton";
 
 export default () => <PageSkeleton title="Premsa" />;

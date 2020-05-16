@@ -14,9 +14,9 @@ import React from "react";
 import Media from "react-media";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchAPI } from "../../helpers";
-import { BorderlessButton } from "../../standalone/borderless-button";
-import { closestTimeValue } from "../../utils";
+import { fetchAPI } from "../../../../helpers";
+import { BorderlessButton } from "../../../../standalone/borderless-button";
+import { closestTimeValue } from "../../../../utils";
 import { useSearchSocis } from "./hooks";
 import "./taula-socis.css";
 

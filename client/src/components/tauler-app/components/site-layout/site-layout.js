@@ -6,10 +6,10 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import { Agrupacio } from "../../../../pages-tauler/agrupacio";
 import { Inici } from "../../../../pages-tauler/inici";
 import { Socis } from "../../../../pages-tauler/socis";
-import { PerfilSoci } from "../../../../pages-tauler/socis/components/perfil-soci";
+import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
 import { kebabCase } from "../../../../utils";
 import { Authorized } from "../../../authorized";
-import { UserDropdown } from "../../../main-sider/components/user-dropdown";
+import { UserDropdown } from "../user-dropdown";
 import {
   AgrupacionsListContext,
   LoadingAgrupacionsContext,

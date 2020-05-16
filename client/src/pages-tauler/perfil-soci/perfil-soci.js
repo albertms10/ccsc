@@ -1,9 +1,9 @@
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SetPageHeaderContext } from "../../../../components/tauler-app/components/site-layout/site-layout";
-import { Container } from "../../../../standalone/container";
-import { initials } from "../../../../utils";
+import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { Container } from "../../standalone/container";
+import { initials } from "../../utils";
 import { SociTabAssociacio } from "./components/soci-tab-associacio";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";

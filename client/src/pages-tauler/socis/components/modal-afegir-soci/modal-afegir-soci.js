@@ -1,8 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import { StepsAfegirSoci } from "../steps-afegir-soci";
-import { useStepsAfegirSoci } from "../steps-afegir-soci/hooks";
+import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
+import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
 
 export default ({ getSocis }) => {
   const [visible, setVisible] = useState(false);
@@ -25,11 +25,13 @@ export default ({ getSocis }) => {
     })
   );
 
-  const showModal = () => setVisible(true);
-
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => setVisible(true)}
+      >
         Afegeix un soci
       </Button>
       <Modal
