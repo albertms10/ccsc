@@ -6,9 +6,7 @@
  */
 export default (value, unit = "s") => {
   const units = ["s", "min", "h", "d", "m", "y"];
-  const strTime = ["segon", "minut", "hora", "dia", "mes", "any"];
-  const strTimes = ["segons", "minuts", "hores", "dies", "mesos", "anys"];
-  const durations = ["60", "60", "24", "30", "12", "10"];
+  const durations = [60, 60, 24, 30, 12, 10];
 
   let num = value;
   let i;
@@ -22,5 +20,9 @@ export default (value, unit = "s") => {
   }
 
   num = Math.round(num);
-  return `${num} ${num === 1 ? strTime[i] : strTimes[i]}`;
+  return `${num} ${
+    num === 1
+      ? ["segon", "minut", "hora", "dia", "mes", "any"][i]
+      : ["segons", "minuts", "hores", "dies", "mesos", "anys"][i]
+  }`;
 };
