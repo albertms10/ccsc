@@ -2,7 +2,7 @@
   display: flex;
   overflow: auto;
   height: 100vh;
-  padding: var(--horizontal-inset);
+  padding: 2rem var(--horizontal-inset);
   background-color: var(--background-color);
 }
 
@@ -31,6 +31,10 @@
 }
 
 @media only screen and (max-width: 575.98px) {
+  .signin-container {
+    padding: var(--horizontal-inset);
+  }
+
   .signin-container .signin-form-wrapper,
   .signin-container .signin-form-wrapper .signin-form {
     width: 100%;
