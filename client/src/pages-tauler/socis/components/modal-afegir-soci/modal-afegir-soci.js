@@ -13,10 +13,6 @@ export default ({ getSocis }) => {
     handleChange,
     currentPageIndex,
     setCurrentPageIndex,
-    alertProteccio,
-    setAlertProteccio,
-    username,
-    loadingUsername,
   } = useStepsAfegirSoci(() =>
     getSocis(() => {
       setVisible(false);
@@ -46,10 +42,6 @@ export default ({ getSocis }) => {
           form={form}
           currentPageIndex={currentPageIndex}
           handleChange={handleChange}
-          username={username}
-          loadingUsername={loadingUsername}
-          alertProteccio={alertProteccio}
-          setAlertProteccio={setAlertProteccio}
         />
       </Modal>
     </>

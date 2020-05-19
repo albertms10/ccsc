@@ -2,7 +2,7 @@
   display: flex;
   overflow: auto;
   height: 100vh;
-  padding: 2rem;
+  padding: var(--horizontal-inset);
   background-color: var(--background-color);
 }
 
@@ -22,14 +22,15 @@
 
 .signin-form-wrapper.tight {
   width: 360px;
-  transform: translateY(-1rem);
+}
+
+@media only screen and (min-width: 576px) {
+  .signin-form-wrapper.tight {
+    transform: translateY(-1rem);
+  }
 }
 
 @media only screen and (max-width: 575.98px) {
-  .signin-form-wrapper {
-    transform: translateY(-1rem);
-  }
-
   .signin-container .signin-form-wrapper,
   .signin-container .signin-form-wrapper .signin-form {
     width: 100%;

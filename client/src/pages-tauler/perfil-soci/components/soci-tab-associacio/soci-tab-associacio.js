@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import {
   textDretsImatge,
   textProteccioDades,
-} from "../../../../components/steps-afegir-soci/components/form-afegir-soci/form-afegir-soci";
+} from "../../../../components/steps-afegir-soci/hooks/use-steps-afegir-soci";
 import { SettingCard } from "../../../../standalone/setting-card";
 import { SociContext } from "../../perfil-soci";
 import { useAcceptaDretsImatge, useAcceptaProteccioDades } from "./hooks";

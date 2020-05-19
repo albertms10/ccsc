@@ -3,7 +3,13 @@ import React from "react";
 import { SettingCard } from "../../../../standalone/setting-card";
 import { StatusIcon } from "../../../../standalone/status-icon";
 
-export default ({ data, username, loadingUsername, acceptaDretsImatge }) => (
+export default ({
+  data,
+  username,
+  loadingUsername,
+  acceptaProteccioDades,
+  acceptaDretsImatge,
+}) => (
   <Space direction="vertical">
     <SettingCard
       title="Dades personals"
@@ -74,7 +80,10 @@ export default ({ data, username, loadingUsername, acceptaDretsImatge }) => (
       info={
         <Descriptions size="small">
           <Descriptions.Item label="Protecció de dades">
-            <StatusIcon statusId={1} label={"Accepto"} />
+            <StatusIcon
+              statusId={acceptaProteccioDades ? 1 : 3}
+              label={acceptaProteccioDades ? "Accepto" : "No accepto"}
+            />
           </Descriptions.Item>
           <Descriptions.Item label="Drets d’imatge">
             <StatusIcon

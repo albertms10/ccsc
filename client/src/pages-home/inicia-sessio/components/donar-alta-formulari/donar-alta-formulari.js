@@ -17,12 +17,14 @@ export default () => {
     handleChange,
     currentPageIndex,
     username,
-    loadingUsername,
-    acceptaDretsImatge,
-  } = useStepsAfegirSoci(() => {
-    localStorage.removeItem("access-token");
-    history.push({ pathname: "/inicia-sessio", state: { username } });
-  }, "/api/alta-soci");
+  } = useStepsAfegirSoci(
+    () => {
+      localStorage.removeItem("access-token");
+      history.push({ pathname: "/inicia-sessio", state: { username } });
+    },
+    true,
+    "/api/alta-soci"
+  );
 
   return inWaitingList ? (
     <Container className="signin-container">
@@ -42,9 +44,6 @@ export default () => {
           form={form}
           currentPageIndex={currentPageIndex}
           handleChange={handleChange}
-          username={username}
-          loadingUsername={loadingUsername}
-          acceptaDretsImatge={acceptaDretsImatge}
           initialValues={{ email }}
         />
         <div className="signin-footer-actions">{footerActions}</div>

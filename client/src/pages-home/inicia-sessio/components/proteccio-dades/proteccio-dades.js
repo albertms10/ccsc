@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { LogoCorDeCambra } from "../../../../assets/icons";
-import { textProteccioDades } from "../../../../components/steps-afegir-soci/components/form-afegir-soci/form-afegir-soci";
+import { textProteccioDades } from "../../../../components/steps-afegir-soci/hooks/use-steps-afegir-soci";
 import { logoutRemoveUser } from "../../../../redux";
 import { Container } from "../../../../standalone/container";
 import { SettingCard } from "../../../../standalone/setting-card";

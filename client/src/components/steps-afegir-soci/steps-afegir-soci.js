@@ -1,6 +1,6 @@
-import { Steps } from "antd";
+import { Form, Steps } from "antd";
+import moment from "moment";
 import React from "react";
-import { FormAfegirSoci } from "./components/form-afegir-soci";
 import "./steps-afegir-soci.css";
 
 const { Step } = Steps;
@@ -10,28 +10,29 @@ export default ({
   form,
   currentPageIndex,
   handleChange,
-  username,
-  loadingUsername,
   initialValues,
-  acceptaDretsImatge,
-}) => {
-  return (
-    <>
-      <Steps current={currentPageIndex} size="small" onChange={handleChange}>
-        {steps.map((step) => (
-          <Step key={step} title={step} />
+}) => (
+  <>
+    <Steps current={currentPageIndex} size="small" onChange={handleChange}>
+      {steps.map(({ key, title }) => (
+        <Step key={key} title={title} />
+      ))}
+    </Steps>
+    <div className="steps-content">
+      <Form
+        className="form-afegir-soci"
+        colon={false}
+        form={form}
+        initialValues={{ ...initialValues, data_alta: moment() }}
+      >
+        {steps.map((step, index) => (
+          <div
+            style={{ display: currentPageIndex === index ? "block" : "none" }}
+          >
+            {step.content}
+          </div>
         ))}
-      </Steps>
-      <div className="steps-content">
-        <FormAfegirSoci
-          form={form}
-          currentPageIndex={currentPageIndex}
-          username={username}
-          loadingUsername={loadingUsername}
-          initialValues={initialValues}
-          acceptaDretsImatge={acceptaDretsImatge}
-        />
-      </div>
-    </>
-  );
-};
+      </Form>
+    </div>
+  </>
+);
