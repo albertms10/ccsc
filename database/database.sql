@@ -961,7 +961,7 @@ CREATE TABLE IF NOT EXISTS adreces_electroniques_associacio
     UNIQUE (direccio)
 );
 
-CREATE TABLE IF NOT EXISTS encarregats_correus_associacio
+CREATE TABLE IF NOT EXISTS encarregats_adreces_associacio
 (
     id_adreca_electronica_associacio SMALLINT UNSIGNED NOT NULL,
     id_soci                          SMALLINT UNSIGNED NOT NULL,
@@ -1042,21 +1042,82 @@ CREATE TABLE IF NOT EXISTS articles_documentacio
 
 /* TODO: Implementar paràgrafs i llistes */
 
+CREATE TABLE IF NOT EXISTS tipus_avisos
+(
+    id_tipus_avis SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    nom           VARCHAR(100)      NOT NULL,
+
+    PRIMARY KEY (id_tipus_avis)
+);
+
+CREATE TABLE IF NOT EXISTS avisos
+(
+    id_avis            SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    titol              VARCHAR(100),
+    descripcio         TEXT,
+    titol_acceptacions VARCHAR(100),
+    requerit           BOOLEAN           NOT NULL DEFAULT FALSE,
+    data_inici         DATE,
+    data_final         DATE,
+
+    id_tipus_avis      SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_avis),
+    FOREIGN KEY (id_tipus_avis) REFERENCES tipus_avisos (id_tipus_avis)
+);
+
+CREATE TABLE IF NOT EXISTS seccions_avis
+(
+    id_seccio_avis SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    titol          VARCHAR(100)      NOT NULL,
+    descripcio     TEXT              NOT NULL,
+
+    id_avis        SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_seccio_avis),
+    FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
+);
+
+CREATE TABLE IF NOT EXISTS acceptacions_avis
+(
+    id_acceptacio_avis SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    titol              VARCHAR(255)      NOT NULL,
+    descripcio         TEXT,
+    requerida          BOOLEAN           NOT NULL DEFAULT FALSE,
+
+    id_avis            SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_acceptacio_avis),
+    FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
+);
+
 /*
  Pàgina principal
  */
 
 CREATE TABLE IF NOT EXISTS titulars
 (
-    id_titular SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    titol      VARCHAR(255)      NOT NULL,
+    id_titular
+               SMALLINT
+                   UNSIGNED
+                            NOT
+                                NULL
+        AUTO_INCREMENT,
+    titol
+               VARCHAR(255) NOT NULL,
     imatge     VARCHAR(255),
     data_inici DATETIME,
     data_final DATETIME,
     link       VARCHAR(255),
     ordre      TINYINT(2),
-
-    PRIMARY KEY (id_titular)
+    PRIMARY KEY
+        (
+         id_titular
+            )
 );
 
 CREATE TABLE IF NOT EXISTS entrades
