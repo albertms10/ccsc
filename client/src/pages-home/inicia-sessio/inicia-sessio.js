@@ -12,9 +12,9 @@ import "./inicia-sessio.css";
 const { Paragraph } = Typography;
 
 export default () => {
+  const { currentUser, error } = useSelector(({ user }) => user);
   const [fetching, dispatch] = useIniciUsuari();
   const [loading, setLoading] = useState(false);
-  const error = useSelector((state) => state.user.error);
   const { state: locationState } = useLocation();
 
   const onFinish = useCallback(
@@ -26,6 +26,11 @@ export default () => {
   );
 
   useEffect(() => {
+    if (currentUser.hasOwnProperty("id")) setLoading(false);
+  }, [currentUser]);
+
+  useEffect(() => {
+    setLoading(false);
     if (error.status >= 400 && error.status < 500)
       message.warning(error.message);
     else if (error.message) message.error(error.message);
