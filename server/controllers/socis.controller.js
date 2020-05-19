@@ -135,9 +135,8 @@ exports.socis_post = (req, res, next) => {
 
   // TODO: Refaccionar amb pool.getConnection() com a transacció
   pool.query(
-    `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon,
-                             accepta_proteccio_dades, accepta_drets_imatge)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+    `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon)
+       VALUES (?, ?, ?, ?, ?, ?, ?);`,
     [
       soci.nom,
       soci.cognoms,
@@ -146,8 +145,6 @@ exports.socis_post = (req, res, next) => {
       soci.dni,
       email || soci.email,
       soci.telefon,
-      soci.accepta_proteccio_dades,
-      soci.accepta_drets_imatge,
     ],
     (err, rows_persona) => {
       if (err) next(err);
@@ -159,7 +156,6 @@ exports.socis_post = (req, res, next) => {
       const password = soci.naixement.split("-").reverse().join("-");
       const { salt, hash } = saltHashPassword({ password });
 
-      // TODO Hauria de realitzar aquesta consulta p. ex. com a POST /api/usuaris?
       pool.query(
         `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
            VALUES (?, ?, ?, ?);`,
@@ -190,6 +186,22 @@ exports.socis_post = (req, res, next) => {
           if (err) next(err);
           console.log("1 record inserted into `socis`");
 
+          Object.keys(soci.acceptacions).forEach((acceptacio) => {
+            pool.query(
+              `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+                 VALUES (?,
+                         (SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ?),
+                         ?);`,
+              [id_persona, acceptacio, soci.acceptacions[acceptacio]],
+              (err) => {
+                if (err) next(err);
+                console.log(
+                  `${acceptacio}: ${soci.acceptacions[acceptacio]} inserted into \`socis_acceptacions\``
+                );
+              }
+            );
+          });
+
           pool.query(
             `INSERT INTO historial_socis (id_historial_soci, data_alta)
                VALUES (?, ?);`,
@@ -205,6 +217,7 @@ exports.socis_post = (req, res, next) => {
                 { email },
                 (err) => {
                   if (err) next(err);
+                  console.log("1 record deleted from `emails_espera`");
                 }
               );
             }

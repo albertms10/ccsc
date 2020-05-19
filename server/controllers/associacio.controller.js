@@ -24,6 +24,7 @@ exports.associacio_protecciodades = (req, res, next) => {
               (
                   SELECT IFNULL(JSON_ARRAYAGG(
                                         JSON_OBJECT(
+                                                'id', id_seccio_avis,
                                                 'titol', titol,
                                                 'descripcio', descripcio
                                             )
@@ -35,7 +36,9 @@ exports.associacio_protecciodades = (req, res, next) => {
                   SELECT IFNULL(JSON_ARRAYAGG(
                                         JSON_OBJECT(
                                                 'titol', titol,
-                                                'descripcio', descripcio
+                                                'descripcio', descripcio,
+                                                'requerida', requerida,
+                                                'form_name', form_name
                                             )
                                     ), '[]')
                   FROM acceptacions_avis
@@ -49,7 +52,16 @@ exports.associacio_protecciodades = (req, res, next) => {
        LIMIT 1;`,
     (err, [proteccioDades]) => {
       if (err) next(err);
-      res.send(proteccioDades);
+
+      try {
+        proteccioDades.seccions = JSON.parse(proteccioDades.seccions);
+        proteccioDades.acceptacions = JSON.parse(proteccioDades.acceptacions);
+      } catch (e) {
+        next(e);
+        return res.end();
+      }
+
+      res.json(proteccioDades);
     }
   );
 };
