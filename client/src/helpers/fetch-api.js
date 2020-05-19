@@ -24,7 +24,7 @@ const modalWarn = (error, dispatch) => {
  * @param {Function} dispatch
  * @param {RequestInit} [init={}]
  */
-export default (url, callback, dispatch, init = {}) => {
+export default (url, callback, dispatch, init = {}) =>
   fetch(url, {
     method: init.method ?? "GET",
     headers: {
@@ -43,8 +43,8 @@ export default (url, callback, dispatch, init = {}) => {
           else callback(data);
         });
       else if (res.ok) callback();
+      return res;
     })
     .catch((e) => {
       message.error(e.toString());
     });
-};
