@@ -31,6 +31,7 @@ export default ({ childKey, event }) => {
           tooltip={event.estat_esdeveniment}
           esAniversari={event.tipus === "aniversari"}
           statusId={event.id_estat_esdeveniment}
+          style={{ marginRight: "0.2rem" }}
         />
         {event.hora_inici ? (
           <span className="calendar-tag-time">
