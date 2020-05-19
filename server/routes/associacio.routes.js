@@ -7,4 +7,9 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken],
     controller.associacio_get
   );
+
+  app.get(
+    "/api/associacio/proteccio-dades",
+    controller.associacio_protecciodades
+  );
 };
