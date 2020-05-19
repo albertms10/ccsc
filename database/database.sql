@@ -1088,11 +1088,23 @@ CREATE TABLE IF NOT EXISTS acceptacions_avis
     titol              VARCHAR(255)      NOT NULL,
     descripcio         TEXT,
     requerida          BOOLEAN           NOT NULL DEFAULT FALSE,
+    form_name          VARCHAR(50)       NOT NULL,
 
     id_avis            SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_acceptacio_avis),
     FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
+);
+
+CREATE TABLE IF NOT EXISTS socis_acceptacions
+(
+    id_soci            SMALLINT UNSIGNED NOT NULL,
+    id_acceptacio_avis SMALLINT UNSIGNED NOT NULL,
+    accepta            BOOLEAN           NOT NULL DEFAULT FALSE,
+
+    PRIMARY KEY (id_soci, id_acceptacio_avis),
+    FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    FOREIGN KEY (id_acceptacio_avis) REFERENCES acceptacions_avis (id_acceptacio_avis)
 );
 
 /*
