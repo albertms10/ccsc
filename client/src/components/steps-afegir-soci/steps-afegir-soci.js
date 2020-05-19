@@ -25,11 +25,12 @@ export default ({
         form={form}
         initialValues={{ ...initialValues, data_alta: moment() }}
       >
-        {steps.map((step, index) => (
+        {steps.map(({ key, content }, index) => (
           <div
+            key={key}
             style={{ display: currentPageIndex === index ? "block" : "none" }}
           >
-            {step.content}
+            {content}
           </div>
         ))}
       </Form>
