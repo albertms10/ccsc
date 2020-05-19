@@ -1,4 +1,4 @@
-import { Card, Divider, Tooltip } from "antd";
+import { Card, Divider, Spin, Tooltip } from "antd";
 import React from "react";
 import { SubHeader } from "../sub-header";
 
@@ -10,7 +10,9 @@ export default ({
   title,
   actionTooltip,
   actionItem,
+  loading = false,
   info,
+  children,
   ...rest
 }) => (
   <Card {...rest} className="setting-card">
@@ -19,10 +21,12 @@ export default ({
       <SubHeader title={title} />
       {actionItem ? <Tooltip title={actionTooltip}>{actionItem}</Tooltip> : ""}
     </div>
-    {info ? (
+    {loading ? (
+      <Spin />
+    ) : info || children ? (
       <>
         <Divider />
-        {info}
+        {info || children}
       </>
     ) : (
       ""
