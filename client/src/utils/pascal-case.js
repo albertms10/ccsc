@@ -1,4 +1,4 @@
-import { upperCaseFirst } from "./";
+import { upperCaseFirst } from "./index";
 
 /**
  * Returns the given string into Pascal case.
