@@ -20,6 +20,7 @@ import { fetchAPI } from "../../../helpers";
 import { SettingCard } from "../../../standalone/setting-card";
 import { SubHeader } from "../../../standalone/sub-header";
 import { upperCaseFirst } from "../../../utils";
+import { ProteccioDades } from "../../proteccio-dades";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { usePaisos, useUsername } from "./index";
 
@@ -120,9 +121,7 @@ export default (
       key: "proteccio",
       title: "Protecció de dades",
       selfCreationOnly: true,
-      content: (
-        <SettingCard title="Protecció de dades" info={textProteccioDades} />
-      ),
+      content: <ProteccioDades />,
     },
     {
       key: "dades",
@@ -310,7 +309,7 @@ export default (
       selfCreationOnly: false,
       content: (
         <ResumAfegirSoci
-          data={form.getFieldsValue()}
+          form={form}
           username={username}
           loadingUsername={loadingUsername}
           acceptaProteccioDades={selfCreation}
@@ -333,6 +332,10 @@ export default (
 
         values.accepta_proteccio_dades = selfCreation;
         values.accepta_drets_imatge = selfCreation ? acceptaDretsImatge : false;
+
+        values.acceptacions.drets_imatge = selfCreation
+          ? acceptaDretsImatge
+          : false;
         values.username = username;
         values.nom = upperCaseFirst(values.nom);
         values.cognoms = upperCaseFirst(values.cognoms);
@@ -354,14 +357,15 @@ export default (
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (_) =>
+  const handleValidateError = (_) => {
+    console.log(_);
     setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "dades"));
+  };
 
   const handleChange = async (pageIndex) => {
     if (pageIndex > stepsRef.findIndex(({ key }) => key === "dades"))
       try {
         const { nom, cognoms } = await form.validateFields();
-
         if (stepsRef[pageIndex].key === "resum") getUsername({ nom, cognoms });
       } catch (error) {
         handleValidateError(error);
