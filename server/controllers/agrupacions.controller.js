@@ -174,7 +174,7 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
         });
       } catch (e) {
         next(e);
-        res.end();
+        return res.end();
       }
 
       res.send(rows);
@@ -232,7 +232,7 @@ exports.agrupacions_detall_assajos = (req, res, next) => {
         });
       } catch (e) {
         next(e);
-        res.end();
+        return res.end();
       }
 
       res.send(rows);
@@ -315,7 +315,7 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
         });
       } catch (e) {
         next(e);
-        res.end();
+        return res.end();
       }
 
       res.send(rows);
