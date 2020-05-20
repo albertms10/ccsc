@@ -2,6 +2,7 @@ import { Checkbox, Form, Typography } from "antd";
 import React from "react";
 import { SettingCard } from "../../standalone/setting-card";
 import { useProteccioDades } from "./hooks";
+import ReactMarkdown from "react-markdown";
 
 const { Title, Paragraph } = Typography;
 
@@ -9,7 +10,7 @@ const SeccioAvis = ({ titol, descripcio, children }) => (
   <>
     <Title level={4}>{titol}</Title>
     <Paragraph>
-      <div dangerouslySetInnerHTML={{ __html: descripcio }} />
+      <ReactMarkdown source={descripcio} />
       {children}
     </Paragraph>
   </>
