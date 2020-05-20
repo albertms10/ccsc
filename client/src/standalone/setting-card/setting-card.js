@@ -14,22 +14,26 @@ export default ({
   info,
   children,
   ...rest
-}) => (
-  <Card {...rest} className="setting-card">
-    {alertCondition ? alert : ""}
-    <div className="setting-card-title">
-      <SubHeader title={title} />
-      {actionItem ? <Tooltip title={actionTooltip}>{actionItem}</Tooltip> : ""}
-    </div>
-    {loading ? (
-      <Spin />
-    ) : info || children ? (
-      <>
-        <Divider />
-        {info || children}
-      </>
-    ) : (
-      ""
-    )}
-  </Card>
-);
+}) => {
+  const src = info || children;
+
+  return (
+    <Card {...rest} className="setting-card">
+      {alertCondition ? alert : ""}
+      <div className="setting-card-title">
+        <SubHeader title={title} />
+        {actionItem && <Tooltip title={actionTooltip}>{actionItem}</Tooltip>}
+      </div>
+      {loading ? (
+        <Spin />
+      ) : (
+        src && (
+          <>
+            <Divider />
+            {src}
+          </>
+        )
+      )}
+    </Card>
+  );
+};
