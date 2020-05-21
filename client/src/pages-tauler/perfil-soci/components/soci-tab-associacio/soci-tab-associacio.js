@@ -1,45 +1,25 @@
-import { Alert, Button, Space, Switch } from "antd";
+import { Button, Form, Space, Switch } from "antd";
 import React, { useContext } from "react";
-import {
-  textDretsImatge,
-  textProteccioDades,
-} from "../../../../components/steps-afegir-soci/hooks/use-steps-afegir-soci";
+import { ProteccioDades } from "../../../../components/proteccio-dades";
+import { textDretsImatge } from "../../../../components/steps-afegir-soci/hooks/use-steps-afegir-soci";
 import { SettingCard } from "../../../../standalone/setting-card";
 import { SociContext } from "../../perfil-soci";
-import { useAcceptaDretsImatge, useAcceptaProteccioDades } from "./hooks";
+import { useAcceptaDretsImatge, useAcceptacions } from "./hooks";
 
 export default () => {
   const soci = useContext(SociContext);
-  const [
-    acceptaProteccioDades,
-    putAcceptaProteccioDades,
-  ] = useAcceptaProteccioDades(soci);
+  const [acceptacions] = useAcceptacions(soci);
   const [acceptaDretsImatge, putAcceptaDretsImatge] = useAcceptaDretsImatge(
     soci
   );
 
+  const [form] = Form.useForm();
+
   return (
     <Space size="large" direction="vertical">
-      <SettingCard
-        title="Protecció de dades"
-        alert={
-          <Alert
-            type="warning"
-            showIcon
-            message="Has d’acceptar la protecció de dades."
-          />
-        }
-        alertCondition={!acceptaProteccioDades}
-        actionItem={
-          <Switch
-            checked={acceptaProteccioDades}
-            disabled={acceptaProteccioDades}
-            onChange={putAcceptaProteccioDades}
-          />
-        }
-        actionTooltip="Cal acceptar la protecció de dades"
-        info={textProteccioDades}
-      />
+      <Form form={form} initialValues={acceptacions}>
+        <ProteccioDades />
+      </Form>
       <SettingCard
         title="Drets d’imatge"
         actionItem={
