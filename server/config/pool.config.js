@@ -1,4 +1,6 @@
 const mysql = require("promise-mysql");
+const path = require("path");
+const fs = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -14,22 +16,16 @@ const createPool = async () =>
     timezone: "Z",
   });
 
-/*
 const ensureSchema = async (pool) => {
-  // Wait for tables to be created (if they don't already exist).
   await pool.query(
-    `CREATE TABLE IF NOT EXISTS votes
-      ( vote_id SERIAL NOT NULL, time_cast timestamp NOT NULL,
-      candidate CHAR(6) NOT NULL, PRIMARY KEY (vote_id) );`
+    fs.readFileSync(path.join(__dirname, "../../database/database.sql"), "utf8")
   );
-
-  console.log(`Ensured that tables exist`);
+  console.log("Ensured that all tables exist");
 };
-*/
 
 const poolPromise = createPool()
   .then(async (pool) => {
-    // await ensureSchema(pool);
+    if (process.env.NODE_ENV === "production") await ensureSchema(pool);
     return pool;
   })
   .catch((err) => {
