@@ -1,5 +1,8 @@
 const { verifyJWT } = require("../utils");
 
+/*
+ * VERIFY FUNCTIONS
+ */
 const verifyAccessToken = (req, res, next) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
@@ -69,58 +72,96 @@ const verifyEmailToken = (req, res, next) => {
   });
 };
 
-const isAuthor = (req, res, next) => {
-  if (req.userId !== parseInt(req.params.id))
-    return res
-      .status(401)
-      .send({ error: { status: 401, message: "Sense autorització" } });
+/*
+ * CHECK FUNCTIONS
+ */
+const checkIsAuthor = async (req) => {
+  const pool = req.app.get("pool");
+  /** @type {number} */
+  const idSoci = req.params.id;
 
-  next();
+  const [{ id_usuari }] = await pool.query(
+    `SELECT id_usuari
+       FROM usuaris
+                INNER JOIN socis s ON usuaris.id_persona = s.id_soci
+       WHERE id_soci = ?;`,
+    [idSoci]
+  );
+
+  return req.userId === id_usuari;
 };
 
-const isRole = (req, res, next, roles) => {
+const checkIsRole = async (req, roles) => {
   const pool = req.app.get("pool");
-
   /** @type {number} */
   const id = req.userId;
 
-  pool.query(
-    `SELECT COUNT(*) AS es_admin
-       FROM roles
-                INNER JOIN roles_usuaris USING (id_role)
-       WHERE id_usuari = ?
-         AND role IN (?);`,
-    [id, roles],
-    (err, [{ es_admin }]) => {
-      if (err) next(err);
-      if (es_admin) {
-        next();
-        return;
-      }
-
-      res.status(403).send({
-        error: {
-          status: 403,
-          message: "Cal tenir assignat un rol superior d’usuari.",
-        },
-      });
-    }
+  const [{ is_role }] = await pool.query(
+    `SELECT EXISTS(
+                    SELECT *
+                    FROM roles
+                             INNER JOIN roles_usuaris USING (id_role)
+                    WHERE id_usuari = ?
+                      AND role IN (?)
+                ) AS is_role;`,
+    [id, roles]
   );
+
+  return !!is_role;
 };
 
-const isJuntaDirectiva = (req, res, next) =>
-  isRole(req, res, next, ["junta_directiva", "director_musical", "admin"]);
+/*
+ * IS HELPERS
+ */
+const isAuthor = async (req, res, next) =>
+  (await checkIsAuthor(req))
+    ? next()
+    : res
+        .status(401)
+        .send({ error: { status: 401, message: "Sense autorització" } });
 
-const isDirectorMusical = (req, res, next) =>
-  isRole(req, res, next, ["director_musical", "admin"]);
+const isRole = async (req, res, next, roles) =>
+  (await checkIsRole(req, roles))
+    ? next()
+    : res.status(403).send({ error: { status: 403, message: "Sense permís" } });
 
-const isAdmin = (req, res, next) => isRole(req, res, next, ["admin"]);
+/*
+ * ROLES CONSTANTS
+ */
+const ROLES_IS_JUNTA_DIRECTIVA = [
+  "junta_directiva",
+  "director_musical",
+  "admin",
+];
+const ROLES_IS_DIRECTOR_MUSICAL = ["director_musical", "admin"];
+const ROLES_IS_ADMIN = ["admin"];
+
+/*
+ * IS FUNCTIONS
+ */
+const isAuthorOrJuntaDirectiva = async (req, res, next) =>
+  (await checkIsAuthor(req)) ||
+  (await checkIsRole(req, ROLES_IS_JUNTA_DIRECTIVA))
+    ? next()
+    : res
+        .status(401)
+        .send({ error: { status: 401, message: "Sense autorització" } });
+
+const isJuntaDirectiva = async (req, res, next) =>
+  await isRole(req, res, next, ROLES_IS_JUNTA_DIRECTIVA);
+
+const isDirectorMusical = async (req, res, next) =>
+  await isRole(req, res, next, ROLES_IS_DIRECTOR_MUSICAL);
+
+const isAdmin = async (req, res, next) =>
+  await isRole(req, res, next, ROLES_IS_ADMIN);
 
 module.exports = {
   verifyAccessToken,
   verifyEmailToken,
   isAuthor,
   isJuntaDirectiva,
+  isAuthorOrJuntaDirectiva,
   isDirectorMusical,
   isAdmin,
 };
