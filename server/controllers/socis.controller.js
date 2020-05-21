@@ -265,6 +265,26 @@ exports.socis_delete = (req, res, next) => {
   res.end();
 };
 
+exports.socis_acceptacions = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool.query(
+    `SELECT IFNULL(
+                      JSON_OBJECTAGG(form_name, IF(accepta, CAST(TRUE AS JSON), CAST(FALSE AS JSON))),
+                      '{}'
+                  ) AS acceptacions
+       FROM socis_acceptacions
+                INNER JOIN acceptacions_avis USING (id_acceptacio_avis)
+       WHERE id_soci = ?;`,
+    [id_soci],
+    (err, [{ acceptacions }]) => {
+      if (err) next(err);
+      res.json(acceptacions);
+    }
+  );
+};
+
 exports.socis_detall_acceptaprotecciodades_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;

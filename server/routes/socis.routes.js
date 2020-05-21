@@ -40,6 +40,12 @@ module.exports = (app) => {
     controller.socis_delete
   );
 
+  app.get(
+    "/api/socis/:id/acceptacions",
+    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    controller.socis_acceptacions
+  );
+
   app.put(
     "/api/socis/:id/accepta-proteccio-dades",
     [authJWT.verifyAccessToken, authJWT.isAuthor],
