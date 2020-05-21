@@ -24,8 +24,21 @@ app.use((req, res, next) => {
   next();
 });
 
-const pool = require("./config/pool.config");
-app.set("pool", pool);
+const poolPromise = require("./config/pool.config");
+let pool;
+
+app.use(async (req, res, next) => {
+  if (pool) return next();
+
+  try {
+    pool = await poolPromise;
+    app.set("pool", pool);
+    next();
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+});
 
 // Routes
 require("./routes/agrupacions.routes")(app);
