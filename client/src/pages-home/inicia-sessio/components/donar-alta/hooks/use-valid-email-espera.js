@@ -20,9 +20,9 @@ export default () => {
       body: JSON.stringify({ email }),
     })
       .then((res) => res.json())
-      .then(({ count, message, accessToken }) => {
+      .then(({ exists, message, accessToken }) => {
         setLoading(false);
-        if (!!count) {
+        if (exists) {
           localStorage.setItem("access-token", accessToken);
           dispatch(validatedInWaitingList(email));
           history.push("/donar-alta/formulari");
