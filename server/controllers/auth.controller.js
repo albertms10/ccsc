@@ -101,7 +101,7 @@ exports.email_espera = (req, res, next) => {
         )
         .then(([{ count }]) => {
           res.json({
-            exists: !!count,
+            exists: !!email_exists,
             message:
               count > 0
                 ? "L’adreça ja està registrada."
