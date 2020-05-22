@@ -126,106 +126,114 @@ exports.socis_get = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.socis_post = (req, res, next) => {
+exports.socis_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const email = req.email;
   const soci = req.body;
 
-  // TODO: Refaccionar amb pool.getConnection() com a transacció
-  pool.query(
-      `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon)
-       VALUES (?, ?, ?, ?, ?, ?, ?);`,
-    [
-      soci.nom,
-      soci.cognoms,
-      soci.naixement,
-      soci.nacionalitat,
-      soci.dni,
-      email || soci.email,
-      soci.telefon
-    ],
-    (err, rows_persona) => {
-      if (err) next(err);
-      console.log("1 record inserted into `persones`");
+  const connection = await pool.getConnection();
 
-      const id_persona = rows_persona.insertId;
+  const transactionRollback = (e) =>
+    connection.rollback().then(() => {
+      console.log("Transaction rolled back");
+      next(e);
+    });
 
-      // TODO: Comprovar que la contrasenya s’apliqui correctament
-      const password = soci.naixement.split("-").reverse().join("-");
-      const { salt, hash } = saltHashPassword({ password });
+  connection
+    .beginTransaction()
+    .then(() => {
+      connection
+        .query(
+            `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon)
+             VALUES ?;`,
+          [
+            [
+              [
+                soci.nom,
+                soci.cognoms,
+                soci.naixement,
+                soci.nacionalitat,
+                soci.dni,
+                email || soci.email,
+                soci.telefon
+              ]
+            ]
+          ]
+        )
+        .then(({ insertId: id_persona }) => {
+          const password = soci.naixement.split("-").reverse().join("-");
+          const { salt, hash } = saltHashPassword({ password });
 
-      pool.query(
-          `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
-           VALUES (?, ?, ?, ?);`,
-        [soci.username, id_persona, salt, hash],
-        (err, rows_usuari) => {
-          if (err) next(err);
-          console.log("1 record inserted into `usuaris_complet`");
+          connection
+            .query(
+                `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
+                 VALUES ?;`,
+              [[[soci.username, id_persona, salt, hash]]]
+            )
+            .then(({ insertId: id_usuari }) => {
+              connection
+                .query(
+                    `INSERT INTO roles_usuaris
+                     VALUES ?;`,
+                  [[[id_usuari, 1]]]
+                )
+                .catch(transactionRollback);
+            })
+            .catch(transactionRollback);
 
-          const id_usuari = rows_usuari.insertId;
+          connection
+            .query(
+                `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
+                 VALUES ?;`,
+              [[[id_persona, soci.experiencia_musical, soci.estudis_musicals]]]
+            )
+            .then(() => {
+              if (soci.acceptacions)
+                connection
+                  .query(
+                      `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+                       VALUES ?;`,
+                    [
+                      Object.keys(soci.acceptacions).map((acceptacio) => [
+                        id_persona,
+                        {
+                          toSqlString: () =>
+                            `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${connection.escape(
+                              acceptacio
+                            )})`
+                        },
+                        soci.acceptacions[acceptacio]
+                      ])
+                    ]
+                  )
+                  .catch(transactionRollback);
 
-          pool.query(
-              `INSERT INTO roles_usuaris
-               VALUES (?, ?);`,
-            [id_usuari, 1],
-            (err) => {
-              if (err) next(err);
-              console.log("1 record inserted into `perfils_usuaris`");
-            }
-          );
-        }
-      );
-
-      pool.query(
-          `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
-           VALUES (?, ?, ?);`,
-        [id_persona, soci.experiencia_musical, soci.estudis_musicals],
-        (err) => {
-          if (err) next(err);
-          console.log("1 record inserted into `socis`");
-
-          Object.keys(soci.acceptacions).forEach((acceptacio) => {
-            pool.query(
-                `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
-                 VALUES (?,
-                         (SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ?),
-                         ?);`,
-              [id_persona, acceptacio, soci.acceptacions[acceptacio]],
-              (err) => {
-                if (err) next(err);
-                console.log(
-                  `${acceptacio}: ${soci.acceptacions[acceptacio]} inserted into \`socis_acceptacions\``
-                );
-              }
-            );
-          });
-
-          pool.query(
-              `INSERT INTO historial_socis (id_historial_soci, data_alta)
-               VALUES (?, ?);`,
-            [id_persona, soci.data_alta],
-            (err) => {
-              if (err) next(err);
-              console.log("1 record inserted into `historial_socis`");
-
-              pool.query(
-                  `DELETE
-                   FROM emails_espera
-                   WHERE ?;`,
-                { email },
-                (err) => {
-                  if (err) next(err);
-                  console.log("1 record deleted from `emails_espera`");
-                }
-              );
-            }
-          );
-        }
-      );
-    }
-  );
-
-  res.end();
+              connection
+                .query(
+                    `INSERT INTO historial_socis (id_historial_soci, data_alta)
+                     VALUES ?;`,
+                  [[[id_persona, soci.data_alta]]]
+                )
+                .then(() => {
+                  connection
+                    .query(
+                        `DELETE
+                         FROM emails_espera
+                         WHERE ?;`,
+                      { email }
+                    )
+                    .then(() => {
+                      connection.commit();
+                      res.status(200).send();
+                    })
+                    .catch(transactionRollback);
+                })
+                .catch(transactionRollback);
+            });
+        })
+        .catch(transactionRollback);
+    })
+    .catch((e) => next(e));
 };
 
 exports.socis_delete = (req, res, next) => {
@@ -276,7 +284,7 @@ exports.socis_acceptacions = (req, res, next) => {
          WHERE ?;`,
       { id_soci }
     )
-    .then(([{ acceptacions }]) => res.json(acceptacions))
+    .then(([{ acceptacions }]) => res.json(JSON.parse(acceptacions)))
     .catch((e) => next(e));
 };
 
