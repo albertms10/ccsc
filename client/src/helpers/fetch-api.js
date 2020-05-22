@@ -1,12 +1,16 @@
-import { message, Modal } from "antd";
+import { message, Modal, Typography } from "antd";
+import React from "react";
 import { logoutRemoveUser } from "../redux";
 
 const modalWarn = (error, dispatch) => {
   Modal.warn({
     title: error.message,
-    content: `Torna a iniciar sessió per comprovar la teva identitat.${
-      error.status ? ` Codi d’error: ${error.status}` : ""
-    }`,
+    content: (
+      <>
+        <Typography.Text>Torna a iniciar sessió per comprovar la teva identitat.</Typography.Text>
+        <Typography.Text type="secondary">{error.status ? ` Codi d’error: ${error.status}` : ""}</Typography.Text>
+      </>
+    ),
     okText: error.okText ?? "Torna a iniciar sessió",
     cancelText: "Ignora",
     okCancel: true,
