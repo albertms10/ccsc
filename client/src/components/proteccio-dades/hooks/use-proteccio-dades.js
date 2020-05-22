@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default () => {
-  const [avisProteccioDades, setAvisProteccioDades] = useState({});
+  const [textProteccioDades, setTextProteccioDades] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -9,10 +9,10 @@ export default () => {
     fetch("/api/associacio/proteccio-dades")
       .then((res) => res.json())
       .then((data) => {
-        setAvisProteccioDades(data);
+        setTextProteccioDades(data);
         setLoading(false);
       });
   }, []);
 
-  return [avisProteccioDades, loading];
+  return [textProteccioDades, loading];
 };

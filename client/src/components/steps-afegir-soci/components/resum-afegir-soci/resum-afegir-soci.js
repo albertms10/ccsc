@@ -5,6 +5,7 @@ import { StatusIcon } from "../../../../standalone/status-icon";
 
 export default ({
   form,
+  selfCreation,
   username,
   loadingUsername,
   acceptaProteccioDades,
@@ -78,25 +79,27 @@ export default ({
           </Descriptions>
         }
       />
-      <SettingCard
-        title="Acceptacions"
-        info={
-          <Descriptions size="small">
-            <Descriptions.Item label="Protecció de dades">
-              <StatusIcon
-                statusId={acceptaProteccioDades ? 1 : 3}
-                label={acceptaProteccioDades ? "Accepto" : "No accepto"}
-              />
-            </Descriptions.Item>
-            <Descriptions.Item label="Drets d’imatge">
-              <StatusIcon
-                statusId={acceptaDretsImatge ? 1 : 3}
-                label={acceptaDretsImatge ? "Accepto" : "No accepto"}
-              />
-            </Descriptions.Item>
-          </Descriptions>
-        }
-      />
+      {selfCreation && (
+        <SettingCard
+          title="Acceptacions"
+          info={
+            <Descriptions size="small">
+              <Descriptions.Item label="Protecció de dades">
+                <StatusIcon
+                  statusId={acceptaProteccioDades ? 1 : 3}
+                  label={acceptaProteccioDades ? "Accepto" : "No accepto"}
+                />
+              </Descriptions.Item>
+              <Descriptions.Item label="Drets d’imatge">
+                <StatusIcon
+                  statusId={acceptaDretsImatge ? 1 : 3}
+                  label={acceptaDretsImatge ? "Accepto" : "No accepto"}
+                />
+              </Descriptions.Item>
+            </Descriptions>
+          }
+        />
+      )}
     </Space>
   );
 };

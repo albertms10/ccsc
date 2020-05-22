@@ -310,6 +310,7 @@ export default (
       content: (
         <ResumAfegirSoci
           form={form}
+          selfCreation={selfCreation}
           username={username}
           loadingUsername={loadingUsername}
           acceptaProteccioDades={selfCreation}
@@ -330,12 +331,13 @@ export default (
       .then((values) => {
         setConfirmLoading(true);
 
+        /** @deprecated */
         values.accepta_proteccio_dades = selfCreation;
+        /** @deprecated */
         values.accepta_drets_imatge = selfCreation ? acceptaDretsImatge : false;
 
-        values.acceptacions.drets_imatge = selfCreation
-          ? acceptaDretsImatge
-          : false;
+        if (selfCreation) values.acceptacions.drets_imatge = acceptaDretsImatge;
+
         values.username = username;
         values.nom = upperCaseFirst(values.nom);
         values.cognoms = upperCaseFirst(values.cognoms);
@@ -382,24 +384,20 @@ export default (
   const footerActions = [
     <div key="footer" style={{ display: "flex" }}>
       <div style={{ flex: 1, textAlign: "start" }}>
-        {currentPageIndex > 0 ? (
+        {currentPageIndex > 0 && (
           <Button key="previous" onClick={previous}>
             Anterior
           </Button>
-        ) : (
-          ""
         )}
       </div>
       <Space>
-        {selfCreation && stepsRef[currentPageIndex].key === "imatge" ? (
+        {selfCreation && stepsRef[currentPageIndex].key === "imatge" && (
           <Button
             key="next"
             onClick={() => next().then(() => setAcceptaDretsImatge(false))}
           >
             No accepto
           </Button>
-        ) : (
-          ""
         )}
         {currentPageIndex < stepsRef.length - 1 ? (
           <Button
