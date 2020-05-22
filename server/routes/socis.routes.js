@@ -47,6 +47,12 @@ module.exports = (app) => {
   );
 
   app.put(
+    "/api/socis/:id/acceptacio",
+    [authJWT.verifyAccessToken, authJWT.isAuthor],
+    controller.socis_detall_acceptacio_put
+  );
+
+  app.put(
     "/api/socis/:id/accepta-proteccio-dades",
     [authJWT.verifyAccessToken, authJWT.isAuthor],
     controller.socis_detall_acceptaprotecciodades_put

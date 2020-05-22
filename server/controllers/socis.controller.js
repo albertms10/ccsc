@@ -319,3 +319,29 @@ exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
     .then(() => res.json({ accepta_drets_imatge }))
     .catch((e) => next(e));
 };
+
+exports.socis_detall_acceptacio_put = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+  const acceptacio = req.body; // { form_name: true }
+  const formName = Object.keys(acceptacio)[0];
+
+  pool
+    .query(
+        `SET @id_soci = ?,
+             @form_name = ?,
+             @accepta = ?;
+         INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+         VALUES (@id_soci,
+                 (SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = @form_name),
+                 @accepta)
+         ON DUPLICATE KEY UPDATE id_soci            = @id_soci,
+                                 id_acceptacio_avis = (SELECT id_acceptacio_avis
+                                                       FROM acceptacions_avis
+                                                       WHERE form_name = @form_name),
+                                 accepta            = @accepta;`,
+      [id_soci, formName, acceptacio[formName]]
+    )
+    .then(() => res.json(acceptacio[formName]))
+    .catch((e) => next(e));
+};
