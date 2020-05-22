@@ -61,7 +61,7 @@ const verifyEmailToken = (req, res, next) => {
         error: {
           status: 401,
           message:
-            email !== decoded.email
+            !err && email !== decoded.email
               ? "Les adreces de correu no coincideixen"
               : "Sense autorizació",
         },
