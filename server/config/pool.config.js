@@ -12,7 +12,7 @@ const createPool = async () =>
     database: process.env.DB_NAME,
     connectionLimit: process.env.DB_LIMIT,
     multipleStatements: true,
-    charset: "utf8mb4",
+    // charset: "utf8mb4",
     timezone: "Z",
   });
 
