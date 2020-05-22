@@ -41,9 +41,9 @@ export default (state = initialState, action) => {
 
     case LOGOUT_USER:
       return {
-        ...state,
         currentUser: {},
         error: {},
+        waitingList: {}
       };
 
     default:
