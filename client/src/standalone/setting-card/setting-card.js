@@ -18,22 +18,20 @@ export default ({
   const src = info || children;
 
   return (
-    <Card {...rest} className="setting-card">
-      {alertCondition ? alert : ""}
-      <div className="setting-card-title">
-        <SubHeader title={title} />
-        {actionItem && <Tooltip title={actionTooltip}>{actionItem}</Tooltip>}
-      </div>
-      {loading ? (
-        <Spin />
-      ) : (
-        src && (
+    <Spin spinning={loading}>
+      <Card {...rest} className="setting-card">
+        {alertCondition ? alert : ""}
+        <div className="setting-card-title">
+          <SubHeader title={title} />
+          {actionItem && <Tooltip title={actionTooltip}>{actionItem}</Tooltip>}
+        </div>
+        {src && (
           <>
             <Divider />
             {src}
           </>
-        )
-      )}
-    </Card>
+        )}
+      </Card>
+    </Spin>
   );
 };
