@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 
-export default () => {
-  const [textProteccioDades, setTextProteccioDades] = useState({});
+export default (idAvis) => {
+  const [textAvisAcceptacio, setTextAvisAcceptacio] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/associacio/proteccio-dades")
+    fetch(`/api/associacio/avisos/${idAvis}`)
       .then((res) => res.json())
       .then((data) => {
-        setTextProteccioDades(data);
+        setTextAvisAcceptacio(data);
         setLoading(false);
       });
-  }, []);
+  }, [idAvis]);
 
-  return [textProteccioDades, loading];
+  return [textAvisAcceptacio, loading];
 };

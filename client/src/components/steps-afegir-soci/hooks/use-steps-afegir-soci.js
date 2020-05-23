@@ -10,7 +10,6 @@ import {
   Row,
   Select,
   Space,
-  Tag,
   Typography,
 } from "antd";
 import moment from "moment";
@@ -20,42 +19,13 @@ import { fetchAPI } from "../../../helpers";
 import { SettingCard } from "../../../standalone/setting-card";
 import { SubHeader } from "../../../standalone/sub-header";
 import { upperCaseFirst } from "../../../utils";
-import { ProteccioDades } from "../../proteccio-dades";
+import { AvisAcceptacio } from "../../avis-acceptacio";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { usePaisos, useUsername } from "./index";
 
 const { Option } = Select;
 const { TextArea } = Input;
 const { Paragraph } = Typography;
-
-export const textProteccioDades = (
-  <>
-    <Paragraph>
-      D’acord amb l’article 5 de la Llei orgànica 15/1999 de protecció de dades
-      de caràcter personal, les vostres dades seran incorporades i tractades al
-      fitxer intern el qual és responsable l’Associació Musical Catalana
-      Crescendo.
-    </Paragraph>
-    <Paragraph>
-      La finalitat és poder dur a terme les tasques de gestió de l’associació,
-      oferir informació relacionada amb l’organització i actuació del Cor de
-      Cambra Sant Cugat, informar de la gestió dels òrgans de govern compartir
-      la documentació que es derivi de caràcter institucional o material
-      formatiu que pugui resultar de l’interès dels associats sempre relacionat
-      amb la finalitat de l’entitat.
-    </Paragraph>
-    <Paragraph>
-      Podeu exercir els drets d’accés, rectificació, cancel·lació i oposició
-      mitjançant un escrit adreçat a{" "}
-      <Tag style={{ marginRight: 2 }}>
-        <a href="mailto:secretaria@cordecambrasantcugat.cat">
-          secretaria@cordecambrasantcugat.cat
-        </a>
-      </Tag>
-      .
-    </Paragraph>
-  </>
-);
 
 export const textDretsImatge = (
   <Paragraph>
@@ -121,7 +91,7 @@ export default (
       key: "proteccio",
       title: "Protecció de dades",
       selfCreationOnly: true,
-      content: <ProteccioDades />,
+      content: <AvisAcceptacio />,
     },
     {
       key: "dades",
@@ -359,10 +329,8 @@ export default (
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (_) => {
-    console.log(_);
+  const handleValidateError = (_) =>
     setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "dades"));
-  };
 
   const handleChange = async (pageIndex) => {
     if (pageIndex > stepsRef.findIndex(({ key }) => key === "dades"))

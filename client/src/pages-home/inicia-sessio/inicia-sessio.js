@@ -1,5 +1,5 @@
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, message, Typography } from "antd";
+import { Button, Divider, Form, Input, message, Spin, Typography } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -13,7 +13,7 @@ const { Paragraph } = Typography;
 
 export default () => {
   const { currentUser, error } = useSelector(({ user }) => user);
-  const [fetching, dispatch] = useIniciUsuari();
+  const [fetched, dispatch] = useIniciUsuari();
   const [loading, setLoading] = useState(false);
   const { state: locationState } = useLocation();
 
@@ -37,29 +37,29 @@ export default () => {
   }, [error]);
 
   return (
-    !fetching && (
-      <Container className="signin-container">
-        <div className="signin-form-wrapper tight">
-          <Link to="/">
-            <Button
-              className="signin-form-back-button"
-              type="link"
-              icon={<LeftOutlined />}
-            >
-              Inici
-            </Button>
-          </Link>
-          <LogoCorDeCambra
-            className="signin-logo"
-            style={{ color: "var(--primary-color)" }}
-          />
-          <Form
-            className="signin-form"
-            initialValues={{
-              username: locationState ? locationState.username : "",
-            }}
-            onFinish={onFinish}
+    <Container className="signin-container">
+      <div className="signin-form-wrapper tight">
+        <Link to="/">
+          <Button
+            className="signin-form-back-button"
+            type="link"
+            icon={<LeftOutlined />}
           >
+            Inici
+          </Button>
+        </Link>
+        <LogoCorDeCambra
+          className="signin-logo"
+          style={{ color: "var(--primary-color)" }}
+        />
+        <Form
+          className="signin-form"
+          initialValues={{
+            username: locationState ? locationState.username : "",
+          }}
+          onFinish={onFinish}
+        >
+          <Spin spinning={!fetched || loading}>
             <Form.Item
               name="username"
               rules={[
@@ -96,7 +96,6 @@ export default () => {
                 Has oblidat la contrasenya?
               </a>
             </Form.Item>
-
             <Form.Item>
               <Button
                 type="primary"
@@ -107,18 +106,18 @@ export default () => {
                 Inicia sessió
               </Button>
             </Form.Item>
-            <Divider />
-            <Form.Item style={{ marginBottom: 0 }}>
-              <Paragraph>Tenim la teva adreça a la llista d’espera?</Paragraph>
-              <Link to="/donar-alta">
-                <Button type="secondary" className="signin-form-button">
-                  Donar-se d’alta
-                </Button>
-              </Link>
-            </Form.Item>
-          </Form>
-        </div>
-      </Container>
-    )
+          </Spin>
+          <Divider />
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Paragraph>Tenim la teva adreça a la llista d’espera?</Paragraph>
+            <Link to="/donar-alta">
+              <Button type="secondary" className="signin-form-button">
+                Donar-se d’alta
+              </Button>
+            </Link>
+          </Form.Item>
+        </Form>
+      </div>
+    </Container>
   );
 };

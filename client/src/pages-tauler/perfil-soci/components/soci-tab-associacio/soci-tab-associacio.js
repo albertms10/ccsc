@@ -1,6 +1,6 @@
 import { Button, Space, Switch } from "antd";
 import React, { useContext } from "react";
-import { ProteccioDades } from "../../../../components/proteccio-dades";
+import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
 import { textDretsImatge } from "../../../../components/steps-afegir-soci/hooks/use-steps-afegir-soci";
 import { SettingCard } from "../../../../standalone/setting-card";
 import { SociContext } from "../../perfil-soci";
@@ -15,7 +15,7 @@ export default () => {
 
   return (
     <Space size="large" direction="vertical">
-      <ProteccioDades acceptacionsSoci={acceptacionsSoci} toggleImmediately />
+      <AvisAcceptacio acceptacionsSoci={acceptacionsSoci} toggleImmediately />
       <SettingCard
         title="Drets d’imatge"
         actionItem={

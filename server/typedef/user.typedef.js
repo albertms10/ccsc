@@ -7,6 +7,7 @@
  * @property {boolean} es_dona
  * @property {number} id_persona
  * @property {string | string[]} roles
+ * @property {number[]} avisos
  * @property {string} [salt]
  * @property {string} [encrypted_password]
  */
