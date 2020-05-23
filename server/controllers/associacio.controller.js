@@ -94,7 +94,7 @@ exports.associacio_avisos = (req, res, next) => {
                                           JSON_OBJECT(
                                                   'titol', titol,
                                                   'descripcio', descripcio,
-                                                  'requerida', requerida,
+                                                  'requerida', IF(requerida, CAST(TRUE AS JSON), CAST(FALSE AS JSON)),
                                                   'form_name', form_name
                                               )
                                       ), '[]')
