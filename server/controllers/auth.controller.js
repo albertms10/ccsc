@@ -25,7 +25,6 @@ exports.signin = (req, res, next) => {
                 cognoms,
                 es_dona,
                 id_persona,
-                accepta_proteccio_dades,
                 salt,
                 encrypted_password,
                 (
@@ -33,7 +32,19 @@ exports.signin = (req, res, next) => {
                     FROM roles_usuaris
                              INNER JOIN roles USING (id_role)
                     WHERE id_usuari = (SELECT usuaris_complet.id_usuari)
-                )         AS roles
+                )         AS roles,
+                (
+                    SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
+                    FROM avisos
+                             INNER JOIN acceptacions_avis USING (id_avis)
+                    WHERE requerida IS TRUE
+                      AND NOT EXISTS(
+                            SELECT *
+                            FROM socis_acceptacions
+                            WHERE id_acceptacio_avis = (SELECT acceptacions_avis.id_acceptacio_avis)
+                              AND id_soci = 1
+                        )
+                )         AS avisos
          FROM usuaris_complet
                   LEFT JOIN persones USING (id_persona)
          WHERE ?;`,
@@ -129,13 +140,24 @@ exports.userInfo = (req, res, next) => {
                 cognoms,
                 es_dona,
                 id_persona,
-                accepta_proteccio_dades,
                 (
                     SELECT JSON_ARRAYAGG(role)
                     FROM roles_usuaris
                              INNER JOIN roles USING (id_role)
                     WHERE id_usuari = (SELECT usuaris.id_usuari)
-                )         AS roles
+                )         AS roles,
+                (
+                    SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
+                    FROM avisos
+                             INNER JOIN acceptacions_avis USING (id_avis)
+                    WHERE requerida IS TRUE
+                      AND NOT EXISTS(
+                            SELECT *
+                            FROM socis_acceptacions
+                            WHERE id_acceptacio_avis = (SELECT acceptacions_avis.id_acceptacio_avis)
+                              AND id_soci = 1
+                        )
+                )         AS avisos
          FROM usuaris
                   LEFT JOIN persones USING (id_persona)
          WHERE ?`,
