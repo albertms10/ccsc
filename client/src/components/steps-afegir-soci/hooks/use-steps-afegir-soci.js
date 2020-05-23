@@ -91,7 +91,7 @@ export default (
       key: "proteccio",
       title: "Protecció de dades",
       selfCreationOnly: true,
-      content: <AvisAcceptacio />,
+      content: <AvisAcceptacio isForm />,
     },
     {
       key: "dades",

@@ -15,7 +15,7 @@ export default () => {
 
   return (
     <Space size="large" direction="vertical">
-      <AvisAcceptacio acceptacionsSoci={acceptacionsSoci} toggleImmediately />
+      <AvisAcceptacio acceptacionsSoci={acceptacionsSoci} />
       <SettingCard
         title="Drets d’imatge"
         actionItem={

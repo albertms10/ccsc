@@ -1,14 +1,11 @@
 import React from "react";
 import { SettingCard } from "../../standalone/setting-card";
-import { CheckboxAcceptacio } from "./components/checkbox-acceptacio";
+import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
+import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";
 import { useAvisAcceptacio } from "./hooks";
 
-export default ({
-  idAvis = 1,
-  acceptacionsSoci,
-  toggleImmediately = false,
-}) => {
+export default ({ idAvis = 1, acceptacionsSoci, isForm = false }) => {
   const [textAvisAcceptacio, loading] = useAvisAcceptacio(idAvis);
 
   return (
@@ -19,14 +16,20 @@ export default ({
         ))}
       <SeccioAvis titol={textAvisAcceptacio.titol_acceptacions}>
         {textAvisAcceptacio.hasOwnProperty("acceptacions") &&
-          textAvisAcceptacio.acceptacions.map((acceptacio) => (
-            <CheckboxAcceptacio
-              key={acceptacio.form_name}
-              acceptacio={acceptacio}
-              acceptacionsSoci={acceptacionsSoci}
-              toggleImmediately={toggleImmediately}
-            />
-          ))}
+          textAvisAcceptacio.acceptacions.map((acceptacio) =>
+            isForm ? (
+              <CheckboxAcceptacioForm
+                key={acceptacio.form_name}
+                acceptacio={acceptacio}
+              />
+            ) : (
+              <CheckboxAcceptacioIndependent
+                key={acceptacio.form_name}
+                acceptacio={acceptacio}
+                acceptacionsSoci={acceptacionsSoci}
+              />
+            )
+          )}
       </SeccioAvis>
     </SettingCard>
   );

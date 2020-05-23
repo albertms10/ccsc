@@ -9,6 +9,7 @@ export default (idAvis) => {
     fetch(`/api/associacio/avisos/${idAvis}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setTextAvisAcceptacio(data);
         setLoading(false);
       });
