@@ -8,7 +8,7 @@ const trySendUser = (
     cognoms,
     es_dona,
     id_persona,
-    accepta_proteccio_dades,
+    avisos,
     roles
   },
   accessToken
@@ -17,6 +17,7 @@ const trySendUser = (
   let authorities = [];
   try {
     authorities = JSON.parse(roles).map((role) => "ROLE_" + role.toUpperCase());
+    avisos = JSON.parse(avisos);
 
     res.status(200).send({
       user: {
@@ -26,7 +27,7 @@ const trySendUser = (
         cognoms,
         es_dona,
         id_persona,
-        accepta_proteccio_dades,
+        avisos,
         roles: authorities
       },
       accessToken
@@ -36,7 +37,7 @@ const trySendUser = (
     res.status(500).send({
       error: {
         status: 500,
-        message: "Hi ha hagut un error en el processament dels rols d’usuari."
+        message: "Hi ha hagut un error en el processament de les dades."
       }
     });
   }
