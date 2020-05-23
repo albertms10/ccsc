@@ -1,6 +1,7 @@
 import { fetchAPI } from "../../helpers";
 import {
   LOGOUT_USER,
+  REMOVE_ACCEPTANCE_NOTICE,
   SIGNIN_USER_FAILURE,
   SIGNIN_USER_SUCCESS,
   VALIDATED_IN_WAITING_LIST,
@@ -28,11 +29,22 @@ const signinUserFailure = (error) => ({
 
 /**
  * Sets inWaitingList value to true.
+ * @param {string} email
  * @returns {ReduxAction}
  */
 export const validatedInWaitingList = (email) => ({
   type: VALIDATED_IN_WAITING_LIST,
   payload: email,
+});
+
+/**
+ * Removes the
+ * @param {number} noticeId
+ * @returns {{payload: *, type: string}}
+ */
+export const removeAcceptanceNotice = (noticeId) => ({
+  type: REMOVE_ACCEPTANCE_NOTICE,
+  payload: noticeId,
 });
 
 /**

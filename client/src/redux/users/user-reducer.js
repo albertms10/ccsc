@@ -1,5 +1,6 @@
 import {
   LOGOUT_USER,
+  REMOVE_ACCEPTANCE_NOTICE,
   SIGNIN_USER_FAILURE,
   SIGNIN_USER_SUCCESS,
   VALIDATED_IN_WAITING_LIST,
@@ -39,11 +40,22 @@ export default (state = initialState, action) => {
         waitingList: { inWaitingList: true, email: action.payload },
       };
 
+    case REMOVE_ACCEPTANCE_NOTICE:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          avisos: state.currentUser.avisos.filter(
+            (avis) => avis !== action.payload
+          ),
+        },
+      };
+
     case LOGOUT_USER:
       return {
         currentUser: {},
         error: {},
-        waitingList: {}
+        waitingList: {},
       };
 
     default:
