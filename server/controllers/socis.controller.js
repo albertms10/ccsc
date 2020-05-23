@@ -288,6 +288,7 @@ exports.socis_acceptacions = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+/** @deprecated */
 exports.socis_detall_acceptaprotecciodades_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
@@ -304,6 +305,7 @@ exports.socis_detall_acceptaprotecciodades_put = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+/** @deprecated */
 exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
@@ -320,28 +322,31 @@ exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.socis_detall_acceptacio_put = (req, res, next) => {
+exports.socis_detall_acceptacions_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
-  const acceptacio = req.body; // { form_name: true }
-  const formName = Object.keys(acceptacio)[0];
+  const acceptacions = req.body; // { form_name: true }
 
   pool
     .query(
-        `SET @id_soci = ?,
-             @form_name = ?,
-             @accepta = ?;
-         INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
-         VALUES (@id_soci,
-                 (SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = @form_name),
-                 @accepta)
-         ON DUPLICATE KEY UPDATE id_soci            = @id_soci,
-                                 id_acceptacio_avis = (SELECT id_acceptacio_avis
-                                                       FROM acceptacions_avis
-                                                       WHERE form_name = @form_name),
-                                 accepta            = @accepta;`,
-      [id_soci, formName, acceptacio[formName]]
+        `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+         VALUES ?
+         ON DUPLICATE KEY UPDATE id_soci            = VALUES(id_soci),
+                                 id_acceptacio_avis = VALUES(id_acceptacio_avis),
+                                 accepta            = VALUES(accepta);`,
+      [
+        Object.keys(acceptacions).map((acceptacio) => [
+          id_soci,
+          {
+            toSqlString: () =>
+              `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${pool.escape(
+                acceptacio
+              )})`
+          },
+          acceptacions[acceptacio]
+        ])
+      ]
     )
-    .then(() => res.json(acceptacio[formName]))
+    .then(() => res.json(acceptacions))
     .catch((e) => next(e));
 };

@@ -47,9 +47,9 @@ module.exports = (app) => {
   );
 
   app.put(
-    "/api/socis/:id/acceptacio",
+    "/api/socis/:id/acceptacions",
     [authJWT.verifyAccessToken, authJWT.isAuthor],
-    controller.socis_detall_acceptacio_put
+    controller.socis_detall_acceptacions_put
   );
 
   app.put(
