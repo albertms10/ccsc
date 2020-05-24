@@ -17,10 +17,7 @@ const SearchComplete = ({ data, filter, optionRenderObject, onSelect }) => {
     <div className="search-complete">
       <AutoComplete
         options={options}
-        onSelect={(value, option) => {
-          console.log(value, option);
-          onSelect(value, option);
-        }}
+        onSelect={onSelect}
         onSearch={handleSearch}
       >
         <Search

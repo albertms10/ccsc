@@ -4,6 +4,7 @@ import { Layout, Typography } from "antd";
 import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import Agrupacio from "../../../../pages-tauler/agrupacio/agrupacio";
+import { Assajos } from "../../../../pages-tauler/assajos";
 import { Inici } from "../../../../pages-tauler/inici";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
 import { Socis } from "../../../../pages-tauler/socis";
@@ -87,6 +88,7 @@ export default () => {
                   )}
                 />
               ))}
+            <Route exact path="/assajos" component={Assajos} />
             <Route
               exact
               path="/socis"

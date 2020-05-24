@@ -40,7 +40,7 @@ const SettingCard = ({
 SettingCard.propTypes = {
   alert: PropTypes.node,
   alertCondition: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   actionTooltip: PropTypes.string,
   actionItem: PropTypes.node,
   loading: PropTypes.bool,

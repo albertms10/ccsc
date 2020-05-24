@@ -9,7 +9,7 @@ const SubHeader = ({ title, style }) => (
 );
 
 SubHeader.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default SubHeader;

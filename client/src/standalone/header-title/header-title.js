@@ -28,7 +28,7 @@ const HeaderTitle = ({ title, subtitle, icon, ...rest }) => (
 );
 
 HeaderTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   subtitle: PropTypes.string,
   icon: PropTypes.node,
 };

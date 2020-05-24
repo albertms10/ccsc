@@ -1,31 +1,30 @@
 import { Avatar, Col, Row } from "antd";
 import moment from "moment";
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ColorCardList } from "../../../../standalone/color-card-list";
 import { Container } from "../../../../standalone/container";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { SmallBadge } from "../../../../standalone/small-badge";
-import { kebabCase } from "../../../../utils";
 import { AgrupacioContext } from "../../agrupacio";
 import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
 
 export default () => {
-  const { id_agrupacio, nom_curt } = useContext(AgrupacioContext);
+  const { id_agrupacio } = useContext(AgrupacioContext);
   const [assajos, loadingAssajos] = useAssajos(id_agrupacio);
   const [concerts, loadingConcerts] = useConcerts(id_agrupacio);
   const [projectes, loadingProjectes] = useProjectes(id_agrupacio);
   const [integrants, loadingIntegrants] = useIntegrants(id_agrupacio);
 
-  const rootPathAgrupacio = useMemo(() => kebabCase(nom_curt), [nom_curt]);
+  // const rootPathAgrupacio = useMemo(() => kebabCase(nom_curt), [nom_curt]);
 
   return (
     <Container>
       <ColorCardList
         dataSource={projectes}
         loading={loadingProjectes}
-        mapItem={({ titol, directors, agrupacions, color }) => ({
+        mapItem={({ id_projecte, titol, directors, agrupacions, color }) => ({
           title: titol,
           color: "#" + color,
           description: directors
@@ -33,6 +32,7 @@ export default () => {
             : agrupacions
             ? `Amb ${agrupacions[0].nom}`
             : "",
+          link: `/projectes/${id_projecte}`,
         })}
         style={{ marginBottom: 32 }}
       />
@@ -52,7 +52,7 @@ export default () => {
                 description: assaig.hora_inici
                   ? `a les ${date.format("LT")}`
                   : "",
-                link: `/${rootPathAgrupacio}/assajos/${assaig.id_assaig}`,
+                link: `/assajos/${assaig.id_assaig}`,
                 extra:
                   assaig.projectes &&
                   assaig.projectes.map((projecte) => (
@@ -79,7 +79,7 @@ export default () => {
                 id: concert.id_concert,
                 title: concert.titol_concert,
                 description: `a les ${date.format("LT")}`,
-                link: `/${rootPathAgrupacio}/concerts/${concert.id_concert}`,
+                link: `/projectes/${concert.id_projecte}/concerts/${concert.id_concert}`,
                 extra: concert.titol_projecte ? (
                   <FixedTag
                     tooltip={`Projecte «${concert.titol_projecte}»`}

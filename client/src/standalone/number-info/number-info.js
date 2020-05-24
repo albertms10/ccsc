@@ -14,7 +14,11 @@ const NumberInfo = ({ title, total, status, subTotal }) => (
       <span>{total}</span>
       <span className="antd-pro-number-info-subTotal">
         {subTotal}
-        {status === STATUS[0] ? <CaretUpFilled /> : <CaretDownFilled />}
+        {status === STATUS[0] ? (
+          <CaretUpFilled />
+        ) : status === STATUS[1] ? (
+          <CaretDownFilled />
+        ) : null}
       </span>
     </div>
   </div>
@@ -22,7 +26,7 @@ const NumberInfo = ({ title, total, status, subTotal }) => (
 
 NumberInfo.propTypes = {
   title: PropTypes.string,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   status: PropTypes.oneOf(STATUS),
   subTotal: PropTypes.number,
 };
