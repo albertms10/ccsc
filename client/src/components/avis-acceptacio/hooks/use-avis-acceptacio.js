@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+/**
+ * @param {number} idAvis
+ * @returns {[Object, boolean]}
+ */
 export default (idAvis) => {
   const [textAvisAcceptacio, setTextAvisAcceptacio] = useState({});
   const [loading, setLoading] = useState(false);
@@ -9,7 +13,6 @@ export default (idAvis) => {
     fetch(`/api/associacio/avisos/${idAvis}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setTextAvisAcceptacio(data);
         setLoading(false);
       });

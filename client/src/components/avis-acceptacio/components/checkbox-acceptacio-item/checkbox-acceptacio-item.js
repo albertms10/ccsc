@@ -25,8 +25,4 @@ CheckboxAcceptacioItem.propTypes = {
   onChange: PropTypes.func,
 };
 
-CheckboxAcceptacioItem.defaultTypes = {
-  acceptacio: {},
-};
-
 export default CheckboxAcceptacioItem;

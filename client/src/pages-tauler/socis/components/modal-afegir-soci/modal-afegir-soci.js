@@ -1,10 +1,11 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
 
-export default ({ getSocis }) => {
+const ModalAfegirSocis = ({ getSocis }) => {
   const [visible, setVisible] = useState(false);
   const {
     steps,
@@ -47,3 +48,9 @@ export default ({ getSocis }) => {
     </>
   );
 };
+
+ModalAfegirSocis.propTypes = {
+  getSocis: PropTypes.func,
+};
+
+export default ModalAfegirSocis;

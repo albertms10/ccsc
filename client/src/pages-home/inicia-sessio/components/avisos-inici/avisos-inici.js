@@ -11,7 +11,7 @@ import { Container } from "../../../../standalone/container";
 export default () => {
   const currentUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
-  const [loading, putAvisAcceptacio] = usePutAvisAcceptacio(
+  const [putAvisAcceptacio, loading] = usePutAvisAcceptacio(
     currentUser.id_persona
   );
 

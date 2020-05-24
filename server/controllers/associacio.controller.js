@@ -68,7 +68,7 @@ exports.associacio_protecciodades = (req, res, next) => {
 
 exports.associacio_avisos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_tipus_avis = req.params.id;
+  const id_avis = req.params.id;
 
   pool
     .query(
@@ -107,7 +107,7 @@ exports.associacio_avisos = (req, res, next) => {
            AND IFNULL(CURRENT_DATE >= data_inici, TRUE)
            AND IFNULL(CURRENT_DATE < data_final, TRUE)
          LIMIT 1;`,
-      { id_tipus_avis }
+      { id_avis }
     )
     .then(([avis]) => {
       try {
@@ -115,7 +115,7 @@ exports.associacio_avisos = (req, res, next) => {
         avis.acceptacions = JSON.parse(avis.acceptacions);
       } catch (e) {
         next(e);
-        return res.end();
+        return res.json({});
       }
 
       res.json(avis);

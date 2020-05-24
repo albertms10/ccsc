@@ -43,7 +43,7 @@ module.exports = (app) => {
   app.get(
     "/api/socis/:id/acceptacions",
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
-    controller.socis_acceptacions
+    controller.socis_detall_acceptacions_get
   );
 
   app.put(

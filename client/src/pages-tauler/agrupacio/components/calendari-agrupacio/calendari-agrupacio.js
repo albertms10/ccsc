@@ -1,16 +1,18 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space } from "antd";
 import moment from "moment";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
 import { Container } from "../../../../standalone/container";
 import { SearchComplete } from "../../../../standalone/search-complete";
+import { AgrupacioContext } from "../../agrupacio";
 import "./calendari-agrupacio.css";
 import { useCalendariEsdeveniments } from "./hooks";
 
-export default ({ idAgrupacio }) => {
-  const [esdeveniments] = useCalendariEsdeveniments(idAgrupacio);
+export default () => {
+  const { id_agrupacio } = useContext(AgrupacioContext);
+  const [esdeveniments] = useCalendariEsdeveniments(id_agrupacio);
 
   const cellRender = useCallback(
     (currentDay) => {

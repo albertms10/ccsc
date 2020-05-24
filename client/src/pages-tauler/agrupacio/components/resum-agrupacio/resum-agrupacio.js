@@ -1,6 +1,6 @@
 import { Avatar, Col, Row } from "antd";
 import moment from "moment";
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ColorCardList } from "../../../../standalone/color-card-list";
 import { Container } from "../../../../standalone/container";
@@ -8,17 +8,17 @@ import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { SmallBadge } from "../../../../standalone/small-badge";
 import { kebabCase } from "../../../../utils";
+import { AgrupacioContext } from "../../agrupacio";
 import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
 
-export default ({ agrupacio }) => {
-  const { id_agrupacio: idAgrupacio, nom_curt: nomCurt } = agrupacio;
+export default () => {
+  const { id_agrupacio, nom_curt } = useContext(AgrupacioContext);
+  const [assajos, loadingAssajos] = useAssajos(id_agrupacio);
+  const [concerts, loadingConcerts] = useConcerts(id_agrupacio);
+  const [projectes, loadingProjectes] = useProjectes(id_agrupacio);
+  const [integrants, loadingIntegrants] = useIntegrants(id_agrupacio);
 
-  const [assajos, loadingAssajos] = useAssajos(idAgrupacio);
-  const [concerts, loadingConcerts] = useConcerts(idAgrupacio);
-  const [projectes, loadingProjectes] = useProjectes(idAgrupacio);
-  const [integrants, loadingIntegrants] = useIntegrants(idAgrupacio);
-
-  const rootPathAgrupacio = kebabCase(nomCurt);
+  const rootPathAgrupacio = useMemo(() => kebabCase(nom_curt), [nom_curt]);
 
   return (
     <Container>

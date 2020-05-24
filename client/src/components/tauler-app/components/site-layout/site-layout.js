@@ -3,13 +3,12 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Layout, Typography } from "antd";
 import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { Agrupacio } from "../../../../pages-tauler/agrupacio";
+import Agrupacio from "../../../../pages-tauler/agrupacio/agrupacio";
 import { Inici } from "../../../../pages-tauler/inici";
-import { Socis } from "../../../../pages-tauler/socis";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
+import { Socis } from "../../../../pages-tauler/socis";
 import { kebabCase } from "../../../../utils";
 import { Authorized } from "../../../authorized";
-import { UserDropdown } from "../user-dropdown";
 import {
   AgrupacionsListContext,
   LoadingAgrupacionsContext,
@@ -19,6 +18,7 @@ import {
   SiderCollapsedContext,
   SiderSetCollapsedContext,
 } from "../../contexts/sider-context";
+import { UserDropdown } from "../user-dropdown";
 import "./site-layout.css";
 
 const { Content, Header } = Layout;
@@ -76,18 +76,17 @@ export default () => {
         >
           <Switch>
             <Route exact path="/" component={Inici} />
-            {loadingAgrupacions
-              ? ""
-              : agrupacions.map((agrupacio) => (
-                  <Route
-                    key={agrupacio.id_agrupacio}
-                    exact
-                    path={"/" + kebabCase(agrupacio.nom_curt)}
-                    render={(props) => (
-                      <Agrupacio {...props} agrupacio={agrupacio} />
-                    )}
-                  />
-                ))}
+            {!loadingAgrupacions &&
+              agrupacions.map((agrupacio) => (
+                <Route
+                  key={agrupacio.id_agrupacio}
+                  exact
+                  path={"/" + kebabCase(agrupacio.nom_curt)}
+                  render={(props) => (
+                    <Agrupacio {...props} agrupacio={agrupacio} />
+                  )}
+                />
+              ))}
             <Route
               exact
               path="/socis"

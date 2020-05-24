@@ -1,11 +1,13 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { SettingCard } from "../../standalone/setting-card";
+import { AcceptacionsSociPropTypes } from "../../typedef/prop-types";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
 import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";
 import { useAvisAcceptacio } from "./hooks";
 
-export default ({ idAvis = 1, acceptacionsSoci, isForm = false }) => {
+const AvisAcceptacio = ({ idAvis, acceptacionsSoci, isForm }) => {
   const [textAvisAcceptacio, loading] = useAvisAcceptacio(idAvis);
 
   return (
@@ -34,3 +36,17 @@ export default ({ idAvis = 1, acceptacionsSoci, isForm = false }) => {
     </SettingCard>
   );
 };
+
+AvisAcceptacio.propTypes = {
+  idAvis: PropTypes.number,
+  acceptacionsSoci: AcceptacionsSociPropTypes,
+  isForm: PropTypes.bool,
+};
+
+AvisAcceptacio.defaultProps = {
+  idAvis: 1,
+  acceptacionsSoci: {},
+  isForm: false,
+};
+
+export default AvisAcceptacio;

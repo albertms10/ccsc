@@ -11,7 +11,7 @@ import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
 const CheckboxAcceptacioIndependent = ({ acceptacio, acceptacionsSoci }) => {
   const soci = useContext(SociContext);
   const [checked, setChecked] = useState(false);
-  const [loading, putAvisAcceptacio] = usePutAvisAcceptacio(soci.id_soci);
+  const [putAvisAcceptacio, loading] = usePutAvisAcceptacio(soci.id_soci);
 
   useEffect(() => {
     setChecked(acceptacionsSoci[acceptacio.form_name]);
@@ -47,11 +47,6 @@ const CheckboxAcceptacioIndependent = ({ acceptacio, acceptacionsSoci }) => {
 CheckboxAcceptacioIndependent.propTypes = {
   acceptacio: AcceptacioPropTypes.isRequired,
   acceptacionsSoci: AcceptacionsSociPropTypes.isRequired,
-};
-
-CheckboxAcceptacioIndependent.defaultTypes = {
-  acceptacio: {},
-  acceptacionsSoci: {},
 };
 
 export default CheckboxAcceptacioIndependent;

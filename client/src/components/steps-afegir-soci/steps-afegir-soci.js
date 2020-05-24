@@ -1,11 +1,12 @@
 import { Form, Steps } from "antd";
 import moment from "moment";
+import PropTypes from "prop-types";
 import React from "react";
 import "./steps-afegir-soci.css";
 
 const { Step } = Steps;
 
-export default ({
+const StepsAfegirSoci = ({
   steps,
   form,
   currentPageIndex,
@@ -37,3 +38,22 @@ export default ({
     </div>
   </>
 );
+
+StepsAfegirSoci.propTypes = {
+  steps: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.any.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  form: PropTypes.any.isRequired,
+  currentPageIndex: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  initialValues: PropTypes.object,
+};
+
+StepsAfegirSoci.defaultProps = {
+  initialValues: {},
+};
+
+export default StepsAfegirSoci;

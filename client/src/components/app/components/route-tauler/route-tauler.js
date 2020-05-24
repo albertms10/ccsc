@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
 
-export default ({ component, ...rest }) => {
+const RouteTauler = ({ component, ...rest }) => {
   const user = useSelector(({ user }) => user.currentUser);
   const Component = component;
   const prevLocation = useLocation();
@@ -16,13 +17,16 @@ export default ({ component, ...rest }) => {
         ) : (
           <Redirect
             replace
-            to={{
-              pathname: "/inicia-sessio",
-              state: { prevLocation },
-            }}
+            to={{ pathname: "/inicia-sessio", state: { prevLocation } }}
           />
         )
       }
     />
   );
 };
+
+RouteTauler.propTypes = {
+  component: PropTypes.elementType.isRequired,
+};
+
+export default RouteTauler;

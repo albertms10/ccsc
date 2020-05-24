@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
 
+/**
+ * @param {number} idSoci
+ * @returns {[Function, boolean]}
+ */
 export default (idSoci) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -21,5 +25,5 @@ export default (idSoci) => {
     ).finally(() => setLoading(false));
   };
 
-  return [loading, putAvisAcceptacio];
+  return [putAvisAcceptacio, loading];
 };

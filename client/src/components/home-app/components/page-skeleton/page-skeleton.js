@@ -1,11 +1,12 @@
 import { Typography } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { Container } from "../../../../standalone/container";
 import "./page-skeleton.css";
 
 const { Title } = Typography;
 
-export default ({ title, children, ...rest }) => (
+const PageSkeleton = ({ title, children, ...rest }) => (
   <Container
     {...rest}
     style={{ minHeight: "calc(100vh - var(--header-height))" }}
@@ -16,3 +17,9 @@ export default ({ title, children, ...rest }) => (
     </div>
   </Container>
 );
+
+PageSkeleton.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default PageSkeleton;

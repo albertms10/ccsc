@@ -86,43 +86,50 @@ exports.socis_get = (req, res, next) => {
                 username,
                 email,
                 telefon,
-                IF((
-                       SELECT id_soci
-                       FROM socis
-                                INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
-                       WHERE id_soci = (SELECT id_persona)
-                         AND CURRENT_DATE BETWEEN data_alta AND IFNULL(data_baixa, CURRENT_DATE)
-                   ) IS NULL, FALSE, TRUE) AS estat_actiu,
+                IF(
+                        (
+                            SELECT id_soci
+                            FROM socis
+                                     INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
+                            WHERE id_soci = (SELECT id_persona)
+                              AND CURRENT_DATE BETWEEN data_alta AND IFNULL(data_baixa, CURRENT_DATE)
+                        ) IS NULL, CAST(FALSE AS JSON), CAST(TRUE AS JSON)
+                    ) AS estat_actiu,
                 (
                     SELECT MAX(data_alta)
                     FROM historial_socis
                     WHERE id_historial_soci = (SELECT id_persona)
-                )                          AS data_actiu,
+                )     AS data_actiu,
                 (
                     SELECT MAX(data_baixa)
                     FROM historial_socis
                     WHERE id_historial_soci = (SELECT id_persona)
-                )                          AS data_inactiu,
+                )     AS data_inactiu,
                 (
                     SELECT IFNULL(DATEDIFF(data_baixa, data_alta), DATEDIFF(NOW(), data_alta)) + 1
                     FROM historial_socis
                     WHERE id_historial_soci = (SELECT id_persona)
                     ORDER BY data_alta DESC
                     LIMIT 1
-                )                          AS dies_activitat,
+                )     AS dies_activitat,
                 (
                     SELECT DATEDIFF(NOW(), data_baixa) + 1
                     FROM historial_socis
                     WHERE id_historial_soci = (SELECT id_persona)
                     ORDER BY data_alta DESC
                     LIMIT 1
-                )                          AS dies_inactivitat
+                )     AS dies_inactivitat
          FROM socis
                   INNER JOIN persones ON socis.id_soci = persones.id_persona
                   LEFT JOIN usuaris USING (id_persona)
          ORDER BY estat_actiu DESC, cognoms, nom;`
     )
-    .then((socis) => res.json(socis))
+    .then((socis) => {
+      socis.forEach(
+        (soci) => (soci.estat_actiu = JSON.parse(soci.estat_actiu))
+      );
+      res.json(socis);
+    })
     .catch((e) => next(e));
 };
 
@@ -242,34 +249,34 @@ exports.socis_delete = (req, res, next) => {
 
   pool
     .query(
+      "SET @id_persona = ?;" +
         `DELETE ru
          FROM roles_usuaris ru
                   INNER JOIN usuaris USING (id_usuari)
-         WHERE id_persona = ?;
+         WHERE id_persona = @id_persona;
 
             DELETE
             FROM usuaris_complet
-            WHERE id_persona = ?;
+            WHERE id_persona = @id_persona;
 
             DELETE
             FROM historial_socis
-            WHERE id_historial_soci = ?;
+            WHERE id_historial_soci = @id_persona;
 
             DELETE
             FROM socis
-            WHERE id_soci = ?;
+            WHERE id_soci = @id_persona;
 
             DELETE
             FROM persones
-            WHERE id_persona = ?;`,
-      // TODO: Múltiples paràmetres a la consulta -> una sola variable
-      [id_persona, id_persona, id_persona, id_persona, id_persona]
+            WHERE id_persona = @id_persona;`,
+      [id_persona]
     )
     .then((result) => res.send(result))
     .catch((e) => next(e));
 };
 
-exports.socis_acceptacions = (req, res, next) => {
+exports.socis_detall_acceptacions_get = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
 

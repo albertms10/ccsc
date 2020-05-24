@@ -25,8 +25,14 @@ exports.usuaris_detall_agrupacions = (req, res, next) => {
 
   pool
     .query(
-        `SELECT DISTINCT agrupacions.*
+        `SELECT DISTINCT id_agrupacio,
+                         agrupacions.nom,
+                         nom_curt,
+                         descripcio,
+                         num_persones,
+                         tipus_agrupacions.nom AS tipus_agrupacio
          FROM agrupacions
+                  INNER JOIN tipus_agrupacions USING (id_tipus_agrupacio)
                   INNER JOIN agrupacions_associacio USING (id_agrupacio)
                   LEFT JOIN socis_agrupacions USING (id_agrupacio)
                   LEFT JOIN socis USING (id_soci)

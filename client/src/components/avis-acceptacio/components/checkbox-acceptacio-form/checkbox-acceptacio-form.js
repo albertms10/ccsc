@@ -29,8 +29,4 @@ CheckboxAcceptacioForm.propTypes = {
   acceptacio: AcceptacioPropTypes.isRequired,
 };
 
-CheckboxAcceptacioForm.defaultTypes = {
-  acceptacio: {},
-};
-
 export default CheckboxAcceptacioForm;

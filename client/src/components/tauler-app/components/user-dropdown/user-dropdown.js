@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { logoutRemoveUser } from "../../../../redux";
 import "./user-dropdown.css";
 
+const { Item, Divider } = Menu;
+
 export default () => {
   const currentUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
@@ -15,13 +17,13 @@ export default () => {
       trigger={["click"]}
       overlay={
         <Menu>
-          <Menu.Item>
+          <Item>
             <Link to={`/socis/${currentUser.id_persona}`}>Perfil</Link>
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item onClick={() => dispatch(logoutRemoveUser())}>
+          </Item>
+          <Divider />
+          <Item onClick={() => dispatch(logoutRemoveUser())}>
             Tanca la sessió
-          </Menu.Item>
+          </Item>
         </Menu>
       }
     >

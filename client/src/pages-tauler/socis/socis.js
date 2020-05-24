@@ -1,14 +1,14 @@
 import { PageHeader } from "antd";
 import React, { useContext, useEffect } from "react";
 import { ModalAfegirSoci } from "./components/modal-afegir-soci";
-import { TaulaSocis } from "./components/taula-socis";
+import { TaulaSocis } from "../../components/taula-socis";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
 import { useSocis } from "./hooks";
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
-  const [socis, loading, getSocis] = useSocis();
+  const [socis, getSocis, loading] = useSocis();
 
   useEffect(() => setPageHeader("Socis"), [setPageHeader]);
 

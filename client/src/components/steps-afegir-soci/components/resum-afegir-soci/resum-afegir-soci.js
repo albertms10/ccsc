@@ -1,9 +1,10 @@
 import { Descriptions, Space, Spin } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { SettingCard } from "../../../../standalone/setting-card";
 import { StatusIcon } from "../../../../standalone/status-icon";
 
-export default ({
+const ResumAfegirSoci = ({
   form,
   selfCreation,
   username,
@@ -103,3 +104,21 @@ export default ({
     </Space>
   );
 };
+
+ResumAfegirSoci.propTypes = {
+  form: PropTypes.any.isRequired,
+  selfCreation: PropTypes.bool,
+  username: PropTypes.string.isRequired,
+  loadingUsername: PropTypes.bool,
+  acceptaProteccioDades: PropTypes.bool,
+  acceptaDretsImatge: PropTypes.bool,
+};
+
+ResumAfegirSoci.defaultProps = {
+  selfCreation: false,
+  loadingUsername: false,
+  acceptaProteccioDades: false,
+  acceptaDretsImatge: false,
+};
+
+export default ResumAfegirSoci;

@@ -13,8 +13,8 @@ export default () => {
 
       fetchAPI(
         "/api/socis",
-        (data) => {
-          setSocis(data);
+        (socis) => {
+          setSocis(socis);
           setLoading(false);
           if (typeof next === "function") next();
         },
@@ -28,5 +28,5 @@ export default () => {
     getSocis();
   }, [getSocis]);
 
-  return [socis, loading, getSocis];
+  return [socis, getSocis, loading];
 };
