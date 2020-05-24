@@ -1,3 +1,7 @@
+const {
+  assajos_query_helper
+} = require("../query-helpers/assajos.query-helper");
+
 exports.agrupacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_agrupacio = req.params.id;
@@ -188,48 +192,19 @@ exports.agrupacions_detall_assajos = (req, res, next) => {
 
   pool
     .query(
-        `SELECT DISTINCT a.*,
-                         IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici) AS data_inici,
-                         DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
-                         hora_inici,
-                         IFNULL(CONCAT(dia_final, ' ', hora_final), dia_final) AS data_final,
-                         IFNULL(DATE_FORMAT(dia_final, '%Y-%m-%d'), dia_inici) AS dia_final,
-                         hora_final,
-                         (
-                             SELECT estat
-                             FROM estats_confirmacio
-                             WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
-                         )                                                     AS estat_esdeveniment,
-                         (
-                             SELECT estat
-                             FROM estats_confirmacio
-                             WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
-                         )                                                     AS estat_localitzacio,
-                         (
-                             SELECT JSON_ARRAYAGG(
-                                            JSON_OBJECT(
-                                                    'id_projecte', id_projecte,
-                                                    'titol', titol,
-                                                    'inicials', inicials,
-                                                    'color', color
-                                                )
-                                        )
-                             FROM projectes
-                                      INNER JOIN assajos_projectes USING (id_projecte)
-                             WHERE id_assaig = (SELECT a.id_assaig)
-                         )                                                     AS projectes
+      `SELECT DISTINCT ${assajos_query_helper}
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
-                  INNER JOIN assajos_agrupacions USING (id_assaig)
+                  INNER JOIN assajos_agrupacions aa USING (id_assaig)
          WHERE ?
          ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
       { id_agrupacio }
     )
     .then((assajos) => {
       try {
-        assajos.forEach((assaig) => {
-          assaig.projectes = JSON.parse(assaig.projectes);
-        });
+        assajos.forEach(
+          (assaig) => (assaig.projectes = JSON.parse(assaig.projectes))
+        );
       } catch (e) {
         next(e);
         return res.end();
@@ -251,6 +226,7 @@ exports.agrupacions_detall_concerts = (req, res, next) => {
                 DATE_FORMAT(dia_inici, '%Y-%m-%d')                    AS dia_inici,
                 hora_inici,
                 c.titol                                               AS titol_concert,
+                id_projecte,
                 p.titol                                               AS titol_projecte,
                 inicials                                              AS inicials_projecte,
                 color                                                 AS color_projecte,
@@ -335,16 +311,17 @@ exports.agrupacions_detall_integrants = (req, res, next) => {
                 (
                     SELECT nom
                     FROM veus
-                    WHERE id_veu = (SELECT sa.id_veu)
+                    WHERE id_veu = (SELECT sav.id_veu)
                 ) AS veu,
                 (
                     SELECT abreviatura
                     FROM veus
-                    WHERE id_veu = (SELECT sa.id_veu)
+                    WHERE id_veu = (SELECT sav.id_veu)
                 ) AS abreviatura_veu
          FROM socis
                   INNER JOIN persones p ON socis.id_soci = p.id_persona
-                  INNER JOIN socis_agrupacions sa USING (id_soci)
+                  INNER JOIN socis_agrupacions USING (id_soci)
+                  LEFT JOIN socis_agrupacions_veus sav USING (id_soci_agrupacio)
                   INNER JOIN agrupacions USING (id_agrupacio)
          WHERE ?
          ORDER BY id_veu;`,

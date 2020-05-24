@@ -1,11 +1,15 @@
+const {
+  assajos_query_helper,
+} = require("../query-helpers/assajos.query-helper");
 const { saltHashPassword } = require("../utils");
+const { ROLES_IS_JUNTA_DIRECTIVA } = require("../middleware/auth-jwt");
 
 exports.socis_count = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool
     .query(
-        `SELECT (
+      `SELECT (
                     SELECT COUNT(id_soci)
                     FROM socis
                              INNER JOIN persones ON socis.id_soci = persones.id_persona
@@ -36,7 +40,7 @@ exports.socis_historial = (req, res, next) => {
 
   pool
     .query(
-        `SELECT CONCAT('T', num, ' (', REPLACE(id_curs, '-', '–'), ')') AS x, COUNT(*) AS y
+      `SELECT CONCAT('T', num, ' (', REPLACE(id_curs, '-', '–'), ')') AS x, COUNT(*) AS y
          FROM socis
                   INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
                   CROSS JOIN associacio
@@ -56,7 +60,7 @@ exports.socis_detall = (req, res, next) => {
 
   pool
     .query(
-        `SELECT persones.*, usuaris.*, socis.*
+      `SELECT persones.*, usuaris.*, socis.*
          FROM socis
                   INNER JOIN persones ON (id_soci = id_persona)
                   LEFT JOIN usuaris USING (id_persona)
@@ -79,7 +83,7 @@ exports.socis_get = (req, res, next) => {
 
   pool
     .query(
-        `SELECT id_persona,
+      `SELECT id_persona,
                 nom,
                 cognoms,
                 nom_complet,
@@ -151,7 +155,7 @@ exports.socis_post = async (req, res, next) => {
     .then(() => {
       connection
         .query(
-            `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon)
+          `INSERT INTO persones (nom, cognoms, naixement, id_pais, dni, email, telefon)
              VALUES ?;`,
           [
             [
@@ -162,9 +166,9 @@ exports.socis_post = async (req, res, next) => {
                 soci.nacionalitat,
                 soci.dni,
                 email || soci.email,
-                soci.telefon
-              ]
-            ]
+                soci.telefon,
+              ],
+            ],
           ]
         )
         .then(({ insertId: id_persona }) => {
@@ -173,14 +177,14 @@ exports.socis_post = async (req, res, next) => {
 
           connection
             .query(
-                `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
+              `INSERT INTO usuaris_complet (username, id_persona, salt, encrypted_password)
                  VALUES ?;`,
               [[[soci.username, id_persona, salt, hash]]]
             )
             .then(({ insertId: id_usuari }) => {
               connection
                 .query(
-                    `INSERT INTO roles_usuaris
+                  `INSERT INTO roles_usuaris
                      VALUES ?;`,
                   [[[id_usuari, 1]]]
                 )
@@ -190,7 +194,7 @@ exports.socis_post = async (req, res, next) => {
 
           connection
             .query(
-                `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
+              `INSERT INTO socis (id_soci, experiencia_musical, estudis_musicals)
                  VALUES ?;`,
               [[[id_persona, soci.experiencia_musical, soci.estudis_musicals]]]
             )
@@ -198,7 +202,7 @@ exports.socis_post = async (req, res, next) => {
               if (soci.acceptacions)
                 connection
                   .query(
-                      `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+                    `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
                        VALUES ?;`,
                     [
                       Object.keys(soci.acceptacions).map((acceptacio) => [
@@ -207,24 +211,24 @@ exports.socis_post = async (req, res, next) => {
                           toSqlString: () =>
                             `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${connection.escape(
                               acceptacio
-                            )})`
+                            )})`,
                         },
-                        soci.acceptacions[acceptacio]
-                      ])
+                        soci.acceptacions[acceptacio],
+                      ]),
                     ]
                   )
                   .catch(transactionRollback);
 
               connection
                 .query(
-                    `INSERT INTO historial_socis (id_historial_soci, data_alta)
+                  `INSERT INTO historial_socis (id_historial_soci, data_alta)
                      VALUES ?;`,
                   [[[id_persona, soci.data_alta]]]
                 )
                 .then(() => {
                   connection
                     .query(
-                        `DELETE
+                      `DELETE
                          FROM emails_espera
                          WHERE ?;`,
                       { email }
@@ -276,13 +280,100 @@ exports.socis_delete = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.socis_detall_agrupacions = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+      "SET @id_soci = ?;" +
+        `SELECT DISTINCT id_agrupacio,
+                         agrupacions.nom,
+                         nom_curt,
+                         descripcio,
+                         num_persones,
+                         tipus_agrupacions.nom AS tipus_agrupacio
+         FROM agrupacions
+                  INNER JOIN tipus_agrupacions USING (id_tipus_agrupacio)
+                  INNER JOIN agrupacions_associacio USING (id_agrupacio)
+                  LEFT JOIN socis_agrupacions USING (id_agrupacio)
+                  LEFT JOIN socis USING (id_soci)
+                  LEFT JOIN persones p ON socis.id_soci = p.id_persona
+                  LEFT JOIN usuaris u USING (id_persona)
+         WHERE socis.id_soci = @id_soci
+            OR EXISTS(
+                 SELECT *
+                 FROM roles
+                          INNER JOIN roles_usuaris USING (id_role)
+                          INNER JOIN usuaris USING (id_usuari)
+                          INNER JOIN socis ON usuaris.id_persona = socis.id_soci
+                 WHERE id_soci = @id_soci
+                   AND role IN (?)
+             );`,
+      [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
+    )
+    .then(([_, agrupacions]) => res.json(agrupacions))
+    .catch((e) => next(e));
+};
+
+// FIXME
+exports.socis_detall_assajos = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+      "SET @id_soci = ?;" +
+        `SELECT DISTINCT ${assajos_query_helper}
+         FROM esdeveniments
+                  INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
+                  LEFT JOIN assajos_projectes USING (id_assaig)
+                  LEFT JOIN assajos_agrupacions USING (id_assaig)
+                  LEFT JOIN projectes_agrupacions USING (id_projecte)
+                  LEFT JOIN socis_agrupacions sa ON assajos_agrupacions.id_agrupacio = sa.id_agrupacio
+                  LEFT JOIN usuaris ON sa.id_soci = id_persona
+         WHERE EXISTS(
+                 SELECT *
+                 FROM veus_convocades_assaig
+                          INNER JOIN socis_agrupacions_veus USING (id_veu)
+                          INNER JOIN socis_agrupacions USING (id_soci_agrupacio)
+                 WHERE id_soci = @id_soci
+                   AND id_assaig = (SELECT a.id_assaig)
+             )
+            OR EXISTS(
+                 SELECT *
+                 FROM roles
+                          INNER JOIN roles_usuaris USING (id_role)
+                          INNER JOIN usuaris u USING (id_usuari)
+                          INNER JOIN socis ON id_soci = u.id_persona
+                 WHERE id_soci = @id_soci
+                   AND role IN (?)
+             )
+         ORDER BY dia_inici, hora_inici;`,
+      [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
+    )
+    .then(([_, assajos]) => {
+      try {
+        assajos.forEach(
+          (assaig) => (assaig.projectes = JSON.parse(assaig.projectes))
+        );
+      } catch (e) {
+        next(e);
+        return res.end();
+      }
+
+      res.json(assajos);
+    })
+    .catch((e) => next(e));
+};
+
 exports.socis_detall_acceptacions_get = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
 
   pool
     .query(
-        `SELECT IFNULL(
+      `SELECT IFNULL(
                         JSON_OBJECTAGG(form_name, IF(accepta, CAST(TRUE AS JSON), CAST(FALSE AS JSON))),
                         '{}'
                     ) AS acceptacions
@@ -303,7 +394,7 @@ exports.socis_detall_acceptaprotecciodades_put = (req, res, next) => {
 
   pool
     .query(
-        `UPDATE persones
+      `UPDATE persones
          SET accepta_proteccio_dades = ?
          WHERE id_persona = ?;`,
       [accepta_proteccio_dades, id_soci]
@@ -320,7 +411,7 @@ exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
 
   pool
     .query(
-        `UPDATE persones
+      `UPDATE persones
          SET accepta_drets_imatge = ?
          WHERE id_persona = ?;`,
       [accepta_drets_imatge, id_soci]
@@ -336,7 +427,7 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
 
   pool
     .query(
-        `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
+      `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
          VALUES ?
          ON DUPLICATE KEY UPDATE id_soci            = VALUES(id_soci),
                                  id_acceptacio_avis = VALUES(id_acceptacio_avis),
@@ -348,10 +439,10 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
             toSqlString: () =>
               `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${pool.escape(
                 acceptacio
-              )})`
+              )})`,
           },
-          acceptacions[acceptacio]
-        ])
+          acceptacions[acceptacio],
+        ]),
       ]
     )
     .then(() => res.json(acceptacions))
