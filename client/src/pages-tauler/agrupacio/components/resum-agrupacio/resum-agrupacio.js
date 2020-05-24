@@ -25,6 +25,15 @@ export default () => {
       <ColorCardList
         dataSource={projectes}
         loading={loadingProjectes}
+        mapItem={({ titol, directors, agrupacions, color }) => ({
+          title: titol,
+          color: "#" + color,
+          description: directors
+            ? `Amb la col·laboració de ${directors[0].nom}`
+            : agrupacions
+            ? `Amb ${agrupacions[0].nom}`
+            : "",
+        })}
         style={{ marginBottom: 32 }}
       />
       <Row type="flex" gutter={[32, 32]}>
@@ -32,7 +41,7 @@ export default () => {
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
-            data={assajos.map((assaig) => {
+            dataSource={assajos.map((assaig) => {
               const date = moment(assaig.data_inici);
 
               return {
@@ -44,18 +53,18 @@ export default () => {
                   ? `a les ${date.format("LT")}`
                   : "",
                 link: `/${rootPathAgrupacio}/assajos/${assaig.id_assaig}`,
-                extra: assaig.projectes
-                  ? assaig.projectes.map((projecte) => (
-                      <FixedTag
-                        key={projecte.id_projecte}
-                        childKey={projecte.id_projecte}
-                        tooltip={projecte.titol}
-                        color={"#" + projecte.color}
-                      >
-                        {projecte.inicials}
-                      </FixedTag>
-                    ))
-                  : null,
+                extra:
+                  assaig.projectes &&
+                  assaig.projectes.map((projecte) => (
+                    <FixedTag
+                      key={projecte.id_projecte}
+                      childKey={projecte.id_projecte}
+                      tooltip={projecte.titol}
+                      color={"#" + projecte.color}
+                    >
+                      {projecte.inicials}
+                    </FixedTag>
+                  )),
                 avatar: <CalendarAvatar moment={date} />,
               };
             })}
@@ -63,7 +72,7 @@ export default () => {
           <ContentList
             title="Concerts"
             loading={loadingConcerts}
-            data={concerts.map((concert) => {
+            dataSource={concerts.map((concert) => {
               const date = moment(concert.data_inici);
 
               return {
@@ -89,7 +98,7 @@ export default () => {
           <ContentList
             title="Integrants"
             loading={loadingIntegrants}
-            data={integrants.map((integrant) => ({
+            dataSource={integrants.map((integrant) => ({
               id: integrant.id_persona,
               title: integrant.nom_complet,
               description: integrant.veu,

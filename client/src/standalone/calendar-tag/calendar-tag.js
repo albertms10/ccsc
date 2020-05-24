@@ -1,12 +1,13 @@
 import { Popover, Tag } from "antd";
 import moment from "moment";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { EsdevenimentPropTypes } from "../../typedef/prop-types";
 import { CalendarEventPopover } from "../calendar-event-popover";
 import { StatusIcon } from "../status-icon";
-
 import "./calendar-tag.css";
 
-export default ({ childKey, event }) => {
+const CalendarTag = ({ childKey, esdeveniment }) => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -15,7 +16,7 @@ export default ({ childKey, event }) => {
       content={
         <CalendarEventPopover
           hidePopover={() => setVisible(false)}
-          event={event}
+          esdeveniment={esdeveniment}
         />
       }
       trigger="click"
@@ -25,23 +26,30 @@ export default ({ childKey, event }) => {
       <Tag
         className="calendar-tag"
         key={childKey}
-        style={{ opacity: moment().isAfter(event.data_inici) ? 0.6 : 1 }}
+        style={{ opacity: moment().isAfter(esdeveniment.data_inici) ? 0.6 : 1 }}
       >
         <StatusIcon
-          tooltip={event.estat_esdeveniment}
-          esAniversari={event.tipus === "aniversari"}
-          statusId={event.id_estat_esdeveniment}
+          tooltip={esdeveniment.estat_esdeveniment}
+          esAniversari={esdeveniment.tipus === "aniversari"}
+          statusId={esdeveniment.id_estat_esdeveniment}
           style={{ marginRight: "0.2rem" }}
         />
-        {event.hora_inici ? (
+        {esdeveniment.hora_inici && (
           <span className="calendar-tag-time">
-            {moment(`${event.dia_inici} ${event.hora_inici}`).format("LT")}
+            {moment(
+              `${esdeveniment.dia_inici} ${esdeveniment.hora_inici}`
+            ).format("LT")}
           </span>
-        ) : (
-          ""
         )}
-        <span className="calendar-tag-title">{event.titol}</span>
+        <span className="calendar-tag-title">{esdeveniment.titol}</span>
       </Tag>
     </Popover>
   );
 };
+
+CalendarTag.propTypes = {
+  childKey: PropTypes.any,
+  esdeveniment: EsdevenimentPropTypes.isRequired,
+};
+
+export default CalendarTag;

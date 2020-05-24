@@ -1,7 +1,8 @@
 import { Button, Tooltip } from "antd";
+import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 
-export default forwardRef(({ tooltip, tooltipPlacement, ...rest }, ref) => {
+const BorderlessButton = forwardRef(({ tooltip, tooltipPlacement, ...rest }, ref) => {
   return (
     <Tooltip title={tooltip} placement={tooltipPlacement}>
       <Button
@@ -17,3 +18,25 @@ export default forwardRef(({ tooltip, tooltipPlacement, ...rest }, ref) => {
     </Tooltip>
   );
 });
+
+const TOOLTIP_PLACEMENT = [
+  "top",
+  "left",
+  "right",
+  "bottom",
+  "topLeft",
+  "topRight",
+  "bottomLeft",
+  "bottomRight",
+  "leftTop",
+  "leftBottom",
+  "rightTop",
+  "rightBottom",
+];
+
+BorderlessButton.propTypes = {
+  tooltip: PropTypes.string,
+  tooltipPlacement: PropTypes.oneOf(TOOLTIP_PLACEMENT),
+};
+
+export default BorderlessButton;

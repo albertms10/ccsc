@@ -2,30 +2,31 @@ import { EditFilled, EnvironmentFilled, LayoutFilled } from "@ant-design/icons";
 import { Avatar, Col, Row, Space } from "antd";
 import moment from "moment";
 import React from "react";
+import { EsdevenimentPropTypes } from "../../typedef/prop-types";
 import { upperCaseFirst } from "../../utils";
 import { BorderlessButton } from "../borderless-button";
 import { StatusIcon } from "../status-icon";
-
 import "./calendar-event-popover.css";
 import { EventLineItem } from "./event-line-item";
 
-export default ({ event }) => (
+const CalendarEventPopover = ({ esdeveniment }) => (
   <div className="calendar-event-popover">
     <Space direction="vertical" style={{ width: "20rem" }}>
       <Row>
         <Col span={18}>
           <EventLineItem
             icon={
-              event.tipus === "aniversari" ? (
+              esdeveniment.tipus === "aniversari" && (
                 <StatusIcon
                   size="large"
-                  esAniversari={event.tipus === "aniversari"}
+                  esAniversari={esdeveniment.tipus === "aniversari"}
                 />
-              ) : null
+              )
             }
-            content={event.titol}
             size="large"
-          />
+          >
+            {esdeveniment.titol}
+          </EventLineItem>
         </Col>
         <Col span={6} style={{ textAlign: "end" }}>
           <BorderlessButton size="small" icon={<EditFilled />}>
@@ -33,75 +34,76 @@ export default ({ event }) => (
           </BorderlessButton>
         </Col>
       </Row>
-      <EventLineItem
-        content={
-          <Space>
-            <div>
-              {moment(event.dia_inici).format("dddd, LL")}
-              {event.hora_inici ? (
-                <>
-                  <span style={{ padding: "0 .25rem" }}>·</span>
-                  {moment(`${event.dia_inici} ${event.hora_inici}`).format(
-                    "LT"
-                  ) +
-                    (event.hora_final
-                      ? "–" +
-                        moment(`${event.dia_final} ${event.hora_final}`).format(
-                          "LT"
-                        )
-                      : "")}
-                </>
-              ) : null}
-            </div>
-            {event.tipus !== "aniversari" ? (
-              <StatusIcon
-                tooltip={event.estat_esdeveniment}
-                statusId={event.id_estat_esdeveniment}
-              />
-            ) : null}
-          </Space>
-        }
-      />
-      {event.localitzacio ? (
+      <EventLineItem>
+        <Space>
+          <div>
+            {moment(esdeveniment.dia_inici).format("dddd, LL")}
+            {esdeveniment.hora_inici && (
+              <>
+                <span style={{ padding: "0 .25rem" }}>·</span>
+                {moment(
+                  `${esdeveniment.dia_inici} ${esdeveniment.hora_inici}`
+                ).format("LT") +
+                  (esdeveniment.hora_final
+                    ? "–" +
+                      moment(
+                        `${esdeveniment.dia_final} ${esdeveniment.hora_final}`
+                      ).format("LT")
+                    : "")}
+              </>
+            )}
+          </div>
+          {esdeveniment.tipus !== "aniversari" && (
+            <StatusIcon
+              tooltip={esdeveniment.estat_esdeveniment}
+              statusId={esdeveniment.id_estat_esdeveniment}
+            />
+          )}
+        </Space>
+      </EventLineItem>
+      {esdeveniment.localitzacio && (
         <EventLineItem
           icon={<EnvironmentFilled />}
-          content={
-            <div>
-              {event.establiment ? <div>{event.establiment}</div> : null}
-              <div
-                className={
-                  event.establiment ? "calendar-event-popover--item-light" : ""
-                }
-              >
-                {upperCaseFirst(event.localitzacio)}
-              </div>
+          style={{ marginTop: ".5rem" }}
+        >
+          <div>
+            {esdeveniment.establiment && <div>{esdeveniment.establiment}</div>}
+            <div
+              className={
+                esdeveniment.establiment
+                  ? "calendar-event-popover--item-light"
+                  : ""
+              }
+            >
+              {upperCaseFirst(esdeveniment.localitzacio)}
             </div>
-          }
-          style={{ marginTop: ".5rem" }}
-        />
-      ) : null}
-      {event.localitzacio ? (
-        <EventLineItem
-          icon={<LayoutFilled />}
-          content={
-            <Space direction="vertical">
-              {event.projectes.map(({ titol, inicials, color }) => (
-                <Space>
-                  <Avatar
-                    size="small"
-                    shape="square"
-                    style={{ backgroundColor: "#" + color }}
-                  >
-                    {inicials}
-                  </Avatar>
-                  {titol}
-                </Space>
-              ))}
-            </Space>
-          }
-          style={{ marginTop: ".5rem" }}
-        />
-      ) : null}
+          </div>
+        </EventLineItem>
+      )}
+      {esdeveniment.localitzacio && (
+        <EventLineItem icon={<LayoutFilled />} style={{ marginTop: ".5rem" }}>
+          <Space direction="vertical">
+            {esdeveniment.projectes.map((projecte) => (
+              <Space key={projecte.id_projecte}>
+                <Avatar
+                  size="small"
+                  shape="square"
+                  style={{ backgroundColor: "#" + projecte.color }}
+                >
+                  {projecte.inicials}
+                </Avatar>
+                {projecte.titol}
+              </Space>
+            ))}
+          </Space>
+        </EventLineItem>
+      )}
     </Space>
   </div>
 );
+
+CalendarEventPopover.propTypes = {
+  esdeveniment: EsdevenimentPropTypes.isRequired,
+};
+
+export default CalendarEventPopover;

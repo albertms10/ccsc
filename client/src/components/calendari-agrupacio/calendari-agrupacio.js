@@ -2,12 +2,13 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space } from "antd";
 import moment from "moment";
 import React, { useCallback, useContext } from "react";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { CalendarTag } from "../../../../standalone/calendar-tag";
-import { Container } from "../../../../standalone/container";
-import { SearchComplete } from "../../../../standalone/search-complete";
-import { AgrupacioContext } from "../../agrupacio";
+import { AgrupacioContext } from "../../pages-tauler/agrupacio/agrupacio";
+import { BorderlessButton } from "../../standalone/borderless-button";
+import { Container } from "../../standalone/container";
+import { SearchComplete } from "../../standalone/search-complete";
 import "./calendari-agrupacio.css";
+import { CalendariAgrupacioCell } from "./components/calendari-agrupacio-cell";
+import { CalendariResultLabel } from "./components/calendari-result-label";
 import { useCalendariEsdeveniments } from "./hooks";
 
 export default () => {
@@ -21,14 +22,7 @@ export default () => {
       );
 
       return (
-        <Space size={-5} direction="vertical">
-          {esdevenimentsActuals.map((esdeveniment) => (
-            <CalendarTag
-              key={esdeveniment.id_esdeveniment}
-              event={esdeveniment}
-            />
-          ))}
-        </Space>
+        <CalendariAgrupacioCell esdevenimentsActuals={esdevenimentsActuals} />
       );
     },
     [esdeveniments]
@@ -38,6 +32,7 @@ export default () => {
     <Container reducedPadding>
       <Calendar
         className="calendari-agrupacio"
+        style={{ margin: "1rem" }}
         dateCellRender={cellRender}
         headerRender={({ value, onChange }) => (
           <div className="ant-picker-calendar-header">
@@ -75,13 +70,36 @@ export default () => {
               <Col type="flex" flex={1}>
                 <SearchComplete
                   data={esdeveniments}
-                  onSelect={(_, { date }) => onChange(moment(date))}
+                  onSelect={(value, option) => onChange(moment(option.date))}
+                  filter={(value, option) => {
+                    const dia = moment(option.data_inici);
+                    return value
+                      .split(" ")
+                      .every(
+                        (frag) =>
+                          option.titol
+                            .toLowerCase()
+                            .includes(frag.toLowerCase()) ||
+                          dia.format("L").includes(frag) ||
+                          dia.format("LT").includes(frag) ||
+                          dia.format("LL").includes(frag)
+                      );
+                  }}
+                  optionRenderObject={(esdeveniment) => ({
+                    key: esdeveniment.id_esdeveniment,
+                    value: (
+                      <span key={esdeveniment.id_esdeveniment}>
+                        {esdeveniment.titol}
+                      </span>
+                    ),
+                    date: esdeveniment.dia_inici,
+                    label: <CalendariResultLabel esdeveniment={esdeveniment} />,
+                  })}
                 />
               </Col>
             </Row>
           </div>
         )}
-        style={{ margin: "1rem" }}
       />
     </Container>
   );

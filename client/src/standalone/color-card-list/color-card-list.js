@@ -1,9 +1,11 @@
 import { List } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { ColorCard } from "../color-card";
 import "./color-card-list.css";
 
-export default ({ dataSource, loading, ...rest }) => (
+// TODO: Generalitzar el mètode renderItem
+const ColorCardList = ({ dataSource, loading, mapItem, ...rest }) => (
   <List
     {...rest}
     className="color-card-list"
@@ -15,20 +17,21 @@ export default ({ dataSource, loading, ...rest }) => (
     }}
     dataSource={dataSource}
     loading={loading}
-    renderItem={({ titol, directors, agrupacions, color }) => (
-      <List.Item>
-        <ColorCard
-          title={titol}
-          color={"#" + color}
-          description={
-            directors
-              ? `Amb la col·laboració de ${directors[0].nom}`
-              : agrupacions
-              ? `Amb ${agrupacions[0].nom}`
-              : ""
-          }
-        />
-      </List.Item>
-    )}
+    renderItem={(item) => {
+      const { title, color, description } = mapItem(item);
+      return (
+        <List.Item>
+          <ColorCard title={title} color={color} description={description} />
+        </List.Item>
+      );
+    }}
   />
 );
+
+ColorCardList.propTypes = {
+  dataSource: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  mapItem: PropTypes.func.isRequired,
+};
+
+export default ColorCardList;

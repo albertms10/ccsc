@@ -1,8 +1,8 @@
+import PropTypes from "prop-types";
 import React from "react";
-
 import "./container.css";
 
-export default ({ reducedPadding, noPadding, noBackground, ...rest }) => (
+const Container = ({ reducedPadding, noPadding, noBackground, ...rest }) => (
   <div
     className={`
     main-container
@@ -18,3 +18,17 @@ export default ({ reducedPadding, noPadding, noBackground, ...rest }) => (
     {...rest}
   />
 );
+
+Container.propTypes = {
+  reducedPadding: PropTypes.bool,
+  noPadding: PropTypes.bool,
+  noBackground: PropTypes.bool,
+};
+
+Container.defaultProps = {
+  reducedPadding: false,
+  noPadding: false,
+  noBackground: false,
+};
+
+export default Container;

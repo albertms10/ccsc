@@ -1,10 +1,11 @@
 import { RightOutlined } from "@ant-design/icons";
 import { PageHeader } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import Page from "../page/page";
 import "./sub-page.css";
 
-export default ({ routes, title, subtitle, action, children }) => (
+const SubPage = ({ routes, title, subtitle, action, children }) => (
   <>
     <PageHeader
       className="site-page-header"
@@ -16,3 +17,12 @@ export default ({ routes, title, subtitle, action, children }) => (
     <Page>{children}</Page>
   </>
 );
+
+SubPage.propTypes = {
+  routes: PropTypes.array,
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  action: PropTypes.node,
+};
+
+export default SubPage;

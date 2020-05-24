@@ -6,23 +6,14 @@ import {
   WarningTwoTone,
 } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import PropTypes from "prop-types";
 import React, { cloneElement } from "react";
 
-/**
- *
- * @param {string} [tooltip]
- * @param {('middle'|'large')} [size]
- * @param {number} [statusId]
- * @param {boolean} [esAniversari=false]
- * @param {string} [label]
- * @param {Object} [style]
- * @returns {React.Component}
- */
-export default ({
+const StatusIcon = ({
   tooltip,
   size,
   statusId,
-  esAniversari = false,
+  esAniversari,
   label,
   style,
 }) => {
@@ -42,12 +33,27 @@ export default ({
     <Tooltip title={tooltip}>
       {esAniversari ? (
         <GiftTwoTone twoToneColor="#eb2f96" style={newStyle} />
-      ) : statusId ? (
-        cloneElement(status[statusId - 1], { style: newStyle })
       ) : (
-        ""
+        statusId && cloneElement(status[statusId - 1], { style: newStyle })
       )}
-      {label ? <span style={{ marginLeft: ".5rem" }}>{label}</span> : ""}
+      {label && <span style={{ marginLeft: ".5rem" }}>{label}</span>}
     </Tooltip>
   );
 };
+
+const SIZES = ["middle", "large"];
+
+StatusIcon.propTypes = {
+  tooltip: PropTypes.string,
+  size: PropTypes.oneOf(SIZES),
+  statusId: PropTypes.number,
+  esAniversari: PropTypes.bool,
+  label: PropTypes.string,
+};
+
+StatusIcon.defaultProps = {
+  size: SIZES[0],
+  esAniversari: false,
+};
+
+export default StatusIcon;

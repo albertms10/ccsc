@@ -1,12 +1,12 @@
 import { Space, Typography } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import Media from "react-media";
-
 import "./header-title.css";
 
 const { Title } = Typography;
 
-export default ({ title, subtitle, icon, ...rest }) => (
+const HeaderTitle = ({ title, subtitle, icon, ...rest }) => (
   <div className="header-title" {...rest}>
     <Media query={{ maxWidth: 599 }}>
       {(smallSize) => (
@@ -26,3 +26,11 @@ export default ({ title, subtitle, icon, ...rest }) => (
     </Media>
   </div>
 );
+
+HeaderTitle.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  icon: PropTypes.node,
+};
+
+export default HeaderTitle;

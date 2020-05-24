@@ -6,7 +6,7 @@ import { SetPageHeaderContext } from "../../components/tauler-app/components/sit
 import { ContentHeader } from "../../standalone/content-header";
 import { AgrupacioPropTypes } from "../../typedef/prop-types";
 import "./agrupacio.css";
-import { CalendariAgrupacio } from "./components/calendari-agrupacio";
+import { CalendariAgrupacio } from "../../components/calendari-agrupacio";
 import { ResumAgrupacio } from "./components/resum-agrupacio";
 
 export const AgrupacioContext = createContext({});

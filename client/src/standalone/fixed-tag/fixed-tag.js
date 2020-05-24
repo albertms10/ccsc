@@ -1,7 +1,8 @@
 import { Tag, Tooltip } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 
-export default ({ childKey, tooltip, color, style, children }) => (
+const FixedTag = ({ childKey, tooltip, color, style, children }) => (
   <Tooltip key={childKey} title={tooltip}>
     <Tag
       color={color}
@@ -11,3 +12,11 @@ export default ({ childKey, tooltip, color, style, children }) => (
     </Tag>
   </Tooltip>
 );
+
+FixedTag.propTypes = {
+  childKey: PropTypes.any,
+  tooltip: PropTypes.string,
+  color: PropTypes.string,
+};
+
+export default FixedTag;

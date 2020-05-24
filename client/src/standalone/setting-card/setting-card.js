@@ -1,16 +1,17 @@
 import { Card, Divider, Spin, Tooltip } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import { SubHeader } from "../sub-header";
 
 import "./setting-card.css";
 
-export default ({
+const SettingCard = ({
   alert,
   alertCondition,
   title,
   actionTooltip,
   actionItem,
-  loading = false,
+  loading,
   info,
   children,
   ...rest
@@ -20,7 +21,7 @@ export default ({
   return (
     <Spin spinning={loading}>
       <Card {...rest} className="setting-card">
-        {alertCondition ? alert : ""}
+        {alertCondition && alert}
         <div className="setting-card-title">
           <SubHeader title={title} />
           {actionItem && <Tooltip title={actionTooltip}>{actionItem}</Tooltip>}
@@ -35,3 +36,19 @@ export default ({
     </Spin>
   );
 };
+
+SettingCard.propTypes = {
+  alert: PropTypes.node,
+  alertCondition: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  actionTooltip: PropTypes.string,
+  actionItem: PropTypes.node,
+  loading: PropTypes.bool,
+  info: PropTypes.node,
+};
+
+SettingCard.defaultProps = {
+  loading: false,
+};
+
+export default SettingCard;

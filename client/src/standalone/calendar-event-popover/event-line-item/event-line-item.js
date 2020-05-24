@@ -1,18 +1,24 @@
+import PropTypes from "prop-types";
 import React from "react";
-
 import "./event-line-item.css";
 
-/**
- *
- * @param {React.Component} icon
- * @param {*} content
- * @param {('middle'|'large')} [size="middle"]
- * @param {Object} style
- * @returns {*}
- */
-export default ({ icon, content, size = "middle", style }) => (
+const EventLineItem = ({ icon, size, style, children }) => (
   <div className="event-line-item" style={style}>
     <div className="event-line-item-icon">{icon}</div>
-    <div className={`event-line-item-text ${size}`}>{content}</div>
+    <div className={`event-line-item-text ${size}`}>{children}</div>
   </div>
 );
+
+const SIZES = ["middle", "large"];
+
+EventLineItem.propTypes = {
+  icon: PropTypes.node,
+  size: PropTypes.oneOf(SIZES),
+  children: PropTypes.node.isRequired,
+};
+
+EventLineItem.defaultProps = {
+  size: SIZES[0],
+};
+
+export default EventLineItem;

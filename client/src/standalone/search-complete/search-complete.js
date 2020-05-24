@@ -1,57 +1,26 @@
-import { AutoComplete, Input, Space } from "antd";
-import moment from "moment";
+import { AutoComplete, Input } from "antd";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { CalendarAvatar } from "../calendar-avatar";
-import { StatusIcon } from "../status-icon";
 import "./search-complete.css";
 
 const { Search } = Input;
 
-export default ({ data, onSelect }) => {
+const SearchComplete = ({ data, filter, optionRenderObject, onSelect }) => {
   const [options, setOptions] = useState([]);
 
-  const searchResult = (value) =>
-    data
-      .filter((option) =>
-        option.titol.toLowerCase().includes(value.toLowerCase())
-      )
-      .map((option) => ({
-        // TODO Com gestiono el fet que les dades rebudes tinguing
-        //  noms diferents que les que demanen els components?
-        key: option.id_esdeveniment,
-        value: option.titol,
-        date: option.dia_inici,
-        label: (
-          <div className="search-complete-item">
-            <Space>
-              <StatusIcon
-                tooltip={option.estat_esdeveniment}
-                statusId={option.id_estat_esdeveniment}
-                esAniversari={option.tipus === "aniversari"}
-              />
-              <CalendarAvatar moment={moment(option.dia_inici)} noBorder />
-              <span>{option.titol}</span>
-            </Space>
-            <Space>
-              <span className="search-complete-item-extra">
-                {option.hora_inici
-                  ? moment(option.data_inici).format("LT")
-                  : ""}
-              </span>
-            </Space>
-          </div>
-        ),
-      }));
+  const searchOption = (value) =>
+    data.filter((option) => filter(value, option)).map(optionRenderObject);
 
-  const handleSearch = (value) => {
-    setOptions(value ? searchResult(value) : []);
-  };
+  const handleSearch = (value) => setOptions(value ? searchOption(value) : []);
 
   return (
     <div className="search-complete">
       <AutoComplete
         options={options}
-        onSelect={onSelect}
+        onSelect={(value, option) => {
+          console.log(value, option);
+          onSelect(value, option);
+        }}
         onSearch={handleSearch}
       >
         <Search
@@ -64,3 +33,12 @@ export default ({ data, onSelect }) => {
     </div>
   );
 };
+
+SearchComplete.propTypes = {
+  data: PropTypes.array.isRequired,
+  filter: PropTypes.func.isRequired,
+  optionRenderObject: PropTypes.func.isRequired,
+  onSelect: PropTypes.func,
+};
+
+export default SearchComplete;
