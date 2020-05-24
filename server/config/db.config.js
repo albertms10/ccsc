@@ -18,7 +18,10 @@ const createPool = async () =>
 
 const ensureSchema = async (pool) => {
   await pool.query(
-    fs.readFileSync(path.join(__dirname, "../../database/database.sql"), "utf8")
+    fs.readFileSync(
+      path.join(__dirname, "../../database/db-generator.sql"),
+      "utf8"
+    )
   );
   console.log("Ensured that all tables exist");
 };

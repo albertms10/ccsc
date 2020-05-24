@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const poolPromise = require("./config/pool.config");
+const poolPromise = require("./config/db.config");
 let pool;
 
 app.use(async (req, res, next) => {
