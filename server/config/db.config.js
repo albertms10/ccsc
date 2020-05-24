@@ -1,6 +1,4 @@
 const mysql = require("promise-mysql");
-const path = require("path");
-const fs = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -17,13 +15,13 @@ const createPool = async () =>
   });
 
 const ensureSchema = async (pool) => {
-  await pool.query(
-    fs.readFileSync(
-      path.join(__dirname, "../../database/db-generator.sql"),
-      "utf8"
-    )
-  );
-  console.log("Ensured that all tables exist");
+  // await pool.query(
+  //   fs.readFileSync(
+  //     path.join(__dirname, "../../database/db-generator.sql"),
+  //     "utf8"
+  //   )
+  // );
+  // console.log("Ensured that all tables exist");
 };
 
 const poolPromise = createPool()
