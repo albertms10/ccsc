@@ -1,7 +1,6 @@
-import { Input, Table, Typography } from "antd";
+import { Grid, Input, Table, Typography } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
-import Media from "react-media";
 import { SociPropTypes } from "../../typedef/prop-types";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";
@@ -10,8 +9,10 @@ import "./taula-socis.css";
 
 const { Paragraph } = Typography;
 const { Search } = Input;
+const { useBreakpoint } = Grid;
 
 const TaulaSocis = ({ socis, getSocis, loading }) => {
+  const breakpoint = useBreakpoint();
   const [searchValue, setSearchValue, filteredSocis] = useSearchSocis(socis);
 
   const columns = [
@@ -24,10 +25,10 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
       sortDirections: ["descend", "ascend"],
       filters: [
         { text: "Actiu", value: true },
-        { text: "Inactiu", value: false }
+        { text: "Inactiu", value: false },
       ],
       filterMultiple: false,
-      onFilter: (value, record) => value === record.estat_actiu
+      onFilter: (value, record) => value === record.estat_actiu,
     },
     {
       title: "Adreça electrònica",
@@ -38,13 +39,13 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
           {text}
         </Paragraph>
       ),
-      hideOnSmall: true
+      hideBreakpoint: "sm",
     },
     {
       title: "Telèfon",
       dataIndex: "telefon",
       key: "telefon",
-      hideOnMedium: true
+      hideBreakpoint: "md",
     },
     {
       title: "",
@@ -53,17 +54,17 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
       align: "right",
       render: (idPersona) => (
         <DropdownRowSoci idPersona={idPersona} getSocis={getSocis} />
-      )
-    }
+      ),
+    },
   ];
 
-  const getResponsiveColumns = ({ small, medium }) =>
+  const getResponsiveColumns = () =>
     columns.filter(
-      ({ hideOnSmall = false, hideOnMedium = false }) =>
-        !(small && hideOnSmall) && !(medium && hideOnMedium)
+      ({ hideBreakpoint }) =>
+        !(!breakpoint.md && hideBreakpoint === "sm") &&
+        !(!breakpoint.lg && hideBreakpoint === "md")
     );
 
-  // TODO: Canviar el component Media
   return (
     <div className="socis-table">
       <Search
@@ -73,17 +74,13 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
         onChange={({ target }) => setSearchValue(target.value.toLowerCase())}
         style={{ width: "100%", marginBottom: "1rem" }}
       />
-      <Media queries={{ small: { maxWidth: 599 }, medium: { maxWidth: 999 } }}>
-        {(matches) => (
-          <Table
-            dataSource={searchValue ? filteredSocis : socis}
-            rowKey="id_persona"
-            loading={loading}
-            pagination={{ hideOnSinglePage: true, responsive: true }}
-            columns={getResponsiveColumns(matches)}
-          />
-        )}
-      </Media>
+      <Table
+        dataSource={searchValue ? filteredSocis : socis}
+        rowKey="id_persona"
+        loading={loading}
+        pagination={{ hideOnSinglePage: true, responsive: true }}
+        columns={getResponsiveColumns()}
+      />
     </div>
   );
 };
@@ -91,11 +88,11 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
 TaulaSocis.propTypes = {
   socis: PropTypes.arrayOf(SociPropTypes).isRequired,
   getSocis: PropTypes.func.isRequired,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
 TaulaSocis.defaultProps = {
-  loading: false
+  loading: false,
 };
 
 export default TaulaSocis;
