@@ -58,7 +58,7 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
     },
   ];
 
-  const getResponsiveColumns = () =>
+  const getResponsiveColumns = (breakpoint) =>
     columns.filter(
       ({ hideBreakpoint }) =>
         !(!breakpoint.md && hideBreakpoint === "sm") &&
@@ -79,7 +79,7 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
         rowKey="id_persona"
         loading={loading}
         pagination={{ hideOnSinglePage: true, responsive: true }}
-        columns={getResponsiveColumns()}
+        columns={getResponsiveColumns(breakpoint)}
       />
     </div>
   );
