@@ -29,7 +29,7 @@ export default () => {
     [putAvisAcceptacio, dispatch, currentUser.avisos]
   );
 
-  return currentUser && currentUser.avisos.length > 0 ? (
+  return currentUser && currentUser.avisos && currentUser.avisos.length > 0 ? (
     <Form form={form} onFinish={onFinish}>
       <Container className="signin-container">
         <div className="signin-form-wrapper">
