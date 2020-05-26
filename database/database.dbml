@@ -11,16 +11,25 @@ Indexes {
 }
 }
 
+Table "emails_espera" {
+  "email" VARCHAR(255) [not null]
+
+Indexes {
+  email [unique]
+}
+}
+
 Table "persones" {
   "id_persona" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(50) [not null]
   "cognoms" VARCHAR(50) [not null]
   "nom_complet" VARCHAR(101)
+  "es_dona" BOOLEAN [not null, default: TRUE]
   "naixement" DATE
   "id_pais" CHAR(2)
   "dni" VARCHAR(12)
   "email" VARCHAR(50)
-  "telefon" INT(10)
+  "telefon" VARCHAR(14)
   "es_institucio" BOOLEAN [not null, default: FALSE]
   "accepta_proteccio_dades" BOOLEAN [not null, default: FALSE]
   "accepta_drets_imatge" BOOLEAN [not null, default: FALSE]
@@ -37,8 +46,7 @@ Table "socis" {
   "id_soci" SMALLINT [pk, not null]
   "experiencia_coral" TEXT
   "estudis_musicals" TEXT
-  "id_veu" CHAR(1)
-  "id_associacio" SMALLINT [not null, default: 1]
+  "id_veu" TINYINT(1)
 }
 
 Table "roles" {
@@ -97,11 +105,19 @@ Indexes {
 }
 
 Table "socis_agrupacions" {
+  "id_soci_agrupacio" SMALLINT [pk, not null, increment]
   "id_soci" SMALLINT [not null]
   "id_agrupacio" SMALLINT [not null]
+}
+
+Table "socis_agrupacions_veus" {
+  "id_soci_agrupacio" SMALLINT [not null]
+  "id_veu" TINYINT(1) [not null]
+  "data_inici" DATE [not null]
+  "data_final" DATE
 
 Indexes {
-  (id_soci, id_agrupacio) [pk]
+  (id_soci_agrupacio, id_veu, data_inici) [pk]
 }
 }
 
@@ -252,12 +268,23 @@ Table "esdeveniments" {
   "hora_inici" TIME
   "dia_final" DATE
   "hora_final" TIME
-  "es_hora_curs" BOOLEAN [not null, default: FALSE]
+  "es_assaig_ordinari" BOOLEAN [not null, default: FALSE]
   "id_estat_esdeveniment" TINYINT [not null, default: 1]
   "id_localitzacio" SMALLINT [not null]
   "id_estat_localitzacio" TINYINT [not null, default: 1]
   "id_esdeveniment_ajornat" SMALLINT
-  "CONSTRAINT" hora_curs
+}
+
+Table "horaris_curs" {
+  "id_curs" VARCHAR(5) [not null]
+  "periode_inici" DATE [not null]
+  "periode_final" DATE
+  "hora_inici" TIME [not null]
+  "hora_final" TIME [not null]
+
+Indexes {
+  (id_curs, periode_inici) [pk]
+}
 }
 
 Table "estats_confirmacio" {
@@ -284,19 +311,6 @@ Table "punts_reunio" {
   "titol" VARCHAR(255) [not null]
   "descripcio" TEXT
   "id_reunio" SMALLINT [not null]
-}
-
-Table "actes_reunions" {
-  "id_acta_reunio" SMALLINT [pk, not null]
-}
-
-Table "socis_signants_acta_reunio" {
-  "id_acta_reunio" SMALLINT [not null]
-  "id_soci" SMALLINT [not null]
-
-Indexes {
-  (id_acta_reunio, id_soci) [pk]
-}
 }
 
 Table "assemblees" {
@@ -379,18 +393,19 @@ Table "fonts_traduccions" {
 }
 
 Table "veus" {
-  "id_veu" CHAR(1) [pk, not null]
+  "id_veu" TINYINT(1) [pk, not null, increment]
   "nom" VARCHAR(20) [not null]
+  "abreviatura" VARCHAR(2) [not null]
 }
 
 Table "veus_moviments" {
   "id_veu_moviment" SMALLINT [pk, not null, increment]
-  "id_veu" CHAR(1) [not null]
+  "id_veu" TINYINT(1) [not null]
   "divisi" TINYINT(1) [not null]
   "id_moviment" SMALLINT [not null]
 }
 
-Table "socis_veus_projectes" {
+Table "socis_veu_moviment_projectes" {
   "id_soci" SMALLINT [not null]
   "id_veu_moviment" SMALLINT [not null]
   "id_projecte" SMALLINT [not null]
@@ -404,7 +419,6 @@ Table "cursos" {
   "id_curs" VARCHAR(5) [pk, not null]
   "inici" DATE [not null]
   "final" DATE
-  "id_associacio" SMALLINT [not null, default: 1]
 }
 
 Table "projectes" {
@@ -413,6 +427,8 @@ Table "projectes" {
   "descripcio" TEXT
   "inicials" VARCHAR(3) [not null]
   "color" CHAR(6)
+  "data_inici" DATE
+  "data_final" DATE
   "id_curs" VARCHAR(5) [not null]
 }
 
@@ -550,6 +566,15 @@ Table "assajos" {
   "es_extra" BOOLEAN [not null, default: FALSE]
 }
 
+Table "veus_convocades_assaig" {
+  "id_assaig" SMALLINT [not null]
+  "id_veu" TINYINT(1)
+
+Indexes {
+  (id_assaig, id_veu) [pk]
+}
+}
+
 Table "assajos_projectes" {
   "id_assaig" SMALLINT [not null]
   "id_projecte" SMALLINT [not null]
@@ -592,38 +617,23 @@ Indexes {
 }
 }
 
-Table "direccions_fiscals_associacio" {
-  "id_direccio_fiscal_associacio" SMALLINT [not null]
+Table "adreces_associacio" {
+  "id_adreca_associacio" SMALLINT [pk, not null, increment]
   "id_localitzacio" SMALLINT [not null]
   "data_inici" DATE [not null]
-
-Indexes {
-  (id_direccio_fiscal_associacio, id_localitzacio, data_inici) [pk]
-}
-}
-
-Table "direccions_socials_associacio" {
-  "id_direccio_social_associacio" SMALLINT [not null]
-  "id_localitzacio" SMALLINT [not null]
-  "data_inici" DATE [not null]
-
-Indexes {
-  (id_direccio_social_associacio, id_localitzacio, data_inici) [pk]
-}
 }
 
 Table "adreces_electroniques_associacio" {
   "id_adreca_electronica_associacio" SMALLINT [pk, not null, increment]
-  "direccio" VARCHAR(50) [not null]
+  "adreca_electronica" VARCHAR(50) [not null]
   "descripcio" VARCHAR(50) [not null]
-  "id_associacio" SMALLINT [not null]
 
 Indexes {
-  direccio [unique]
+  adreca_electronica [unique]
 }
 }
 
-Table "encarregats_correus_associacio" {
+Table "encarregats_adreces_electroniques" {
   "id_adreca_electronica_associacio" SMALLINT [not null]
   "id_soci" SMALLINT [not null]
   "data_inici" DATE [not null]
@@ -638,6 +648,20 @@ Table "documentacions" {
   "id_documentacio" SMALLINT [pk, not null, increment]
   "data" DATE [not null]
   "id_tipus_documentacio" TINYINT
+}
+
+Table "socis_signants_documentacio" {
+  "id_documentacio" SMALLINT [not null]
+  "id_soci" SMALLINT [not null]
+
+Indexes {
+  (id_documentacio, id_soci) [pk]
+}
+}
+
+Table "actes_reunions" {
+  "id_documentacio" SMALLINT [pk, not null]
+  "id_reunio" SMALLINT [not null]
 }
 
 Table "tipus_documentacio" {
@@ -656,6 +680,48 @@ Table "articles_documentacio" {
   "id_article_documentacio" SMALLINT [pk, not null, increment]
   "numero" TINYINT(2) [not null]
   "id_capitol" SMALLINT [not null]
+}
+
+Table "tipus_avisos" {
+  "id_tipus_avis" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(100) [not null]
+}
+
+Table "avisos" {
+  "id_avis" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(100)
+  "descripcio" TEXT
+  "titol_acceptacions" VARCHAR(100)
+  "requerit" BOOLEAN [not null, default: FALSE]
+  "data_inici" DATE
+  "data_final" DATE
+  "id_tipus_avis" SMALLINT [not null]
+}
+
+Table "seccions_avis" {
+  "id_seccio_avis" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(100) [not null]
+  "descripcio" TEXT [not null]
+  "id_avis" SMALLINT [not null]
+}
+
+Table "acceptacions_avis" {
+  "id_acceptacio_avis" SMALLINT [pk, not null, increment]
+  "titol" VARCHAR(255) [not null]
+  "descripcio" TEXT
+  "requerida" BOOLEAN [not null, default: FALSE]
+  "form_name" VARCHAR(50) [not null]
+  "id_avis" SMALLINT [not null]
+}
+
+Table "socis_acceptacions" {
+  "id_soci" SMALLINT [not null]
+  "id_acceptacio_avis" SMALLINT [not null]
+  "accepta" BOOLEAN [not null, default: FALSE]
+
+Indexes {
+  (id_soci, id_acceptacio_avis) [pk]
+}
 }
 
 Table "titulars" {
@@ -708,8 +774,6 @@ Ref:"persones"."id_persona" < "socis"."id_soci"
 
 Ref:"veus"."id_veu" < "socis"."id_veu"
 
-Ref:"associacio"."id_associacio" < "socis"."id_associacio"
-
 Ref:"usuaris_complet"."id_usuari" < "roles_usuaris"."id_usuari"
 
 Ref:"roles"."id_role" < "roles_usuaris"."id_role"
@@ -729,6 +793,10 @@ Ref:"agrupacions"."id_agrupacio" < "directors_agrupacions"."id_agrupacio"
 Ref:"socis"."id_soci" < "socis_agrupacions"."id_soci"
 
 Ref:"agrupacions"."id_agrupacio" < "socis_agrupacions"."id_agrupacio"
+
+Ref:"socis_agrupacions"."id_soci_agrupacio" < "socis_agrupacions_veus"."id_soci_agrupacio"
+
+Ref:"veus"."id_veu" < "socis_agrupacions_veus"."id_veu"
 
 Ref:"insignies"."id_insignia" < "insignies_socis_curs"."id_insignia"
 
@@ -780,6 +848,8 @@ Ref:"estats_confirmacio"."id_estat_confirmacio" < "esdeveniments"."id_estat_loca
 
 Ref:"esdeveniments"."id_esdeveniment" < "esdeveniments"."id_esdeveniment_ajornat"
 
+Ref:"cursos"."id_curs" < "horaris_curs"."id_curs"
+
 Ref:"esdeveniments"."id_esdeveniment" < "assistents_esdeveniment"."id_esdeveniment"
 
 Ref:"socis"."id_soci" < "assistents_esdeveniment"."id_soci"
@@ -787,12 +857,6 @@ Ref:"socis"."id_soci" < "assistents_esdeveniment"."id_soci"
 Ref:"esdeveniments"."id_esdeveniment" < "reunions"."id_reunio"
 
 Ref:"reunions"."id_reunio" < "punts_reunio"."id_reunio"
-
-Ref:"reunions"."id_reunio" < "actes_reunions"."id_acta_reunio"
-
-Ref:"actes_reunions"."id_acta_reunio" < "socis_signants_acta_reunio"."id_acta_reunio"
-
-Ref:"socis"."id_soci" < "socis_signants_acta_reunio"."id_soci"
 
 Ref:"reunions"."id_reunio" < "assemblees"."id_assemblea"
 
@@ -828,13 +892,11 @@ Ref:"veus"."id_veu" < "veus_moviments"."id_veu"
 
 Ref:"moviments"."id_moviment" < "veus_moviments"."id_moviment"
 
-Ref:"socis"."id_soci" < "socis_veus_projectes"."id_soci"
+Ref:"socis"."id_soci" < "socis_veu_moviment_projectes"."id_soci"
 
-Ref:"veus_moviments"."id_veu_moviment" < "socis_veus_projectes"."id_veu_moviment"
+Ref:"veus_moviments"."id_veu_moviment" < "socis_veu_moviment_projectes"."id_veu_moviment"
 
-Ref:"projectes"."id_projecte" < "socis_veus_projectes"."id_projecte"
-
-Ref:"associacio"."id_associacio" < "cursos"."id_associacio"
+Ref:"projectes"."id_projecte" < "socis_veu_moviment_projectes"."id_projecte"
 
 Ref:"cursos"."id_curs" < "projectes"."id_curs"
 
@@ -910,25 +972,33 @@ Ref:"associacio"."id_associacio" < "agrupacions_associacio"."id_associacio"
 
 Ref:"agrupacions"."id_agrupacio" < "agrupacions_associacio"."id_agrupacio"
 
-Ref:"associacio"."id_associacio" < "direccions_fiscals_associacio"."id_direccio_fiscal_associacio"
+Ref:"localitzacions"."id_localitzacio" < "adreces_associacio"."id_localitzacio"
 
-Ref:"localitzacions"."id_localitzacio" < "direccions_fiscals_associacio"."id_localitzacio"
+Ref:"adreces_electroniques_associacio"."id_adreca_electronica_associacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_associacio"
 
-Ref:"associacio"."id_associacio" < "direccions_socials_associacio"."id_direccio_social_associacio"
-
-Ref:"localitzacions"."id_localitzacio" < "direccions_socials_associacio"."id_localitzacio"
-
-Ref:"associacio"."id_associacio" < "adreces_electroniques_associacio"."id_associacio"
-
-Ref:"adreces_electroniques_associacio"."id_adreca_electronica_associacio" < "encarregats_correus_associacio"."id_adreca_electronica_associacio"
-
-Ref:"socis"."id_soci" < "encarregats_correus_associacio"."id_soci"
+Ref:"socis"."id_soci" < "encarregats_adreces_electroniques"."id_soci"
 
 Ref:"tipus_documentacio"."id_tipus_documentacio" < "documentacions"."id_tipus_documentacio"
+
+Ref:"documentacions"."id_documentacio" < "socis_signants_documentacio"."id_documentacio"
+
+Ref:"socis"."id_soci" < "socis_signants_documentacio"."id_soci"
+
+Ref:"reunions"."id_reunio" < "actes_reunions"."id_reunio"
 
 Ref:"documentacions"."id_documentacio" < "capitols_documentacio"."id_documentacio"
 
 Ref:"capitols_documentacio"."id_capitol_documentacio" < "articles_documentacio"."id_capitol"
+
+Ref:"tipus_avisos"."id_tipus_avis" < "avisos"."id_tipus_avis"
+
+Ref:"avisos"."id_avis" < "seccions_avis"."id_avis"
+
+Ref:"avisos"."id_avis" < "acceptacions_avis"."id_avis"
+
+Ref:"socis"."id_soci" < "socis_acceptacions"."id_soci"
+
+Ref:"acceptacions_avis"."id_acceptacio_avis" < "socis_acceptacions"."id_acceptacio_avis"
 
 Ref:"concerts"."id_concert" < "concerts_entrades"."id_concert"
 
