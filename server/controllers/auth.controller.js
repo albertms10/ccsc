@@ -31,22 +31,23 @@ exports.signin = (req, res, next) => {
                     SELECT JSON_ARRAYAGG(role)
                     FROM roles_usuaris
                              INNER JOIN roles USING (id_role)
-                    WHERE id_usuari = (SELECT usuaris_complet.id_usuari)
+                    WHERE id_usuari = (SELECT uc.id_usuari)
                 )         AS roles,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
                     FROM avisos
-                             INNER JOIN acceptacions_avis USING (id_avis)
+                             INNER JOIN acceptacions_avis av USING (id_avis)
                     WHERE requerida IS TRUE
                       AND NOT EXISTS(
                             SELECT *
                             FROM socis_acceptacions
-                            WHERE id_acceptacio_avis = (SELECT acceptacions_avis.id_acceptacio_avis)
-                              AND id_soci = 1
+                            WHERE id_acceptacio_avis = (SELECT av.id_acceptacio_avis)
+                              AND accepta IS TRUE
+                              AND id_soci = (SELECT p.id_persona)
                         )
                 )         AS avisos
-         FROM usuaris_complet
-                  LEFT JOIN persones USING (id_persona)
+         FROM usuaris_complet uc
+                  LEFT JOIN persones p USING (id_persona)
          WHERE ?;`,
       { username }
     )
@@ -144,22 +145,23 @@ exports.userInfo = (req, res, next) => {
                     SELECT JSON_ARRAYAGG(role)
                     FROM roles_usuaris
                              INNER JOIN roles USING (id_role)
-                    WHERE id_usuari = (SELECT usuaris.id_usuari)
+                    WHERE id_usuari = (SELECT u.id_usuari)
                 )         AS roles,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
                     FROM avisos
-                             INNER JOIN acceptacions_avis USING (id_avis)
+                             INNER JOIN acceptacions_avis av USING (id_avis)
                     WHERE requerida IS TRUE
                       AND NOT EXISTS(
                             SELECT *
                             FROM socis_acceptacions
-                            WHERE id_acceptacio_avis = (SELECT acceptacions_avis.id_acceptacio_avis)
-                              AND id_soci = 1
+                            WHERE id_acceptacio_avis = (SELECT av.id_acceptacio_avis)
+                              AND accepta IS TRUE
+                              AND id_soci = (SELECT p.id_persona)
                         )
                 )         AS avisos
-         FROM usuaris
-                  LEFT JOIN persones USING (id_persona)
+         FROM usuaris u
+                  LEFT JOIN persones p USING (id_persona)
          WHERE ?`,
       { id_usuari }
     )
