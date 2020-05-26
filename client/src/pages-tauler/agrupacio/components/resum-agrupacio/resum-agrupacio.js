@@ -53,18 +53,16 @@ export default () => {
                   ? `a les ${date.format("LT")}`
                   : "",
                 link: `/assajos/${assaig.id_assaig}`,
-                extra:
-                  assaig.projectes &&
-                  assaig.projectes.map((projecte) => (
-                    <FixedTag
-                      key={projecte.id_projecte}
-                      childKey={projecte.id_projecte}
-                      tooltip={projecte.titol}
-                      color={"#" + projecte.color}
-                    >
-                      {projecte.inicials}
-                    </FixedTag>
-                  )),
+                extra: assaig.projectes.map((projecte) => (
+                  <FixedTag
+                    key={projecte.id_projecte}
+                    childKey={projecte.id_projecte}
+                    tooltip={projecte.titol}
+                    color={"#" + projecte.color}
+                  >
+                    {projecte.inicials}
+                  </FixedTag>
+                )),
                 avatar: <CalendarAvatar moment={date} />,
               };
             })}
