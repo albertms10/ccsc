@@ -650,15 +650,12 @@ CREATE TABLE IF NOT EXISTS socis_veu_moviment_projectes
 
 CREATE TABLE IF NOT EXISTS cursos
 (
-    id_curs       VARCHAR(5)        NOT NULL,
+    id_curs VARCHAR(5) NOT NULL,
 
-    inici         DATE              NOT NULL,
-    final         DATE,
+    inici   DATE       NOT NULL,
+    final   DATE,
 
-    id_associacio SMALLINT UNSIGNED NOT NULL DEFAULT 1,
-
-    PRIMARY KEY (id_curs),
-    FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
+    PRIMARY KEY (id_curs)
 );
 
 CREATE TABLE IF NOT EXISTS projectes
@@ -946,42 +943,28 @@ CREATE TABLE IF NOT EXISTS agrupacions_associacio
     FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS direccions_fiscals_associacio
+CREATE TABLE IF NOT EXISTS adreces_associacio
 (
-    id_direccio_fiscal_associacio SMALLINT UNSIGNED NOT NULL,
-    id_localitzacio               SMALLINT UNSIGNED NOT NULL,
-    data_inici                    DATE              NOT NULL,
+    id_adreca_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_localitzacio      SMALLINT UNSIGNED NOT NULL,
+    data_inici           DATE              NOT NULL,
 
-    PRIMARY KEY (id_direccio_fiscal_associacio, id_localitzacio, data_inici),
-    FOREIGN KEY (id_direccio_fiscal_associacio) REFERENCES associacio (id_associacio),
-    FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
-);
-
-CREATE TABLE IF NOT EXISTS direccions_socials_associacio
-(
-    id_direccio_social_associacio SMALLINT UNSIGNED NOT NULL,
-    id_localitzacio               SMALLINT UNSIGNED NOT NULL,
-    data_inici                    DATE              NOT NULL,
-
-    PRIMARY KEY (id_direccio_social_associacio, id_localitzacio, data_inici),
-    FOREIGN KEY (id_direccio_social_associacio) REFERENCES associacio (id_associacio),
+    PRIMARY KEY (id_adreca_associacio),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
 );
 
 CREATE TABLE IF NOT EXISTS adreces_electroniques_associacio
 (
     id_adreca_electronica_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    direccio                         VARCHAR(50)       NOT NULL,
+    adreca_electronica               VARCHAR(50)       NOT NULL,
 
     descripcio                       VARCHAR(50)       NOT NULL,
-    id_associacio                    SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_adreca_electronica_associacio),
-    FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio),
-    UNIQUE (direccio)
+    UNIQUE (adreca_electronica)
 );
 
-CREATE TABLE IF NOT EXISTS encarregats_adreces_associacio
+CREATE TABLE IF NOT EXISTS encarregats_adreces_electroniques
 (
     id_adreca_electronica_associacio SMALLINT UNSIGNED NOT NULL,
     id_soci                          SMALLINT UNSIGNED NOT NULL,
