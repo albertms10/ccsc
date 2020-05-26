@@ -1,3 +1,4 @@
+const { parseAndSendJSON } = require("../helpers");
 const {
   assajos_query_helper
 } = require("../query-helpers/assajos.query-helper");
@@ -171,18 +172,9 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
       // TODO: Refaccionar l’any
       [id_agrupacio, id_agrupacio, 2020, id_agrupacio]
     )
-    .then((esdeveniments) => {
-      try {
-        esdeveniments.forEach((esdeveniment) => {
-          esdeveniment.projectes = JSON.parse(esdeveniment.projectes);
-        });
-      } catch (e) {
-        next(e);
-        return res.end();
-      }
-
-      res.json(esdeveniments);
-    })
+    .then((esdeveniments) =>
+      parseAndSendJSON(esdeveniments, ["projectes"], res, next)
+    )
     .catch((e) => next(e));
 };
 
@@ -200,18 +192,9 @@ exports.agrupacions_detall_assajos = (req, res, next) => {
          ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
       { id_agrupacio }
     )
-    .then((assajos) => {
-      try {
-        assajos.forEach(
-          (assaig) => (assaig.projectes = JSON.parse(assaig.projectes))
-        );
-      } catch (e) {
-        next(e);
-        return res.end();
-      }
-
-      res.json(assajos);
-    })
+    .then((assajos) =>
+      parseAndSendJSON(assajos, ["agrupacions", "projectes"], res, next)
+    )
     .catch((e) => next(e));
 };
 
@@ -282,19 +265,9 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
          WHERE id_agrupacio = ?;`,
       [id_agrupacio, id_agrupacio]
     )
-    .then((projectes) => {
-      try {
-        projectes.forEach((projecte) => {
-          projecte.directors = JSON.parse(projecte.directors);
-          projecte.agrupacions = JSON.parse(projecte.agrupacions);
-        });
-      } catch (e) {
-        next(e);
-        return res.end();
-      }
-
-      res.json(projectes);
-    })
+    .then((projectes) =>
+      parseAndSendJSON(projectes, ["directors", "agrupacions"], res, next)
+    )
     .catch((e) => next(e));
 };
 

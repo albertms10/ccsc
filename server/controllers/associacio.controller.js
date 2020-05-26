@@ -1,3 +1,4 @@
+const { parseAndSendJSON } = require("../helpers");
 exports.associacio_get = (req, res, next) => {
   const pool = req.app.get("pool");
 
@@ -52,17 +53,14 @@ exports.associacio_protecciodades = (req, res, next) => {
            AND IFNULL(CURRENT_DATE < data_final, TRUE)
          LIMIT 1;`
     )
-    .then(([proteccioDades]) => {
-      try {
-        proteccioDades.seccions = JSON.parse(proteccioDades.seccions);
-        proteccioDades.acceptacions = JSON.parse(proteccioDades.acceptacions);
-      } catch (e) {
-        next(e);
-        return res.end();
-      }
-
-      res.json(proteccioDades);
-    })
+    .then(([proteccioDades]) =>
+      parseAndSendJSON(
+        proteccioDades,
+        ["seccions", "acceptacions"],
+        res,
+        next
+      )
+    )
     .catch((e) => next(e));
 };
 
@@ -109,16 +107,8 @@ exports.associacio_avisos = (req, res, next) => {
          LIMIT 1;`,
       { id_avis }
     )
-    .then(([avis]) => {
-      try {
-        avis.seccions = JSON.parse(avis.seccions);
-        avis.acceptacions = JSON.parse(avis.acceptacions);
-      } catch (e) {
-        next(e);
-        return res.json({});
-      }
-
-      res.json(avis);
-    })
+    .then(([avis]) =>
+      parseAndSendJSON(avis, ["seccions", "acceptacions"], res, next)
+    )
     .catch((e) => next(e));
 };
