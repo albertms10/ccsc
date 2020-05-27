@@ -46,9 +46,7 @@ export default () => {
 
               return {
                 id: assaig.id_assaig,
-                title: `Assaig${assaig.es_general ? " general" : ""}${
-                  assaig.es_extra ? " extra" : ""
-                }`,
+                title: assaig.titol,
                 description: assaig.hora_inici
                   ? `a les ${date.format("LT")}`
                   : "",
