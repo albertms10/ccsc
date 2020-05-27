@@ -17,7 +17,7 @@ export default (id) => {
       },
       dispatch
     );
-  }, []);
+  }, [id, dispatch]);
 
   return [assaig, loading];
 };
