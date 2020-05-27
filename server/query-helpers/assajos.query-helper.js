@@ -6,6 +6,11 @@ exports.assajos_query_helper =
    IFNULL(CONCAT(dia_final, ' ', hora_final), dia_final) AS data_final,
    IFNULL(DATE_FORMAT(dia_final, '%Y-%m-%d'), dia_inici) AS dia_final,
    hora_final,
+   CONCAT(
+       'Assaig',
+       IF(es_general, ' general', ''),
+       IF(es_extra, ' extra', '')
+   )                                                     AS titol,
    (
        SELECT estat
        FROM estats_confirmacio
