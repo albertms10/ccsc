@@ -1,6 +1,7 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
 import React from "react";
+import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
@@ -61,12 +62,12 @@ export default () => {
             </Authorized>,
           ]}
         >
-          <Item.Meta
-            title={`Assaig${assaig.es_general ? " general" : ""}${
-              assaig.es_extra ? " extra" : ""
-            }`}
-            description={moment(assaig.data_inici).format("LLL")}
-          />
+          <Link to={`/assajos/${assaig.id_assaig}`}>
+            <Item.Meta
+              title={assaig.titol}
+              description={moment(assaig.data_inici).format("LLL")}
+            />
+          </Link>
         </Item>
       )}
     />
