@@ -36,6 +36,7 @@
 }
 
 .app-layout-header .app-layout-header-title {
+  font-weight: 400;
   visibility: hidden;
   flex: 1;
   margin-bottom: 0;

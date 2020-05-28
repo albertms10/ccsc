@@ -6,8 +6,12 @@
 }
 
 .title-wrapper h1 {
-  font-weight: lighter;
+  font-weight: 300;
   margin: 0 0 3rem 0 !important;
+}
+
+.title-wrapper h3 {
+  font-weight: 400;
 }
 
 @media only screen and (max-width: 425px) {
