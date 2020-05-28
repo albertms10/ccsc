@@ -15,6 +15,6 @@ module.exports = (app) => {
 
   app.get(
     "/api/associacio/avisos/:id",
-    controller.associacio_avisos
+    controller.associacio_avisos_detall
   )
 };

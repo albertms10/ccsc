@@ -2,6 +2,8 @@ const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/socis.controller");
 
 module.exports = (app) => {
+  app.post("/api/alta-soci", [authJWT.verifyEmailToken], controller.socis_post);
+
   app.get(
     "/api/socis/count",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
@@ -20,6 +22,12 @@ module.exports = (app) => {
     controller.socis_detall
   );
 
+  app.delete(
+    "/api/socis/:id",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.socis_delete
+  );
+
   app.get(
     "/api/socis",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
@@ -30,14 +38,6 @@ module.exports = (app) => {
     "/api/socis",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.socis_post
-  );
-
-  app.post("/api/alta-soci", [authJWT.verifyEmailToken], controller.socis_post);
-
-  app.delete(
-    "/api/socis/:id",
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_delete
   );
 
   app.get(

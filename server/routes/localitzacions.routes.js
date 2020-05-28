@@ -13,11 +13,6 @@ module.exports = (app) => {
     controller.localitzacions_tipusvies_get
   );
 
-  app.get(
-    "/api/localitzacions/localitzacio/:id",
-    controller.localitzacions_localitzacio_detall
-  );
-
   app.get("/api/localitzacions/ciutats", controller.localitzacions_ciutats_get);
 
   app.get(
@@ -26,4 +21,9 @@ module.exports = (app) => {
   );
 
   app.get("/api/localitzacions/paisos", controller.localitzacions_paisos_get);
+
+  app.get(
+    "/api/localitzacions/:id",
+    controller.localitzacions_detall
+  );
 };

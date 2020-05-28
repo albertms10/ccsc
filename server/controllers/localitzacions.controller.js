@@ -32,7 +32,7 @@ exports.localitzacions_tipusvies_get = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.localitzacions_localitzacio_detall = (req, res, next) => {
+exports.localitzacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_localitzacio = req.params.id;
 

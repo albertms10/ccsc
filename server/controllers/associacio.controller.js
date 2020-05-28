@@ -59,7 +59,7 @@ exports.associacio_protecciodades = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.associacio_avisos = (req, res, next) => {
+exports.associacio_avisos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_avis = req.params.id;
 
