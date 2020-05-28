@@ -26,7 +26,7 @@ const modalWarn = (error, dispatch) => {
  * @param {string} url
  * @param {Function} callback
  * @param {Function} dispatch
- * @param {RequestInit} [init={}]
+ * @param {Object} [init={}]
  */
 export default (url, callback, dispatch, init = {}) =>
   fetch(url, {

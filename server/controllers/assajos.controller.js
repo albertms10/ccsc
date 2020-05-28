@@ -12,8 +12,8 @@ exports.assajos_detall = (req, res, next) => {
       `SELECT ${assajos_query_helper}
          FROM assajos a
                   INNER JOIN esdeveniments e ON a.id_assaig = e.id_esdeveniment
-         WHERE id_assaig = ?;`,
-      [id_assaig]
+         WHERE ?;`,
+      { id_assaig }
     )
     .then(([assaig]) =>
       parseAndSendJSON(assaig, ["agrupacions", "projectes"], res, next)

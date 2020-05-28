@@ -66,7 +66,7 @@ export const signinUserFetch = (user) => (dispatch) => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({ ...user }),
+    body: JSON.stringify(user),
   })
     .then((res) => res.json())
     .then((data) => {
