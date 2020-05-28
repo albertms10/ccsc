@@ -16,7 +16,7 @@ exports.assajos_detall = (req, res, next) => {
       { id_assaig }
     )
     .then(([assaig]) =>
-      parseAndSendJSON(assaig, ["agrupacions", "projectes"], res, next)
+      parseAndSendJSON(res, next, assaig, ["agrupacions", "projectes"])
     );
 };
 

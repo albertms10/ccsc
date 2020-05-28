@@ -128,7 +128,7 @@ exports.socis_get = (req, res, next) => {
                   LEFT JOIN usuaris USING (id_persona)
          ORDER BY estat_actiu DESC, cognoms, nom;`
     )
-    .then((socis) => parseAndSendJSON(socis, ["estat_actiu"], res, next))
+    .then((socis) => parseAndSendJSON(res, next, socis, ["estat_actiu"]))
     .catch((e) => next(e));
 };
 
@@ -348,7 +348,7 @@ exports.socis_detall_assajos = (req, res, next) => {
       [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
     )
     .then(([_, assajos]) =>
-      parseAndSendJSON(assajos, ["agrupacions", "projectes"], res, next)
+      parseAndSendJSON(res, next, assajos, ["agrupacions", "projectes"])
     )
     .catch((e) => next(e));
 };
@@ -368,7 +368,7 @@ exports.socis_detall_acceptacions_get = (req, res, next) => {
          WHERE ?;`,
       { id_soci }
     )
-    .then(([acceptacions]) => res.json(JSON.parse(acceptacions)))
+    .then(([{ acceptacions }]) => parseAndSendJSON(res, next, acceptacions))
     .catch((e) => next(e));
 };
 

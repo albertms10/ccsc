@@ -173,7 +173,7 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
       [id_agrupacio, id_agrupacio, 2020, id_agrupacio]
     )
     .then((esdeveniments) =>
-      parseAndSendJSON(esdeveniments, ["projectes"], res, next)
+      parseAndSendJSON(res, next, esdeveniments, ["projectes"])
     )
     .catch((e) => next(e));
 };
@@ -193,7 +193,7 @@ exports.agrupacions_detall_assajos = (req, res, next) => {
       { id_agrupacio }
     )
     .then((assajos) =>
-      parseAndSendJSON(assajos, ["agrupacions", "projectes"], res, next)
+      parseAndSendJSON(res, next, assajos, ["agrupacions", "projectes"])
     )
     .catch((e) => next(e));
 };
@@ -266,7 +266,7 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
       [id_agrupacio, id_agrupacio]
     )
     .then((projectes) =>
-      parseAndSendJSON(projectes, ["directors", "agrupacions"], res, next)
+      parseAndSendJSON(res, next, projectes, ["directors", "agrupacions"])
     )
     .catch((e) => next(e));
 };

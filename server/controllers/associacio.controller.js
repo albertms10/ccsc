@@ -54,12 +54,7 @@ exports.associacio_protecciodades = (req, res, next) => {
          LIMIT 1;`
     )
     .then(([proteccioDades]) =>
-      parseAndSendJSON(
-        proteccioDades,
-        ["seccions", "acceptacions"],
-        res,
-        next
-      )
+      parseAndSendJSON(res, next, proteccioDades, ["seccions", "acceptacions"])
     )
     .catch((e) => next(e));
 };
@@ -108,7 +103,7 @@ exports.associacio_avisos = (req, res, next) => {
       { id_avis }
     )
     .then(([avis]) =>
-      parseAndSendJSON(avis, ["seccions", "acceptacions"], res, next)
+      parseAndSendJSON(res, next, avis, ["seccions", "acceptacions"])
     )
     .catch((e) => next(e));
 };
