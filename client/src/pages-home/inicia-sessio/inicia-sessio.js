@@ -109,7 +109,7 @@ export default () => {
           </Spin>
           <Divider />
           <Form.Item style={{ marginBottom: 0 }}>
-            <Paragraph>Tenim la teva adreça a la llista d’espera?</Paragraph>
+            <Paragraph>Encara no t’has donat d’alt?</Paragraph>
             <Link to="/donar-alta">
               <Button type="secondary" className="signin-form-button">
                 Donar-se d’alta
