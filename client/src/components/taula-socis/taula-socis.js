@@ -9,10 +9,9 @@ import "./taula-socis.css";
 
 const { Paragraph } = Typography;
 const { Search } = Input;
-const { useBreakpoint } = Grid;
 
 const TaulaSocis = ({ socis, getSocis, loading }) => {
-  const breakpoint = useBreakpoint();
+  const breakpoint = Grid.useBreakpoint();
   const [searchValue, setSearchValue, filteredSocis] = useSearchSocis(socis);
 
   const columns = [

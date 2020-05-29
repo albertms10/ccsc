@@ -4,10 +4,9 @@ import React from "react";
 import "./header-title.css";
 
 const { Title } = Typography;
-const { useBreakpoint } = Grid;
 
 const HeaderTitle = ({ title, subtitle, icon, ...rest }) => {
-  const breakpoint = useBreakpoint();
+  const breakpoint = Grid.useBreakpoint();
 
   return (
     <div className="header-title" {...rest}>
