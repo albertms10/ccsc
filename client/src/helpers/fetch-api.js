@@ -1,4 +1,5 @@
-import { message, Modal, Typography } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { message, Modal, Tooltip, Typography } from "antd";
 import React from "react";
 import { logoutRemoveUser } from "../redux";
 
@@ -7,17 +8,32 @@ const modalWarn = (error, dispatch) => {
     title: error.message,
     content: (
       <>
-        <Typography.Text>Torna a iniciar sessió per comprovar la teva identitat.</Typography.Text>
-        <Typography.Text type="secondary">{error.status ? ` Codi d’error: ${error.status}` : ""}</Typography.Text>
+        <Typography.Text>
+          {error.description ??
+            "Torna a iniciar sessió per comprovar la teva identitat."}
+        </Typography.Text>
+        {error.status && (
+          <>
+            {" "}
+            <Tooltip
+              placement="right"
+              overlay={`Codi d’error: ${error.status}`}
+            >
+              <QuestionCircleOutlined />
+            </Tooltip>
+          </>
+        )}
       </>
     ),
     okText: error.okText ?? "Torna a iniciar sessió",
-    cancelText: "Ignora",
-    okCancel: true,
-    onOk: () => {
-      dispatch(logoutRemoveUser());
-      Modal.destroyAll();
-    },
+    cancelText: "Enrere",
+    okCancel: !error.okOnly,
+    onOk: error.noAction
+      ? null
+      : () => {
+          dispatch(logoutRemoveUser());
+          Modal.destroyAll();
+        },
   });
 };
 
