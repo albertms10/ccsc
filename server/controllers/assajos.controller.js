@@ -49,3 +49,50 @@ exports.assajos_historial = (req, res, next) => {
     .then((historial) => res.json(historial))
     .catch((e) => next(e));
 };
+
+exports.assajos_post = async (req, res, next) => {
+  const pool = req.app.get("pool");
+  const assaig = req.body;
+
+  const connection = await pool.getConnection();
+
+  const transactionRollback = (e) =>
+    connection.rollback().then(() => {
+      console.log("Transaction rolled back");
+      next(e);
+    });
+
+  connection
+    .beginTransaction()
+    .then(() => {
+      connection
+        .query(
+            `INSERT INTO esdeveniments (dia_inici, hora_inici, hora_final)
+             VALUES ?;`,
+          [[[assaig.dia_inici, ...assaig.hora]]]
+        )
+        .then(({ insertId: id_esdeveniment }) => {
+          connection
+            .query(
+                `INSERT INTO assajos
+                 VALUES ?;`,
+              [
+                [
+                  [
+                    id_esdeveniment,
+                    assaig.es_general || false,
+                    assaig.es_extra || false
+                  ]
+                ]
+              ]
+            )
+            .then(() => {
+              connection.commit();
+              res.end();
+            })
+            .catch(transactionRollback);
+        })
+        .catch(transactionRollback);
+    })
+    .catch(transactionRollback);
+};

@@ -19,4 +19,10 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken],
     controller.assajos_detall
   );
+
+  app.post(
+    "/api/assajos",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_post
+  )
 };
