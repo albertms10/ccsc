@@ -63,7 +63,11 @@ const verifyEmailToken = (req, res, next) => {
           message:
             !err && email !== decoded.email
               ? "Les adreces de correu no coincideixen"
-              : "Sense autorizació"
+              : "Sense autorizació",
+          description: "Modifiqueu l’adreça de correu electrònic.",
+          okText: "Modificar les dades",
+          okOnly: true,
+          noAction: true,
         }
       });
 
