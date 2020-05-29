@@ -167,7 +167,7 @@ exports.socis_post = async (req, res, next) => {
           ]
         )
         .then(({ insertId: id_persona }) => {
-          const password = soci.naixement.split("-").reverse().join("-");
+          const password = soci.dni.match(/\d+/)[0];
           const { salt, hash } = saltHashPassword({ password });
 
           connection
@@ -249,6 +249,7 @@ exports.socis_delete = (req, res, next) => {
   pool
     .query(
       "SET @id_persona = ?;" +
+      "START TRANSACTION;" +
         `DELETE ru
          FROM roles_usuaris ru
                   INNER JOIN usuaris USING (id_usuari)
@@ -268,7 +269,8 @@ exports.socis_delete = (req, res, next) => {
 
             DELETE
             FROM persones
-            WHERE id_persona = @id_persona;`,
+            WHERE id_persona = @id_persona;
+            COMMIT;`,
       [id_persona]
     )
     .then((result) => res.send(result))
@@ -311,7 +313,6 @@ exports.socis_detall_agrupacions = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-// FIXME
 exports.socis_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
