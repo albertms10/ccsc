@@ -87,8 +87,22 @@ exports.assajos_post = async (req, res, next) => {
               ]
             )
             .then(() => {
-              connection.commit();
-              res.end();
+              connection
+                .query(
+                    `INSERT INTO assajos_agrupacions
+                     VALUES ?;`,
+                  [
+                    assaig.agrupacions.map((agrupacio) => [
+                      id_esdeveniment,
+                      agrupacio
+                    ])
+                  ]
+                )
+                .then(() => {
+                  connection.commit();
+                  res.status(200).send();
+                })
+                .catch(transactionRollback);
             })
             .catch(transactionRollback);
         })
