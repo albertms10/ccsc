@@ -59,7 +59,8 @@ export default (url, callback, dispatch, init = {}) =>
       const contentType = res.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1)
         res.json().then((data) => {
-          if (data.hasOwnProperty("error")) modalWarn(data.error, dispatch);
+          if (data.hasOwnProperty("error") && !data.error.hideMessage)
+            modalWarn(data.error, dispatch);
           else callback(data);
         });
       else if (res.ok) callback();

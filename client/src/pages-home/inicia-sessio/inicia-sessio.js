@@ -31,9 +31,11 @@ export default () => {
 
   useEffect(() => {
     setLoading(false);
-    if (error.status >= 400 && error.status < 500)
-      message.warning(error.message);
-    else if (error.message) message.error(error.message);
+
+    if (!error.hideMessage)
+      if (error.status >= 400 && error.status < 500)
+        message.warning(error.message);
+      else if (error.message) message.error(error.message);
   }, [error]);
 
   return (

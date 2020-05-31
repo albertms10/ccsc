@@ -14,5 +14,12 @@ module.exports = (app) => {
 
   app.post("/api/auth/email-espera", controller.email_espera);
 
-  app.get("/api/auth/user", [authJWT.verifyAccessToken], controller.userInfo);
+  app.get(
+    "/api/auth/user",
+    [
+      (req, res, next) =>
+        authJWT.verifyAccessToken(req, res, next, { hideMessage: true }),
+    ],
+    controller.userInfo
+  );
 };

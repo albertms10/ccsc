@@ -3,38 +3,46 @@ const { verifyJWT } = require("../utils");
 /*
  * VERIFY FUNCTIONS
  */
-const verifyAccessToken = (req, res, next) => {
+const verifyAccessToken = (
+  req,
+  res,
+  next,
+  options = { hideMessage: false }
+) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
   if (!accessToken)
     return res.status(403).send({
       error: {
+        ...options,
         status: 403,
-        message: "Cal proporcionar un token d’accés."
-      }
+        message: "Cal proporcionar un token d’accés.",
+      },
     });
 
   verifyJWT(accessToken, (err, decoded) => {
     if (err)
       return res.status(401).send({
         error: {
+          ...options,
           status: 401,
-          message: "Sense autorizació"
-        }
+          message: "Sense autorizació",
+        },
       });
 
     if (decoded.email)
       return res.status(401).send({
         error: {
+          ...options,
           status: 401,
           message: "Encara no has acabat d’introduir les teves dades.",
           okText: "Torna a introduir-les",
           location: {
             pathname: "/donar-alta",
-            state: { email: decoded.email }
-          }
-        }
+            state: { email: decoded.email },
+          },
+        },
       });
 
     req.userId = decoded.id;
@@ -51,8 +59,8 @@ const verifyEmailToken = (req, res, next) => {
     return res.status(403).send({
       error: {
         status: 403,
-        message: "Cal proporcionar un token d’accés."
-      }
+        message: "Cal proporcionar un token d’accés.",
+      },
     });
 
   verifyJWT(accessToken, (err, decoded) => {
@@ -68,7 +76,7 @@ const verifyEmailToken = (req, res, next) => {
           okText: "Modificar les dades",
           okOnly: true,
           noAction: true,
-        }
+        },
       });
 
     req.email = decoded.email;
@@ -85,7 +93,7 @@ const checkIsAuthor = async (req) => {
   const idSoci = req.params.id;
 
   const [{ id_usuari }] = await pool.query(
-      `SELECT id_usuari
+    `SELECT id_usuari
        FROM usuaris
                 INNER JOIN socis s ON usuaris.id_persona = s.id_soci
        WHERE id_soci = ?;`,
@@ -101,7 +109,7 @@ const checkIsRole = async (req, roles) => {
   const id = req.userId;
 
   const [{ is_role }] = await pool.query(
-      `SELECT EXISTS(
+    `SELECT EXISTS(
                       SELECT *
                       FROM roles
                                INNER JOIN roles_usuaris USING (id_role)
@@ -121,8 +129,8 @@ const isAuthor = async (req, res, next) =>
   (await checkIsAuthor(req))
     ? next()
     : res
-      .status(401)
-      .send({ error: { status: 401, message: "Sense autorització" } });
+        .status(401)
+        .send({ error: { status: 401, message: "Sense autorització" } });
 
 const isRole = async (req, res, next, roles) =>
   (await checkIsRole(req, roles))
@@ -135,7 +143,7 @@ const isRole = async (req, res, next, roles) =>
 const ROLES_IS_JUNTA_DIRECTIVA = [
   "junta_directiva",
   "director_musical",
-  "admin"
+  "admin",
 ];
 const ROLES_IS_DIRECTOR_MUSICAL = ["director_musical", "admin"];
 const ROLES_IS_ADMIN = ["admin"];
@@ -148,8 +156,8 @@ const isAuthorOrJuntaDirectiva = async (req, res, next) =>
   (await checkIsRole(req, ROLES_IS_JUNTA_DIRECTIVA))
     ? next()
     : res
-      .status(401)
-      .send({ error: { status: 401, message: "Sense autorització" } });
+        .status(401)
+        .send({ error: { status: 401, message: "Sense autorització" } });
 
 const isJuntaDirectiva = async (req, res, next) =>
   await isRole(req, res, next, ROLES_IS_JUNTA_DIRECTIVA);
@@ -170,5 +178,5 @@ module.exports = {
   isAdmin,
   ROLES_IS_JUNTA_DIRECTIVA,
   ROLES_IS_DIRECTOR_MUSICAL,
-  ROLES_IS_ADMIN
+  ROLES_IS_ADMIN,
 };
