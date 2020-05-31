@@ -1,24 +1,18 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
-import { fetchAssajos } from "../../../../redux/assajos/assajos-actions";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
+import { useAssajos } from "./hooks";
 
 const { Item } = List;
 const { Text } = Typography;
 
 export default () => {
-  const dispatch = useDispatch();
-  const { assajos, loading } = useSelector(({ assajos }) => assajos);
-
-  useEffect(() => {
-    if (!assajos.fetched) dispatch(fetchAssajos());
-  }, [assajos.fetched, dispatch]);
+  const [assajos, loading] = useAssajos();
 
   return (
     <List

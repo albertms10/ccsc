@@ -7,17 +7,16 @@ import { Container } from "../../../../standalone/container";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { SmallBadge } from "../../../../standalone/small-badge";
+import { useAssajos } from "../../../assajos/components/llista-assajos/hooks";
 import { AgrupacioContext } from "../../agrupacio";
-import { useAssajos, useConcerts, useIntegrants, useProjectes } from "./hooks";
+import { useConcerts, useIntegrants, useProjectes } from "./hooks";
 
 export default () => {
   const { id_agrupacio } = useContext(AgrupacioContext);
-  const [assajos, loadingAssajos] = useAssajos(id_agrupacio);
+  const [assajos, loadingAssajos] = useAssajos();
   const [concerts, loadingConcerts] = useConcerts(id_agrupacio);
   const [projectes, loadingProjectes] = useProjectes(id_agrupacio);
   const [integrants, loadingIntegrants] = useIntegrants(id_agrupacio);
-
-  // const rootPathAgrupacio = useMemo(() => kebabCase(nom_curt), [nom_curt]);
 
   return (
     <Container>
@@ -41,29 +40,35 @@ export default () => {
           <ContentList
             title="Assajos"
             loading={loadingAssajos}
-            dataSource={assajos.map((assaig) => {
-              const date = moment(assaig.data_inici);
+            dataSource={assajos
+              .filter((assaig) =>
+                assaig.agrupacions.find(
+                  (agrupacio) => agrupacio.id_agrupacio === id_agrupacio
+                )
+              )
+              .map((assaig) => {
+                const date = moment(assaig.data_inici);
 
-              return {
-                id: assaig.id_assaig,
-                title: assaig.titol,
-                description: assaig.hora_inici
-                  ? `a les ${date.format("LT")}`
-                  : "",
-                link: `/assajos/${assaig.id_assaig}`,
-                extra: assaig.projectes.map((projecte) => (
-                  <FixedTag
-                    key={projecte.id_projecte}
-                    childKey={projecte.id_projecte}
-                    tooltip={projecte.titol}
-                    color={"#" + projecte.color}
-                  >
-                    {projecte.inicials}
-                  </FixedTag>
-                )),
-                avatar: <CalendarAvatar moment={date} />,
-              };
-            })}
+                return {
+                  id: assaig.id_assaig,
+                  title: assaig.titol,
+                  description: assaig.hora_inici
+                    ? `a les ${date.format("LT")}`
+                    : "",
+                  link: `/assajos/${assaig.id_assaig}`,
+                  extra: assaig.projectes.map((projecte) => (
+                    <FixedTag
+                      key={projecte.id_projecte}
+                      childKey={projecte.id_projecte}
+                      tooltip={projecte.titol}
+                      color={"#" + projecte.color}
+                    >
+                      {projecte.inicials}
+                    </FixedTag>
+                  )),
+                  avatar: <CalendarAvatar moment={date} />,
+                };
+              })}
           />
           <ContentList
             title="Concerts"
