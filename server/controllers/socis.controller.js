@@ -390,40 +390,6 @@ exports.socis_detall_acceptacions_get = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-/** @deprecated */
-exports.socis_detall_acceptaprotecciodades_put = (req, res, next) => {
-  const pool = req.app.get("pool");
-  const id_soci = req.params.id;
-  const accepta_proteccio_dades = req.body.accepta_proteccio_dades;
-
-  pool
-    .query(
-        `UPDATE persones
-         SET accepta_proteccio_dades = ?
-         WHERE id_persona = ?;`,
-      [accepta_proteccio_dades, id_soci]
-    )
-    .then(() => res.json({ accepta_proteccio_dades }))
-    .catch((e) => next(e));
-};
-
-/** @deprecated */
-exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
-  const pool = req.app.get("pool");
-  const id_soci = req.params.id;
-  const accepta_drets_imatge = req.body.accepta_drets_imatge;
-
-  pool
-    .query(
-        `UPDATE persones
-         SET accepta_drets_imatge = ?
-         WHERE id_persona = ?;`,
-      [accepta_drets_imatge, id_soci]
-    )
-    .then(() => res.json({ accepta_drets_imatge }))
-    .catch((e) => next(e));
-};
-
 exports.socis_detall_acceptacions_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;

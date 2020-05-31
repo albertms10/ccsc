@@ -9,11 +9,6 @@ module.exports = (app) => {
   );
 
   app.get(
-    "/api/associacio/proteccio-dades",
-    controller.associacio_protecciodades
-  );
-
-  app.get(
     "/api/associacio/avisos/:id",
     controller.associacio_avisos_detall
   )

@@ -10,13 +10,11 @@ import {
   Row,
   Select,
   Space,
-  Typography,
 } from "antd";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
-import { SettingCard } from "../../../standalone/setting-card";
 import { SubHeader } from "../../../standalone/sub-header";
 import { upperCaseFirst } from "../../../utils";
 import { AvisAcceptacio } from "../../avis-acceptacio";
@@ -25,23 +23,6 @@ import { usePaisos, useUsername } from "./index";
 
 const { Option } = Select;
 const { TextArea } = Input;
-const { Paragraph } = Typography;
-
-export const textDretsImatge = (
-  <Paragraph>
-    Atès que el dret a la imatge es troba regulat per l’article 18.1 de la
-    Constitució, per la Llei Orgànica 1/1982 sobre el dret a l’honor, a la
-    intimitat personal i familiar, i per la Llei Orgànica 15/1999 de Protecció
-    de Dades de Caràcter Personal, sol·licitem el seu consentiment per publicar
-    la seva imatge o veu, de forma clarament identificable, en fotografies i
-    gravacions corresponents a les activitats pròpies de l'associació, i que
-    s’exposin públicament a la pàgina web, revistes, YouTube o altres
-    publicacions internes o de tercers, així com a reproduir-la públicament per
-    a la promoció de les activitats i serveis de les entitats. El present
-    consentiment i autorització s’atorga de forma gratuïta i amb renúncia formal
-    a qualsevol contraprestació econòmica.
-  </Paragraph>
-);
 
 export default (
   onSuccessCallback,
@@ -52,7 +33,6 @@ export default (
 
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [acceptaDretsImatge, setAcceptaDretsImatge] = useState(false);
   const [username, loadingUsername, getUsername] = useUsername();
 
   const [dniValidation, setDniValidation] = useState("");
@@ -91,7 +71,7 @@ export default (
       key: "proteccio",
       title: "Protecció de dades",
       selfCreationOnly: true,
-      content: <AvisAcceptacio isForm />,
+      content: <AvisAcceptacio nameAvis="proteccio_dades" isForm />,
     },
     {
       key: "dades",
@@ -149,7 +129,9 @@ export default (
                     }
                   >
                     {paisos.map((pais) => (
-                      <Option key={pais.id_pais}>{pais.nom}</Option>
+                      <Option key={pais.id_pais} value={pais.id_pais}>
+                        {pais.nom}
+                      </Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -249,7 +231,7 @@ export default (
                   <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
                 </Form.Item>
               </Col>
-              {!selfCreation ? (
+              {!selfCreation && (
                 <Col>
                   <Form.Item name="data_alta" label="Data d’alta">
                     <DatePicker
@@ -259,8 +241,6 @@ export default (
                     />
                   </Form.Item>
                 </Col>
-              ) : (
-                ""
               )}
             </Row>
           </Card>
@@ -271,7 +251,7 @@ export default (
       key: "imatge",
       title: "Drets d’imatge",
       selfCreationOnly: true,
-      content: <SettingCard title="Drets d’imatge" info={textDretsImatge} />,
+      content: <AvisAcceptacio nameAvis="drets_imatge" isForm />,
     },
     {
       key: "resum",
@@ -280,11 +260,8 @@ export default (
       content: (
         <ResumAfegirSoci
           form={form}
-          selfCreation={selfCreation}
           username={username}
           loadingUsername={loadingUsername}
-          acceptaProteccioDades={selfCreation}
-          acceptaDretsImatge={acceptaDretsImatge}
         />
       ),
     },
@@ -300,13 +277,6 @@ export default (
       .validateFields()
       .then((values) => {
         setConfirmLoading(true);
-
-        /** @deprecated */
-        values.accepta_proteccio_dades = selfCreation;
-        /** @deprecated */
-        values.accepta_drets_imatge = selfCreation ? acceptaDretsImatge : false;
-
-        if (selfCreation) values.acceptacions.drets_imatge = acceptaDretsImatge;
 
         values.username = username;
         values.nom = upperCaseFirst(values.nom);
@@ -359,24 +329,13 @@ export default (
         )}
       </div>
       <Space>
-        {selfCreation && stepsRef[currentPageIndex].key === "imatge" && (
-          <Button
-            key="next"
-            onClick={() => next().then(() => setAcceptaDretsImatge(false))}
-          >
-            No accepto
-          </Button>
-        )}
         {currentPageIndex < stepsRef.length - 1 ? (
           <Button
             key="next"
             type="primary"
-            onClick={() =>
-              next().then(() => selfCreation && setAcceptaDretsImatge(true))
-            }
+            onClick={next}
           >
-            {stepsRef[currentPageIndex].key === "proteccio" ||
-            stepsRef[currentPageIndex].key === "imatge"
+            {stepsRef[currentPageIndex].key === "proteccio"
               ? "Ho he llegit i dono el meu consentiment"
               : "Següent"}
           </Button>

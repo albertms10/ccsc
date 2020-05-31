@@ -34,8 +34,9 @@ exports.signin = (req, res, next) => {
                     WHERE id_usuari = (SELECT uc.id_usuari)
                 )         AS roles,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
+                    SELECT IFNULL(JSON_ARRAYAGG(unique_name), '[]')
                     FROM avisos
+                             INNER JOIN tipus_avisos USING (id_tipus_avis)
                              INNER JOIN acceptacions_avis av USING (id_avis)
                     WHERE requerida IS TRUE
                       AND NOT EXISTS(
@@ -148,8 +149,9 @@ exports.userInfo = (req, res, next) => {
                     WHERE id_usuari = (SELECT u.id_usuari)
                 )         AS roles,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(id_avis), '[]')
+                    SELECT IFNULL(JSON_ARRAYAGG(unique_name), '[]')
                     FROM avisos
+                             INNER JOIN tipus_avisos USING (id_tipus_avis)
                              INNER JOIN acceptacions_avis av USING (id_avis)
                     WHERE requerida IS TRUE
                       AND NOT EXISTS(

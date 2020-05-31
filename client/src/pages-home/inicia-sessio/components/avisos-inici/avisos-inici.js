@@ -37,7 +37,7 @@ export default () => {
             className="signin-logo"
             style={{ color: "var(--primary-color)" }}
           />
-          <AvisAcceptacio isForm idAvis={currentUser.avisos[0]} />
+          <AvisAcceptacio nameAvis={currentUser.avisos[0]} isForm />
           <div className="signin-footer-actions">
             <Space>
               <Button onClick={() => dispatch(logoutRemoveUser())}>

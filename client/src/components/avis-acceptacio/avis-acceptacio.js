@@ -7,11 +7,12 @@ import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-
 import { SeccioAvis } from "./components/seccio-avis";
 import { useAvisAcceptacio } from "./hooks";
 
-const AvisAcceptacio = ({ idAvis, acceptacionsSoci, isForm }) => {
-  const [textAvisAcceptacio, loading] = useAvisAcceptacio(idAvis);
+const AvisAcceptacio = ({ nameAvis, acceptacionsSoci, isForm }) => {
+  const [textAvisAcceptacio, loading] = useAvisAcceptacio(nameAvis);
 
   return (
     <SettingCard title={textAvisAcceptacio.titol} loading={loading}>
+      <SeccioAvis descripcio={textAvisAcceptacio.descripcio} />
       {textAvisAcceptacio.hasOwnProperty("seccions") &&
         textAvisAcceptacio.seccions.map(({ id, titol, descripcio }) => (
           <SeccioAvis key={id} titol={titol} descripcio={descripcio} />
@@ -38,13 +39,12 @@ const AvisAcceptacio = ({ idAvis, acceptacionsSoci, isForm }) => {
 };
 
 AvisAcceptacio.propTypes = {
-  idAvis: PropTypes.number,
+  nameAvis: PropTypes.string.isRequired,
   acceptacionsSoci: AcceptacionsSociPropTypes,
   isForm: PropTypes.bool,
 };
 
 AvisAcceptacio.defaultProps = {
-  idAvis: 1,
   acceptacionsSoci: {},
   isForm: false,
 };
