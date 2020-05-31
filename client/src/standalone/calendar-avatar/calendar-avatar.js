@@ -2,15 +2,16 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./calendar-avatar.css";
 
-const CalendarAvatar = ({ moment, borderless }) => (
+const CalendarAvatar = ({ moment, borderless, ...rest }) => (
   <div
+    {...rest}
     className={`
-      calendar-badge
-      ${borderless ? "" : "calendar-badge-bordered"}
+      calendar-avatar
+      ${borderless ? "" : "calendar-avatar-bordered"}
   `}
   >
-    <div className="calendar-badge-month">{moment.format("MMM")}</div>
-    <div className="calendar-badge-date">{moment.date()}</div>
+    <div className="calendar-avatar-month">{moment.format("MMM")}</div>
+    <div className="calendar-avatar-date">{moment.date()}</div>
   </div>
 );
 

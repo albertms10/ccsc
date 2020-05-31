@@ -1,23 +1,24 @@
-.calendar-badge {
+.calendar-avatar {
   line-height: 1;
   display: table-cell;
   min-width: 2rem;
   height: 2rem;
   text-align: center;
   vertical-align: middle;
+  color: rgba(0, 0, 0, 0.65);
 }
 
-.calendar-badge-bordered {
+.calendar-avatar-bordered {
   border: 1px solid;
   border-radius: 4px;
   background-color: #fff;
 }
 
-.calendar-badge-month {
+.calendar-avatar-month {
   font-size: 0.45rem;
   text-transform: uppercase;
 }
 
-.calendar-badge-date {
+.calendar-avatar-date {
   font-size: 1rem;
 }
