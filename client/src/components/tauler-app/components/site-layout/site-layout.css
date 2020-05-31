@@ -59,3 +59,7 @@
 .app-layout-content .ant-page-header {
   box-shadow: var(--container-box-shadow);
 }
+
+.app-layout-content .ant-page-header-heading-title {
+  font-weight: 400;
+}
