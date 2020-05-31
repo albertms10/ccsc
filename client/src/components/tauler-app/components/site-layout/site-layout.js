@@ -6,8 +6,12 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import Agrupacio from "../../../../pages-tauler/agrupacio/agrupacio";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
+import { DetallObres } from "../../../../pages-tauler/detall-obres";
+import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
 import { Inici } from "../../../../pages-tauler/inici";
+import { Obres } from "../../../../pages-tauler/obres";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
+import { Projectes } from "../../../../pages-tauler/projectes";
 import { Socis } from "../../../../pages-tauler/socis";
 import { kebabCase } from "../../../../utils";
 import { Authorized } from "../../../authorized";
@@ -89,8 +93,12 @@ export default () => {
                   )}
                 />
               ))}
+            <Route exact path="/projectes" component={Projectes} />
+            <Route exact path="/projectes/:id" component={DetallProjecte} />
             <Route exact path="/assajos" component={Assajos} />
             <Route exact path="/assajos/:id" component={DetallAssaig} />
+            <Route exact path="/obres" component={Obres} />
+            <Route exact path="/obres/:id" component={DetallObres} />
             <Route
               exact
               path="/socis"
