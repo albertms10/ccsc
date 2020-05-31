@@ -50,7 +50,7 @@ exports.esdeveniments_post = (req, res, next) => {
          VALUES (?, ?, ?, ?, ?);`,
       [data_inici, data_final, estat_esdeveniment]
     )
-    .then((result) => res.end(result))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 

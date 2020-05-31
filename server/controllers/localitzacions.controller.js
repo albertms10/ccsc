@@ -16,7 +16,7 @@ exports.localitzacions_post = (req, res, next) => {
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [tipus_via, carrer, numero, fins_numero, codi_postal, gmaps, ciutat]
     )
-    .then((result) => res.send(result))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 

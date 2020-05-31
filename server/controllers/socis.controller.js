@@ -230,7 +230,7 @@ exports.socis_post = async (req, res, next) => {
                     )
                     .then(() => {
                       connection.commit();
-                      res.send();
+                      res.status(204).send();
                     })
                     .catch(transactionRollback);
                 })
@@ -273,7 +273,7 @@ exports.socis_delete = (req, res, next) => {
             COMMIT;`,
       [id_persona]
     )
-    .then(() => res.send())
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
@@ -410,7 +410,8 @@ exports.socis_detall_acceptadretsimatge_put = (req, res, next) => {
 exports.socis_detall_acceptacions_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
-  const acceptacions = req.body; // { form_name: true }
+  /** @type {Object<string, boolean>} */
+  const acceptacions = req.body;
 
   pool
     .query(

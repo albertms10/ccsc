@@ -100,7 +100,7 @@ exports.assajos_post = async (req, res, next) => {
                 )
                 .then(() => {
                   connection.commit();
-                  res.send();
+                  res.status(204).send();
                 })
                 .catch(transactionRollback);
             })
@@ -138,6 +138,6 @@ exports.assajos_delete = async (req, res, next) => {
             COMMIT;`,
       [id_assaig]
     )
-    .then(() => res.send())
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
