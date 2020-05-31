@@ -19,9 +19,7 @@ export default () => (
         <Form.Item
           label="Nom"
           name="nom"
-          rules={[
-            { required: true, message: "Si us plau, introdueixi el seu nom." },
-          ]}
+          rules={[{ required: true, message: "Introdueixi el nom" }]}
         >
           <Input autoFocus />
         </Form.Item>
@@ -44,7 +42,7 @@ export default () => (
           rules={[
             {
               required: true,
-              message: "Si us plau, introdueixi el seu missatge.",
+              message: "Introdueix el missatge",
             },
           ]}
         >

@@ -33,17 +33,10 @@ export default () => {
             rules={[
               {
                 type: "email",
-                message:
-                  "Si us plau, introdueix una adreça electrònica vàlida.",
+                message: "Introdueix una adreça electrònica vàlida",
               },
-              {
-                required: true,
-                message: "Si us plau, introdueix l’adreça electrònica.",
-              },
-              {
-                whitespace: true,
-                message: "Si us plau, introdueix l’adreça electrònica.",
-              },
+              { required: true, message: "Introdueix l’adreça electrònica" },
+              { whitespace: true, message: "Introdueix l’adreça electrònica" },
             ]}
           >
             <Input

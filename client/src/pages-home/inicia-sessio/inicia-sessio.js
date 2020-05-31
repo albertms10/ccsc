@@ -65,10 +65,7 @@ export default () => {
             <Form.Item
               name="username"
               rules={[
-                {
-                  required: true,
-                  message: "Si us plau, introdueix el nom d’usuari.",
-                },
+                { required: true, message: "Introdueix el nom d’usuari" },
               ]}
             >
               <Input
