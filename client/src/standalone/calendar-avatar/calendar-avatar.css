@@ -17,6 +17,7 @@
 .calendar-avatar-month {
   font-size: 0.45rem;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .calendar-avatar-date {
