@@ -100,7 +100,7 @@ exports.assajos_post = async (req, res, next) => {
                 )
                 .then(() => {
                   connection.commit();
-                  res.status(200).send();
+                  res.send();
                 })
                 .catch(transactionRollback);
             })

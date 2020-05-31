@@ -19,7 +19,7 @@ const trySendUser = (
     authorities = JSON.parse(roles).map((role) => "ROLE_" + role.toUpperCase());
     avisos = JSON.parse(avisos);
 
-    res.status(200).send({
+    res.send({
       user: {
         id,
         username,

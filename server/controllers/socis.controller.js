@@ -230,7 +230,7 @@ exports.socis_post = async (req, res, next) => {
                     )
                     .then(() => {
                       connection.commit();
-                      res.status(200).send();
+                      res.send();
                     })
                     .catch(transactionRollback);
                 })
@@ -273,7 +273,7 @@ exports.socis_delete = (req, res, next) => {
             COMMIT;`,
       [id_persona]
     )
-    .then((result) => res.send(result))
+    .then(() => res.send())
     .catch((e) => next(e));
 };
 
