@@ -12,11 +12,13 @@ import {
 } from "antd";
 import moment from "moment";
 import React, { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
 import { useAfegirAssaig } from "./hooks";
 
 export default () => {
   const agrupacions = useContext(AgrupacionsListContext);
+  const { loading } = useSelector(({ assajos }) => assajos);
   const [visible, setVisible] = useState(false);
   const [form, handleOk] = useAfegirAssaig();
 
@@ -35,7 +37,13 @@ export default () => {
         visible={visible}
         okText="Afegeix"
         cancelText="Tanca"
-        onOk={handleOk}
+        confirmLoading={loading}
+        onOk={() => {
+          handleOk().then(() => {
+            setVisible(false);
+            form.resetFields();
+          });
+        }}
       >
         <Form form={form} layout="vertical">
           <Row type="flex">
