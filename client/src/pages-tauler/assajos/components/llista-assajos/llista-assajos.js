@@ -1,17 +1,21 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
+import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
+import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
+import { timeRange } from "../../../../utils";
 import { useAssajos } from "./hooks";
 
 const { Item } = List;
 const { Text } = Typography;
 
 export default () => {
+  const agrupacions = useContext(AgrupacionsListContext);
   const [assajos, loading] = useAssajos();
 
   return (
@@ -22,7 +26,9 @@ export default () => {
         <Item
           key={assaig.id_assaig}
           actions={[
-            ...(assaig.agrupacions && assaig.agrupacions.length > 0
+            ...(agrupacions.length > 1 &&
+            assaig.agrupacions &&
+            assaig.agrupacions.length > 0
               ? [
                   <Space>
                     {assaig.agrupacions.map((agrupacio) => (
@@ -63,20 +69,20 @@ export default () => {
           ]}
         >
           <Link to={`/assajos/${assaig.id_assaig}`}>
-            <Item.Meta
-              title={assaig.titol}
-              description={
-                assaig.hora_inici && assaig.hora_final
-                  ? `de ${moment(assaig.data_inici).format("LT")} a ${moment(
-                      assaig.data_final
-                    ).format("LT")}`
-                  : assaig.hora_inici
-                  ? `a les ${moment(assaig.data_inici).format("LT")}`
-                  : "Hora a determinar"
-              }
-            >
-              Hola
-            </Item.Meta>
+            <Space size="large">
+              <CalendarAvatar
+                moment={moment(assaig.data_inici)}
+                style={{ transform: "scale(1.2)" }}
+              />
+              <Item.Meta
+                title={assaig.titol}
+                description={timeRange(
+                  assaig.hora_inici ? assaig.data_inici : "",
+                  assaig.data_final,
+                  { textual: true }
+                )}
+              />
+            </Space>
           </Link>
         </Item>
       )}
