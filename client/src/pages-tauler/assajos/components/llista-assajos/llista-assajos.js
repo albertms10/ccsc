@@ -1,18 +1,24 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
+import { fetchAssajos } from "../../../../redux/assajos/assajos-actions";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
-import { useAssajosSoci } from "./hooks";
 
 const { Item } = List;
 const { Text } = Typography;
 
 export default () => {
-  const [assajos, loading] = useAssajosSoci();
+  const dispatch = useDispatch();
+  const { assajos, loading } = useSelector(({ assajos }) => assajos);
+
+  useEffect(() => {
+    if (!assajos.fetched) dispatch(fetchAssajos());
+  }, [assajos.fetched, dispatch]);
 
   return (
     <List
@@ -65,8 +71,18 @@ export default () => {
           <Link to={`/assajos/${assaig.id_assaig}`}>
             <Item.Meta
               title={assaig.titol}
-              description={moment(assaig.data_inici).format("LLL")}
-            />
+              description={
+                assaig.hora_inici && assaig.hora_final
+                  ? `de ${moment(assaig.data_inici).format("LT")} a ${moment(
+                      assaig.data_final
+                    ).format("LT")}`
+                  : assaig.hora_inici
+                  ? `a les ${moment(assaig.data_inici).format("LT")}`
+                  : "Hora a determinar"
+              }
+            >
+              Hola
+            </Item.Meta>
           </Link>
         </Item>
       )}
