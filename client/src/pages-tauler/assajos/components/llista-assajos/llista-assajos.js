@@ -1,5 +1,6 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
+import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
@@ -14,13 +15,21 @@ import { useAssajos } from "./hooks";
 const { Item } = List;
 const { Text } = Typography;
 
-export default () => {
+const LlistaAssajos = ({ anteriors }) => {
   const agrupacions = useContext(AgrupacionsListContext);
   const [assajos, loading] = useAssajos();
 
   return (
     <List
-      dataSource={assajos}
+      dataSource={
+        anteriors
+          ? assajos
+              .filter((assaig) => moment(assaig.data_inici).isBefore(moment()))
+              .sort((a, b) => moment(b.data_inici).diff(moment(a.data_inici)))
+          : assajos.filter((assaig) =>
+              moment().isSameOrBefore(moment(assaig.data_inici))
+            )
+      }
       loading={loading}
       renderItem={(assaig) => (
         <Item
@@ -69,10 +78,14 @@ export default () => {
           ]}
         >
           <Link to={`/assajos/${assaig.id_assaig}`}>
-            <Space size="large">
+            <Space size="large" {...(anteriors && { style: { opacity: 0.6 } })}>
               <CalendarAvatar
                 moment={moment(assaig.data_inici)}
-                style={{ transform: "scale(1.2)" }}
+                style={{
+                  transform: "scale(1.25)",
+                  position: "relative",
+                  left: "5px",
+                }}
               />
               <Item.Meta
                 title={assaig.titol}
@@ -89,3 +102,13 @@ export default () => {
     />
   );
 };
+
+LlistaAssajos.propTypes = {
+  anteriors: PropTypes.bool,
+};
+
+LlistaAssajos.defaultProps = {
+  anteriors: false,
+};
+
+export default LlistaAssajos;
