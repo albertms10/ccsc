@@ -12,9 +12,9 @@ export default () => {
       <NumberInfo
         total={countSocis.count_actuals}
         status={
-          countSocis.count_altes > countSocis.count_baixes ? "up" : "down"
+          countSocis.count_altes - countSocis.count_baixes >= 0 ? "up" : "down"
         }
-        subTotal={Math.max(countSocis.count_altes, countSocis.count_baixes)}
+        subTotal={countSocis.count_altes - countSocis.count_baixes}
       />
       <MiniArea line height={45} data={historial} />
     </ChartCard>
