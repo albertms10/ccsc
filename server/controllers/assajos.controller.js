@@ -110,3 +110,34 @@ exports.assajos_post = async (req, res, next) => {
     })
     .catch(transactionRollback);
 };
+
+exports.assajos_delete = async (req, res, next) => {
+  const pool = res.app.get("pool");
+  const id_assaig = req.params.id;
+
+  pool
+    .query(
+      "SET @id_assaig = ?;" +
+      "START TRANSACTION;" +
+        `DELETE
+         FROM assajos_agrupacions
+         WHERE id_assaig = @id_assaig;
+
+            DELETE
+            FROM assajos_projectes
+            WHERE id_assaig = @id_assaig;
+
+            DELETE
+            FROM assajos
+            WHERE id_assaig = @id_assaig;
+
+            DELETE
+            FROM esdeveniments
+            WHERE id_esdeveniment = @id_assaig;
+
+            COMMIT;`,
+      [id_assaig]
+    )
+    .then(() => res.send())
+    .catch((e) => next(e));
+};

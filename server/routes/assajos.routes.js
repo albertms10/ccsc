@@ -24,5 +24,11 @@ module.exports = (app) => {
     "/api/assajos",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_post
-  )
+  );
+
+  app.delete(
+    "/api/assajos/:id",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_delete
+  );
 };
