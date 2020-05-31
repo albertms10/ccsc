@@ -264,6 +264,23 @@ exports.socis_delete = (req, res, next) => {
             WHERE id_historial_soci = @id_persona;
 
             DELETE
+            FROM socis_acceptacions
+            WHERE id_soci = @id_persona;
+
+            DELETE
+            FROM socis_activitats
+            WHERE id_soci = @id_persona;
+
+            DELETE sav
+            FROM socis_agrupacions_veus sav
+                     INNER JOIN socis_agrupacions USING (id_soci_agrupacio)
+            WHERE id_soci = @id_persona;
+
+            DELETE
+            FROM socis_agrupacions
+            WHERE id_soci = @id_persona;
+
+            DELETE
             FROM socis
             WHERE id_soci = @id_persona;
 
