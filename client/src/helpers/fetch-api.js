@@ -64,6 +64,7 @@ export default (url, callback, dispatch, init = {}) =>
           else callback(data);
         });
       else if (res.ok) callback();
+      else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
       return res;
     })
     .catch((e) => {
