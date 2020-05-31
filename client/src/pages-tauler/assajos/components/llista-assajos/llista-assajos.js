@@ -10,7 +10,7 @@ import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { timeRange } from "../../../../utils";
-import { useAssajos } from "./hooks";
+import { useAssajos, useEliminarAssaig } from "./hooks";
 
 const { Item } = List;
 const { Text } = Typography;
@@ -18,6 +18,7 @@ const { Text } = Typography;
 const LlistaAssajos = ({ anteriors }) => {
   const agrupacions = useContext(AgrupacionsListContext);
   const [assajos, loading] = useAssajos();
+  const [showDeleteConfirm] = useEliminarAssaig();
 
   return (
     <List
@@ -71,6 +72,7 @@ const LlistaAssajos = ({ anteriors }) => {
                   {
                     key: "eliminar",
                     action: <Text type="danger">Eliminar</Text>,
+                    onClick: () => showDeleteConfirm(assaig.id_assaig)
                   },
                 ]}
               />
