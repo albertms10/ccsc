@@ -23,7 +23,9 @@ const ResumAfegirSoci = ({ form, username, loadingUsername }) => {
           </Descriptions>
         }
       />
-      {(data.experiencia_musical || data.estudis_musicals || data.data_alta) && (
+      {(data.experiencia_musical ||
+        data.estudis_musicals ||
+        data.data_alta) && (
         <SettingCard
           title="Informació musical"
           info={
