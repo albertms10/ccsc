@@ -23,32 +23,30 @@ const ResumAfegirSoci = ({ form, username, loadingUsername }) => {
           </Descriptions>
         }
       />
-      {data.experiencia_musical ||
-        data.estudis_musicals ||
-        (data.data_alta && (
-          <SettingCard
-            title="Informació musical"
-            info={
-              <Descriptions size="small">
-                {data.experiencia_musical && (
-                  <Descriptions.Item label="Experiència musical" span={3}>
-                    {data.experiencia_musical}
-                  </Descriptions.Item>
-                )}
-                {data.estudis_musicals && (
-                  <Descriptions.Item label="Estudis musicals" span={3}>
-                    {data.estudis_musicals}
-                  </Descriptions.Item>
-                )}
-                {data.data_alta && (
-                  <Descriptions.Item label="Data d’alta">
-                    {data.data_alta.format("LL")}
-                  </Descriptions.Item>
-                )}
-              </Descriptions>
-            }
-          />
-        ))}
+      {(data.experiencia_musical || data.estudis_musicals || data.data_alta) && (
+        <SettingCard
+          title="Informació musical"
+          info={
+            <Descriptions size="small">
+              {data.experiencia_musical && (
+                <Descriptions.Item label="Experiència musical" span={3}>
+                  {data.experiencia_musical}
+                </Descriptions.Item>
+              )}
+              {data.estudis_musicals && (
+                <Descriptions.Item label="Estudis musicals" span={3}>
+                  {data.estudis_musicals}
+                </Descriptions.Item>
+              )}
+              {data.data_alta && (
+                <Descriptions.Item label="Data d’alta">
+                  {data.data_alta.format("LL")}
+                </Descriptions.Item>
+              )}
+            </Descriptions>
+          }
+        />
+      )}
       <SettingCard
         title="Dades de contacte"
         info={
