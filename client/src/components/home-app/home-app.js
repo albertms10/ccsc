@@ -16,7 +16,7 @@ export default () => (
   <Layout className="layout">
     <Header className="home-page-header">
       <Row gutter={24} justify="space-between">
-        <Col span={8}>
+        <Col xs={16} sm={10} md={8}>
           <Link to="/">
             <LogoCorDeCambra
               className="header-logo"
@@ -24,7 +24,7 @@ export default () => (
             />
           </Link>
         </Col>
-        <Col span={16}>
+        <Col xs={8} sm={14} md={16}>
           <HomeMenu />
         </Col>
       </Row>
