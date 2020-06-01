@@ -86,23 +86,25 @@ exports.assajos_post = async (req, res, next) => {
                 ]
               ]
             )
-            .then(() => {
-              connection
-                .query(
-                    `INSERT INTO assajos_agrupacions
-                     VALUES ?;`,
-                  [
-                    assaig.agrupacions.map((agrupacio) => [
-                      id_esdeveniment,
-                      agrupacio
-                    ])
-                  ]
-                )
-                .then(() => {
-                  connection.commit();
-                  res.status(204).send();
-                })
-                .catch(transactionRollback);
+            .then(async () => {
+              try {
+                if (assaig.agrupacions.length > 0)
+                  await connection.query(
+                      `INSERT INTO assajos_agrupacions
+                       VALUES ?;`,
+                    [
+                      assaig.agrupacions.map((agrupacio) => [
+                        id_esdeveniment,
+                        agrupacio
+                      ])
+                    ]
+                  );
+              } catch (e) {
+                transactionRollback(e);
+              } finally {
+                connection.commit();
+                res.status(204).send();
+              }
             })
             .catch(transactionRollback);
         })
