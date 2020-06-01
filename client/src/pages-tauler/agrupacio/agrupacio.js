@@ -1,12 +1,11 @@
-import { Tabs } from "antd";
+import { Affix, Tabs } from "antd";
 import React, { createContext, useContext, useEffect } from "react";
-import Sticky from "react-stickynode";
 import { IconAgrupacio } from "../../assets/icons";
+import { CalendariAgrupacio } from "../../components/calendari-agrupacio";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { ContentHeader } from "../../standalone/content-header";
 import { AgrupacioPropTypes } from "../../typedef/prop-types";
 import "./agrupacio.css";
-import { CalendariAgrupacio } from "../../components/calendari-agrupacio";
 import { ResumAgrupacio } from "./components/resum-agrupacio";
 
 export const AgrupacioContext = createContext({});
@@ -30,9 +29,9 @@ const Agrupacio = ({ agrupacio }) => {
           <div className="tabs-agrupacio">
             <Tabs
               renderTabBar={(props, DefaultTabBar) => (
-                <Sticky top={64} bottomOffset={80} innerZ={5}>
+                <Affix offsetTop={64}>
                   <DefaultTabBar {...props} />
-                </Sticky>
+                </Affix>
               )}
             >
               <TabPane tab="Resum" key="resum">
