@@ -6,4 +6,4 @@ El desplegament del programari està disponible a [cordecambrasantcugat.herokuap
 
 ## Base de dades
 
-La documentació detallada de la base de dades es pot trobar a [DBDocs](https://dbdocs.io/albertms10/Associacio-Musical-Catalana-Crescendo).
+La documentació detallada de la base de dades es pot trobar a [DBDocs](https://dbdocs.io/albertms10/AMCC).
