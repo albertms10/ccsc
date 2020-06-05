@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
 
     PRIMARY KEY (id_usuari),
     FOREIGN KEY (id_persona) REFERENCES persones (id_persona),
+
     UNIQUE (id_persona)
 );
 
@@ -49,6 +50,7 @@ CREATE TABLE IF NOT EXISTS persones
     PRIMARY KEY (id_persona),
     FOREIGN KEY (id_pais) REFERENCES paisos (id_pais),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio),
+
     UNIQUE (dni),
     UNIQUE (email)
 );
@@ -842,6 +844,7 @@ CREATE TABLE IF NOT EXISTS valoracions_socis_concerts
     FOREIGN KEY (id_concert) REFERENCES concerts (id_concert),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     FOREIGN KEY (id_valoracio) REFERENCES valoracions (id_valoracio),
+
     UNIQUE (id_valoracio)
 );
 
@@ -856,6 +859,7 @@ CREATE TABLE IF NOT EXISTS valoracions_socis_projectes
     FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     FOREIGN KEY (id_valoracio) REFERENCES valoracions (id_valoracio),
+
     UNIQUE (id_valoracio)
 );
 
@@ -982,8 +986,9 @@ CREATE TABLE IF NOT EXISTS agrupacions_associacio
 CREATE TABLE IF NOT EXISTS adreces_associacio
 (
     id_adreca_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_localitzacio      SMALLINT UNSIGNED NOT NULL,
     data_inici           DATE              NOT NULL,
+
+    id_localitzacio      SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_adreca_associacio),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
@@ -997,6 +1002,7 @@ CREATE TABLE IF NOT EXISTS adreces_electroniques_associacio
     descripcio                       VARCHAR(50)       NOT NULL,
 
     PRIMARY KEY (id_adreca_electronica_associacio),
+
     UNIQUE (adreca_electronica)
 );
 

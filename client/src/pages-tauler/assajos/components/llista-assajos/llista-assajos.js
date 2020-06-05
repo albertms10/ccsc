@@ -72,7 +72,7 @@ const LlistaAssajos = ({ anteriors }) => {
                   {
                     key: "eliminar",
                     action: <Text type="danger">Eliminar</Text>,
-                    onClick: () => showDeleteConfirm(assaig.id_assaig)
+                    onClick: () => showDeleteConfirm(assaig.id_assaig),
                   },
                 ]}
               />
