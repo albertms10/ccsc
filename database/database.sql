@@ -420,6 +420,24 @@ CREATE TABLE IF NOT EXISTS esdeveniments
     FOREIGN KEY (id_esdeveniment_ajornat) REFERENCES esdeveniments (id_esdeveniment)
 );
 
+CREATE TABLE IF NOT EXISTS esdeveniments_musicals
+(
+    id_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_esdeveniment_musical),
+    FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments (id_esdeveniment)
+);
+
+CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
+(
+    id_moviment             SMALLINT UNSIGNED NOT NULL,
+    id_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_moviment, id_esdeveniment_musical),
+    FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
+    FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
+);
+
 CREATE TABLE IF NOT EXISTS horaris_curs
 (
     id_curs       VARCHAR(5) NOT NULL,
@@ -620,6 +638,19 @@ CREATE TABLE IF NOT EXISTS veus
     PRIMARY KEY (id_veu)
 );
 
+CREATE TABLE IF NOT EXISTS socis_projectes_veu
+(
+    id_soci     SMALLINT UNSIGNED   NOT NULL,
+    id_projecte SMALLINT UNSIGNED   NOT NULL,
+
+    id_veu      TINYINT(1) UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_soci, id_projecte),
+    FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
+    FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
+);
+
 CREATE TABLE IF NOT EXISTS veus_moviments
 (
     id_veu_moviment SMALLINT UNSIGNED   NOT NULL AUTO_INCREMENT,
@@ -708,7 +739,7 @@ CREATE TABLE IF NOT EXISTS concerts
     id_projecte SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_concert),
-    FOREIGN KEY (id_concert) REFERENCES esdeveniments (id_esdeveniment),
+    FOREIGN KEY (id_concert) REFERENCES esdeveniments_musicals (id_esdeveniment_musical),
     FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
 );
 
@@ -880,7 +911,7 @@ CREATE TABLE IF NOT EXISTS assajos
     es_extra   BOOLEAN           NOT NULL DEFAULT FALSE,
 
     PRIMARY KEY (id_assaig),
-    FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
+    FOREIGN KEY (id_assaig) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
 );
 
 CREATE TABLE IF NOT EXISTS veus_convocades_assaig
