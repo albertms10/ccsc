@@ -1,0 +1,8 @@
+.llista-projectes .ant-list-item-meta-title {
+  font-size: large;
+}
+
+.llista-projectes .ant-list-item-meta-description {
+  font-size: small;
+  line-height: 1;
+}

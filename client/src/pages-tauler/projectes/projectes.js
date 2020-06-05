@@ -1,6 +1,7 @@
 import { PageHeader } from "antd";
 import React from "react";
 import { Container } from "../../standalone/container";
+import { LlistaProjectes } from "./components/llista-projectes";
 
 export default () => {
   return (
@@ -11,7 +12,7 @@ export default () => {
         title="Projectes"
       />
       <Container>
-
+        <LlistaProjectes />
       </Container>
     </>
   );
