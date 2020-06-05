@@ -124,7 +124,9 @@ CREATE TABLE IF NOT EXISTS agrupacions
     id_tipus_agrupacio TINYINT UNSIGNED  NOT NULL,
 
     PRIMARY KEY (id_agrupacio),
-    FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio)
+    FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio),
+
+    UNIQUE (nom_curt)
 );
 
 CREATE TABLE IF NOT EXISTS tipus_agrupacions
