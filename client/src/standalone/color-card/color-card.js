@@ -11,7 +11,7 @@ const ColorCard = ({ title, description, color }) => (
 );
 
 ColorCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   description: PropTypes.string,
   color: PropTypes.string.isRequired,
 };
