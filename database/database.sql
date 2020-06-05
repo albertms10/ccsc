@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS socis
 
     experiencia_coral TEXT,
     estudis_musicals  TEXT,
-    id_veu            TINYINT(1), /* TODO id_veu a `socis_agrupacions` -> _veus i _instruments */
+    id_veu            TINYINT(1) UNSIGNED, /* TODO id_veu a `socis_agrupacions` -> _veus i _instruments */
 
     PRIMARY KEY (id_soci),
     FOREIGN KEY (id_soci) REFERENCES persones (id_persona),
@@ -613,20 +613,21 @@ CREATE TABLE IF NOT EXISTS fonts_traduccions
 
 CREATE TABLE IF NOT EXISTS veus
 (
-    id_veu      TINYINT(1)  NOT NULL AUTO_INCREMENT,
-    nom         VARCHAR(20) NOT NULL,
-    abreviatura VARCHAR(2)  NOT NULL,
+    id_veu      TINYINT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
+    nom         VARCHAR(20)         NOT NULL,
+    abreviatura VARCHAR(2)          NOT NULL,
 
     PRIMARY KEY (id_veu)
 );
 
 CREATE TABLE IF NOT EXISTS veus_moviments
 (
-    id_veu_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_veu_moviment SMALLINT UNSIGNED   NOT NULL AUTO_INCREMENT,
 
-    id_veu          TINYINT(1)        NOT NULL,
-    divisi          TINYINT(1)        NOT NULL,
-    id_moviment     SMALLINT UNSIGNED NOT NULL,
+    divisi          TINYINT(1) UNSIGNED,
+
+    id_veu          TINYINT(1) UNSIGNED NOT NULL,
+    id_moviment     SMALLINT UNSIGNED   NOT NULL,
 
     PRIMARY KEY (id_veu_moviment),
     FOREIGN KEY (id_veu) REFERENCES veus (id_veu),
@@ -885,7 +886,7 @@ CREATE TABLE IF NOT EXISTS assajos
 CREATE TABLE IF NOT EXISTS veus_convocades_assaig
 (
     id_assaig SMALLINT UNSIGNED NOT NULL,
-    id_veu    TINYINT(1),
+    id_veu    TINYINT(1) UNSIGNED,
 
     PRIMARY KEY (id_assaig, id_veu)
 );
