@@ -8,11 +8,13 @@ import {
   Form,
   Modal,
   Row,
+  Space,
   TimePicker,
 } from "antd";
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import { IconAgrupacio } from "../../../../assets/icons";
 import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
 import { useAfegirAssaig } from "./hooks";
 
@@ -86,7 +88,10 @@ export default () => {
                   key={agrupacio.id_agrupacio}
                   value={agrupacio.id_agrupacio}
                 >
-                  {agrupacio.nom_curt}
+                  <Space>
+                    <IconAgrupacio name={agrupacio.nom_curt} />
+                    {agrupacio.nom_curt}
+                  </Space>
                 </TagSelect.Option>
               ))}
             </TagSelect>
