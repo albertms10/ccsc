@@ -13,4 +13,10 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken],
     controller.projectes_historial
   );
+
+  app.delete(
+    "/api/projectes/:id",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.projectes_delete
+  )
 };
