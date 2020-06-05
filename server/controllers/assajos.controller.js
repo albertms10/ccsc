@@ -74,37 +74,46 @@ exports.assajos_post = async (req, res, next) => {
         .then(({ insertId: id_esdeveniment }) => {
           connection
             .query(
-                `INSERT INTO assajos
-                 VALUES ?;`,
-              [
-                [
-                  [
-                    id_esdeveniment,
-                    assaig.es_general || false,
-                    assaig.es_extra || false
-                  ]
-                ]
-              ]
+                `INSERT INTO esdeveniments_musicals (id_esdeveniment_musical)
+                 VALUES (?);`,
+              [id_esdeveniment]
             )
-            .then(async () => {
-              try {
-                if (assaig.agrupacions.length > 0)
-                  await connection.query(
-                      `INSERT INTO assajos_agrupacions
-                       VALUES ?;`,
+            .then(() => {
+              connection
+                .query(
+                    `INSERT INTO assajos (id_assaig, es_general, es_extra)
+                     VALUES ?;`,
+                  [
                     [
-                      assaig.agrupacions.map((agrupacio) => [
+                      [
                         id_esdeveniment,
-                        agrupacio
-                      ])
+                        assaig.es_general || false,
+                        assaig.es_extra || false
+                      ]
                     ]
-                  );
-              } catch (e) {
-                transactionRollback(e);
-              } finally {
-                connection.commit();
-                res.status(204).send();
-              }
+                  ]
+                )
+                .then(async () => {
+                  try {
+                    if (assaig.agrupacions.length > 0)
+                      await connection.query(
+                          `INSERT INTO assajos_agrupacions
+                           VALUES ?;`,
+                        [
+                          assaig.agrupacions.map((agrupacio) => [
+                            id_esdeveniment,
+                            agrupacio
+                          ])
+                        ]
+                      );
+                  } catch (e) {
+                    transactionRollback(e);
+                  } finally {
+                    connection.commit();
+                    res.status(204).send();
+                  }
+                })
+                .catch(transactionRollback);
             })
             .catch(transactionRollback);
         })
@@ -132,6 +141,10 @@ exports.assajos_delete = async (req, res, next) => {
             DELETE
             FROM assajos
             WHERE id_assaig = @id_assaig;
+
+            DELETE
+            FROM esdeveniments_musicals
+            WHERE id_esdeveniment_musical = @id_assaig;
 
             DELETE
             FROM esdeveniments
