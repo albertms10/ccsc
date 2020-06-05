@@ -2,6 +2,7 @@ import { Col, Row } from "antd";
 import React, { useContext } from "react";
 import { ColorCardList } from "../../../../standalone/color-card-list";
 import { Container } from "../../../../standalone/container";
+import { literalList } from "../../../../utils";
 import { useAssajos } from "../../../assajos/components/llista-assajos/hooks";
 import { AgrupacioContext } from "../../agrupacio";
 import { ContentListAssajos } from "../content-list-assajos";
@@ -24,10 +25,10 @@ export default () => {
         mapItem={({ id_projecte, titol, directors, agrupacions, color }) => ({
           title: titol,
           color: "#" + color,
-          description: directors
-            ? `Amb la col·laboració de ${directors[0].nom}`
-            : agrupacions
-            ? `Amb ${agrupacions[0].nom}`
+          description: directors.length > 0
+            ? literalList(directors.map(({ nom }) => nom))
+            : agrupacions.length > 0
+            ? literalList(agrupacions.map(({ nom_complet }) => nom_complet))
             : "",
           link: `/projectes/${id_projecte}`,
         })}
