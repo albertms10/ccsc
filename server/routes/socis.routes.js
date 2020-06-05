@@ -47,6 +47,12 @@ module.exports = (app) => {
   );
 
   app.get(
+    "/api/socis/:id/projectes",
+    [authJWT.verifyAccessToken],
+    controller.socis_detall_projectes
+  );
+
+  app.get(
     "/api/socis/:id/assajos",
     [authJWT.verifyAccessToken],
     controller.socis_detall_assajos

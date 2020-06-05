@@ -330,6 +330,63 @@ exports.socis_detall_agrupacions = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.socis_detall_projectes = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+      "SET @id_soci = ?;" +
+        `SELECT DISTINCT projectes.id_projecte,
+                         titol,
+                         descripcio,
+                         inicials,
+                         color,
+                         id_curs,
+                         (
+                             SELECT IFNULL(JSON_ARRAYAGG(
+                                                   JSON_OBJECT(
+                                                           'id_director', id_director,
+                                                           'nom', nom_complet
+                                                       )
+                                               ), '[]')
+                             FROM directors_projectes
+                                      INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
+                             WHERE id_projecte = (SELECT projectes.id_projecte)
+                         ) AS directors,
+                         (
+                             SELECT IFNULL(JSON_ARRAYAGG(
+                                                   JSON_OBJECT(
+                                                           'id_agrupacio', agrupacions.id_agrupacio,
+                                                           'nom', nom,
+                                                           'nom_curt', nom_curt
+                                                       )
+                                               ), '[]')
+                             FROM projectes_agrupacions
+                                      INNER JOIN agrupacions USING (id_agrupacio)
+                             WHERE id_projecte = (SELECT projectes.id_projecte)
+                         ) AS agrupacions
+         FROM projectes
+                  INNER JOIN projectes_agrupacions USING (id_projecte)
+                  INNER JOIN socis_agrupacions USING (id_agrupacio)
+         WHERE id_soci = @id_soci
+            OR EXISTS(
+                 SELECT *
+                 FROM roles
+                          INNER JOIN roles_usuaris USING (id_role)
+                          INNER JOIN usuaris USING (id_usuari)
+                          INNER JOIN socis ON usuaris.id_persona = socis.id_soci
+                 WHERE id_soci = @id_soci
+                   AND role IN (?)
+             );`,
+      [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
+    )
+    .then(([_, projectes]) =>
+      parseAndSendJSON(res, next, projectes, ["directors", "agrupacions"])
+    )
+    .catch((e) => next(e));
+};
+
 exports.socis_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
