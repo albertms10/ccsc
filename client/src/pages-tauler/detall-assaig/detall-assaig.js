@@ -1,15 +1,19 @@
-import { PageHeader, Spin } from "antd";
+import { PageHeader, Spin, Typography } from "antd";
 import React, { useContext, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
-import { useAssaig } from "./hooks";
+import { ContentListPersones } from "../agrupacio/components/content-list-persones";
+import { useAssaig, useConvocatsAssaig } from "./hooks";
+
+const { Title } = Typography;
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
   const history = useHistory();
   const { id } = useParams();
-  const [assaig, loading] = useAssaig(id);
+  const [assaig, loadingAssaig] = useAssaig(id);
+  const [convocats, loadingConvocats] = useConvocatsAssaig(id);
 
   useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig]);
 
@@ -20,8 +24,15 @@ export default () => {
         title={assaig.titol}
         onBack={() => history.goBack()}
       />
-      <Spin spinning={loading}>
-        <Container>{assaig.titol}</Container>
+      <Spin spinning={loadingAssaig}>
+        <Container>
+          <Title level={2}>{assaig.titol}</Title>
+          <ContentListPersones
+            title="Convocats"
+            integrants={convocats}
+            loading={loadingConvocats}
+          />
+        </Container>
       </Spin>
     </>
   );
