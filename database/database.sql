@@ -919,7 +919,9 @@ CREATE TABLE IF NOT EXISTS veus_convocades_assaig
     id_assaig SMALLINT UNSIGNED NOT NULL,
     id_veu    TINYINT(1) UNSIGNED,
 
-    PRIMARY KEY (id_assaig, id_veu)
+    PRIMARY KEY (id_assaig, id_veu),
+    FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
+    FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
 );
 
 CREATE TABLE IF NOT EXISTS assajos_projectes
