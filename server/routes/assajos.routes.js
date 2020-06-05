@@ -31,4 +31,10 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_delete
   );
+
+  app.get(
+    "/api/assajos/:id/convocats",
+    [authJWT.verifyAccessToken],
+    controller.assajos_detall_convocats
+  )
 };
