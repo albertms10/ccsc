@@ -26,6 +26,64 @@ exports.projectes_historial = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.projectes_post = async (req, res, next) => {
+  const pool = req.app.get("pool");
+  const {
+    titol,
+    descripcio,
+    inicials,
+    color,
+    data,
+    agrupacions,
+    id_curs
+  } = req.body;
+
+  const connection = await pool.getConnection();
+
+  const transactionRollback = (e) =>
+    connection.rollback().then(() => {
+      console.log("Transaction rolled back");
+      next(e);
+    });
+
+  connection.beginTransaction().then(() =>
+    connection
+      .query(
+          `INSERT INTO projectes (titol, descripcio, inicials, color, data_inici,
+                                  data_final, id_curs)
+           VALUES ?;`,
+        [
+          [
+            [
+              titol,
+              descripcio,
+              inicials,
+              color,
+              ...data,
+              id_curs
+            ]
+          ]
+        ]
+      )
+      .then(async ({ insertId: id_projecte }) => {
+        try {
+          if (agrupacions.length > 0)
+            await connection.query(
+                `INSERT INTO projectes_agrupacions (id_projecte, id_agrupacio)
+                 VALUES ?;`,
+              [agrupacions.map((agrupacio) => [id_projecte, agrupacio])]
+            );
+        } catch (e) {
+          transactionRollback(e);
+        } finally {
+          connection.commit();
+          res.status(204).send();
+        }
+      })
+      .catch(transactionRollback)
+  );
+};
+
 exports.projectes_delete = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_projecte = req.params.id;
