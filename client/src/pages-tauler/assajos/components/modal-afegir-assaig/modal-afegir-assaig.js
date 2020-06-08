@@ -11,7 +11,6 @@ import {
   Space,
   TimePicker,
 } from "antd";
-import moment from "moment";
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { IconAgrupacio } from "../../../../assets/icons";
@@ -55,7 +54,7 @@ export default () => {
                 label="Dia"
                 rules={[{ required: true, message: "Introdueix el dia" }]}
               >
-                <DatePicker />
+                <DatePicker format="L" />
               </Form.Item>
             </Col>
             <Col sm={24} md={16} flex={1}>
@@ -64,7 +63,6 @@ export default () => {
                   format="HH:mm"
                   minuteStep={5}
                   allowEmpty={[false, true]}
-                  defaultPickerValue={[moment(new Date("19:00"))]}
                 />
               </Form.Item>
             </Col>
