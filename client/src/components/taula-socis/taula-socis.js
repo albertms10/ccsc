@@ -10,7 +10,7 @@ import "./taula-socis.css";
 const { Paragraph } = Typography;
 const { Search } = Input;
 
-const TaulaSocis = ({ socis, getSocis, loading }) => {
+const TaulaSocis = ({ socis, loading }) => {
   const breakpoint = Grid.useBreakpoint();
   const [searchValue, setSearchValue, filteredSocis] = useSearchSocis(socis);
 
@@ -52,7 +52,7 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
       key: "id_persona",
       align: "right",
       render: (idPersona) => (
-        <DropdownRowSoci idPersona={idPersona} getSocis={getSocis} />
+        <DropdownRowSoci idPersona={idPersona} />
       ),
     },
   ];
@@ -86,7 +86,6 @@ const TaulaSocis = ({ socis, getSocis, loading }) => {
 
 TaulaSocis.propTypes = {
   socis: PropTypes.arrayOf(SociPropTypes).isRequired,
-  getSocis: PropTypes.func.isRequired,
   loading: PropTypes.bool,
 };
 

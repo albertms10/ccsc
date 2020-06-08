@@ -8,7 +8,7 @@ import { useSocis } from "./hooks";
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
-  const [socis, getSocis, loading] = useSocis();
+  const [socis, loading] = useSocis();
 
   useEffect(() => setPageHeader("Socis"), [setPageHeader]);
 
@@ -18,10 +18,10 @@ export default () => {
         className="main-page-header"
         ghost={false}
         title="Socis"
-        extra={<ModalAfegirSoci getSocis={getSocis} />}
+        extra={<ModalAfegirSoci />}
       />
       <Container>
-        <TaulaSocis socis={socis} getSocis={getSocis} loading={loading} />
+        <TaulaSocis socis={socis} loading={loading} />
       </Container>
     </>
   );

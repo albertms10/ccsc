@@ -1,32 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../helpers";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSocis } from "../../../redux/socis/socis-actions";
 
 export default () => {
   const dispatch = useDispatch();
-  const [socis, setSocis] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getSocis = useCallback(
-    (next) => {
-      setLoading(true);
-
-      fetchAPI(
-        "/api/socis",
-        (socis) => {
-          setSocis(socis);
-          setLoading(false);
-          if (typeof next === "function") next();
-        },
-        dispatch
-      );
-    },
-    [dispatch]
-  );
+  const { socis, loading } = useSelector(({ socis }) => socis);
 
   useEffect(() => {
-    getSocis();
-  }, [getSocis]);
+    if (!socis.fetched) dispatch(fetchSocis());
+  }, [socis.fetched, dispatch]);
 
-  return [socis, getSocis, loading];
+  return [socis, loading];
 };

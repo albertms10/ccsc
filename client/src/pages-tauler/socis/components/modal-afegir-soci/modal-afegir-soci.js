@@ -1,11 +1,14 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
+import { fetchSocis } from "../../../../redux/socis/socis-actions";
 
-const ModalAfegirSocis = ({ getSocis }) => {
+export default () => {
+  const dispatch = useDispatch();
+
   const [visible, setVisible] = useState(false);
   const {
     steps,
@@ -14,13 +17,12 @@ const ModalAfegirSocis = ({ getSocis }) => {
     handleChange,
     currentPageIndex,
     setCurrentPageIndex,
-  } = useStepsAfegirSoci(() =>
-    getSocis(() => {
-      setVisible(false);
-      setCurrentPageIndex(0);
-      form.resetFields();
-    })
-  );
+  } = useStepsAfegirSoci(() => {
+    dispatch(fetchSocis());
+    setVisible(false);
+    setCurrentPageIndex(0);
+    form.resetFields();
+  });
 
   return (
     <>
@@ -48,9 +50,3 @@ const ModalAfegirSocis = ({ getSocis }) => {
     </>
   );
 };
-
-ModalAfegirSocis.propTypes = {
-  getSocis: PropTypes.func,
-};
-
-export default ModalAfegirSocis;

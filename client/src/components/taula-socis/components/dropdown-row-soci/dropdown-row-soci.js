@@ -8,9 +8,9 @@ import { useEliminarSoci } from "../../hooks";
 
 const { Text } = Typography;
 
-const DropdownRowSoci = ({ idPersona, getSocis }) => {
+const DropdownRowSoci = ({ idPersona }) => {
   const { currentUser } = useSelector(({ user }) => user);
-  const [showDeleteConfirm] = useEliminarSoci(getSocis);
+  const [showDeleteConfirm] = useEliminarSoci();
 
   return (
     <DropdownBorderlessButton
@@ -35,7 +35,6 @@ const DropdownRowSoci = ({ idPersona, getSocis }) => {
 
 DropdownRowSoci.propTypes = {
   idPersona: PropTypes.number,
-  getSocis: PropTypes.func,
 };
 
 export default DropdownRowSoci;
