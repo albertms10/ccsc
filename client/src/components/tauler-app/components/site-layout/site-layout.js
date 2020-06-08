@@ -13,6 +13,7 @@ import { Obres } from "../../../../pages-tauler/obres";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
 import { Projectes } from "../../../../pages-tauler/projectes";
 import { Socis } from "../../../../pages-tauler/socis";
+import { ErrorBoundary } from "../../../../standalone/error-boundary";
 import { kebabCase } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {
@@ -52,66 +53,68 @@ export default () => {
 
   return (
     <SetPageHeaderContext.Provider value={setPageHeader}>
-      <Layout className={"site-layout" + (scrolled ? " header-scrolled" : "")}>
-        <Header
-          className={
-            "site-layout-background app-layout-header" +
-            (location.pathname === "/" ? " ghost" : "")
-          }
-          style={{
-            marginInlineStart: startInset,
-            width: `calc(100vw - ${startInset}px)`,
-          }}
+      <ErrorBoundary>
+        <Layout
+          className={"site-layout" + (scrolled ? " header-scrolled" : "")}
         >
-          {broken ? (
-            <MenuOutlined
-              className="main-sidebar-trigger"
-              onClick={() => setCollapsed(false)}
-            />
-          ) : (
-            ""
-          )}
-          <Title className="app-layout-header-title" level={4}>
-            {pageHeader}
-          </Title>
-          <UserDropdown />
-        </Header>
-        <Content
-          className="app-layout-content site-layout-background"
-          style={{ marginInlineStart: startInset }}
-        >
-          <Switch>
-            <Route exact path="/" component={Inici} />
-            {!loadingAgrupacions &&
-              agrupacions.map((agrupacio) => (
-                <Route
-                  key={agrupacio.id_agrupacio}
-                  exact
-                  path={"/" + kebabCase(agrupacio.nom_curt)}
-                  render={(props) => (
-                    <Agrupacio {...props} agrupacio={agrupacio} />
-                  )}
-                />
-              ))}
-            <Route exact path="/projectes" component={Projectes} />
-            <Route exact path="/projectes/:id" component={DetallProjecte} />
-            <Route exact path="/assajos" component={Assajos} />
-            <Route exact path="/assajos/:id" component={DetallAssaig} />
-            <Route exact path="/obres" component={Obres} />
-            <Route exact path="/obres/:id" component={DetallObres} />
-            <Route
-              exact
-              path="/socis"
-              render={() => (
-                <Authorized>
-                  <Socis />
-                </Authorized>
-              )}
-            />
-            <Route exact path="/socis/:id" component={PerfilSoci} />
-          </Switch>
-        </Content>
-      </Layout>
+          <Header
+            className={
+              "site-layout-background app-layout-header" +
+              (location.pathname === "/" ? " ghost" : "")
+            }
+            style={{
+              marginInlineStart: startInset,
+              width: `calc(100vw - ${startInset}px)`,
+            }}
+          >
+            {broken && (
+              <MenuOutlined
+                className="main-sidebar-trigger"
+                onClick={() => setCollapsed(false)}
+              />
+            )}
+            <Title className="app-layout-header-title" level={4}>
+              {pageHeader}
+            </Title>
+            <UserDropdown />
+          </Header>
+          <Content
+            className="app-layout-content site-layout-background"
+            style={{ marginInlineStart: startInset }}
+          >
+            <Switch>
+              <Route exact path="/" component={Inici} />
+              {!loadingAgrupacions &&
+                agrupacions.map((agrupacio) => (
+                  <Route
+                    key={agrupacio.id_agrupacio}
+                    exact
+                    path={"/" + kebabCase(agrupacio.nom_curt)}
+                    render={(props) => (
+                      <Agrupacio {...props} agrupacio={agrupacio} />
+                    )}
+                  />
+                ))}
+              <Route exact path="/projectes" component={Projectes} />
+              <Route exact path="/projectes/:id" component={DetallProjecte} />
+              <Route exact path="/assajos" component={Assajos} />
+              <Route exact path="/assajos/:id" component={DetallAssaig} />
+              <Route exact path="/obres" component={Obres} />
+              <Route exact path="/obres/:id" component={DetallObres} />
+              <Route
+                exact
+                path="/socis"
+                render={() => (
+                  <Authorized>
+                    <Socis />
+                  </Authorized>
+                )}
+              />
+              <Route exact path="/socis/:id" component={PerfilSoci} />
+            </Switch>
+          </Content>
+        </Layout>
+      </ErrorBoundary>
     </SetPageHeaderContext.Provider>
   );
 };

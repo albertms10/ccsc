@@ -1,6 +1,7 @@
 import { MenuOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
 import React, { useContext } from "react";
+import { ErrorBoundary } from "../../standalone/error-boundary";
 import { initials } from "../../utils";
 import {
   SiderBrokenContext,
@@ -50,7 +51,9 @@ export default () => {
           <div className="main-layout-title-long">{associacio.nom}</div>
         )}
       </div>
-      <MainMenu />
+      <ErrorBoundary>
+        <MainMenu />
+      </ErrorBoundary>
     </Sider>
   );
 };
