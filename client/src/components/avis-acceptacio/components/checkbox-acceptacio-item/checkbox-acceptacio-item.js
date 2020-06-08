@@ -12,7 +12,8 @@ const CheckboxAcceptacioItem = ({ acceptacio, ...props }) => (
       <Paragraph style={{ marginBottom: 0 }}>{acceptacio.titol}</Paragraph>
       <Paragraph type="secondary">
         {acceptacio.descripcio}
-        {acceptacio.requerida ? " —\u00a0Requerida" : ""}
+        {acceptacio.descripcio && acceptacio.requerida ? " —\u00a0" : ""}
+        {acceptacio.requerida ? "Requerida" : ""}
       </Paragraph>
     </div>
   </Checkbox>
