@@ -80,19 +80,22 @@ export default () => {
               >
                 <Input
                   onChange={({ target }) =>
-                    (document.getElementById("inicials").value = initials(
-                      target.value,
-                      {
+                    form.setFieldsValue({
+                      inicials: initials(target.value, {
                         minValue: 3,
                         maxInitials: 3,
-                      }
-                    ).toUpperCase())
+                      }).toUpperCase(),
+                    })
                   }
                 />
               </Form.Item>
             </Col>
             <Col sm={8} md={4}>
-              <Form.Item name="inicials" label="Inicials">
+              <Form.Item
+                name="inicials"
+                label="Inicials"
+                rules={[{ required: true, message: "Introdueix les inicials" }]}
+              >
                 <Input />
               </Form.Item>
             </Col>
@@ -123,7 +126,19 @@ export default () => {
           <Row gutter={16} type="flex">
             <Col sm={24} md={16} flex={1}>
               <Form.Item name="data" label="Data">
-                <DatePicker.RangePicker format="L" allowEmpty={[false, true]} />
+                <DatePicker.RangePicker
+                  format="L"
+                  allowEmpty={[false, true]}
+                  onChange={([dataInici]) => {
+                    const curs = cursos.find((curs) =>
+                      moment(dataInici).isBetween(
+                        moment(curs.inici),
+                        moment(curs.final)
+                      )
+                    );
+                    if (curs) form.setFieldsValue({ id_curs: curs.id_curs });
+                  }}
+                />
               </Form.Item>
             </Col>
             <Col sm={24} md={8} flex={1}>
