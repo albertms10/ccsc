@@ -81,7 +81,11 @@ export default () => {
                 <Input
                   onChange={({ target }) =>
                     (document.getElementById("inicials").value = initials(
-                      target.value, { minValue: 3, maxInitials:3 }
+                      target.value,
+                      {
+                        minValue: 3,
+                        maxInitials: 3,
+                      }
                     ).toUpperCase())
                   }
                 />
