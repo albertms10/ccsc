@@ -1,5 +1,6 @@
 import { PageHeader, Tabs } from "antd";
 import React, { useContext, useEffect } from "react";
+import { Authorized } from "../../components/authorized";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
 import { LlistaAssajos } from "./components/llista-assajos";
@@ -18,7 +19,11 @@ export default () => {
         className="main-page-header"
         ghost={false}
         title="Assajos"
-        extra={<ModalAfegirAssaig />}
+        extra={
+          <Authorized>
+            <ModalAfegirAssaig />
+          </Authorized>
+        }
       />
       <Container>
         <Tabs>

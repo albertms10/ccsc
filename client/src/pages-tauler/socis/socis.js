@@ -1,5 +1,6 @@
 import { PageHeader } from "antd";
 import React, { useContext, useEffect } from "react";
+import { Authorized } from "../../components/authorized";
 import { ModalAfegirSoci } from "./components/modal-afegir-soci";
 import { TaulaSocis } from "../../components/taula-socis";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
@@ -18,7 +19,11 @@ export default () => {
         className="main-page-header"
         ghost={false}
         title="Socis"
-        extra={<ModalAfegirSoci />}
+        extra={
+          <Authorized>
+            <ModalAfegirSoci />
+          </Authorized>
+        }
       />
       <Container>
         <TaulaSocis socis={socis} loading={loading} />
