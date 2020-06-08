@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/colors": "^4.0.0",
     "@ant-design/icons": "^4.2.1",
     "@n8tb1t/use-scroll-position": "^1.0.43",
     "@opd/g2plot-react": "^1.5.2",
