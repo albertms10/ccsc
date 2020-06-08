@@ -455,8 +455,6 @@ CREATE TABLE IF NOT EXISTS persones
     email                   VARCHAR(50)          NULL,
     telefon                 VARCHAR(14)          NULL,
     es_institucio           TINYINT(1) DEFAULT 0 NOT NULL,
-    accepta_proteccio_dades TINYINT(1) DEFAULT 0 NOT NULL,
-    accepta_drets_imatge    TINYINT(1) DEFAULT 0 NOT NULL,
     es_anonim               TINYINT(1) DEFAULT 0 NOT NULL,
     id_localitzacio         SMALLINT UNSIGNED    NULL,
     CONSTRAINT persones_ibfk_1

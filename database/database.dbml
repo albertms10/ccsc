@@ -31,8 +31,6 @@ Table "persones" {
   "email" VARCHAR(50)
   "telefon" VARCHAR(14)
   "es_institucio" BOOLEAN [not null, default: FALSE]
-  "accepta_proteccio_dades" BOOLEAN [not null, default: FALSE]
-  "accepta_drets_imatge" BOOLEAN [not null, default: FALSE]
   "es_anonim" BOOLEAN [not null, default: FALSE]
   "id_localitzacio" SMALLINT
 
@@ -88,6 +86,10 @@ Table "agrupacions" {
   "descripcio" VARCHAR(255)
   "num_persones" TINYINT(3)
   "id_tipus_agrupacio" TINYINT [not null]
+
+Indexes {
+  nom_curt [unique]
+}
 }
 
 Table "tipus_agrupacions" {
@@ -275,6 +277,19 @@ Table "esdeveniments" {
   "id_esdeveniment_ajornat" SMALLINT
 }
 
+Table "esdeveniments_musicals" {
+  "id_esdeveniment_musical" SMALLINT [pk, not null]
+}
+
+Table "moviments_esdeveniment_musical" {
+  "id_moviment" SMALLINT [not null]
+  "id_esdeveniment_musical" SMALLINT [not null]
+
+Indexes {
+  (id_moviment, id_esdeveniment_musical) [pk]
+}
+}
+
 Table "horaris_curs" {
   "id_curs" VARCHAR(5) [not null]
   "periode_inici" DATE [not null]
@@ -398,10 +413,20 @@ Table "veus" {
   "abreviatura" VARCHAR(2) [not null]
 }
 
+Table "socis_projectes_veu" {
+  "id_soci" SMALLINT [not null]
+  "id_projecte" SMALLINT [not null]
+  "id_veu" TINYINT(1) [not null]
+
+Indexes {
+  (id_soci, id_projecte) [pk]
+}
+}
+
 Table "veus_moviments" {
   "id_veu_moviment" SMALLINT [pk, not null, increment]
+  "divisi" TINYINT(1)
   "id_veu" TINYINT(1) [not null]
-  "divisi" TINYINT(1) [not null]
   "id_moviment" SMALLINT [not null]
 }
 
@@ -619,8 +644,8 @@ Indexes {
 
 Table "adreces_associacio" {
   "id_adreca_associacio" SMALLINT [pk, not null, increment]
-  "id_localitzacio" SMALLINT [not null]
   "data_inici" DATE [not null]
+  "id_localitzacio" SMALLINT [not null]
 }
 
 Table "adreces_electroniques_associacio" {
@@ -848,6 +873,12 @@ Ref:"estats_confirmacio"."id_estat_confirmacio" < "esdeveniments"."id_estat_loca
 
 Ref:"esdeveniments"."id_esdeveniment" < "esdeveniments"."id_esdeveniment_ajornat"
 
+Ref:"esdeveniments"."id_esdeveniment" < "esdeveniments_musicals"."id_esdeveniment_musical"
+
+Ref:"moviments"."id_moviment" < "moviments_esdeveniment_musical"."id_moviment"
+
+Ref:"esdeveniments_musicals"."id_esdeveniment_musical" < "moviments_esdeveniment_musical"."id_esdeveniment_musical"
+
 Ref:"cursos"."id_curs" < "horaris_curs"."id_curs"
 
 Ref:"esdeveniments"."id_esdeveniment" < "assistents_esdeveniment"."id_esdeveniment"
@@ -888,6 +919,12 @@ Ref:"idiomes"."id_idioma" < "llibrets_moviments"."id_idioma"
 
 Ref:"fonts_traduccions"."id_font_traduccio" < "llibrets_moviments"."id_font_traduccio"
 
+Ref:"socis"."id_soci" < "socis_projectes_veu"."id_soci"
+
+Ref:"projectes"."id_projecte" < "socis_projectes_veu"."id_projecte"
+
+Ref:"veus"."id_veu" < "socis_projectes_veu"."id_veu"
+
 Ref:"veus"."id_veu" < "veus_moviments"."id_veu"
 
 Ref:"moviments"."id_moviment" < "veus_moviments"."id_moviment"
@@ -908,7 +945,7 @@ Ref:"projectes"."id_projecte" < "directors_projectes"."id_projecte"
 
 Ref:"directors"."id_director" < "directors_projectes"."id_director"
 
-Ref:"esdeveniments"."id_esdeveniment" < "concerts"."id_concert"
+Ref:"esdeveniments_musicals"."id_esdeveniment_musical" < "concerts"."id_concert"
 
 Ref:"projectes"."id_projecte" < "concerts"."id_projecte"
 
@@ -954,7 +991,11 @@ Ref:"socis"."id_soci" < "socis_quotes"."id_soci"
 
 Ref:"quotes"."id_quota" < "socis_quotes"."id_quota"
 
-Ref:"esdeveniments"."id_esdeveniment" < "assajos"."id_assaig"
+Ref:"esdeveniments_musicals"."id_esdeveniment_musical" < "assajos"."id_assaig"
+
+Ref:"assajos"."id_assaig" < "veus_convocades_assaig"."id_assaig"
+
+Ref:"veus"."id_veu" < "veus_convocades_assaig"."id_veu"
 
 Ref:"assajos"."id_assaig" < "assajos_projectes"."id_assaig"
 

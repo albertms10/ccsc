@@ -41,8 +41,6 @@ CREATE TABLE IF NOT EXISTS persones
     email                   VARCHAR(50),
     telefon                 VARCHAR(14),
     es_institucio           BOOLEAN           NOT NULL DEFAULT FALSE,
-    accepta_proteccio_dades BOOLEAN           NOT NULL DEFAULT FALSE,
-    accepta_drets_imatge    BOOLEAN           NOT NULL DEFAULT FALSE,
     es_anonim               BOOLEAN           NOT NULL DEFAULT FALSE, /* TODO Cal afegir algun CHECK? */
 
     id_localitzacio         SMALLINT UNSIGNED,

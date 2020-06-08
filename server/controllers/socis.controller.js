@@ -68,11 +68,7 @@ exports.socis_detall = (req, res, next) => {
       { id_soci }
     )
     .then(([soci]) => {
-      if (soci) {
-        soci.accepta_proteccio_dades = !!soci.accepta_proteccio_dades;
-        soci.accepta_drets_imatge = !!soci.accepta_drets_imatge;
-        return res.json(soci);
-      }
+      if (soci) return res.json(soci);
       res.end();
     })
     .catch((e) => next(e));
