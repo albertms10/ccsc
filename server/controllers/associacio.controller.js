@@ -59,3 +59,15 @@ exports.associacio_avisos_detall = (req, res, next) => {
     )
     .catch((e) => next(e));
 };
+
+exports.associacio_cursos = (req, res, next) => {
+  const pool = req.app.get("pool");
+
+  pool
+    .query(
+        `SELECT *
+         FROM cursos;`
+    )
+    .then((cursos) => res.json(cursos))
+    .catch((e) => next(e));
+};
