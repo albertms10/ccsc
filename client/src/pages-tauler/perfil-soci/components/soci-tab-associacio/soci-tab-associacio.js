@@ -15,10 +15,12 @@ export default () => {
       <AvisAcceptacio
         nameAvis="proteccio_dades"
         acceptacionsSoci={acceptacionsSoci}
+        collapsible
       />
       <AvisAcceptacio
         nameAvis="drets_imatge"
         acceptacionsSoci={acceptacionsSoci}
+        collapsible
       />
     </Space>
   );

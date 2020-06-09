@@ -2,7 +2,7 @@ import { Button, List, Tooltip } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback } from "react";
-import { SettingCard } from "../../standalone/setting-card";
+import { CollapseCard } from "../../standalone/collapse-card";
 import { SociPropTypes } from "../../typedef/prop-types";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
 import { useActivitatSoci, useAltaSoci, useBaixaSoci } from "./hooks";
@@ -62,7 +62,7 @@ const SettingCardActivitat = ({ soci, active }) => {
   ]);
 
   return (
-    <SettingCard title="Activitat" actionItem={actionItem()} active={active}>
+    <CollapseCard title="Activitat" actionItem={actionItem()} active={active}>
       <List
         dataSource={activitatSoci}
         loading={loadingActivitat}
@@ -72,7 +72,7 @@ const SettingCardActivitat = ({ soci, active }) => {
           </List.Item>
         )}
       />
-    </SettingCard>
+    </CollapseCard>
   );
 };
 
