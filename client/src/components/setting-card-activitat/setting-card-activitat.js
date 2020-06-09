@@ -15,7 +15,7 @@ const SettingCardActivitat = ({ soci, active }) => {
   const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci);
 
   const actionItem = useCallback(() => {
-    if (activitatSoci.length > 0 && activitatSoci[activitatSoci.length - 1]) {
+    if (activitatSoci.length > 0 && activitatSoci[activitatSoci.length - 1].data_baixa) {
       const disabled =
         moment(activitatSoci[activitatSoci.length - 1].data_alta).format(
           "L"
