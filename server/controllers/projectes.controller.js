@@ -69,18 +69,7 @@ exports.projectes_post = async (req, res, next) => {
           `INSERT INTO projectes (titol, descripcio, inicials, color, data_inici,
                                   data_final, id_curs)
            VALUES ?;`,
-        [
-          [
-            [
-              titol,
-              descripcio,
-              inicials,
-              color,
-              ...data,
-              id_curs
-            ]
-          ]
-        ]
+        [[[titol, descripcio, inicials, color, ...data, id_curs]]]
       )
       .then(async ({ insertId: id_projecte }) => {
         try {
