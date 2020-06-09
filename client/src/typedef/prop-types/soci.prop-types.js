@@ -8,7 +8,7 @@ export default PropTypes.shape({
   username: PropTypes.string,
   email: PropTypes.string.isRequired,
   telefon: PropTypes.string,
-  estat_actiu: PropTypes.bool.isRequired,
+  estat_actiu: PropTypes.bool,
   data_actiu: PropTypes.string,
   data_inactiu: PropTypes.string,
   dies_activitat: PropTypes.number,
