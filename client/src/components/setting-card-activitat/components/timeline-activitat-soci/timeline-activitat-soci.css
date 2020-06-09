@@ -1,0 +1,19 @@
+.activitat-soci .ant-timeline {
+  padding-top: 10px;
+}
+
+.activitat-soci .ant-timeline-item.ant-timeline-item-last {
+  padding-bottom: 0;
+}
+
+.activitat-soci .ant-timeline-item-last > .ant-timeline-item-content {
+  min-height: 0;
+}
+
+.activitat-soci .ant-timeline-item {
+  padding-bottom: 10px;
+}
+
+.activitat-soci .ant-timeline-item-tail {
+  height: 100%;
+}
