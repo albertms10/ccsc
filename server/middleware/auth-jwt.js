@@ -90,17 +90,17 @@ const verifyEmailToken = (req, res, next) => {
 const checkIsAuthor = async (req) => {
   const pool = req.app.get("pool");
   /** @type {number} */
-  const idSoci = req.params.id;
+  const id_soci = req.params.id;
 
-  const [{ id_usuari }] = await pool.query(
+  const queryUsuari = await pool.query(
     `SELECT id_usuari
        FROM usuaris
                 INNER JOIN socis s ON usuaris.id_persona = s.id_soci
-       WHERE id_soci = ?;`,
-    [idSoci]
+       WHERE ?;`,
+    { id_soci }
   );
 
-  return req.userId === id_usuari;
+  return queryUsuari[0] && req.userId === queryUsuari[0].id_usuari;
 };
 
 const checkIsRole = async (req, roles) => {
