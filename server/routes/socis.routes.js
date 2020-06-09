@@ -69,4 +69,22 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken, authJWT.isAuthor],
     controller.socis_detall_acceptacions_put
   );
+
+  app.get(
+    "/api/socis/:id/activitat",
+    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    controller.socis_detall_activitat
+  );
+
+  app.post(
+    "/api/socis/:id/alta",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.socis_detall_alta
+  );
+
+  app.put(
+    "/api/socis/:id/baixa",
+    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    controller.socis_detall_baixa
+  );
 };

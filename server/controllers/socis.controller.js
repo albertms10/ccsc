@@ -477,3 +477,50 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
     .then(() => res.json(acceptacions))
     .catch((e) => next(e));
 };
+
+exports.socis_detall_activitat = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+        `SELECT data_alta,
+                data_baixa,
+                IFNULL(DATEDIFF(data_baixa, data_alta), DATEDIFF(NOW(), data_alta)) + 1 AS dies_activitat
+         FROM historial_socis
+                  INNER JOIN socis s ON historial_socis.id_historial_soci = s.id_soci
+         WHERE ?;`,
+      { id_soci }
+    )
+    .then((activitat) => res.json(activitat))
+    .catch((e) => next(e));
+};
+
+exports.socis_detall_alta = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+        `INSERT INTO historial_socis (id_historial_soci, data_alta)
+         VALUES (?, CURRENT_DATE);`,
+      [id_soci]
+    )
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};
+
+exports.socis_detall_baixa = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_soci = req.params.id;
+
+  pool
+    .query(
+        `UPDATE historial_socis
+         SET data_baixa = CURRENT_DATE
+         WHERE id_historial_soci = ?;`,
+      [id_soci]
+    )
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};
