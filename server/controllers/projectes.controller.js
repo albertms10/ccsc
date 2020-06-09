@@ -26,6 +26,23 @@ exports.projectes_historial = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.projectes_checkinicials = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const inicials = req.params.inicials;
+
+  pool
+    .query(
+        `SELECT NOT EXISTS(
+                    SELECT *
+                    FROM projectes
+                    WHERE ?
+                ) AS disponible;`,
+      { inicials }
+    )
+    .then(([{ disponible }]) => res.json(!!disponible))
+    .catch((e) => next(e));
+};
+
 exports.projectes_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const {

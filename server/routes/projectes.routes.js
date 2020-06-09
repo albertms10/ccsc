@@ -14,6 +14,12 @@ module.exports = (app) => {
     controller.projectes_historial
   );
 
+  app.get(
+    "/api/projectes/check-inicials/:inicials",
+    [authJWT.verifyAccessToken],
+    controller.projectes_checkinicials
+  )
+
   app.post(
     "/api/projectes",
     [authJWT.verifyAccessToken],
