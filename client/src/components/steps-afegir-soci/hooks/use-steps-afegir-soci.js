@@ -46,8 +46,10 @@ export default (
     const XIFRES = 8;
 
     const letter = value ? value.charAt(value.length - 1) : "";
-    if (letter.match(/^[a-z]+$/))
+    if (letter.match(/^[a-z]+$/)) {
+      setDniValidation("warning");
       return Promise.reject("Introdueixi la lletra amb majúscules.");
+    }
 
     const number = parseInt(value.substr(0, value.length - 1));
     const letters = "TRWAGMYFPDXBNJZSQVHLCKE";
@@ -58,6 +60,7 @@ export default (
         return Promise.resolve();
       }
     } else {
+      setDniValidation("");
       return Promise.reject(`El número ha de ser de ${XIFRES} xifres.`);
     }
 
