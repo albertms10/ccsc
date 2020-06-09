@@ -518,7 +518,9 @@ exports.socis_detall_baixa = (req, res, next) => {
     .query(
         `UPDATE historial_socis
          SET data_baixa = CURRENT_DATE
-         WHERE id_historial_soci = ?;`,
+         WHERE id_historial_soci = ?
+         ORDER BY data_alta DESC
+         LIMIT 1;`,
       [id_soci]
     )
     .then(() => res.status(204).send())
