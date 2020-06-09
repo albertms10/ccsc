@@ -27,13 +27,13 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
 import { initials } from "../../../../utils";
-import { useAfegirProjecte, useCursos } from "./hooks";
+import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
 
 const { Option } = Select;
 
@@ -45,7 +45,27 @@ export default () => {
   const [color, setColor] = useState({});
 
   const [form, handleOk] = useAfegirProjecte();
+  const [
+    inicialsDisponibles,
+    loadingInicials,
+    checkInicials,
+  ] = useCheckInicials();
   const [cursos, loadingCursos] = useCursos();
+
+  const handleTitolChange = useCallback(
+    ({ target }) => {
+      const inicials = initials(target.value, {
+        minValue: 3,
+        maxInitials: 2,
+      }).toUpperCase();
+
+      if (inicials && form.getFieldsValue(["inicials"]).inicials !== inicials) {
+        form.setFieldsValue({ inicials });
+        checkInicials(inicials);
+      }
+    },
+    [checkInicials, form]
+  );
 
   return (
     <>
@@ -78,25 +98,26 @@ export default () => {
                 label="Títol"
                 rules={[{ required: true, message: "Introdueix el títol" }]}
               >
-                <Input
-                  onChange={({ target }) =>
-                    form.setFieldsValue({
-                      inicials: initials(target.value, {
-                        minValue: 3,
-                        maxInitials: 3,
-                      }).toUpperCase(),
-                    })
-                  }
-                />
+                <Input onChange={handleTitolChange} />
               </Form.Item>
             </Col>
             <Col sm={8} md={4}>
               <Form.Item
                 name="inicials"
                 label="Inicials"
+                validateStatus={
+                  loadingInicials
+                    ? "validating"
+                    : form.getFieldsValue("inicials").inicials
+                    ? inicialsDisponibles
+                      ? "success"
+                      : "warning"
+                    : ""
+                }
+                hasFeedback
                 rules={[{ required: true, message: "Introdueix les inicials" }]}
               >
-                <Input />
+                <Input onChange={({ target }) => checkInicials(target.value)} />
               </Form.Item>
             </Col>
           </Row>
