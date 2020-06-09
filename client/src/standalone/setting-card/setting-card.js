@@ -1,7 +1,6 @@
-import { Card, Divider, Spin, Tooltip } from "antd";
+import { Collapse, Spin } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
-import { SubHeader } from "../sub-header";
 
 import "./setting-card.css";
 
@@ -9,9 +8,9 @@ const SettingCard = ({
   alert,
   alertCondition,
   title,
-  actionTooltip,
   actionItem,
   loading,
+  active,
   info,
   children,
   ...rest
@@ -20,19 +19,17 @@ const SettingCard = ({
 
   return (
     <Spin spinning={loading}>
-      <Card {...rest} className="setting-card">
-        {alertCondition && alert}
-        <div className="setting-card-title">
-          <SubHeader title={title} />
-          {actionItem && <Tooltip title={actionTooltip}>{actionItem}</Tooltip>}
-        </div>
-        {src && (
-          <>
-            <Divider />
-            {src}
-          </>
-        )}
-      </Card>
+      <Collapse
+        {...rest}
+        className="setting-card"
+        bordered={false}
+        {...(active ? { defaultActiveKey: ["setting-card"] } : {})}
+      >
+        <Collapse.Panel header={title} key="setting-card" extra={actionItem}>
+          {alertCondition && alert}
+          {src}
+        </Collapse.Panel>
+      </Collapse>
     </Spin>
   );
 };
@@ -41,13 +38,14 @@ SettingCard.propTypes = {
   alert: PropTypes.node,
   alertCondition: PropTypes.bool,
   title: PropTypes.string,
-  actionTooltip: PropTypes.string,
   actionItem: PropTypes.node,
   loading: PropTypes.bool,
+  active: PropTypes.bool,
   info: PropTypes.node,
 };
 
 SettingCard.defaultProps = {
+  active: false,
   loading: false,
 };
 
