@@ -1,7 +1,7 @@
 import { Button, List, Tooltip } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useCallback } from "react";
 import { SettingCard } from "../../standalone/setting-card";
 import { SociPropTypes } from "../../typedef/prop-types";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
@@ -14,7 +14,7 @@ const SettingCardActivitat = ({ soci, active }) => {
   const [loadingAlta, modalAltaSoci] = useAltaSoci(soci);
   const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci);
 
-  const actionItem = () => {
+  const actionItem = useCallback(() => {
     if (activitatSoci.length > 0 && activitatSoci[activitatSoci.length - 1]) {
       const disabled =
         moment(activitatSoci[activitatSoci.length - 1].data_alta).format(
@@ -22,9 +22,7 @@ const SettingCardActivitat = ({ soci, active }) => {
         ) === moment().format("L");
 
       return (
-        <Tooltip
-          title={disabled ? "Només es pot fer un cop al dia." : ""}
-        >
+        <Tooltip title={disabled ? "Només es pot fer un cop al dia." : ""}>
           <Button
             type="primary"
             size="small"
@@ -54,7 +52,14 @@ const SettingCardActivitat = ({ soci, active }) => {
         </Button>
       );
     }
-  };
+  }, [
+    activitatSoci,
+    fetchActivitat,
+    loadingAlta,
+    loadingBaixa,
+    modalAltaSoci,
+    modalBaixaSoci,
+  ]);
 
   return (
     <SettingCard title="Activitat" actionItem={actionItem()} active={active}>
