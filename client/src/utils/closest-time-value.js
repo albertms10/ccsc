@@ -6,7 +6,7 @@
  * @param {TimeUnit} unit
  * @returns {string}
  */
-export default (value, unit = "s") => {
+export default (value, unit = "d") => {
   /** @type {TimeUnit[]} */
   const units = ["s", "min", "h", "d", "m", "y"];
   const durations = [60, 60, 24, 30, 12, 10];

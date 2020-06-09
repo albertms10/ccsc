@@ -10,7 +10,7 @@ const CellNomSoci = ({ soci }) => (
   <Link to={`/socis/${soci.id_persona}`}>
     <div className="socis-table-username-wrapper">
       <Tooltip
-        title={`${closestTimeValue(soci.dies_activitat, "d")} d’${
+        title={`${closestTimeValue(soci.dies_activitat)} d’${
           soci.data_inactiu ? "in" : ""
         }activitat`}
       >
