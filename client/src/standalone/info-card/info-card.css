@@ -1,0 +1,16 @@
+.info-card .ant-alert {
+  margin-bottom: 1rem;
+}
+
+.info-card .info-card-title {
+  display: flex;
+  align-items: center;
+}
+
+.info-card-title .sub-header {
+  flex: 1;
+}
+
+.info-card .ant-typography:last-child {
+  margin-bottom: 0;
+}
