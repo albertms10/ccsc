@@ -40,9 +40,9 @@ VALUES (1, 'avinguda', 'av'),
        (10, 'travessera', 'trav');
 
 
-INSERT IGNORE INTO tipus_avisos (id_tipus_avis, nom)
-VALUES (1, 'Protecció de dades'),
-       (2, 'Drets d’imatge');
+INSERT IGNORE INTO tipus_avisos (id_tipus_avis, nom, unique_name)
+VALUES (1, 'Protecció de dades', 'proteccio_dades'),
+       (2, 'Drets d’imatge', 'drets_imatge');
 
 
 INSERT IGNORE INTO avisos (id_avis, titol, descripcio, titol_acceptacions, requerit, data_inici, data_final,
