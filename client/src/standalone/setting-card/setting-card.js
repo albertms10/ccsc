@@ -1,7 +1,6 @@
 import { Collapse, Spin } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
-
 import "./setting-card.css";
 
 const SettingCard = ({
@@ -14,25 +13,20 @@ const SettingCard = ({
   info,
   children,
   ...rest
-}) => {
-  const src = info || children;
-
-  return (
-    <Spin spinning={loading}>
-      <Collapse
-        {...rest}
-        className="setting-card"
-        bordered={false}
-        {...(active ? { defaultActiveKey: ["setting-card"] } : {})}
-      >
-        <Collapse.Panel header={title} key="setting-card" extra={actionItem}>
-          {alertCondition && alert}
-          {src}
-        </Collapse.Panel>
-      </Collapse>
-    </Spin>
-  );
-};
+}) => (
+  <Spin spinning={loading}>
+    <Collapse
+      {...rest}
+      className="setting-card"
+      {...(active ? { defaultActiveKey: ["setting-card"] } : {})}
+    >
+      <Collapse.Panel header={title} key="setting-card" extra={actionItem}>
+        {alertCondition && alert}
+        {info || children}
+      </Collapse.Panel>
+    </Collapse>
+  </Spin>
+);
 
 SettingCard.propTypes = {
   alert: PropTypes.node,
@@ -45,8 +39,8 @@ SettingCard.propTypes = {
 };
 
 SettingCard.defaultProps = {
-  active: false,
   loading: false,
+  active: false,
 };
 
 export default SettingCard;
