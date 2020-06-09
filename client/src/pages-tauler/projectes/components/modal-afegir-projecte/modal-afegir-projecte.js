@@ -108,7 +108,7 @@ export default () => {
                 validateStatus={
                   loadingInicials
                     ? "validating"
-                    : form.getFieldsValue("inicials").inicials
+                    : form.getFieldsValue(["inicials"]).inicials
                     ? inicialsDisponibles
                       ? "success"
                       : "warning"
