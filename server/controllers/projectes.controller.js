@@ -96,7 +96,7 @@ exports.projectes_delete = (req, res, next) => {
 
   pool
     .query(
-      "SET id_projecte = ?;" +
+      "SET @id_projecte = ?;" +
       "START TRANSACTION;" +
         `DELETE
          FROM assajos_projectes
