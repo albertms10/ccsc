@@ -1,23 +1,38 @@
 import moment from "moment";
+import { stripAccents } from "./index";
+
+/**
+ * @typedef {Object} SearchFilterFilters
+ * @property {string[]} [texts]
+ * @property {string[]} [dates]
+ */
 
 /**
  * Returns `true` if the given query matches against
- * `from` and `date`.
+ * `texts` and `dates` arrays.
  * @param {string} query
- * @param {string} from
- * @param {string[]} dates
+ * @param {SearchFilterFilters} filters
  * @returns {boolean}
  */
-export default (query, from, dates) =>
+export default (query, filters = { texts: [], dates: [] }) =>
   query.split(" ").every(
     (frag) =>
-      from.toLowerCase().includes(frag.toLowerCase()) ||
-      dates.some((date) => {
-        const d = moment(date);
-        return (
-          d.format("L").includes(frag) ||
-          d.format("LT").includes(frag) ||
-          d.format("LL").includes(frag)
-        );
-      })
+      (filters.texts &&
+        filters.texts.some(
+          (text) =>
+            text &&
+            stripAccents(text.toString())
+              .toLowerCase()
+              .includes(stripAccents(frag.toLowerCase()))
+        )) ||
+      (filters.dates &&
+        filters.dates.some((date) => {
+          if (!date) return false;
+          const d = moment(date);
+          return (
+            d.format("L").includes(frag) ||
+            d.format("LT").includes(frag) ||
+            d.format("LL").includes(frag)
+          );
+        }))
   );

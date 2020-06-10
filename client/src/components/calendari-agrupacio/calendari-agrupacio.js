@@ -66,7 +66,10 @@ export default () => {
                   data={esdeveniments}
                   onSelect={(value, option) => onChange(moment(option.date))}
                   filter={(value, option) =>
-                    eventSearchFilter(value, option.titol, [option.data_inici])
+                    eventSearchFilter(value, {
+                      texts: [option.titol],
+                      dates: [option.data_inici],
+                    })
                   }
                   optionRenderObject={(esdeveniment) => ({
                     key: esdeveniment.id_esdeveniment,

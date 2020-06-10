@@ -31,10 +31,13 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
 
     return filterValue.length > 0
       ? list.filter((assaig) =>
-          eventSearchFilter(filterValue, assaig.titol, [
-            assaig.data_inici,
-            ...(assaig.data_final ? [assaig.data_final] : []),
-          ])
+          eventSearchFilter(filterValue, {
+            texts: [assaig.titol],
+            dates: [
+              assaig.data_inici,
+              ...(assaig.data_final ? [assaig.data_final] : []),
+            ],
+          })
         )
       : list;
   }, [anteriors, assajos, filterValue]);
