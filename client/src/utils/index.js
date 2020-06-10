@@ -1,4 +1,5 @@
 export { default as closestTimeValue } from "./closest-time-value";
+export { default as eventSearchFilter } from "./event-search-filter";
 export { default as generateUsername } from "./generate-username";
 export { default as includesSome } from "./includes-some";
 export { default as initials } from "./initials";
