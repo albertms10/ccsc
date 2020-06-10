@@ -1,7 +1,7 @@
 import { List, Space, Typography } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import { IconAgrupacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
@@ -9,28 +9,39 @@ import { AgrupacionsListContext } from "../../../../components/tauler-app/contex
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
-import { timeRange } from "../../../../utils";
+import { eventSearchFilter, timeRange } from "../../../../utils";
 import { useAssajos, useEliminarAssaig } from "./hooks";
 
 const { Item } = List;
 const { Text } = Typography;
 
-const LlistaAssajos = ({ anteriors }) => {
+const LlistaAssajos = ({ filterValue, anteriors }) => {
   const agrupacions = useContext(AgrupacionsListContext);
   const [assajos, loading] = useAssajos();
   const [showDeleteConfirm] = useEliminarAssaig();
 
+  const getDataSource = useCallback(() => {
+    const list = anteriors
+      ? assajos
+          .filter((assaig) => moment(assaig.data_inici).isBefore(moment()))
+          .sort((a, b) => moment(b.data_inici).diff(moment(a.data_inici)))
+      : assajos.filter((assaig) =>
+          moment().isSameOrBefore(moment(assaig.data_inici))
+        );
+
+    return filterValue.length > 0
+      ? list.filter((assaig) =>
+          eventSearchFilter(filterValue, assaig.titol, [
+            assaig.data_inici,
+            ...(assaig.data_final ? [assaig.data_final] : []),
+          ])
+        )
+      : list;
+  }, [anteriors, assajos, filterValue]);
+
   return (
     <List
-      dataSource={
-        anteriors
-          ? assajos
-              .filter((assaig) => moment(assaig.data_inici).isBefore(moment()))
-              .sort((a, b) => moment(b.data_inici).diff(moment(a.data_inici)))
-          : assajos.filter((assaig) =>
-              moment().isSameOrBefore(moment(assaig.data_inici))
-            )
-      }
+      dataSource={getDataSource()}
       loading={loading}
       renderItem={(assaig) => (
         <Item
@@ -106,10 +117,12 @@ const LlistaAssajos = ({ anteriors }) => {
 };
 
 LlistaAssajos.propTypes = {
+  filterValue: PropTypes.string,
   anteriors: PropTypes.bool,
 };
 
 LlistaAssajos.defaultProps = {
+  filterValue: "",
   anteriors: false,
 };
 

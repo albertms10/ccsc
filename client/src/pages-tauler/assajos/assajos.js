@@ -1,12 +1,10 @@
-import { PageHeader, Tabs } from "antd";
+import { PageHeader } from "antd";
 import React, { useContext, useEffect } from "react";
 import { Authorized } from "../../components/authorized";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
-import { LlistaAssajos } from "./components/llista-assajos";
 import { ModalAfegirAssaig } from "./components/modal-afegir-assaig";
-
-const { TabPane } = Tabs;
+import { SearchAssajosTabs } from "./components/search-assajos-tabs";
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
@@ -26,14 +24,7 @@ export default () => {
         }
       />
       <Container>
-        <Tabs>
-          <TabPane tab="Propers" key="assajos-propers">
-            <LlistaAssajos />
-          </TabPane>
-          <TabPane tab="Anteriors" key="assajos-anteriors">
-            <LlistaAssajos anteriors />
-          </TabPane>
-        </Tabs>
+        <SearchAssajosTabs />
       </Container>
     </>
   );
