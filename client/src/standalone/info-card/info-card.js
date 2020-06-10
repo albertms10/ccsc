@@ -1,4 +1,5 @@
-import { Card, Spin, Tooltip, Divider } from "antd";
+import { Card, Divider, Spin, Tooltip } from "antd";
+import PropTypes from "prop-types";
 import React from "react";
 import SubHeader from "../sub-header/sub-header";
 
@@ -32,6 +33,19 @@ const InfoCard = ({
       </Card>
     </Spin>
   );
+};
+
+InfoCard.propTypes = {
+  alert: PropTypes.node,
+  alertCondition: PropTypes.bool,
+  title: PropTypes.string,
+  actionItem: PropTypes.node,
+  loading: PropTypes.bool,
+  info: PropTypes.node,
+};
+
+InfoCard.defaultProps = {
+  loading: false,
 };
 
 export default InfoCard;
