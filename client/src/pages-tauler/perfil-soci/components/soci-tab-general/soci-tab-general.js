@@ -17,18 +17,32 @@ export default () => {
     <Space size="middle" direction="vertical" style={{ marginTop: ".5rem" }}>
       <InfoCard title="Dades personals">
         <Descriptions size={descriptionsSize} layout="vertical">
-          <Item label="DNI">{soci.dni}</Item>
-          <Item label="Naixement">{moment(soci.naixement).format("LL")}</Item>
+          <Item label="DNI">
+            <Typography.Paragraph className="action-text" copyable>
+              {soci.dni}
+            </Typography.Paragraph>
+          </Item>
+          <Item label="Naixement">
+            <Typography.Paragraph className="action-text" copyable>
+              {moment(soci.naixement).format("LL")}
+            </Typography.Paragraph>
+          </Item>
         </Descriptions>
       </InfoCard>
       <InfoCard title="Dades de contacte">
         <Descriptions size={descriptionsSize} layout="vertical">
+          {soci.telefon && (
+            <Item label="Telèfon">
+              <Typography.Paragraph className="action-text" copyable>
+                {soci.telefon}
+              </Typography.Paragraph>
+            </Item>
+          )}
           <Item label="Adreça electrònica">
             <Typography.Paragraph className="action-text" copyable>
-              <a href={`mailto:${soci.email}`}>{soci.email}</a>
+              {soci.email}
             </Typography.Paragraph>
           </Item>
-          {soci.telefon ? <Item label="Telèfon">{soci.telefon}</Item> : ""}
         </Descriptions>
       </InfoCard>
     </Space>
