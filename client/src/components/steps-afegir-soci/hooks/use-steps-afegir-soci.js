@@ -1,9 +1,7 @@
 import {
   Button,
-  Card,
   Col,
   DatePicker,
-  Divider,
   Form,
   Input,
   message,
@@ -15,7 +13,7 @@ import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
-import { SubHeader } from "../../../standalone/sub-header";
+import InfoCard from "../../../standalone/info-card/info-card";
 import { upperCaseFirst } from "../../../utils";
 import { AvisAcceptacio } from "../../avis-acceptacio";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
@@ -82,9 +80,7 @@ export default (
       selfCreationOnly: false,
       content: (
         <Space size="middle" direction="vertical">
-          <Card>
-            <SubHeader title="Dades personals" />
-            <Divider />
+          <InfoCard title="Dades personals">
             <Row type="flex" gutter={[16, 16]}>
               <Col xs={24} sm={10}>
                 <Form.Item
@@ -174,10 +170,8 @@ export default (
                 </Form.Item>
               </Col>
             </Row>
-          </Card>
-          <Card>
-            <SubHeader title="Dades de contacte" />
-            <Divider />
+          </InfoCard>
+          <InfoCard title="Dades de contacte">
             <Row type="flex" gutter={[16, 16]}>
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
@@ -216,10 +210,8 @@ export default (
                 </Form.Item>
               </Col>
             </Row>
-          </Card>
-          <Card>
-            <SubHeader title="Informació musical" />
-            <Divider />
+          </InfoCard>
+          <InfoCard title="Informació musical">
             <Row type="flex" gutter={[16, 16]}>
               <Col md={24} lg={12}>
                 <Form.Item
@@ -246,7 +238,7 @@ export default (
                 </Col>
               )}
             </Row>
-          </Card>
+          </InfoCard>
         </Space>
       ),
     },
@@ -333,11 +325,7 @@ export default (
       </div>
       <Space>
         {currentPageIndex < stepsRef.length - 1 ? (
-          <Button
-            key="next"
-            type="primary"
-            onClick={next}
-          >
+          <Button key="next" type="primary" onClick={next}>
             {stepsRef[currentPageIndex].key === "proteccio"
               ? "Ho he llegit i dono el meu consentiment"
               : "Següent"}
