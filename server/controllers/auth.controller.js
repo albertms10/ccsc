@@ -10,9 +10,9 @@ exports.signin = (req, res, next) => {
   } = req.body;
 
   if (!username || !password)
-    return res.status(400).send({
+    return res.status(401).send({
       error: {
-        status: 400,
+        status: 401,
         message: "Introdueix el nom d’usuari i la contrasenya."
       }
     });
