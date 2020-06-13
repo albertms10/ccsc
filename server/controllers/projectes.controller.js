@@ -51,7 +51,7 @@ exports.projectes_post = async (req, res, next) => {
     inicials,
     color,
     data,
-    agrupacions,
+    formacions,
     id_curs
   } = req.body;
 
@@ -73,11 +73,11 @@ exports.projectes_post = async (req, res, next) => {
       )
       .then(async ({ insertId: id_projecte }) => {
         try {
-          if (agrupacions.length > 0)
+          if (formacions.length > 0)
             await connection.query(
-                `INSERT INTO projectes_agrupacions (id_projecte, id_agrupacio)
+                `INSERT INTO projectes_formacions (id_projecte, id_formacio)
                  VALUES ?;`,
-              [agrupacions.map((agrupacio) => [id_projecte, agrupacio])]
+              [formacions.map((formacio) => [id_projecte, formacio])]
             );
         } catch (e) {
           transactionRollback(e);
@@ -107,7 +107,7 @@ exports.projectes_delete = (req, res, next) => {
             WHERE id_projecte = @id_projecte;
 
             DELETE
-            FROM projectes_agrupacions
+            FROM projectes_formacions
             WHERE id_projecte = @id_projecte;
 
             DELETE

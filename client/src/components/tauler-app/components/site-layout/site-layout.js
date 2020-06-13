@@ -3,7 +3,7 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Layout, Typography } from "antd";
 import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import Agrupacio from "../../../../pages-tauler/agrupacio/agrupacio";
+import Formacio from "../../../../pages-tauler/formacio/formacio";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
 import { DetallObres } from "../../../../pages-tauler/detall-obres";
@@ -17,9 +17,9 @@ import { ErrorBoundary } from "../../../../standalone/error-boundary";
 import { kebabCase } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {
-  AgrupacionsListContext,
-  LoadingAgrupacionsContext,
-} from "../../contexts/agrupacions-context";
+  FormacionsListContext,
+  LoadingFormacionsContext,
+} from "../../contexts/formacions-context";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
@@ -34,8 +34,8 @@ const { Title } = Typography;
 export const SetPageHeaderContext = createContext((_) => {});
 
 export default () => {
-  const agrupacions = useContext(AgrupacionsListContext);
-  const loadingAgrupacions = useContext(LoadingAgrupacionsContext);
+  const formacions = useContext(FormacionsListContext);
+  const loadingFormacions = useContext(LoadingFormacionsContext);
   const collapsed = useContext(SiderCollapsedContext);
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
@@ -84,14 +84,14 @@ export default () => {
           >
             <Switch>
               <Route exact path="/" component={Inici} />
-              {!loadingAgrupacions &&
-                agrupacions.map((agrupacio) => (
+              {!loadingFormacions &&
+                formacions.map((formacio) => (
                   <Route
-                    key={agrupacio.id_agrupacio}
+                    key={formacio.id_formacio}
                     exact
-                    path={"/" + kebabCase(agrupacio.nom_curt)}
+                    path={"/" + kebabCase(formacio.nom_curt)}
                     render={(props) => (
-                      <Agrupacio {...props} agrupacio={agrupacio} />
+                      <Formacio {...props} formacio={formacio} />
                     )}
                   />
                 ))}

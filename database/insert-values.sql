@@ -2,7 +2,7 @@ INSERT IGNORE INTO associacio (id_associacio, nom, nif)
 VALUES (1, 'Associació Musical Catalana Crescendo', 'G63252407');
 
 
-INSERT IGNORE INTO tipus_agrupacions (id_tipus_agrupacio, nom)
+INSERT IGNORE INTO tipus_formacions (id_tipus_formacio, nom)
 VALUES (1, 'Cor'),
        (2, 'Orquestra'),
        (3, 'Conjunt instrumental');

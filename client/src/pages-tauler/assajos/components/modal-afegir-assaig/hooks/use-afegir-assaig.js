@@ -22,7 +22,7 @@ export default () => {
         assaig.hora = assaig.hora
           ? assaig.hora.map((h) => h && moment(h).format("HH:mm"))
           : [null, null];
-        if (!assaig.agrupacions) assaig.agrupacions = [];
+        if (!assaig.formacions) assaig.formacions = [];
 
         return postAssaig(assaig);
       })

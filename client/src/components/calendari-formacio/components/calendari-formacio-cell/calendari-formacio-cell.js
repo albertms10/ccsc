@@ -4,7 +4,7 @@ import React from "react";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
 import { EsdevenimentPropTypes } from "../../../../typedef/prop-types";
 
-const CalendariAgrupacioCell = ({ esdevenimentsActuals }) => (
+const CalendariFormacioCell = ({ esdevenimentsActuals }) => (
   <Space size={-5} direction="vertical">
     {esdevenimentsActuals.map((esdeveniment) => (
       <CalendarTag
@@ -16,8 +16,8 @@ const CalendariAgrupacioCell = ({ esdevenimentsActuals }) => (
   </Space>
 );
 
-CalendariAgrupacioCell.propTypes = {
+CalendariFormacioCell.propTypes = {
   esdevenimentsActuals: PropTypes.arrayOf(EsdevenimentPropTypes).isRequired,
 };
 
-export default CalendariAgrupacioCell;
+export default CalendariFormacioCell;

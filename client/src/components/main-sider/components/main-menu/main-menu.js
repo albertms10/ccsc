@@ -11,13 +11,13 @@ import {
 import { Menu, Spin } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { IconAgrupacio } from "../../../../assets/icons";
+import { IconFormacio } from "../../../../assets/icons";
 import { kebabCase, nIndexOf } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {
-  AgrupacionsListContext,
-  LoadingAgrupacionsContext,
-} from "../../../tauler-app/contexts/agrupacions-context";
+  FormacionsListContext,
+  LoadingFormacionsContext,
+} from "../../../tauler-app/contexts/formacions-context";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
@@ -40,10 +40,10 @@ export default () => {
 
   const [menuPosition, setMenuPosition] = useState("");
   const [paths, setPaths] = useState(initialPaths);
-  const [itemsAgrupacions, setItemsAgrupacions] = useState([]);
+  const [itemsFormacions, setItemsFormacions] = useState([]);
 
-  const agrupacions = useContext(AgrupacionsListContext);
-  const loadingAgrupacions = useContext(LoadingAgrupacionsContext);
+  const formacions = useContext(FormacionsListContext);
+  const loadingFormacions = useContext(LoadingFormacionsContext);
   const collapsed = useContext(SiderCollapsedContext);
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
@@ -75,10 +75,10 @@ export default () => {
       path: "/",
     },
     {
-      key: "grup_agrupacions",
-      title: "Agrupacions",
-      loading: loadingAgrupacions,
-      groupedItems: itemsAgrupacions,
+      key: "grup_formacions",
+      title: "Formacions",
+      loading: loadingFormacions,
+      groupedItems: itemsFormacions,
     },
     {
       key: "grup_gestio_musical",
@@ -130,19 +130,19 @@ export default () => {
       prevPaths.splice(
         1,
         0,
-        ...agrupacions.map((agrupacio) => "/" + kebabCase(agrupacio.nom_curt))
+        ...formacions.map((formacio) => "/" + kebabCase(formacio.nom_curt))
       );
       return prevPaths;
     });
 
-    setItemsAgrupacions(
-      agrupacions.map((agrupacio) => ({
-        title: agrupacio.nom_curt,
-        icon: <IconAgrupacio name={agrupacio.nom_curt} />,
-        path: "/" + kebabCase(agrupacio.nom_curt),
+    setItemsFormacions(
+      formacions.map((formacio) => ({
+        title: formacio.nom_curt,
+        icon: <IconFormacio name={formacio.nom_curt} />,
+        path: "/" + kebabCase(formacio.nom_curt),
       }))
     );
-  }, [agrupacions]);
+  }, [formacions]);
 
   useEffect(() => {
     setMenuPosition(
@@ -159,7 +159,7 @@ export default () => {
         return path === getBasename(location.pathname, numDirectories + 1);
       })
     );
-  }, [location, paths, itemsAgrupacions]);
+  }, [location, paths, itemsFormacions]);
 
   /**
    * @param {MenuGroup} item

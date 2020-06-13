@@ -16,7 +16,7 @@ exports.assajos_detall = (req, res, next) => {
       { id_assaig }
     )
     .then(([assaig]) =>
-      parseAndSendJSON(res, next, assaig, ["agrupacions", "projectes"])
+      parseAndSendJSON(res, next, assaig, ["formacions", "projectes"])
     );
 };
 
@@ -95,14 +95,14 @@ exports.assajos_post = async (req, res, next) => {
                 )
                 .then(async () => {
                   try {
-                    if (assaig.agrupacions.length > 0)
+                    if (assaig.formacions.length > 0)
                       await connection.query(
-                          `INSERT INTO assajos_agrupacions
+                          `INSERT INTO assajos_formacions
                            VALUES ?;`,
                         [
-                          assaig.agrupacions.map((agrupacio) => [
+                          assaig.formacions.map((formacio) => [
                             id_esdeveniment,
-                            agrupacio
+                            formacio
                           ])
                         ]
                       );
@@ -131,7 +131,7 @@ exports.assajos_delete = async (req, res, next) => {
       "SET @id_assaig = ?;" +
       "START TRANSACTION;" +
         `DELETE
-         FROM assajos_agrupacions
+         FROM assajos_formacions
          WHERE id_assaig = @id_assaig;
 
             DELETE
@@ -182,9 +182,9 @@ exports.assajos_detall_convocats = (req, res, next) => {
                                            ),
                                            (
                                                SELECT GROUP_CONCAT(id_veu)
-                                               FROM socis_agrupacions_veus
-                                                        INNER JOIN socis_agrupacions USING (id_soci_agrupacio)
-                                                        INNER JOIN agrupacions USING (id_agrupacio)
+                                               FROM socis_formacions_veus
+                                                        INNER JOIN socis_formacions USING (id_soci_formacio)
+                                                        INNER JOIN formacions USING (id_formacio)
                                                WHERE id_soci = (SELECT p.id_persona)
                                            )
                                        )

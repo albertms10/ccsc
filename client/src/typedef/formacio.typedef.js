@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} Agrupacio
+ * @typedef {Object} Formacio
  * @property {number} id
  * @property {string} nom
  * @property {string} nom_curt

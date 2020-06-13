@@ -4,22 +4,22 @@ import { fetchAPI } from "../../../helpers";
 
 export default () => {
   const dispatch = useDispatch();
-  const [agrupacions, setAgrupacions] = useState([]);
-  const [loadingAgrupacions, setLoadingAgrupacions] = useState(false);
+  const [formacions, setFormacions] = useState([]);
+  const [loadingFormacions, setLoadingFormacions] = useState(false);
   const { id_persona } = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
-    setLoadingAgrupacions(true);
+    setLoadingFormacions(true);
 
     fetchAPI(
-      `/api/socis/${id_persona}/agrupacions`,
+      `/api/socis/${id_persona}/formacions`,
       (data) => {
-        setAgrupacions(data);
-        setLoadingAgrupacions(false);
+        setFormacions(data);
+        setLoadingFormacions(false);
       },
       dispatch
     );
   }, [id_persona, dispatch]);
 
-  return [agrupacions, loadingAgrupacions];
+  return [formacions, loadingFormacions];
 };

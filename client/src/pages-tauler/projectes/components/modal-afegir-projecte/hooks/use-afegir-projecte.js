@@ -23,7 +23,7 @@ export default () => {
         ? projecte.data.map((d) => d && moment(d).format("YYYY-MM-DD"))
         : [null, null];
 
-      if (!projecte.agrupacions) projecte.agrupacions = [];
+      if (!projecte.formacions) projecte.formacions = [];
 
       return postProjecte(projecte);
     });

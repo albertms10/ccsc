@@ -4,31 +4,31 @@ import { ColorCardList } from "../../../../standalone/color-card-list";
 import { Container } from "../../../../standalone/container";
 import { literalList } from "../../../../utils";
 import { useAssajos } from "../../../assajos/components/llista-assajos/hooks";
-import { AgrupacioContext } from "../../agrupacio";
+import { FormacioContext } from "../../formacio";
 import { ContentListAssajos } from "../content-list-assajos";
 import { ContentListConcerts } from "../content-list-concerts";
 import { ContentListPersones } from "../content-list-persones";
 import { useConcerts, useIntegrants, useProjectes } from "./hooks";
 
 export default () => {
-  const { id_agrupacio } = useContext(AgrupacioContext);
+  const { id_formacio } = useContext(FormacioContext);
   const [assajos, loadingAssajos] = useAssajos();
-  const [concerts, loadingConcerts] = useConcerts(id_agrupacio);
-  const [projectes, loadingProjectes] = useProjectes(id_agrupacio);
-  const [integrants, loadingIntegrants] = useIntegrants(id_agrupacio);
+  const [concerts, loadingConcerts] = useConcerts(id_formacio);
+  const [projectes, loadingProjectes] = useProjectes(id_formacio);
+  const [integrants, loadingIntegrants] = useIntegrants(id_formacio);
 
   return (
     <Container>
       <ColorCardList
         dataSource={projectes}
         loading={loadingProjectes}
-        mapItem={({ id_projecte, titol, directors, agrupacions, color }) => ({
+        mapItem={({ id_projecte, titol, directors, formacions, color }) => ({
           title: titol,
           color: "#" + color,
           description: directors.length > 0
             ? literalList(directors.map(({ nom }) => nom))
-            : agrupacions.length > 0
-            ? literalList(agrupacions.map(({ nom_complet }) => nom_complet))
+            : formacions.length > 0
+            ? literalList(formacions.map(({ nom_complet }) => nom_complet))
             : "",
           link: `/projectes/${id_projecte}`,
         })}

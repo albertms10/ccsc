@@ -4,10 +4,10 @@ import React, { useContext } from "react";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
-import { AgrupacioContext } from "../../agrupacio";
+import { FormacioContext } from "../../formacio";
 
 const ContentListAssajos = ({ assajos, loading }) => {
-  const { id_agrupacio } = useContext(AgrupacioContext);
+  const { id_formacio } = useContext(FormacioContext);
 
   return (
     <ContentList
@@ -16,8 +16,8 @@ const ContentListAssajos = ({ assajos, loading }) => {
       dataSource={assajos
         .filter(
           (assaig) =>
-            assaig.agrupacions.find(
-              (agrupacio) => agrupacio.id_agrupacio === id_agrupacio
+            assaig.formacions.find(
+              (formacio) => formacio.id_formacio === id_formacio
             ) && moment().isSameOrBefore(moment(assaig.data_inici))
         )
         .map((assaig) => {

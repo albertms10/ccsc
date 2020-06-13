@@ -79,47 +79,47 @@ Table "directors" {
   "id_director" SMALLINT [pk, not null]
 }
 
-Table "agrupacions" {
-  "id_agrupacio" SMALLINT [pk, not null, increment]
+Table "formacions" {
+  "id_formacio" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(100) [not null]
   "nom_curt" VARCHAR(50)
   "descripcio" VARCHAR(255)
   "num_persones" TINYINT(3)
-  "id_tipus_agrupacio" TINYINT [not null]
+  "id_tipus_formacio" TINYINT [not null]
 
 Indexes {
   nom_curt [unique]
 }
 }
 
-Table "tipus_agrupacions" {
-  "id_tipus_agrupacio" TINYINT [pk, not null, increment]
+Table "tipus_formacions" {
+  "id_tipus_formacio" TINYINT [pk, not null, increment]
   "nom" VARCHAR(50) [not null]
 }
 
-Table "directors_agrupacions" {
+Table "directors_formacions" {
   "id_director" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_formacio" SMALLINT [not null]
 
 Indexes {
-  (id_director, id_agrupacio) [pk]
+  (id_director, id_formacio) [pk]
 }
 }
 
-Table "socis_agrupacions" {
-  "id_soci_agrupacio" SMALLINT [pk, not null, increment]
+Table "socis_formacions" {
+  "id_soci_formacio" SMALLINT [pk, not null, increment]
   "id_soci" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_formacio" SMALLINT [not null]
 }
 
-Table "socis_agrupacions_veus" {
-  "id_soci_agrupacio" SMALLINT [not null]
+Table "socis_formacions_veus" {
+  "id_soci_formacio" SMALLINT [not null]
   "id_veu" TINYINT(1) [not null]
   "data_inici" DATE [not null]
   "data_final" DATE
 
 Indexes {
-  (id_soci_agrupacio, id_veu, data_inici) [pk]
+  (id_soci_formacio, id_veu, data_inici) [pk]
 }
 }
 
@@ -457,12 +457,12 @@ Table "projectes" {
   "id_curs" VARCHAR(5) [not null]
 }
 
-Table "projectes_agrupacions" {
+Table "projectes_formacions" {
   "id_projecte" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_formacio" SMALLINT [not null]
 
 Indexes {
-  (id_projecte, id_agrupacio) [pk]
+  (id_projecte, id_formacio) [pk]
 }
 }
 
@@ -499,12 +499,12 @@ Indexes {
 }
 }
 
-Table "agrupacions_concerts" {
-  "id_agrupacio" SMALLINT [not null]
+Table "formacions_concerts" {
+  "id_formacio" SMALLINT [not null]
   "id_concert" SMALLINT [not null]
 
 Indexes {
-  (id_agrupacio, id_concert) [pk]
+  (id_formacio, id_concert) [pk]
 }
 }
 
@@ -609,12 +609,12 @@ Indexes {
 }
 }
 
-Table "assajos_agrupacions" {
+Table "assajos_formacions" {
   "id_assaig" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_formacio" SMALLINT [not null]
 
 Indexes {
-  (id_assaig, id_agrupacio) [pk]
+  (id_assaig, id_formacio) [pk]
 }
 }
 
@@ -633,12 +633,12 @@ Table "associacio" {
   "nif" VARCHAR(12) [not null]
 }
 
-Table "agrupacions_associacio" {
+Table "formacions_associacio" {
   "id_associacio" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_formacio" SMALLINT [not null]
 
 Indexes {
-  (id_associacio, id_agrupacio) [pk]
+  (id_associacio, id_formacio) [pk]
 }
 }
 
@@ -809,19 +809,19 @@ Ref:"persones"."id_persona" < "solistes"."id_solista"
 
 Ref:"persones"."id_persona" < "directors"."id_director"
 
-Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
+Ref:"tipus_formacions"."id_tipus_formacio" < "formacions"."id_tipus_formacio"
 
-Ref:"directors"."id_director" < "directors_agrupacions"."id_director"
+Ref:"directors"."id_director" < "directors_formacions"."id_director"
 
-Ref:"agrupacions"."id_agrupacio" < "directors_agrupacions"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "directors_formacions"."id_formacio"
 
-Ref:"socis"."id_soci" < "socis_agrupacions"."id_soci"
+Ref:"socis"."id_soci" < "socis_formacions"."id_soci"
 
-Ref:"agrupacions"."id_agrupacio" < "socis_agrupacions"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "socis_formacions"."id_formacio"
 
-Ref:"socis_agrupacions"."id_soci_agrupacio" < "socis_agrupacions_veus"."id_soci_agrupacio"
+Ref:"socis_formacions"."id_soci_formacio" < "socis_formacions_veus"."id_soci_formacio"
 
-Ref:"veus"."id_veu" < "socis_agrupacions_veus"."id_veu"
+Ref:"veus"."id_veu" < "socis_formacions_veus"."id_veu"
 
 Ref:"insignies"."id_insignia" < "insignies_socis_curs"."id_insignia"
 
@@ -937,9 +937,9 @@ Ref:"projectes"."id_projecte" < "socis_veu_moviment_projectes"."id_projecte"
 
 Ref:"cursos"."id_curs" < "projectes"."id_curs"
 
-Ref:"projectes"."id_projecte" < "projectes_agrupacions"."id_projecte"
+Ref:"projectes"."id_projecte" < "projectes_formacions"."id_projecte"
 
-Ref:"agrupacions"."id_agrupacio" < "projectes_agrupacions"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "projectes_formacions"."id_formacio"
 
 Ref:"projectes"."id_projecte" < "directors_projectes"."id_projecte"
 
@@ -957,9 +957,9 @@ Ref:"solistes"."id_solista" < "solistes_concerts"."id_solista"
 
 Ref:"concerts"."id_concert" < "solistes_concerts"."id_concert"
 
-Ref:"agrupacions"."id_agrupacio" < "agrupacions_concerts"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "formacions_concerts"."id_formacio"
 
-Ref:"concerts"."id_concert" < "agrupacions_concerts"."id_concert"
+Ref:"concerts"."id_concert" < "formacions_concerts"."id_concert"
 
 Ref:"concerts"."id_concert" < "parts_concert"."id_concert"
 
@@ -1001,17 +1001,17 @@ Ref:"assajos"."id_assaig" < "assajos_projectes"."id_assaig"
 
 Ref:"projectes"."id_projecte" < "assajos_projectes"."id_projecte"
 
-Ref:"assajos"."id_assaig" < "assajos_agrupacions"."id_assaig"
+Ref:"assajos"."id_assaig" < "assajos_formacions"."id_assaig"
 
-Ref:"agrupacions"."id_agrupacio" < "assajos_agrupacions"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "assajos_formacions"."id_formacio"
 
 Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
 
 Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
 
-Ref:"associacio"."id_associacio" < "agrupacions_associacio"."id_associacio"
+Ref:"associacio"."id_associacio" < "formacions_associacio"."id_associacio"
 
-Ref:"agrupacions"."id_agrupacio" < "agrupacions_associacio"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "formacions_associacio"."id_formacio"
 
 Ref:"localitzacions"."id_localitzacio" < "adreces_associacio"."id_localitzacio"
 

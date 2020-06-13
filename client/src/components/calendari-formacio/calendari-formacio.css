@@ -1,8 +1,8 @@
-.calendari-agrupacio .ant-picker-date-panel {
+.calendari-formacio .ant-picker-date-panel {
   padding: 1rem;
 }
 
-.calendari-agrupacio .ant-picker-calendar-header {
+.calendari-formacio .ant-picker-calendar-header {
   justify-content: space-between;
   margin-bottom: 1rem;
   padding-right: 2rem;
@@ -10,29 +10,29 @@
   border-bottom: 1px solid #eee;
 }
 
-.calendari-agrupacio .ant-picker-calendar-header .ant-row {
+.calendari-formacio .ant-picker-calendar-header .ant-row {
   width: 100%;
 }
 
-.calendari-agrupacio .ant-picker-cell-inner {
+.calendari-formacio .ant-picker-cell-inner {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
 
-.calendari-agrupacio .ant-picker-calendar-date-value {
+.calendari-formacio .ant-picker-calendar-date-value {
   padding: 0 0.5rem;
 }
 
-.calendari-agrupacio .ant-picker-calendar-date-content {
+.calendari-formacio .ant-picker-calendar-date-content {
   padding-top: 0.3rem;
 }
 
-.calendari-agrupacio .ant-space {
+.calendari-formacio .ant-space {
   max-width: 100%;
 }
 
 @media only screen and (max-width: 575.98px) {
-  .calendari-agrupacio .ant-picker-calendar-header {
+  .calendari-formacio .ant-picker-calendar-header {
     padding-right: 1rem;
     padding-left: 1rem;
   }

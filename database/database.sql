@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS socis
 
     experiencia_coral TEXT,
     estudis_musicals  TEXT,
-    id_veu            TINYINT(1) UNSIGNED, /* TODO id_veu a `socis_agrupacions` -> _veus i _instruments */
+    id_veu            TINYINT(1) UNSIGNED, /* TODO id_veu a `socis_formacions` -> _veus i _instruments */
 
     PRIMARY KEY (id_soci),
     FOREIGN KEY (id_soci) REFERENCES persones (id_persona),
@@ -112,63 +112,63 @@ CREATE TABLE IF NOT EXISTS directors
     FOREIGN KEY (id_director) REFERENCES persones (id_persona)
 );
 
-CREATE TABLE IF NOT EXISTS agrupacions
+CREATE TABLE IF NOT EXISTS formacions
 (
-    id_agrupacio       SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_formacio       SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
     nom                VARCHAR(100)      NOT NULL,
     nom_curt           VARCHAR(50),
     descripcio         VARCHAR(255),
     num_persones       TINYINT(3) UNSIGNED,
 
-    id_tipus_agrupacio TINYINT UNSIGNED  NOT NULL,
+    id_tipus_formacio TINYINT UNSIGNED  NOT NULL,
 
-    PRIMARY KEY (id_agrupacio),
-    FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio),
+    PRIMARY KEY (id_formacio),
+    FOREIGN KEY (id_tipus_formacio) REFERENCES tipus_formacions (id_tipus_formacio),
 
     UNIQUE (nom_curt)
 );
 
-CREATE TABLE IF NOT EXISTS tipus_agrupacions
+CREATE TABLE IF NOT EXISTS tipus_formacions
 (
-    id_tipus_agrupacio TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_tipus_formacio TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
     nom                VARCHAR(50)      NOT NULL,
 
-    PRIMARY KEY (id_tipus_agrupacio)
+    PRIMARY KEY (id_tipus_formacio)
 );
 
-CREATE TABLE IF NOT EXISTS directors_agrupacions
+CREATE TABLE IF NOT EXISTS directors_formacions
 (
     id_director  SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_director, id_agrupacio),
+    PRIMARY KEY (id_director, id_formacio),
     FOREIGN KEY (id_director) REFERENCES directors (id_director),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE TABLE IF NOT EXISTS socis_agrupacions
+CREATE TABLE IF NOT EXISTS socis_formacions
 (
-    id_soci_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_soci_formacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_soci           SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio      SMALLINT UNSIGNED NOT NULL,
+    id_formacio      SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_soci_agrupacio),
+    PRIMARY KEY (id_soci_formacio),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE TABLE IF NOT EXISTS socis_agrupacions_veus
+CREATE TABLE IF NOT EXISTS socis_formacions_veus
 (
-    id_soci_agrupacio SMALLINT UNSIGNED   NOT NULL,
+    id_soci_formacio SMALLINT UNSIGNED   NOT NULL,
     id_veu            TINYINT(1) UNSIGNED NOT NULL,
     data_inici        DATE                NOT NULL,
 
     data_final        DATE,
 
-    PRIMARY KEY (id_soci_agrupacio, id_veu, data_inici),
-    FOREIGN KEY (id_soci_agrupacio) REFERENCES socis_agrupacions (id_soci_agrupacio),
+    PRIMARY KEY (id_soci_formacio, id_veu, data_inici),
+    FOREIGN KEY (id_soci_formacio) REFERENCES socis_formacions (id_soci_formacio),
     FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
 );
 
@@ -710,14 +710,14 @@ CREATE TABLE IF NOT EXISTS projectes
     FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
 );
 
-CREATE TABLE IF NOT EXISTS projectes_agrupacions
+CREATE TABLE IF NOT EXISTS projectes_formacions
 (
     id_projecte  SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_projecte, id_agrupacio),
+    PRIMARY KEY (id_projecte, id_formacio),
     FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
 CREATE TABLE IF NOT EXISTS directors_projectes
@@ -763,13 +763,13 @@ CREATE TABLE IF NOT EXISTS solistes_concerts
     FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
 );
 
-CREATE TABLE IF NOT EXISTS agrupacions_concerts
+CREATE TABLE IF NOT EXISTS formacions_concerts
 (
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
     id_concert   SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_agrupacio, id_concert),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
+    PRIMARY KEY (id_formacio, id_concert),
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
     FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
 );
 
@@ -936,14 +936,14 @@ CREATE TABLE IF NOT EXISTS assajos_projectes
     FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
 );
 
-CREATE TABLE IF NOT EXISTS assajos_agrupacions
+CREATE TABLE IF NOT EXISTS assajos_formacions
 (
     id_assaig    SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_assaig, id_agrupacio),
+    PRIMARY KEY (id_assaig, id_formacio),
     FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
 CREATE TABLE IF NOT EXISTS moviments_assajos
@@ -971,14 +971,14 @@ CREATE TABLE IF NOT EXISTS associacio
     PRIMARY KEY (id_associacio)
 );
 
-CREATE TABLE IF NOT EXISTS agrupacions_associacio
+CREATE TABLE IF NOT EXISTS formacions_associacio
 (
     id_associacio SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio  SMALLINT UNSIGNED NOT NULL,
+    id_formacio  SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_associacio, id_agrupacio),
+    PRIMARY KEY (id_associacio, id_formacio),
     FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
 CREATE TABLE IF NOT EXISTS adreces_associacio

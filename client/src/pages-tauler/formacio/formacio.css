@@ -1,15 +1,15 @@
-.tabs-agrupacio .ant-tabs-bar {
+.tabs-formacio .ant-tabs-bar {
   transition-duration: 200ms;
   transition-property: background-color, backdrop-filter,
     -webkit-backdrop-filter;
 }
 
-.tabs-agrupacio .sticky-outer-wrapper.active .ant-tabs-bar {
+.tabs-formacio .sticky-outer-wrapper.active .ant-tabs-bar {
   background-color: rgba(245, 245, 247, 0.72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
 
-.tabs-agrupacio .ant-tabs-content {
+.tabs-formacio .ant-tabs-content {
   background-color: var(--background-color);
 }

@@ -24,15 +24,15 @@ exports.assajos_query_helper =
    (
        SELECT IFNULL(JSON_ARRAYAGG(
                       JSON_OBJECT(
-                              'id_agrupacio', id_agrupacio,
+                              'id_formacio', id_formacio,
                               'nom', nom,
                               'nom_curt', nom_curt
                           )
                   ), '[]')
-       FROM agrupacions
-                INNER JOIN assajos_agrupacions USING (id_agrupacio)
+       FROM formacions
+                INNER JOIN assajos_formacions USING (id_formacio)
        WHERE id_assaig = (SELECT a.id_assaig)
-   )                                                     AS agrupacions,
+   )                                                     AS formacions,
    (
        SELECT IFNULL(JSON_ARRAYAGG(
                       JSON_OBJECT(

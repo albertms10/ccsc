@@ -1,9 +1,9 @@
 import { Input, List, Space, Typography } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { IconAgrupacio } from "../../../../assets/icons";
+import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
-import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
+import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { eventSearchFilter, literalList } from "../../../../utils";
@@ -15,7 +15,7 @@ const { Text } = Typography;
 const { Search } = Input;
 
 export default () => {
-  const agrupacions = useContext(AgrupacionsListContext);
+  const formacions = useContext(FormacionsListContext);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -51,15 +51,15 @@ export default () => {
           <Item
             key={projectes.id_projecte}
             actions={[
-              ...(agrupacions.length > 1 &&
-              projecte.agrupacions &&
-              projecte.agrupacions.length > 0
+              ...(formacions.length > 1 &&
+              projecte.formacions &&
+              projecte.formacions.length > 0
                 ? [
                     <Space>
-                      {projecte.agrupacions.map((agrupacio) => (
-                        <IconAgrupacio
-                          key={agrupacio.id_agrupacio}
-                          name={agrupacio.nom_curt}
+                      {projecte.formacions.map((formacio) => (
+                        <IconFormacio
+                          key={formacio.id_formacio}
+                          name={formacio.nom_curt}
                         />
                       ))}
                     </Space>,
@@ -93,12 +93,12 @@ export default () => {
                           )}
                         </div>
                       )}
-                      {agrupacions.length > 1 &&
-                        projecte.agrupacions.length > 0 && (
+                      {formacions.length > 1 &&
+                        projecte.formacions.length > 0 && (
                           <div>
-                            <Text strong>Agrupacions:</Text>{" "}
+                            <Text strong>Formacions:</Text>{" "}
                             {literalList(
-                              projecte.agrupacions.map(
+                              projecte.formacions.map(
                                 ({ nom_curt }) => nom_curt
                               )
                             )}

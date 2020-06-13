@@ -3,24 +3,24 @@ const {
   assajos_query_helper
 } = require("../query-helpers/assajos.query-helper");
 
-exports.agrupacions_detall = (req, res, next) => {
+exports.formacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
-        `SELECT id_agrupacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
-         FROM agrupacions
+        `SELECT id_formacio, nom, IFNULL(nom_curt, nom) AS nom_curt, descripcio, num_persones
+         FROM formacions
          WHERE ?;`,
-      { id_agrupacio }
+      { id_formacio }
     )
     .then((rows) => res.json(rows))
     .catch((e) => next(e));
 };
 
-exports.agrupacions_detall_esdeveniments = (req, res, next) => {
+exports.formacions_detall_esdeveniments = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
@@ -82,8 +82,8 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
                 'assaig'                                              AS tipus
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
-                  INNER JOIN assajos_agrupacions USING (id_assaig)
-         WHERE id_agrupacio = ?
+                  INNER JOIN assajos_formacions USING (id_assaig)
+         WHERE id_formacio = ?
 
          UNION
 
@@ -140,8 +140,8 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
                 'assaig'                                              AS tipus
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
-                  INNER JOIN agrupacions_concerts USING (id_concert)
-         WHERE id_agrupacio = ?
+                  INNER JOIN formacions_concerts USING (id_concert)
+         WHERE id_formacio = ?
 
          UNION
 
@@ -164,13 +164,13 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
                 'aniversari'                                                        AS tipus
          FROM persones
                   INNER JOIN socis s ON persones.id_persona = s.id_soci
-                  INNER JOIN socis_agrupacions USING (id_soci)
+                  INNER JOIN socis_formacions USING (id_soci)
          WHERE naixement IS NOT NULL
-           AND id_agrupacio = ?
+           AND id_formacio = ?
 
          ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
       // TODO: Refaccionar l’any
-      [id_agrupacio, id_agrupacio, 2020, id_agrupacio]
+      [id_formacio, id_formacio, 2020, id_formacio]
     )
     .then((esdeveniments) =>
       parseAndSendJSON(res, next, esdeveniments, ["projectes"])
@@ -178,29 +178,29 @@ exports.agrupacions_detall_esdeveniments = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.agrupacions_detall_assajos = (req, res, next) => {
+exports.formacions_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
       `SELECT DISTINCT ${assajos_query_helper}
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
-                  INNER JOIN assajos_agrupacions aa USING (id_assaig)
+                  INNER JOIN assajos_formacions aa USING (id_assaig)
          WHERE ?
          ORDER BY dia_inici, hora_inici, dia_final, hora_final;`,
-      { id_agrupacio }
+      { id_formacio }
     )
     .then((assajos) =>
-      parseAndSendJSON(res, next, assajos, ["agrupacions", "projectes"])
+      parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
     )
     .catch((e) => next(e));
 };
 
-exports.agrupacions_detall_concerts = (req, res, next) => {
+exports.formacions_detall_concerts = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
@@ -225,19 +225,19 @@ exports.agrupacions_detall_concerts = (req, res, next) => {
                 )                                                     AS estat_localitzacio
          FROM esdeveniments
                   INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
-                  INNER JOIN agrupacions_concerts USING (id_concert)
+                  INNER JOIN formacions_concerts USING (id_concert)
                   LEFT JOIN projectes p USING (id_projecte)
          WHERE ?
          ORDER BY dia_inici, hora_inici;`,
-      { id_agrupacio }
+      { id_formacio }
     )
     .then((concerts) => res.json(concerts))
     .catch((e) => next(e));
 };
 
-exports.agrupacions_detall_projectes = (req, res, next) => {
+exports.formacions_detall_projectes = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
@@ -261,30 +261,30 @@ exports.agrupacions_detall_projectes = (req, res, next) => {
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
-                                                  'id_agrupacio', agrupacions.id_agrupacio,
+                                                  'id_formacio', formacions.id_formacio,
                                                   'nom', nom,
                                                   'nom_curt', nom_curt
                                               )
                                       ), '[]')
-                    FROM projectes_agrupacions
-                             INNER JOIN agrupacions USING (id_agrupacio)
+                    FROM projectes_formacions
+                             INNER JOIN formacions USING (id_formacio)
                     WHERE id_projecte = (SELECT projectes.id_projecte)
-                      AND agrupacions.id_agrupacio <> ?
-                ) AS agrupacions
+                      AND formacions.id_formacio <> ?
+                ) AS formacions
          FROM projectes
-                  INNER JOIN projectes_agrupacions USING (id_projecte)
-         WHERE id_agrupacio = ?;`,
-      [id_agrupacio, id_agrupacio]
+                  INNER JOIN projectes_formacions USING (id_projecte)
+         WHERE id_formacio = ?;`,
+      [id_formacio, id_formacio]
     )
     .then((projectes) =>
-      parseAndSendJSON(res, next, projectes, ["directors", "agrupacions"])
+      parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
     .catch((e) => next(e));
 };
 
-exports.agrupacions_detall_integrants = (req, res, next) => {
+exports.formacions_detall_integrants = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_agrupacio = req.params.id;
+  const id_formacio = req.params.id;
 
   pool
     .query(
@@ -304,12 +304,12 @@ exports.agrupacions_detall_integrants = (req, res, next) => {
                 ) AS abreviatura_veu
          FROM socis
                   INNER JOIN persones p ON socis.id_soci = p.id_persona
-                  INNER JOIN socis_agrupacions USING (id_soci)
-                  LEFT JOIN socis_agrupacions_veus sav USING (id_soci_agrupacio)
-                  INNER JOIN agrupacions USING (id_agrupacio)
+                  INNER JOIN socis_formacions USING (id_soci)
+                  LEFT JOIN socis_formacions_veus sav USING (id_soci_formacio)
+                  INNER JOIN formacions USING (id_formacio)
          WHERE ?
          ORDER BY id_veu;`,
-      { id_agrupacio }
+      { id_formacio }
     )
     .then((integrants) => res.json(integrants))
     .catch((e) => next(e));

@@ -41,9 +41,9 @@ module.exports = (app) => {
   );
 
   app.get(
-    "/api/socis/:id/agrupacions",
+    "/api/socis/:id/formacions",
     [authJWT.verifyAccessToken],
-    controller.socis_detall_agrupacions
+    controller.socis_detall_formacions
   );
 
   app.get(

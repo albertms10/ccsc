@@ -41,7 +41,7 @@ app.use(async (req, res, next) => {
 });
 
 // Routes
-require("./routes/agrupacions.routes")(app);
+require("./routes/formacions.routes")(app);
 require("./routes/assajos.routes")(app);
 require("./routes/associacio.routes")(app);
 require("./routes/auth.routes")(app);

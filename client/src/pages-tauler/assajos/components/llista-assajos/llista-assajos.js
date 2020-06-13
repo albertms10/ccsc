@@ -3,9 +3,9 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
-import { IconAgrupacio } from "../../../../assets/icons";
+import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
-import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
+import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
@@ -16,7 +16,7 @@ const { Item } = List;
 const { Text } = Typography;
 
 const LlistaAssajos = ({ filterValue, anteriors }) => {
-  const agrupacions = useContext(AgrupacionsListContext);
+  const formacions = useContext(FormacionsListContext);
   const [assajos, loading] = useAssajos();
   const [showDeleteConfirm] = useEliminarAssaig();
 
@@ -50,15 +50,15 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
         <Item
           key={assaig.id_assaig}
           actions={[
-            ...(agrupacions.length > 1 &&
-            assaig.agrupacions &&
-            assaig.agrupacions.length > 0
+            ...(formacions.length > 1 &&
+            assaig.formacions &&
+            assaig.formacions.length > 0
               ? [
                   <Space>
-                    {assaig.agrupacions.map((agrupacio) => (
-                      <IconAgrupacio
-                        key={agrupacio.id_agrupacio}
-                        name={agrupacio.nom_curt}
+                    {assaig.formacions.map((formacio) => (
+                      <IconFormacio
+                        key={formacio.id_formacio}
+                        name={formacio.nom_curt}
                       />
                     ))}
                   </Space>,

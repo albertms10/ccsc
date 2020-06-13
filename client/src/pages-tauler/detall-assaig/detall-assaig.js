@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
-import { ContentListPersones } from "../agrupacio/components/content-list-persones";
+import { ContentListPersones } from "../formacio/components/content-list-persones";
 import { useAssaig, useConvocatsAssaig } from "./hooks";
 
 const { Title } = Typography;

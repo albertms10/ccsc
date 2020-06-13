@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import IconCorDeCambra from "./icon-cor-de-cambra";
 
-const IconAgrupacio = ({ name, style }) => {
+const IconFormacio = ({ name, style }) => {
   const icons = {
     "Cor de Cambra": <IconCorDeCambra style={style} />,
   };
@@ -11,8 +11,8 @@ const IconAgrupacio = ({ name, style }) => {
   return icons[name] || <LayoutOutlined style={style} />;
 };
 
-IconAgrupacio.propTypes = {
+IconFormacio.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default IconAgrupacio;
+export default IconFormacio;

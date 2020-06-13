@@ -30,15 +30,15 @@ import moment from "moment";
 import React, { useCallback, useContext, useState } from "react";
 import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
-import { IconAgrupacio } from "../../../../assets/icons";
-import { AgrupacionsListContext } from "../../../../components/tauler-app/contexts/agrupacions-context";
+import { IconFormacio } from "../../../../assets/icons";
+import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { initials } from "../../../../utils";
 import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
 
 const { Option } = Select;
 
 export default () => {
-  const agrupacions = useContext(AgrupacionsListContext);
+  const formacions = useContext(FormacionsListContext);
   const { loading } = useSelector(({ projectes }) => projectes);
 
   const [visible, setVisible] = useState(false);
@@ -187,16 +187,16 @@ export default () => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="agrupacions" label="Agrupacions">
+          <Form.Item name="formacions" label="Formacions">
             <TagSelect className="" Option={null} hideCheckAll>
-              {agrupacions.map((agrupacio) => (
+              {formacions.map((formacio) => (
                 <TagSelect.Option
-                  key={agrupacio.id_agrupacio}
-                  value={agrupacio.id_agrupacio}
+                  key={formacio.id_formacio}
+                  value={formacio.id_formacio}
                 >
                   <Space>
-                    <IconAgrupacio name={agrupacio.nom_curt} />
-                    {agrupacio.nom_curt}
+                    <IconFormacio name={formacio.nom_curt} />
+                    {formacio.nom_curt}
                   </Space>
                 </TagSelect.Option>
               ))}

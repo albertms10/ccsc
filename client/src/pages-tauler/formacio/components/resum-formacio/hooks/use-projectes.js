@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../../../helpers";
 
-export default (id_agrupacio) => {
+export default (id_formacio) => {
   const dispatch = useDispatch();
   const [projectes, setProjectes] = useState([]);
   const [loadingProjectes, setLoadingProjectes] = useState(false);
@@ -11,14 +11,14 @@ export default (id_agrupacio) => {
     setLoadingProjectes(true);
 
     fetchAPI(
-      `/api/agrupacions/${id_agrupacio}/projectes`,
+      `/api/formacions/${id_formacio}/projectes`,
       (data) => {
         setProjectes(data);
         setLoadingProjectes(false);
       },
       dispatch
     );
-  }, [id_agrupacio, dispatch]);
+  }, [id_formacio, dispatch]);
 
   return [projectes, loadingProjectes];
 };

@@ -275,12 +275,12 @@ exports.socis_delete = (req, res, next) => {
             WHERE id_soci = @id_persona;
 
             DELETE sav
-            FROM socis_agrupacions_veus sav
-                     INNER JOIN socis_agrupacions USING (id_soci_agrupacio)
+            FROM socis_formacions_veus sav
+                     INNER JOIN socis_formacions USING (id_soci_formacio)
             WHERE id_soci = @id_persona;
 
             DELETE
-            FROM socis_agrupacions
+            FROM socis_formacions
             WHERE id_soci = @id_persona;
 
             DELETE
@@ -297,23 +297,23 @@ exports.socis_delete = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.socis_detall_agrupacions = (req, res, next) => {
+exports.socis_detall_formacions = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
 
   pool
     .query(
       "SET @id_soci = ?;" +
-        `SELECT DISTINCT id_agrupacio,
-                         agrupacions.nom,
+        `SELECT DISTINCT id_formacio,
+                         formacions.nom,
                          nom_curt,
                          descripcio,
                          num_persones,
-                         tipus_agrupacions.nom AS tipus_agrupacio
-         FROM agrupacions
-                  INNER JOIN tipus_agrupacions USING (id_tipus_agrupacio)
-                  INNER JOIN agrupacions_associacio USING (id_agrupacio)
-                  LEFT JOIN socis_agrupacions USING (id_agrupacio)
+                         tipus_formacions.nom AS tipus_formacio
+         FROM formacions
+                  INNER JOIN tipus_formacions USING (id_tipus_formacio)
+                  INNER JOIN formacions_associacio USING (id_formacio)
+                  LEFT JOIN socis_formacions USING (id_formacio)
                   LEFT JOIN socis USING (id_soci)
                   LEFT JOIN persones p ON socis.id_soci = p.id_persona
                   LEFT JOIN usuaris u USING (id_persona)
@@ -329,7 +329,7 @@ exports.socis_detall_agrupacions = (req, res, next) => {
              );`,
       [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
     )
-    .then(([_, agrupacions]) => res.json(agrupacions))
+    .then(([_, formacions]) => res.json(formacions))
     .catch((e) => next(e));
 };
 
@@ -364,18 +364,18 @@ exports.socis_detall_projectes = (req, res, next) => {
                          (
                              SELECT IFNULL(JSON_ARRAYAGG(
                                                    JSON_OBJECT(
-                                                           'id_agrupacio', agrupacions.id_agrupacio,
+                                                           'id_formacio', formacions.id_formacio,
                                                            'nom', nom,
                                                            'nom_curt', nom_curt
                                                        )
                                                ), '[]')
-                             FROM projectes_agrupacions
-                                      INNER JOIN agrupacions USING (id_agrupacio)
+                             FROM projectes_formacions
+                                      INNER JOIN formacions USING (id_formacio)
                              WHERE id_projecte = (SELECT projectes.id_projecte)
-                         )                  AS agrupacions
+                         )                  AS formacions
          FROM projectes
-                  INNER JOIN projectes_agrupacions USING (id_projecte)
-                  INNER JOIN socis_agrupacions USING (id_agrupacio)
+                  INNER JOIN projectes_formacions USING (id_projecte)
+                  INNER JOIN socis_formacions USING (id_formacio)
                   INNER JOIN cursos USING (id_curs)
          WHERE id_soci = @id_soci
             OR EXISTS(
@@ -390,7 +390,7 @@ exports.socis_detall_projectes = (req, res, next) => {
       [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
     )
     .then(([_, projectes]) =>
-      parseAndSendJSON(res, next, projectes, ["directors", "agrupacions"])
+      parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
     .catch((e) => next(e));
 };
@@ -406,15 +406,15 @@ exports.socis_detall_assajos = (req, res, next) => {
          FROM esdeveniments
                   INNER JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
                   LEFT JOIN assajos_projectes USING (id_assaig)
-                  LEFT JOIN assajos_agrupacions USING (id_assaig)
-                  LEFT JOIN projectes_agrupacions USING (id_projecte)
-                  LEFT JOIN socis_agrupacions sa ON assajos_agrupacions.id_agrupacio = sa.id_agrupacio
+                  LEFT JOIN assajos_formacions USING (id_assaig)
+                  LEFT JOIN projectes_formacions USING (id_projecte)
+                  LEFT JOIN socis_formacions sa ON assajos_formacions.id_formacio = sa.id_formacio
                   LEFT JOIN usuaris ON sa.id_soci = id_persona
          WHERE EXISTS(
                  SELECT *
                  FROM veus_convocades_assaig
-                          INNER JOIN socis_agrupacions_veus USING (id_veu)
-                          INNER JOIN socis_agrupacions USING (id_soci_agrupacio)
+                          INNER JOIN socis_formacions_veus USING (id_veu)
+                          INNER JOIN socis_formacions USING (id_soci_formacio)
                  WHERE id_soci = @id_soci
                    AND id_assaig = (SELECT a.id_assaig)
              )
@@ -431,7 +431,7 @@ exports.socis_detall_assajos = (req, res, next) => {
       [id_soci, ROLES_IS_JUNTA_DIRECTIVA]
     )
     .then(([_, assajos]) =>
-      parseAndSendJSON(res, next, assajos, ["agrupacions", "projectes"])
+      parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
     )
     .catch((e) => next(e));
 };

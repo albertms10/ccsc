@@ -1,32 +1,32 @@
 import { Affix, Tabs } from "antd";
 import React, { createContext, useContext, useEffect } from "react";
-import { IconAgrupacio } from "../../assets/icons";
-import { CalendariAgrupacio } from "../../components/calendari-agrupacio";
+import { IconFormacio } from "../../assets/icons";
+import { CalendariFormacio } from "../../components/calendari-formacio";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { ContentHeader } from "../../standalone/content-header";
-import { AgrupacioPropTypes } from "../../typedef/prop-types";
-import "./agrupacio.css";
-import { ResumAgrupacio } from "./components/resum-agrupacio";
+import { FormacioPropTypes } from "../../typedef/prop-types";
+import "./formacio.css";
+import { ResumFormacio } from "./components/resum-formacio";
 
-export const AgrupacioContext = createContext({});
+export const FormacioContext = createContext({});
 
 const { TabPane } = Tabs;
 
-const Agrupacio = ({ agrupacio }) => {
+const Formacio = ({ formacio }) => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   useEffect(() => {
-    setPageHeader(agrupacio.nom);
-  }, [setPageHeader, agrupacio.nom]);
+    setPageHeader(formacio.nom);
+  }, [setPageHeader, formacio.nom]);
 
   return (
-    <AgrupacioContext.Provider value={agrupacio}>
+    <FormacioContext.Provider value={formacio}>
       <ContentHeader
-        title={agrupacio.nom}
-        subtitle={agrupacio.descripcio}
-        icon={<IconAgrupacio name={agrupacio.nom_curt} />}
+        title={formacio.nom}
+        subtitle={formacio.descripcio}
+        icon={<IconFormacio name={formacio.nom_curt} />}
         footer={
-          <div className="tabs-agrupacio">
+          <div className="tabs-formacio">
             <Tabs
               renderTabBar={(props, DefaultTabBar) => (
                 <Affix offsetTop={64}>
@@ -35,14 +35,14 @@ const Agrupacio = ({ agrupacio }) => {
               )}
             >
               <TabPane tab="Resum" key="resum">
-                <ResumAgrupacio />
+                <ResumFormacio />
               </TabPane>
               <TabPane
                 tab="Calendari"
                 key="calendar"
                 style={{ backgroundColor: "var(--background-color)" }}
               >
-                <CalendariAgrupacio />
+                <CalendariFormacio />
               </TabPane>
               <TabPane tab="Projectes" key="projectes" />
               <TabPane tab="Integrants" key="integrants" />
@@ -50,12 +50,12 @@ const Agrupacio = ({ agrupacio }) => {
           </div>
         }
       />
-    </AgrupacioContext.Provider>
+    </FormacioContext.Provider>
   );
 };
 
-Agrupacio.propTypes = {
-  agrupacio: AgrupacioPropTypes.isRequired,
+Formacio.propTypes = {
+  formacio: FormacioPropTypes.isRequired,
 };
 
-export default Agrupacio;
+export default Formacio;

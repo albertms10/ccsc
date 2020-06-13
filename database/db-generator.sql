@@ -164,56 +164,56 @@ CREATE TABLE IF NOT EXISTS roles
     role    VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tipus_agrupacions
+CREATE TABLE IF NOT EXISTS tipus_formacions
 (
-    id_tipus_agrupacio SMALLINT UNSIGNED AUTO_INCREMENT
+    id_tipus_formacio SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom                VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS agrupacions
+CREATE TABLE IF NOT EXISTS formacions
 (
-    id_agrupacio       SMALLINT UNSIGNED AUTO_INCREMENT
+    id_formacio       SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom                VARCHAR(100)      NOT NULL,
     nom_curt           VARCHAR(50)       NULL,
     descripcio         VARCHAR(255)      NULL,
     num_persones       TINYINT UNSIGNED  NULL,
-    id_tipus_agrupacio SMALLINT UNSIGNED NOT NULL,
-    CONSTRAINT agrupacions_ibfk_1
-        FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio)
+    id_tipus_formacio SMALLINT UNSIGNED NOT NULL,
+    CONSTRAINT formacions_ibfk_1
+        FOREIGN KEY (id_tipus_formacio) REFERENCES tipus_formacions (id_tipus_formacio)
 );
 
-CREATE INDEX id_tipus_agrupacio
-    ON agrupacions (id_tipus_agrupacio);
+CREATE INDEX id_tipus_formacio
+    ON formacions (id_tipus_formacio);
 
-CREATE TABLE IF NOT EXISTS agrupacions_associacio
+CREATE TABLE IF NOT EXISTS formacions_associacio
 (
     id_associacio SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio  SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_associacio, id_agrupacio),
-    CONSTRAINT agrupacions_associacio_ibfk_1
+    id_formacio  SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_associacio, id_formacio),
+    CONSTRAINT formacions_associacio_ibfk_1
         FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio),
-    CONSTRAINT agrupacions_associacio_ibfk_2
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    CONSTRAINT formacions_associacio_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE INDEX id_agrupacio
-    ON agrupacions_associacio (id_agrupacio);
+CREATE INDEX id_formacio
+    ON formacions_associacio (id_formacio);
 
-CREATE TABLE IF NOT EXISTS projectes_agrupacions
+CREATE TABLE IF NOT EXISTS projectes_formacions
 (
     id_projecte  SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_projecte, id_agrupacio),
-    CONSTRAINT projectes_agrupacions_ibfk_1
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_projecte, id_formacio),
+    CONSTRAINT projectes_formacions_ibfk_1
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
-    CONSTRAINT projectes_agrupacions_ibfk_2
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    CONSTRAINT projectes_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE INDEX id_agrupacio
-    ON projectes_agrupacions (id_agrupacio);
+CREATE INDEX id_formacio
+    ON projectes_formacions (id_formacio);
 
 CREATE TABLE IF NOT EXISTS tipus_avisos
 (
@@ -335,19 +335,19 @@ CREATE TABLE IF NOT EXISTS assajos
         FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
 );
 
-CREATE TABLE IF NOT EXISTS assajos_agrupacions
+CREATE TABLE IF NOT EXISTS assajos_formacions
 (
     id_assaig    SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_assaig, id_agrupacio),
-    CONSTRAINT assajos_agrupacions_ibfk_1
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_assaig, id_formacio),
+    CONSTRAINT assajos_formacions_ibfk_1
         FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
-    CONSTRAINT assajos_agrupacions_ibfk_2
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    CONSTRAINT assajos_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE INDEX id_agrupacio
-    ON assajos_agrupacions (id_agrupacio);
+CREATE INDEX id_formacio
+    ON assajos_formacions (id_formacio);
 
 CREATE TABLE IF NOT EXISTS assajos_projectes
 (
@@ -389,19 +389,19 @@ CREATE TABLE IF NOT EXISTS concerts
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
 );
 
-CREATE TABLE IF NOT EXISTS agrupacions_concerts
+CREATE TABLE IF NOT EXISTS formacions_concerts
 (
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
     id_concert   SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_agrupacio, id_concert),
-    CONSTRAINT agrupacions_concerts_ibfk_1
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
-    CONSTRAINT agrupacions_concerts_ibfk_2
+    PRIMARY KEY (id_formacio, id_concert),
+    CONSTRAINT formacions_concerts_ibfk_1
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
+    CONSTRAINT formacions_concerts_ibfk_2
         FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
 );
 
 CREATE INDEX id_concert
-    ON agrupacions_concerts (id_concert);
+    ON formacions_concerts (id_concert);
 
 CREATE INDEX id_projecte
     ON concerts (id_projecte);
@@ -481,19 +481,19 @@ CREATE TABLE IF NOT EXISTS directors
         FOREIGN KEY (id_director) REFERENCES persones (id_persona)
 );
 
-CREATE TABLE IF NOT EXISTS directors_agrupacions
+CREATE TABLE IF NOT EXISTS directors_formacions
 (
     id_director  SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_director, id_agrupacio),
-    CONSTRAINT directors_agrupacions_ibfk_1
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_director, id_formacio),
+    CONSTRAINT directors_formacions_ibfk_1
         FOREIGN KEY (id_director) REFERENCES directors (id_director),
-    CONSTRAINT directors_agrupacions_ibfk_2
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    CONSTRAINT directors_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE INDEX id_agrupacio
-    ON directors_agrupacions (id_agrupacio);
+CREATE INDEX id_formacio
+    ON directors_formacions (id_formacio);
 
 CREATE TABLE IF NOT EXISTS directors_concerts
 (
@@ -730,23 +730,23 @@ CREATE TABLE IF NOT EXISTS socis_activitats
 CREATE INDEX id_activitat
     ON socis_activitats (id_activitat);
 
-CREATE TABLE IF NOT EXISTS socis_agrupacions
+CREATE TABLE IF NOT EXISTS socis_formacions
 (
     id_soci      SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
     id_veu       CHAR              NULL,
-    PRIMARY KEY (id_soci, id_agrupacio),
-    CONSTRAINT socis_agrupacions_ibfk_1
+    PRIMARY KEY (id_soci, id_formacio),
+    CONSTRAINT socis_formacions_ibfk_1
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
-    CONSTRAINT socis_agrupacions_ibfk_2
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    CONSTRAINT socis_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE INDEX id_agrupacio
-    ON socis_agrupacions (id_agrupacio);
+CREATE INDEX id_formacio
+    ON socis_formacions (id_formacio);
 
 CREATE INDEX id_veu
-    ON socis_agrupacions (id_veu);
+    ON socis_formacions (id_veu);
 
 CREATE TABLE IF NOT EXISTS solistes
 (

@@ -2,27 +2,27 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space } from "antd";
 import moment from "moment";
 import React, { useContext } from "react";
-import { AgrupacioContext } from "../../pages-tauler/agrupacio/agrupacio";
+import { FormacioContext } from "../../pages-tauler/formacio/formacio";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { Container } from "../../standalone/container";
 import { SearchComplete } from "../../standalone/search-complete";
 import { eventSearchFilter } from "../../utils";
-import "./calendari-agrupacio.css";
-import { CalendariAgrupacioCell } from "./components/calendari-agrupacio-cell";
+import "./calendari-formacio.css";
+import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";
 import { useCalendariEsdeveniments } from "./hooks";
 
 export default () => {
-  const { id_agrupacio } = useContext(AgrupacioContext);
-  const [esdeveniments] = useCalendariEsdeveniments(id_agrupacio);
+  const { id_formacio } = useContext(FormacioContext);
+  const [esdeveniments] = useCalendariEsdeveniments(id_formacio);
 
   return (
     <Container reducedPadding>
       <Calendar
-        className="calendari-agrupacio"
+        className="calendari-formacio"
         style={{ margin: "1rem" }}
         dateCellRender={(currentDay) => (
-          <CalendariAgrupacioCell
+          <CalendariFormacioCell
             esdevenimentsActuals={esdeveniments.filter(({ dia_inici }) =>
               currentDay.isSame(dia_inici, "day")
             )}
