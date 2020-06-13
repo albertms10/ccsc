@@ -4,11 +4,11 @@ import { fetchAPI } from "../../../helpers";
 
 export default () => {
   const dispatch = useDispatch();
-  const [associacio, setAssociacio] = useState("");
+  const [agrupacio, setAgrupacio] = useState("");
 
   useEffect(() => {
-    fetchAPI("/api/associacio", setAssociacio, dispatch);
+    fetchAPI("/api/agrupacio", setAgrupacio, dispatch);
   }, [dispatch]);
 
-  return [associacio];
+  return [agrupacio];
 };

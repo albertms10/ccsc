@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
 import { initials } from "../../utils";
-import { SociTabAssociacio } from "./components/soci-tab-associacio";
+import { SociTabAgrupacio } from "./components/soci-tab-agrupacio";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";
 import { useSoci } from "./hooks";
@@ -52,8 +52,8 @@ export default () => {
                 <TabPane tab="General" key="general">
                   <SociTabGeneral />
                 </TabPane>
-                <TabPane tab="Associació" key="associacio">
-                  <SociTabAssociacio />
+                <TabPane tab="Agrupació" key="agrupacio">
+                  <SociTabAgrupacio />
                 </TabPane>
                 <TabPane tab="Musical" key="musical">
                   <SociTabMusical />

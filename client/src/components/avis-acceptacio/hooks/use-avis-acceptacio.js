@@ -6,7 +6,7 @@ export default (nameAvis) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/associacio/avisos/${nameAvis}`)
+    fetch(`/api/agrupacio/avisos/${nameAvis}`)
       .then((res) => res.json())
       .then((data) => {
         setTextAvisAcceptacio(data);

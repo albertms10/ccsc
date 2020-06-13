@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS activitats
     descripcio   TEXT        NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS associacio
+CREATE TABLE IF NOT EXISTS agrupacio
 (
-    id_associacio SMALLINT UNSIGNED AUTO_INCREMENT
+    id_agrupacio SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom           VARCHAR(100) NOT NULL,
     nif           VARCHAR(12)  NOT NULL
@@ -40,13 +40,13 @@ CREATE TABLE IF NOT EXISTS cursos
         PRIMARY KEY,
     inici         DATE                          NOT NULL,
     final         DATE                          NULL,
-    id_associacio SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    id_agrupacio SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
     CONSTRAINT cursos_ibfk_1
-        FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio)
+        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
-CREATE INDEX id_associacio
-    ON cursos (id_associacio);
+CREATE INDEX id_agrupacio
+    ON cursos (id_agrupacio);
 
 CREATE TABLE IF NOT EXISTS emails_espera
 (
@@ -187,19 +187,19 @@ CREATE TABLE IF NOT EXISTS formacions
 CREATE INDEX id_tipus_formacio
     ON formacions (id_tipus_formacio);
 
-CREATE TABLE IF NOT EXISTS formacions_associacio
+CREATE TABLE IF NOT EXISTS formacions_agrupacio
 (
-    id_associacio SMALLINT UNSIGNED NOT NULL,
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
     id_formacio  SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_associacio, id_formacio),
-    CONSTRAINT formacions_associacio_ibfk_1
-        FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio),
-    CONSTRAINT formacions_associacio_ibfk_2
+    PRIMARY KEY (id_agrupacio, id_formacio),
+    CONSTRAINT formacions_agrupacio_ibfk_1
+        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
+    CONSTRAINT formacions_agrupacio_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
 CREATE INDEX id_formacio
-    ON formacions_associacio (id_formacio);
+    ON formacions_agrupacio (id_formacio);
 
 CREATE TABLE IF NOT EXISTS projectes_formacions
 (

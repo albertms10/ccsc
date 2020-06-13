@@ -627,29 +627,29 @@ Indexes {
 }
 }
 
-Table "associacio" {
-  "id_associacio" SMALLINT [pk, not null, increment]
+Table "agrupacio" {
+  "id_agrupacio" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(100) [not null]
   "nif" VARCHAR(12) [not null]
 }
 
-Table "formacions_associacio" {
-  "id_associacio" SMALLINT [not null]
+Table "formacions_agrupacio" {
+  "id_agrupacio" SMALLINT [not null]
   "id_formacio" SMALLINT [not null]
 
 Indexes {
-  (id_associacio, id_formacio) [pk]
+  (id_agrupacio, id_formacio) [pk]
 }
 }
 
-Table "adreces_associacio" {
-  "id_adreca_associacio" SMALLINT [pk, not null, increment]
+Table "adreces_agrupacio" {
+  "id_adreca_agrupacio" SMALLINT [pk, not null, increment]
   "data_inici" DATE [not null]
   "id_localitzacio" SMALLINT [not null]
 }
 
-Table "adreces_electroniques_associacio" {
-  "id_adreca_electronica_associacio" SMALLINT [pk, not null, increment]
+Table "adreces_electroniques_agrupacio" {
+  "id_adreca_electronica_agrupacio" SMALLINT [pk, not null, increment]
   "adreca_electronica" VARCHAR(50) [not null]
   "descripcio" VARCHAR(50) [not null]
 
@@ -659,13 +659,13 @@ Indexes {
 }
 
 Table "encarregats_adreces_electroniques" {
-  "id_adreca_electronica_associacio" SMALLINT [not null]
+  "id_adreca_electronica_agrupacio" SMALLINT [not null]
   "id_soci" SMALLINT [not null]
   "data_inici" DATE [not null]
   "data_final" DATE
 
 Indexes {
-  (id_adreca_electronica_associacio, id_soci, data_inici) [pk]
+  (id_adreca_electronica_agrupacio, id_soci, data_inici) [pk]
 }
 }
 
@@ -1009,13 +1009,13 @@ Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
 
 Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
 
-Ref:"associacio"."id_associacio" < "formacions_associacio"."id_associacio"
+Ref:"agrupacio"."id_agrupacio" < "formacions_agrupacio"."id_agrupacio"
 
-Ref:"formacions"."id_formacio" < "formacions_associacio"."id_formacio"
+Ref:"formacions"."id_formacio" < "formacions_agrupacio"."id_formacio"
 
-Ref:"localitzacions"."id_localitzacio" < "adreces_associacio"."id_localitzacio"
+Ref:"localitzacions"."id_localitzacio" < "adreces_agrupacio"."id_localitzacio"
 
-Ref:"adreces_electroniques_associacio"."id_adreca_electronica_associacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_associacio"
+Ref:"adreces_electroniques_agrupacio"."id_adreca_electronica_agrupacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_agrupacio"
 
 Ref:"socis"."id_soci" < "encarregats_adreces_electroniques"."id_soci"
 

@@ -2,15 +2,15 @@ import React, { createContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { MainLayout } from "./components/main-layout";
 import { FormacionsContext, SiderContext } from "./contexts";
-import { useAssociacio } from "./hooks";
+import { useAgrupacio } from "./hooks";
 
-export const AssociacioContext = createContext({});
+export const AgrupacioContext = createContext({});
 
 export default () => {
-  const [associacio] = useAssociacio();
+  const [agrupacio] = useAgrupacio();
 
   return (
-    <AssociacioContext.Provider value={associacio}>
+    <AgrupacioContext.Provider value={agrupacio}>
       <FormacionsContext>
         <SiderContext>
           <BrowserRouter basename="/tauler">
@@ -18,6 +18,6 @@ export default () => {
           </BrowserRouter>
         </SiderContext>
       </FormacionsContext>
-    </AssociacioContext.Provider>
+    </AgrupacioContext.Provider>
   );
 };

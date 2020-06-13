@@ -1,17 +1,17 @@
 const { parseAndSendJSON } = require("../helpers");
-exports.associacio_get = (req, res, next) => {
+exports.agrupacio_get = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool
     .query(
         `SELECT *
-         FROM associacio;`
+         FROM agrupacions;`
     )
-    .then(([associacio]) => res.json(associacio))
+    .then(([agrupacio]) => res.json(agrupacio))
     .catch((e) => next(e));
 };
 
-exports.associacio_avisos_detall = (req, res, next) => {
+exports.agrupacio_avisos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
   const unique_name = req.params.id;
 
@@ -60,7 +60,7 @@ exports.associacio_avisos_detall = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.associacio_cursos = (req, res, next) => {
+exports.agrupacio_cursos = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool

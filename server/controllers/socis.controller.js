@@ -312,7 +312,7 @@ exports.socis_detall_formacions = (req, res, next) => {
                          tipus_formacions.nom AS tipus_formacio
          FROM formacions
                   INNER JOIN tipus_formacions USING (id_tipus_formacio)
-                  INNER JOIN formacions_associacio USING (id_formacio)
+                  INNER JOIN formacions_agrupacio USING (id_formacio)
                   LEFT JOIN socis_formacions USING (id_formacio)
                   LEFT JOIN socis USING (id_soci)
                   LEFT JOIN persones p ON socis.id_soci = p.id_persona

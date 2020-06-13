@@ -29,21 +29,21 @@ CREATE TABLE IF NOT EXISTS emails_espera
 
 CREATE TABLE IF NOT EXISTS persones
 (
-    id_persona              SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_persona      SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom                     VARCHAR(50)       NOT NULL,
-    cognoms                 VARCHAR(50)       NOT NULL,
-    nom_complet             VARCHAR(101) /* GENERATED ALWAYS AS (CONCAT(nom, ' ', cognoms)) */,
-    es_dona                 BOOLEAN           NOT NULL DEFAULT TRUE,
-    naixement               DATE,
-    id_pais                 CHAR(2),
-    dni                     VARCHAR(12),
-    email                   VARCHAR(50),
-    telefon                 VARCHAR(14),
-    es_institucio           BOOLEAN           NOT NULL DEFAULT FALSE,
-    es_anonim               BOOLEAN           NOT NULL DEFAULT FALSE, /* TODO Cal afegir algun CHECK? */
+    nom             VARCHAR(50)       NOT NULL,
+    cognoms         VARCHAR(50)       NOT NULL,
+    nom_complet     VARCHAR(101) /* GENERATED ALWAYS AS (CONCAT(nom, ' ', cognoms)) */,
+    es_dona         BOOLEAN           NOT NULL DEFAULT TRUE,
+    naixement       DATE,
+    id_pais         CHAR(2),
+    dni             VARCHAR(12),
+    email           VARCHAR(50),
+    telefon         VARCHAR(14),
+    es_institucio   BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_anonim       BOOLEAN           NOT NULL DEFAULT FALSE, /* TODO Cal afegir algun CHECK? */
 
-    id_localitzacio         SMALLINT UNSIGNED,
+    id_localitzacio SMALLINT UNSIGNED,
 
     PRIMARY KEY (id_persona),
     FOREIGN KEY (id_pais) REFERENCES paisos (id_pais),
@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS formacions
 (
     id_formacio       SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom                VARCHAR(100)      NOT NULL,
-    nom_curt           VARCHAR(50),
-    descripcio         VARCHAR(255),
-    num_persones       TINYINT(3) UNSIGNED,
+    nom               VARCHAR(100)      NOT NULL,
+    nom_curt          VARCHAR(50),
+    descripcio        VARCHAR(255),
+    num_persones      TINYINT(3) UNSIGNED,
 
     id_tipus_formacio TINYINT UNSIGNED  NOT NULL,
 
@@ -133,14 +133,14 @@ CREATE TABLE IF NOT EXISTS tipus_formacions
 (
     id_tipus_formacio TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom                VARCHAR(50)      NOT NULL,
+    nom               VARCHAR(50)      NOT NULL,
 
     PRIMARY KEY (id_tipus_formacio)
 );
 
 CREATE TABLE IF NOT EXISTS directors_formacions
 (
-    id_director  SMALLINT UNSIGNED NOT NULL,
+    id_director SMALLINT UNSIGNED NOT NULL,
     id_formacio SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_director, id_formacio),
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS directors_formacions
 CREATE TABLE IF NOT EXISTS socis_formacions
 (
     id_soci_formacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_soci           SMALLINT UNSIGNED NOT NULL,
+    id_soci          SMALLINT UNSIGNED NOT NULL,
     id_formacio      SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_soci_formacio),
@@ -162,10 +162,10 @@ CREATE TABLE IF NOT EXISTS socis_formacions
 CREATE TABLE IF NOT EXISTS socis_formacions_veus
 (
     id_soci_formacio SMALLINT UNSIGNED   NOT NULL,
-    id_veu            TINYINT(1) UNSIGNED NOT NULL,
-    data_inici        DATE                NOT NULL,
+    id_veu           TINYINT(1) UNSIGNED NOT NULL,
+    data_inici       DATE                NOT NULL,
 
-    data_final        DATE,
+    data_final       DATE,
 
     PRIMARY KEY (id_soci_formacio, id_veu, data_inici),
     FOREIGN KEY (id_soci_formacio) REFERENCES socis_formacions (id_soci_formacio),
@@ -712,7 +712,7 @@ CREATE TABLE IF NOT EXISTS projectes
 
 CREATE TABLE IF NOT EXISTS projectes_formacions
 (
-    id_projecte  SMALLINT UNSIGNED NOT NULL,
+    id_projecte SMALLINT UNSIGNED NOT NULL,
     id_formacio SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_projecte, id_formacio),
@@ -766,7 +766,7 @@ CREATE TABLE IF NOT EXISTS solistes_concerts
 CREATE TABLE IF NOT EXISTS formacions_concerts
 (
     id_formacio SMALLINT UNSIGNED NOT NULL,
-    id_concert   SMALLINT UNSIGNED NOT NULL,
+    id_concert  SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_formacio, id_concert),
     FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
@@ -938,7 +938,7 @@ CREATE TABLE IF NOT EXISTS assajos_projectes
 
 CREATE TABLE IF NOT EXISTS assajos_formacions
 (
-    id_assaig    SMALLINT UNSIGNED NOT NULL,
+    id_assaig   SMALLINT UNSIGNED NOT NULL,
     id_formacio SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_assaig, id_formacio),
@@ -958,63 +958,75 @@ CREATE TABLE IF NOT EXISTS moviments_assajos
 
 
 /*
- Associació
+ Agrupació
  */
 
-CREATE TABLE IF NOT EXISTS associacio
+CREATE TABLE IF NOT EXISTS agrupacio
 (
-    id_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_agrupacio       SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    nom           VARCHAR(100)      NOT NULL,
-    nif           VARCHAR(12)       NOT NULL,
+    nom                VARCHAR(100)      NOT NULL,
+    nif                VARCHAR(12)       NOT NULL,
 
-    PRIMARY KEY (id_associacio)
+    id_tipus_agrupacio SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (id_agrupacio),
+    FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS formacions_associacio
+CREATE TABLE IF NOT EXISTS tipus_agrupacions
 (
-    id_associacio SMALLINT UNSIGNED NOT NULL,
+    id_tipus_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    nom                VARCHAR(50)       NOT NULL,
+
+    PRIMARY KEY (id_tipus_agrupacio)
+);
+
+CREATE TABLE IF NOT EXISTS formacions_agrupacio
+(
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
     id_formacio  SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_associacio, id_formacio),
-    FOREIGN KEY (id_associacio) REFERENCES associacio (id_associacio),
+    PRIMARY KEY (id_agrupacio, id_formacio),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
     FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 );
 
-CREATE TABLE IF NOT EXISTS adreces_associacio
+CREATE TABLE IF NOT EXISTS adreces_agrupacio
 (
-    id_adreca_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    data_inici           DATE              NOT NULL,
+    id_adreca_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    data_inici          DATE              NOT NULL,
 
-    id_localitzacio      SMALLINT UNSIGNED NOT NULL,
+    id_localitzacio     SMALLINT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (id_adreca_associacio),
+    PRIMARY KEY (id_adreca_agrupacio),
     FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
 );
 
-CREATE TABLE IF NOT EXISTS adreces_electroniques_associacio
+CREATE TABLE IF NOT EXISTS adreces_electroniques_agrupacio
 (
-    id_adreca_electronica_associacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    adreca_electronica               VARCHAR(50)       NOT NULL,
+    id_adreca_electronica_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    adreca_electronica              VARCHAR(50)       NOT NULL,
 
-    descripcio                       VARCHAR(50)       NOT NULL,
+    descripcio                      VARCHAR(50)       NOT NULL,
 
-    PRIMARY KEY (id_adreca_electronica_associacio),
+    PRIMARY KEY (id_adreca_electronica_agrupacio),
 
     UNIQUE (adreca_electronica)
 );
 
 CREATE TABLE IF NOT EXISTS encarregats_adreces_electroniques
 (
-    id_adreca_electronica_associacio SMALLINT UNSIGNED NOT NULL,
-    id_soci                          SMALLINT UNSIGNED NOT NULL,
-    data_inici                       DATE              NOT NULL,
+    id_adreca_electronica_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_soci                         SMALLINT UNSIGNED NOT NULL,
+    data_inici                      DATE              NOT NULL,
 
-    data_final                       DATE,
+    data_final                      DATE,
 
-    PRIMARY KEY (id_adreca_electronica_associacio, id_soci, data_inici),
-    FOREIGN KEY (id_adreca_electronica_associacio)
-        REFERENCES adreces_electroniques_associacio (id_adreca_electronica_associacio),
+    PRIMARY KEY (id_adreca_electronica_agrupacio, id_soci, data_inici),
+    FOREIGN KEY (id_adreca_electronica_agrupacio)
+        REFERENCES adreces_electroniques_agrupacio (id_adreca_electronica_agrupacio),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
 );
 
@@ -1316,7 +1328,7 @@ FROM usuaris_complet
  - Gestió d'empresa/projecte (CRM - Gestió de projectes)
 
  TODO
- - Analitzar i dissenyar nous processos per a l'associació
+ - Analitzar i dissenyar nous processos per a l'agrupació
 
 
  - Com he integrat els components del framework
@@ -1341,8 +1353,8 @@ FROM usuaris_complet
 
  TODO
  - Com emmagatzemo informació de caràcter estàtic?
-   (una sola associació -> una taula amb un únic registre?)
-   L'associació té una cor, però en podria tenir més (?)
+   (una sola agrupació -> una taula amb un únic registre?)
+   L'agrupació té una cor, però en podria tenir més (?)
 
  TODO
  - Rutes del backend privades.

@@ -10,7 +10,7 @@ export default () => {
   useEffect(() => {
     setLoading(false);
     fetchAPI(
-      "/api/associacio/cursos",
+      "/api/agrupacio/cursos",
       (cursos) => {
         setCursos(cursos);
         setLoading(false);

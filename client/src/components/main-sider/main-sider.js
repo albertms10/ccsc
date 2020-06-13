@@ -9,14 +9,14 @@ import {
   SiderSetBrokenContext,
   SiderSetCollapsedContext,
 } from "../tauler-app/contexts/sider-context";
-import { AssociacioContext } from "../tauler-app/tauler-app";
+import { AgrupacioContext } from "../tauler-app/tauler-app";
 import { MainMenu } from "./components/main-menu";
 import "./main-sider.css";
 
 const { Sider } = Layout;
 
 export default () => {
-  const associacio = useContext(AssociacioContext);
+  const agrupacio = useContext(AgrupacioContext);
   const collapsed = useContext(SiderCollapsedContext);
   const setCollapsed = useContext(SiderSetCollapsedContext);
   const broken = useContext(SiderBrokenContext);
@@ -45,10 +45,10 @@ export default () => {
         )}
         {collapsed || broken ? (
           <div className="main-layout-title-short">
-            {initials(associacio.nom)}
+            {initials(agrupacio.nom)}
           </div>
         ) : (
-          <div className="main-layout-title-long">{associacio.nom}</div>
+          <div className="main-layout-title-long">{agrupacio.nom}</div>
         )}
       </div>
       <ErrorBoundary>
