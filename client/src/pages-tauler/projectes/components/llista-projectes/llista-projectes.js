@@ -25,7 +25,7 @@ export default () => {
   return (
     <div className="llista-projectes">
       <Search
-        placeholder="Cerca assajos"
+        placeholder="Cerca projectes"
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value.toLowerCase())}
