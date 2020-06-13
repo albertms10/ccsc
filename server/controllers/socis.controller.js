@@ -142,11 +142,7 @@ exports.socis_post = async (req, res, next) => {
 
   const connection = await pool.getConnection();
 
-  const transactionRollback = (e) =>
-    connection.rollback().then(() => {
-      console.log("Transaction rolled back");
-      next(e);
-    });
+  const transactionRollback = (e) => connection.rollback().then(() => next(e));
 
   connection
     .beginTransaction()

@@ -14,7 +14,6 @@ export default (soci) => {
       (activitat) => {
         setActivitat(activitat);
         setLoading(false);
-        console.log(activitat);
       },
       dispatch
     );
