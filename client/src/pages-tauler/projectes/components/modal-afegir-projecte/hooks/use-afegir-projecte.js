@@ -8,10 +8,10 @@ export default () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const postProjecte = (values) =>
+  const postProjecte = (projecte) =>
     fetchAPI("/api/projectes", () => dispatch(fetchProjectes()), dispatch, {
       method: "POST",
-      body: JSON.stringify(values),
+      body: JSON.stringify(projecte),
     });
 
   const handleOk = () =>
