@@ -46,7 +46,19 @@ exports.signin = (req, res, next) => {
                               AND accepta IS TRUE
                               AND id_soci = (SELECT p.id_persona)
                         )
-                )         AS avisos
+                )         AS avisos,
+                IF(
+                        EXISTS(
+                                SELECT *
+                                FROM socis
+                                         INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
+                                WHERE id_soci = (SELECT id_persona)
+                                  AND CURRENT_DATE
+                                    BETWEEN data_alta
+                                    AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)
+                                ORDER BY data_alta DESC
+                            ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
+                    )     AS estat_actiu
          FROM usuaris_complet uc
                   LEFT JOIN persones p USING (id_persona)
          WHERE ?;`,
@@ -161,7 +173,19 @@ exports.userInfo = (req, res, next) => {
                               AND accepta IS TRUE
                               AND id_soci = (SELECT p.id_persona)
                         )
-                )         AS avisos
+                )         AS avisos,
+                IF(
+                        EXISTS(
+                                SELECT *
+                                FROM socis
+                                         INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
+                                WHERE id_soci = (SELECT id_persona)
+                                  AND CURRENT_DATE
+                                    BETWEEN data_alta
+                                    AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)
+                                ORDER BY data_alta DESC
+                            ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
+                    )     AS estat_actiu
          FROM usuaris u
                   LEFT JOIN persones p USING (id_persona)
          WHERE ?`,
