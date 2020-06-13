@@ -547,7 +547,7 @@ CREATE TABLE IF NOT EXISTS obres
     id_obra     SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
     titol       VARCHAR(100)      NOT NULL,
-    subtitol    VARCHAR(200)      NOT NULL,
+    subtitol    VARCHAR(200),
     num_cataleg SMALLINT UNSIGNED,
     any_inici   SMALLINT(4) UNSIGNED,
     any_final   SMALLINT(4) UNSIGNED,
