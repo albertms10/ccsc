@@ -49,6 +49,7 @@ require("./routes/concerts.routes")(app);
 require("./routes/esdeveniments.routes")(app);
 require("./routes/establiments.routes")(app);
 require("./routes/localitzacions.routes")(app);
+require("./routes/obres.routes")(app);
 require("./routes/projectes.routes")(app);
 require("./routes/socis.routes")(app);
 require("./routes/titulars.routes")(app);
