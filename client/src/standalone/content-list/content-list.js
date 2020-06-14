@@ -1,22 +1,14 @@
-import { PlusOutlined } from "@ant-design/icons";
 import { List, Space } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BorderlessButton } from "../borderless-button";
 import "./content-list.css";
 
 const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
   <div className="content-list" style={style}>
     <Space style={{ marginBottom: ".5rem" }}>
       <div className="content-list-title">{title}</div>
-      {action && (
-        <BorderlessButton
-          shape="circle"
-          icon={<PlusOutlined />}
-          onClick={action}
-        />
-      )}
+      {action}
     </Space>
     {extra && <div className="content-list-extra">{extra}</div>}
     <List
@@ -54,7 +46,7 @@ ContentList.propTypes = {
       link: PropTypes.string,
     })
   ),
-  action: PropTypes.func,
+  action: PropTypes.node,
   extra: PropTypes.node,
 };
 
