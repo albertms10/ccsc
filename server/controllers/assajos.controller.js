@@ -159,7 +159,17 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
   pool
     .query(
-        `SELECT *
+        `SELECT *,
+                (
+                    SELECT nom
+                    FROM veus
+                    WHERE veus.id_veu = (SELECT p.id_veu)
+                ) AS nom_veu,
+                (
+                    SELECT abreviatura
+                    FROM veus
+                    WHERE veus.id_veu = (SELECT p.id_veu)
+                ) AS abreviatura_veu
          FROM (
                   SELECT DISTINCT p.id_persona,
                                   p.nom,
