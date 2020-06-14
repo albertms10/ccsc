@@ -13,10 +13,10 @@ const verifyAccessToken = (
   const accessToken = req.headers["x-access-token"];
 
   if (!accessToken)
-    return res.status(403).send({
+    return res.status(401).send({
       error: {
         ...options,
-        status: 403,
+        status: 401,
         message: "Cal proporcionar un token d’accés.",
       },
     });
@@ -32,10 +32,10 @@ const verifyAccessToken = (
       });
 
     if (decoded.email)
-      return res.status(401).send({
+      return res.status(403).send({
         error: {
           ...options,
-          status: 401,
+          status: 403,
           message: "Encara no has acabat d’introduir les teves dades.",
           okText: "Torna a introduir-les",
           location: {
@@ -56,18 +56,18 @@ const verifyEmailToken = (req, res, next) => {
   const email = req.body.email;
 
   if (!accessToken)
-    return res.status(403).send({
+    return res.status(401).send({
       error: {
-        status: 403,
+        status: 401,
         message: "Cal proporcionar un token d’accés.",
       },
     });
 
   verifyJWT(accessToken, (err, decoded) => {
     if (err || email !== decoded.email)
-      return res.status(401).send({
+      return res.status(403).send({
         error: {
-          status: 401,
+          status: 403,
           message:
             !err && email !== decoded.email
               ? "Les adreces de correu no coincideixen"
@@ -129,8 +129,8 @@ const isAuthor = async (req, res, next) =>
   (await checkIsAuthor(req))
     ? next()
     : res
-        .status(401)
-        .send({ error: { status: 401, message: "Sense autorització" } });
+        .status(403)
+        .send({ error: { status: 403, message: "Sense autorització" } });
 
 const isRole = async (req, res, next, roles) =>
   (await checkIsRole(req, roles))
@@ -156,8 +156,8 @@ const isAuthorOrJuntaDirectiva = async (req, res, next) =>
   (await checkIsRole(req, ROLES_IS_JUNTA_DIRECTIVA))
     ? next()
     : res
-        .status(401)
-        .send({ error: { status: 401, message: "Sense autorització" } });
+        .status(403)
+        .send({ error: { status: 403, message: "Sense autorització" } });
 
 const isJuntaDirectiva = async (req, res, next) =>
   await isRole(req, res, next, ROLES_IS_JUNTA_DIRECTIVA);

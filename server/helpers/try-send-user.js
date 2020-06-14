@@ -15,9 +15,9 @@ const trySendUser = (
   accessToken
 ) => {
   if (!JSON.parse(estat_actiu))
-    return res.status(401).send({
+    return res.status(403).send({
       error: {
-        status: 401,
+        status: 403,
         message: "Soci inactiu",
         description:
           "Cal que un membre de la Junta Directiva torni a donar-te dalta.",
