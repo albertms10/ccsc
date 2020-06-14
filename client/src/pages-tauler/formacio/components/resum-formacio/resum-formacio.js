@@ -15,7 +15,7 @@ export default () => {
   const [assajos, loadingAssajos] = useAssajos();
   const [concerts, loadingConcerts] = useConcerts(id_formacio);
   const [projectes, loadingProjectes] = useProjectes(id_formacio);
-  const [integrants, loadingIntegrants] = useIntegrants(id_formacio);
+  const [persones, loadingIntegrants] = useIntegrants(id_formacio);
 
   return (
     <Container>
@@ -42,7 +42,7 @@ export default () => {
         <Col sm={24} lg={12} flex={1}>
           <ContentListPersones
             title="Integrants"
-            integrants={integrants}
+            persones={persones}
             loading={loadingIntegrants}
           />
         </Col>

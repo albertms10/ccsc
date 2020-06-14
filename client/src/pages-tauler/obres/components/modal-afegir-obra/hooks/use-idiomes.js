@@ -8,6 +8,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetchAPI(
       "/api/obres/idiomes",
       (idiomes) => {

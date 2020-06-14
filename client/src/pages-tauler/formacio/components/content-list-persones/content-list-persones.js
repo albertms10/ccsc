@@ -4,18 +4,18 @@ import React from "react";
 import { ContentList } from "../../../../standalone/content-list";
 import { SmallBadge } from "../../../../standalone/small-badge";
 
-const ContentListPersones = ({ title, integrants, loading }) => (
+const ContentListPersones = ({ title, persones, loading, extra }) => (
   <ContentList
     title={title}
     loading={loading}
-    dataSource={integrants.map((integrant) => ({
-      id: integrant.id_persona,
-      title: integrant.nom_complet,
-      description: integrant.veu,
-      link: `/socis/${integrant.id_persona}`,
+    dataSource={persones.map((persona) => ({
+      id: persona.id_persona,
+      title: persona.nom_complet,
+      description: persona.veu,
+      link: `/socis/${persona.id_persona}`,
       avatar: (
         <SmallBadge
-          count={integrant.abreviatura_veu}
+          count={persona.abreviatura_veu}
           style={{
             backgroundColor: "#fff",
             color: "#999",
@@ -23,19 +23,21 @@ const ContentListPersones = ({ title, integrants, loading }) => (
           }}
         >
           <Avatar shape="circle">
-            {integrant.nom[0]}
-            {integrant.cognoms[0]}
+            {persona.nom[0]}
+            {persona.cognoms[0]}
           </Avatar>
         </SmallBadge>
       ),
     }))}
+    extra={extra}
   />
 );
 
 ContentListPersones.propTypes = {
   title: PropTypes.string,
-  integrants: PropTypes.array.isRequired,
+  persones: PropTypes.array.isRequired,
   loading: PropTypes.bool,
+  extra: PropTypes.node,
 };
 
 ContentListPersones.defaultProps = {

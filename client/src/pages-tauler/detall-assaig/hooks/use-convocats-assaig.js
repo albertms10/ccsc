@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
 
@@ -7,17 +7,23 @@ export default (id) => {
   const [convocatsAssaig, setConvocatsAssaig] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const getConvocatsAssaig = useCallback(
+    () =>
+      fetchAPI(
+        `/api/assajos/${id}/convocats`,
+        (convocats) => {
+          setConvocatsAssaig(convocats);
+          setLoading(false);
+        },
+        dispatch
+      ),
+    [id, dispatch]
+  );
+
   useEffect(() => {
     setLoading(true);
-    fetchAPI(
-      `/api/assajos/${id}/convocats`,
-      (convocats) => {
-        setConvocatsAssaig(convocats);
-        setLoading(false);
-      },
-      dispatch
-    );
-  }, [id, dispatch]);
+    getConvocatsAssaig();
+  }, [getConvocatsAssaig]);
 
-  return [convocatsAssaig, loading];
+  return [convocatsAssaig, loading, getConvocatsAssaig];
 };

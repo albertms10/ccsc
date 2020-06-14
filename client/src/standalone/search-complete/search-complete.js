@@ -1,17 +1,37 @@
 import { AutoComplete, Input } from "antd";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./search-complete.css";
 
 const { Search } = Input;
 
-const SearchComplete = ({ data, filter, optionRenderObject, onSelect }) => {
+const SearchComplete = ({
+  data,
+  filter,
+  loading,
+  placeholder,
+  optionRenderObject,
+  onSelect,
+  showAllResults,
+}) => {
   const [options, setOptions] = useState([]);
 
-  const searchOption = (value) =>
-    data.filter((option) => filter(value, option)).map(optionRenderObject);
+  const searchOption = useCallback(
+    (value) =>
+      (!showAllResults && !value
+        ? data
+        : data.filter((option) => filter(value, option))
+      ).map(optionRenderObject),
+    [data, filter, optionRenderObject, showAllResults]
+  );
 
-  const handleSearch = (value) => setOptions(value ? searchOption(value) : []);
+  const handleSearch = useCallback((value) => setOptions(searchOption(value)), [
+    searchOption,
+  ]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch]);
 
   return (
     <div className="search-complete">
@@ -23,7 +43,8 @@ const SearchComplete = ({ data, filter, optionRenderObject, onSelect }) => {
         <Search
           className="search-complete-input"
           size="large"
-          placeholder="Cerca esdeveniments"
+          loading={loading}
+          placeholder={placeholder}
           allowClear
         />
       </AutoComplete>
@@ -34,8 +55,17 @@ const SearchComplete = ({ data, filter, optionRenderObject, onSelect }) => {
 SearchComplete.propTypes = {
   data: PropTypes.array.isRequired,
   filter: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  placeholder: PropTypes.string,
   optionRenderObject: PropTypes.func.isRequired,
   onSelect: PropTypes.func,
+  showAllResults: PropTypes.bool,
+};
+
+SearchComplete.defaultProps = {
+  loading: false,
+  placeholder: "Cerca",
+  showAllResults: false,
 };
 
 export default SearchComplete;
