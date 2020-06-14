@@ -10,8 +10,8 @@ export default (items, lastSeparator = "i") => {
   const l = items.length;
   if (l <= 2) return items.join(` ${lastSeparator} `);
 
-  items = items.slice();
-  items[l - 1] = `${lastSeparator} ${items[l - 1]}`;
-
-  return items.join(", ");
+  return (
+    items.filter((_, i, items) => i < items.length - 1).join(", ") +
+    ` ${lastSeparator} ${items[l - 1]}`
+  );
 };
