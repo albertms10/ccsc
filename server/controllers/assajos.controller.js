@@ -275,8 +275,9 @@ exports.assajos_detall_veus_delete = (req, res, next) => {
     .query(
         `DELETE
          FROM veus_convocades_assaig
-         WHERE ?;`,
-      { id_assaig, id_veu }
+         WHERE id_assaig = ?
+           AND id_veu = ?;`,
+      [id_assaig, id_veu]
     )
     .then(() => res.status(204).send())
     .catch((e) => next(e));
