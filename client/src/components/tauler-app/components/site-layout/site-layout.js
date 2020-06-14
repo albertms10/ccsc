@@ -6,7 +6,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import Formacio from "../../../../pages-tauler/formacio/formacio";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
-import { DetallObres } from "../../../../pages-tauler/detall-obres";
+import { DetallObres } from "../../../../pages-tauler/detall-obra";
 import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
 import { Inici } from "../../../../pages-tauler/inici";
 import { Obres } from "../../../../pages-tauler/obres";
