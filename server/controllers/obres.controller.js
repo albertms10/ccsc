@@ -22,6 +22,21 @@ exports.obres_idiomes = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.obres_detall = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_obra = req.params.id;
+
+  pool
+    .query(
+        `SELECT *
+         FROM obres
+         WHERE ?;`,
+      { id_obra }
+    )
+    .then(([obra]) => res.json(obra))
+    .catch((e) => next(e));
+};
+
 exports.obres_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const obra = req.body;
