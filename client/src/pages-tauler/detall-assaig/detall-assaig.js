@@ -1,11 +1,11 @@
 import { PageHeader, Spin, Typography } from "antd";
 import React, { useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SearchCompleteVeus } from "../../components/search-complete-veus-assaig";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
 import { ContentListPersones } from "../formacio/components/content-list-persones";
-import { useAfegirVeuAssaig, useAssaig, useConvocatsAssaig } from "./hooks";
+import { PopoverVeusAssaig } from "./components/popover-veus-assaig";
+import { useAssaig, useConvocatsAssaig } from "./hooks";
 
 const { Title } = Typography;
 
@@ -18,7 +18,6 @@ export default () => {
   const [convocats, loadingConvocats, getConvocatsAssaig] = useConvocatsAssaig(
     id
   );
-  const [loading, postVeuAssaig] = useAfegirVeuAssaig(id);
 
   useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig]);
 
@@ -33,15 +32,13 @@ export default () => {
         <Container>
           <Title level={2}>{assaig.titol}</Title>
           <ContentListPersones
-            title="Convocats"
+            title="Convocades"
             persones={convocats}
-            loading={loadingConvocats || loading}
-            extra={
-              <SearchCompleteVeus
+            loading={loadingConvocats}
+            action={
+              <PopoverVeusAssaig
                 idAssaig={id}
-                onSelect={(id_veu) =>
-                  postVeuAssaig({ id_veu }).then(() => getConvocatsAssaig())
-                }
+                getConvocatsAssaig={getConvocatsAssaig}
               />
             }
           />

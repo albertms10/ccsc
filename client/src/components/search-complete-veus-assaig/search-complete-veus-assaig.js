@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { SearchComplete } from "../../standalone/search-complete";
 import { eventSearchFilter } from "../../utils";
-import { useVeus } from "./hooks";
+import { useVeus } from "../../pages-tauler/detall-assaig/components/popover-veus-assaig/hooks";
 
 const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
   const [veus, loadingVeus, getVeus] = useVeus(idAssaig);
