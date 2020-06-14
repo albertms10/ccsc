@@ -248,7 +248,7 @@ exports.assajos_detall_veus_get = (req, res, next) => {
          FROM veus v;`,
       [id_assaig]
     )
-    .then((veus) => res.json(veus))
+    .then((veus) => parseAndSendJSON(res, next, veus, ["convocada"]))
     .catch((e) => next(e));
 };
 
