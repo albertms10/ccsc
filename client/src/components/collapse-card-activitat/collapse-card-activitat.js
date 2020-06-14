@@ -7,7 +7,7 @@ import { SociPropTypes } from "../../typedef/prop-types";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
 import { useActivitatSoci, useAltaSoci, useBaixaSoci } from "./hooks";
 
-const SettingCardActivitat = ({ soci, active }) => {
+const CollapseCardActivitat = ({ soci, active }) => {
   const [activitatSoci, loadingActivitat, fetchActivitat] = useActivitatSoci(
     soci
   );
@@ -76,9 +76,9 @@ const SettingCardActivitat = ({ soci, active }) => {
   );
 };
 
-SettingCardActivitat.propTypes = {
+CollapseCardActivitat.propTypes = {
   soci: SociPropTypes.isRequired,
   active: PropTypes.bool,
 };
 
-export default SettingCardActivitat;
+export default CollapseCardActivitat;

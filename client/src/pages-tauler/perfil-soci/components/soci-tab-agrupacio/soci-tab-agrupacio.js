@@ -1,7 +1,7 @@
 import { Space } from "antd";
 import React, { useContext } from "react";
 import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
-import { SettingCardActivitat } from "../../../../components/setting-card-activitat";
+import { CollapseCardActivitat } from "../../../../components/collapse-card-activitat";
 import { SociContext } from "../../perfil-soci";
 import { useAcceptacions } from "./hooks";
 
@@ -11,7 +11,7 @@ export default () => {
 
   return (
     <Space size="large" direction="vertical" style={{ width: "100%" }}>
-      <SettingCardActivitat soci={soci} />
+      <CollapseCardActivitat soci={soci} />
       <AvisAcceptacio
         nameAvis="proteccio_dades"
         acceptacionsSoci={acceptacionsSoci}
