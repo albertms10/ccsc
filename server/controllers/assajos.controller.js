@@ -159,43 +159,61 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
   pool
     .query(
-        `SELECT p.id_persona,
-                p.nom,
-                p.cognoms,
-                p.nom_complet,
-                (
-                    SELECT IFNULL(
-                                   (
-                                       SELECT GROUP_CONCAT(id_veu)
-                                       FROM socis_veu_moviment_projectes
-                                                INNER JOIN veus_moviments USING (id_veu_moviment)
-                                       WHERE id_soci = (SELECT p.id_persona)
-                                   ), IFNULL(
-                                           (
-                                               SELECT GROUP_CONCAT(id_veu)
-                                               FROM socis_projectes_veu
-                                               WHERE id_soci = (SELECT p.id_persona)
-                                           ),
-                                           (
-                                               SELECT GROUP_CONCAT(id_veu)
-                                               FROM socis_formacions_veus
-                                                        INNER JOIN socis_formacions USING (id_soci_formacio)
-                                                        INNER JOIN formacions USING (id_formacio)
-                                               WHERE id_soci = (SELECT p.id_persona)
-                                           )
-                                       )
-                               )
-                ) AS id_veu
-         FROM socis
-                  INNER JOIN persones p ON socis.id_soci = p.id_persona
-         HAVING id_veu IN
-                (
-                    SELECT DISTINCT id_veu
-                    FROM assajos
-                             INNER JOIN veus_convocades_assaig USING (id_assaig)
-                    WHERE id_assaig = ?
-                );`,
-      [id_assaig]
+        `SELECT *
+         FROM (
+                  SELECT DISTINCT p.id_persona,
+                                  p.nom,
+                                  p.cognoms,
+                                  p.nom_complet,
+                                  (
+                                      SELECT IFNULL(
+                                                     (
+                                                         SELECT GROUP_CONCAT(id_veu)
+                                                         FROM socis_veu_moviment_projectes
+                                                                  INNER JOIN veus_moviments USING (id_veu_moviment)
+                                                         WHERE id_soci = (SELECT p.id_persona)
+                                                     ), IFNULL(
+                                                             (
+                                                                 SELECT GROUP_CONCAT(id_veu)
+                                                                 FROM socis_projectes_veu
+                                                                 WHERE id_soci = (SELECT p.id_persona)
+                                                             ),
+                                                             (
+                                                                 SELECT GROUP_CONCAT(id_veu)
+                                                                 FROM socis_formacions_veus
+                                                                          INNER JOIN socis_formacions USING (id_soci_formacio)
+                                                                          INNER JOIN formacions USING (id_formacio)
+                                                                 WHERE id_soci = (SELECT p.id_persona)
+                                                             )
+                                                         )
+                                                 )
+                                  ) AS id_veu
+                  FROM socis
+                           INNER JOIN persones p ON socis.id_soci = p.id_persona
+                  WHERE p.id_persona IN (
+                      SELECT id_soci
+                      FROM socis
+                               INNER JOIN socis_formacions USING (id_soci)
+                               INNER JOIN assajos_formacions USING (id_formacio)
+                      WHERE id_assaig = ?
+                  )
+              ) p
+         WHERE NOT EXISTS(
+                 (
+                     SELECT DISTINCT id_veu
+                     FROM assajos
+                              INNER JOIN veus_convocades_assaig USING (id_assaig)
+                     WHERE id_assaig = ?
+                 )
+             )
+            OR p.id_veu IN
+               (
+                   SELECT DISTINCT id_veu
+                   FROM assajos
+                            INNER JOIN veus_convocades_assaig USING (id_assaig)
+                   WHERE id_assaig = ?
+               );`,
+      [id_assaig, id_assaig, id_assaig]
     )
     .then((convocats) => res.json(convocats))
     .catch((e) => next(e));
