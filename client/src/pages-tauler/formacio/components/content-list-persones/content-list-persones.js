@@ -4,7 +4,7 @@ import React from "react";
 import { ContentList } from "../../../../standalone/content-list";
 import { SmallBadge } from "../../../../standalone/small-badge";
 
-const ContentListPersones = ({ title, persones, loading, extra }) => (
+const ContentListPersones = ({ title, persones, loading, action, extra }) => (
   <ContentList
     title={title}
     loading={loading}
@@ -29,6 +29,7 @@ const ContentListPersones = ({ title, persones, loading, extra }) => (
         </SmallBadge>
       ),
     }))}
+    action={action}
     extra={extra}
   />
 );
@@ -37,6 +38,7 @@ ContentListPersones.propTypes = {
   title: PropTypes.string,
   persones: PropTypes.array.isRequired,
   loading: PropTypes.bool,
+  action: PropTypes.node,
   extra: PropTypes.node,
 };
 
