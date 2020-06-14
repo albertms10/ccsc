@@ -6,12 +6,19 @@ import { Link } from "react-router-dom";
 import { BorderlessButton } from "../borderless-button";
 import "./content-list.css";
 
-const ContentList = ({ title, loading, dataSource, style }) => (
+const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
   <div className="content-list" style={style}>
     <Space style={{ marginBottom: ".5rem" }}>
       <div className="content-list-title">{title}</div>
-      <BorderlessButton shape="circle" icon={<PlusOutlined />} />
+      {action && (
+        <BorderlessButton
+          shape="circle"
+          icon={<PlusOutlined />}
+          onClick={action}
+        />
+      )}
     </Space>
+    {extra && <div className="content-list-extra">{extra}</div>}
     <List
       bordered
       loading={loading}
@@ -38,7 +45,7 @@ const ContentList = ({ title, loading, dataSource, style }) => (
 ContentList.propTypes = {
   title: PropTypes.string,
   loading: PropTypes.bool,
-  data: PropTypes.arrayOf(
+  dataSource: PropTypes.arrayOf(
     PropTypes.shape({
       avatar: PropTypes.node,
       title: PropTypes.string,
@@ -47,6 +54,8 @@ ContentList.propTypes = {
       link: PropTypes.string,
     })
   ),
+  action: PropTypes.func,
+  extra: PropTypes.node,
 };
 
 ContentList.defaultProps = {

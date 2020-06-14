@@ -16,6 +16,10 @@
   font-size: 1.2rem;
 }
 
+.content-list-extra {
+  margin-bottom: 1rem;
+}
+
 .content-list .ant-list-item-meta {
   align-items: center;
 }
