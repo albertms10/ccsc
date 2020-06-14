@@ -7,7 +7,7 @@
  * @param {string[]} [properties = []]
  */
 const parseAndSendJSON = (res, next, data, properties = []) => {
-  const parseJSON = (properties, element) =>
+  const parseArrayJSON = (properties, element) =>
     properties.forEach(
       (property) => (element[property] = JSON.parse(element[property]))
     );
@@ -16,8 +16,8 @@ const parseAndSendJSON = (res, next, data, properties = []) => {
 
   try {
     if (typeOf(data) === "[object Array]")
-      data.forEach((element) => parseJSON(properties, element));
-    else if (typeOf(data) === "[object Object]") parseJSON(properties, data)
+      data.forEach((element) => parseArrayJSON(properties, element));
+    else if (typeOf(data) === "[object Object]") parseArrayJSON(properties, data)
     else if (typeOf(data) === "[object String]") data = JSON.parse(data);
   } catch (e) {
     next(e);
