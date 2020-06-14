@@ -11,7 +11,7 @@ const ContentListPersones = ({ title, persones, loading, extra }) => (
     dataSource={persones.map((persona) => ({
       id: persona.id_persona,
       title: persona.nom_complet,
-      description: persona.veu,
+      description: persona.nom_veu,
       link: `/socis/${persona.id_persona}`,
       avatar: (
         <SmallBadge

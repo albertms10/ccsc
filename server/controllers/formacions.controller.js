@@ -296,7 +296,7 @@ exports.formacions_detall_integrants = (req, res, next) => {
                     SELECT nom
                     FROM veus
                     WHERE id_veu = (SELECT sav.id_veu)
-                ) AS veu,
+                ) AS nom_veu,
                 (
                     SELECT abreviatura
                     FROM veus
