@@ -200,3 +200,53 @@ exports.assajos_detall_convocats = (req, res, next) => {
     .then((convocats) => res.json(convocats))
     .catch((e) => next(e));
 };
+
+exports.assajos_detall_veus_get = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_assaig = req.params.id;
+
+  pool
+    .query(
+        `SELECT *
+         FROM veus
+         WHERE id_veu NOT IN (
+             SELECT id_veu
+             FROM veus
+                      INNER JOIN veus_convocades_assaig USING (id_veu)
+             WHERE ?
+         );`,
+      { id_assaig }
+    )
+    .then((veus) => res.json(veus))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_veus_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_assaig = req.params.id;
+  const { id_veu } = req.body;
+
+  pool
+    .query(
+        `INSERT INTO veus_convocades_assaig (id_assaig, id_veu)
+         VALUES ?;`,
+      [[[id_assaig, id_veu]]]
+    )
+    .then((veus) => res.json(veus))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_veus_delete = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id_assaig, id_veu } = req.params;
+
+  pool
+    .query(
+        `DELETE
+         FROM veus_convocades_assaig
+         WHERE ?;`,
+      { id_assaig, id_veu }
+    )
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};

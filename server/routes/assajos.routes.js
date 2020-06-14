@@ -36,5 +36,23 @@ module.exports = (app) => {
     "/api/assajos/:id/convocats",
     [authJWT.verifyAccessToken],
     controller.assajos_detall_convocats
+  );
+
+  app.get(
+    "/api/assajos/:id/veus",
+    [authJWT.verifyAccessToken],
+    controller.assajos_detall_veus_get
+  );
+
+  app.post(
+    "/api/assajos/:id/veus",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_veus_post
+  );
+
+  app.delete(
+    "/api/assajos/:id_assaig/veus/:id_veu",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_veus_delete
   )
 };
