@@ -14,7 +14,8 @@ export default () => {
         placeholder="Cerca assajos"
         size="large"
         value={searchValue}
-        onChange={({ target }) => setSearchValue(target.value.toLowerCase())}
+        onChange={({ target }) => setSearchValue(target.value)}
+        allowClear
         style={{ width: "100%", marginBottom: "1rem" }}
       />
       <Tabs>
