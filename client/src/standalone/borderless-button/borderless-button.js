@@ -2,8 +2,8 @@ import { Button, Tooltip } from "antd";
 import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 
-const BorderlessButton = forwardRef(({ tooltip, tooltipPlacement, ...rest }, ref) => {
-  return (
+const BorderlessButton = forwardRef(
+  ({ tooltip, tooltipPlacement, ...rest }, ref) => (
     <Tooltip title={tooltip} placement={tooltipPlacement}>
       <Button
         {...rest}
@@ -16,8 +16,8 @@ const BorderlessButton = forwardRef(({ tooltip, tooltipPlacement, ...rest }, ref
         }}
       />
     </Tooltip>
-  );
-});
+  )
+);
 
 const TOOLTIP_PLACEMENT = [
   "top",
