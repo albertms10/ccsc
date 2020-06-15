@@ -16,18 +16,16 @@ const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
       loading={loading}
       dataSource={dataSource}
       renderItem={(item) => (
-        <Link className="content-list-item" to={item.link}>
-          <List.Item>
+        <List.Item key={item.id} className="content-list-item">
+          <Link to={item.link}>
             <List.Item.Meta
               avatar={item.avatar}
               title={item.title}
               description={item.description}
             />
-            <div style={{ fontSize: "smaller", color: "gray" }}>
-              {item.extra}
-            </div>
-          </List.Item>
-        </Link>
+          </Link>
+          <div style={{ fontSize: "smaller", color: "gray" }}>{item.extra}</div>
+        </List.Item>
       )}
       style={{ backgroundColor: "#fff" }}
     />
