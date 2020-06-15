@@ -18,11 +18,13 @@ module.exports = (app) => {
 
   app.get(
     "/api/esdeveniments/:id/assistents",
+    [authJWT.verifyAccessToken],
     controller.esdeveniments_detall_assistents_get
   );
 
   app.put(
     "/api/esdeveniments/:id/assistents",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.esdeveniments_detall_assistents_put
   );
 };
