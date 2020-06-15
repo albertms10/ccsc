@@ -59,3 +59,7 @@
 .site-layout .action-text:hover > .ant-typography-copy {
   opacity: 1;
 }
+
+.site-layout .ant-list-item-action > li {
+  cursor: auto;
+}
