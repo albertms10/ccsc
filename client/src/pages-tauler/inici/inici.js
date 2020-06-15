@@ -11,6 +11,7 @@ import {
   ProjectesCountStatistics,
   SocisCountStatistics,
 } from "../../standalone/statistics";
+import { PropersAssajos } from "./components/propers-assajos";
 import "./inici.css";
 
 const { Title } = Typography;
@@ -28,6 +29,7 @@ export default () => {
         <Title level={3}>Benvingu{es_dona ? "da" : "t"}</Title>
         <Title>{nomAgrupacio}</Title>
       </div>
+      <PropersAssajos style={{ marginBottom: "1rem" }} />
       <Row type="flex" gutter={[32, 32]}>
         <Authorized>
           <Col xs={24} sm={12} md={6} flex={1}>
