@@ -87,4 +87,10 @@ module.exports = (app) => {
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_baixa
   );
+
+  app.get(
+    "/api/socis/:id/propers-assajos",
+    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    controller.socis_detall_propersassajos
+  )
 };
