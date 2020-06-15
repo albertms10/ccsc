@@ -169,12 +169,25 @@ exports.assajos_detall_convocats = (req, res, next) => {
                     SELECT abreviatura
                     FROM veus
                     WHERE veus.id_veu = (SELECT p.id_veu)
-                ) AS abreviatura_veu
+                ) AS abreviatura_veu,
+                (
+                    SELECT estat
+                    FROM estats_confirmacio
+                    WHERE id_estat_confirmacio = (SELECT p.id_estat_confirmacio)
+                ) AS estat_confirmacio
          FROM (
                   SELECT DISTINCT p.id_persona,
                                   p.nom,
                                   p.cognoms,
                                   p.nom_complet,
+                                  IFNULL((
+                                             SELECT id_estat_confirmacio
+                                             FROM assistents_esdeveniment
+                                                      INNER JOIN persones ON (id_soci = id_persona)
+                                             WHERE id_persona = (SELECT p.id_persona)
+                                               AND id_esdeveniment = ?
+                                         ), 1
+                                      ) AS id_estat_confirmacio,
                                   (
                                       SELECT IFNULL(
                                                      (
@@ -197,7 +210,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
                                                              )
                                                          )
                                                  )
-                                  ) AS id_veu
+                                  )     AS id_veu
                   FROM socis
                            INNER JOIN persones p ON socis.id_soci = p.id_persona
                   WHERE p.id_persona IN (
@@ -223,7 +236,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
                             INNER JOIN veus_convocades_assaig USING (id_assaig)
                    WHERE id_assaig = ?
                );`,
-      [id_assaig, id_assaig, id_assaig]
+      [id_assaig, id_assaig, id_assaig, id_assaig]
     )
     .then((convocats) => res.json(convocats))
     .catch((e) => next(e));
