@@ -13,7 +13,7 @@ export default () => {
   const { id } = useParams();
   const [obra, loadingObra] = useObra(id);
 
-  useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra]);
+  useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra.titol]);
 
   return (
     <>

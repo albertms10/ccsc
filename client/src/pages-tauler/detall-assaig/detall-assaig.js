@@ -22,7 +22,7 @@ export default () => {
     id
   );
 
-  useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig]);
+  useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig.titol]);
 
   return (
     <AssaigContext.Provider value={assaig}>
