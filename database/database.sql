@@ -462,12 +462,17 @@ CREATE TABLE IF NOT EXISTS estats_confirmacio
 
 CREATE TABLE IF NOT EXISTS assistents_esdeveniment
 (
-    id_esdeveniment SMALLINT UNSIGNED NOT NULL,
-    id_soci         SMALLINT UNSIGNED NOT NULL,
+    id_esdeveniment      SMALLINT UNSIGNED NOT NULL,
+    id_soci              SMALLINT UNSIGNED NOT NULL,
+
+    retard               BOOLEAN           NOT NULL DEFAULT FALSE,
+
+    id_estat_confirmacio TINYINT UNSIGNED  NOT NULL DEFAULT 2,
 
     PRIMARY KEY (id_esdeveniment, id_soci),
     FOREIGN KEY (id_esdeveniment) REFERENCES esdeveniments (id_esdeveniment),
-    FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
+    FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    FOREIGN KEY (id_estat_confirmacio) REFERENCES estats_confirmacio (id_estat_confirmacio)
 );
 
 CREATE TABLE IF NOT EXISTS reunions
