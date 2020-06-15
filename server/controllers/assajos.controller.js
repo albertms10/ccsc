@@ -188,14 +188,14 @@ exports.assajos_detall_convocats = (req, res, next) => {
                                              WHERE id_persona = (SELECT p.id_persona)
                                                AND id_esdeveniment = @id_assaig
                                          ), 1
-                                      ) AS id_estat_confirmacio,
-                                  (
-                                      SELECT IF(retard, CAST(TRUE AS JSON), CAST(FALSE AS JSON))
-                                      FROM assistents_esdeveniment
-                                               INNER JOIN persones ON (id_soci = id_persona)
-                                      WHERE id_persona = (SELECT p.id_persona)
-                                        AND id_esdeveniment = @id_assaig
-                                  )     AS retard,
+                                      )                                          AS id_estat_confirmacio,
+                                  IF((
+                                         SELECT retard
+                                         FROM assistents_esdeveniment
+                                                  INNER JOIN persones ON (id_soci = id_persona)
+                                         WHERE id_persona = (SELECT p.id_persona)
+                                           AND id_esdeveniment = @id_assaig
+                                     ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard,
                                   (
                                       SELECT IFNULL(
                                                      (
@@ -218,7 +218,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
                                                              )
                                                          )
                                                  )
-                                  )     AS id_veu
+                                  )                                              AS id_veu
                   FROM socis
                            INNER JOIN persones p ON socis.id_soci = p.id_persona
                   WHERE p.id_persona IN (
@@ -231,7 +231,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
               ) p
          WHERE NOT EXISTS(
                  (
-                     SELECT DISTINCT id_veu
+                     SELECT *
                      FROM assajos
                               INNER JOIN veus_convocades_assaig USING (id_assaig)
                      WHERE id_assaig = @id_assaig
