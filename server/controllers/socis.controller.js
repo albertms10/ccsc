@@ -461,9 +461,7 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
     .query(
         `INSERT INTO socis_acceptacions (id_soci, id_acceptacio_avis, accepta)
          VALUES ?
-         ON DUPLICATE KEY UPDATE id_soci            = VALUES(id_soci),
-                                 id_acceptacio_avis = VALUES(id_acceptacio_avis),
-                                 accepta            = VALUES(accepta);`,
+         ON DUPLICATE KEY UPDATE accepta = VALUES(accepta);`,
       [
         Object.keys(acceptacions).map((acceptacio) => [
           id_soci,
