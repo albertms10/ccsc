@@ -1,6 +1,7 @@
 import { PageHeader, Spin, Typography } from "antd";
 import React, { useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { SelectEstatEsdeveniment } from "../../components/select-estat-esdeveniment";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
 import { ContentListPersones } from "../formacio/components/content-list-persones";
@@ -41,6 +42,9 @@ export default () => {
                 getConvocatsAssaig={getConvocatsAssaig}
               />
             }
+            itemExtra={(persona) => (
+              <SelectEstatEsdeveniment idEsdeveniment={id} persona={persona} />
+            )}
           />
         </Container>
       </Spin>

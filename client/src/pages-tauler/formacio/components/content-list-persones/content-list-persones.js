@@ -4,7 +4,14 @@ import React from "react";
 import { ContentList } from "../../../../standalone/content-list";
 import { SmallBadge } from "../../../../standalone/small-badge";
 
-const ContentListPersones = ({ title, persones, loading, action, extra }) => (
+const ContentListPersones = ({
+  title,
+  persones,
+  loading,
+  action,
+  extra,
+  itemExtra,
+}) => (
   <ContentList
     title={title}
     loading={loading}
@@ -13,6 +20,7 @@ const ContentListPersones = ({ title, persones, loading, action, extra }) => (
       title: persona.nom_complet,
       description: persona.nom_veu,
       link: `/socis/${persona.id_persona}`,
+      extra: itemExtra && itemExtra(persona),
       avatar: (
         <SmallBadge
           count={persona.abreviatura_veu}
@@ -40,6 +48,7 @@ ContentListPersones.propTypes = {
   loading: PropTypes.bool,
   action: PropTypes.node,
   extra: PropTypes.node,
+  itemExtra: PropTypes.func,
 };
 
 ContentListPersones.defaultProps = {
