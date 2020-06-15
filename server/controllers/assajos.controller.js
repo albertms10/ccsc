@@ -243,7 +243,8 @@ exports.assajos_detall_convocats = (req, res, next) => {
                    FROM assajos
                             INNER JOIN veus_convocades_assaig USING (id_assaig)
                    WHERE id_assaig = @id_assaig
-               );`,
+               )
+         ORDER BY p.id_veu, nom, cognoms;`,
       [id_assaig]
     )
     .then(([_, convocats]) => parseAndSendJSON(res, next, convocats, ["retard"]))
