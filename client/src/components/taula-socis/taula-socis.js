@@ -51,9 +51,7 @@ const TaulaSocis = ({ socis, loading }) => {
       dataIndex: "id_persona",
       key: "id_persona",
       align: "right",
-      render: (idPersona) => (
-        <DropdownRowSoci idPersona={idPersona} />
-      ),
+      render: (idPersona) => <DropdownRowSoci idPersona={idPersona} />,
     },
   ];
 

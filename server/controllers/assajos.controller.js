@@ -247,7 +247,9 @@ exports.assajos_detall_convocats = (req, res, next) => {
          ORDER BY p.id_veu, nom, cognoms;`,
       [id_assaig]
     )
-    .then(([_, convocats]) => parseAndSendJSON(res, next, convocats, ["retard"]))
+    .then(([_, convocats]) =>
+      parseAndSendJSON(res, next, convocats, ["retard"])
+    )
     .catch((e) => next(e));
 };
 
