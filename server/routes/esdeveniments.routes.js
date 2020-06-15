@@ -11,7 +11,18 @@ module.exports = (app) => {
   );
 
   app.get(
+    "/api/esdeveniments/estats-confirmacio",
+    [authJWT.verifyAccessToken],
+    controller.esdeveniments_estatsconfirmacio
+  );
+
+  app.get(
     "/api/esdeveniments/:id/assistents",
-    controller.esdeveniments_detall_assistents
+    controller.esdeveniments_detall_assistents_get
+  );
+
+  app.put(
+    "/api/esdeveniments/:id/assistents",
+    controller.esdeveniments_detall_assistents_put
   );
 };

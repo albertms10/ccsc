@@ -54,7 +54,19 @@ exports.esdeveniments_post = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.esdeveniments_detall_assistents = (req, res, next) => {
+exports.esdeveniments_estatsconfirmacio = (req, res, next) => {
+  const pool = req.app.get("pool");
+
+  pool
+    .query(
+        `SELECT *
+         FROM estats_confirmacio;`
+    )
+    .then((estats) => res.json(estats))
+    .catch((e) => next(e));
+};
+
+exports.esdeveniments_detall_assistents_get = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_esdeveniment = req.params.id;
 
@@ -67,5 +79,21 @@ exports.esdeveniments_detall_assistents = (req, res, next) => {
       { id_esdeveniment }
     )
     .then((assistents) => res.json(assistents))
+    .catch((e) => next(e));
+};
+
+exports.esdeveniments_detall_assistents_put = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const id_esdeveniment = req.params.id;
+  const { id_soci, id_estat_confirmacio } = req.body;
+
+  pool
+    .query(
+        `INSERT INTO assistents_esdeveniment (id_esdeveniment, id_soci, id_estat_confirmacio)
+         VALUES ?
+         ON DUPLICATE KEY UPDATE id_estat_confirmacio = VALUES(id_estat_confirmacio);`,
+      [[[id_esdeveniment, id_soci, id_estat_confirmacio]]]
+    )
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
