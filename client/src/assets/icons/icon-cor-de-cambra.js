@@ -1,7 +1,9 @@
 import Icon from "@ant-design/icons";
-import React from "react";
+import React, { forwardRef } from "react";
 
-export default (props) => <Icon {...props} component={SVGIconCorDeCambra} />;
+export default forwardRef((props, ref) => (
+  <Icon {...props} ref={ref} component={SVGIconCorDeCambra} />
+));
 
 const SVGIconCorDeCambra = () => (
   <svg viewBox="0 0 43.98 43.98" fill="currentColor" width="1em" height="1em">
