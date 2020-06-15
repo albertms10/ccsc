@@ -1,15 +1,18 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Checkbox, Popover, Spin } from "antd";
 import PropTypes from "prop-types";
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { literalList } from "../../../../utils";
+import { AssaigContext } from "../../detall-assaig";
 import { useVeuAssaig, useVeus } from "./hooks";
 
-const PopoverVeusAssaig = ({ idAssaig, getConvocatsAssaig }) => {
+const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
+  const { id_assaig } = useContext(AssaigContext);
+
   const [visible, setVisible] = useState(false);
-  const [veus, loadingVeus, getVeus] = useVeus(idAssaig);
-  const [loadingVeu, changeVeuAssaig] = useVeuAssaig(idAssaig);
+  const [veus, loadingVeus, getVeus] = useVeus(id_assaig);
+  const [loadingVeu, changeVeuAssaig] = useVeuAssaig(id_assaig);
 
   const getVeusText = useCallback(() => {
     const convocades = veus.filter((veu) => veu.convocada);
@@ -21,9 +24,10 @@ const PopoverVeusAssaig = ({ idAssaig, getConvocatsAssaig }) => {
 
   return (
     <Popover
-      title="Veus convocades"
+      title="Veus específiques"
       visible={visible}
       trigger="click"
+      placement="topLeft"
       onVisibleChange={setVisible}
       content={
         <Spin spinning={loadingVeus || loadingVeu}>
@@ -62,7 +66,6 @@ const PopoverVeusAssaig = ({ idAssaig, getConvocatsAssaig }) => {
 };
 
 PopoverVeusAssaig.propTypes = {
-  idAssaig: PropTypes.any.isRequired,
   getConvocatsAssaig: PropTypes.func,
 };
 

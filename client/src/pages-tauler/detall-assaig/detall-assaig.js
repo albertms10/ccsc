@@ -1,5 +1,5 @@
 import { PageHeader, Spin, Typography } from "antd";
-import React, { useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SelectEstatEsdeveniment } from "../../components/select-estat-esdeveniment";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
@@ -9,6 +9,8 @@ import { PopoverVeusAssaig } from "./components/popover-veus-assaig";
 import { useAssaig, useConvocatsAssaig } from "./hooks";
 
 const { Title } = Typography;
+
+export const AssaigContext = createContext({});
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
@@ -23,7 +25,7 @@ export default () => {
   useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig]);
 
   return (
-    <>
+    <AssaigContext.Provider value={assaig}>
       <PageHeader
         ghost={false}
         title={assaig.titol}
@@ -37,10 +39,7 @@ export default () => {
             persones={convocats}
             loading={loadingConvocats}
             action={
-              <PopoverVeusAssaig
-                idAssaig={id}
-                getConvocatsAssaig={getConvocatsAssaig}
-              />
+              <PopoverVeusAssaig getConvocatsAssaig={getConvocatsAssaig} />
             }
             itemExtra={(persona) => (
               <SelectEstatEsdeveniment idEsdeveniment={id} persona={persona} />
@@ -48,6 +47,6 @@ export default () => {
           />
         </Container>
       </Spin>
-    </>
+    </AssaigContext.Provider>
   );
 };
