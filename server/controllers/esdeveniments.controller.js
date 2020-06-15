@@ -85,14 +85,15 @@ exports.esdeveniments_detall_assistents_get = (req, res, next) => {
 exports.esdeveniments_detall_assistents_put = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_esdeveniment = req.params.id;
-  const { id_soci, id_estat_confirmacio } = req.body;
+  const { id_soci, id_estat_confirmacio, retard } = req.body;
 
   pool
     .query(
-        `INSERT INTO assistents_esdeveniment (id_esdeveniment, id_soci, id_estat_confirmacio)
+        `INSERT INTO assistents_esdeveniment (id_esdeveniment, id_soci, id_estat_confirmacio, retard)
          VALUES ?
-         ON DUPLICATE KEY UPDATE id_estat_confirmacio = VALUES(id_estat_confirmacio);`,
-      [[[id_esdeveniment, id_soci, id_estat_confirmacio]]]
+         ON DUPLICATE KEY UPDATE id_estat_confirmacio = VALUES(id_estat_confirmacio),
+                                 retard               = VALUES(retard);`,
+      [[[id_esdeveniment, id_soci, id_estat_confirmacio, retard]]]
     )
     .then(() => res.status(204).send())
     .catch((e) => next(e));

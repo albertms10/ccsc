@@ -159,6 +159,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
   pool
     .query(
+      "SET @id_assaig = ?;" +
         `SELECT *,
                 (
                     SELECT nom
@@ -185,9 +186,16 @@ exports.assajos_detall_convocats = (req, res, next) => {
                                              FROM assistents_esdeveniment
                                                       INNER JOIN persones ON (id_soci = id_persona)
                                              WHERE id_persona = (SELECT p.id_persona)
-                                               AND id_esdeveniment = ?
+                                               AND id_esdeveniment = @id_assaig
                                          ), 1
                                       ) AS id_estat_confirmacio,
+                                  (
+                                      SELECT IF(retard, CAST(TRUE AS JSON), CAST(FALSE AS JSON))
+                                      FROM assistents_esdeveniment
+                                               INNER JOIN persones ON (id_soci = id_persona)
+                                      WHERE id_persona = (SELECT p.id_persona)
+                                        AND id_esdeveniment = @id_assaig
+                                  )     AS retard,
                                   (
                                       SELECT IFNULL(
                                                      (
@@ -218,7 +226,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
                       FROM socis
                                INNER JOIN socis_formacions USING (id_soci)
                                INNER JOIN assajos_formacions USING (id_formacio)
-                      WHERE id_assaig = ?
+                      WHERE id_assaig = @id_assaig
                   )
               ) p
          WHERE NOT EXISTS(
@@ -226,7 +234,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
                      SELECT DISTINCT id_veu
                      FROM assajos
                               INNER JOIN veus_convocades_assaig USING (id_assaig)
-                     WHERE id_assaig = ?
+                     WHERE id_assaig = @id_assaig
                  )
              )
             OR p.id_veu IN
@@ -234,11 +242,11 @@ exports.assajos_detall_convocats = (req, res, next) => {
                    SELECT DISTINCT id_veu
                    FROM assajos
                             INNER JOIN veus_convocades_assaig USING (id_assaig)
-                   WHERE id_assaig = ?
+                   WHERE id_assaig = @id_assaig
                );`,
-      [id_assaig, id_assaig, id_assaig, id_assaig]
+      [id_assaig]
     )
-    .then((convocats) => res.json(convocats))
+    .then(([_, convocats]) => parseAndSendJSON(res, next, convocats, ["retard"]))
     .catch((e) => next(e));
 };
 
