@@ -87,7 +87,7 @@ export default () => {
                   value={formacio.id_formacio}
                 >
                   <Space>
-                    <IconFormacio name={formacio.nom_curt} />
+                    <IconFormacio name={formacio.nom_curt} hasTooltip={false} />
                     {formacio.nom_curt}
                   </Space>
                 </TagSelect.Option>
