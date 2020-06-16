@@ -248,9 +248,13 @@ exports.socis_detall_baixa = (req, res, next) => {
 exports.socis_detall_propersassajos = (req, res, next) => {
   const pool = req.app.get("pool");
   const id_soci = req.params.id;
+  const limit = req.query.limit;
 
   pool
-    .query(queryFile("socis/select__propers_assajos_soci"), [id_soci])
+    .query(queryFile("socis/select__propers_assajos_soci"), [
+      id_soci,
+      parseInt(limit) || 4,
+    ])
     .then(([_, assajos]) => res.json(assajos))
     .catch((e) => next(e));
 };

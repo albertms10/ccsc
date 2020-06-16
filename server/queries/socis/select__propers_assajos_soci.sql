@@ -150,4 +150,4 @@ WHERE ((
            WHERE id_assaig = (SELECT a.id_assaig)
        )
           )
-LIMIT 4;
+LIMIT ?;
