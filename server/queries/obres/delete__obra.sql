@@ -1,5 +1,7 @@
 SET @id_obra = ?;
 
+START TRANSACTION;
+
 DELETE svmp
 FROM socis_veu_moviment_projectes svmp
          INNER JOIN veus_moviments USING (id_veu_moviment)
@@ -18,3 +20,5 @@ WHERE id_obra = @id_obra;
 DELETE
 FROM obres
 WHERE id_obra = @id_obra;
+
+COMMIT;
