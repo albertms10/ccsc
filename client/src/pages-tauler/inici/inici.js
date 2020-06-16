@@ -29,7 +29,19 @@ export default () => {
         <Title level={3}>Benvingu{es_dona ? "da" : "t"}</Title>
         <Title>{nomAgrupacio}</Title>
       </div>
-      <PropersAssajos style={{ marginBottom: "1rem" }} />
+
+      <Title level={4} className="secondary-title">
+        Proper assaig
+      </Title>
+      <PropersAssajos style={{ marginBottom: "2rem" }} />
+
+      <Title
+        level={4}
+        className="secondary-title"
+        style={{ marginBottom: "1.2rem" }}
+      >
+        Resum
+      </Title>
       <Row type="flex" gutter={[32, 32]}>
         <Authorized>
           <Col xs={24} sm={12} md={6} flex={1}>

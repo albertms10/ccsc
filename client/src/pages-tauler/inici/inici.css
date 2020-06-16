@@ -14,6 +14,14 @@
   font-weight: 400;
 }
 
+.site-layout .secondary-title {
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #777;
+  font-size: medium;
+}
+
 @media only screen and (max-width: 425px) {
   .title-wrapper h1 {
     font-size: 32px;
