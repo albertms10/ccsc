@@ -4,7 +4,7 @@ exports.projectes_count = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool
-    .query(queryFile("projectes/select__count_projects"))
+    .query(queryFile("projectes/select__count_projectes"))
     .then(([{ count }]) => res.json(count))
     .catch((e) => next(e));
 };
