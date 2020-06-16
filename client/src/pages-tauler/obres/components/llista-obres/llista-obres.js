@@ -73,7 +73,7 @@ export default () => {
             ]}
           >
             <Link to={`/obres/${obra.id_obra}`}>
-              <Item.Meta title={obra.titol} />
+              <Item.Meta title={obra.titol} description={obra.subtitol} />
             </Link>
           </Item>
         )}
