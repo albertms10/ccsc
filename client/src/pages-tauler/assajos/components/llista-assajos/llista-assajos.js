@@ -111,8 +111,8 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
               <Item.Meta
                 title={assaig.titol}
                 description={timeRange(
-                  assaig.hora_inici ? assaig.data_inici : "",
-                  assaig.data_final,
+                  assaig.hora_inici && assaig.data_inici,
+                  assaig.hora_final && assaig.data_final,
                   { textual: true }
                 )}
               />
