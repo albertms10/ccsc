@@ -1,21 +1,21 @@
 const authJWT = require("../middleware/auth-jwt");
-const controller = require("../controllers/agrupacio.controller");
+const controller = require("../controllers/agrupacions.controller");
 
 module.exports = (app) => {
   app.get(
     "/api/agrupacio",
     [authJWT.verifyAccessToken],
-    controller.agrupacio_get
+    controller.agrupacions_get
   );
 
   app.get(
     "/api/agrupacio/avisos/:id",
-    controller.agrupacio_avisos_detall
+    controller.agrupacions_avisos_detall
   );
 
   app.get(
     "/api/agrupacio/cursos",
     [authJWT.verifyAccessToken],
-    controller.agrupacio_cursos
+    controller.agrupacions_cursos
   )
 };
