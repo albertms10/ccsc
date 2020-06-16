@@ -1,11 +1,10 @@
+const { queryFile } = require("../helpers");
+
 exports.obres_get = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool
-    .query(
-        `SELECT *
-         FROM obres;`
-    )
+    .query(queryFile("obres/select__obres"))
     .then((obres) => res.json(obres))
     .catch((e) => next(e));
 };
@@ -14,10 +13,7 @@ exports.obres_idiomes = (req, res, next) => {
   const pool = req.app.get("pool");
 
   pool
-    .query(
-        `SELECT *
-         FROM idiomes;`
-    )
+    .query(queryFile("obres/select__idiomes"))
     .then((idiomes) => res.json(idiomes))
     .catch((e) => next(e));
 };
@@ -27,12 +23,7 @@ exports.obres_detall = (req, res, next) => {
   const id_obra = req.params.id;
 
   pool
-    .query(
-        `SELECT *
-         FROM obres
-         WHERE ?;`,
-      { id_obra }
-    )
+    .query(queryFile("obres/select__obra"), { id_obra })
     .then(([obra]) => res.json(obra))
     .catch((e) => next(e));
 };
@@ -49,11 +40,9 @@ exports.obres_post = async (req, res, next) => {
     .beginTransaction()
     .then(() => {
       connection
-        .query(
-            `INSERT INTO obres (titol, subtitol, any_inici, any_final, id_idioma)
-             VALUES ?`,
-          [[[obra.titol, obra.subtitol, ...obra.anys, obra.id_idioma]]]
-        )
+        .query(queryFile("obres/insert__obra"), [
+          [[obra.titol, obra.subtitol, ...obra.anys, obra.id_idioma]],
+        ])
         .then(() => {
           connection.commit();
           res.status(204).send();
@@ -68,28 +57,7 @@ exports.obres_delete = (req, res, next) => {
   const id_obra = req.params.id;
 
   pool
-    .query(
-      "SET @id_obra = ?;" +
-        `DELETE svmp
-         FROM socis_veu_moviment_projectes svmp
-                  INNER JOIN veus_moviments USING (id_veu_moviment)
-                  INNER JOIN moviments USING (id_moviment)
-         WHERE id_obra = @id_obra;
-
-            DELETE vm
-            FROM veus_moviments vm
-                     INNER JOIN moviments USING (id_moviment)
-            WHERE id_obra = @id_obra;
-
-            DELETE
-            FROM moviments
-            WHERE id_obra = @id_obra;
-
-            DELETE
-            FROM obres
-            WHERE id_obra = @id_obra;`,
-      [id_obra]
-    )
+    .query(queryFile("obres/delete__obra"), [id_obra])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
