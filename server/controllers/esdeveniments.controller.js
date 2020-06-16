@@ -20,7 +20,7 @@ exports.esdeveniments_estatsconfirmacio = (req, res, next) => {
 
 exports.esdeveniments_detall_assistents_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_esdeveniment = req.params.id;
+  const { id: id_esdeveniment } = req.params;
 
   pool
     .query(queryFile("esdeveniments/select__assistents_esdeveniment"), {
@@ -32,7 +32,7 @@ exports.esdeveniments_detall_assistents_get = (req, res, next) => {
 
 exports.esdeveniments_detall_assistents_put = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_esdeveniment = req.params.id;
+  const { id: id_esdeveniment } = req.params;
   const { id_soci, id_estat_confirmacio, retard } = req.body;
 
   pool

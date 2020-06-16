@@ -54,5 +54,5 @@ module.exports = (app) => {
     "/api/assajos/:id_assaig/veus/:id_veu",
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_veus_delete
-  )
+  );
 };

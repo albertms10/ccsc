@@ -22,8 +22,5 @@ module.exports = (app) => {
 
   app.get("/api/localitzacions/paisos", controller.localitzacions_paisos_get);
 
-  app.get(
-    "/api/localitzacions/:id",
-    controller.localitzacions_detall
-  );
+  app.get("/api/localitzacions/:id", controller.localitzacions_detall);
 };

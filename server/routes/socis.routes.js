@@ -92,5 +92,5 @@ module.exports = (app) => {
     "/api/socis/:id/propers-assajos",
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_propersassajos
-  )
+  );
 };

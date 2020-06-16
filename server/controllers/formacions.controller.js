@@ -2,7 +2,7 @@ const { parseAndSendJSON, queryFile } = require("../helpers");
 
 exports.formacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__formacio"), { id_formacio })
@@ -12,7 +12,7 @@ exports.formacions_detall = (req, res, next) => {
 
 exports.formacions_detall_esdeveniments = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__esdeveniments_formacio"), [
@@ -29,7 +29,7 @@ exports.formacions_detall_esdeveniments = (req, res, next) => {
 
 exports.formacions_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__assajos_formacio"), { id_formacio })
@@ -41,7 +41,7 @@ exports.formacions_detall_assajos = (req, res, next) => {
 
 exports.formacions_detall_concerts = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__concerts_formacio"), { id_formacio })
@@ -51,7 +51,7 @@ exports.formacions_detall_concerts = (req, res, next) => {
 
 exports.formacions_detall_projectes = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__projectes_formacio"), [id_formacio])
@@ -63,7 +63,7 @@ exports.formacions_detall_projectes = (req, res, next) => {
 
 exports.formacions_detall_integrants = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_formacio = req.params.id;
+  const { id: id_formacio } = req.params;
 
   pool
     .query(queryFile("formacions/select__integrants_formacio"), { id_formacio })

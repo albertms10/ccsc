@@ -2,7 +2,7 @@ const { parseAndSendJSON, queryFile } = require("../helpers");
 
 exports.assajos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_assaig = req.params.id;
+  const { id: id_assaig } = req.params;
 
   pool
     .query(queryFile("assajos/select__assaig"), { id_assaig })
@@ -31,7 +31,7 @@ exports.assajos_historial = (req, res, next) => {
 
 exports.assajos_post = async (req, res, next) => {
   const pool = req.app.get("pool");
-  const assaig = req.body;
+  const { assaig } = req.body;
 
   const connection = await pool.getConnection();
 
@@ -42,12 +42,12 @@ exports.assajos_post = async (req, res, next) => {
     .then(() => {
       connection
         .query(queryFile("assajos/insert__esdeveniment"), [
-          [[assaig.dia_inici, ...assaig.hora]]
+          [[assaig.dia_inici, ...assaig.hora]],
         ])
         .then(({ insertId: id_esdeveniment }) => {
           connection
             .query(queryFile("assajos/insert__esdeveniment_musical"), [
-              [[id_esdeveniment]]
+              [[id_esdeveniment]],
             ])
             .then(() => {
               connection
@@ -56,9 +56,9 @@ exports.assajos_post = async (req, res, next) => {
                     [
                       id_esdeveniment,
                       assaig.es_general || false,
-                      assaig.es_extra || false
-                    ]
-                  ]
+                      assaig.es_extra || false,
+                    ],
+                  ],
                 ])
                 .then(async () => {
                   try {
@@ -68,8 +68,8 @@ exports.assajos_post = async (req, res, next) => {
                         [
                           assaig.formacions.map((formacio) => [
                             id_esdeveniment,
-                            formacio
-                          ])
+                            formacio,
+                          ]),
                         ]
                       );
                   } catch (e) {
@@ -90,7 +90,7 @@ exports.assajos_post = async (req, res, next) => {
 
 exports.assajos_delete = async (req, res, next) => {
   const pool = res.app.get("pool");
-  const id_assaig = req.params.id;
+  const { id: id_assaig } = req.params;
 
   pool
     .query(queryFile("assajos/delete__assaig"), [id_assaig])
@@ -100,7 +100,7 @@ exports.assajos_delete = async (req, res, next) => {
 
 exports.assajos_detall_convocats = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_assaig = req.params.id;
+  const { id: id_assaig } = req.params;
 
   pool
     .query(queryFile("assajos/select__convocats_assaig"), [id_assaig])
@@ -112,7 +112,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
 exports.assajos_detall_veus_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_assaig = req.params.id;
+  const { id: id_assaig } = req.params;
 
   pool
     .query(queryFile("assajos/select__veus_assaig"), [id_assaig])
@@ -122,7 +122,7 @@ exports.assajos_detall_veus_get = (req, res, next) => {
 
 exports.assajos_detall_veus_post = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_assaig = req.params.id;
+  const { id: id_assaig } = req.params;
   const { id_veu } = req.body;
 
   pool

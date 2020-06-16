@@ -20,7 +20,7 @@ export default (idSoci) => {
       dispatch,
       {
         method: "PUT",
-        body: JSON.stringify(acceptacions),
+        body: JSON.stringify({ acceptacions }),
       }
     ).finally(() => setLoading(false));
   };

@@ -11,7 +11,7 @@ exports.agrupacions_get = (req, res, next) => {
 
 exports.agrupacions_avisos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const unique_name = req.params.id;
+  const { id: unique_name } = req.params;
 
   pool
     .query(queryFile("agrupacions/select__avisos_agrupacio"), { unique_name })

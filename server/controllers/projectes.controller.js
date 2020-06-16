@@ -21,7 +21,7 @@ exports.projectes_historial = (req, res, next) => {
 
 exports.projectes_checkinicials = (req, res, next) => {
   const pool = req.app.get("pool");
-  const inicials = req.params.inicials;
+  const { inicials } = req.params;
 
   pool
     .query(queryFile("projectes/select__exists_inicials_projecte"), {
@@ -34,13 +34,7 @@ exports.projectes_checkinicials = (req, res, next) => {
 exports.projectes_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const {
-    titol,
-    descripcio,
-    inicials,
-    color,
-    data,
-    formacions,
-    id_curs,
+    projecte: { titol, descripcio, inicials, color, data, formacions, id_curs },
   } = req.body;
 
   const connection = await pool.getConnection();
@@ -72,7 +66,7 @@ exports.projectes_post = async (req, res, next) => {
 
 exports.projectes_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_projecte = req.params.id;
+  const { id: id_projecte } = req.params;
 
   pool
     .query(queryFile("projectes/delete__projecte"), [id_projecte])

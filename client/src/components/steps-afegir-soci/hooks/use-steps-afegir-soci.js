@@ -270,15 +270,15 @@ export default (
   const handleOk = (callback) => {
     form
       .validateFields()
-      .then((values) => {
+      .then((soci) => {
         setConfirmLoading(true);
 
-        values.username = username;
-        values.nom = upperCaseFirst(values.nom);
-        values.cognoms = upperCaseFirst(values.cognoms);
-        values.naixement = values.naixement.format("YYYY-MM-DD");
-        values.data_alta = values.data_alta
-          ? values.data_alta.format("YYYY-MM-DD")
+        soci.username = username;
+        soci.nom = upperCaseFirst(soci.nom);
+        soci.cognoms = upperCaseFirst(soci.cognoms);
+        soci.naixement = soci.naixement.format("YYYY-MM-DD");
+        soci.data_alta = soci.data_alta
+          ? soci.data_alta.format("YYYY-MM-DD")
           : moment().format("YYYY-MM-DD");
 
         fetchAPI(
@@ -288,7 +288,7 @@ export default (
             if (typeof callback === "function") callback();
           },
           dispatch,
-          { method: "POST", body: JSON.stringify(values) }
+          { method: "POST", body: JSON.stringify({ soci }) }
         ).finally(() => setConfirmLoading(false));
       })
       .catch(handleValidateError);

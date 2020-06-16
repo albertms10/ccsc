@@ -3,11 +3,7 @@ const { saltHashPassword, signJWT } = require("../utils");
 
 exports.signin = (req, res, next) => {
   const pool = req.app.get("pool");
-
-  const {
-    /** @type {string} */ username,
-    /** @type {string} */ password,
-  } = req.body;
+  const { username, password } = req.body;
 
   if (!username || !password)
     return res.status(401).send({
@@ -51,7 +47,7 @@ exports.signin = (req, res, next) => {
 
 exports.email_espera = (req, res, next) => {
   const pool = req.app.get("pool");
-  const email = req.body.email;
+  const { email } = req.body;
 
   pool
     .query(queryFile("auth/select__exists_email_espera"), { email })

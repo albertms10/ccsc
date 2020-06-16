@@ -8,14 +8,11 @@ module.exports = (app) => {
     controller.agrupacions_get
   );
 
-  app.get(
-    "/api/agrupacio/avisos/:id",
-    controller.agrupacions_avisos_detall
-  );
+  app.get("/api/agrupacio/avisos/:id", controller.agrupacions_avisos_detall);
 
   app.get(
     "/api/agrupacio/cursos",
     [authJWT.verifyAccessToken],
     controller.agrupacions_cursos
-  )
+  );
 };

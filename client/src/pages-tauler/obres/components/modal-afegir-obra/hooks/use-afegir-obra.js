@@ -11,7 +11,7 @@ export default () => {
   const postObra = (obra) =>
     fetchAPI("/api/obres", () => dispatch(fetchObres()), dispatch, {
       method: "POST",
-      body: JSON.stringify(obra),
+      body: JSON.stringify({ obra }),
     });
 
   const handleOk = () =>

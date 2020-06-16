@@ -3,14 +3,16 @@ const { queryFile } = require("../helpers");
 exports.localitzacions_post = (req, res, next) => {
   const pool = req.app.get("pool");
   const {
-    tipus_via,
-    carrer,
-    numero,
-    fins_numero,
-    codi_postal,
-    gmaps,
-    ciutat,
-  } = req.body.localitzacio;
+    localitzacio: {
+      tipus_via,
+      carrer,
+      numero,
+      fins_numero,
+      codi_postal,
+      gmaps,
+      ciutat,
+    },
+  } = req.body;
 
   pool
     .query(queryFile("localitzacions/insert__localitzacio"), [
@@ -37,7 +39,7 @@ exports.localitzacions_tipusvies_get = (req, res, next) => {
 
 exports.localitzacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_localitzacio = req.params.id;
+  const { id: id_localitzacio } = req.params;
 
   pool
     .query(queryFile("localitzacions/select__localitzacio"), {

@@ -20,7 +20,7 @@ exports.obres_idiomes = (req, res, next) => {
 
 exports.obres_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_obra = req.params.id;
+  const { id: id_obra } = req.params;
 
   pool
     .query(queryFile("obres/select__obra"), { id_obra })
@@ -30,7 +30,7 @@ exports.obres_detall = (req, res, next) => {
 
 exports.obres_post = async (req, res, next) => {
   const pool = req.app.get("pool");
-  const obra = req.body;
+  const { obra } = req.body;
 
   const connection = await pool.getConnection();
 
@@ -54,7 +54,7 @@ exports.obres_post = async (req, res, next) => {
 
 exports.obres_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_obra = req.params.id;
+  const { id: id_obra } = req.params;
 
   pool
     .query(queryFile("obres/delete__obra"), [id_obra])

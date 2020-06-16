@@ -18,7 +18,7 @@ module.exports = (app) => {
     "/api/projectes/check-inicials/:inicials",
     [authJWT.verifyAccessToken],
     controller.projectes_checkinicials
-  )
+  );
 
   app.post(
     "/api/projectes",

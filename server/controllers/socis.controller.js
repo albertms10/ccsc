@@ -22,7 +22,7 @@ exports.socis_historial = (req, res, next) => {
 
 exports.socis_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__soci"), { id_soci })
@@ -44,8 +44,8 @@ exports.socis_get = (req, res, next) => {
 
 exports.socis_post = async (req, res, next) => {
   const pool = req.app.get("pool");
-  const email = req.email;
-  const soci = req.body;
+  const { email } = req;
+  const { soci } = req.body;
 
   const connection = await pool.getConnection();
 
@@ -129,7 +129,7 @@ exports.socis_post = async (req, res, next) => {
 
 exports.socis_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_persona = req.params.id;
+  const { id: id_persona } = req.params;
 
   pool
     .query(queryFile("socis/delete__soci"), [id_persona])
@@ -139,7 +139,7 @@ exports.socis_delete = (req, res, next) => {
 
 exports.socis_detall_formacions = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__formacions_soci"), [
@@ -152,7 +152,7 @@ exports.socis_detall_formacions = (req, res, next) => {
 
 exports.socis_detall_projectes = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__projectes_soci"), [
@@ -167,7 +167,7 @@ exports.socis_detall_projectes = (req, res, next) => {
 
 exports.socis_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__assajos_soci"), [
@@ -182,7 +182,7 @@ exports.socis_detall_assajos = (req, res, next) => {
 
 exports.socis_detall_acceptacions_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__acceptacions_soci"), { id_soci })
@@ -192,9 +192,9 @@ exports.socis_detall_acceptacions_get = (req, res, next) => {
 
 exports.socis_detall_acceptacions_put = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
   /** @type {Object<string, boolean>} */
-  const acceptacions = req.body;
+  const { acceptacions } = req.body;
 
   pool
     .query(queryFile("socis/insert__acceptacions_soci"), [
@@ -215,7 +215,7 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
 
 exports.socis_detall_activitat = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/select__activitat_soci"), { id_soci })
@@ -225,7 +225,7 @@ exports.socis_detall_activitat = (req, res, next) => {
 
 exports.socis_detall_alta = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/insert__historial_soci"), [
@@ -237,7 +237,7 @@ exports.socis_detall_alta = (req, res, next) => {
 
 exports.socis_detall_baixa = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
+  const { id: id_soci } = req.params;
 
   pool
     .query(queryFile("socis/update__baixa_historial_soci"), [id_soci])
@@ -247,8 +247,8 @@ exports.socis_detall_baixa = (req, res, next) => {
 
 exports.socis_detall_propersassajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const id_soci = req.params.id;
-  const limit = req.query.limit;
+  const { id: id_soci } = req.params;
+  const { limit } = req.query;
 
   pool
     .query(queryFile("socis/select__propers_assajos_soci"), [
