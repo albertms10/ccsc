@@ -1,9 +1,9 @@
 import { EditFilled, EnvironmentFilled, LayoutFilled } from "@ant-design/icons";
 import { Avatar, Col, Row, Space } from "antd";
-import moment from "moment";
 import React from "react";
+import { joinComponents } from "../../helpers";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types";
-import { upperCaseFirst } from "../../utils";
+import { dateRange, upperCaseFirst } from "../../utils";
 import { BorderlessButton } from "../borderless-button";
 import { StatusIcon } from "../status-icon";
 import "./calendar-event-popover.css";
@@ -37,20 +37,21 @@ const CalendarEventPopover = ({ esdeveniment }) => (
       <EventLineItem>
         <Space>
           <div>
-            {moment(esdeveniment.dia_inici).format("dddd, LL")}
-            {esdeveniment.hora_inici && (
-              <>
-                <span style={{ padding: "0 .25rem" }}>·</span>
-                {moment(
-                  `${esdeveniment.dia_inici} ${esdeveniment.hora_inici}`
-                ).format("LT") +
-                  (esdeveniment.hora_final
-                    ? "–" +
-                      moment(
-                        `${esdeveniment.dia_final} ${esdeveniment.hora_final}`
-                      ).format("LT")
-                    : "")}
-              </>
+            {joinComponents(
+              dateRange(
+                esdeveniment.dia_inici,
+                esdeveniment.hora_inici,
+                esdeveniment.dia_final,
+                esdeveniment.hora_final
+              ),
+              (item, index) => (
+                <span key={index}>{item}</span>
+              ),
+              (key) => (
+                <span key={key} style={{ padding: "0 .25rem" }}>
+                  ·
+                </span>
+              )
             )}
           </div>
           {esdeveniment.tipus !== "aniversari" && (
@@ -103,7 +104,7 @@ const CalendarEventPopover = ({ esdeveniment }) => (
 );
 
 CalendarEventPopover.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired,
+  esdeveniment: EsdevenimentPropTypes.isRequired
 };
 
 export default CalendarEventPopover;
