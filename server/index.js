@@ -40,13 +40,12 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Routes
-require("./routes/formacions.routes")(app);
-require("./routes/assajos.routes")(app);
 require("./routes/agrupacions.routes")(app);
+require("./routes/assajos.routes")(app);
 require("./routes/auth.routes")(app);
 require("./routes/concerts.routes")(app);
 require("./routes/esdeveniments.routes")(app);
+require("./routes/formacions.routes")(app);
 require("./routes/establiments.routes")(app);
 require("./routes/localitzacions.routes")(app);
 require("./routes/obres.routes")(app);
