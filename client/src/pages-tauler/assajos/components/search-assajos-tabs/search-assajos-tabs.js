@@ -1,5 +1,5 @@
 import { Input, Tabs } from "antd";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { LlistaAssajos } from "../llista-assajos";
 
 const { Search } = Input;
@@ -20,10 +20,10 @@ export default () => {
       />
       <Tabs>
         <TabPane tab="Propers" key="assajos-propers">
-          <LlistaAssajos filterValue={searchValue} />
+          <LlistaAssajos searchValue={searchValue} />
         </TabPane>
         <TabPane tab="Anteriors" key="assajos-anteriors">
-          <LlistaAssajos filterValue={searchValue} anteriors />
+          <LlistaAssajos searchValue={searchValue} anteriors />
         </TabPane>
       </Tabs>
     </>

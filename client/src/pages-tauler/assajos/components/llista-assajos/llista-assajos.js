@@ -15,7 +15,7 @@ import { useAssajos, useEliminarAssaig } from "./hooks";
 const { Item } = List;
 const { Text } = Typography;
 
-const LlistaAssajos = ({ filterValue, anteriors }) => {
+const LlistaAssajos = ({ searchValue, anteriors }) => {
   const formacions = useContext(FormacionsListContext);
   const [assajos, loading] = useAssajos();
   const [showDeleteConfirm] = useEliminarAssaig();
@@ -23,15 +23,19 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
   const getDataSource = useCallback(() => {
     const list = anteriors
       ? assajos
-          .filter((assaig) => moment(assaig.data_inici).isBefore(moment()))
+          .filter((assaig) =>
+            moment(assaig.data_final || assaig.data_inici).isBefore(moment())
+          )
           .sort((a, b) => moment(b.data_inici).diff(moment(a.data_inici)))
       : assajos.filter((assaig) =>
-          moment().isSameOrBefore(moment(assaig.data_inici))
+          moment().isSameOrBefore(
+            moment(assaig.data_final || assaig.data_inici)
+          )
         );
 
-    return filterValue.length > 0
+    return searchValue.length > 0
       ? list.filter((assaig) =>
-          eventSearchFilter(filterValue, {
+          eventSearchFilter(searchValue, {
             texts: [
               assaig.titol,
               ...assaig.formacions.map((formacio) => formacio.nom_curt),
@@ -45,7 +49,7 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
           })
         )
       : list;
-  }, [anteriors, assajos, filterValue]);
+  }, [anteriors, assajos, searchValue]);
 
   return (
     <List
@@ -125,12 +129,11 @@ const LlistaAssajos = ({ filterValue, anteriors }) => {
 };
 
 LlistaAssajos.propTypes = {
-  filterValue: PropTypes.string,
+  searchValue: PropTypes.string.isRequired,
   anteriors: PropTypes.bool,
 };
 
 LlistaAssajos.defaultProps = {
-  filterValue: "",
   anteriors: false,
 };
 
