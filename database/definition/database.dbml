@@ -310,6 +310,8 @@ Table "estats_confirmacio" {
 Table "assistents_esdeveniment" {
   "id_esdeveniment" SMALLINT [not null]
   "id_soci" SMALLINT [not null]
+  "retard" BOOLEAN [not null, default: FALSE]
+  "id_estat_confirmacio" TINYINT [not null, default: 2]
 
 Indexes {
   (id_esdeveniment, id_soci) [pk]
@@ -357,7 +359,7 @@ Table "autors" {
 Table "obres" {
   "id_obra" SMALLINT [pk, not null, increment]
   "titol" VARCHAR(100) [not null]
-  "subtitol" VARCHAR(200) [not null]
+  "subtitol" VARCHAR(200)
   "num_cataleg" SMALLINT
   "any_inici" SMALLINT(4)
   "any_final" SMALLINT(4)
@@ -627,10 +629,16 @@ Indexes {
 }
 }
 
-Table "agrupacio" {
+Table "agrupacions" {
   "id_agrupacio" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(100) [not null]
   "nif" VARCHAR(12) [not null]
+  "id_tipus_agrupacio" SMALLINT [not null, default: 1]
+}
+
+Table "tipus_agrupacions" {
+  "id_tipus_agrupacio" SMALLINT [pk, not null, increment]
+  "nom" VARCHAR(50) [not null]
 }
 
 Table "formacions_agrupacio" {
@@ -885,6 +893,8 @@ Ref:"esdeveniments"."id_esdeveniment" < "assistents_esdeveniment"."id_esdevenime
 
 Ref:"socis"."id_soci" < "assistents_esdeveniment"."id_soci"
 
+Ref:"estats_confirmacio"."id_estat_confirmacio" < "assistents_esdeveniment"."id_estat_confirmacio"
+
 Ref:"esdeveniments"."id_esdeveniment" < "reunions"."id_reunio"
 
 Ref:"reunions"."id_reunio" < "punts_reunio"."id_reunio"
@@ -1009,7 +1019,9 @@ Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
 
 Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
 
-Ref:"agrupacio"."id_agrupacio" < "formacions_agrupacio"."id_agrupacio"
+Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
+
+Ref:"agrupacions"."id_agrupacio" < "formacions_agrupacio"."id_agrupacio"
 
 Ref:"formacions"."id_formacio" < "formacions_agrupacio"."id_formacio"
 
