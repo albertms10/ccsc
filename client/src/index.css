@@ -46,6 +46,10 @@
   line-height: 36px;
 }
 
+.site-layout .ant-page-header {
+  z-index: 1;
+}
+
 .site-layout .action-text {
   margin-bottom: 0 !important;
 }
