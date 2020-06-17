@@ -27,18 +27,6 @@ exports.formacions_detall_esdeveniments = (req, res, next) => {
     .catch((e) => next(e));
 };
 
-exports.formacions_detall_assajos = (req, res, next) => {
-  const pool = req.app.get("pool");
-  const { id: id_formacio } = req.params;
-
-  pool
-    .query(queryFile("formacions/select__assajos_formacio"), { id_formacio })
-    .then((assajos) =>
-      parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
-    )
-    .catch((e) => next(e));
-};
-
 exports.formacions_detall_concerts = (req, res, next) => {
   const pool = req.app.get("pool");
   const { id: id_formacio } = req.params;

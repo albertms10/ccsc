@@ -15,12 +15,6 @@ module.exports = (app) => {
   );
 
   app.get(
-    "/api/formacions/:id/assajos",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall_assajos
-  );
-
-  app.get(
     "/api/formacions/:id/concerts",
     [authJWT.verifyAccessToken],
     controller.formacions_detall_concerts
