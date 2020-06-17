@@ -3,7 +3,7 @@ import { Checkbox, Input, List, Popover } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext, useState } from "react";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { eventSearchFilter, literalList } from "../../../../utils";
+import { eventSearchFilter } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
 import { useVeuAssaig, useVeus } from "./hooks";
 
@@ -21,8 +21,14 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   const getVeusText = useCallback(() => {
     const convocades = veus.filter((veu) => veu.convocada);
 
-    return convocades.length > 0
-      ? literalList(convocades.map((veu) => veu.nom))
+    return convocades.length > 0 && convocades.length < veus.length
+      ? convocades.length >= veus.length - 2
+        ? "Sense " +
+          veus
+            .filter((veu) => !convocades.includes(veu))
+            .map((veu) => veu.abreviatura)
+            .join("")
+        : convocades.map((veu) => veu.abreviatura).join("")
       : "Totes";
   }, [veus]);
 
@@ -40,7 +46,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
             value={searchValue}
             onChange={({ target }) => setSearchValue(target.value)}
             allowClear
-            style={{  marginBottom: ".5rem" }}
+            style={{ marginBottom: ".5rem" }}
           />
           <Checkbox.Group
             defaultValue={veus
