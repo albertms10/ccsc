@@ -6,7 +6,7 @@
   width: 100%;
   padding-right: 1rem;
   padding-left: 2rem;
-  transition-duration: 200ms;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-property: box-shadow, background-color;
 }
 
@@ -28,7 +28,7 @@
   font-size: 18px;
   padding: 0 24px;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .main-sidebar-trigger:hover {
@@ -53,7 +53,7 @@
 
 .app-layout-content {
   padding-top: 64px;
-  transition-duration: 200ms;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .app-layout-content .ant-page-header {
