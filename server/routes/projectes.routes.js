@@ -20,6 +20,12 @@ module.exports = (app) => {
     controller.projectes_checkinicials
   );
 
+  app.get(
+    "/api/projectes/:id",
+    [authJWT.verifyAccessToken],
+    controller.projectes_detall
+  )
+
   app.post(
     "/api/projectes",
     [authJWT.verifyAccessToken],

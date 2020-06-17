@@ -31,6 +31,16 @@ exports.projectes_checkinicials = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.projectes_detall = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_projecte } = req.params;
+
+  pool
+    .query(queryFile("projectes/select__projecte"), { id_projecte })
+    .then(([projecte]) => res.json(projecte))
+    .catch((e) => next(e));
+};
+
 exports.projectes_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const {
