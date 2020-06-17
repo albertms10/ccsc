@@ -96,7 +96,7 @@ export default () => {
                   />
                 ))}
               <Route exact path="/projectes" component={Projectes} />
-              <Route exact path="/projectes/:id" component={DetallProjecte} />
+              <Route path="/projectes/:id" component={DetallProjecte} />
               <Route exact path="/assajos" component={Assajos} />
               <Route exact path="/assajos/:id" component={DetallAssaig} />
               <Route exact path="/obres" component={Obres} />
