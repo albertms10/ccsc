@@ -43,6 +43,8 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
               projecte.descripcio,
               projecte.any_inici_curs,
               projecte.any_final_curs,
+              ...projecte.formacions.map(({ nom_curt }) => nom_curt),
+              ...projecte.directors.map(({ nom }) => nom),
             ],
           })
         )
