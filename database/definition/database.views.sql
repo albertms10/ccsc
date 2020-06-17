@@ -12,11 +12,15 @@ SELECT DISTINCT id_esdeveniment,
                 IFNULL(DATE_FORMAT(dia_final, '%Y-%m-%d'), dia_inici)                    AS dia_final,
                 hora_final,
                 (
-                    SELECT CONCAT_WS(' ', tv.nom, CONCAT(carrer, ','),
-                                     CONCAT(IFNULL(CONCAT(numero, '–', fins_numero), CONCAT(numero)), ','), c.nom,
+                    SELECT CONCAT_WS(' ',
+                                     tv.nom,
+                                     CONCAT(carrer, ','),
+                                     CONCAT(IFNULL(CONCAT(numero, '–', fins_numero), CONCAT(numero)), ','),
+                                     c.nom,
                                      CONCAT('(',
                                             (SELECT nom FROM ciutats WHERE id_ciutat = (SELECT c.id_provincia)),
-                                            ')'))
+                                            ')')
+                               )
                     FROM localitzacions
                              INNER JOIN tipus_vies tv USING (id_tipus_via)
                              INNER JOIN ciutats c USING (id_ciutat)
