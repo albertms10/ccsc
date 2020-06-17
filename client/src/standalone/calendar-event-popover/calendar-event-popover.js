@@ -1,10 +1,14 @@
-import { EditFilled, EnvironmentFilled, LayoutFilled } from "@ant-design/icons";
-import { Avatar, Col, Row, Space } from "antd";
+import {
+  EnvironmentFilled,
+  InfoCircleOutlined,
+  LayoutFilled,
+} from "@ant-design/icons";
+import { Avatar, Space } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 import { joinComponents } from "../../helpers";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types";
 import { dateRange, upperCaseFirst } from "../../utils";
-import { BorderlessButton } from "../borderless-button";
 import { StatusIcon } from "../status-icon";
 import "./calendar-event-popover.css";
 import { EventLineItem } from "./event-line-item";
@@ -12,28 +16,19 @@ import { EventLineItem } from "./event-line-item";
 const CalendarEventPopover = ({ esdeveniment }) => (
   <div className="calendar-event-popover">
     <Space direction="vertical" style={{ width: "20rem" }}>
-      <Row>
-        <Col span={18}>
-          <EventLineItem
-            icon={
-              esdeveniment.tipus === "aniversari" && (
-                <StatusIcon
-                  size="large"
-                  esAniversari={esdeveniment.tipus === "aniversari"}
-                />
-              )
-            }
-            size="large"
-          >
-            {esdeveniment.titol}
-          </EventLineItem>
-        </Col>
-        <Col span={6} style={{ textAlign: "end" }}>
-          <BorderlessButton size="small" icon={<EditFilled />}>
-            Edita
-          </BorderlessButton>
-        </Col>
-      </Row>
+      <EventLineItem
+        icon={
+          esdeveniment.tipus === "aniversari" && (
+            <StatusIcon
+              size="large"
+              esAniversari={esdeveniment.tipus === "aniversari"}
+            />
+          )
+        }
+        size="large"
+      >
+        {esdeveniment.titol}
+      </EventLineItem>
       <EventLineItem>
         <Space>
           <div>
@@ -99,12 +94,19 @@ const CalendarEventPopover = ({ esdeveniment }) => (
           </Space>
         </EventLineItem>
       )}
+      {esdeveniment.tipus === "assaig" && (
+        <EventLineItem icon={<InfoCircleOutlined />}>
+          <Link to={`/assajos/${esdeveniment.id_esdeveniment}`}>
+            Més detalls
+          </Link>
+        </EventLineItem>
+      )}
     </Space>
   </div>
 );
 
 CalendarEventPopover.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired
+  esdeveniment: EsdevenimentPropTypes.isRequired,
 };
 
 export default CalendarEventPopover;
