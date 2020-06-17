@@ -3,6 +3,7 @@
   z-index: 20;
   left: 0;
   height: 100vh;
+  background-color: var(--primary-color);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
