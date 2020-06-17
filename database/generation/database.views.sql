@@ -32,11 +32,13 @@ SELECT DISTINCT id_esdeveniment,
                              INNER JOIN establiments e2 ON localitzacions.id_localitzacio = e2.id_establiment
                     WHERE id_localitzacio = (SELECT e.id_localitzacio)
                 )                                                                        AS establiment,
+                e.id_estat_esdeveniment,
                 (
                     SELECT estat
                     FROM estats_confirmacio
                     WHERE id_estat_confirmacio = (SELECT e.id_estat_esdeveniment)
                 )                                                                        AS estat_esdeveniment,
+                e.id_estat_localitzacio,
                 (
                     SELECT estat
                     FROM estats_confirmacio
