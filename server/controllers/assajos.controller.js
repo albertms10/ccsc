@@ -55,8 +55,8 @@ exports.assajos_post = async (req, res, next) => {
                   [
                     [
                       id_esdeveniment,
-                      assaig.es_general || false,
-                      assaig.es_extra || false,
+                      !!assaig.es_general,
+                      !!assaig.es_extra,
                     ],
                   ],
                 ])
