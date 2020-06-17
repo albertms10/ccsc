@@ -15,13 +15,13 @@ import { useAssajos, useEliminarAssaig } from "./hooks";
 const { Item } = List;
 const { Text } = Typography;
 
-const LlistaAssajos = ({ searchValue, anteriors }) => {
+const LlistaAssajos = ({ idProjecte, searchValue, anteriors }) => {
   const formacions = useContext(FormacionsListContext);
   const [assajos, loading] = useAssajos();
   const [showDeleteConfirm] = useEliminarAssaig();
 
   const getDataSource = useCallback(() => {
-    const list = anteriors
+    let list = anteriors
       ? assajos
           .filter((assaig) =>
             moment(assaig.data_final || assaig.data_inici).isBefore(moment())
@@ -32,6 +32,13 @@ const LlistaAssajos = ({ searchValue, anteriors }) => {
             moment(assaig.data_final || assaig.data_inici)
           )
         );
+
+    if (idProjecte)
+      list = list.filter((assaig) =>
+        assaig.projectes.find(
+          (projecte) => projecte.id_projecte === parseInt(idProjecte)
+        )
+      );
 
     return searchValue.length > 0
       ? list.filter((assaig) =>
@@ -49,7 +56,7 @@ const LlistaAssajos = ({ searchValue, anteriors }) => {
           })
         )
       : list;
-  }, [anteriors, assajos, searchValue]);
+  }, [anteriors, assajos, idProjecte, searchValue]);
 
   return (
     <List
@@ -83,7 +90,9 @@ const LlistaAssajos = ({ searchValue, anteriors }) => {
                         tooltip={projecte.titol}
                         color={"#" + projecte.color}
                       >
-                        {projecte.inicials}
+                        <Link to={`/projectes/${projecte.id_projecte}`}>
+                          {projecte.inicials}
+                        </Link>
                       </FixedTag>
                     ))}
                   </div>,
@@ -129,6 +138,7 @@ const LlistaAssajos = ({ searchValue, anteriors }) => {
 };
 
 LlistaAssajos.propTypes = {
+  idProjecte: PropTypes.any,
   searchValue: PropTypes.string.isRequired,
   anteriors: PropTypes.bool,
 };
