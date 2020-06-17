@@ -9,7 +9,7 @@ SELECT DISTINCT id_esdeveniment,
                 DATE_FORMAT(dia_inici, '%Y-%m-%d')                                       AS dia_inici,
                 hora_inici,
                 IFNULL(CONCAT(IFNULL(dia_final, dia_inici), ' ', hora_final), dia_final) AS data_final,
-                IFNULL(DATE_FORMAT(dia_final, '%Y-%m-%d'), dia_inici)                    AS dia_final,
+                DATE_FORMAT(IFNULL(dia_final, dia_inici), '%Y-%m-%d')                    AS dia_final,
                 hora_final,
                 (
                     SELECT CONCAT_WS(' ',
