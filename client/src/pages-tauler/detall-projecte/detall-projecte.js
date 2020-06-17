@@ -1,16 +1,21 @@
 import { Layout, Menu, PageHeader, Space, Spin } from "antd";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, Route, Switch, useHistory, useParams } from "react-router-dom";
+import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
 import { ColorCard } from "../../standalone/color-card";
 import { AssajosProjectes } from "./components/assajos-projectes";
 import "./detall-projecte.css";
 import { useProjecte } from "./hooks";
 
 export default ({ match }) => {
+  const setCollapsed = useContext(SiderSetCollapsedContext);
+
   const history = useHistory();
   const { id } = useParams();
 
   const [projecte, loading] = useProjecte(id);
+
+  useEffect(() => setCollapsed(true), [setCollapsed]);
 
   return (
     <Layout className="layout-projecte">
