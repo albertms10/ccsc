@@ -88,7 +88,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
         >
           <Link to={`/projectes/${projecte.id_projecte}`}>
             <Space size="large" {...(inactius && { style: { opacity: 0.6 } })}>
-              <ColorCard color={"#" + projecte.color} />
+              <ColorCard hoverable={false} color={"#" + projecte.color} />
               <Item.Meta
                 title={projecte.titol}
                 description={
