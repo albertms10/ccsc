@@ -1,6 +1,7 @@
 import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
+import { Link } from "react-router-dom";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
@@ -22,7 +23,9 @@ const ContentListConcerts = ({ concerts, loading }) => (
             tooltip={`Projecte «${concert.titol_projecte}»`}
             color={"#" + concert.color_projecte}
           >
-            {concert.inicials_projecte}
+            <Link to={`/projectes/${concert.id_projecte}`}>
+              {concert.inicials_projecte}
+            </Link>
           </FixedTag>
         ) : null,
         avatar: <CalendarAvatar moment={date} />,

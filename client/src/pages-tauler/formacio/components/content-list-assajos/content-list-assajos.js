@@ -1,6 +1,7 @@
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
@@ -35,7 +36,9 @@ const ContentListAssajos = ({ assajos, loading }) => {
                 tooltip={projecte.titol}
                 color={"#" + projecte.color}
               >
-                {projecte.inicials}
+                <Link to={`/projectes/${projecte.id_projecte}`}>
+                  {projecte.inicials}
+                </Link>
               </FixedTag>
             )),
             avatar: <CalendarAvatar moment={date} />,
