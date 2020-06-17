@@ -61,3 +61,26 @@ exports.obres_delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
+
+exports.obres_detall_moviments = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query(queryFile("obres/select__moviments_obra"), [id])
+    .then((moviments) => res.json(moviments))
+    .catch((e) => next(e));
+};
+
+exports.obres_detall_moviments_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id } = req.params;
+  const { moviment } = req.body;
+
+  pool
+    .query(queryFile("obres/insert__moviment"), [
+      [[id, moviment.ordre, moviment.titol, moviment.durada]],
+    ])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};

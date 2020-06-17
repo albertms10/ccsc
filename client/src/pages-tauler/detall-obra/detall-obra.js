@@ -1,33 +1,41 @@
 import { PageHeader, Spin, Typography } from "antd";
-import React, { useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { Container } from "../../standalone/container";
+import { ContentListMoviments } from "./components/content-list-moviments";
 import { useObra } from "./hooks";
 
 const { Title } = Typography;
 
+export const ObraContext = createContext({});
+
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
+
   const history = useHistory();
   const { id } = useParams();
+
   const [obra, loadingObra] = useObra(id);
 
   useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra.titol]);
 
   return (
-    <>
-      <PageHeader
-        ghost={false}
-        title={obra.titol}
-        onBack={() => history.goBack()}
-      />
-      <Spin spinning={loadingObra}>
-        <Container>
-          <Title level={2}>{obra.titol}</Title>
-          <Title level={4}>{obra.subtitol}</Title>
-        </Container>
-      </Spin>
-    </>
+    <ObraContext.Provider value={obra}>
+      <>
+        <PageHeader
+          ghost={false}
+          title={obra.titol}
+          onBack={() => history.goBack()}
+        />
+        <Spin spinning={loadingObra}>
+          <Container>
+            <Title level={2}>{obra.titol}</Title>
+            <Title level={4}>{obra.subtitol}</Title>
+            <ContentListMoviments />
+          </Container>
+        </Spin>
+      </>
+    </ObraContext.Provider>
   );
 };
