@@ -1,4 +1,4 @@
-.app-layout-header {
+.ant-layout-header.app-layout-header {
   position: fixed;
   z-index: 10;
   display: flex;
@@ -6,7 +6,6 @@
   width: 100%;
   padding-right: 1rem;
   padding-left: 2rem;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-property: box-shadow, background-color;
 }
 
@@ -52,7 +51,7 @@
 
 .app-layout-content {
   padding-top: 64px;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.2s ease;
 }
 
 .app-layout-content .ant-page-header {
