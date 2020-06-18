@@ -41,9 +41,23 @@
 }
 
 .main-page-header .ant-page-header-heading-title {
+  font-weight: 700;
   font-size: 32px;
-  font-weight: 400;
   line-height: 36px;
+}
+
+.site-layout h1.ant-typography,
+.site-layout .ant-typography h1,
+.site-layout h2.ant-typography,
+.site-layout .ant-typography h2 {
+  font-weight: 300;
+}
+
+.site-layout h3.ant-typography,
+.site-layout .ant-typography h3,
+.site-layout h4.ant-typography,
+.site-layout .ant-typography h4 {
+  font-weight: 400;
 }
 
 .site-layout .ant-page-header {

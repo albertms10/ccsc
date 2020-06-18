@@ -6,16 +6,10 @@
 }
 
 .title-wrapper h1 {
-  font-weight: 300;
   margin: 0 0 3rem 0 !important;
 }
 
-.title-wrapper h3 {
-  font-weight: 400;
-}
-
 .site-layout .secondary-title {
-  font-weight: normal;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #777;
@@ -31,11 +25,9 @@
 @media only screen and (max-width: 375px) {
   .title-wrapper h1 {
     font-size: 24px;
-    font-weight: normal;
   }
 
   .title-wrapper h3 {
     font-size: 18px;
-    font-weight: normal;
   }
 }
