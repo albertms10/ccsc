@@ -1,6 +1,4 @@
-SELECT id_moviment,
-       ordre,
-       titol,
-       CONCAT(TIME_FORMAT(durada, '%i:%s'), ' min') AS durada
+SELECT *
 FROM moviments
-WHERE id_obra = ?;
+WHERE id_obra = ?
+ORDER BY ordre;

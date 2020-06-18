@@ -20,10 +20,10 @@ exports.obres_idiomes = (req, res, next) => {
 
 exports.obres_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_obra } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("obres/select__obra"), { id_obra })
+    .query(queryFile("obres/select__obra"), [id])
     .then(([obra]) => res.json(obra))
     .catch((e) => next(e));
 };
@@ -54,10 +54,10 @@ exports.obres_post = async (req, res, next) => {
 
 exports.obres_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_obra } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("obres/delete__obra"), [id_obra])
+    .query(queryFile("obres/delete__obra"), [id])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
