@@ -36,9 +36,7 @@ const CalendarTag = ({ childKey, esdeveniment }) => {
         />
         {esdeveniment.hora_inici && (
           <span className="calendar-tag-time">
-            {moment(
-              `${esdeveniment.dia_inici} ${esdeveniment.hora_inici}`
-            ).format("LT")}
+            {moment(esdeveniment.hora_inici, "HH:mm:ss").format("LT")}
           </span>
         )}
         <span className="calendar-tag-title">{esdeveniment.titol}</span>
