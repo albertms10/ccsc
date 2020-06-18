@@ -1,4 +1,4 @@
-import { List, Space } from "antd";
+import { Col, List, Row, Space } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -6,11 +6,19 @@ import "./content-list.css";
 
 const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
   <div className="content-list" style={style}>
-    <Space style={{ marginBottom: ".5rem" }}>
-      <div className="content-list-title">{title}</div>
-      {action}
-    </Space>
-    {extra && <div className="content-list-extra">{extra}</div>}
+    <Row>
+      <Col span={18}>
+        <Space style={{ marginBottom: ".5rem" }}>
+          <div className="content-list-title">{title}</div>
+          {action}
+        </Space>
+      </Col>
+      {extra && (
+        <Col span={6} className="content-list-extra">
+          {extra}
+        </Col>
+      )}
+    </Row>
     <List
       bordered
       loading={loading}

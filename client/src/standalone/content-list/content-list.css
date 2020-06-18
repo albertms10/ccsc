@@ -17,7 +17,9 @@
 }
 
 .content-list-extra {
-  margin-bottom: 1rem;
+  align-self: center;
+  padding-right: .2rem;
+  text-align: right;
 }
 
 .content-list .ant-list-item-meta {
