@@ -33,6 +33,24 @@ module.exports = (app) => {
   );
 
   app.get(
+    "/api/assajos/:id/formacions",
+    [authJWT.verifyAccessToken],
+    controller.assajos_detall_formacions_get
+  )
+
+  app.post(
+    "/api/assajos/:id/formacions",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_formacions_post
+  );
+
+  app.delete(
+    "/api/assajos/:id_assaig/formacions/:id_formacio",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_formacions_delete
+  );
+
+  app.get(
     "/api/assajos/:id/convocats",
     [authJWT.verifyAccessToken],
     controller.assajos_detall_convocats

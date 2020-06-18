@@ -1,7 +1,7 @@
 SELECT *,
        IF(
                EXISTS(
-                       SELECT id_veu
+                       SELECT *
                        FROM veus
                                 INNER JOIN veus_convocades_assaig USING (id_veu)
                        WHERE id_assaig = ?

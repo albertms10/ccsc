@@ -52,13 +52,7 @@ exports.assajos_post = async (req, res, next) => {
             .then(() => {
               connection
                 .query(queryFile("assajos/insert__assaig"), [
-                  [
-                    [
-                      id_esdeveniment,
-                      !!assaig.es_general,
-                      !!assaig.es_extra,
-                    ],
-                  ],
+                  [[id_esdeveniment, !!assaig.es_general, !!assaig.es_extra]],
                 ])
                 .then(async () => {
                   try {
@@ -98,6 +92,40 @@ exports.assajos_delete = async (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.assajos_detall_formacions_get = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query(queryFile("assajos/select__formacions_assaig"), [id])
+    .then((formacions) =>
+      parseAndSendJSON(res, next, formacions, ["convocada"])
+    )
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_formacions_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_assaig } = req.params;
+  const { id_formacio } = req.body;
+
+  pool
+    .query(queryFile("assajos/insert__formacio_assaig"), [[[id_assaig, id_formacio]]])
+    .then((veus) => res.json(veus))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_formacions_delete = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id_assaig, id_formacio } = req.params;
+
+  pool
+    .query(queryFile("assajos/delete__formacio_assaig"), [id_assaig, id_formacio])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};
+
+
 exports.assajos_detall_convocats = (req, res, next) => {
   const pool = req.app.get("pool");
   const { id: id_assaig } = req.params;
@@ -126,7 +154,7 @@ exports.assajos_detall_veus_post = (req, res, next) => {
   const { id_veu } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__veus_assaig"), [[[id_assaig, id_veu]]])
+    .query(queryFile("assajos/insert__veu_assaig"), [[[id_assaig, id_veu]]])
     .then((veus) => res.json(veus))
     .catch((e) => next(e));
 };
@@ -136,7 +164,7 @@ exports.assajos_detall_veus_delete = (req, res, next) => {
   const { id_assaig, id_veu } = req.params;
 
   pool
-    .query(queryFile("assajos/delete__veus_assaig"), [id_assaig, id_veu])
+    .query(queryFile("assajos/delete__veu_assaig"), [id_assaig, id_veu])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
