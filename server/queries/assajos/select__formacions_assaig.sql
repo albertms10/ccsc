@@ -1,4 +1,6 @@
-SELECT f.*,
+SELECT id_formacio,
+       nom,
+       IFNULL(nom_curt, nom) AS nom_curt,
        IF(
                EXISTS(
                        SELECT *
@@ -6,7 +8,5 @@ SELECT f.*,
                        WHERE id_assaig = ?
                          AND id_formacio = (SELECT f.id_formacio)
                    ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
-           ) AS convocada
-FROM formacions_agrupacio
-         INNER JOIN formacions f USING (id_formacio)
-WHERE id_agrupacio = 1;
+           )                 AS convocada
+FROM formacions f;
