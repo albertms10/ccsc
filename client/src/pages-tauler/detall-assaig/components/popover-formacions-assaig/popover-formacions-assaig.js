@@ -41,7 +41,7 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
             defaultValue={formacions
               .filter((formacio) => formacio.convocada)
               .map((formacio) => formacio.id_formacio)}
-            style={{ width: "100%" }}
+            style={{ width: "100%", display: "block" }}
           >
             <List
               dataSource={
@@ -93,6 +93,7 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
                   name={formacio.nom_curt}
                 />
               ))}
+          Formacions
         </Space>
       </BorderlessButton>
     </Popover>

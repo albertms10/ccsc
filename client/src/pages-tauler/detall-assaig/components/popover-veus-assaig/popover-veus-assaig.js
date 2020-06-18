@@ -52,7 +52,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
             defaultValue={veus
               .filter((veu) => veu.convocada)
               .map((veu) => veu.id_veu)}
-            style={{ width: "100%" }}
+            style={{ width: "100%", display: "block" }}
           >
             <List
               dataSource={
