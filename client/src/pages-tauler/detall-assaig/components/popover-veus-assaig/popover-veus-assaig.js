@@ -1,7 +1,8 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { Checkbox, Input, List, Popover } from "antd";
+import { Checkbox, Input, List, Popover, Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext, useState } from "react";
+import { Authorized } from "../../../../components/authorized";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { eventSearchFilter } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
@@ -33,70 +34,79 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   }, [veus]);
 
   return (
-    <Popover
-      title="Veus específiques"
-      visible={visible}
-      trigger="click"
-      placement="bottomLeft"
-      onVisibleChange={setVisible}
-      content={
-        <>
-          <Search
-            placeholder="Cerca veus"
-            value={searchValue}
-            onChange={({ target }) => setSearchValue(target.value)}
-            allowClear
-            style={{ marginBottom: ".5rem" }}
-          />
-          <Checkbox.Group
-            defaultValue={veus
-              .filter((veu) => veu.convocada)
-              .map((veu) => veu.id_veu)}
-            style={{ width: "100%", display: "block" }}
-          >
-            <List
-              dataSource={
-                searchValue.length > 0
-                  ? veus.filter((veu) =>
-                      eventSearchFilter(searchValue, {
-                        texts: [veu.nom, veu.abreviatura],
-                      })
-                    )
-                  : veus
-              }
-              loading={loadingVeus || loadingVeu}
-              size="small"
-              split={false}
-              locale={{ emptyText: "No s’ha trobat cap veu" }}
-              renderItem={(veu) => (
-                <List.Item>
-                  <Checkbox
-                    key={veu.id_veu}
-                    value={veu.id_veu}
-                    defaultChecked={true}
-                    onChange={({ target }) => {
-                      changeVeuAssaig({
-                        id_veu: target.value,
-                        checked: target.checked,
-                      }).then(() => {
-                        getConvocatsAssaig();
-                        getVeus();
-                      });
-                    }}
-                  >
-                    {veu.nom}
-                  </Checkbox>
-                </List.Item>
-              )}
-            />
-          </Checkbox.Group>
-        </>
+    <Authorized
+      elseElement={
+        <Space style={{ marginLeft: "1rem" }}>
+          <InfoCircleOutlined />
+          {getVeusText()}
+        </Space>
       }
     >
-      <BorderlessButton icon={<InfoCircleOutlined />}>
-        {getVeusText()}
-      </BorderlessButton>
-    </Popover>
+      <Popover
+        title="Veus específiques"
+        visible={visible}
+        trigger="click"
+        placement="bottomLeft"
+        onVisibleChange={setVisible}
+        content={
+          <>
+            <Search
+              placeholder="Cerca veus"
+              value={searchValue}
+              onChange={({ target }) => setSearchValue(target.value)}
+              allowClear
+              style={{ marginBottom: ".5rem" }}
+            />
+            <Checkbox.Group
+              defaultValue={veus
+                .filter((veu) => veu.convocada)
+                .map((veu) => veu.id_veu)}
+              style={{ width: "100%", display: "block" }}
+            >
+              <List
+                dataSource={
+                  searchValue.length > 0
+                    ? veus.filter((veu) =>
+                        eventSearchFilter(searchValue, {
+                          texts: [veu.nom, veu.abreviatura],
+                        })
+                      )
+                    : veus
+                }
+                loading={loadingVeus || loadingVeu}
+                size="small"
+                split={false}
+                locale={{ emptyText: "No s’ha trobat cap veu" }}
+                renderItem={(veu) => (
+                  <List.Item>
+                    <Checkbox
+                      key={veu.id_veu}
+                      value={veu.id_veu}
+                      defaultChecked={true}
+                      onChange={({ target }) => {
+                        changeVeuAssaig({
+                          id_veu: target.value,
+                          checked: target.checked,
+                        }).then(() => {
+                          getConvocatsAssaig();
+                          getVeus();
+                        });
+                      }}
+                    >
+                      {veu.nom}
+                    </Checkbox>
+                  </List.Item>
+                )}
+              />
+            </Checkbox.Group>
+          </>
+        }
+      >
+        <BorderlessButton icon={<InfoCircleOutlined />}>
+          {getVeusText()}
+        </BorderlessButton>
+      </Popover>
+    </Authorized>
   );
 };
 
