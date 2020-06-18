@@ -22,16 +22,25 @@ export default () => {
       <ColorCardList
         dataSource={projectes}
         loading={loadingProjectes}
-        mapItem={({ id_projecte, titol, directors, formacions, color }) => ({
-          title: titol,
-          color: "#" + color,
-          description: directors.length > 0
-            ? literalList(directors.map(({ nom }) => nom))
-            : formacions.length > 0
-            ? literalList(formacions.map(({ nom_complet }) => nom_complet))
-            : "",
-          link: `/projectes/${id_projecte}`,
-        })}
+        mapItem={({ id_projecte, titol, directors, formacions, color }) => {
+          const altresFormacions = formacions.filter(
+            (formacio) => formacio.id_formacio !== id_formacio
+          );
+
+          return {
+            title: titol,
+            color: "#" + color,
+            description:
+              directors.length > 0
+                ? `Amb ${literalList(directors.map(({ nom }) => nom))}`
+                : altresFormacions.length > 0
+                ? `Amb ${literalList(
+                    altresFormacions.map(({ nom_curt }) => nom_curt)
+                  )}`
+                : "",
+            link: `/projectes/${id_projecte}`,
+          };
+        }}
         style={{ marginBottom: 32 }}
       />
       <Row type="flex" gutter={[32, 32]}>
