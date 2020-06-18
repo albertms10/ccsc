@@ -32,8 +32,8 @@ export default ({ style }) => {
                     style={{ fontWeight: "normal" }}
                   >
                     {timeRange(
-                      properAssaig.hora_inici && properAssaig.data_inici,
-                      properAssaig.hora_final && properAssaig.data_final
+                      properAssaig.hora_inici,
+                      properAssaig.hora_final
                     )}
                   </Typography.Text>
                 </Space>

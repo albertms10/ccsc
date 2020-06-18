@@ -123,11 +123,9 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors }) => {
               />
               <Item.Meta
                 title={assaig.titol}
-                description={timeRange(
-                  assaig.hora_inici && assaig.data_inici,
-                  assaig.hora_final && assaig.data_final,
-                  { textual: true }
-                )}
+                description={timeRange(assaig.hora_inici, assaig.hora_final, {
+                  textual: true,
+                })}
               />
             </Space>
           </Link>

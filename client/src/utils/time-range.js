@@ -19,14 +19,14 @@ export default (start, end, options = { textual: false }) => {
 
     return (
       leading +
-      moment(start).format("LT") +
+      moment(start, "HH:mm:ss").format("LT") +
       separator +
-      moment(end).format("LT")
+      moment(end, "HH:mm:ss").format("LT")
     );
   } else if (start) {
     const leading = options.textual ? "a les " : "";
 
-    return leading + moment(start).format("LT");
+    return leading + moment(start, "HH:mm:ss").format("LT");
   }
 
   return "Hora a determinar";
