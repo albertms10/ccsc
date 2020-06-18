@@ -92,6 +92,80 @@ exports.assajos_delete = async (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.assajos_detall_moviments_get = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query(queryFile("assajos/select__moviments_assaig"), [id])
+    .then((moviments) => res.json(moviments))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_moviments_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_assaig } = req.params;
+  const { id_moviment } = req.body;
+
+  pool
+    .query(queryFile("assajos/insert__moviment_assaig"), [
+      [[id_assaig, id_moviment]],
+    ])
+    .then((veus) => res.json(veus))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_moviments_delete = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id_assaig, id_moviment } = req.params;
+
+  pool
+    .query(queryFile("assajos/delete__moviment_assaig"), [
+      id_assaig,
+      id_moviment,
+    ])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_projectes_get = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query(queryFile("assajos/select__projectes_assaig"), [id])
+    .then(([_, projectes]) =>
+      parseAndSendJSON(res, next, projectes, ["convocada"])
+    )
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_projectes_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_assaig } = req.params;
+  const { id_projecte } = req.body;
+
+  pool
+    .query(queryFile("assajos/insert__projecte_assaig"), [
+      [[id_assaig, id_projecte]],
+    ])
+    .then((veus) => res.json(veus))
+    .catch((e) => next(e));
+};
+
+exports.assajos_detall_projectes_delete = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id_assaig, id_projecte } = req.params;
+
+  pool
+    .query(queryFile("assajos/delete__projecte_assaig"), [
+      id_assaig,
+      id_projecte,
+    ])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};
+
 exports.assajos_detall_formacions_get = (req, res, next) => {
   const pool = req.app.get("pool");
   const { id } = req.params;

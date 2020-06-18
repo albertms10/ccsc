@@ -33,10 +33,46 @@ module.exports = (app) => {
   );
 
   app.get(
+    "/api/assajos/:id/moviments",
+    [authJWT.verifyAccessToken],
+    controller.assajos_detall_moviments_get
+  );
+
+  app.post(
+    "/api/assajos/:id/moviments",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_moviments_post
+  );
+
+  app.delete(
+    "/api/assajos/:id_assaig/moviments/:id_moviment",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_moviments_delete
+  );
+
+  app.get(
+    "/api/assajos/:id/projectes",
+    [authJWT.verifyAccessToken],
+    controller.assajos_detall_projectes_get
+  );
+
+  app.post(
+    "/api/assajos/:id/projectes",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_projectes_post
+  );
+
+  app.delete(
+    "/api/assajos/:id_assaig/projectes/:id_projecte",
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_detall_projectes_delete
+  );
+
+  app.get(
     "/api/assajos/:id/formacions",
     [authJWT.verifyAccessToken],
     controller.assajos_detall_formacions_get
-  )
+  );
 
   app.post(
     "/api/assajos/:id/formacions",
