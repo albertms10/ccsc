@@ -1,1 +1,1 @@
-export { default as AssajosProjectes } from "./assajos-projectes";
+export { default as AssajosProjecte } from "./assajos-projecte";
