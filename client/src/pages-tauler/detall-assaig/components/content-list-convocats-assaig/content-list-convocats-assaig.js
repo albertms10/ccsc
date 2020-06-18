@@ -1,11 +1,11 @@
 import { Space } from "antd";
 import React, { useContext } from "react";
-import { IconFormacio } from "../../../../assets/icons";
 import { SelectEstatEsdeveniment } from "../../../../components/select-estat-esdeveniment";
 import { ContentListPersones } from "../../../formacio/components/content-list-persones";
 import { AssaigContext } from "../../detall-assaig";
-import { useConvocatsAssaig } from "../../hooks";
+import { PopoverFormacionsAssaig } from "../popover-formacions-assaig";
 import { PopoverVeusAssaig } from "../popover-veus-assaig";
+import { useConvocatsAssaig } from "./hooks";
 
 export default () => {
   const assaig = useContext(AssaigContext);
@@ -22,15 +22,7 @@ export default () => {
       action={
         <Space>
           <PopoverVeusAssaig getConvocatsAssaig={getConvocatsAssaig} />
-          <Space>
-            {assaig.formacions &&
-              assaig.formacions.map((formacio) => (
-                <IconFormacio
-                  key={formacio.id_formacio}
-                  name={formacio.nom_curt}
-                />
-              ))}
-          </Space>
+          <PopoverFormacionsAssaig getConvocatsAssaig={getConvocatsAssaig} />
         </Space>
       }
       itemExtra={(persona) => (

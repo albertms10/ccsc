@@ -1,8 +1,11 @@
-import { PageHeader, Spin, Typography } from "antd";
+import { PageHeader, Space, Spin, Typography } from "antd";
+import moment from "moment";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { Container } from "../../standalone/container";
+import { timeRange } from "../../utils";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
 import { useAssaig } from "./hooks";
 
@@ -28,7 +31,20 @@ export default () => {
       />
       <Spin spinning={loadingAssaig}>
         <Container>
-          <Title level={2}>{assaig.titol}</Title>
+          <Space size="middle">
+            <CalendarAvatar
+              moment={moment(assaig.dia_inici)}
+              style={{ transform: "scale(1.4) translate(5px, -3px)" }}
+            />
+            <Title level={3} style={{ marginLeft: ".75rem" }}>
+              {assaig.titol}
+            </Title>
+            <Title level={4} type="secondary">
+              {timeRange(assaig.hora_inici, assaig.hora_final, {
+                textual: true,
+              })}
+            </Title>
+          </Space>
           <ContentListConvocatsAssaig />
         </Container>
       </Spin>
