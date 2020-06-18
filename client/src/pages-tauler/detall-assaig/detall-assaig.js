@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { Container } from "../../standalone/container";
+import { StatusIcon } from "../../standalone/status-icon";
 import { timeRange } from "../../utils";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
 import { useAssaig } from "./hooks";
@@ -39,6 +40,11 @@ export default () => {
             <Title level={3} style={{ marginLeft: ".75rem" }}>
               {assaig.titol}
             </Title>
+            <StatusIcon
+              statusId={assaig.id_estat_esdeveniment}
+              tooltip={assaig.estat_esdeveniment}
+              style={{ transform: "scale(1.3) translate(0, -3px)" }}
+            />
             <Title level={4} type="secondary">
               {timeRange(assaig.hora_inici, assaig.hora_final, {
                 textual: true,
