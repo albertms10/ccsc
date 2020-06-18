@@ -25,8 +25,8 @@ const StatusIcon = ({
   ];
 
   const newStyle = {
-    ...style,
     transform: size === "large" ? "scale(1.5) translate(3px)" : "",
+    ...style,
   };
 
   return (
