@@ -2,7 +2,7 @@ SET @id_soci = ?;
 
 SELECT DISTINCT id_formacio,
                 formacions.nom,
-                nom_curt,
+                IFNULL(nom_curt, formacions.nom) AS nom_curt,
                 descripcio,
                 num_persones,
                 tipus_formacions.nom AS tipus_formacio

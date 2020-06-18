@@ -26,7 +26,7 @@ SELECT DISTINCT projectes.id_projecte,
                                           JSON_OBJECT(
                                                   'id_formacio', formacions.id_formacio,
                                                   'nom', nom,
-                                                  'nom_curt', nom_curt
+                                                  'nom_curt', IFNULL(nom_curt, nom)
                                               )
                                       ), '[]')
                     FROM projectes_formacions
