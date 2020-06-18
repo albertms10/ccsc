@@ -110,7 +110,9 @@ exports.assajos_detall_formacions_post = (req, res, next) => {
   const { id_formacio } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__formacio_assaig"), [[[id_assaig, id_formacio]]])
+    .query(queryFile("assajos/insert__formacio_assaig"), [
+      [[id_assaig, id_formacio]],
+    ])
     .then((veus) => res.json(veus))
     .catch((e) => next(e));
 };
@@ -120,11 +122,13 @@ exports.assajos_detall_formacions_delete = (req, res, next) => {
   const { id_assaig, id_formacio } = req.params;
 
   pool
-    .query(queryFile("assajos/delete__formacio_assaig"), [id_assaig, id_formacio])
+    .query(queryFile("assajos/delete__formacio_assaig"), [
+      id_assaig,
+      id_formacio,
+    ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
-
 
 exports.assajos_detall_convocats = (req, res, next) => {
   const pool = req.app.get("pool");
