@@ -43,7 +43,7 @@ exports.formacions_detall_projectes = (req, res, next) => {
 
   pool
     .query(queryFile("formacions/select__projectes_formacio"), [id_formacio])
-    .then(([_, projectes]) =>
+    .then((projectes) =>
       parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
     .catch((e) => next(e));

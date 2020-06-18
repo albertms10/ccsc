@@ -1,4 +1,4 @@
-const { queryFile } = require("../helpers");
+const { parseAndSendJSON, queryFile } = require("../helpers");
 
 exports.projectes_count = (req, res, next) => {
   const pool = req.app.get("pool");
@@ -33,11 +33,13 @@ exports.projectes_checkinicials = (req, res, next) => {
 
 exports.projectes_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_projecte } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("projectes/select__projecte"), { id_projecte })
-    .then(([projecte]) => res.json(projecte))
+    .query(queryFile("projectes/select__projecte"), [id])
+    .then(([projecte]) =>
+      parseAndSendJSON(res, next, projecte, ["directors", "formacions"])
+    )
     .catch((e) => next(e));
 };
 

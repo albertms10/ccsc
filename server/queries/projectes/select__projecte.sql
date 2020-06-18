@@ -1,3 +1,3 @@
 SELECT *
-FROM projectes
-WHERE ?;
+FROM projectes_full
+WHERE id_projecte = ?;
