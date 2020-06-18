@@ -1,20 +1,14 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { Checkbox, Input, List, Popover, Space } from "antd";
+import { Space } from "antd";
 import PropTypes from "prop-types";
-import React, { useCallback, useContext, useState } from "react";
-import { Authorized } from "../../../../components/authorized";
+import React, { useCallback, useContext } from "react";
+import { PopoverList } from "../../../../components/popover-list";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { eventSearchFilter } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
 import { useVeuAssaig, useVeus } from "./hooks";
 
-const { Search } = Input;
-
 const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   const { id_assaig } = useContext(AssaigContext);
-
-  const [visible, setVisible] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
   const [veus, loadingVeus, getVeus] = useVeus(id_assaig);
   const [loadingVeu, changeVeuAssaig] = useVeuAssaig(id_assaig);
@@ -34,79 +28,43 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   }, [veus]);
 
   return (
-    <Authorized
+    <PopoverList
+      title="Veus específiques"
+      searchPlaceholder="Cerca veus"
+      defaultValue={veus
+        .filter((veu) => veu.convocada)
+        .map((veu) => veu.id_veu)}
+      dataSource={veus.map((veu) => ({
+        ...veu,
+        value: veu.id_veu,
+        label: veu.nom,
+      }))}
+      filterValues={(veu) => ({
+        texts: [veu.nom, veu.abreviatura],
+      })}
+      loading={loadingVeus || loadingVeu}
+      onChange={({ target }) => {
+        changeVeuAssaig({
+          id_veu: target.value,
+          checked: target.checked,
+        }).then(() => {
+          getConvocatsAssaig();
+          getVeus();
+        });
+      }}
+      action={
+        <BorderlessButton icon={<InfoCircleOutlined />}>
+          {getVeusText()}
+        </BorderlessButton>
+      }
       elseElement={
         <Space style={{ marginLeft: "1rem" }}>
           <InfoCircleOutlined />
           {getVeusText()}
         </Space>
       }
-    >
-      <Popover
-        title="Veus específiques"
-        visible={visible}
-        trigger="click"
-        placement="bottomLeft"
-        onVisibleChange={setVisible}
-        content={
-          <>
-            <Search
-              placeholder="Cerca veus"
-              value={searchValue}
-              onChange={({ target }) => setSearchValue(target.value)}
-              allowClear
-              style={{ marginBottom: ".5rem" }}
-            />
-            <Checkbox.Group
-              defaultValue={veus
-                .filter((veu) => veu.convocada)
-                .map((veu) => veu.id_veu)}
-              style={{ width: "100%", display: "block" }}
-            >
-              <List
-                dataSource={
-                  searchValue.length > 0
-                    ? veus.filter((veu) =>
-                        eventSearchFilter(searchValue, {
-                          texts: [veu.nom, veu.abreviatura],
-                        })
-                      )
-                    : veus
-                }
-                loading={loadingVeus || loadingVeu}
-                size="small"
-                split={false}
-                locale={{ emptyText: "No s’ha trobat cap veu" }}
-                renderItem={(veu) => (
-                  <List.Item>
-                    <Checkbox
-                      key={veu.id_veu}
-                      value={veu.id_veu}
-                      defaultChecked={true}
-                      onChange={({ target }) => {
-                        changeVeuAssaig({
-                          id_veu: target.value,
-                          checked: target.checked,
-                        }).then(() => {
-                          getConvocatsAssaig();
-                          getVeus();
-                        });
-                      }}
-                    >
-                      {veu.nom}
-                    </Checkbox>
-                  </List.Item>
-                )}
-              />
-            </Checkbox.Group>
-          </>
-        }
-      >
-        <BorderlessButton icon={<InfoCircleOutlined />}>
-          {getVeusText()}
-        </BorderlessButton>
-      </Popover>
-    </Authorized>
+      needsAuthorization
+    />
   );
 };
 
