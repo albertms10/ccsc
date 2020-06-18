@@ -8,6 +8,7 @@ import { Container } from "../../standalone/container";
 import { StatusIcon } from "../../standalone/status-icon";
 import { timeRange } from "../../utils";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
+import { ContentListMovimentsAssaig } from "./components/content-list-moviments-assaig";
 import { useAssaig } from "./hooks";
 
 const { Title } = Typography;
@@ -27,30 +28,30 @@ export default () => {
     <AssaigContext.Provider value={assaig}>
       <PageHeader
         ghost={false}
-        title={assaig.titol}
-        onBack={() => history.goBack()}
-      />
-      <Spin spinning={loadingAssaig}>
-        <Container>
+        title={
           <Space size="middle">
-            <CalendarAvatar
-              moment={moment(assaig.dia_inici)}
-              style={{ transform: "scale(1.4) translate(5px, -3px)" }}
-            />
-            <Title level={3} style={{ marginLeft: ".75rem" }}>
+            <CalendarAvatar moment={moment(assaig.dia_inici)} />
+            <Title level={3} style={{ marginBottom: 0 }}>
               {assaig.titol}
             </Title>
             <StatusIcon
               statusId={assaig.id_estat_esdeveniment}
               tooltip={assaig.estat_esdeveniment}
-              style={{ transform: "scale(1.3) translate(0, -3px)" }}
             />
-            <Title level={4} type="secondary">
+            <Title level={4} type="secondary" style={{ marginBottom: 0 }}>
               {timeRange(assaig.hora_inici, assaig.hora_final, {
                 textual: true,
               })}
             </Title>
           </Space>
+        }
+        onBack={() => history.goBack()}
+      />
+      <Spin spinning={loadingAssaig}>
+        <Container>
+          <ContentListMovimentsAssaig />
+        </Container>
+        <Container>
           <ContentListConvocatsAssaig />
         </Container>
       </Spin>
