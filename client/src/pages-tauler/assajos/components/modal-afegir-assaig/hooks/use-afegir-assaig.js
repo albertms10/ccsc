@@ -14,18 +14,17 @@ export default () => {
       body: JSON.stringify({ assaig }),
     });
 
-  const handleOk = () =>
-    form
-      .validateFields()
-      .then((assaig) => {
-        assaig.dia_inici = moment(assaig.dia_inici).format("YYYY-MM-DD");
-        assaig.hora = assaig.hora
-          ? assaig.hora.map((h) => h && moment(h).format("HH:mm"))
-          : [null, null];
-        if (!assaig.formacions) assaig.formacions = [];
+  const handleOk = ({ idProjecte }) =>
+    form.validateFields().then((assaig) => {
+      assaig.dia_inici = moment(assaig.dia_inici).format("YYYY-MM-DD");
+      assaig.hora = assaig.hora
+        ? assaig.hora.map((h) => h && moment(h).format("HH:mm"))
+        : [null, null];
+      assaig.projectes = idProjecte ? [idProjecte] : [];
+      if (!assaig.formacions) assaig.formacions = [];
 
-        return postAssaig(assaig);
-      })
+      return postAssaig(assaig);
+    });
 
   return [form, handleOk];
 };

@@ -9,12 +9,13 @@ import {
   Row,
   TimePicker,
 } from "antd";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { useAfegirAssaig } from "./hooks";
 
-export default () => {
+const ModalAfegirAssaig = ({ idProjecte }) => {
   const { loading } = useSelector(({ assajos }) => assajos);
   const [visible, setVisible] = useState(false);
   const [form, handleOk] = useAfegirAssaig();
@@ -36,7 +37,7 @@ export default () => {
         cancelText="Tanca"
         confirmLoading={loading}
         onOk={() => {
-          handleOk().then(() => {
+          handleOk({ idProjecte }).then(() => {
             setVisible(false);
             form.resetFields();
           });
@@ -81,3 +82,9 @@ export default () => {
     </>
   );
 };
+
+ModalAfegirAssaig.propTypes = {
+  idProjecte: PropTypes.any,
+};
+
+export default ModalAfegirAssaig;

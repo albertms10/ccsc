@@ -56,6 +56,21 @@ exports.assajos_post = async (req, res, next) => {
                 ])
                 .then(async () => {
                   try {
+                    if (assaig.projectes.length > 0)
+                      await connection.query(
+                        queryFile("assajos/insert__projectes_assaig"),
+                        [
+                          assaig.projectes.map((projecte) => [
+                            id_esdeveniment,
+                            projecte,
+                          ]),
+                        ]
+                      );
+                  } catch (e) {
+                    transactionRollback(e);
+                  }
+
+                  try {
                     if (assaig.formacions.length > 0)
                       await connection.query(
                         queryFile("assajos/insert__assaig_formacio"),
@@ -68,10 +83,10 @@ exports.assajos_post = async (req, res, next) => {
                       );
                   } catch (e) {
                     transactionRollback(e);
-                  } finally {
-                    connection.commit();
-                    res.status(204).send();
                   }
+
+                  connection.commit();
+                  res.status(204).send();
                 })
                 .catch(transactionRollback);
             })

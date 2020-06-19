@@ -8,7 +8,10 @@ export default () => {
   const { id_projecte } = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
-  useEffect(() => setAction(<ModalAfegirAssaig />), [setAction]);
+  useEffect(() => setAction(<ModalAfegirAssaig idProjecte={id_projecte} />), [
+    setAction,
+    id_projecte,
+  ]);
 
   return (
     <Container>
