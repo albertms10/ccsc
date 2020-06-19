@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./color-card.css";
 
-const ColorCard = ({ title, description, color, hoverable }) => (
+const ColorCard = ({ title, description, color, hoverable = true }) => (
   <Card
     className="color-card"
     hoverable={hoverable}
@@ -19,10 +19,6 @@ ColorCard.propTypes = {
   description: PropTypes.string,
   color: PropTypes.string.isRequired,
   hoverable: PropTypes.bool,
-};
-
-ColorCard.defaultProps = {
-  hoverable: true,
 };
 
 export default ColorCard;

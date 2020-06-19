@@ -7,7 +7,7 @@ import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { FormacioContext } from "../../formacio";
 
-const ContentListAssajos = ({ assajos, loading }) => {
+const ContentListAssajos = ({ assajos, loading = false }) => {
   const { id_formacio } = useContext(FormacioContext);
 
   return (
@@ -51,10 +51,6 @@ const ContentListAssajos = ({ assajos, loading }) => {
 ContentListAssajos.propTypes = {
   assajos: PropTypes.array.isRequired,
   loading: PropTypes.bool,
-};
-
-ContentListAssajos.defaultProps = {
-  loading: false,
 };
 
 export default ContentListAssajos;

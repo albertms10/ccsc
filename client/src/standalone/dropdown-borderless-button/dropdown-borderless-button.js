@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { BorderlessButton } from "../borderless-button";
 
-const DropdownBorderlessButton = ({ items, icon }) => (
+const DropdownBorderlessButton = ({ items = [], icon = <MoreOutlined /> }) => (
   <Dropdown
     placement="bottomRight"
     trigger="click"
@@ -31,11 +31,6 @@ DropdownBorderlessButton.propTypes = {
     })
   ),
   icon: PropTypes.node,
-};
-
-DropdownBorderlessButton.defaultProps = {
-  items: [],
-  icon: <MoreOutlined />,
 };
 
 export default DropdownBorderlessButton;

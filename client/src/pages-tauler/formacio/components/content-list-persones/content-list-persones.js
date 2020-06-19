@@ -5,9 +5,9 @@ import { ContentList } from "../../../../standalone/content-list";
 import { SmallBadge } from "../../../../standalone/small-badge";
 
 const ContentListPersones = ({
-  title,
+  title = "Persones",
   persones,
-  loading,
+  loading = false,
   action,
   extra,
   itemExtra,
@@ -49,11 +49,6 @@ ContentListPersones.propTypes = {
   action: PropTypes.node,
   extra: PropTypes.node,
   itemExtra: PropTypes.func,
-};
-
-ContentListPersones.defaultProps = {
-  title: "Persones",
-  loading: false,
 };
 
 export default ContentListPersones;

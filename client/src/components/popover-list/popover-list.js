@@ -9,13 +9,13 @@ const { Search } = Input;
 const PopoverList = ({
   action,
   title,
-  dataSource,
+  dataSource = [],
   searchFilters,
   defaultValue,
   searchPlaceholder,
-  loading,
+  loading = false,
   onChange,
-  needsAuthorization,
+  needsAuthorization = false,
   elseElement,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -106,12 +106,6 @@ PopoverList.propTypes = {
   onChange: PropTypes.func,
   needsAuthorization: PropTypes.bool,
   elseElement: PropTypes.node,
-};
-
-PopoverList.defaultProps = {
-  dataSource: [],
-  loading: false,
-  needsAuthorization: false,
 };
 
 export default PopoverList;

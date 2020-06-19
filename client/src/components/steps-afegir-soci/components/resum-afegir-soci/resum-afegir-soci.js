@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { InfoCard } from "../../../../standalone/info-card";
 
-const ResumAfegirSoci = ({ form, username, loadingUsername }) => {
+const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
   const data = form.getFieldsValue();
 
   return (
@@ -63,10 +63,6 @@ ResumAfegirSoci.propTypes = {
   form: PropTypes.any.isRequired,
   username: PropTypes.string.isRequired,
   loadingUsername: PropTypes.bool,
-};
-
-ResumAfegirSoci.defaultProps = {
-  loadingUsername: false,
 };
 
 export default ResumAfegirSoci;

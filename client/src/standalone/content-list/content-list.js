@@ -4,7 +4,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./content-list.css";
 
-const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
+const ContentList = ({
+  title,
+  loading = false,
+  dataSource,
+  action,
+  extra,
+  style,
+}) => (
   <div className="content-list" style={style}>
     <Row>
       <Col span={18}>
@@ -59,10 +66,6 @@ ContentList.propTypes = {
   ),
   action: PropTypes.node,
   extra: PropTypes.node,
-};
-
-ContentList.defaultProps = {
-  loading: false,
 };
 
 export default ContentList;

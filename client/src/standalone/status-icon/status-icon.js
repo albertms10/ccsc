@@ -9,11 +9,13 @@ import { Tooltip } from "antd";
 import PropTypes from "prop-types";
 import React, { cloneElement } from "react";
 
+const SIZES = ["middle", "large"];
+
 const StatusIcon = ({
   tooltip,
-  size,
+  size = SIZES[0],
   statusId,
-  esAniversari,
+  esAniversari = false,
   label,
   style,
 }) => {
@@ -41,19 +43,12 @@ const StatusIcon = ({
   );
 };
 
-const SIZES = ["middle", "large"];
-
 StatusIcon.propTypes = {
   tooltip: PropTypes.string,
   size: PropTypes.oneOf(SIZES),
   statusId: PropTypes.number,
   esAniversari: PropTypes.bool,
   label: PropTypes.string,
-};
-
-StatusIcon.defaultProps = {
-  size: SIZES[0],
-  esAniversari: false,
 };
 
 export default StatusIcon;

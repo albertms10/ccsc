@@ -8,11 +8,11 @@ const { Search } = Input;
 const SearchComplete = ({
   data,
   filter,
-  loading,
-  placeholder,
+  loading = false,
+  placeholder = "Cerca",
   optionRenderObject,
   onSelect,
-  showAllResults,
+  showAllResults = false,
 }) => {
   const [options, setOptions] = useState([]);
 
@@ -60,12 +60,6 @@ SearchComplete.propTypes = {
   optionRenderObject: PropTypes.func.isRequired,
   onSelect: PropTypes.func,
   showAllResults: PropTypes.bool,
-};
-
-SearchComplete.defaultProps = {
-  loading: false,
-  placeholder: "Cerca",
-  showAllResults: false,
 };
 
 export default SearchComplete;

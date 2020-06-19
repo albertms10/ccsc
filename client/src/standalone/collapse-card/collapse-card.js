@@ -7,10 +7,10 @@ const CollapseCard = ({
   alertCondition,
   title,
   actionItem,
-  loading,
-  active,
-  disabled,
-  showArrow,
+  loading = false,
+  active = true,
+  disabled = false,
+  showArrow = true,
   info,
   children,
   ...rest
@@ -44,13 +44,6 @@ CollapseCard.propTypes = {
   disabled: PropTypes.bool,
   showArrow: PropTypes.bool,
   info: PropTypes.node,
-};
-
-CollapseCard.defaultProps = {
-  loading: false,
-  active: true,
-  disabled: false,
-  showArrow: true,
 };
 
 export default CollapseCard;

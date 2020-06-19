@@ -6,7 +6,7 @@ import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 
-const ContentListConcerts = ({ concerts, loading }) => (
+const ContentListConcerts = ({ concerts, loading = false }) => (
   <ContentList
     title="Concerts"
     loading={loading}
@@ -38,10 +38,6 @@ const ContentListConcerts = ({ concerts, loading }) => (
 ContentListConcerts.propTypes = {
   concerts: PropTypes.array.isRequired,
   loading: PropTypes.bool,
-};
-
-ContentListConcerts.defaultProps = {
-  loading: false,
 };
 
 export default ContentListConcerts;

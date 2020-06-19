@@ -15,7 +15,7 @@ import { useAssajos, useEliminarAssaig } from "./hooks";
 const { Item } = List;
 const { Text } = Typography;
 
-const LlistaAssajos = ({ idProjecte, searchValue, anteriors }) => {
+const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
   const formacions = useContext(FormacionsListContext);
   const [assajos, loading] = useAssajos();
   const [showDeleteConfirm] = useEliminarAssaig();
@@ -139,10 +139,6 @@ LlistaAssajos.propTypes = {
   idProjecte: PropTypes.any,
   searchValue: PropTypes.string.isRequired,
   anteriors: PropTypes.bool,
-};
-
-LlistaAssajos.defaultProps = {
-  anteriors: false,
 };
 
 export default LlistaAssajos;

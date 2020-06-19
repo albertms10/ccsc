@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./calendar-avatar.css";
 
-const CalendarAvatar = ({ moment, borderless, ...rest }) => (
+const CalendarAvatar = ({ moment, borderless = false, ...rest }) => (
   <div
     {...rest}
     className={`
@@ -18,10 +18,6 @@ const CalendarAvatar = ({ moment, borderless, ...rest }) => (
 CalendarAvatar.propTypes = {
   moment: PropTypes.any.isRequired,
   borderless: PropTypes.bool,
-};
-
-CalendarAvatar.defaultProps = {
-  borderless: false,
 };
 
 export default CalendarAvatar;

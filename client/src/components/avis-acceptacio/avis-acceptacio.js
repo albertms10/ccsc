@@ -10,9 +10,9 @@ import { useAvisAcceptacio } from "./hooks";
 
 const AvisAcceptacio = ({
   nameAvis,
-  acceptacionsSoci,
-  isForm,
-  collapsible,
+  acceptacionsSoci = {},
+  isForm = false,
+  collapsible = false,
 }) => {
   const [textAvisAcceptacio, loading] = useAvisAcceptacio(nameAvis);
 
@@ -47,7 +47,11 @@ const AvisAcceptacio = ({
   );
 
   return collapsible ? (
-    <CollapseCard title={textAvisAcceptacio.titol} loading={loading} active={false}>
+    <CollapseCard
+      title={textAvisAcceptacio.titol}
+      loading={loading}
+      active={false}
+    >
       {content}
     </CollapseCard>
   ) : (
@@ -62,12 +66,6 @@ AvisAcceptacio.propTypes = {
   acceptacionsSoci: AcceptacionsSociPropTypes,
   isForm: PropTypes.bool,
   collapsible: PropTypes.bool,
-};
-
-AvisAcceptacio.defaultProps = {
-  acceptacionsSoci: {},
-  isForm: false,
-  collapsible: false,
 };
 
 export default AvisAcceptacio;

@@ -6,11 +6,22 @@ import {
   isJuntaDirectiva,
 } from "../../helpers/role-checker";
 
-const Authorized = ({ render, component, elseElement, ...rest }) => {
-  const { authority, children } = rest;
+const AUTHORITY_TYPES = ["juntaDirectiva", "directorMusical", "admin"];
+
+const Authorized = ({
+  render,
+  component,
+  elseElement,
+  authority = AUTHORITY_TYPES[0],
+  children,
+}) => {
   const { roles } = useSelector(({ user }) => user.currentUser);
 
-  const returnItem = render ? render(rest) : component ? component : children;
+  const returnItem = render
+    ? render({ authority, children })
+    : component
+    ? component
+    : children;
 
   switch (authority) {
     case "juntaDirectiva":
@@ -27,17 +38,11 @@ const Authorized = ({ render, component, elseElement, ...rest }) => {
   }
 };
 
-const AUTHORITY_TYPES = ["juntaDirectiva", "directorMusical", "admin"];
-
 Authorized.propTypes = {
   render: PropTypes.func,
   component: PropTypes.elementType,
   authority: PropTypes.oneOf(AUTHORITY_TYPES),
   elseElement: PropTypes.node,
-};
-
-Authorized.defaultProps = {
-  authority: AUTHORITY_TYPES[0],
 };
 
 export default Authorized;

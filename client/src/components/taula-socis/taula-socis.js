@@ -10,7 +10,7 @@ import "./taula-socis.css";
 const { Paragraph } = Typography;
 const { Search } = Input;
 
-const TaulaSocis = ({ socis, loading }) => {
+const TaulaSocis = ({ socis, loading = false }) => {
   const breakpoint = Grid.useBreakpoint();
   const [searchValue, setSearchValue] = useState("");
 
@@ -99,10 +99,6 @@ const TaulaSocis = ({ socis, loading }) => {
 TaulaSocis.propTypes = {
   socis: PropTypes.arrayOf(SociPropTypes).isRequired,
   loading: PropTypes.bool,
-};
-
-TaulaSocis.defaultProps = {
-  loading: false,
 };
 
 export default TaulaSocis;

@@ -9,7 +9,7 @@ const InfoCard = ({
   title,
   actionTooltip,
   actionItem,
-  loading,
+  loading = false,
   info,
   children,
   ...rest
@@ -42,10 +42,6 @@ InfoCard.propTypes = {
   actionItem: PropTypes.node,
   loading: PropTypes.bool,
   info: PropTypes.node,
-};
-
-InfoCard.defaultProps = {
-  loading: false,
 };
 
 export default InfoCard;

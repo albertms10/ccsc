@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 import IconCorDeCambra from "./icon-cor-de-cambra";
 
-const IconFormacio = forwardRef(({ name, hasTooltip, style }, ref) => {
+const IconFormacio = forwardRef(({ name, hasTooltip = true, style }, ref) => {
   const icons = {
     "Cor de Cambra": <IconCorDeCambra ref={ref} style={style} />,
   };
@@ -17,10 +17,6 @@ const IconFormacio = forwardRef(({ name, hasTooltip, style }, ref) => {
 IconFormacio.propTypes = {
   name: PropTypes.string.isRequired,
   hasTooltip: PropTypes.bool,
-};
-
-IconFormacio.defaultProps = {
-  hasTooltip: true,
 };
 
 export default IconFormacio;

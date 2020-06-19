@@ -11,7 +11,7 @@ const StepsAfegirSoci = ({
   form,
   currentPageIndex,
   handleChange,
-  initialValues,
+  initialValues = {},
 }) => (
   <>
     <Steps current={currentPageIndex} size="small" onChange={handleChange}>
@@ -50,10 +50,6 @@ StepsAfegirSoci.propTypes = {
   currentPageIndex: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
   initialValues: PropTypes.object,
-};
-
-StepsAfegirSoci.defaultProps = {
-  initialValues: {},
 };
 
 export default StepsAfegirSoci;
