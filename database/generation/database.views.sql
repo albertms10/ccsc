@@ -85,35 +85,39 @@ FROM assajos a
 
 
 CREATE VIEW projectes_full AS
-SELECT projectes.id_projecte,
-       id_formacio,
-       titol,
-       descripcio,
-       inicials,
-       color,
-       id_curs,
-       (
-           SELECT IFNULL(JSON_ARRAYAGG(
-                                 JSON_OBJECT(
-                                         'id_director', id_director,
-                                         'nom', nom_complet
-                                     )
-                             ), '[]')
-           FROM directors_projectes
-                    INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
-           WHERE id_projecte = (SELECT projectes.id_projecte)
-       ) AS directors,
-       (
-           SELECT IFNULL(JSON_ARRAYAGG(
-                                 JSON_OBJECT(
-                                         'id_formacio', formacions.id_formacio,
-                                         'nom', nom,
-                                         'nom_curt', IFNULL(nom_curt, nom)
-                                     )
-                             ), '[]')
-           FROM projectes_formacions
-                    INNER JOIN formacions USING (id_formacio)
-           WHERE id_projecte = (SELECT projectes.id_projecte)
-       ) AS formacions
+SELECT DISTINCT projectes.id_projecte,
+                titol,
+                descripcio,
+                inicials,
+                color,
+                data_inici,
+                data_final,
+                id_curs,
+                YEAR(cursos.inici) AS any_inici_curs,
+                YEAR(cursos.final) AS any_final_curs,
+                (
+                    SELECT IFNULL(JSON_ARRAYAGG(
+                                          JSON_OBJECT(
+                                                  'id_director', id_director,
+                                                  'nom', nom_complet
+                                              )
+                                      ), '[]')
+                    FROM directors_projectes
+                             INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
+                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                )                  AS directors,
+                (
+                    SELECT IFNULL(JSON_ARRAYAGG(
+                                          JSON_OBJECT(
+                                                  'id_formacio', formacions.id_formacio,
+                                                  'nom', nom,
+                                                  'nom_curt', IFNULL(nom_curt, nom)
+                                              )
+                                      ), '[]')
+                    FROM projectes_formacions
+                             INNER JOIN formacions USING (id_formacio)
+                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                )                  AS formacions
 FROM projectes
-         INNER JOIN projectes_formacions USING (id_projecte);
+         INNER JOIN cursos USING (id_curs)
+ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
