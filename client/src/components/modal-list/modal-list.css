@@ -1,0 +1,42 @@
+.modal-list .ant-modal-body {
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+.modal-list .ant-list {
+  margin-top: .2rem;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.modal-list .ant-input-search {
+  width: calc(100% - 3rem);
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.modal-list .ant-list-item {
+  cursor: pointer;
+}
+
+.modal-list .ant-list-item-meta-avatar {
+  font-size: medium;
+}
+
+.modal-list .ant-list:not(.no-hover) .ant-list-item {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  color: var(--background-color);
+}
+
+.modal-list .ant-list:not(.no-hover) .ant-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.041);
+}
+
+.modal-list .ant-checkbox-wrapper {
+  width: 100%;
+  padding: 8px 16px;
+}
+
