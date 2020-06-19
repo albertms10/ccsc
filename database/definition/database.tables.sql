@@ -407,6 +407,7 @@ CREATE TABLE IF NOT EXISTS esdeveniments
     dia_final               DATE,
     hora_final              TIME,
     es_assaig_ordinari      BOOLEAN           NOT NULL DEFAULT FALSE,
+    notes                   TEXT,
 
     id_estat_esdeveniment   TINYINT UNSIGNED  NOT NULL DEFAULT 1,
     id_localitzacio         SMALLINT UNSIGNED NOT NULL,
