@@ -3,8 +3,8 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
-import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
+import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
@@ -62,16 +62,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
             ...(formacions.length > 1 &&
             projecte.formacions &&
             projecte.formacions.length > 0
-              ? [
-                  <Space>
-                    {projecte.formacions.map((formacio) => (
-                      <IconFormacio
-                        key={formacio.id_formacio}
-                        name={formacio.nom_curt}
-                      />
-                    ))}
-                  </Space>,
-                ]
+              ? [<IconsFormacions formacions={projecte.formacions} />]
               : []),
             <Authorized>
               <DropdownBorderlessButton

@@ -3,12 +3,12 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
-import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
+import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { FixedTag } from "../../../../standalone/fixed-tag";
 import { eventSearchFilter, timeRange } from "../../../../utils";
 import { useAssajos, useEliminarAssaig } from "./hooks";
 
@@ -69,34 +69,10 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
             ...(formacions.length > 1 &&
             assaig.formacions &&
             assaig.formacions.length > 0
-              ? [
-                  <Space>
-                    {assaig.formacions.map((formacio) => (
-                      <IconFormacio
-                        key={formacio.id_formacio}
-                        name={formacio.nom_curt}
-                      />
-                    ))}
-                  </Space>,
-                ]
+              ? [<IconsFormacions formacions={assaig.formacions} />]
               : []),
             ...(assaig.projectes && assaig.projectes.length > 0
-              ? [
-                  <div>
-                    {assaig.projectes.map((projecte) => (
-                      <FixedTag
-                        key={projecte.id_projecte}
-                        childKey={projecte.id_projecte}
-                        tooltip={projecte.titol}
-                        color={"#" + projecte.color}
-                      >
-                        <Link to={`/projectes/${projecte.id_projecte}`}>
-                          {projecte.inicials}
-                        </Link>
-                      </FixedTag>
-                    ))}
-                  </div>,
-                ]
+              ? [<FixedTagsProjectes projectes={assaig.projectes} />]
               : []),
             <Authorized>
               <DropdownBorderlessButton

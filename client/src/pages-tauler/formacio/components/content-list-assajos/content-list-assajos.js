@@ -1,10 +1,10 @@
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
+import { IconsFormacions } from "../../../../components/icons-formacions";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
-import { FixedTag } from "../../../../standalone/fixed-tag";
 import { FormacioContext } from "../../formacio";
 
 const ContentListAssajos = ({ assajos, loading = false }) => {
@@ -23,24 +23,23 @@ const ContentListAssajos = ({ assajos, loading = false }) => {
         )
         .map((assaig) => {
           const date = moment(assaig.data_inici);
+          const filteredFormacions = assaig.formacions.filter(
+            (formacio) => formacio.id_formacio !== id_formacio
+          );
 
           return {
             id: assaig.id_assaig,
             title: assaig.titol,
             description: assaig.hora_inici ? `a les ${date.format("LT")}` : "",
             link: `/assajos/${assaig.id_assaig}`,
-            extra: assaig.projectes.map((projecte) => (
-              <FixedTag
-                key={projecte.id_projecte}
-                childKey={projecte.id_projecte}
-                tooltip={projecte.titol}
-                color={"#" + projecte.color}
-              >
-                <Link to={`/projectes/${projecte.id_projecte}`}>
-                  {projecte.inicials}
-                </Link>
-              </FixedTag>
-            )),
+            actions: [
+              ...(filteredFormacions.length > 0
+                ? [<IconsFormacions formacions={filteredFormacions} />]
+                : []),
+              ...(assaig.projectes && assaig.projectes.length > 0
+                ? [<FixedTagsProjectes projectes={assaig.projectes} />]
+                : []),
+            ],
             avatar: <CalendarAvatar moment={date} />,
           };
         })}
