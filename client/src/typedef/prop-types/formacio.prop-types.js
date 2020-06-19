@@ -6,5 +6,5 @@ export default PropTypes.shape({
   nom_curt: PropTypes.string,
   descripcio: PropTypes.string,
   num_persones: PropTypes.number,
-  tipus_formacio: PropTypes.string.isRequired,
-})
+  tipus_formacio: PropTypes.string,
+});
