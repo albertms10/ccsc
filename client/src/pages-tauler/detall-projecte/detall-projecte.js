@@ -28,19 +28,19 @@ export default ({ match }) => {
     <ProjecteContext.Provider value={projecte}>
       <SetActionContext.Provider value={setAction}>
         <Layout className="layout-projecte">
-          <Spin spinning={loading}>
-            <PageHeader
-              ghost={false}
-              title={
+          <PageHeader
+            ghost={false}
+            title={
+              <Spin spinning={loading}>
                 <Space size="middle">
                   <ColorCard hoverable={false} color={"#" + projecte.color} />
                   {projecte.titol}
                 </Space>
-              }
-              onBack={() => history.goBack()}
-              extra={<Authorized>{action}</Authorized>}
-            />
-          </Spin>
+              </Spin>
+            }
+            onBack={() => history.goBack()}
+            extra={<Authorized>{action}</Authorized>}
+          />
           <Layout>
             <Layout.Sider className="layout-projecte-sider">
               <Menu>
