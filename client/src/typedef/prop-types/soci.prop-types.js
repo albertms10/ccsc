@@ -13,4 +13,5 @@ export default PropTypes.shape({
   data_inactiu: PropTypes.string,
   dies_activitat: PropTypes.number,
   dies_inactivitat: PropTypes.number,
+  roles: PropTypes.arrayOf(PropTypes.string),
 });

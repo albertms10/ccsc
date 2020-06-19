@@ -26,10 +26,7 @@ exports.socis_detall = (req, res, next) => {
 
   pool
     .query(queryFile("socis/select__soci"), { id_soci })
-    .then(([soci]) => {
-      if (soci) return res.json(soci);
-      res.end();
-    })
+    .then(([soci]) => parseAndSendJSON(res, next, soci, ["roles"]))
     .catch((e) => next(e));
 };
 
