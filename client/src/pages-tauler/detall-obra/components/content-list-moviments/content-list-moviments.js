@@ -1,15 +1,17 @@
 import { Typography } from "antd";
 import React, { useContext } from "react";
+import { useAPI } from "../../../../helpers";
 import { ContentList } from "../../../../standalone/content-list";
 import { timeDuration } from "../../../../utils";
 import { ObraContext } from "../../detall-obra";
 import { ModalAfegirMoviment } from "../modal-afegir-moviment";
-import { useMoviments } from "./hooks";
 
 export default () => {
   const { id_obra, durada_total } = useContext(ObraContext);
 
-  const [moviments, loadingMoviments, getMoviments] = useMoviments(id_obra);
+  const [moviments, loadingMoviments, getMoviments] = useAPI(
+    `/api/obres/${id_obra}/moviments`
+  );
 
   return (
     <ContentList
