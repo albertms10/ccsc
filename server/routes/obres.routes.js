@@ -14,6 +14,8 @@ router
 
 router.route("/idiomes").get(controller.obres_idiomes);
 
+router.route("/moviments").get(controller.obres_moviments)
+
 router
   .route("/:id")
   .get(controller.obres_detall)

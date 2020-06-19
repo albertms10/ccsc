@@ -18,6 +18,15 @@ exports.obres_idiomes = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.obres_moviments = (req, res, next) => {
+  const pool = req.app.get("pool");
+
+  pool
+    .query(queryFile("obres/select__moviments"))
+    .then((moviments) => res.json(moviments))
+    .catch((e) => next(e));
+};
+
 exports.obres_detall = (req, res, next) => {
   const pool = req.app.get("pool");
   const { id } = req.params;
