@@ -11,7 +11,7 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { TagSelectFormacions } from "../../../../components/tag-select-formacions";
+import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { useAfegirAssaig } from "./hooks";
 
 export default () => {
@@ -75,9 +75,7 @@ export default () => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="formacions" label="Formacions">
-            <TagSelectFormacions />
-          </Form.Item>
+          <TagSelectFormItemFormacions />
         </Form>
       </Modal>
     </>

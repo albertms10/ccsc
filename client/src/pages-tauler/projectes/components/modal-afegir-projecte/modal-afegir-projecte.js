@@ -19,7 +19,7 @@ import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
-import { TagSelectFormacions } from "../../../../components/tag-select-formacions";
+import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { initials } from "../../../../utils";
 import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
 
@@ -174,9 +174,7 @@ export default () => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="formacions" label="Formacions">
-            <TagSelectFormacions />
-          </Form.Item>
+          <TagSelectFormItemFormacions />
         </Form>
       </Modal>
     </>
