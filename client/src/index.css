@@ -41,8 +41,8 @@
 }
 
 .main-page-header .ant-page-header-heading-title {
-  font-weight: 700;
   font-size: 32px;
+  font-weight: 700;
   line-height: 36px;
 }
 
@@ -62,6 +62,17 @@
 
 .site-layout .ant-page-header {
   z-index: 1;
+}
+
+.site-layout .ant-list .ant-list-item {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  color: var(--background-color);
+}
+
+.site-layout .ant-list .ant-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.041);
 }
 
 .site-layout .action-text {
