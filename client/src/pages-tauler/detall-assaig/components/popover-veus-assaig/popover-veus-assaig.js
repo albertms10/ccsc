@@ -39,7 +39,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
         value: veu.id_veu,
         label: veu.nom,
       }))}
-      filterValues={(veu) => ({
+      searchFilters={(veu) => ({
         texts: [veu.nom, veu.abreviatura],
       })}
       loading={loadingVeus || loadingVeu}

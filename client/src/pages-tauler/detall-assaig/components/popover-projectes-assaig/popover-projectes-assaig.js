@@ -48,7 +48,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
         label: projecte.titol,
       }))}
       searchFilters={(projecte) => ({
-        texts: [projecte.nom],
+        texts: [projecte.titol],
       })}
       loading={loadingProjectes || loadingProjecte}
       onChange={({ target }) => {

@@ -45,8 +45,8 @@ const PopoverList = ({
               <List
                 dataSource={
                   searchValue.length > 0
-                    ? dataSource.filter((veu) =>
-                        eventSearchFilter(searchValue, searchFilters(veu))
+                    ? dataSource.filter((item) =>
+                        eventSearchFilter(searchValue, searchFilters(item))
                       )
                     : dataSource
                 }
