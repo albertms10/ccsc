@@ -8,7 +8,7 @@ import "./color-card-list.css";
 const ColorCardList = ({ dataSource, loading, mapItem, ...rest }) => (
   <List
     {...rest}
-    className="color-card-list"
+    className="color-card-list no-hover"
     grid={{
       gutter: [32, 16],
       xs: 1,

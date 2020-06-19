@@ -64,14 +64,14 @@
   z-index: 1;
 }
 
-.site-layout .ant-list .ant-list-item {
+.site-layout .ant-list:not(.no-hover) .ant-list-item {
   padding-right: 1rem;
   padding-left: 1rem;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   color: var(--background-color);
 }
 
-.site-layout .ant-list .ant-list-item:hover {
+.site-layout .ant-list:not(.no-hover) .ant-list-item:hover {
   background-color: rgba(0, 0, 0, 0.041);
 }
 
