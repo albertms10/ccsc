@@ -1,13 +1,18 @@
 .tabs-formacio .ant-tabs-bar {
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-property: background-color, backdrop-filter,
-    -webkit-backdrop-filter;
+  -webkit-backdrop-filter;
 }
 
 .tabs-formacio .sticky-outer-wrapper.active .ant-tabs-bar {
   background-color: rgba(245, 245, 247, 0.72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
+}
+
+.tabs-formacio .ant-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+  padding: 0 var(--horizontal-inset);
 }
 
 .tabs-formacio .ant-tabs-content {
