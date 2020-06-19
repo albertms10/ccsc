@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { IconFormacio } from "../../../../assets/icons";
 import { Container } from "../../../../standalone/container";
-import { ProjecteContext } from "../../detall-projecte";
+import { ProjecteContext, SetActionContext } from "../../detall-projecte";
 
 export default () => {
   const { formacions } = useContext(ProjecteContext);
+  const setAction = useContext(SetActionContext);
+
+  useEffect(() => setAction(null), [setAction]);
 
   return (
     <Container>

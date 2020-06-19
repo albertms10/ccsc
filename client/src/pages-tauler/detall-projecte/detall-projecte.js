@@ -1,14 +1,16 @@
 import { Layout, Menu, PageHeader, Space, Spin } from "antd";
-import React, { useContext, useEffect, createContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link, Route, Switch, useHistory, useParams } from "react-router-dom";
+import { Authorized } from "../../components/authorized";
 import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
 import { ColorCard } from "../../standalone/color-card";
 import { AssajosProjecte } from "./components/assajos-projectes";
-import "./detall-projecte.css";
 import { ResumProjecte } from "./components/resum-projecte";
+import "./detall-projecte.css";
 import { useProjecte } from "./hooks";
 
 export const ProjecteContext = createContext({});
+export const SetActionContext = createContext((_) => {});
 
 export default ({ match }) => {
   const setCollapsed = useContext(SiderSetCollapsedContext);
@@ -18,58 +20,59 @@ export default ({ match }) => {
 
   const [projecte, loading] = useProjecte(id);
 
+  const [action, setAction] = useState(null);
+
   useEffect(() => setCollapsed(true), [setCollapsed]);
 
   return (
     <ProjecteContext.Provider value={projecte}>
-      <Layout className="layout-projecte">
-        <Spin spinning={loading}>
-          <PageHeader
-            ghost={false}
-            title={
-              <Space size="middle">
-                <ColorCard hoverable={false} color={"#" + projecte.color} />
-                {projecte.titol}
-              </Space>
-            }
-            onBack={() => history.goBack()}
-          />
-        </Spin>
-        <Layout>
-          <Layout.Sider className="layout-projecte-sider">
-            <Menu>
-              <Menu.Item>
-                <Link to={`${match.url}`}>Resum</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to={`${match.url}/assajos`}>Assajos</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to={`${match.url}/obres`}>Obres</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to={`${match.url}/concerts`}>Concerts</Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link to={`${match.url}/participants`}>Participants</Link>
-              </Menu.Item>
-            </Menu>
-          </Layout.Sider>
-          <Layout.Content>
-            <Switch>
-              <Route
-                exact
-                path={`${match.path}`}
-                component={ResumProjecte}
-              />
-              <Route
-                path={`${match.path}/assajos`}
-                component={AssajosProjecte}
-              />
-            </Switch>
-          </Layout.Content>
+      <SetActionContext.Provider value={setAction}>
+        <Layout className="layout-projecte">
+          <Spin spinning={loading}>
+            <PageHeader
+              ghost={false}
+              title={
+                <Space size="middle">
+                  <ColorCard hoverable={false} color={"#" + projecte.color} />
+                  {projecte.titol}
+                </Space>
+              }
+              onBack={() => history.goBack()}
+              extra={<Authorized>{action}</Authorized>}
+            />
+          </Spin>
+          <Layout>
+            <Layout.Sider className="layout-projecte-sider">
+              <Menu>
+                <Menu.Item>
+                  <Link to={`${match.url}`}>Resum</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to={`${match.url}/assajos`}>Assajos</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to={`${match.url}/obres`}>Obres</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to={`${match.url}/concerts`}>Concerts</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to={`${match.url}/participants`}>Participants</Link>
+                </Menu.Item>
+              </Menu>
+            </Layout.Sider>
+            <Layout.Content>
+              <Switch>
+                <Route exact path={`${match.path}`} component={ResumProjecte} />
+                <Route
+                  path={`${match.path}/assajos`}
+                  component={AssajosProjecte}
+                />
+              </Switch>
+            </Layout.Content>
+          </Layout>
         </Layout>
-      </Layout>
+      </SetActionContext.Provider>
     </ProjecteContext.Provider>
   );
 };
