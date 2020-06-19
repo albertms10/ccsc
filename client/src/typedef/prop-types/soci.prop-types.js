@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 
 export default PropTypes.shape({
-  id_persona: PropTypes.number.isRequired,
-  nom: PropTypes.string.isRequired,
-  cognoms: PropTypes.string.isRequired,
-  nom_complet: PropTypes.string.isRequired,
+  id_persona: PropTypes.any,
+  nom: PropTypes.string,
+  cognoms: PropTypes.string,
+  nom_complet: PropTypes.string,
   username: PropTypes.string,
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
   telefon: PropTypes.string,
   estat_actiu: PropTypes.bool,
   data_actiu: PropTypes.string,
