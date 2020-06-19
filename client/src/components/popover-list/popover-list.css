@@ -1,14 +1,23 @@
+.popover-list .ant-popover-inner-content {
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
 .popover-list .ant-list {
+  overflow-y: scroll;
+  max-height: 240px;
   margin-top: .2rem;
 }
 
-.popover-list .ant-list-item {
-  margin-right: -1rem;
-  margin-left: -1rem;
+.popover-list .ant-input-search {
+  width: calc(100% - 2rem);
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .popover-list .ant-list:not(.no-hover) .ant-list-item {
-  padding: 0 .5rem;
+  padding: 0;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   color: var(--background-color);
 }

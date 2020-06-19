@@ -1,12 +1,10 @@
-import { Checkbox, Input, List, Popover } from "antd";
+import { Checkbox, Popover } from "antd";
 import PropTypes from "prop-types";
-import React, { createRef, useEffect, useMemo, useState } from "react";
-import { eventSearchFilter } from "../../utils";
+import React, { useMemo, useState } from "react";
 import Authorized from "../authorized/authorized";
+import { SearchList } from "../search-list";
 import { PopoverListCheckbox } from "./components/popover-list-checkbox";
 import "./popover-list.css";
-
-const { Search } = Input;
 
 const PopoverList = ({
   action,
@@ -21,15 +19,6 @@ const PopoverList = ({
   elseElement,
 }) => {
   const [visible, setVisible] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-
-  const searchRef = createRef();
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (visible && searchRef.current) searchRef.current.focus();
-    }, 1);
-  }, [visible, searchRef]);
 
   const popover = useMemo(
     () => (
@@ -38,43 +27,28 @@ const PopoverList = ({
         visible={visible}
         trigger="click"
         placement="bottomLeft"
+        overlayClassName="popover-list"
         onVisibleChange={setVisible}
         content={
-          <div className="popover-list">
-            <Search
-              ref={searchRef}
-              placeholder={searchPlaceholder}
-              value={searchValue}
-              onChange={({ target }) => setSearchValue(target.value)}
-              allowClear
-              style={{ marginBottom: ".5rem" }}
+          <Checkbox.Group
+            defaultValue={defaultValue}
+            style={{ width: "100%", display: "block" }}
+          >
+            <SearchList
+              searchPlaceholder={searchPlaceholder}
+              dataSource={dataSource}
+              loading={loading}
+              searchFilters={searchFilters}
+              checkToFocus={visible}
+              renderItem={({ value, label }) => (
+                <PopoverListCheckbox
+                  value={value}
+                  label={label}
+                  onChange={onChange}
+                />
+              )}
             />
-            <Checkbox.Group
-              defaultValue={defaultValue}
-              style={{ width: "100%", display: "block" }}
-            >
-              <List
-                dataSource={
-                  searchValue.length > 0
-                    ? dataSource.filter((item) =>
-                        eventSearchFilter(searchValue, searchFilters(item))
-                      )
-                    : dataSource
-                }
-                loading={loading}
-                size="small"
-                split={false}
-                locale={{ emptyText: "No s’ha trobat cap ítem" }}
-                renderItem={({ value, label }) => (
-                  <PopoverListCheckbox
-                    value={value}
-                    label={label}
-                    onChange={onChange}
-                  />
-                )}
-              />
-            </Checkbox.Group>
-          </div>
+          </Checkbox.Group>
         }
       >
         {action}
@@ -88,10 +62,8 @@ const PopoverList = ({
       loading,
       onChange,
       searchPlaceholder,
-      searchValue,
       title,
       visible,
-      searchRef,
     ]
   );
 
