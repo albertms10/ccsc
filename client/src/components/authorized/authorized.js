@@ -14,11 +14,12 @@ const Authorized = ({
   elseElement,
   authority = AUTHORITY_TYPES[0],
   children,
+  ...rest
 }) => {
   const { roles } = useSelector(({ user }) => user.currentUser);
 
   const returnItem = render
-    ? render({ authority, children })
+    ? render({ authority, children, ...rest })
     : component
     ? component
     : children;
