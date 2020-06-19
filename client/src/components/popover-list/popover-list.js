@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import React, { useMemo, useState } from "react";
 import { eventSearchFilter } from "../../utils";
 import Authorized from "../authorized/authorized";
+import { PopoverListCheckbox } from "./components/popover-list-checkbox";
+import "./popover-list.css";
 
 const { Search } = Input;
 
@@ -30,7 +32,7 @@ const PopoverList = ({
         placement="bottomLeft"
         onVisibleChange={setVisible}
         content={
-          <>
+          <div className="popover-list">
             <Search
               placeholder={searchPlaceholder}
               value={searchValue}
@@ -55,20 +57,15 @@ const PopoverList = ({
                 split={false}
                 locale={{ emptyText: "No s’ha trobat cap ítem" }}
                 renderItem={({ value, label }) => (
-                  <List.Item>
-                    <Checkbox
-                      key={value}
-                      value={value}
-                      defaultChecked={true}
-                      onChange={onChange}
-                    >
-                      {label}
-                    </Checkbox>
-                  </List.Item>
+                  <PopoverListCheckbox
+                    value={value}
+                    label={label}
+                    onChange={onChange}
+                  />
                 )}
               />
             </Checkbox.Group>
-          </>
+          </div>
         }
       >
         {action}
