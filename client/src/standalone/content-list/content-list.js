@@ -36,7 +36,11 @@ const ContentList = ({
       loading={loading}
       dataSource={dataSource}
       renderItem={(item) => (
-        <List.Item key={item.id} className="content-list-item">
+        <List.Item
+          key={item.id}
+          className="content-list-item"
+          actions={item.actions}
+        >
           <Link to={item.link}>
             <List.Item.Meta
               avatar={item.avatar}
