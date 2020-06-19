@@ -3,7 +3,7 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types";
-import { CalendarEventPopover } from "../calendar-event-popover";
+import { CalendarEventPopover } from "../../components/calendar-event-popover";
 import { StatusIcon } from "../status-icon";
 import "./calendar-tag.css";
 
