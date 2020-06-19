@@ -1,112 +1,94 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/assajos.controller");
 
-module.exports = (app) => {
-  app.get(
-    "/api/assajos/count",
-    [authJWT.verifyAccessToken],
-    controller.assajos_count
-  );
+const router = express.Router();
 
-  app.get(
-    "/api/assajos/historial",
-    [authJWT.verifyAccessToken],
-    controller.assajos_historial
-  );
-
-  app.get(
-    "/api/assajos/:id",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall
-  );
-
-  app.post(
-    "/api/assajos",
+router
+  .route("/")
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_post
   );
 
-  app.delete(
-    "/api/assajos/:id",
+router
+  .route("/count")
+  .get([authJWT.verifyAccessToken], controller.assajos_count);
+
+router
+  .route("/historial")
+  .get([authJWT.verifyAccessToken], controller.assajos_historial);
+
+router
+  .route("/:id")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall)
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_delete
   );
 
-  app.get(
-    "/api/assajos/:id/moviments",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall_moviments_get
-  );
-
-  app.post(
-    "/api/assajos/:id/moviments",
+router
+  .route("/:id/moviments")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall_moviments_get)
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_moviments_post
   );
 
-  app.delete(
-    "/api/assajos/:id_assaig/moviments/:id_moviment",
+router
+  .route("/:id_assaig/moviments/:id_moviment")
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_moviments_delete
   );
 
-  app.get(
-    "/api/assajos/:id/projectes",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall_projectes_get
-  );
-
-  app.post(
-    "/api/assajos/:id/projectes",
+router
+  .route("/:id/projectes")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall_projectes_get)
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_projectes_post
   );
 
-  app.delete(
-    "/api/assajos/:id_assaig/projectes/:id_projecte",
+router
+  .route("/:id_assaig/projectes/:id_projecte")
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_projectes_delete
   );
 
-  app.get(
-    "/api/assajos/:id/formacions",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall_formacions_get
-  );
-
-  app.post(
-    "/api/assajos/:id/formacions",
+router
+  .route("/:id/formacions")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall_formacions_get)
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_formacions_post
   );
 
-  app.delete(
-    "/api/assajos/:id_assaig/formacions/:id_formacio",
+router
+  .route("/:id_assaig/formacions/:id_formacio")
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_formacions_delete
   );
 
-  app.get(
-    "/api/assajos/:id/convocats",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall_convocats
-  );
+router
+  .route("/:id/convocats")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall_convocats);
 
-  app.get(
-    "/api/assajos/:id/veus",
-    [authJWT.verifyAccessToken],
-    controller.assajos_detall_veus_get
-  );
-
-  app.post(
-    "/api/assajos/:id/veus",
+router
+  .route("/:id/veus")
+  .get([authJWT.verifyAccessToken], controller.assajos_detall_veus_get)
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_veus_post
   );
 
-  app.delete(
-    "/api/assajos/:id_assaig/veus/:id_veu",
+router
+  .route("/:id_assaig/veus/:id_veu")
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.assajos_detall_veus_delete
   );
-};
+
+module.exports = router;

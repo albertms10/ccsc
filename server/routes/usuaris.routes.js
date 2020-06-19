@@ -1,8 +1,10 @@
+const express = require("express");
 const controller = require("../controllers/usuaris.controller");
 
-module.exports = (app) => {
-  app.get(
-    "/api/usuaris/:username/first-available-num",
-    controller.usuaris_detall_firstavailablenum
-  );
-};
+const router = express.Router();
+
+router
+  .route("/:username/first-available-num")
+  .get(controller.usuaris_detall_firstavailablenum);
+
+module.exports = router;

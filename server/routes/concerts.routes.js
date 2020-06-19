@@ -1,7 +1,10 @@
+const express = require("express");
 const controller = require("../controllers/concerts.controller");
 
-module.exports = (app) => {
-  app.get("/api/concerts/count", controller.concerts_count);
+const router = express.Router();
 
-  app.get("/api/concerts/historial", controller.concerts_historial);
-};
+router.route("/count").get(controller.concerts_count);
+
+router.route("/historial").get(controller.concerts_historial);
+
+module.exports = router;

@@ -1,34 +1,27 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/formacions.controller");
 
-module.exports = (app) => {
-  app.get(
-    "/api/formacions/:id",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall
-  );
+const router = express.Router();
 
-  app.get(
-    "/api/formacions/:id/esdeveniments",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall_esdeveniments
-  );
+router
+  .route("/:id")
+  .get([authJWT.verifyAccessToken], controller.formacions_detall);
 
-  app.get(
-    "/api/formacions/:id/concerts",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall_concerts
-  );
+router
+  .route("/:id/esdeveniments")
+  .get([authJWT.verifyAccessToken], controller.formacions_detall_esdeveniments);
 
-  app.get(
-    "/api/formacions/:id/projectes",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall_projectes
-  );
+router
+  .route("/:id/concerts")
+  .get([authJWT.verifyAccessToken], controller.formacions_detall_concerts);
 
-  app.get(
-    "/api/formacions/:id/integrants",
-    [authJWT.verifyAccessToken],
-    controller.formacions_detall_integrants
-  );
-};
+router
+  .route("/:id/projectes")
+  .get([authJWT.verifyAccessToken], controller.formacions_detall_projectes);
+
+router
+  .route("/:id/integrants")
+  .get([authJWT.verifyAccessToken], controller.formacions_detall_integrants);
+
+module.exports = router;

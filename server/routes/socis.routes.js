@@ -1,96 +1,93 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/socis.controller");
 
-module.exports = (app) => {
-  app.post("/api/alta-soci", [authJWT.verifyEmailToken], controller.socis_post);
+const router = express.Router();
 
-  app.get(
-    "/api/socis/count",
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_count
-  );
-
-  app.get(
-    "/api/socis/historial",
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_historial
-  );
-
-  app.get(
-    "/api/socis/:id",
-    [authJWT.verifyAccessToken],
-    controller.socis_detall
-  );
-
-  app.delete(
-    "/api/socis/:id",
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_delete
-  );
-
-  app.get(
-    "/api/socis",
+router
+  .route("/")
+  .get(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.socis_get
-  );
-
-  app.post(
-    "/api/socis",
+  )
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.socis_post
   );
 
-  app.get(
-    "/api/socis/:id/formacions",
-    [authJWT.verifyAccessToken],
-    controller.socis_detall_formacions
+router.route("/alta").post([authJWT.verifyEmailToken], controller.socis_post);
+
+router
+  .route("/count")
+  .get(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.socis_count
   );
 
-  app.get(
-    "/api/socis/:id/projectes",
-    [authJWT.verifyAccessToken],
-    controller.socis_detall_projectes
+router
+  .route("/historial")
+  .get(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.socis_historial
   );
 
-  app.get(
-    "/api/socis/:id/assajos",
-    [authJWT.verifyAccessToken],
-    controller.socis_detall_assajos
+router
+  .route("/:id")
+  .get([authJWT.verifyAccessToken], controller.socis_detall)
+  .delete(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.socis_delete
   );
 
-  app.get(
-    "/api/socis/:id/acceptacions",
+router
+  .route("/:id/formacions")
+  .get([authJWT.verifyAccessToken], controller.socis_detall_formacions);
+
+router
+  .route("/:id/projectes")
+  .get([authJWT.verifyAccessToken], controller.socis_detall_projectes);
+
+router
+  .route("/:id/assajos")
+  .get([authJWT.verifyAccessToken], controller.socis_detall_assajos);
+
+router
+  .route("/:id/acceptacions")
+  .get(
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_acceptacions_get
-  );
-
-  app.put(
-    "/api/socis/:id/acceptacions",
+  )
+  .put(
     [authJWT.verifyAccessToken, authJWT.isAuthor],
     controller.socis_detall_acceptacions_put
   );
 
-  app.get(
-    "/api/socis/:id/activitat",
+router
+  .route("/:id/activitat")
+  .get(
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_activitat
   );
 
-  app.post(
-    "/api/socis/:id/alta",
+router
+  .route("/:id/alta")
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.socis_detall_alta
   );
 
-  app.put(
-    "/api/socis/:id/baixa",
+router
+  .route("/:id/baixa")
+  .put(
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_baixa
   );
 
-  app.get(
-    "/api/socis/:id/propers-assajos",
+router
+  .route("/:id/propers-assajos")
+  .get(
     [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
     controller.socis_detall_propersassajos
   );
-};
+
+module.exports = router;

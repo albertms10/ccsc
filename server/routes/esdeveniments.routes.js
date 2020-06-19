@@ -1,24 +1,24 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/esdeveniments.controller");
 
-module.exports = (app) => {
-  app.get("/api/esdeveniments", controller.esdeveniments_get);
+const router = express.Router();
 
-  app.get(
-    "/api/esdeveniments/estats-confirmacio",
-    [authJWT.verifyAccessToken],
-    controller.esdeveniments_estatsconfirmacio
-  );
+router.route("/").get(controller.esdeveniments_get);
 
-  app.get(
-    "/api/esdeveniments/:id/assistents",
+router
+  .route("/estats-confirmacio")
+  .get([authJWT.verifyAccessToken], controller.esdeveniments_estatsconfirmacio);
+
+router
+  .route("/:id/assistents")
+  .get(
     [authJWT.verifyAccessToken],
     controller.esdeveniments_detall_assistents_get
-  );
-
-  app.put(
-    "/api/esdeveniments/:id/assistents",
+  )
+  .put(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.esdeveniments_detall_assistents_put
   );
-};
+
+module.exports = router;

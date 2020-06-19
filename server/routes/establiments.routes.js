@@ -1,10 +1,12 @@
+const express = require("express");
 const controller = require("../controllers/establiments.controller");
 
-module.exports = (app) => {
-  app.get("/api/establiments", controller.establiments_get);
+const router = express.Router();
 
-  app.get(
-    "/api/establiments/:id/esdeveniments",
-    controller.establiments_detall_esdeveniments
-  );
-};
+router.route("/").get(controller.establiments_get);
+
+router
+  .route("/:id/esdeveniments")
+  .get(controller.establiments_detall_esdeveniments);
+
+module.exports = router;

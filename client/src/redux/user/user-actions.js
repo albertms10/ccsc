@@ -60,7 +60,7 @@ const logoutUser = () => ({
  * @param {User} user
  */
 export const signinUserFetch = (user) => (dispatch) => {
-  fetch("/api/auth/signin", {
+  fetch("/api/auth/sign-in", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

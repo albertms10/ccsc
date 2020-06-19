@@ -1,26 +1,24 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/localitzacions.controller");
 
-module.exports = (app) => {
-  app.post(
-    "/api/localitzacions",
+const router = express.Router();
+
+router
+  .route("/")
+  .post(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.localitzacions_post
   );
 
-  app.get(
-    "/api/localitzacions/tipus-vies",
-    controller.localitzacions_tipusvies_get
-  );
+router.route("/tipus-vies").get(controller.localitzacions_tipusvies_get);
 
-  app.get("/api/localitzacions/ciutats", controller.localitzacions_ciutats_get);
+router.route("/ciutats").get(controller.localitzacions_ciutats_get);
 
-  app.get(
-    "/api/localitzacions/provincies",
-    controller.localitzacions_provincies_get
-  );
+router.route("/provincies").get(controller.localitzacions_provincies_get);
 
-  app.get("/api/localitzacions/paisos", controller.localitzacions_paisos_get);
+router.route("/paisos").get(controller.localitzacions_paisos_get);
 
-  app.get("/api/localitzacions/:id", controller.localitzacions_detall);
-};
+router.route("/:id").get(controller.localitzacions_detall);
+
+module.exports = router;

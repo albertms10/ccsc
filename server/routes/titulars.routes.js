@@ -1,5 +1,8 @@
+const express = require("express");
 const controller = require("../controllers/titulars.controller");
 
-module.exports = (app) => {
-  app.get("/api/titulars", controller.titulars_get);
-};
+const router = express.Router();
+
+router.route("/").get(controller.titulars_get);
+
+module.exports = router;

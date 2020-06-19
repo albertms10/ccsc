@@ -1,39 +1,27 @@
+const express = require("express");
 const authJWT = require("../middleware/auth-jwt");
 const controller = require("../controllers/projectes.controller");
 
-module.exports = (app) => {
-  app.get(
-    "/api/projectes/count",
-    [authJWT.verifyAccessToken],
-    controller.projectes_count
-  );
+const router = express.Router();
 
-  app.get(
-    "/api/projectes/historial",
-    [authJWT.verifyAccessToken],
-    controller.projectes_historial
-  );
+router.route("/").post([authJWT.verifyAccessToken], controller.projectes_post);
 
-  app.get(
-    "/api/projectes/check-inicials/:inicials",
-    [authJWT.verifyAccessToken],
-    controller.projectes_checkinicials
-  );
+router
+  .route("/count")
+  .get([authJWT.verifyAccessToken], controller.projectes_count);
 
-  app.get(
-    "/api/projectes/:id",
-    [authJWT.verifyAccessToken],
-    controller.projectes_detall
-  )
+router
+  .route("/historial")
+  .get([authJWT.verifyAccessToken], controller.projectes_historial);
 
-  app.post(
-    "/api/projectes",
-    [authJWT.verifyAccessToken],
-    controller.projectes_post
-  );
+router
+  .route("/check-inicials/:inicials")
+  .get([authJWT.verifyAccessToken], controller.projectes_checkinicials);
 
-  app.delete(
-    "/api/projectes/:id",
+router
+  .route("/:id")
+  .get([authJWT.verifyAccessToken], controller.projectes_detall)
+  .delete(
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.projectes_delete
   );
