@@ -1,6 +1,6 @@
 import { Checkbox, Input, List, Popover } from "antd";
 import PropTypes from "prop-types";
-import React, { useMemo, useState } from "react";
+import React, { createRef, useEffect, useMemo, useState } from "react";
 import { eventSearchFilter } from "../../utils";
 import Authorized from "../authorized/authorized";
 import { PopoverListCheckbox } from "./components/popover-list-checkbox";
@@ -23,6 +23,14 @@ const PopoverList = ({
   const [visible, setVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const searchRef = createRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (visible && searchRef.current) searchRef.current.focus();
+    }, 1);
+  }, [visible, searchRef]);
+
   const popover = useMemo(
     () => (
       <Popover
@@ -34,6 +42,7 @@ const PopoverList = ({
         content={
           <div className="popover-list">
             <Search
+              ref={searchRef}
               placeholder={searchPlaceholder}
               value={searchValue}
               onChange={({ target }) => setSearchValue(target.value)}
@@ -82,6 +91,7 @@ const PopoverList = ({
       searchValue,
       title,
       visible,
+      searchRef,
     ]
   );
 

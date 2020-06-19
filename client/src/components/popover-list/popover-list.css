@@ -1,5 +1,14 @@
+.popover-list .ant-list {
+  margin-top: .2rem;
+}
+
+.popover-list .ant-list-item {
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
+
 .popover-list .ant-list:not(.no-hover) .ant-list-item {
-  padding: 0;
+  padding: 0 .5rem;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   color: var(--background-color);
 }
@@ -9,6 +18,7 @@
 }
 
 .popover-list .ant-checkbox-wrapper {
-  padding: 8px 16px;
   width: 100%;
+  padding: 8px 16px;
 }
+
