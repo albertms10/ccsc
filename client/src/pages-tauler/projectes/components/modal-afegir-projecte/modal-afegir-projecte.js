@@ -13,32 +13,19 @@ import {
   yellow,
 } from "@ant-design/colors";
 import { PlusOutlined } from "@ant-design/icons";
-import TagSelect from "ant-design-pro/lib/TagSelect";
-import {
-  Button,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Select,
-  Space,
-} from "antd";
+import { Button, Col, DatePicker, Form, Input, Modal, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
-import { IconFormacio } from "../../../../assets/icons";
-import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { TagSelectFormacions } from "../../../../components/tag-select-formacions";
 import { initials } from "../../../../utils";
 import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
 
 const { Option } = Select;
 
 export default () => {
-  const formacions = useContext(FormacionsListContext);
   const { loading } = useSelector(({ projectes }) => projectes);
 
   const [visible, setVisible] = useState(false);
@@ -188,19 +175,7 @@ export default () => {
             </Col>
           </Row>
           <Form.Item name="formacions" label="Formacions">
-            <TagSelect className="" Option={null} hideCheckAll>
-              {formacions.map((formacio) => (
-                <TagSelect.Option
-                  key={formacio.id_formacio}
-                  value={formacio.id_formacio}
-                >
-                  <Space>
-                    <IconFormacio name={formacio.nom_curt} hasTooltip={false} />
-                    {formacio.nom_curt}
-                  </Space>
-                </TagSelect.Option>
-              ))}
-            </TagSelect>
+            <TagSelectFormacions />
           </Form.Item>
         </Form>
       </Modal>

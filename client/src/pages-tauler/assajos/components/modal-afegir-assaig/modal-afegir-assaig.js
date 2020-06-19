@@ -1,5 +1,4 @@
 import { PlusOutlined } from "@ant-design/icons";
-import TagSelect from "ant-design-pro/lib/TagSelect";
 import {
   Button,
   Checkbox,
@@ -8,17 +7,14 @@ import {
   Form,
   Modal,
   Row,
-  Space,
   TimePicker,
 } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { IconFormacio } from "../../../../assets/icons";
-import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { TagSelectFormacions } from "../../../../components/tag-select-formacions";
 import { useAfegirAssaig } from "./hooks";
 
 export default () => {
-  const formacions = useContext(FormacionsListContext);
   const { loading } = useSelector(({ assajos }) => assajos);
   const [visible, setVisible] = useState(false);
   const [form, handleOk] = useAfegirAssaig();
@@ -80,19 +76,7 @@ export default () => {
             </Col>
           </Row>
           <Form.Item name="formacions" label="Formacions">
-            <TagSelect className="" Option={null} hideCheckAll>
-              {formacions.map((formacio) => (
-                <TagSelect.Option
-                  key={formacio.id_formacio}
-                  value={formacio.id_formacio}
-                >
-                  <Space>
-                    <IconFormacio name={formacio.nom_curt} hasTooltip={false} />
-                    {formacio.nom_curt}
-                  </Space>
-                </TagSelect.Option>
-              ))}
-            </TagSelect>
+            <TagSelectFormacions />
           </Form.Item>
         </Form>
       </Modal>
