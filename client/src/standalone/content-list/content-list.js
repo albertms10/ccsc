@@ -1,4 +1,4 @@
-import { Col, List, Row, Space } from "antd";
+import { Col, List, Row, Space, Typography } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -9,7 +9,12 @@ const ContentList = ({ title, loading, dataSource, action, extra, style }) => (
     <Row>
       <Col span={18}>
         <Space style={{ marginBottom: ".5rem" }}>
-          <div className="content-list-title">{title}</div>
+          <Typography.Title
+            level={4}
+            style={{ marginBottom: 0, color: "#555" }}
+          >
+            {title}
+          </Typography.Title>
           {action}
         </Space>
       </Col>
