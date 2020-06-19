@@ -2,11 +2,12 @@ import { PageHeader, Space, Spin, Typography } from "antd";
 import moment from "moment";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { EventLineItemData } from "../../components/event-line-item-data";
+import { EventLineItemLocalitzacio } from "../../components/event-line-item-localitzacio";
+import { EventLineItemNotes } from "../../components/event-line-item-notes";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { Container } from "../../standalone/container";
-import { StatusIcon } from "../../standalone/status-icon";
-import { timeRange } from "../../utils";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
 import { ContentListMovimentsAssaig } from "./components/content-list-moviments-assaig";
 import { useAssaig } from "./hooks";
@@ -34,20 +35,19 @@ export default () => {
             <Title level={3} style={{ marginBottom: 0 }}>
               {assaig.titol}
             </Title>
-            <StatusIcon
-              statusId={assaig.id_estat_esdeveniment}
-              tooltip={assaig.estat_esdeveniment}
-            />
-            <Title level={4} type="secondary" style={{ marginBottom: 0 }}>
-              {timeRange(assaig.hora_inici, assaig.hora_final, {
-                textual: true,
-              })}
-            </Title>
           </Space>
         }
         onBack={() => history.goBack()}
       />
       <Spin spinning={loadingAssaig}>
+        <Container>
+          <Title level={4}>Informació</Title>
+          <Space direction="vertical">
+            <EventLineItemData esdeveniment={assaig} />
+            <EventLineItemLocalitzacio esdeveniment={assaig} />
+            <EventLineItemNotes esdeveniment={assaig} />
+          </Space>
+        </Container>
         <Container>
           <ContentListMovimentsAssaig />
         </Container>
