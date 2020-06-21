@@ -15,7 +15,22 @@ SELECT *,
            SELECT estat
            FROM estats_confirmacio
            WHERE id_estat_confirmacio = (SELECT a.id_estat_confirmacio)
-       ) AS estat_confirmacio
+       ) AS estat_confirmacio,
+       (
+           SELECT IFNULL(JSON_ARRAYAGG(
+                                 JSON_OBJECT(
+                                         'id_moviment', id_moviment,
+                                         'id_obra', id_obra,
+                                         'titol_moviment', m.titol,
+                                         'titol_obra', o.titol,
+                                         'ordre', ordre
+                                     )
+                             ), '[]')
+           FROM moviments m
+                    INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
+                    INNER JOIN obres o USING (id_obra)
+           WHERE id_esdeveniment_musical = (SELECT a.id_assaig)
+       ) AS moviments
 FROM (
          SELECT DISTINCT *,
                          IFNULL((

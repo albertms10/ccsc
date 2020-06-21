@@ -252,6 +252,12 @@ exports.socis_detall_propersassajos = (req, res, next) => {
       id_soci,
       parseInt(limit) || 4,
     ])
-    .then(([_, assajos]) => res.json(assajos))
+    .then(([_, assajos]) =>
+      parseAndSendJSON(res, next, assajos, [
+        "formacions",
+        "projectes",
+        "moviments",
+      ])
+    )
     .catch((e) => next(e));
 };
