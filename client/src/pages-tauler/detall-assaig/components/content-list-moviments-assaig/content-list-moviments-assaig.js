@@ -1,4 +1,4 @@
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import React, { useContext } from "react";
 import { Authorized } from "../../../../components/authorized";
@@ -46,6 +46,9 @@ export default () => {
         <Space>
           <Authorized>
             <ModalListMovimentsAssaig
+              button={
+                <BorderlessButton shape="circle" icon={<PlusOutlined />} />
+              }
               movimentsAssaig={moviments}
               getMovimentsAssaig={getMovimentsAssaig}
             />

@@ -4,7 +4,11 @@ import { ModalSeleccionarMoviment } from "../../../../components/modal-seleccion
 import { usePostAPI } from "../../../../helpers";
 import { AssaigContext } from "../../detall-assaig";
 
-const ModalListMovimentsAssaig = ({ movimentsAssaig, getMovimentsAssaig }) => {
+const ModalListMovimentsAssaig = ({
+  movimentsAssaig,
+  getMovimentsAssaig,
+  ...rest
+}) => {
   const { id_assaig } = useContext(AssaigContext);
 
   const [loadingPostMoviment, postMoviment] = usePostAPI(
@@ -21,6 +25,7 @@ const ModalListMovimentsAssaig = ({ movimentsAssaig, getMovimentsAssaig }) => {
       loading={loadingPostMoviment}
       onItemClick={postMoviment}
       thenAction={getMovimentsAssaig}
+      {...rest}
     />
   );
 };
