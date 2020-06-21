@@ -118,3 +118,16 @@ exports.projectes_detall_assajos_post = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
+
+exports.projectes_detall_moviments_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_projecte } = req.params;
+  const { id_moviment } = req.body;
+
+  pool
+    .query(queryFile("projectes/insert__moviments_projecte"), [
+      [[id_moviment, id_projecte]],
+    ])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};

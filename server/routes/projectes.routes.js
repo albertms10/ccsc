@@ -41,4 +41,11 @@ router
     controller.projectes_detall_assajos_post
   );
 
+router
+  .route("/:id/moviments")
+  .post(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.projectes_detall_moviments_post
+  );
+
 module.exports = router;
