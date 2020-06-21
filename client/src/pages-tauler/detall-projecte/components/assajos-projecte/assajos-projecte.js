@@ -1,3 +1,5 @@
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Menu } from "antd";
 import React, { useContext, useEffect } from "react";
 import { Container } from "../../../../standalone/container";
 import { ModalAfegirAssaig } from "../../../assajos/components/modal-afegir-assaig";
@@ -8,10 +10,25 @@ export default () => {
   const { id_projecte } = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
-  useEffect(() => setAction(<ModalAfegirAssaig idProjecte={id_projecte} />), [
-    setAction,
-    id_projecte,
-  ]);
+  useEffect(
+    () =>
+      setAction(
+        <Dropdown
+          trigger="click"
+          overlay={
+            <Menu>
+              <ModalAfegirAssaig button={<Menu.Item>Nou assaig</Menu.Item>} />
+              <Menu.Item>Selecciona’n…</Menu.Item>
+            </Menu>
+          }
+        >
+          <Button type="primary">
+            Afegir assaig <DownOutlined />
+          </Button>
+        </Dropdown>
+      ),
+    [setAction, id_projecte]
+  );
 
   return (
     <Container>
