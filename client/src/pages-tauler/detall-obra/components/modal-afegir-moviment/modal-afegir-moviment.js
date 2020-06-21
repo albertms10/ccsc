@@ -1,12 +1,10 @@
-import { PlusOutlined } from "@ant-design/icons";
 import { Col, Form, Input, Row, TimePicker } from "antd";
 import React, { useContext } from "react";
 import { ModalButton } from "../../../../components/modal-button";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { ObraContext } from "../../detall-obra";
 import { useAfegirMoviment } from "./hooks";
 
-export default ({ getMoviments }) => {
+export default ({ getMoviments, ...rest }) => {
   const { id_obra } = useContext(ObraContext);
   const [form, loading, handleOk] = useAfegirMoviment(id_obra);
 
@@ -14,7 +12,6 @@ export default ({ getMoviments }) => {
     <ModalButton
       title="Afegir moviment"
       confirmLoading={loading}
-      button={<BorderlessButton shape="circle" icon={<PlusOutlined />} />}
       onOk={(setVisible) => {
         handleOk().then(() => {
           setVisible(false);
@@ -45,6 +42,7 @@ export default ({ getMoviments }) => {
           </Row>
         </Form>
       )}
+      {...rest}
     />
   );
 };
