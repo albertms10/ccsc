@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 
 const BorderlessButton = forwardRef(
-  ({ tooltip, tooltipPlacement, ...rest }, ref) => (
+  ({ tooltip, tooltipPlacement, style, ...rest }, ref) => (
     <Tooltip title={tooltip} placement={tooltipPlacement}>
       <Button
         {...rest}
@@ -13,6 +13,7 @@ const BorderlessButton = forwardRef(
           backgroundColor: "transparent",
           boxShadow: "none",
           opacity: 0.8,
+          ...style,
         }}
       />
     </Tooltip>
