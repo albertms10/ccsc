@@ -1,5 +1,10 @@
 import moment from "moment";
 
+/**
+ * Returns the textual time duration of `time`.
+ * @param {string} time
+ * @returns {string}
+ */
 export default (time) => {
   const timeMoment = moment(time, "HH:mm:ss");
 
