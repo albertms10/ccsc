@@ -1,15 +1,16 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { List, Typography } from "antd";
+import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ModalList } from "../../../../components/modal-list";
 import { usePostAPI } from "../../../../helpers";
 import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
-import { timeDuration } from "../../../../utils";
+import { mapFirstOfProperty, timeDuration } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
 import "./modal-list-moviments-assaig.css";
 
-export default ({ getMovimentsAssaig }) => {
+const ModalListMovimentsAssaig = ({ movimentsAssaig, getMovimentsAssaig }) => {
   const dispatch = useDispatch();
   const { moviments, fetched } = useSelector(({ moviments }) => moviments);
 
@@ -27,7 +28,15 @@ export default ({ getMovimentsAssaig }) => {
     <ModalList
       title="Afegeix un moviment"
       buttonIcon={<PlusOutlined />}
-      dataSource={moviments}
+      dataSource={mapFirstOfProperty(
+        moviments.filter(
+          (moviment) =>
+            !movimentsAssaig
+              .map((moviment) => moviment.id_moviment)
+              .includes(moviment.id_moviment)
+        ),
+        "id_obra"
+      )}
       searchPlaceholder="Cerca moviments"
       loading={loadingPostMoviment}
       searchFilters={(moviment) => ({
@@ -40,7 +49,7 @@ export default ({ getMovimentsAssaig }) => {
       })}
       renderItem={(moviment, setVisible) => (
         <>
-          {moviment.ordre === 1 && (
+          {moviment.first && (
             <div className="list-item-header">{moviment.titol_obra}</div>
           )}
           <List.Item
@@ -70,3 +79,10 @@ export default ({ getMovimentsAssaig }) => {
     />
   );
 };
+
+ModalListMovimentsAssaig.propTypes = {
+  movimentsAssaig: PropTypes.array,
+  getMovimentsAssaig: PropTypes.func,
+};
+
+export default ModalListMovimentsAssaig;

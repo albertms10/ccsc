@@ -29,7 +29,10 @@ export default () => {
       action={
         <Space>
           <Authorized>
-            <ModalListMovimentsAssaig getMovimentsAssaig={getMovimentsAssaig} />
+            <ModalListMovimentsAssaig
+              movimentsAssaig={moviments}
+              getMovimentsAssaig={getMovimentsAssaig}
+            />
           </Authorized>
           <PopoverProjectesAssaig getMovimentsAssaig={getMovimentsAssaig} />
         </Space>
