@@ -9,7 +9,6 @@ import { usePostAPI } from "../../../../helpers";
 import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
 import { mapFirstOfProperty, timeDuration } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
-import "./modal-list-moviments-assaig.css";
 
 const ModalListMovimentsAssaig = ({ movimentsAssaig, getMovimentsAssaig }) => {
   const dispatch = useDispatch();

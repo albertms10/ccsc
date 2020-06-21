@@ -2,6 +2,7 @@ import { Input, List } from "antd";
 import PropTypes from "prop-types";
 import React, { createRef, useEffect, useState } from "react";
 import { eventSearchFilter } from "../../utils";
+import "./search-list.css";
 
 const { Search } = Input;
 
