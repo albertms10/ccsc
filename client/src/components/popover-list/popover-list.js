@@ -1,6 +1,7 @@
 import { Checkbox, Popover } from "antd";
 import PropTypes from "prop-types";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { ConditionalWrapper } from "../../standalone/conditional-wrapper";
 import Authorized from "../authorized/authorized";
 import { SearchList } from "../search-list";
 import { PopoverListCheckbox } from "./components/popover-list-checkbox";
@@ -9,6 +10,7 @@ import "./popover-list.css";
 const PopoverList = ({
   action,
   title,
+  placement = "bottomRight",
   dataSource = [],
   searchFilters,
   defaultValue,
@@ -20,13 +22,18 @@ const PopoverList = ({
 }) => {
   const [visible, setVisible] = useState(false);
 
-  const popover = useMemo(
-    () => (
+  return (
+    <ConditionalWrapper
+      condition={needsAuthorization}
+      wrapper={(children) => (
+        <Authorized elseElement={elseElement}>{children}</Authorized>
+      )}
+    >
       <Popover
         title={title}
         visible={visible}
         trigger="click"
-        placement="bottomRight"
+        placement={placement}
         overlayClassName="popover-list"
         onVisibleChange={setVisible}
         content={
@@ -53,30 +60,14 @@ const PopoverList = ({
       >
         {action}
       </Popover>
-    ),
-    [
-      action,
-      dataSource,
-      searchFilters,
-      defaultValue,
-      loading,
-      onChange,
-      searchPlaceholder,
-      title,
-      visible,
-    ]
-  );
-
-  return needsAuthorization ? (
-    <Authorized elseElement={elseElement}>{popover}</Authorized>
-  ) : (
-    popover
+    </ConditionalWrapper>
   );
 };
 
 PopoverList.propTypes = {
   action: PropTypes.node,
   title: PropTypes.string,
+  placement: PropTypes.string,
   dataSource: PropTypes.array,
   searchFilters: PropTypes.func,
   defaultValue: PropTypes.array,
