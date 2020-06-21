@@ -9,6 +9,7 @@ const { Search } = Input;
 const SearchList = ({
   searchPlaceholder,
   dataSource,
+  mapData,
   loading,
   searchFilters,
   checkToFocus = true,
@@ -36,9 +37,13 @@ const SearchList = ({
       />
       <List
         dataSource={
-          searchValue.length > 0
-            ? dataSource.filter((item) =>
-                eventSearchFilter(searchValue, searchFilters(item))
+          mapData
+            ? mapData(
+                searchValue.length > 0
+                  ? dataSource.filter((item) =>
+                      eventSearchFilter(searchValue, searchFilters(item))
+                    )
+                  : dataSource
               )
             : dataSource
         }
@@ -56,6 +61,7 @@ const SearchList = ({
 SearchList.propTypes = {
   searchPlaceholder: PropTypes.string,
   dataSource: PropTypes.array,
+  mapData: PropTypes.func,
   loading: PropTypes.bool,
   searchFilters: PropTypes.func,
   checkToFocus: PropTypes.bool,

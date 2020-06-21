@@ -9,6 +9,7 @@ const ModalList = ({
   title,
   searchPlaceholder = "Cerca",
   dataSource,
+  mapData,
   loading = false,
   searchFilters,
   buttonIcon,
@@ -25,6 +26,7 @@ const ModalList = ({
       <SearchList
         searchPlaceholder={searchPlaceholder}
         dataSource={dataSource}
+        mapData={mapData}
         loading={loading}
         searchFilters={searchFilters}
         checkToFocus={visible}
@@ -39,6 +41,7 @@ ModalList.propTypes = {
   title: PropTypes.string,
   searchPlaceholder: PropTypes.string,
   dataSource: PropTypes.array,
+  mapData: PropTypes.func,
   loading: PropTypes.bool,
   searchFilters: PropTypes.func,
   buttonIcon: PropTypes.node,
