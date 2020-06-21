@@ -11,8 +11,8 @@ export default (items, property) => {
   return items.map((item) => ({
     ...item,
     first:
-      !itemsProperty.includes(items[property]) &&
-      itemsProperty.push(items[property]) &&
+      !itemsProperty.includes(item[property]) &&
+      itemsProperty.push(item[property]) &&
       true,
   }));
 };
