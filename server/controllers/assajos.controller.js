@@ -126,7 +126,7 @@ exports.assajos_detall_moviments_post = (req, res, next) => {
     .query(queryFile("assajos/insert__moviment_assaig"), [
       [[id_assaig, id_moviment]],
     ])
-    .then((veus) => res.json(veus))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
@@ -161,10 +161,10 @@ exports.assajos_detall_projectes_post = (req, res, next) => {
   const { id_projecte } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__projecte_assaig"), [
+    .query(queryFile("assajos/insert__projectes_assaig"), [
       [[id_assaig, id_projecte]],
     ])
-    .then((veus) => res.json(veus))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
@@ -202,7 +202,7 @@ exports.assajos_detall_formacions_post = (req, res, next) => {
     .query(queryFile("assajos/insert__formacio_assaig"), [
       [[id_assaig, id_formacio]],
     ])
-    .then((veus) => res.json(veus))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
@@ -248,7 +248,7 @@ exports.assajos_detall_veus_post = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/insert__veu_assaig"), [[[id_assaig, id_veu]]])
-    .then((veus) => res.json(veus))
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
