@@ -25,4 +25,13 @@ router
     [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
     controller.projectes_delete
   );
-};
+
+router
+  .route("/:id/concerts")
+  .get([authJWT.verifyAccessToken], controller.projectes_detall_concerts);
+
+router
+  .route("/:id/participants")
+  .get([authJWT.verifyAccessToken], controller.projectes_detall_participants);
+
+module.exports = router;

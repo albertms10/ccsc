@@ -85,3 +85,23 @@ exports.projectes_delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
+
+exports.projectes_detall_concerts = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_projecte } = req.params;
+
+  pool
+    .query(queryFile("select__concerts_projecte"), [id_projecte])
+    .then((concerts) => res.json(concerts))
+    .catch((e) => next(e));
+};
+
+exports.projectes_detall_participants = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_projecte } = req.params;
+
+  pool
+    .query(queryFile("select__participants_projecte"), [id_projecte])
+    .then((participants) => res.json(participants))
+    .catch((e) => next(e));
+};
