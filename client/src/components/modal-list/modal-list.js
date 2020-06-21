@@ -18,7 +18,11 @@ const ModalList = ({
 
   return (
     <>
-      <BorderlessButton icon={buttonIcon} onClick={() => setVisible(true)} />
+      <BorderlessButton
+        shape="circle"
+        icon={buttonIcon}
+        onClick={() => setVisible(true)}
+      />
       <Modal
         title={title}
         visible={visible}
