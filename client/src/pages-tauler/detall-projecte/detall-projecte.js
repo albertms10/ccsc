@@ -4,7 +4,8 @@ import { Link, Route, Switch, useHistory, useParams } from "react-router-dom";
 import { Authorized } from "../../components/authorized";
 import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
 import { ColorCard } from "../../standalone/color-card";
-import { AssajosProjecte } from "./components/assajos-projectes";
+import { AssajosProjecte } from "./components/assajos-projecte";
+import { RepertoriProjecte } from "./components/repertori-projecte";
 import { ResumProjecte } from "./components/resum-projecte";
 import "./detall-projecte.css";
 import { useProjecte } from "./hooks";
@@ -51,7 +52,7 @@ export default ({ match }) => {
                   <Link to={`${match.url}/assajos`}>Assajos</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to={`${match.url}/obres`}>Obres</Link>
+                  <Link to={`${match.url}/repertori`}>Repertori</Link>
                 </Menu.Item>
                 <Menu.Item>
                   <Link to={`${match.url}/concerts`}>Concerts</Link>
@@ -67,6 +68,10 @@ export default ({ match }) => {
                 <Route
                   path={`${match.path}/assajos`}
                   component={AssajosProjecte}
+                />
+                <Route
+                  path={`${match.path}/repertori`}
+                  component={RepertoriProjecte}
                 />
               </Switch>
             </Layout.Content>
