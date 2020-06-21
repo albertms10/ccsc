@@ -3,6 +3,7 @@ import React, { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
+import { searchFilterProjecte } from "../../../../helpers/search-filters";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { AssaigContext } from "../../detall-assaig";
@@ -47,9 +48,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
         value: projecte.id_projecte,
         label: projecte.titol,
       }))}
-      searchFilters={(projecte) => ({
-        texts: [projecte.titol],
-      })}
+      searchFilters={searchFilterProjecte}
       loading={loadingProjectes || loadingProjecte}
       onChange={({ target }) => {
         changeProjecteAssaig({

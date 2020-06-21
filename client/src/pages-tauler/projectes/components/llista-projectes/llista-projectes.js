@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Authorized } from "../../../../components/authorized";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { searchFilterProjecte } from "../../../../helpers/search-filters";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { eventSearchFilter, literalList } from "../../../../utils";
@@ -37,16 +38,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
 
     return searchValue.length > 0
       ? list.filter((projecte) =>
-          eventSearchFilter(searchValue, {
-            texts: [
-              projecte.titol,
-              projecte.descripcio,
-              projecte.any_inici_curs,
-              projecte.any_final_curs,
-              ...projecte.formacions.map(({ nom }) => nom),
-              ...projecte.directors.map(({ nom }) => nom),
-            ],
-          })
+          eventSearchFilter(searchValue, searchFilterProjecte(projecte))
         )
       : list;
   }, [inactius, projectes, searchValue]);
@@ -69,7 +61,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
                 items={[
                   {
                     key: "eliminar",
-                    action: 'Eliminar',
+                    action: "Eliminar",
                     danger: true,
                     onClick: () => showDeleteConfirm(projecte.id_projecte),
                   },
