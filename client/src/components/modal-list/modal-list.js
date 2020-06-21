@@ -12,11 +12,13 @@ const ModalList = ({
   loading = false,
   searchFilters,
   buttonIcon,
+  button = <BorderlessButton shape="circle" icon={buttonIcon} />,
   renderItem,
+  ...rest
 }) => (
   <ModalButton
     title={title}
-    button={<BorderlessButton shape="circle" icon={buttonIcon} />}
+    button={button}
     footer={null}
     wrapClassName="modal-list"
     renderModalBody={([visible, setVisible]) => (
@@ -29,6 +31,7 @@ const ModalList = ({
         renderItem={(item) => renderItem(item, setVisible)}
       />
     )}
+    {...rest}
   />
 );
 
