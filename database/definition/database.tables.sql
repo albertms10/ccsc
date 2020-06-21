@@ -736,6 +736,16 @@ CREATE TABLE IF NOT EXISTS directors_projectes
     FOREIGN KEY (id_director) REFERENCES directors (id_director)
 );
 
+CREATE TABLE IF NOT EXISTS moviments_projectes
+(
+    id_moviment SMALLINT UNSIGNED NOT NULL,
+    id_projecte SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_moviment, id_projecte),
+    FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
+    FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
+);
+
 CREATE TABLE IF NOT EXISTS concerts
 (
     id_concert  SMALLINT UNSIGNED NOT NULL,
