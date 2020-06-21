@@ -13,6 +13,7 @@ export default ({ getMoviments }) => {
   return (
     <>
       <BorderlessButton
+        shape="circle"
         icon={<PlusOutlined />}
         onClick={() => setVisible(true)}
       />

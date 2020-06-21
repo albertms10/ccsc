@@ -69,7 +69,8 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
                 items={[
                   {
                     key: "eliminar",
-                    action: <Text type="danger">Eliminar</Text>,
+                    action: 'Eliminar',
+                    danger: true,
                     onClick: () => showDeleteConfirm(projecte.id_projecte),
                   },
                 ]}
