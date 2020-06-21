@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FixedTag } from "../../standalone/fixed-tag";
 import { ProjectePropTypes } from "../../typedef/prop-types";
 
-const FixedTagsProjectes = ({ projectes }) => (
+const FixedTagsProjectes = ({ projectes = [] }) => (
   <>
     {projectes.map((projecte) => (
       <FixedTag
