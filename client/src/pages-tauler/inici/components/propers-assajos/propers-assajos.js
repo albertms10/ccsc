@@ -1,9 +1,13 @@
-import { Card, Space, Spin, Typography } from "antd";
+import { BookOutlined, LayoutOutlined } from "@ant-design/icons";
+import { Card, Space, Spin, Tag, Typography } from "antd";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
+import { IconsFormacions } from "../../../../components/icons-formacions";
 import { joinComponents } from "../../../../helpers";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
+import { EventLineItem } from "../../../../standalone/event-line-item";
 import { StatusIcon } from "../../../../standalone/status-icon";
 import { dateRange, timeRange } from "../../../../utils";
 import { usePropersAssajos } from "./hooks";
@@ -39,22 +43,39 @@ export default ({ style }) => {
                 </Space>
               }
             >
-              {joinComponents(
-                dateRange(
-                  properAssaig.dia_inici,
-                  properAssaig.hora_inici,
-                  properAssaig.dia_final,
-                  properAssaig.hora_final
-                ),
-                (item, index) => (
-                  <span key={index}>{item}</span>
-                ),
-                (key) => (
-                  <span key={key} style={{ padding: "0 .25rem" }}>
-                    ·
-                  </span>
-                )
-              )}
+              <Space direction="vertical">
+                <EventLineItem>
+                  {joinComponents(
+                    dateRange(
+                      properAssaig.dia_inici,
+                      properAssaig.hora_inici,
+                      properAssaig.dia_final,
+                      properAssaig.hora_final
+                    ),
+                    (item, index) => (
+                      <span key={index}>{item}</span>
+                    ),
+                    (key) => (
+                      <span key={key} style={{ padding: "0 .25rem" }}>
+                        ·
+                      </span>
+                    )
+                  )}
+                </EventLineItem>
+                <EventLineItem icon={<LayoutOutlined />}>
+                  <Space>
+                    <FixedTagsProjectes projectes={properAssaig.projectes} />
+                    <IconsFormacions formacions={properAssaig.formacions} />
+                  </Space>
+                </EventLineItem>
+                {properAssaig.moviments && properAssaig.moviments.length > 0 && (
+                  <EventLineItem icon={<BookOutlined />}>
+                    {properAssaig.moviments.map((moviment) => (
+                      <Tag>{moviment.titol_moviment}</Tag>
+                    ))}
+                  </EventLineItem>
+                )}
+              </Space>
             </Card>
           </Link>
         </div>
