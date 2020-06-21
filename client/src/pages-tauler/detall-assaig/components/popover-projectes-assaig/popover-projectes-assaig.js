@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import React, { useContext, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
 import { searchFilterProjecte } from "../../../../helpers/search-filters";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { FixedTag } from "../../../../standalone/fixed-tag";
 import { AssaigContext } from "../../detall-assaig";
 import { useProjecteAssaig } from "./hooks";
 
@@ -17,22 +16,17 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
   );
   const [loadingProjecte, changeProjecteAssaig] = useProjecteAssaig(id_assaig);
 
-  const tagsProjectes = useMemo(
-    () =>
-      projectes &&
-      projectes
-        .filter((projecte) => projecte.convocada)
-        .map((projecte) => (
-          <FixedTag
-            key={projecte.id_projecte}
-            tooltip={projecte.titol}
-            color={"#" + projecte.color}
-          >
-            <Link to={`/projectes/${projecte.id_projecte}`}>
-              {projecte.inicials}
-            </Link>
-          </FixedTag>
-        )),
+  const projectesElement = useMemo(
+    () => (
+      <>
+        <span style={{ marginRight: 8 }}>Projectes:</span>
+        <FixedTagsProjectes
+          projectes={
+            projectes && projectes.filter((projecte) => projecte.convocada)
+          }
+        />
+      </>
+    ),
     [projectes]
   );
 
@@ -59,12 +53,12 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
           getProjectes();
         });
       }}
-      action={<BorderlessButton>{tagsProjectes} Projectes</BorderlessButton>}
-      elseElement={
-        <div>
-          <span style={{ marginRight: 3 }}>Projectes:</span> {tagsProjectes}
-        </div>
+      action={
+        <BorderlessButton style={{ paddingRight: 0 }}>
+          {projectesElement}
+        </BorderlessButton>
       }
+      elseElement={projectesElement}
       needsAuthorization
     />
   );

@@ -1,4 +1,3 @@
-import { Space } from "antd";
 import React, { useContext } from "react";
 import { SelectEstatEsdeveniment } from "../../../../components/select-estat-esdeveniment";
 import { ContentListPersones } from "../../../formacio/components/content-list-persones";
@@ -19,11 +18,9 @@ export default () => {
       title="Convocades"
       persones={convocats}
       loading={loadingConvocats}
-      action={
-        <Space>
-          <PopoverVeusAssaig getConvocatsAssaig={getConvocatsAssaig} />
-          <PopoverFormacionsAssaig getConvocatsAssaig={getConvocatsAssaig} />
-        </Space>
+      action={<PopoverVeusAssaig getConvocatsAssaig={getConvocatsAssaig} />}
+      extra={
+        <PopoverFormacionsAssaig getConvocatsAssaig={getConvocatsAssaig} />
       }
       itemExtra={(persona) => (
         <SelectEstatEsdeveniment

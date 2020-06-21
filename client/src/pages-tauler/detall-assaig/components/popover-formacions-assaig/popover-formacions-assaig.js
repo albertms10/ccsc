@@ -1,7 +1,6 @@
-import { Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useContext, useMemo } from "react";
-import { IconFormacio } from "../../../../assets/icons";
+import { IconsFormacions } from "../../../../components/icons-formacions";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
@@ -16,14 +15,17 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
   );
   const [loadingFormacio, changeFormacioAssaig] = useFormacioAssaig(id_assaig);
 
-  const iconsFormacions = useMemo(
-    () =>
-      formacions &&
-      formacions
-        .filter((formacio) => formacio.convocada)
-        .map((formacio) => (
-          <IconFormacio key={formacio.id_formacio} name={formacio.nom_curt} />
-        )),
+  const formacionsElement = useMemo(
+    () => (
+      <>
+        <span style={{ marginRight: 8 }}>Formacions: </span>
+        <IconsFormacions
+          formacions={
+            formacions && formacions.filter((formacio) => formacio.convocada)
+          }
+        />
+      </>
+    ),
     [formacions]
   );
 
@@ -52,20 +54,8 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
           getFormacions();
         });
       }}
-      action={
-        <BorderlessButton>
-          <Space>
-            {iconsFormacions}
-            Formacions
-          </Space>
-        </BorderlessButton>
-      }
-      elseElement={
-        <Space style={{ marginLeft: "1rem" }}>
-          Formacions:
-          {iconsFormacions}
-        </Space>
-      }
+      action={<BorderlessButton>{formacionsElement}</BorderlessButton>}
+      elseElement={formacionsElement}
       needsAuthorization
     />
   );

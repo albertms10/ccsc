@@ -1,5 +1,4 @@
 import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
-import { Space } from "antd";
 import React, { useContext } from "react";
 import { Authorized } from "../../../../components/authorized";
 import { useAPI, useDeleteAPI } from "../../../../helpers";
@@ -43,19 +42,15 @@ export default () => {
       }))}
       loading={loadingMoviments || loadingDeleteMoviment}
       action={
-        <Space>
-          <Authorized>
-            <ModalListMovimentsAssaig
-              button={
-                <BorderlessButton shape="circle" icon={<PlusOutlined />} />
-              }
-              movimentsAssaig={moviments}
-              getMovimentsAssaig={getMovimentsAssaig}
-            />
-          </Authorized>
-          <PopoverProjectesAssaig getMovimentsAssaig={getMovimentsAssaig} />
-        </Space>
+        <Authorized>
+          <ModalListMovimentsAssaig
+            button={<BorderlessButton shape="circle" icon={<PlusOutlined />} />}
+            movimentsAssaig={moviments}
+            getMovimentsAssaig={getMovimentsAssaig}
+          />
+        </Authorized>
       }
+      extra={<PopoverProjectesAssaig getMovimentsAssaig={getMovimentsAssaig} />}
     />
   );
 };
