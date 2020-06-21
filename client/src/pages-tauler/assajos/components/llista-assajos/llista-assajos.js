@@ -7,6 +7,7 @@ import { Authorized } from "../../../../components/authorized";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { searchFilterAssaig } from "../../../../helpers/search-filters";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { eventSearchFilter, timeRange } from "../../../../utils";
@@ -41,18 +42,7 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
 
     return searchValue.length > 0
       ? list.filter((assaig) =>
-          eventSearchFilter(searchValue, {
-            texts: [
-              assaig.titol,
-              ...assaig.formacions.map((formacio) => formacio.nom_curt),
-              ...assaig.projectes.map((projecte) => projecte.titol),
-              ...(assaig.hora_inici ? [] : ["Hora a determinar"]),
-            ],
-            dates: [
-              assaig.data_inici,
-              ...(assaig.data_final ? [assaig.data_final] : []),
-            ],
-          })
+          eventSearchFilter(searchValue, searchFilterAssaig(assaig))
         )
       : list;
   }, [anteriors, assajos, idProjecte, searchValue]);
