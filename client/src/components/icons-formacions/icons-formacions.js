@@ -13,7 +13,7 @@ const IconsFormacions = ({ formacions = [] }) => (
 );
 
 IconsFormacions.propTypes = {
-  formacions: PropTypes.arrayOf(FormacioPropTypes).isRequired,
+  formacions: PropTypes.arrayOf(FormacioPropTypes),
 };
 
 export default IconsFormacions;

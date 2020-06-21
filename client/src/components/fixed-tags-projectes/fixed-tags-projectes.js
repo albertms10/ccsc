@@ -22,7 +22,7 @@ const FixedTagsProjectes = ({ projectes = [] }) => (
 );
 
 FixedTagsProjectes.propTypes = {
-  projectes: PropTypes.arrayOf(ProjectePropTypes).isRequired,
+  projectes: PropTypes.arrayOf(ProjectePropTypes),
 };
 
 export default FixedTagsProjectes;
