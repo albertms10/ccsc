@@ -7,7 +7,7 @@ const ModalButton = ({
   title,
   button = (
     <Button type="primary" icon={<PlusOutlined />}>
-      Nou assaig
+      Afegeix
     </Button>
   ),
   okText,

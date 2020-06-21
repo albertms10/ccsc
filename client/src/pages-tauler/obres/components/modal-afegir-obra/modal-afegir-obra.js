@@ -1,7 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Input, Modal, Row, Select } from "antd";
-import React, { useState } from "react";
+import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import React from "react";
 import { useSelector } from "react-redux";
+import { ModalButton } from "../../../../components/modal-button";
 import { useAfegirObra, useIdiomes } from "./hooks";
 
 const { Option } = Select;
@@ -9,34 +10,27 @@ const { Option } = Select;
 export default () => {
   const { loading } = useSelector(({ obres }) => obres);
 
-  const [visible, setVisible] = useState(false);
-
   const [form, handleOk] = useAfegirObra();
   const [idiomes, loadingIdiomes] = useIdiomes();
 
   return (
-    <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-      >
-        Afegeix una obra
-      </Button>
-      <Modal
-        title="Afegir obra"
-        onCancel={() => setVisible(false)}
-        visible={visible}
-        okText="Afegeix"
-        cancelText="Tanca"
-        confirmLoading={loading}
-        onOk={() => {
-          handleOk().then(() => {
-            setVisible(false);
-            form.resetFields();
-          });
-        }}
-      >
+    <ModalButton
+      title="Afegir obra"
+      okText="Afegeix"
+      cancelText="Tanca"
+      confirmLoading={loading}
+      button={
+        <Button type="primary" icon={<PlusOutlined />}>
+          Afegeix una obra
+        </Button>
+      }
+      onOk={(setVisible) => {
+        handleOk().then(() => {
+          setVisible(false);
+          form.resetFields();
+        });
+      }}
+      renderModalBody={() => (
         <Form form={form} layout="vertical">
           <Form.Item
             name="titol"
@@ -79,7 +73,7 @@ export default () => {
             </Col>
           </Row>
         </Form>
-      </Modal>
-    </>
+      )}
+    />
   );
 };

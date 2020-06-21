@@ -1,48 +1,28 @@
-import { PlusOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Checkbox,
-  Col,
-  DatePicker,
-  Form,
-  Modal,
-  Row,
-  TimePicker,
-} from "antd";
+import { Checkbox, Col, DatePicker, Form, Row, TimePicker } from "antd";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
+import { ModalButton } from "../../../../components/modal-button";
 import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { useAfegirAssaig } from "./hooks";
 
-const ModalAfegirAssaig = ({ idProjecte }) => {
+const ModalAfegirAssaig = ({ idProjecte, ...rest }) => {
   const { loading } = useSelector(({ assajos }) => assajos);
-  const [visible, setVisible] = useState(false);
   const [form, handleOk] = useAfegirAssaig();
 
   return (
-    <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-      >
-        Afegeix un assaig
-      </Button>
-      <Modal
-        title="Afegir assaig"
-        onCancel={() => setVisible(false)}
-        visible={visible}
-        okText="Afegeix"
-        cancelText="Tanca"
-        confirmLoading={loading}
-        onOk={() => {
-          handleOk({ idProjecte }).then(() => {
-            setVisible(false);
-            form.resetFields();
-          });
-        }}
-      >
+    <ModalButton
+      title="Afegir assaig"
+      okText="Afegeix"
+      cancelText="Tanca"
+      confirmLoading={loading}
+      onOk={(setVisible) => {
+        handleOk({ idProjecte }).then(() => {
+          setVisible(false);
+          form.resetFields();
+        });
+      }}
+      renderModalBody={() => (
         <Form form={form} layout="vertical">
           <Row type="flex">
             <Col sm={24} md={8} flex={1}>
@@ -78,13 +58,15 @@ const ModalAfegirAssaig = ({ idProjecte }) => {
           </Row>
           <TagSelectFormItemFormacions />
         </Form>
-      </Modal>
-    </>
+      )}
+      {...rest}
+    />
   );
 };
 
 ModalAfegirAssaig.propTypes = {
   idProjecte: PropTypes.any,
+  button: PropTypes.node,
 };
 
 export default ModalAfegirAssaig;

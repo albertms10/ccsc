@@ -1,7 +1,7 @@
-import { Modal } from "antd";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 import { BorderlessButton } from "../../standalone/borderless-button";
+import { ModalButton } from "../modal-button";
 import { SearchList } from "../search-list";
 import "./modal-list.css";
 
@@ -13,35 +13,24 @@ const ModalList = ({
   searchFilters,
   buttonIcon,
   renderItem,
-}) => {
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <>
-      <BorderlessButton
-        shape="circle"
-        icon={buttonIcon}
-        onClick={() => setVisible(true)}
+}) => (
+  <ModalButton
+    title={title}
+    button={<BorderlessButton shape="circle" icon={buttonIcon} />}
+    footer={null}
+    wrapClassName="modal-list"
+    renderModalBody={([visible, setVisible]) => (
+      <SearchList
+        searchPlaceholder={searchPlaceholder}
+        dataSource={dataSource}
+        loading={loading}
+        searchFilters={searchFilters}
+        checkToFocus={visible}
+        renderItem={(item) => renderItem(item, setVisible)}
       />
-      <Modal
-        title={title}
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        footer={null}
-        wrapClassName="modal-list"
-      >
-        <SearchList
-          searchPlaceholder={searchPlaceholder}
-          dataSource={dataSource}
-          loading={loading}
-          searchFilters={searchFilters}
-          checkToFocus={visible}
-          renderItem={(item) => renderItem(item, setVisible)}
-        />
-      </Modal>
-    </>
-  );
-};
+    )}
+  />
+);
 
 ModalList.propTypes = {
   title: PropTypes.string,

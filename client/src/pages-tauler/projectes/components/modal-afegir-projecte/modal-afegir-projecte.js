@@ -13,12 +13,13 @@ import {
   yellow,
 } from "@ant-design/colors";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Input, Modal, Row, Select } from "antd";
+import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
+import { ModalButton } from "../../../../components/modal-button";
 import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { initials } from "../../../../utils";
 import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
@@ -28,7 +29,6 @@ const { Option } = Select;
 export default () => {
   const { loading } = useSelector(({ projectes }) => projectes);
 
-  const [visible, setVisible] = useState(false);
   const [color, setColor] = useState({});
 
   const [form, handleOk] = useAfegirProjecte();
@@ -46,7 +46,7 @@ export default () => {
         maxInitials: 2,
       }).toUpperCase();
 
-      if (inicials && form.getFieldsValue(["inicials"]).inicials !== inicials) {
+      if (inicials && form.getFieldValue("inicials") !== inicials) {
         form.setFieldsValue({ inicials });
         checkInicials(inicials);
       }
@@ -55,28 +55,23 @@ export default () => {
   );
 
   return (
-    <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-      >
-        Afegeix un projecte
-      </Button>
-      <Modal
-        title="Afegir projecte"
-        onCancel={() => setVisible(false)}
-        visible={visible}
-        okText="Afegeix"
-        cancelText="Tanca"
-        confirmLoading={loading}
-        onOk={() => {
-          handleOk().then(() => {
-            setVisible(false);
-            form.resetFields();
-          });
-        }}
-      >
+    <ModalButton
+      title="Afegir projecte"
+      okText="Afegeix"
+      cancelText="Tanca"
+      confirmLoading={loading}
+      button={
+        <Button type="primary" icon={<PlusOutlined />}>
+          Afegeix un projecte
+        </Button>
+      }
+      onOk={(setVisible) => {
+        handleOk().then(() => {
+          setVisible(false);
+          form.resetFields();
+        });
+      }}
+      renderModalBody={() => (
         <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col sm={16} md={20}>
@@ -176,7 +171,7 @@ export default () => {
           </Row>
           <TagSelectFormItemFormacions />
         </Form>
-      </Modal>
-    </>
+      )}
+    />
   );
 };
