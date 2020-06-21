@@ -13,8 +13,6 @@ export default ({ getMoviments }) => {
   return (
     <ModalButton
       title="Afegir moviment"
-      okText="Afegeix"
-      cancelText="Tanca"
       confirmLoading={loading}
       button={<BorderlessButton shape="circle" icon={<PlusOutlined />} />}
       onOk={(setVisible) => {

@@ -13,8 +13,6 @@ const ModalAfegirAssaig = ({ idProjecte, ...rest }) => {
   return (
     <ModalButton
       title="Afegir assaig"
-      okText="Afegeix"
-      cancelText="Tanca"
       confirmLoading={loading}
       onOk={(setVisible) => {
         handleOk({ idProjecte }).then(() => {

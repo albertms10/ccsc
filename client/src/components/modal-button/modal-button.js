@@ -10,8 +10,8 @@ const ModalButton = ({
       Afegeix
     </Button>
   ),
-  okText,
-  cancelText,
+  okText = "Afegeix",
+  cancelText = "Tanca",
   confirmLoading = false,
   onOk,
   footer,

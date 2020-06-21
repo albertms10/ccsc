@@ -16,8 +16,6 @@ export default () => {
   return (
     <ModalButton
       title="Afegir obra"
-      okText="Afegeix"
-      cancelText="Tanca"
       confirmLoading={loading}
       button={
         <Button type="primary" icon={<PlusOutlined />}>

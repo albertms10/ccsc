@@ -57,8 +57,6 @@ export default () => {
   return (
     <ModalButton
       title="Afegir projecte"
-      okText="Afegeix"
-      cancelText="Tanca"
       confirmLoading={loading}
       button={
         <Button type="primary" icon={<PlusOutlined />}>
