@@ -2,7 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import React, { useContext } from "react";
 import { Authorized } from "../../../../components/authorized";
-import { useAPI } from "../../../../helpers";
+import { useAPI, useDeleteAPI } from "../../../../helpers";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { ContentList } from "../../../../standalone/content-list";
 import { AssaigContext } from "../../detall-assaig";
@@ -15,6 +15,9 @@ export default () => {
   const [moviments, loadingMoviments, getMovimentsAssaig] = useAPI(
     `/api/assajos/${assaig.id_assaig}/moviments`
   );
+  const [loadingDeleteMoviment, deleteMoviment] = useDeleteAPI(
+    `/api/assajos/${assaig.id_assaig}/moviments`
+  );
 
   return (
     <ContentList
@@ -24,8 +27,21 @@ export default () => {
         title: moviment.titol_moviment,
         description: moviment.titol_obra,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
+        extra: (
+          <BorderlessButton
+            size="small"
+            type="circle"
+            tooltip="Eliminar de l’assaig"
+            icon={<CloseOutlined />}
+            onClick={() => {
+              deleteMoviment(moviment.id_moviment).then(() =>
+                getMovimentsAssaig()
+              );
+            }}
+          />
+        ),
       }))}
-      loading={loadingMoviments}
+      loading={loadingMoviments || loadingDeleteMoviment}
       action={
         <Space>
           <Authorized>
@@ -37,7 +53,6 @@ export default () => {
           <PopoverProjectesAssaig getMovimentsAssaig={getMovimentsAssaig} />
         </Space>
       }
-      itemExtra={() => <BorderlessButton icon={<CloseOutlined />} />}
     />
   );
 };
