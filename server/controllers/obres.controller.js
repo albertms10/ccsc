@@ -1,4 +1,4 @@
-const { queryFile } = require("../helpers");
+const { queryFile, parseAndSendJSON } = require("../helpers");
 
 exports.obres_get = (req, res, next) => {
   const pool = req.app.get("pool");
@@ -23,7 +23,7 @@ exports.obres_moviments = (req, res, next) => {
 
   pool
     .query(queryFile("obres/select__moviments"))
-    .then((moviments) => res.json(moviments))
+    .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
     .catch((e) => next(e));
 };
 

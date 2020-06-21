@@ -3,6 +3,7 @@ import { List, Typography } from "antd";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { ModalList } from "../../../../components/modal-list";
 import { usePostAPI } from "../../../../helpers";
 import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
@@ -61,6 +62,11 @@ const ModalListMovimentsAssaig = ({ movimentsAssaig, getMovimentsAssaig }) => {
                 setVisible(false);
               });
             }}
+            actions={[
+              ...(moviment.projectes.length > 0
+                ? [<FixedTagsProjectes projectes={moviments.projectes} />]
+                : []),
+            ]}
           >
             <List.Item.Meta
               avatar={
