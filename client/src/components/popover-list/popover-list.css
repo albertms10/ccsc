@@ -6,7 +6,7 @@
 
 .popover-list .ant-list {
   overflow-y: scroll;
-  max-height: 240px;
+  max-height: 175px;
   margin-top: .2rem;
 }
 

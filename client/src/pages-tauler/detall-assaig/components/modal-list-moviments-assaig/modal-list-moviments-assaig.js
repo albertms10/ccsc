@@ -39,26 +39,33 @@ export default ({ getMovimentsAssaig }) => {
         ],
       })}
       renderItem={(moviment, setVisible) => (
-        <List.Item
-          onClick={() => {
-            postMoviment({
-              id_moviment: moviment.id_moviment,
-            }).then(() => {
-              getMovimentsAssaig();
-              setVisible(false);
-            });
-          }}
-        >
-          <List.Item.Meta
-            avatar={
-              <Typography.Text type="secondary">
-                {moviment.ordre}
-              </Typography.Text>
-            }
-            title={moviment.titol_moviment}
-            description={moviment.titol_obra}
-          />
-        </List.Item>
+        <>
+          {moviment.ordre === 1 && (
+            <div className="list-item-header">{moviment.titol_obra}</div>
+          )}
+          <List.Item
+            onClick={() => {
+              postMoviment({
+                id_moviment: moviment.id_moviment,
+              }).then(() => {
+                getMovimentsAssaig();
+                setVisible(false);
+              });
+            }}
+          >
+            <List.Item.Meta
+              avatar={
+                <Typography.Text type="secondary">
+                  {moviment.ordre}
+                </Typography.Text>
+              }
+              title={moviment.titol_moviment}
+              description={
+                moviment.durada ? timeDuration(moviment.durada) : "Sense durada"
+              }
+            />
+          </List.Item>
+        </>
       )}
     />
   );

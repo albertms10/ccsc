@@ -37,7 +37,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
 
   return (
     <PopoverList
-      title="Projectes convocades"
+      title="Projectes"
       searchPlaceholder="Cerca projectes"
       defaultValue={projectes
         .filter((projecte) => projecte.convocada)
