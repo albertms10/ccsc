@@ -1,4 +1,4 @@
-import { List, Space, Typography } from "antd";
+import { List, Space } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
@@ -13,7 +13,6 @@ import { eventSearchFilter, timeRange } from "../../../../utils";
 import { useAssajos, useEliminarAssaig } from "./hooks";
 
 const { Item } = List;
-const { Text } = Typography;
 
 const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
   const formacions = useContext(FormacionsListContext);
@@ -79,7 +78,8 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
                 items={[
                   {
                     key: "eliminar",
-                    action: <Text type="danger">Eliminar</Text>,
+                    action: "Eliminar",
+                    danger: true,
                     onClick: () => showDeleteConfirm(assaig.id_assaig),
                   },
                 ]}

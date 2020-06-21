@@ -10,8 +10,8 @@ const DropdownBorderlessButton = ({ items = [], icon = <MoreOutlined /> }) => (
     trigger="click"
     overlay={
       <Menu>
-        {items.map(({ key, action, onClick }) => (
-          <Menu.Item key={key} {...(onClick && { onClick })}>
+        {items.map(({ key, action, danger, onClick }) => (
+          <Menu.Item key={key} danger={danger} {...(onClick && { onClick })}>
             {action}
           </Menu.Item>
         ))}

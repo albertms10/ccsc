@@ -1,4 +1,4 @@
-import { Input, List, Space, Typography } from "antd";
+import { Input, List, Space } from "antd";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { IconFormacio } from "../../../../assets/icons";
@@ -9,7 +9,6 @@ import { eventSearchFilter } from "../../../../utils";
 import { useEliminarObra, useObres } from "./hooks";
 
 const { Item } = List;
-const { Text } = Typography;
 const { Search } = Input;
 
 export default () => {
@@ -64,7 +63,8 @@ export default () => {
                   items={[
                     {
                       key: "eliminar",
-                      action: <Text type="danger">Eliminar</Text>,
+                      action: "Eliminar",
+                      danger: true,
                       onClick: () => showDeleteConfirm(obra.id_obra),
                     },
                   ]}
