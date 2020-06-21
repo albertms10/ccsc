@@ -15,4 +15,5 @@ SELECT *,
            WHERE id_moviment = (SELECT m.id_moviment)
        )       AS projectes
 FROM moviments m
-         INNER JOIN obres o USING (id_obra);
+         INNER JOIN obres o USING (id_obra)
+ORDER BY o.any_inici IS NULL, o.titol, m.ordre;
