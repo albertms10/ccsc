@@ -1,16 +1,27 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { List, Typography } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ModalList } from "../../../../components/modal-list";
-import { useAPI, usePostAPI } from "../../../../helpers";
+import { usePostAPI } from "../../../../helpers";
+import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
+import { timeDuration } from "../../../../utils";
 import { AssaigContext } from "../../detall-assaig";
+import "./modal-list-moviments-assaig.css";
 
 export default ({ getMovimentsAssaig }) => {
+  const dispatch = useDispatch();
+  const { moviments, fetched } = useSelector(({ moviments }) => moviments);
+
   const { id_assaig } = useContext(AssaigContext);
-  const [moviments] = useAPI("/api/obres/moviments");
+
   const [loadingPostMoviment, postMoviment] = usePostAPI(
     `/api/assajos/${id_assaig}/moviments`
   );
+
+  useEffect(() => {
+    if (!fetched) dispatch(fetchMoviments());
+  }, [fetched, dispatch]);
 
   return (
     <ModalList
