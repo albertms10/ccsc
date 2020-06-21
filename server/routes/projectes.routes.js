@@ -34,4 +34,11 @@ router
   .route("/:id/participants")
   .get([authJWT.verifyAccessToken], controller.projectes_detall_participants);
 
+router
+  .route("/:id/assajos")
+  .post(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.projectes_detall_assajos_post
+  );
+
 module.exports = router;

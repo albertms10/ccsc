@@ -91,7 +91,7 @@ exports.projectes_detall_concerts = (req, res, next) => {
   const { id: id_projecte } = req.params;
 
   pool
-    .query(queryFile("select__concerts_projecte"), [id_projecte])
+    .query(queryFile("projectes/select__concerts_projecte"), [id_projecte])
     .then((concerts) => res.json(concerts))
     .catch((e) => next(e));
 };
@@ -101,7 +101,20 @@ exports.projectes_detall_participants = (req, res, next) => {
   const { id: id_projecte } = req.params;
 
   pool
-    .query(queryFile("select__participants_projecte"), [id_projecte])
+    .query(queryFile("projectes/select__participants_projecte"), [id_projecte])
     .then((participants) => res.json(participants))
+    .catch((e) => next(e));
+};
+
+exports.projectes_detall_assajos_post = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id: id_projecte } = req.params;
+  const { id_assaig } = req.body;
+
+  pool
+    .query(queryFile("assajos/insert__projectes_assaig"), [
+      [[id_assaig, id_projecte]],
+    ])
+    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
