@@ -1,4 +1,5 @@
 export { default as closestTimeValue } from "./closest-time-value";
+export { default as dataSplit } from "./data-split";
 export { default as dateRange } from "./date-range";
 export { default as eventSearchFilter } from "./event-search-filter";
 export { default as generateUsername } from "./generate-username";
