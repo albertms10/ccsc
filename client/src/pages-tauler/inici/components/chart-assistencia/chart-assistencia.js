@@ -1,4 +1,5 @@
-import { StackedColumn } from "@antv/g2plot";
+import { blue, green, red, yellow } from "@ant-design/colors/lib";
+import { StackedArea } from "@antv/g2plot";
 import { Card } from "antd";
 import React, { useMemo, useState } from "react";
 import ReactG2Plot from "react-g2plot";
@@ -23,6 +24,7 @@ export default () => {
         "pendents",
         "cancelats",
       ]),
+      color: [green.primary, yellow.primary, blue.primary, red.primary],
       loading: loadingAssistenciaEstat,
     }),
     [assistenciaEstat, loadingAssistenciaEstat]
@@ -59,14 +61,13 @@ export default () => {
     >
       <ReactG2Plot
         className="g2plot-for-react"
-        Ctor={StackedColumn}
+        Ctor={StackedArea}
         config={{
           padding: "auto",
           forceFit: true,
           xField: "assaig",
           yField: "value",
           stackField: "type",
-          smooth: true,
           ...(key === "estat" ? estatConfig : veusConfig),
         }}
       />
