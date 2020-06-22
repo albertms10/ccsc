@@ -4,17 +4,17 @@ SELECT *,
        (
            SELECT nom
            FROM veus
-           WHERE veus.id_veu = (SELECT a.id_veu)
+           WHERE veus.id_veu = a.id_veu
        ) AS nom_veu,
        (
            SELECT abreviatura
            FROM veus
-           WHERE veus.id_veu = (SELECT a.id_veu)
+           WHERE veus.id_veu = a.id_veu
        ) AS abreviatura_veu,
        (
            SELECT estat
            FROM estats_confirmacio
-           WHERE id_estat_confirmacio = (SELECT a.id_estat_confirmacio)
+           WHERE id_estat_confirmacio = a.id_estat_confirmacio
        ) AS estat_confirmacio,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
@@ -29,7 +29,7 @@ SELECT *,
            FROM moviments m
                     INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
                     INNER JOIN obres o USING (id_obra)
-           WHERE id_esdeveniment_musical = (SELECT a.id_assaig)
+           WHERE id_esdeveniment_musical = a.id_assaig
        ) AS moviments
 FROM (
          SELECT DISTINCT *,
@@ -38,7 +38,7 @@ FROM (
                                     FROM assistents_esdeveniment
                                              INNER JOIN persones ON (id_soci = id_persona)
                                     WHERE id_persona = @id_soci
-                                      AND id_esdeveniment = (SELECT ae.id_assaig)
+                                      AND id_esdeveniment = ae.id_assaig
                                 ), 1
                              )                                          AS id_estat_confirmacio,
                          IF((
@@ -46,7 +46,7 @@ FROM (
                                 FROM assistents_esdeveniment
                                          INNER JOIN persones ON (id_soci = id_persona)
                                 WHERE id_persona = @id_soci
-                                  AND id_esdeveniment = (SELECT ae.id_assaig)
+                                  AND id_esdeveniment = ae.id_assaig
                             ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard,
                          (
                              SELECT IFNULL(
@@ -79,7 +79,7 @@ WHERE ((
                            SELECT *
                            FROM assajos
                                     INNER JOIN veus_convocades_assaig USING (id_assaig)
-                           WHERE id_assaig = (SELECT a.id_assaig)
+                           WHERE id_assaig = a.id_assaig
                        )
                    )
                AND EXISTS(
@@ -88,7 +88,7 @@ WHERE ((
                            FROM assajos
                                     INNER JOIN assajos_formacions USING (id_assaig)
                                     INNER JOIN socis_formacions USING (id_formacio)
-                           WHERE id_assaig = (SELECT a.id_assaig)
+                           WHERE id_assaig = a.id_assaig
                              AND id_soci = @id_soci
                        )
                    )
@@ -98,7 +98,7 @@ WHERE ((
            SELECT DISTINCT id_veu
            FROM assajos
                     INNER JOIN veus_convocades_assaig USING (id_assaig)
-           WHERE id_assaig = (SELECT a.id_assaig)
+           WHERE id_assaig = a.id_assaig
        )
           )
 LIMIT ?;
