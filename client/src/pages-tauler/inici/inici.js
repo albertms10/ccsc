@@ -11,6 +11,7 @@ import {
   ProjectesCountStatistics,
   SocisCountStatistics,
 } from "../../standalone/statistics";
+import { ChartAssistencia } from "./components/chart-assistencia";
 import { PropersAssajos } from "./components/propers-assajos";
 import "./inici.css";
 
@@ -58,6 +59,7 @@ export default () => {
           <AssajosCountStatistics />
         </Col>
       </Row>
+      <ChartAssistencia />
     </SafeMargin>
   );
 };
