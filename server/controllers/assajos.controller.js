@@ -29,6 +29,15 @@ exports.assajos_historial = (req, res, next) => {
     .catch((e) => next(e));
 };
 
+exports.assajos_assistencia = (req, res, next) => {
+  const pool = req.app.get("pool");
+
+  pool
+    .query(queryFile("assajos/select__assistencia_assajos"))
+    .then((assistencia) => res.json(assistencia))
+    .catch((e) => next(e));
+};
+
 exports.assajos_post = async (req, res, next) => {
   const pool = req.app.get("pool");
   const { assaig } = req.body;

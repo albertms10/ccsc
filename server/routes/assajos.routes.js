@@ -20,6 +20,13 @@ router
   .get([authJWT.verifyAccessToken], controller.assajos_historial);
 
 router
+  .route("/assistencia")
+  .get(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.assajos_assistencia
+  );
+
+router
   .route("/:id")
   .get([authJWT.verifyAccessToken], controller.assajos_detall)
   .delete(
