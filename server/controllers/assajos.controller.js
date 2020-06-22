@@ -31,9 +31,16 @@ exports.assajos_historial = (req, res, next) => {
 
 exports.assajos_assistencia = (req, res, next) => {
   const pool = req.app.get("pool");
+  const { group } = req.query;
 
   pool
-    .query(queryFile("assajos/select__assistencia_assajos"))
+    .query(
+      queryFile(
+        group === "veus"
+          ? "assajos/select__assistencia_veus_assajos"
+          : "assajos/select__assistencia_assajos"
+      )
+    )
     .then((assistencia) => res.json(assistencia))
     .catch((e) => next(e));
 };
