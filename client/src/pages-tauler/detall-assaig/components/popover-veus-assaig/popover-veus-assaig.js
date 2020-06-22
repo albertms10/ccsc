@@ -34,7 +34,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
       defaultValue={veus
         .filter((veu) => veu.convocada)
         .map((veu) => veu.id_veu)}
-      placement="bottomCenter"
+      placement="bottomLeft"
       dataSource={veus.map((veu) => ({
         ...veu,
         value: veu.id_veu,
