@@ -71,30 +71,31 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
           ]}
         >
           <Link to={`/projectes/${projecte.id_projecte}`}>
-            <Space size="large" {...(inactius && { style: { opacity: 0.6 } })}>
-              <ColorCard hoverable={false} color={"#" + projecte.color} />
-              <Item.Meta
-                title={projecte.titol}
-                description={
-                  <Space direction="vertical">
-                    {projecte.directors.length > 0 && (
-                      <div>
-                        <Text strong>Col·laboradors:</Text>{" "}
-                        {literalList(projecte.directors.map(({ nom }) => nom))}
-                      </div>
-                    )}
-                    {formacions.length > 1 && projecte.formacions.length > 0 && (
-                      <div>
-                        <Text strong>Formacions:</Text>{" "}
-                        {literalList(
-                          projecte.formacions.map(({ nom_curt }) => nom_curt)
-                        )}
-                      </div>
-                    )}
-                  </Space>
-                }
-              />
-            </Space>
+            <Item.Meta
+              avatar={
+                <ColorCard hoverable={false} color={"#" + projecte.color} />
+              }
+              title={projecte.titol}
+              description={
+                <Space direction="vertical">
+                  {projecte.directors.length > 0 && (
+                    <div>
+                      <Text strong>Col·laboradors:</Text>{" "}
+                      {literalList(projecte.directors.map(({ nom }) => nom))}
+                    </div>
+                  )}
+                  {formacions.length > 1 && projecte.formacions.length > 0 && (
+                    <div>
+                      <Text strong>Formacions:</Text>{" "}
+                      {literalList(
+                        projecte.formacions.map(({ nom_curt }) => nom_curt)
+                      )}
+                    </div>
+                  )}
+                </Space>
+              }
+              {...(inactius && { style: { opacity: 0.6 } })}
+            />
           </Link>
         </Item>
       )}

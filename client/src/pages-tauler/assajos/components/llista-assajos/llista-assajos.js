@@ -1,4 +1,4 @@
-import { List, Space } from "antd";
+import { List } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
@@ -78,22 +78,23 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
           ]}
         >
           <Link to={`/assajos/${assaig.id_assaig}`}>
-            <Space size="large" {...(anteriors && { style: { opacity: 0.6 } })}>
-              <CalendarAvatar
-                moment={moment(assaig.data_inici)}
-                style={{
-                  transform: "scale(1.25)",
-                  position: "relative",
-                  left: "5px",
-                }}
-              />
-              <Item.Meta
-                title={assaig.titol}
-                description={timeRange(assaig.hora_inici, assaig.hora_final, {
-                  textual: true,
-                })}
-              />
-            </Space>
+            <Item.Meta
+              avatar={
+                <CalendarAvatar
+                  moment={moment(assaig.data_inici)}
+                  style={{
+                    transform: "scale(1.25)",
+                    position: "relative",
+                    top: 8,
+                  }}
+                />
+              }
+              title={assaig.titol}
+              description={timeRange(assaig.hora_inici, assaig.hora_final, {
+                textual: true,
+              })}
+              {...(anteriors && { style: { opacity: 0.6 } })}
+            />
           </Link>
         </Item>
       )}

@@ -92,3 +92,7 @@
 .site-layout .ant-list-item-action > li {
   cursor: auto;
 }
+
+.ant-list-item a {
+  display: contents;
+}
