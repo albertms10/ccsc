@@ -1,13 +1,14 @@
 SELECT CONCAT(
                DATE_FORMAT(dia_inici, '%d/%m/%Y'),
                IFNULL(CONCAT(' ', TIME_FORMAT(hora_inici, '%H:%i')), '')
-           )                                                                          AS assaig,
-       COUNT(id_persona)                                                              AS convocats,
-       COUNT(CASE WHEN retard THEN id_persona END)                                    AS retards,
+           )                                                         AS assaig,
+       COUNT(id_persona)                                             AS convocats,
+       COUNT(CASE WHEN retard THEN id_persona END)                   AS retards,
        COUNT(
-               CASE WHEN id_estat_confirmacio = 1 AND NOT retard THEN id_persona END) AS confirmats_puntuals,
-       COUNT(CASE WHEN id_estat_confirmacio = 2 THEN id_persona END)                  AS pendents,
-       COUNT(CASE WHEN id_estat_confirmacio = 3 THEN id_persona END)                  AS cancelats
+               CASE WHEN id_estat_confirmacio = 1 AND NOT retard THEN id_persona END
+           )                                                         AS confirmats_puntuals,
+       COUNT(CASE WHEN id_estat_confirmacio = 2 THEN id_persona END) AS pendents,
+       COUNT(CASE WHEN id_estat_confirmacio = 3 THEN id_persona END) AS cancelats
 FROM (
          SELECT DISTINCT id_assaig,
                          id_persona,
