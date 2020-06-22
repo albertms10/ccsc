@@ -72,6 +72,7 @@ FROM (
                                         )
                          )                                              AS id_veu
          FROM assajos_estat ae
+         WHERE dia_inici >= DATE(NOW())
      ) a
 WHERE ((
                NOT EXISTS(
