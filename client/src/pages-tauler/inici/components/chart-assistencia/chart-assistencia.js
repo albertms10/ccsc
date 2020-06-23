@@ -1,5 +1,13 @@
 import { StackedArea } from "@ant-design/charts";
-import { blue, green, red, yellow } from "@ant-design/colors/lib";
+import {
+  blue,
+  cyan,
+  gold,
+  green,
+  magenta,
+  red,
+  yellow,
+} from "@ant-design/colors/lib";
 import { Card } from "antd";
 import React, { useMemo, useState } from "react";
 import { useAPI } from "../../../../helpers";
@@ -17,12 +25,12 @@ export default () => {
 
   const estatConfig = useMemo(
     () => ({
-      data: dataSplit(assistenciaEstat, "assaig", [
-        "confirmats_puntuals",
-        "retards",
-        "pendents",
-        "cancelats",
-      ]),
+      data: dataSplit(assistenciaEstat, "assaig", {
+        confirmats_puntuals: "Confirmats puntuals",
+        confirmats_retard: "Confirmats amb retard",
+        pendents: "Pendents",
+        cancelats: "Cancel·lats",
+      }),
       color: [green.primary, yellow.primary, blue.primary, red.primary],
       loading: loadingAssistenciaEstat,
     }),
@@ -31,12 +39,13 @@ export default () => {
 
   const veusConfig = useMemo(
     () => ({
-      data: dataSplit(assistenciaVeus, "assaig", [
-        "sopranos",
-        "contralts",
-        "tenors",
-        "baixos",
-      ]),
+      data: dataSplit(assistenciaVeus, "assaig", {
+        sopranos: "Sopranos",
+        contralts: "Contralts",
+        tenors: "Tenors",
+        baixos: "Baixos",
+      }),
+      color: [blue.primary, magenta.primary, cyan.primary, gold.primary],
       loading: loadingAssistenciaVeus,
     }),
     [assistenciaVeus, loadingAssistenciaVeus]
@@ -46,14 +55,8 @@ export default () => {
     <Card
       title="Assitència"
       tabList={[
-        {
-          key: "estat",
-          tab: "Estat",
-        },
-        {
-          key: "veus",
-          tab: "Veus",
-        },
+        { key: "estat", tab: "Estat" },
+        { key: "veus", tab: "Veus" },
       ]}
       activeTabKey={key}
       onTabChange={setKey}

@@ -3,7 +3,7 @@ SELECT CONCAT(
                IFNULL(CONCAT(' ', TIME_FORMAT(hora_inici, '%H:%i')), '')
            )                                                      AS assaig,
        COUNT(id_soci)                                             AS convocats,
-       COUNT(CASE WHEN retard THEN id_soci END)                   AS retards,
+       COUNT(CASE WHEN retard THEN id_soci END)                   AS confirmats_retard,
        COUNT(
                CASE WHEN id_estat_confirmacio = 1 AND NOT retard THEN id_soci END
            )                                                      AS confirmats_puntuals,

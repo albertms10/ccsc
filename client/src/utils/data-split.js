@@ -1,25 +1,32 @@
+import { typeOf } from "./index";
+
 /**
  * Returns an array of split data given the `pivot` key
  * and the keys to split the data into.
  * @param {[]} data
  * @param {string} pivot
- * @param {string[]} keys
+ * @param {string[] | Object} keys
  * @param {string} [splitKeyName]
  * @returns {[]}
  */
 export default (data, pivot, keys, splitKeyName = "type") => {
-  let splitData = [];
+  const dataType = typeOf(keys);
 
-  keys.forEach((key) => {
-    splitData = [
-      ...splitData,
+  const pushData = (array, key, keyName) =>
+    array.push(
       ...data.map((item) => ({
         [pivot]: item[pivot],
         value: item[key],
-        [splitKeyName]: key,
-      })),
-    ];
-  });
+        [splitKeyName]: keyName || key,
+      }))
+    );
+
+  const splitData = [];
+
+  if (dataType === "[object Object]")
+    Object.keys(keys).forEach((key) => pushData(splitData, key, keys[key]));
+  else if (dataType === "[object Array]")
+    keys.forEach((key) => pushData(splitData, key));
 
   return splitData;
 };
