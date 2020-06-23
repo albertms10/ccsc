@@ -14,5 +14,6 @@ export { default as snakeCase } from "./snake-case";
 export { default as stripAccents } from "./strip-accents";
 export { default as timeDuration } from "./time-duration";
 export { default as timeRange } from "./time-range";
+export { default as typeOf } from "./type-of";
 export { default as upperCaseFirst } from "./upper-case-first";
 export { default as upperSnakeCase } from "./upper-snake-case";
