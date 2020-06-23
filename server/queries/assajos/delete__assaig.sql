@@ -11,6 +11,10 @@ FROM assajos_projectes
 WHERE id_assaig = @id_assaig;
 
 DELETE
+FROM assistents_esdeveniment
+WHERE id_esdeveniment = @id_assaig;
+
+DELETE
 FROM assajos
 WHERE id_assaig = @id_assaig;
 
