@@ -6,6 +6,10 @@
   --border-radius: 5px;
   --container-box-shadow: 0 0 25px rgba(0, 0, 0, 0.03);
 
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   --max-width-xs: 575.98px;
   --min-width-xs: 576px;
   --max-width-sm: 767.98px;
@@ -35,9 +39,7 @@
 }
 
 .ant-pagination-item {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--font-family);
 }
 
 .main-page-header .ant-page-header-heading-title {
