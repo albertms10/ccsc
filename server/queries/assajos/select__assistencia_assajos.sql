@@ -15,7 +15,7 @@ FROM (
                          dia_inici,
                          hora_inici,
                          IFNULL(id_estat_confirmacio, 1) AS id_estat_confirmacio,
-                         retard,
+                         IFNULL(retard, FALSE)           AS retard,
                          (
                              SELECT IFNULL(
                                             (
@@ -39,11 +39,10 @@ FROM (
                                                 )
                                         )
                          )                               AS id_veu
-         FROM assistents_esdeveniment
-                  INNER JOIN socis USING (id_soci)
-                  INNER JOIN persones p ON socis.id_soci = p.id_persona
-                  INNER JOIN esdeveniments e USING (id_esdeveniment)
-                  INNER JOIN assajos a ON (id_esdeveniment = id_assaig)
+         FROM assajos a
+                  INNER JOIN esdeveniments e ON (id_esdeveniment = id_assaig)
+                  LEFT JOIN assistents_esdeveniment ae2 USING (id_esdeveniment)
+                  LEFT JOIN persones p ON (ae2.id_soci = p.id_persona)
          WHERE p.id_persona IN (
              SELECT id_soci
              FROM socis
