@@ -24,7 +24,7 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
       const putRetard = !!retard;
 
       putAssistentEsdeveniment({
-        id_soci: persona.id_persona,
+        id_soci: persona.id_soci,
         id_estat_confirmacio: putEstat,
         retard: putRetard,
       }).then(() => {
@@ -35,7 +35,7 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     },
     [
       estatConfirmacio,
-      persona.id_persona,
+      persona.id_soci,
       putAssistentEsdeveniment,
       retardAssistent,
     ]
