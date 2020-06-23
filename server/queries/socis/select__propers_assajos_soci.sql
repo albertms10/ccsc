@@ -32,47 +32,26 @@ SELECT *,
            WHERE id_esdeveniment_musical = a.id_assaig
        ) AS moviments
 FROM (
-         SELECT DISTINCT *,
-                         IFNULL((
-                                    SELECT id_estat_confirmacio
-                                    FROM assistents_esdeveniment
-                                             INNER JOIN persones ON (id_soci = id_persona)
-                                    WHERE id_persona = @id_soci
-                                      AND id_esdeveniment = ae.id_assaig
-                                ), 1
-                             )                                          AS id_estat_confirmacio,
-                         IF((
-                                SELECT retard
-                                FROM assistents_esdeveniment
-                                         INNER JOIN persones ON (id_soci = id_persona)
-                                WHERE id_persona = @id_soci
-                                  AND id_esdeveniment = ae.id_assaig
-                            ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard,
-                         (
-                             SELECT IFNULL(
-                                            (
-                                                SELECT GROUP_CONCAT(id_veu)
-                                                FROM socis_veu_moviment_projectes
-                                                         INNER JOIN veus_moviments USING (id_veu_moviment)
-                                                WHERE id_soci = @id_soci
-                                            ), IFNULL(
-                                                    (
-                                                        SELECT GROUP_CONCAT(id_veu)
-                                                        FROM socis_projectes_veu
-                                                        WHERE id_soci = @id_soci
-                                                    ),
-                                                    (
-                                                        SELECT GROUP_CONCAT(id_veu)
-                                                        FROM socis_formacions_veus
-                                                                 INNER JOIN socis_formacions USING (id_soci_formacio)
-                                                                 INNER JOIN formacions USING (id_formacio)
-                                                        WHERE id_soci = @id_soci
-                                                    )
-                                                )
-                                        )
-                         )                                              AS id_veu
-         FROM assajos_estat ae
+         SELECT *,
+                IFNULL((
+                           SELECT id_estat_confirmacio
+                           FROM assistents_esdeveniment
+                                    INNER JOIN persones ON (id_soci = id_persona)
+                           WHERE id_persona = @id_soci
+                             AND id_esdeveniment = ae.id_assaig
+                       ), 1
+                    )                                          AS id_estat_confirmacio,
+                IF((
+                       SELECT retard
+                       FROM assistents_esdeveniment
+                                INNER JOIN persones ON (id_soci = id_persona)
+                       WHERE id_persona = @id_soci
+                         AND id_esdeveniment = ae.id_assaig
+                   ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard
+         FROM assajos_estat ae,
+              socis_veus sv
          WHERE dia_inici >= DATE(NOW())
+           AND sv.id_soci = @id_soci
      ) a
 WHERE ((
                NOT EXISTS(

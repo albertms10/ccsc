@@ -121,3 +121,35 @@ SELECT DISTINCT projectes.id_projecte,
 FROM projectes
          INNER JOIN cursos USING (id_curs)
 ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
+
+
+CREATE VIEW socis_veus AS
+SELECT id_soci,
+       nom,
+       cognoms,
+       nom_complet,
+       (
+           SELECT IFNULL(
+                          (
+                              SELECT GROUP_CONCAT(id_veu)
+                              FROM socis_veu_moviment_projectes
+                                       INNER JOIN veus_moviments USING (id_veu_moviment)
+                              WHERE id_soci = s.id_soci
+                          ), IFNULL(
+                                  (
+                                      SELECT GROUP_CONCAT(id_veu)
+                                      FROM socis_projectes_veu
+                                      WHERE id_soci = s.id_soci
+                                  ),
+                                  (
+                                      SELECT GROUP_CONCAT(id_veu)
+                                      FROM socis_formacions_veus
+                                               INNER JOIN socis_formacions USING (id_soci_formacio)
+                                               INNER JOIN formacions USING (id_formacio)
+                                      WHERE id_soci = s.id_soci
+                                  )
+                              )
+                      )
+       ) AS id_veu
+FROM socis s
+         INNER JOIN persones p ON (id_persona = id_soci);

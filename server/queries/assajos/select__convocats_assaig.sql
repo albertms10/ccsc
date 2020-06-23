@@ -17,15 +17,12 @@ SELECT *,
            WHERE id_estat_confirmacio = p.id_estat_confirmacio
        ) AS estat_confirmacio
 FROM (
-         SELECT DISTINCT p.id_persona,
-                         p.nom,
-                         p.cognoms,
-                         p.nom_complet,
+         SELECT DISTINCT sv.*,
                          IFNULL((
                                     SELECT id_estat_confirmacio
                                     FROM assistents_esdeveniment
                                              INNER JOIN persones ON (id_soci = id_persona)
-                                    WHERE id_persona = p.id_persona
+                                    WHERE id_persona = sv.id_soci
                                       AND id_esdeveniment = @id_assaig
                                 ), 1
                              )                                          AS id_estat_confirmacio,
@@ -33,35 +30,12 @@ FROM (
                                 SELECT retard
                                 FROM assistents_esdeveniment
                                          INNER JOIN persones ON (id_soci = id_persona)
-                                WHERE id_persona = p.id_persona
+                                WHERE id_persona = sv.id_soci
                                   AND id_esdeveniment = @id_assaig
-                            ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard,
-                         (
-                             SELECT IFNULL(
-                                            (
-                                                SELECT GROUP_CONCAT(id_veu)
-                                                FROM socis_veu_moviment_projectes
-                                                         INNER JOIN veus_moviments USING (id_veu_moviment)
-                                                WHERE id_soci = p.id_persona
-                                            ), IFNULL(
-                                                    (
-                                                        SELECT GROUP_CONCAT(id_veu)
-                                                        FROM socis_projectes_veu
-                                                        WHERE id_soci = p.id_persona
-                                                    ),
-                                                    (
-                                                        SELECT GROUP_CONCAT(id_veu)
-                                                        FROM socis_formacions_veus
-                                                                 INNER JOIN socis_formacions USING (id_soci_formacio)
-                                                                 INNER JOIN formacions USING (id_formacio)
-                                                        WHERE id_soci = p.id_persona
-                                                    )
-                                                )
-                                        )
-                         )                                              AS id_veu
+                            ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS retard
          FROM socis
-                  INNER JOIN persones p ON socis.id_soci = p.id_persona
-         WHERE p.id_persona IN (
+                  INNER JOIN socis_veus sv USING (id_soci)
+         WHERE sv.id_soci IN (
              SELECT id_soci
              FROM socis
                       INNER JOIN socis_formacions USING (id_soci)
