@@ -1,8 +1,7 @@
+import { StackedArea } from "@ant-design/charts";
 import { blue, green, red, yellow } from "@ant-design/colors/lib";
-import { StackedArea } from "@antv/g2plot";
 import { Card } from "antd";
 import React, { useMemo, useState } from "react";
-import ReactG2Plot from "react-g2plot";
 import { useAPI } from "../../../../helpers";
 import { dataSplit } from "../../../../utils";
 
@@ -59,17 +58,14 @@ export default () => {
       activeTabKey={key}
       onTabChange={setKey}
     >
-      <ReactG2Plot
-        className="g2plot-for-react"
-        Ctor={StackedArea}
-        config={{
-          padding: "auto",
-          forceFit: true,
-          xField: "assaig",
-          yField: "value",
-          stackField: "type",
-          ...(key === "estat" ? estatConfig : veusConfig),
-        }}
+      <StackedArea
+        padding="auto"
+        forceFit
+        xField="assaig"
+        yField="value"
+        stackField="type"
+        smooth
+        {...(key === "estat" ? estatConfig : veusConfig)}
       />
     </Card>
   );
