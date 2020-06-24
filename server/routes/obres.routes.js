@@ -14,8 +14,6 @@ router
 
 router.route("/idiomes").get(controller.obres_idiomes);
 
-router.route("/moviments").get(controller.obres_moviments)
-
 router
   .route("/:id")
   .get(controller.obres_detall)
@@ -26,10 +24,6 @@ router
 
 router
   .route("/:id/moviments")
-  .get([authJWT.verifyAccessToken], controller.obres_detall_moviments)
-  .post(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.obres_detall_moviments_post
-  );
+  .get([authJWT.verifyAccessToken], controller.obres_detall_moviments);
 
 module.exports = router;

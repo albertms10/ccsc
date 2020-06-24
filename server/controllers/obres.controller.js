@@ -1,4 +1,4 @@
-const { queryFile, parseAndSendJSON } = require("../helpers");
+const { queryFile } = require("../helpers");
 
 exports.obres_get = (req, res, next) => {
   const pool = req.app.get("pool");
@@ -15,15 +15,6 @@ exports.obres_idiomes = (req, res, next) => {
   pool
     .query(queryFile("obres/select__idiomes"))
     .then((idiomes) => res.json(idiomes))
-    .catch((e) => next(e));
-};
-
-exports.obres_moviments = (req, res, next) => {
-  const pool = req.app.get("pool");
-
-  pool
-    .query(queryFile("obres/select__moviments"))
-    .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
     .catch((e) => next(e));
 };
 
@@ -78,18 +69,5 @@ exports.obres_detall_moviments = (req, res, next) => {
   pool
     .query(queryFile("obres/select__moviments_obra"), [id])
     .then((moviments) => res.json(moviments))
-    .catch((e) => next(e));
-};
-
-exports.obres_detall_moviments_post = (req, res, next) => {
-  const pool = req.app.get("pool");
-  const { id } = req.params;
-  const { moviment } = req.body;
-
-  pool
-    .query(queryFile("obres/insert__moviment"), [
-      [[id, moviment.ordre, moviment.titol, moviment.durada]],
-    ])
-    .then(() => res.status(204).send())
     .catch((e) => next(e));
 };

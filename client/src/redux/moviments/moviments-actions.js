@@ -23,7 +23,7 @@ export const fetchMoviments = () => (dispatch) => {
   dispatch(fetchMovimentsRequest());
 
   fetchAPI(
-    `/api/obres/moviments`,
+    `/api/moviments`,
     (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchMovimentsFailure(data.error));

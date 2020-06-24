@@ -47,6 +47,7 @@ app.use("/api/esdeveniments", require("./routes/esdeveniments.routes"));
 app.use("/api/formacions", require("./routes/formacions.routes"));
 app.use("/api/establiments", require("./routes/establiments.routes"));
 app.use("/api/localitzacions", require("./routes/localitzacions.routes"));
+app.use("/api/moviments", require("./routes/moviments.routes"));
 app.use("/api/obres", require("./routes/obres.routes"));
 app.use("/api/projectes", require("./routes/projectes.routes"));
 app.use("/api/socis", require("./routes/socis.routes"));
