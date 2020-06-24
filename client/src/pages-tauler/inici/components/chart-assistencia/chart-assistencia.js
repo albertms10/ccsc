@@ -53,7 +53,7 @@ export default () => {
 
   return (
     <Card
-      title="Assitència"
+      title="Assistència"
       tabList={[
         { key: "estat", tab: "Estat" },
         { key: "veus", tab: "Veus" },
