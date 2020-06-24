@@ -16,15 +16,18 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
   );
   const [loadingProjecte, changeProjecteAssaig] = useProjecteAssaig(id_assaig);
 
+  const projectesFiltered = useMemo(
+    () => projectes && projectes.filter(({ convocada }) => convocada),
+    [projectes]
+  );
+
   const projectesElement = useMemo(
     () => (
       <>
-        <span style={{ marginRight: 8 }}>Projectes:</span>
-        <FixedTagsProjectes
-          projectes={
-            projectes && projectes.filter((projecte) => projecte.convocada)
-          }
-        />
+        <span style={{ marginRight: 8 }}>
+          {projectesFiltered.length > 0 ? "Projectes:" : "Sense projectes"}
+        </span>
+        <FixedTagsProjectes projectes={projectesFiltered} />
       </>
     ),
     [projectes]
@@ -34,9 +37,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
     <PopoverList
       title="Projectes"
       searchPlaceholder="Cerca projectes"
-      defaultValue={projectes
-        .filter((projecte) => projecte.convocada)
-        .map((projecte) => projecte.id_projecte)}
+      defaultValue={projectesFiltered.map(({ id_projecte }) => id_projecte)}
       dataSource={projectes.map((projecte) => ({
         ...projecte,
         value: projecte.id_projecte,

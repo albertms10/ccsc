@@ -15,15 +15,18 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
   );
   const [loadingFormacio, changeFormacioAssaig] = useFormacioAssaig(id_assaig);
 
+  const formacionsFiltered = useMemo(
+    () => formacions && formacions.filter(({ convocada }) => convocada),
+    [formacions]
+  );
+
   const formacionsElement = useMemo(
     () => (
       <>
-        <span style={{ marginRight: 8 }}>Formacions: </span>
-        <IconsFormacions
-          formacions={
-            formacions && formacions.filter((formacio) => formacio.convocada)
-          }
-        />
+        <span style={{ marginRight: 8 }}>
+          {formacionsFiltered.length > 0 ? "Formacions:" : "Sense formacions"}
+        </span>
+        <IconsFormacions formacions={formacionsFiltered} />
       </>
     ),
     [formacions]
@@ -33,9 +36,7 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
     <PopoverList
       title="Formacions convocades"
       searchPlaceholder="Cerca formacions"
-      defaultValue={formacions
-        .filter((formacio) => formacio.convocada)
-        .map((formacio) => formacio.id_formacio)}
+      defaultValue={formacionsFiltered.map(({ id_formacio }) => id_formacio)}
       dataSource={formacions.map((formacio) => ({
         ...formacio,
         value: formacio.id_formacio,
