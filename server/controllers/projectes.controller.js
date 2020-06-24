@@ -131,3 +131,16 @@ exports.projectes_detall_moviments_post = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
+
+exports.projectes_detall_moviments_delete = (req, res, next) => {
+  const pool = req.app.get("pool");
+  const { id_projecte, id_moviment } = req.params;
+
+  pool
+    .query(queryFile("projectes/delete__moviment_projecte"), [
+      id_projecte,
+      id_moviment,
+    ])
+    .then(() => res.status(204).send())
+    .catch((e) => next(e));
+};

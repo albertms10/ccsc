@@ -48,4 +48,11 @@ router
     controller.projectes_detall_moviments_post
   );
 
+router
+  .route("/:id_projecte/moviments/:id_moviment")
+  .delete(
+    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
+    controller.projectes_detall_moviments_delete
+  );
+
 module.exports = router;
