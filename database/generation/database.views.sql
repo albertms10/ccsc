@@ -32,6 +32,7 @@ SELECT DISTINCT id_esdeveniment,
                              INNER JOIN establiments e2 ON localitzacions.id_localitzacio = e2.id_establiment
                     WHERE id_localitzacio = (SELECT e.id_localitzacio)
                 )                                                                        AS establiment,
+                id_esdeveniment_ajornat,
                 e.id_estat_esdeveniment,
                 (
                     SELECT estat
@@ -81,6 +82,7 @@ SELECT DISTINCT ee.*,
                 id_assaig,
                 CONCAT(
                         'Assaig',
+                        IF(es_parcial, ' parcial', ''),
                         IF(es_general, ' general', ''),
                         IF(es_extra, ' extra', '')
                     ) AS titol,
@@ -110,6 +112,7 @@ SELECT DISTINCT ee.*,
                     WHERE id_assaig = (SELECT a.id_assaig)
                 )     AS projectes
 FROM assajos a
+         INNER JOIN assajos_son_parcials USING (id_assaig)
          INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig);
 
 
