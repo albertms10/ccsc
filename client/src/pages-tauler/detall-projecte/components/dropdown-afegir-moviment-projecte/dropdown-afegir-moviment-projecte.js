@@ -1,11 +1,15 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { ModalSeleccionarMoviment } from "../../../../components/modal-seleccionar-moviment";
 import { usePostAPI } from "../../../../helpers";
+import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
 import { ProjectePropTypes } from "../../../../typedef/prop-types";
 
 const DropdownAfegirMovimentProjecte = ({ projecte }) => {
+  const dispatch = useDispatch();
+
   const [loadingPostMoviment, postMoviment] = usePostAPI(
     `/api/projectes/${projecte.id_projecte}/moviments`
   );
@@ -21,16 +25,20 @@ const DropdownAfegirMovimentProjecte = ({ projecte }) => {
             dataFilter={(moviment) =>
               !moviment.projectes.find(
                 (projecteMoviment) =>
-                  projecteMoviment.id_projecte !== projecte.id_projecte
+                  projecteMoviment.id_projecte === projecte.id_projecte
               )
             }
-            onItemClick={({ id_moviment }) => postMoviment({ id_moviment })}
+            onItemClick={({ id_moviment }) =>
+              postMoviment({ id_moviment }).then(() =>
+                dispatch(fetchMoviments())
+              )
+            }
           />
         </Menu>
       }
     >
       <Button type="primary">
-        Afegir moviment <DownOutlined />
+        Afegeix moviment <DownOutlined />
       </Button>
     </Dropdown>
   );

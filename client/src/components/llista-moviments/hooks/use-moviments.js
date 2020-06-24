@@ -4,11 +4,11 @@ import { fetchMoviments } from "../../../redux/moviments/moviments-actions";
 
 export default () => {
   const dispatch = useDispatch();
-  const { obres, loading } = useSelector(({ obres }) => obres);
+  const { moviments, loading } = useSelector(({ moviments }) => moviments);
 
   useEffect(() => {
-    if (!obres.fetched) dispatch(fetchMoviments());
-  }, [obres.fetched, dispatch]);
+    if (!moviments.fetched) dispatch(fetchMoviments());
+  }, [moviments.fetched, dispatch]);
 
-  return [obres, loading];
+  return [moviments, loading];
 };

@@ -1,9 +1,12 @@
 import { Input, List } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
-import DropdownBorderlessButton from "../../standalone/dropdown-borderless-button/dropdown-borderless-button";
+import { fetchMoviments } from "../../redux/moviments/moviments-actions";
+import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
 import { eventSearchFilter, timeDuration } from "../../utils";
 import { Authorized } from "../authorized";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
@@ -13,18 +16,27 @@ const { Search } = Input;
 const { Item } = List;
 
 const LlistaMoviments = ({ idProjecte }) => {
+  const dispatch = useDispatch();
+
   const [searchValue, setSearchValue] = useState("");
 
   const [moviments, loading] = useMoviments();
-  // const [showDeleteConfirm] = useEliminarMoviment();
+  const [
+    loadingDeleteMoviment,
+    showDeleteConfirm,
+  ] = useDeleteAPI(`/api/projectes/${idProjecte}/moviments`, () =>
+    dispatch(fetchMoviments())
+  );
 
   const getDataSource = useCallback(() => {
     let filteredMoviments;
     if (idProjecte)
-      filteredMoviments = moviments.filter((moviment) =>
-        moviment.projectes.find(
-          (projecte) => projecte.id_projecte === parseInt(idProjecte)
-        )
+      filteredMoviments = moviments.filter(
+        (moviment) =>
+          moviment.projectes &&
+          moviment.projectes.find(
+            (projecte) => projecte.id_projecte === parseInt(idProjecte)
+          )
       );
 
     return searchValue.length > 0
@@ -37,7 +49,7 @@ const LlistaMoviments = ({ idProjecte }) => {
   return (
     <div className="llista-moviments">
       <Search
-        placeholder="Cerca moviments"
+        placeholder="Cerca repertori"
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
@@ -46,7 +58,7 @@ const LlistaMoviments = ({ idProjecte }) => {
       />
       <List
         dataSource={getDataSource()}
-        loading={loading}
+        loading={loading || loadingDeleteMoviment}
         renderItem={(moviment) => (
           <Item
             key={moviment.id_moviment}
@@ -61,6 +73,7 @@ const LlistaMoviments = ({ idProjecte }) => {
                       key: "eliminar",
                       action: "Eliminar",
                       danger: true,
+                      onClick: () => showDeleteConfirm(moviment.id_moviment),
                     },
                   ]}
                 />
