@@ -47,6 +47,35 @@ SELECT DISTINCT id_esdeveniment,
 FROM esdeveniments e;
 
 
+CREATE VIEW assajos_son_parcials AS
+SELECT DISTINCT id_assaig,
+                IF(EXISTS(
+                           SELECT id_veu
+                           FROM veus_convocades_assaig
+                           WHERE id_assaig = a.id_assaig
+                       ), TRUE, FALSE) AS es_parcial
+FROM assajos a
+         JOIN veus v;
+
+
+CREATE VIEW assajos_veus AS
+SELECT asp.*,
+       IF(
+                   NOT es_parcial
+                   OR (
+                       SELECT id_veu
+                       FROM veus_convocades_assaig
+                       WHERE id_veu = v.id_veu
+                         AND id_assaig = asp.id_assaig
+                   ), id_veu, NULL
+           )       AS id_veu,
+       nom         AS nom_veu,
+       abreviatura AS abreviatura_veu
+FROM assajos_son_parcials asp
+         JOIN veus v;
+
+
+
 CREATE VIEW assajos_estat AS
 SELECT DISTINCT ee.*,
                 id_assaig,
@@ -82,6 +111,26 @@ SELECT DISTINCT ee.*,
                 )     AS projectes
 FROM assajos a
          INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig);
+
+
+CREATE VIEW assajos_estat_moviments AS
+SELECT *,
+       (
+           SELECT IFNULL(JSON_ARRAYAGG(
+                                 JSON_OBJECT(
+                                         'id_moviment', id_moviment,
+                                         'id_obra', id_obra,
+                                         'titol_moviment', m.titol,
+                                         'titol_obra', o.titol,
+                                         'ordre', ordre
+                                     )
+                             ), '[]')
+           FROM moviments m
+                    INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
+                    INNER JOIN obres o USING (id_obra)
+           WHERE id_esdeveniment_musical = ae.id_assaig
+       ) AS moviments
+FROM assajos_estat ae;
 
 
 CREATE VIEW projectes_full AS
@@ -153,3 +202,60 @@ SELECT id_soci,
        ) AS id_veu
 FROM socis s
          INNER JOIN persones p ON (id_persona = id_soci);
+
+
+CREATE VIEW socis_convocats_assajos AS
+SELECT sv.id_soci,
+       nom,
+       cognoms,
+       nom_complet,
+       av.*,
+       IF(retard, TRUE, FALSE)            AS retard,
+       IFNULL(ec.id_estat_confirmacio, 1) AS id_estat_confirmacio,
+       (
+           SELECT estat
+           FROM estats_confirmacio
+           WHERE id_estat_confirmacio = IFNULL(ec.id_estat_confirmacio, 1)
+       )                                  AS estat
+FROM assajos_veus av
+         LEFT JOIN socis_veus sv USING (id_veu)
+         LEFT JOIN assajos a USING (id_assaig)
+         LEFT JOIN assistents_esdeveniment ae ON (ae.id_soci = sv.id_soci AND ae.id_esdeveniment = a.id_assaig)
+         LEFT JOIN estats_confirmacio ec ON (ec.id_estat_confirmacio = ae.id_estat_confirmacio)
+WHERE ((
+               NOT EXISTS(
+                       (
+                           SELECT *
+                           FROM assajos
+                                    INNER JOIN veus_convocades_assaig USING (id_assaig)
+                           WHERE id_assaig = a.id_assaig
+                       )
+                   )
+               AND EXISTS(
+                       (
+                           SELECT *
+                           FROM assajos
+                                    INNER JOIN assajos_formacions USING (id_assaig)
+                                    INNER JOIN socis_formacions USING (id_formacio)
+                           WHERE id_assaig = a.id_assaig
+                             AND id_soci = sv.id_soci
+                       )
+                   )
+           )
+    OR sv.id_veu IN
+       (
+           SELECT DISTINCT id_veu
+           FROM assajos
+                    INNER JOIN veus_convocades_assaig USING (id_assaig)
+           WHERE id_assaig = a.id_assaig
+       )
+    )
+  AND sv.id_soci IN (
+    SELECT id_soci
+    FROM socis
+             INNER JOIN socis_formacions USING (id_soci)
+             INNER JOIN assajos_formacions USING (id_formacio)
+    WHERE id_assaig = a.id_assaig
+)
+ORDER BY id_assaig, id_veu, cognoms, nom;
+
