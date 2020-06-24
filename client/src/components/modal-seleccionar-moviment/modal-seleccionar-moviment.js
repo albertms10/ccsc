@@ -55,9 +55,7 @@ const ModalSeleccionarMoviment = ({
                 </Typography.Text>
               }
               title={moviment.titol_moviment}
-              description={
-                moviment.durada ? timeDuration(moviment.durada) : "Sense durada"
-              }
+              description={timeDuration(moviment.durada)}
             />
           </List.Item>
         </>

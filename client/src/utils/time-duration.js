@@ -8,6 +8,8 @@ import moment from "moment";
 export default (time) => {
   const timeMoment = moment(time, "HH:mm:ss");
 
+  if (!timeMoment._isValid) return "Sense durada";
+
   return [
     { format: "H", symbol: "h" },
     { format: "m", symbol: "min" },

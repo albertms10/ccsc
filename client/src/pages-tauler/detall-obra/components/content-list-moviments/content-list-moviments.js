@@ -21,7 +21,7 @@ export default () => {
         id: moviment.id_moviment,
         title: moviment.titol,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
-        extra: moviment.durada ? timeDuration(moviment.durada) : "Sense durada",
+        extra: timeDuration(moviment.durada),
         avatar: (
           <Typography.Text type="secondary" style={{ fontSize: "small" }}>
             {moviment.ordre}
