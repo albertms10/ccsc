@@ -2,7 +2,7 @@ import { Checkbox, Popover } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { ConditionalWrapper } from "../../standalone/conditional-wrapper";
-import Authorized from "../authorized/authorized";
+import { Authorized } from "../authorized";
 import { SearchList } from "../search-list";
 import { PopoverListCheckbox } from "./components/popover-list-checkbox";
 import "./popover-list.css";

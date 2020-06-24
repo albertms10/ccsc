@@ -30,7 +30,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
         <FixedTagsProjectes projectes={projectesFiltered} />
       </>
     ),
-    [projectes]
+    [projectesFiltered]
   );
 
   return (

@@ -29,7 +29,7 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
         <IconsFormacions formacions={formacionsFiltered} />
       </>
     ),
-    [formacions]
+    [formacionsFiltered]
   );
 
   return (

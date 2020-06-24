@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import DropdownBorderlessButton from "../../standalone/dropdown-borderless-button/dropdown-borderless-button";
 import { eventSearchFilter, timeDuration } from "../../utils";
-import Authorized from "../authorized/authorized";
-import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";
+import { Authorized } from "../authorized";
+import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { useMoviments } from "./hooks";
 
 const { Search } = Input;

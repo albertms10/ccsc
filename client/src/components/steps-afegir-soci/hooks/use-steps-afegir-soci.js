@@ -13,7 +13,7 @@ import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
-import InfoCard from "../../../standalone/info-card/info-card";
+import { InfoCard } from "../../../standalone/info-card";
 import { upperCaseFirst } from "../../../utils";
 import { AvisAcceptacio } from "../../avis-acceptacio";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
