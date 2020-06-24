@@ -7,7 +7,7 @@ import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import { fetchMoviments } from "../../redux/moviments/moviments-actions";
 import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
-import { eventSearchFilter, timeDuration } from "../../utils";
+import { eventSearchFilter } from "../../utils";
 import { Authorized } from "../authorized";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { useMoviments } from "./hooks";
@@ -84,9 +84,9 @@ const LlistaMoviments = ({ idProjecte }) => {
               to={`/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`}
             >
               <List.Item.Meta
-                title={moviment.titol}
+                title={moviment.titol_moviment}
                 avatar={moviment.ordre}
-                description={timeDuration(moviment.durada)}
+                description={moviment.titol_obra}
               />
             </Link>
           </Item>

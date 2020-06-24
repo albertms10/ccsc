@@ -1,6 +1,8 @@
+import { PlusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 import React, { useContext } from "react";
 import { useAPI } from "../../../../helpers";
+import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { ContentList } from "../../../../standalone/content-list";
 import { timeDuration } from "../../../../utils";
 import { ObraContext } from "../../detall-obra";
@@ -28,7 +30,12 @@ export default () => {
           </Typography.Text>
         ),
       }))}
-      action={<ModalAfegirMoviment getMoviments={getMoviments} />}
+      action={
+        <ModalAfegirMoviment
+          button={<BorderlessButton shape="circle" icon={<PlusOutlined />} />}
+          getMoviments={getMoviments}
+        />
+      }
       extra={durada_total && `Total: ${timeDuration(durada_total)}`}
     />
   );

@@ -5,6 +5,7 @@ import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
+import { DetallMoviment } from "../../../../pages-tauler/detall-moviment";
 import { DetallObres } from "../../../../pages-tauler/detall-obra";
 import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
 import { Formacio } from "../../../../pages-tauler/formacio";
@@ -102,6 +103,11 @@ export default () => {
               <Route exact path="/assajos/:id" component={DetallAssaig} />
               <Route exact path="/obres" component={Obres} />
               <Route exact path="/obres/:id" component={DetallObres} />
+              <Route
+                exact
+                path="/obres/:obra/moviments/:moviment"
+                component={DetallMoviment}
+              />
               <Route
                 exact
                 path="/socis"
