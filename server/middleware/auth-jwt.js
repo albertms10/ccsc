@@ -53,7 +53,7 @@ const verifyAccessToken = (
 const verifyEmailToken = (req, res, next) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
-  const email = req.body.email;
+  const { email } = req.body.soci;
 
   if (!accessToken)
     return res.status(401).send({
