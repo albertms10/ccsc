@@ -8,7 +8,7 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
 
   return (
     <Space direction="vertical">
-      <InfoCard title="Dades personals" disabled showArrow={false}>
+      <InfoCard title="Dades personals" disabled>
         <Descriptions size="small">
           <Descriptions.Item label="Nom">{`${data.nom} ${data.cognoms}`}</Descriptions.Item>
           <Descriptions.Item label="Usuari">
@@ -23,7 +23,7 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
       {(data.experiencia_musical ||
         data.estudis_musicals ||
         data.data_alta) && (
-        <InfoCard title="Informació musical" disabled showArrow={false}>
+        <InfoCard title="Informació musical" disabled>
           <Descriptions size="small">
             {data.experiencia_musical && (
               <Descriptions.Item label="Experiència musical" span={3}>
@@ -43,7 +43,7 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
           </Descriptions>
         </InfoCard>
       )}
-      <InfoCard title="Dades de contacte" disabled showArrow={false}>
+      <InfoCard title="Dades de contacte" disabled>
         <Descriptions size="small">
           <Descriptions.Item label="Adreça electrònica" span={2}>
             {data.email}
