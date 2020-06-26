@@ -20,12 +20,10 @@ exports.esdeveniments_estatsconfirmacio = (req, res, next) => {
 
 exports.esdeveniments_detall_assistents_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_esdeveniment } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("esdeveniments/select__assistents_esdeveniment"), {
-      id_esdeveniment,
-    })
+    .query(queryFile("esdeveniments/select__assistents_esdeveniment"), [id])
     .then((assistents) => res.json(assistents))
     .catch((e) => next(e));
 };

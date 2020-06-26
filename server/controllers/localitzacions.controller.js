@@ -2,27 +2,17 @@ const { queryFile } = require("../helpers");
 
 exports.localitzacions_post = (req, res, next) => {
   const pool = req.app.get("pool");
-  const {
-    localitzacio: {
-      tipus_via,
-      carrer,
-      numero,
-      fins_numero,
-      codi_postal,
-      gmaps,
-      ciutat,
-    },
-  } = req.body;
+  const { localitzacio } = req.body;
 
   pool
     .query(queryFile("localitzacions/insert__localitzacio"), [
-      tipus_via,
-      carrer,
-      numero,
-      fins_numero,
-      codi_postal,
-      gmaps,
-      ciutat,
+      localitzacio.tipus_via,
+      localitzacio.carrer,
+      localitzacio.numero,
+      localitzacio.fins_numero,
+      localitzacio.codi_postal,
+      localitzacio.gmaps,
+      localitzacio.ciutat,
     ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
@@ -39,12 +29,10 @@ exports.localitzacions_tipusvies_get = (req, res, next) => {
 
 exports.localitzacions_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_localitzacio } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("localitzacions/select__localitzacio"), {
-      id_localitzacio,
-    })
+    .query(queryFile("localitzacions/select__localitzacio"), [id])
     .then((localitzacio) => res.json(localitzacio))
     .catch((e) => next(e));
 };

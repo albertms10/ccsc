@@ -4,4 +4,4 @@ SELECT id_formacio,
        descripcio,
        num_persones
 FROM formacions
-WHERE ?;
+WHERE id_formacio = ?;

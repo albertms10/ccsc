@@ -45,9 +45,7 @@ exports.projectes_detall = (req, res, next) => {
 
 exports.projectes_post = async (req, res, next) => {
   const pool = req.app.get("pool");
-  const {
-    projecte: { titol, descripcio, inicials, color, data, formacions, id_curs },
-  } = req.body;
+  const { projecte } = req.body;
 
   const connection = await pool.getConnection();
 
@@ -56,14 +54,23 @@ exports.projectes_post = async (req, res, next) => {
   connection.beginTransaction().then(() =>
     connection
       .query(queryFile("projectes/insert__projecte"), [
-        [[titol, descripcio, inicials, color, ...data, id_curs]],
+        [
+          [
+            projecte.titol,
+            projecte.descripcio,
+            projecte.inicials,
+            projecte.color,
+            ...projecte.data,
+            projecte.id_curs,
+          ],
+        ],
       ])
       .then(async ({ insertId: id_projecte }) => {
         try {
-          if (formacions.length > 0)
+          if (projecte.formacions.length > 0)
             await connection.query(
               queryFile("projectes/insert__projecte_formacio"),
-              [formacions.map((formacio) => [id_projecte, formacio])]
+              [projecte.formacions.map((formacio) => [id_projecte, formacio])]
             );
         } catch (e) {
           transactionRollback(e);
@@ -78,30 +85,30 @@ exports.projectes_post = async (req, res, next) => {
 
 exports.projectes_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_projecte } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("projectes/delete__projecte"), [id_projecte])
+    .query(queryFile("projectes/delete__projecte"), [id])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
 exports.projectes_detall_concerts = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_projecte } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("projectes/select__concerts_projecte"), [id_projecte])
+    .query(queryFile("projectes/select__concerts_projecte"), [id])
     .then((concerts) => res.json(concerts))
     .catch((e) => next(e));
 };
 
 exports.projectes_detall_participants = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_projecte } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("projectes/select__participants_projecte"), [id_projecte])
+    .query(queryFile("projectes/select__participants_projecte"), [id])
     .then((participants) => res.json(participants))
     .catch((e) => next(e));
 };

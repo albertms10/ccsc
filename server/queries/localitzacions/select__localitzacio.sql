@@ -19,4 +19,4 @@ FROM localitzacions
          LEFT JOIN ciutats c USING (id_ciutat)
          LEFT JOIN provincies p ON IFNULL(c.id_provincia, c.id_ciutat) = p.id_provincia
          LEFT JOIN paisos p2 USING (id_pais)
-WHERE ?;
+WHERE id_localitzacio = ?;

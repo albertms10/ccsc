@@ -22,10 +22,10 @@ exports.socis_historial = (req, res, next) => {
 
 exports.socis_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("socis/select__soci"), { id_soci })
+    .query(queryFile("socis/select__soci"), [id])
     .then(([soci]) => parseAndSendJSON(res, next, soci, ["roles"]))
     .catch((e) => next(e));
 };
@@ -126,21 +126,21 @@ exports.socis_post = async (req, res, next) => {
 
 exports.socis_delete = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_persona } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("socis/delete__soci"), [id_persona])
+    .query(queryFile("socis/delete__soci"), [id])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
 exports.socis_detall_formacions = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
     .query(queryFile("socis/select__formacions_soci"), [
-      id_soci,
+      id,
       ROLES_IS_JUNTA_DIRECTIVA,
     ])
     .then(([_, formacions]) => res.json(formacions))
@@ -149,11 +149,11 @@ exports.socis_detall_formacions = (req, res, next) => {
 
 exports.socis_detall_projectes = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
     .query(queryFile("socis/select__projectes_soci"), [
-      id_soci,
+      id,
       ROLES_IS_JUNTA_DIRECTIVA,
     ])
     .then(([_, projectes]) =>
@@ -164,11 +164,11 @@ exports.socis_detall_projectes = (req, res, next) => {
 
 exports.socis_detall_assajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
     .query(queryFile("socis/select__assajos_soci"), [
-      id_soci,
+      id,
       ROLES_IS_JUNTA_DIRECTIVA,
     ])
     .then(([_, assajos]) =>
@@ -179,24 +179,24 @@ exports.socis_detall_assajos = (req, res, next) => {
 
 exports.socis_detall_acceptacions_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("socis/select__acceptacions_soci"), { id_soci })
+    .query(queryFile("socis/select__acceptacions_soci"), [id])
     .then(([{ acceptacions }]) => parseAndSendJSON(res, next, acceptacions))
     .catch((e) => next(e));
 };
 
 exports.socis_detall_acceptacions_put = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
   /** @type {Object<string, boolean>} */
   const { acceptacions } = req.body;
 
   pool
     .query(queryFile("socis/insert__acceptacions_soci"), [
       Object.keys(acceptacions).map((acceptacio) => [
-        id_soci,
+        id,
         {
           toSqlString: () =>
             `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${pool.escape(
@@ -212,21 +212,21 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
 
 exports.socis_detall_activitat = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("socis/select__activitat_soci"), { id_soci })
+    .query(queryFile("socis/select__activitat_soci"), [id])
     .then((activitat) => res.json(activitat))
     .catch((e) => next(e));
 };
 
 exports.socis_detall_alta = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
     .query(queryFile("socis/insert__historial_soci"), [
-      [[id_soci, { toSqlString: () => `CURRENT_DATE` }]],
+      [[id, { toSqlString: () => `CURRENT_DATE` }]],
     ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
@@ -234,22 +234,22 @@ exports.socis_detall_alta = (req, res, next) => {
 
 exports.socis_detall_baixa = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("socis/update__baixa_historial_soci"), [id_soci])
+    .query(queryFile("socis/update__baixa_historial_soci"), [id])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
 
 exports.socis_detall_propersassajos = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_soci } = req.params;
+  const { id } = req.params;
   const { limit } = req.query;
 
   pool
     .query(queryFile("socis/select__propers_assajos_soci"), [
-      id_soci,
+      id,
       parseInt(limit) || 4,
     ])
     .then((assajos) =>

@@ -21,5 +21,5 @@ FROM esdeveniments
          INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
          INNER JOIN formacions_concerts USING (id_concert)
          LEFT JOIN projectes p USING (id_projecte)
-WHERE ?
+WHERE id_formacio = ?
 ORDER BY dia_inici, hora_inici;

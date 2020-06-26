@@ -11,10 +11,10 @@ exports.agrupacions_get = (req, res, next) => {
 
 exports.agrupacions_avisos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: unique_name } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("agrupacions/select__avisos_agrupacio"), { unique_name })
+    .query(queryFile("agrupacions/select__avisos_agrupacio"), [id])
     .then(([avis]) =>
       parseAndSendJSON(res, next, avis, ["seccions", "acceptacions"])
     )

@@ -8,4 +8,4 @@ SELECT *,
 FROM socis s
          INNER JOIN persones p ON (id_soci = id_persona)
          LEFT JOIN usuaris u USING (id_persona)
-WHERE ?;
+WHERE id_soci = ?;

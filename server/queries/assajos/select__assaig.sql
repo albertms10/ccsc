@@ -1,3 +1,3 @@
 SELECT *
 FROM assajos_estat
-WHERE ?;
+WHERE id_assaig = ?;

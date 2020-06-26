@@ -11,12 +11,10 @@ exports.establiments_get = (req, res, next) => {
 
 exports.establiments_detall_esdeveniments = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_establiment } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("establiments/select__esdeveniments_establiment"), {
-      id_establiment,
-    })
+    .query(queryFile("establiments/select__esdeveniments_establiment"), [id])
     .then((establiment) => res.json(establiment))
     .catch((e) => next(e));
 };

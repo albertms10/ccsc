@@ -2,10 +2,10 @@ const { parseAndSendJSON, queryFile } = require("../helpers");
 
 exports.assajos_detall = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_assaig } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("assajos/select__assaig"), { id_assaig })
+    .query(queryFile("assajos/select__assaig"), [id])
     .then(([assaig]) =>
       parseAndSendJSON(res, next, assaig, ["formacions", "projectes"])
     );
@@ -115,10 +115,10 @@ exports.assajos_post = async (req, res, next) => {
 
 exports.assajos_delete = async (req, res, next) => {
   const pool = res.app.get("pool");
-  const { id: id_assaig } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("assajos/delete__assaig"), [id_assaig])
+    .query(queryFile("assajos/delete__assaig"), [id])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };
@@ -237,22 +237,20 @@ exports.assajos_detall_formacions_delete = (req, res, next) => {
 
 exports.assajos_detall_convocats = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_assaig } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("assajos/select__convocats_assaig"), [id_assaig])
-    .then((convocats) =>
-      parseAndSendJSON(res, next, convocats, ["retard"])
-    )
+    .query(queryFile("assajos/select__convocats_assaig"), [id])
+    .then((convocats) => parseAndSendJSON(res, next, convocats, ["retard"]))
     .catch((e) => next(e));
 };
 
 exports.assajos_detall_veus_get = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { id: id_assaig } = req.params;
+  const { id } = req.params;
 
   pool
-    .query(queryFile("assajos/select__veus_assaig"), [id_assaig])
+    .query(queryFile("assajos/select__veus_assaig"), [id])
     .then((veus) => parseAndSendJSON(res, next, veus, ["convocada"]))
     .catch((e) => next(e));
 };

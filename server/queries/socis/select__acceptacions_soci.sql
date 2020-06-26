@@ -4,4 +4,4 @@ SELECT IFNULL(
            ) AS acceptacions
 FROM socis_acceptacions
          INNER JOIN acceptacions_avis USING (id_acceptacio_avis)
-WHERE ?;
+WHERE id_soci = ?;

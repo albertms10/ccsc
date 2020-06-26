@@ -29,7 +29,7 @@ SELECT tipus_avisos.nom AS titol,
        )                AS acceptacions
 FROM avisos
          INNER JOIN tipus_avisos USING (id_tipus_avis)
-WHERE ?
+WHERE unique_name = ?
   AND IFNULL(CURRENT_DATE >= data_inici, TRUE)
   AND IFNULL(CURRENT_DATE < data_final, TRUE)
 LIMIT 1;

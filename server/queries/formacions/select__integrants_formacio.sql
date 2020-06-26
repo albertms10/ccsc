@@ -17,5 +17,5 @@ FROM socis
          INNER JOIN socis_formacions USING (id_soci)
          LEFT JOIN socis_formacions_veus sav USING (id_soci_formacio)
          INNER JOIN formacions USING (id_formacio)
-WHERE ?
+WHERE id_formacio = ?
 ORDER BY id_veu;
