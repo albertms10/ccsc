@@ -28,8 +28,8 @@ SELECT DISTINCT id_esdeveniment,
                 )                                                                        AS localitzacio,
                 (
                     SELECT e2.nom
-                    FROM localitzacions
-                             INNER JOIN establiments e2 ON localitzacions.id_localitzacio = e2.id_establiment
+                    FROM localitzacions l
+                             INNER JOIN establiments e2 ON (l.id_localitzacio = e2.id_establiment)
                     WHERE id_localitzacio = (SELECT e.id_localitzacio)
                 )                                                                        AS establiment,
                 id_esdeveniment_ajornat,
@@ -154,8 +154,8 @@ SELECT DISTINCT projectes.id_projecte,
                                                   'nom', nom_complet
                                               )
                                       ), '[]')
-                    FROM directors_projectes
-                             INNER JOIN persones p ON directors_projectes.id_director = p.id_persona
+                    FROM directors_projectes dp
+                             INNER JOIN persones p ON (dp.id_director = p.id_persona)
                     WHERE id_projecte = (SELECT projectes.id_projecte)
                 )                  AS directors,
                 (

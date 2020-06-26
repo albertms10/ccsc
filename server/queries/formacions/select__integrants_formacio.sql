@@ -12,8 +12,8 @@ SELECT id_persona,
            FROM veus
            WHERE id_veu = (SELECT sav.id_veu)
        ) AS abreviatura_veu
-FROM socis
-         INNER JOIN persones p ON socis.id_soci = p.id_persona
+FROM socis s
+         INNER JOIN persones p ON (s.id_soci = p.id_persona)
          INNER JOIN socis_formacions USING (id_soci)
          LEFT JOIN socis_formacions_veus sav USING (id_soci_formacio)
          INNER JOIN formacions USING (id_formacio)

@@ -77,8 +77,8 @@ SELECT CONCAT('aniversari-', id_persona) AS id_esdeveniment,
        nom_complet                       AS titol,
        NULL                              AS projectes,
        'aniversari'                      AS tipus
-FROM persones
-         INNER JOIN socis s ON persones.id_persona = s.id_soci
+FROM persones p
+         INNER JOIN socis s ON (p.id_persona = s.id_soci)
          INNER JOIN socis_formacions USING (id_soci)
 WHERE naixement IS NOT NULL
   AND id_formacio = @id_formacio

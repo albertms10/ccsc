@@ -9,8 +9,8 @@ WHERE id_soci = @id_soci
         SELECT *
         FROM roles
                  INNER JOIN roles_usuaris USING (id_role)
-                 INNER JOIN usuaris USING (id_usuari)
-                 INNER JOIN socis ON usuaris.id_persona = socis.id_soci
+                 INNER JOIN usuaris u USING (id_usuari)
+                 INNER JOIN socis s ON (u.id_persona = s.id_soci)
         WHERE id_soci = @id_soci
           AND role IN (?)
     );

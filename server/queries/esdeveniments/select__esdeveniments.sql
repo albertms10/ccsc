@@ -25,8 +25,8 @@ SELECT id_esdeveniment,
               )
            ) AS tipus,
        es_extra
-FROM esdeveniments
-         LEFT JOIN assajos a ON esdeveniments.id_esdeveniment = a.id_assaig
-         LEFT JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
-         LEFT JOIN reunions r ON esdeveniments.id_esdeveniment = r.id_reunio
-         LEFT JOIN assemblees a2 ON r.id_reunio = a2.id_assemblea;
+FROM esdeveniments e
+         LEFT JOIN assajos a ON (e.id_esdeveniment = a.id_assaig)
+         LEFT JOIN concerts c ON (e.id_esdeveniment = c.id_concert)
+         LEFT JOIN reunions r ON (e.id_esdeveniment = r.id_reunio)
+         LEFT JOIN assemblees a2 ON (r.id_reunio = a2.id_assemblea);

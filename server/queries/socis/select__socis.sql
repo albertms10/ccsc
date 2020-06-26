@@ -8,8 +8,8 @@ SELECT id_persona,
        IF(
                EXISTS(
                        SELECT *
-                       FROM socis
-                                INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
+                       FROM socis s
+                                INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
                        WHERE id_soci = (SELECT id_persona)
                          AND CURRENT_DATE
                            BETWEEN data_alta
@@ -45,7 +45,7 @@ SELECT id_persona,
            ORDER BY data_alta DESC
            LIMIT 1
        )     AS dies_inactivitat
-FROM socis
-         INNER JOIN persones ON socis.id_soci = persones.id_persona
+FROM socis s
+         INNER JOIN persones p ON (s.id_soci = p.id_persona)
          LEFT JOIN usuaris USING (id_persona)
 ORDER BY estat_actiu DESC, cognoms, nom;

@@ -10,10 +10,10 @@ FROM formacions
          INNER JOIN tipus_formacions USING (id_tipus_formacio)
          INNER JOIN formacions_agrupacio USING (id_formacio)
          LEFT JOIN socis_formacions USING (id_formacio)
-         LEFT JOIN socis USING (id_soci)
-         LEFT JOIN persones p ON socis.id_soci = p.id_persona
+         LEFT JOIN socis s USING (id_soci)
+         LEFT JOIN persones p ON (s.id_soci = p.id_persona)
          LEFT JOIN usuaris u USING (id_persona)
-WHERE socis.id_soci = @id_soci
+WHERE s.id_soci = @id_soci
    OR EXISTS(
         SELECT *
         FROM roles

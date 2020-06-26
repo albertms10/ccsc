@@ -17,8 +17,8 @@ SELECT id_concert,
            FROM estats_confirmacio
            WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
        )                                                     AS estat_localitzacio
-FROM esdeveniments
-         INNER JOIN concerts c ON esdeveniments.id_esdeveniment = c.id_concert
+FROM esdeveniments e
+         INNER JOIN concerts c ON (e.id_esdeveniment = c.id_concert)
          INNER JOIN formacions_concerts USING (id_concert)
          LEFT JOIN projectes p USING (id_projecte)
 WHERE id_formacio = ?

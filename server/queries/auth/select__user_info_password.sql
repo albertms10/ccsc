@@ -29,8 +29,8 @@ SELECT id_usuari AS id,
        IF(
                EXISTS(
                        SELECT *
-                       FROM socis
-                                INNER JOIN historial_socis hs ON socis.id_soci = hs.id_historial_soci
+                       FROM socis s
+                                INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
                        WHERE id_soci = (SELECT id_persona)
                          AND CURRENT_DATE
                            BETWEEN data_alta
