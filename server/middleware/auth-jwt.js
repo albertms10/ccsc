@@ -1,4 +1,5 @@
 const { verifyJWT } = require("../utils");
+const { queryFile } = require("../helpers");
 
 /*
  * VERIFY FUNCTIONS
@@ -91,15 +92,11 @@ const verifyEmailToken = (req, res, next) => {
 const checkIsAuthor = async (req) => {
   const pool = req.app.get("pool");
   /** @type {number} */
-  const id_soci = req.params.id;
+  const { id } = req.params;
 
-  const queryUsuari = await pool.query(
-    `SELECT id_usuari
-       FROM usuaris
-                INNER JOIN socis s ON usuaris.id_persona = s.id_soci
-       WHERE ?;`,
-    { id_soci }
-  );
+  const queryUsuari = await pool.query(queryFile("auth/select__id_usuari"), [
+    id,
+  ]);
 
   return queryUsuari[0] && req.userId === queryUsuari[0].id_usuari;
 };
@@ -110,13 +107,7 @@ const checkIsRole = async (req, roles) => {
   const id = req.userId;
 
   const [{ is_role }] = await pool.query(
-    `SELECT EXISTS(
-                      SELECT *
-                      FROM roles
-                               INNER JOIN roles_usuaris USING (id_role)
-                      WHERE id_usuari = ?
-                        AND role IN (?)
-                  ) AS is_role;`,
+    queryFile("auth/select__exists_roles"),
     [id, roles]
   );
 
