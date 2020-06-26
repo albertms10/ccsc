@@ -6,14 +6,6 @@ CREATE TABLE IF NOT EXISTS activitats
     descripcio   TEXT        NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS agrupacio
-(
-    id_agrupacio SMALLINT UNSIGNED AUTO_INCREMENT
-        PRIMARY KEY,
-    nom           VARCHAR(100) NOT NULL,
-    nif           VARCHAR(12)  NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS carrecs_junta
 (
     id_carrec_junta TINYINT UNSIGNED AUTO_INCREMENT
@@ -36,17 +28,11 @@ CREATE INDEX id_provincia
 
 CREATE TABLE IF NOT EXISTS cursos
 (
-    id_curs       VARCHAR(5)                    NOT NULL
+    id_curs VARCHAR(5) NOT NULL
         PRIMARY KEY,
-    inici         DATE                          NOT NULL,
-    final         DATE                          NULL,
-    id_agrupacio SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    CONSTRAINT cursos_ibfk_1
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
+    inici   DATE       NOT NULL,
+    final   DATE       NULL
 );
-
-CREATE INDEX id_agrupacio
-    ON cursos (id_agrupacio);
 
 CREATE TABLE IF NOT EXISTS emails_espera
 (
@@ -96,6 +82,13 @@ CREATE TABLE IF NOT EXISTS horaris_curs
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
 );
 
+CREATE TABLE IF NOT EXISTS idiomes
+(
+    id_idioma CHAR(2)     NOT NULL
+        PRIMARY KEY,
+    nom       VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS insignies
 (
     id_insignia SMALLINT UNSIGNED AUTO_INCREMENT
@@ -113,6 +106,39 @@ CREATE TABLE IF NOT EXISTS missatges
     missatge    TEXT                                NOT NULL,
     data        TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS obres
+(
+    id_obra     SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    titol       VARCHAR(100)      NOT NULL,
+    subtitol    VARCHAR(200)      NULL,
+    num_cataleg SMALLINT UNSIGNED NULL,
+    any_inici   SMALLINT UNSIGNED NULL,
+    any_final   SMALLINT UNSIGNED NULL,
+    id_idioma   CHAR(2)           NULL,
+    CONSTRAINT obres_ibfk_1
+        FOREIGN KEY (id_idioma) REFERENCES idiomes (id_idioma)
+);
+
+CREATE TABLE IF NOT EXISTS moviments
+(
+    id_moviment SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    ordre       SMALLINT UNSIGNED NOT NULL,
+    titol       VARCHAR(100)      NOT NULL,
+    durada      TIME              NULL,
+    tonalitat   VARCHAR(10)       NULL,
+    id_obra     SMALLINT UNSIGNED NOT NULL,
+    CONSTRAINT moviments_ibfk_1
+        FOREIGN KEY (id_obra) REFERENCES obres (id_obra)
+);
+
+CREATE INDEX id_obra
+    ON moviments (id_obra);
+
+CREATE INDEX id_idioma
+    ON obres (id_idioma);
 
 CREATE TABLE IF NOT EXISTS paisos
 (
@@ -135,6 +161,20 @@ CREATE TABLE IF NOT EXISTS projectes
     CONSTRAINT projectes_ibfk_1
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
 );
+
+CREATE TABLE IF NOT EXISTS moviments_projectes
+(
+    id_moviment SMALLINT UNSIGNED NOT NULL,
+    id_projecte SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_moviment, id_projecte),
+    CONSTRAINT moviments_projectes_ibfk_1
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
+    CONSTRAINT moviments_projectes_ibfk_2
+        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
+);
+
+CREATE INDEX id_projecte
+    ON moviments_projectes (id_projecte);
 
 CREATE INDEX id_curs
     ON projectes (id_curs);
@@ -164,62 +204,35 @@ CREATE TABLE IF NOT EXISTS roles
     role    VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tipus_formacions
+CREATE TABLE IF NOT EXISTS tipus_agrupacions
 (
-    id_tipus_formacio SMALLINT UNSIGNED AUTO_INCREMENT
+    id_tipus_agrupacio SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom                VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS formacions
+CREATE TABLE IF NOT EXISTS agrupacions
 (
-    id_formacio       SMALLINT UNSIGNED AUTO_INCREMENT
+    id_agrupacio       SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    nom                VARCHAR(100)      NOT NULL,
-    nom_curt           VARCHAR(50)       NULL,
-    descripcio         VARCHAR(255)      NULL,
-    num_persones       TINYINT UNSIGNED  NULL,
-    id_tipus_formacio SMALLINT UNSIGNED NOT NULL,
-    CONSTRAINT formacions_ibfk_1
-        FOREIGN KEY (id_tipus_formacio) REFERENCES tipus_formacions (id_tipus_formacio)
+    nom                VARCHAR(100)                  NOT NULL,
+    nif                VARCHAR(12)                   NOT NULL,
+    id_tipus_agrupacio SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    CONSTRAINT agrupacions_ibfk_1
+        FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio)
 );
 
-CREATE INDEX id_tipus_formacio
-    ON formacions (id_tipus_formacio);
-
-CREATE TABLE IF NOT EXISTS formacions_agrupacio
-(
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
-    id_formacio  SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_agrupacio, id_formacio),
-    CONSTRAINT formacions_agrupacio_ibfk_1
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
-    CONSTRAINT formacions_agrupacio_ibfk_2
-        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-);
-
-CREATE INDEX id_formacio
-    ON formacions_agrupacio (id_formacio);
-
-CREATE TABLE IF NOT EXISTS projectes_formacions
-(
-    id_projecte  SMALLINT UNSIGNED NOT NULL,
-    id_formacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_projecte, id_formacio),
-    CONSTRAINT projectes_formacions_ibfk_1
-        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
-    CONSTRAINT projectes_formacions_ibfk_2
-        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-);
-
-CREATE INDEX id_formacio
-    ON projectes_formacions (id_formacio);
+CREATE INDEX id_tipus_agrupacio
+    ON agrupacions (id_tipus_agrupacio);
 
 CREATE TABLE IF NOT EXISTS tipus_avisos
 (
     id_tipus_avis SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    nom           VARCHAR(100) NOT NULL
+    nom           VARCHAR(100) NOT NULL,
+    unique_name   VARCHAR(50)  NOT NULL,
+    CONSTRAINT tipus_avisos_form_name_uindex
+        UNIQUE (unique_name)
 );
 
 CREATE TABLE IF NOT EXISTS avisos
@@ -246,6 +259,8 @@ CREATE TABLE IF NOT EXISTS acceptacions_avis
     requerida          TINYINT(1) DEFAULT 0 NOT NULL,
     form_name          VARCHAR(50)          NOT NULL,
     id_avis            SMALLINT UNSIGNED    NOT NULL,
+    CONSTRAINT acceptacions_avis_form_name_uindex
+        UNIQUE (form_name),
     CONSTRAINT acceptacions_avis_ibfk_1
         FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
 );
@@ -276,6 +291,59 @@ CREATE TABLE IF NOT EXISTS tipus_establiments
         PRIMARY KEY,
     nom                  VARCHAR(100)      NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS tipus_formacions
+(
+    id_tipus_formacio SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    nom               VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS formacions
+(
+    id_formacio       SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    nom               VARCHAR(100)      NOT NULL,
+    nom_curt          VARCHAR(50)       NULL,
+    descripcio        VARCHAR(255)      NULL,
+    num_persones      TINYINT UNSIGNED  NULL,
+    id_tipus_formacio SMALLINT UNSIGNED NOT NULL,
+    CONSTRAINT formacions_nom_curt_uindex
+        UNIQUE (nom_curt),
+    CONSTRAINT formacions_ibfk_1
+        FOREIGN KEY (id_tipus_formacio) REFERENCES tipus_formacions (id_tipus_formacio)
+);
+
+CREATE INDEX id_tipus_formacio
+    ON formacions (id_tipus_formacio);
+
+CREATE TABLE IF NOT EXISTS formacions_agrupacio
+(
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
+    id_formacio  SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_agrupacio, id_formacio),
+    CONSTRAINT formacions_agrupacio_ibfk_1
+        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
+    CONSTRAINT formacions_agrupacio_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
+);
+
+CREATE INDEX id_formacio
+    ON formacions_agrupacio (id_formacio);
+
+CREATE TABLE IF NOT EXISTS projectes_formacions
+(
+    id_projecte SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_projecte, id_formacio),
+    CONSTRAINT projectes_formacions_ibfk_1
+        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
+    CONSTRAINT projectes_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
+);
+
+CREATE INDEX id_formacio
+    ON projectes_formacions (id_formacio);
 
 CREATE TABLE IF NOT EXISTS tipus_vies
 (
@@ -315,6 +383,7 @@ CREATE TABLE IF NOT EXISTS esdeveniments
     id_localitzacio         SMALLINT UNSIGNED            NULL,
     id_estat_localitzacio   TINYINT UNSIGNED DEFAULT '2' NULL,
     id_esdeveniment_ajornat SMALLINT UNSIGNED            NULL,
+    notes                   TEXT                         NULL,
     CONSTRAINT esdeveniments_ibfk_2
         FOREIGN KEY (id_esdeveniment_ajornat) REFERENCES esdeveniments (id_esdeveniment),
     CONSTRAINT esdeveniments_ibfk_3
@@ -325,6 +394,40 @@ CREATE TABLE IF NOT EXISTS esdeveniments
         FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
 );
 
+CREATE TABLE IF NOT EXISTS classes_activitat
+(
+    id_classe_activitat SMALLINT UNSIGNED NOT NULL
+        PRIMARY KEY,
+    id_activitat        SMALLINT UNSIGNED NOT NULL,
+    CONSTRAINT classes_activitat_ibfk_1
+        FOREIGN KEY (id_classe_activitat) REFERENCES esdeveniments (id_esdeveniment),
+    CONSTRAINT classes_activitat_ibfk_2
+        FOREIGN KEY (id_activitat) REFERENCES activitats (id_activitat)
+);
+
+CREATE INDEX id_activitat
+    ON classes_activitat (id_activitat);
+
+CREATE INDEX id_esdeveniment_ajornat
+    ON esdeveniments (id_esdeveniment_ajornat);
+
+CREATE INDEX id_estat_esdeveniment
+    ON esdeveniments (id_estat_esdeveniment);
+
+CREATE INDEX id_estat_localitzacio
+    ON esdeveniments (id_estat_localitzacio);
+
+CREATE INDEX id_localitzacio
+    ON esdeveniments (id_localitzacio);
+
+CREATE TABLE IF NOT EXISTS esdeveniments_musicals
+(
+    id_esdeveniment_musical SMALLINT UNSIGNED NOT NULL
+        PRIMARY KEY,
+    CONSTRAINT esdeveniments_musicals_ibfk_1
+        FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments (id_esdeveniment)
+);
+
 CREATE TABLE IF NOT EXISTS assajos
 (
     id_assaig  SMALLINT UNSIGNED    NOT NULL
@@ -332,12 +435,12 @@ CREATE TABLE IF NOT EXISTS assajos
     es_general TINYINT(1) DEFAULT 0 NOT NULL,
     es_extra   TINYINT(1) DEFAULT 0 NOT NULL,
     CONSTRAINT assajos_ibfk_1
-        FOREIGN KEY (id_assaig) REFERENCES esdeveniments (id_esdeveniment)
+        FOREIGN KEY (id_assaig) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
 );
 
 CREATE TABLE IF NOT EXISTS assajos_formacions
 (
-    id_assaig    SMALLINT UNSIGNED NOT NULL,
+    id_assaig   SMALLINT UNSIGNED NOT NULL,
     id_formacio SMALLINT UNSIGNED NOT NULL,
     PRIMARY KEY (id_assaig, id_formacio),
     CONSTRAINT assajos_formacions_ibfk_1
@@ -363,60 +466,20 @@ CREATE TABLE IF NOT EXISTS assajos_projectes
 CREATE INDEX id_projecte
     ON assajos_projectes (id_projecte);
 
-CREATE TABLE IF NOT EXISTS classes_activitat
-(
-    id_classe_activitat SMALLINT UNSIGNED NOT NULL
-        PRIMARY KEY,
-    id_activitat        SMALLINT UNSIGNED NOT NULL,
-    CONSTRAINT classes_activitat_ibfk_1
-        FOREIGN KEY (id_classe_activitat) REFERENCES esdeveniments (id_esdeveniment),
-    CONSTRAINT classes_activitat_ibfk_2
-        FOREIGN KEY (id_activitat) REFERENCES activitats (id_activitat)
-);
-
-CREATE INDEX id_activitat
-    ON classes_activitat (id_activitat);
-
 CREATE TABLE IF NOT EXISTS concerts
 (
     id_concert  SMALLINT UNSIGNED NOT NULL
         PRIMARY KEY,
     titol       VARCHAR(50)       NOT NULL,
     id_projecte SMALLINT UNSIGNED NOT NULL,
-    CONSTRAINT concerts_ibfk_1
-        FOREIGN KEY (id_concert) REFERENCES esdeveniments (id_esdeveniment),
     CONSTRAINT concerts_ibfk_2
-        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
+        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
+    CONSTRAINT concerts_ibfk_3
+        FOREIGN KEY (id_concert) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
 );
-
-CREATE TABLE IF NOT EXISTS formacions_concerts
-(
-    id_formacio SMALLINT UNSIGNED NOT NULL,
-    id_concert   SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_formacio, id_concert),
-    CONSTRAINT formacions_concerts_ibfk_1
-        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
-    CONSTRAINT formacions_concerts_ibfk_2
-        FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
-);
-
-CREATE INDEX id_concert
-    ON formacions_concerts (id_concert);
 
 CREATE INDEX id_projecte
     ON concerts (id_projecte);
-
-CREATE INDEX id_esdeveniment_ajornat
-    ON esdeveniments (id_esdeveniment_ajornat);
-
-CREATE INDEX id_estat_esdeveniment
-    ON esdeveniments (id_estat_esdeveniment);
-
-CREATE INDEX id_estat_localitzacio
-    ON esdeveniments (id_estat_localitzacio);
-
-CREATE INDEX id_localitzacio
-    ON esdeveniments (id_localitzacio);
 
 CREATE TABLE IF NOT EXISTS establiments
 (
@@ -435,28 +498,56 @@ CREATE TABLE IF NOT EXISTS establiments
 CREATE INDEX id_tipus_establiment
     ON establiments (id_tipus_establiment);
 
+CREATE TABLE IF NOT EXISTS formacions_concerts
+(
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    id_concert  SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_formacio, id_concert),
+    CONSTRAINT formacions_concerts_ibfk_1
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
+    CONSTRAINT formacions_concerts_ibfk_2
+        FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
+);
+
+CREATE INDEX id_concert
+    ON formacions_concerts (id_concert);
+
 CREATE INDEX id_ciutat
     ON localitzacions (id_ciutat);
 
 CREATE INDEX id_tipus_via
     ON localitzacions (id_tipus_via);
 
+CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
+(
+    id_moviment             SMALLINT UNSIGNED NOT NULL,
+    id_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_moviment, id_esdeveniment_musical),
+    CONSTRAINT moviments_esdeveniment_musical_ibfk_1
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
+    CONSTRAINT moviments_esdeveniment_musical_ibfk_2
+        FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
+);
+
+CREATE INDEX id_esdeveniment_musical
+    ON moviments_esdeveniment_musical (id_esdeveniment_musical);
+
 CREATE TABLE IF NOT EXISTS persones
 (
-    id_persona              SMALLINT UNSIGNED AUTO_INCREMENT
+    id_persona      SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    nom                     VARCHAR(50)          NOT NULL,
-    cognoms                 VARCHAR(50)          NOT NULL,
-    nom_complet             VARCHAR(101) AS (concat(nom, _utf8mb4' ', cognoms)),
-    es_dona                 TINYINT(1) DEFAULT 1 NOT NULL,
-    naixement               DATE                 NULL,
-    id_pais                 CHAR(2)              NULL,
-    dni                     VARCHAR(12)          NULL,
-    email                   VARCHAR(50)          NULL,
-    telefon                 VARCHAR(14)          NULL,
-    es_institucio           TINYINT(1) DEFAULT 0 NOT NULL,
-    es_anonim               TINYINT(1) DEFAULT 0 NOT NULL,
-    id_localitzacio         SMALLINT UNSIGNED    NULL,
+    nom             VARCHAR(50)          NOT NULL,
+    cognoms         VARCHAR(50)          NOT NULL,
+    nom_complet     VARCHAR(101) AS (concat(nom, _utf8mb4' ', cognoms)),
+    es_dona         TINYINT(1) DEFAULT 1 NOT NULL,
+    naixement       DATE                 NULL,
+    id_pais         CHAR(2)              NULL,
+    dni             VARCHAR(12)          NULL,
+    email           VARCHAR(50)          NULL,
+    telefon         VARCHAR(14)          NULL,
+    es_institucio   TINYINT(1) DEFAULT 0 NOT NULL,
+    es_anonim       TINYINT(1) DEFAULT 0 NOT NULL,
+    id_localitzacio SMALLINT UNSIGNED    NULL,
     CONSTRAINT persones_ibfk_1
         FOREIGN KEY (id_pais) REFERENCES paisos (id_pais),
     CONSTRAINT persones_ibfk_2
@@ -481,20 +572,6 @@ CREATE TABLE IF NOT EXISTS directors
         FOREIGN KEY (id_director) REFERENCES persones (id_persona)
 );
 
-CREATE TABLE IF NOT EXISTS directors_formacions
-(
-    id_director  SMALLINT UNSIGNED NOT NULL,
-    id_formacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_director, id_formacio),
-    CONSTRAINT directors_formacions_ibfk_1
-        FOREIGN KEY (id_director) REFERENCES directors (id_director),
-    CONSTRAINT directors_formacions_ibfk_2
-        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-);
-
-CREATE INDEX id_formacio
-    ON directors_formacions (id_formacio);
-
 CREATE TABLE IF NOT EXISTS directors_concerts
 (
     id_director SMALLINT UNSIGNED NOT NULL,
@@ -508,6 +585,20 @@ CREATE TABLE IF NOT EXISTS directors_concerts
 
 CREATE INDEX id_concert
     ON directors_concerts (id_concert);
+
+CREATE TABLE IF NOT EXISTS directors_formacions
+(
+    id_director SMALLINT UNSIGNED NOT NULL,
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_director, id_formacio),
+    CONSTRAINT directors_formacions_ibfk_1
+        FOREIGN KEY (id_director) REFERENCES directors (id_director),
+    CONSTRAINT directors_formacions_ibfk_2
+        FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
+);
+
+CREATE INDEX id_formacio
+    ON directors_formacions (id_formacio);
 
 CREATE TABLE IF NOT EXISTS directors_projectes
 (
@@ -573,14 +664,21 @@ CREATE TABLE IF NOT EXISTS socis
 
 CREATE TABLE IF NOT EXISTS assistents_esdeveniment
 (
-    id_esdeveniment SMALLINT UNSIGNED NOT NULL,
-    id_soci         SMALLINT UNSIGNED NOT NULL,
+    id_esdeveniment      SMALLINT UNSIGNED            NOT NULL,
+    id_soci              SMALLINT UNSIGNED            NOT NULL,
+    retard               TINYINT(1)       DEFAULT 0   NOT NULL,
+    id_estat_confirmacio TINYINT UNSIGNED DEFAULT '2' NOT NULL,
     PRIMARY KEY (id_esdeveniment, id_soci),
     CONSTRAINT assistents_esdeveniment_ibfk_1
         FOREIGN KEY (id_esdeveniment) REFERENCES esdeveniments (id_esdeveniment),
     CONSTRAINT assistents_esdeveniment_ibfk_2
-        FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
+        FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    CONSTRAINT assistents_esdeveniment_ibfk_3
+        FOREIGN KEY (id_estat_confirmacio) REFERENCES estats_confirmacio (id_estat_confirmacio)
 );
+
+CREATE INDEX id_estat_confirmacio
+    ON assistents_esdeveniment (id_estat_confirmacio);
 
 CREATE INDEX id_soci
     ON assistents_esdeveniment (id_soci);
@@ -732,10 +830,10 @@ CREATE INDEX id_activitat
 
 CREATE TABLE IF NOT EXISTS socis_formacions
 (
-    id_soci      SMALLINT UNSIGNED NOT NULL,
-    id_formacio SMALLINT UNSIGNED NOT NULL,
-    id_veu       CHAR              NULL,
-    PRIMARY KEY (id_soci, id_formacio),
+    id_soci_formacio SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    id_soci          SMALLINT UNSIGNED NOT NULL,
+    id_formacio      SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT socis_formacions_ibfk_1
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT socis_formacions_ibfk_2
@@ -745,8 +843,8 @@ CREATE TABLE IF NOT EXISTS socis_formacions
 CREATE INDEX id_formacio
     ON socis_formacions (id_formacio);
 
-CREATE INDEX id_veu
-    ON socis_formacions (id_veu);
+CREATE INDEX id_soci
+    ON socis_formacions (id_soci);
 
 CREATE TABLE IF NOT EXISTS solistes
 (
@@ -828,25 +926,323 @@ CREATE INDEX id_perfil
 
 CREATE TABLE IF NOT EXISTS veus
 (
-    id_veu      TINYINT(1) AUTO_INCREMENT
+    id_veu      TINYINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom         VARCHAR(20) NOT NULL,
     abreviatura VARCHAR(2)  NOT NULL
 );
 
-CREATE DEFINER = root@localhost VIEW usuaris AS
-SELECT ccsc.usuaris_complet.id_usuari  AS id_usuari,
-       ccsc.usuaris_complet.username   AS username,
-       ccsc.usuaris_complet.creacio    AS creacio,
-       ccsc.usuaris_complet.id_persona AS id_persona
-FROM ccsc.usuaris_complet;
+CREATE TABLE IF NOT EXISTS socis_formacions_veus
+(
+    id_soci_formacio SMALLINT UNSIGNED NOT NULL,
+    id_veu           TINYINT UNSIGNED  NOT NULL,
+    data_inici       DATE              NOT NULL,
+    data_final       DATE              NULL,
+    PRIMARY KEY (id_soci_formacio, id_veu, data_inici),
+    CONSTRAINT socis_formacions_veus_ibfk_1
+        FOREIGN KEY (id_soci_formacio) REFERENCES socis_formacions (id_soci_formacio),
+    CONSTRAINT socis_formacions_veus_ibfk_2
+        FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
+);
 
-CREATE
-    DEFINER = root@localhost FUNCTION ordered_uuid(uuid BINARY(36)) RETURNS BINARY(16)
-    RETURN UNHEX(CONCAT(
-            SUBSTR(uuid, 15, 4),
-            SUBSTR(uuid, 10, 4),
-            SUBSTR(uuid, 1, 8),
-            SUBSTR(uuid, 20, 4),
-            SUBSTR(uuid, 25)
-        ));
+CREATE INDEX id_veu
+    ON socis_formacions_veus (id_veu);
+
+CREATE TABLE IF NOT EXISTS socis_projectes_veu
+(
+    id_soci     SMALLINT UNSIGNED NOT NULL,
+    id_projecte SMALLINT UNSIGNED NOT NULL,
+    id_veu      TINYINT UNSIGNED  NOT NULL,
+    PRIMARY KEY (id_soci, id_projecte),
+    CONSTRAINT socis_projectes_veu_ibfk_1
+        FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    CONSTRAINT socis_projectes_veu_ibfk_2
+        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
+    CONSTRAINT socis_projectes_veu_ibfk_3
+        FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
+);
+
+CREATE INDEX id_projecte
+    ON socis_projectes_veu (id_projecte);
+
+CREATE INDEX id_veu
+    ON socis_projectes_veu (id_veu);
+
+CREATE TABLE IF NOT EXISTS veus_convocades_assaig
+(
+    id_assaig SMALLINT UNSIGNED NOT NULL,
+    id_veu    TINYINT(1)        NOT NULL,
+    PRIMARY KEY (id_assaig, id_veu),
+    CONSTRAINT veus_convocades_assaig_ibfk_1
+        FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig)
+);
+
+CREATE TABLE IF NOT EXISTS veus_moviments
+(
+    id_veu_moviment SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    divisi          TINYINT UNSIGNED  NULL,
+    id_veu          TINYINT UNSIGNED  NOT NULL,
+    id_moviment     SMALLINT UNSIGNED NOT NULL,
+    CONSTRAINT veus_moviments_ibfk_1
+        FOREIGN KEY (id_veu) REFERENCES veus (id_veu),
+    CONSTRAINT veus_moviments_ibfk_2
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
+);
+
+CREATE TABLE IF NOT EXISTS socis_veu_moviment_projectes
+(
+    id_soci         SMALLINT UNSIGNED NOT NULL,
+    id_veu_moviment SMALLINT UNSIGNED NOT NULL,
+    id_projecte     SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_soci, id_veu_moviment, id_projecte),
+    CONSTRAINT socis_veu_moviment_projectes_ibfk_1
+        FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
+    CONSTRAINT socis_veu_moviment_projectes_ibfk_2
+        FOREIGN KEY (id_veu_moviment) REFERENCES veus_moviments (id_veu_moviment),
+    CONSTRAINT socis_veu_moviment_projectes_ibfk_3
+        FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
+);
+
+CREATE INDEX id_projecte
+    ON socis_veu_moviment_projectes (id_projecte);
+
+CREATE INDEX id_veu_moviment
+    ON socis_veu_moviment_projectes (id_veu_moviment);
+
+CREATE INDEX id_moviment
+    ON veus_moviments (id_moviment);
+
+CREATE INDEX id_veu
+    ON veus_moviments (id_veu);
+
+CREATE VIEW assajos_son_parcials AS
+SELECT DISTINCT a.id_assaig                                                                     AS id_assaig,
+                if(exists(SELECT veus_convocades_assaig.id_veu
+                          FROM veus_convocades_assaig
+                          WHERE (veus_convocades_assaig.id_assaig = a.id_assaig)), TRUE, FALSE) AS es_parcial
+FROM (assajos a
+         JOIN veus v);
+
+CREATE VIEW esdeveniments_estat AS
+SELECT DISTINCT e.id_esdeveniment                                                                AS id_esdeveniment,
+                ifnull(concat(e.dia_inici, ' ', e.hora_inici), e.dia_inici)                      AS data_inici,
+                date_format(e.dia_inici, '%Y-%m-%d')                                             AS dia_inici,
+                e.hora_inici                                                                     AS hora_inici,
+                ifnull(concat(ifnull(e.dia_final, e.dia_inici), ' ', e.hora_final), e.dia_final) AS data_final,
+                date_format(ifnull(e.dia_final, e.dia_inici), '%Y-%m-%d')                        AS dia_final,
+                e.hora_final                                                                     AS hora_final,
+                (SELECT concat_ws(' ', tv.nom, concat(localitzacions.carrer, ','), concat(
+                        ifnull(concat(localitzacions.numero, '–', localitzacions.fins_numero),
+                               concat(localitzacions.numero)), ','), c.nom, concat('(', (SELECT ciutats.nom
+                                                                                         FROM ciutats
+                                                                                         WHERE (ciutats.id_ciutat = (SELECT c.id_provincia))),
+                                                                                   ')'))
+                 FROM ((localitzacions JOIN tipus_vies tv ON ((localitzacions.id_tipus_via = tv.id_tipus_via)))
+                          JOIN ciutats c ON ((localitzacions.id_ciutat = c.id_ciutat)))
+                 WHERE (localitzacions.id_localitzacio = (SELECT e.id_localitzacio)))            AS localitzacio,
+                (SELECT e2.nom
+                 FROM (localitzacions
+                          JOIN establiments e2 ON ((localitzacions.id_localitzacio = e2.id_establiment)))
+                 WHERE (localitzacions.id_localitzacio = (SELECT e.id_localitzacio)))            AS establiment,
+                e.id_esdeveniment_ajornat                                                        AS id_esdeveniment_ajornat,
+                e.id_estat_esdeveniment                                                          AS id_estat_esdeveniment,
+                (SELECT estats_confirmacio.estat
+                 FROM estats_confirmacio
+                 WHERE (estats_confirmacio.id_estat_confirmacio =
+                        (SELECT e.id_estat_esdeveniment)))                                       AS estat_esdeveniment,
+                e.id_estat_localitzacio                                                          AS id_estat_localitzacio,
+                (SELECT estats_confirmacio.estat
+                 FROM estats_confirmacio
+                 WHERE (estats_confirmacio.id_estat_confirmacio =
+                        (SELECT e.id_estat_localitzacio)))                                       AS estat_localitzacio
+FROM esdeveniments e;
+
+CREATE VIEW assajos_estat AS
+SELECT DISTINCT ee.id_esdeveniment                                            AS id_esdeveniment,
+                ee.data_inici                                                 AS data_inici,
+                ee.dia_inici                                                  AS dia_inici,
+                ee.hora_inici                                                 AS hora_inici,
+                ee.data_final                                                 AS data_final,
+                ee.dia_final                                                  AS dia_final,
+                ee.hora_final                                                 AS hora_final,
+                ee.localitzacio                                               AS localitzacio,
+                ee.establiment                                                AS establiment,
+                ee.id_esdeveniment_ajornat                                    AS id_esdeveniment_ajornat,
+                ee.id_estat_esdeveniment                                      AS id_estat_esdeveniment,
+                ee.estat_esdeveniment                                         AS estat_esdeveniment,
+                ee.id_estat_localitzacio                                      AS id_estat_localitzacio,
+                ee.estat_localitzacio                                         AS estat_localitzacio,
+                a.id_assaig                                                   AS id_assaig,
+                concat('Assaig', if(assajos_son_parcials.es_parcial, ' parcial', ''), if(a.es_general, ' general', ''),
+                       if(a.es_extra, ' extra', ''))                          AS titol,
+                (SELECT ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
+                                                         formacions.nom, 'nom_curt',
+                                                         ifnull(formacions.nom_curt, formacions.nom))), '[]')
+                 FROM (formacions
+                          JOIN assajos_formacions
+                               ON ((formacions.id_formacio = assajos_formacions.id_formacio)))
+                 WHERE (assajos_formacions.id_assaig = (SELECT a.id_assaig))) AS formacions,
+                (SELECT ifnull(json_arrayagg(json_object('id_projecte', projectes.id_projecte, 'titol',
+                                                         projectes.titol, 'inicials', projectes.inicials,
+                                                         'color', projectes.color)), '[]')
+                 FROM (projectes
+                          JOIN assajos_projectes
+                               ON ((projectes.id_projecte = assajos_projectes.id_projecte)))
+                 WHERE (assajos_projectes.id_assaig = (SELECT a.id_assaig)))  AS projectes
+FROM ((assajos a JOIN assajos_son_parcials ON ((a.id_assaig = assajos_son_parcials.id_assaig)))
+         JOIN esdeveniments_estat ee ON ((ee.id_esdeveniment = a.id_assaig)));
+
+CREATE VIEW assajos_estat_moviments AS
+SELECT ae.id_esdeveniment                                                              AS id_esdeveniment,
+       ae.data_inici                                                                   AS data_inici,
+       ae.dia_inici                                                                    AS dia_inici,
+       ae.hora_inici                                                                   AS hora_inici,
+       ae.data_final                                                                   AS data_final,
+       ae.dia_final                                                                    AS dia_final,
+       ae.hora_final                                                                   AS hora_final,
+       ae.localitzacio                                                                 AS localitzacio,
+       ae.establiment                                                                  AS establiment,
+       ae.id_estat_esdeveniment                                                        AS id_estat_esdeveniment,
+       ae.estat_esdeveniment                                                           AS estat_esdeveniment,
+       ae.id_estat_localitzacio                                                        AS id_estat_localitzacio,
+       ae.estat_localitzacio                                                           AS estat_localitzacio,
+       ae.id_assaig                                                                    AS id_assaig,
+       ae.titol                                                                        AS titol,
+       ae.formacions                                                                   AS formacions,
+       ae.projectes                                                                    AS projectes,
+       (SELECT ifnull(json_arrayagg(
+                              json_object('id_moviment', m.id_moviment, 'id_obra', m.id_obra, 'titol_moviment', m.titol,
+                                          'titol_obra', o.titol, 'ordre', m.ordre)), '[]')
+        FROM ((moviments m JOIN moviments_esdeveniment_musical ON ((m.id_moviment = moviments_esdeveniment_musical.id_moviment)))
+                 JOIN obres o ON ((m.id_obra = o.id_obra)))
+        WHERE (moviments_esdeveniment_musical.id_esdeveniment_musical = ae.id_assaig)) AS moviments
+FROM assajos_estat ae;
+
+CREATE VIEW assajos_veus AS
+SELECT asp.id_assaig  AS id_assaig,
+       asp.es_parcial AS es_parcial,
+       if(((0 = asp.es_parcial) OR (0 <> (SELECT veus_convocades_assaig.id_veu
+                                          FROM veus_convocades_assaig
+                                          WHERE ((veus_convocades_assaig.id_veu = v.id_veu) AND
+                                                 (veus_convocades_assaig.id_assaig = asp.id_assaig))))), v.id_veu,
+          NULL)       AS id_veu,
+       v.nom          AS nom_veu,
+       v.abreviatura  AS abreviatura_veu
+FROM (assajos_son_parcials asp
+         JOIN veus v);
+
+CREATE VIEW moviments_full AS
+SELECT o.id_obra                                                          AS id_obra,
+       o.num_cataleg                                                      AS num_cataleg,
+       m.id_moviment                                                      AS id_moviment,
+       m.ordre                                                            AS ordre,
+       m.titol                                                            AS titol_moviment,
+       o.titol                                                            AS titol_obra,
+       (SELECT ifnull(json_arrayagg(
+                              json_object('id_projecte', projectes.id_projecte, 'titol', projectes.titol,
+                                          'inicials', projectes.inicials, 'color', projectes.color)), '[]')
+        FROM (projectes
+                 JOIN moviments_projectes ON ((projectes.id_projecte = moviments_projectes.id_projecte)))
+        WHERE (moviments_projectes.id_moviment = (SELECT m.id_moviment))) AS projectes
+FROM (moviments m
+         JOIN obres o ON ((m.id_obra = o.id_obra)))
+ORDER BY (o.any_inici IS NULL), o.titol, m.ordre;
+
+CREATE VIEW projectes_full AS
+SELECT DISTINCT projectes.id_projecte                                                       AS id_projecte,
+                projectes.titol                                                             AS titol,
+                projectes.descripcio                                                        AS descripcio,
+                projectes.inicials                                                          AS inicials,
+                projectes.color                                                             AS color,
+                projectes.data_inici                                                        AS data_inici,
+                projectes.data_final                                                        AS data_final,
+                projectes.id_curs                                                           AS id_curs,
+                year(cursos.inici)                                                          AS any_inici_curs,
+                year(cursos.final)                                                          AS any_final_curs,
+                (SELECT ifnull(json_arrayagg(json_object('id_director', directors_projectes.id_director, 'nom',
+                                                         p.nom_complet)), '[]')
+                 FROM (directors_projectes
+                          JOIN persones p ON ((directors_projectes.id_director = p.id_persona)))
+                 WHERE (directors_projectes.id_projecte = (SELECT projectes.id_projecte)))  AS directors,
+                (SELECT ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
+                                                         formacions.nom, 'nom_curt',
+                                                         ifnull(formacions.nom_curt, formacions.nom))), '[]')
+                 FROM (projectes_formacions
+                          JOIN formacions
+                               ON ((projectes_formacions.id_formacio = formacions.id_formacio)))
+                 WHERE (projectes_formacions.id_projecte = (SELECT projectes.id_projecte))) AS formacions
+FROM (projectes
+         JOIN cursos ON ((projectes.id_curs = cursos.id_curs)))
+ORDER BY (projectes.data_inici IS NULL), projectes.data_inici, (projectes.data_final IS NULL),
+         projectes.data_final, projectes.titol;
+
+CREATE VIEW socis_veus AS
+SELECT s.id_soci                                                               AS id_soci,
+       p.nom                                                                   AS nom,
+       p.cognoms                                                               AS cognoms,
+       p.nom_complet                                                           AS nom_complet,
+       (SELECT ifnull((SELECT group_concat(veus_moviments.id_veu SEPARATOR ',')
+                       FROM (socis_veu_moviment_projectes
+                                JOIN veus_moviments ON ((socis_veu_moviment_projectes.id_veu_moviment =
+                                                         veus_moviments.id_veu_moviment)))
+                       WHERE (socis_veu_moviment_projectes.id_soci = s.id_soci)),
+                      ifnull((SELECT group_concat(socis_projectes_veu.id_veu SEPARATOR ',')
+                              FROM socis_projectes_veu
+                              WHERE (socis_projectes_veu.id_soci = s.id_soci)),
+                             (SELECT group_concat(socis_formacions_veus.id_veu SEPARATOR ',')
+                              FROM ((socis_formacions_veus JOIN socis_formacions ON ((
+                                      socis_formacions_veus.id_soci_formacio =
+                                      socis_formacions.id_soci_formacio)))
+                                       JOIN formacions
+                                            ON ((socis_formacions.id_formacio = formacions.id_formacio)))
+                              WHERE (socis_formacions.id_soci = s.id_soci))))) AS id_veu
+FROM (socis s
+         JOIN persones p ON ((p.id_persona = s.id_soci)));
+
+CREATE VIEW socis_convocats_assajos AS
+SELECT sv.id_soci                                                                             AS id_soci,
+       sv.nom                                                                                 AS nom,
+       sv.cognoms                                                                             AS cognoms,
+       sv.nom_complet                                                                         AS nom_complet,
+       av.id_assaig                                                                           AS id_assaig,
+       av.es_parcial                                                                          AS es_parcial,
+       av.id_veu                                                                              AS id_veu,
+       av.nom_veu                                                                             AS nom_veu,
+       av.abreviatura_veu                                                                     AS abreviatura_veu,
+       if(ae.retard, TRUE, FALSE)                                                             AS retard,
+       ifnull(ec.id_estat_confirmacio, 1)                                                     AS id_estat_confirmacio,
+       (SELECT estats_confirmacio.estat
+        FROM estats_confirmacio
+        WHERE (estats_confirmacio.id_estat_confirmacio = ifnull(ec.id_estat_confirmacio, 1))) AS estat
+FROM ((((assajos_veus av LEFT JOIN socis_veus sv ON ((av.id_veu = sv.id_veu))) LEFT JOIN assajos a ON ((av.id_assaig = a.id_assaig))) LEFT JOIN assistents_esdeveniment ae ON (((ae.id_soci = sv.id_soci) AND (ae.id_esdeveniment = a.id_assaig))))
+         LEFT JOIN estats_confirmacio ec ON ((ec.id_estat_confirmacio = ae.id_estat_confirmacio)))
+WHERE (((exists(SELECT 1
+                FROM (assajos
+                         JOIN veus_convocades_assaig
+                              ON ((assajos.id_assaig = veus_convocades_assaig.id_assaig)))
+                WHERE (assajos.id_assaig = a.id_assaig)) IS FALSE AND exists(SELECT 1
+                                                                             FROM ((assajos JOIN assajos_formacions ON ((assajos.id_assaig = assajos_formacions.id_assaig)))
+                                                                                      JOIN socis_formacions
+                                                                                           ON ((assajos_formacions.id_formacio =
+                                                                                                socis_formacions.id_formacio)))
+                                                                             WHERE ((assajos.id_assaig = a.id_assaig) AND
+                                                                                    (socis_formacions.id_soci = sv.id_soci)))) OR
+        sv.id_veu IN (SELECT DISTINCT veus_convocades_assaig.id_veu
+                      FROM (assajos
+                               JOIN veus_convocades_assaig
+                                    ON ((assajos.id_assaig = veus_convocades_assaig.id_assaig)))
+                      WHERE (assajos.id_assaig = a.id_assaig))) AND sv.id_soci IN (SELECT socis.id_soci
+                                                                                   FROM ((socis JOIN socis_formacions ON ((socis.id_soci = socis_formacions.id_soci)))
+                                                                                            JOIN assajos_formacions
+                                                                                                 ON ((socis_formacions.id_formacio =
+                                                                                                      assajos_formacions.id_formacio)))
+                                                                                   WHERE (assajos_formacions.id_assaig = a.id_assaig)))
+ORDER BY av.id_assaig, av.id_veu, sv.cognoms, sv.nom;
+
+CREATE VIEW usuaris AS
+SELECT usuaris_complet.id_usuari  AS id_usuari,
+       usuaris_complet.username   AS username,
+       usuaris_complet.creacio    AS creacio,
+       usuaris_complet.id_persona AS id_persona
+FROM usuaris_complet;
