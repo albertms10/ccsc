@@ -271,6 +271,7 @@ Table "esdeveniments" {
   "dia_final" DATE
   "hora_final" TIME
   "es_assaig_ordinari" BOOLEAN [not null, default: FALSE]
+  "notes" TEXT
   "id_estat_esdeveniment" TINYINT [not null, default: 1]
   "id_localitzacio" SMALLINT [not null]
   "id_estat_localitzacio" TINYINT [not null, default: 1]
@@ -474,6 +475,15 @@ Table "directors_projectes" {
 
 Indexes {
   (id_projecte, id_director) [pk]
+}
+}
+
+Table "moviments_projectes" {
+  "id_moviment" SMALLINT [not null]
+  "id_projecte" SMALLINT [not null]
+
+Indexes {
+  (id_moviment, id_projecte) [pk]
 }
 }
 
@@ -954,6 +964,10 @@ Ref:"formacions"."id_formacio" < "projectes_formacions"."id_formacio"
 Ref:"projectes"."id_projecte" < "directors_projectes"."id_projecte"
 
 Ref:"directors"."id_director" < "directors_projectes"."id_director"
+
+Ref:"moviments"."id_moviment" < "moviments_projectes"."id_moviment"
+
+Ref:"projectes"."id_projecte" < "moviments_projectes"."id_projecte"
 
 Ref:"esdeveniments_musicals"."id_esdeveniment_musical" < "concerts"."id_concert"
 
