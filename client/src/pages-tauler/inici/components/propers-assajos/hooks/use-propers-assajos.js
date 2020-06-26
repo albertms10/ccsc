@@ -20,8 +20,5 @@ export default (limit) => {
     );
   }, [id_persona, limit, dispatch]);
 
-  return [
-    propersAssajos.length === 1 ? propersAssajos[0] : propersAssajos,
-    loading,
-  ];
+  return [propersAssajos, loading];
 };
