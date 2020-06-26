@@ -5,12 +5,12 @@ SELECT id_persona,
        (
            SELECT nom
            FROM veus
-           WHERE id_veu = (SELECT sav.id_veu)
+           WHERE id_veu = sav.id_veu
        ) AS nom_veu,
        (
            SELECT abreviatura
            FROM veus
-           WHERE id_veu = (SELECT sav.id_veu)
+           WHERE id_veu = sav.id_veu
        ) AS abreviatura_veu
 FROM socis s
          INNER JOIN persones p ON (s.id_soci = p.id_persona)

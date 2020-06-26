@@ -7,14 +7,14 @@ SELECT id_esdeveniment,
        (
            SELECT estat
            FROM estats_confirmacio
-           WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+           WHERE id_estat_confirmacio = e.id_estat_esdeveniment
        )     AS estat_esdeveniment,
        id_localitzacio,
        id_estat_localitzacio,
        (
            SELECT estat
            FROM estats_confirmacio
-           WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+           WHERE id_estat_confirmacio = e.id_estat_localitzacio
        )     AS estat_localitzacio,
        id_esdeveniment_ajornat,
        IF(id_assaig, 'assaig',

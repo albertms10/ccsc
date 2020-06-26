@@ -10,12 +10,12 @@ SELECT id_concert,
        (
            SELECT estat
            FROM estats_confirmacio
-           WHERE id_estat_confirmacio = (SELECT id_estat_esdeveniment)
+           WHERE id_estat_confirmacio = e.id_estat_esdeveniment
        )                                                     AS estat_esdeveniment,
        (
            SELECT estat
            FROM estats_confirmacio
-           WHERE id_estat_confirmacio = (SELECT id_estat_localitzacio)
+           WHERE id_estat_confirmacio = e.id_estat_localitzacio
        )                                                     AS estat_localitzacio
 FROM esdeveniments e
          INNER JOIN concerts c ON (e.id_esdeveniment = c.id_concert)

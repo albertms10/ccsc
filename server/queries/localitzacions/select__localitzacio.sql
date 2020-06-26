@@ -10,7 +10,7 @@ SELECT id_localitzacio,
        (
            SELECT nom
            FROM ciutats
-           WHERE id_ciutat = (SELECT c.id_provincia)
+           WHERE id_ciutat = c.id_provincia
        )                                                AS provincia,
        p2.id_pais,
        p2.nom                                           AS pais

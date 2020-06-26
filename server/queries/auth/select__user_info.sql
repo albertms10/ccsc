@@ -8,7 +8,7 @@ SELECT id_usuari AS id,
            SELECT JSON_ARRAYAGG(role)
            FROM roles_usuaris
                     INNER JOIN roles USING (id_role)
-           WHERE id_usuari = (SELECT u.id_usuari)
+           WHERE id_usuari = u.id_usuari
        )         AS roles,
        (
            SELECT IFNULL(JSON_ARRAYAGG(unique_name), '[]')
@@ -19,9 +19,9 @@ SELECT id_usuari AS id,
              AND NOT EXISTS(
                    SELECT *
                    FROM socis_acceptacions
-                   WHERE id_acceptacio_avis = (SELECT av.id_acceptacio_avis)
+                   WHERE id_acceptacio_avis = av.id_acceptacio_avis
                      AND accepta IS TRUE
-                     AND id_soci = (SELECT p.id_persona)
+                     AND id_soci = p.id_persona
                )
        )         AS avisos,
        IF(
@@ -29,7 +29,7 @@ SELECT id_usuari AS id,
                        SELECT *
                        FROM socis s
                                 INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
-                       WHERE id_soci = (SELECT id_persona)
+                       WHERE id_soci = p.id_persona
                          AND CURRENT_DATE
                            BETWEEN data_alta
                            AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)

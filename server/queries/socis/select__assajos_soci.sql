@@ -13,7 +13,7 @@ WHERE EXISTS(
                  INNER JOIN socis_formacions_veus USING (id_veu)
                  INNER JOIN socis_formacions USING (id_soci_formacio)
         WHERE id_soci = @id_soci
-          AND id_assaig = (SELECT ae.id_assaig)
+          AND id_assaig = ae.id_assaig
     )
    OR EXISTS(
         SELECT *

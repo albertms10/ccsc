@@ -4,7 +4,7 @@ SELECT id_ciutat,
        (
            SELECT nom
            FROM ciutats
-           WHERE id_ciutat = (SELECT p.id_provincia)
+           WHERE id_ciutat = p.id_provincia
        )                                 AS provincia,
        p2.id_pais,
        p2.nom                            AS pais

@@ -1,5 +1,5 @@
 SELECT tipus_avisos.nom AS titol,
-       avisos.descripcio,
+       a.descripcio,
        titol_acceptacions,
        requerit,
        data_inici,
@@ -13,7 +13,7 @@ SELECT tipus_avisos.nom AS titol,
                                      )
                              ), '[]')
            FROM seccions_avis
-           WHERE id_avis = (SELECT avisos.id_avis)
+           WHERE id_avis = a.id_avis
        )                AS seccions,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
@@ -25,9 +25,9 @@ SELECT tipus_avisos.nom AS titol,
                                      )
                              ), '[]')
            FROM acceptacions_avis
-           WHERE id_avis = (SELECT avisos.id_avis)
+           WHERE id_avis = a.id_avis
        )                AS acceptacions
-FROM avisos
+FROM avisos a
          INNER JOIN tipus_avisos USING (id_tipus_avis)
 WHERE unique_name = ?
   AND IFNULL(CURRENT_DATE >= data_inici, TRUE)

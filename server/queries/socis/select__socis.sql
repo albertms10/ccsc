@@ -10,7 +10,7 @@ SELECT id_persona,
                        SELECT *
                        FROM socis s
                                 INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
-                       WHERE id_soci = (SELECT id_persona)
+                       WHERE id_soci = p.id_persona
                          AND CURRENT_DATE
                            BETWEEN data_alta
                            AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)
@@ -20,28 +20,28 @@ SELECT id_persona,
        (
            SELECT MAX(data_alta)
            FROM historial_socis
-           WHERE id_historial_soci = (SELECT id_persona)
+           WHERE id_historial_soci = p.id_persona
            ORDER BY data_alta DESC
            LIMIT 1
        )     AS data_actiu,
        (
            SELECT MAX(data_baixa)
            FROM historial_socis
-           WHERE id_historial_soci = (SELECT id_persona)
+           WHERE id_historial_soci = p.id_persona
            ORDER BY data_alta DESC
            LIMIT 1
        )     AS data_inactiu,
        (
            SELECT IFNULL(DATEDIFF(data_baixa, data_alta), DATEDIFF(NOW(), data_alta)) + 1
            FROM historial_socis
-           WHERE id_historial_soci = (SELECT id_persona)
+           WHERE id_historial_soci = p.id_persona
            ORDER BY data_alta DESC
            LIMIT 1
        )     AS dies_activitat,
        (
            SELECT DATEDIFF(NOW(), data_baixa) + 1
            FROM historial_socis
-           WHERE id_historial_soci = (SELECT id_persona)
+           WHERE id_historial_soci = p.id_persona
            ORDER BY data_alta DESC
            LIMIT 1
        )     AS dies_inactivitat

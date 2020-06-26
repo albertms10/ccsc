@@ -6,7 +6,7 @@ SELECT *,
                        SELECT *
                        FROM assajos_projectes
                        WHERE id_assaig = @id_assaig
-                         AND id_projecte = (SELECT p.id_projecte)
+                         AND id_projecte = p.id_projecte
                    ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
            ) AS convocada
 FROM projectes p,

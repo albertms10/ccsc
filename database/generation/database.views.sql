@@ -18,32 +18,32 @@ SELECT DISTINCT id_esdeveniment,
                                      CONCAT(IFNULL(CONCAT(numero, '–', fins_numero), CONCAT(numero)), ','),
                                      c.nom,
                                      CONCAT('(',
-                                            (SELECT nom FROM ciutats WHERE id_ciutat = (SELECT c.id_provincia)),
+                                            (SELECT nom FROM ciutats WHERE id_ciutat = c.id_provincia),
                                             ')')
                                )
                     FROM localitzacions
                              INNER JOIN tipus_vies tv USING (id_tipus_via)
                              INNER JOIN ciutats c USING (id_ciutat)
-                    WHERE id_localitzacio = (SELECT e.id_localitzacio)
+                    WHERE id_localitzacio = e.id_localitzacio
                 )                                                                        AS localitzacio,
                 (
                     SELECT e2.nom
                     FROM localitzacions l
                              INNER JOIN establiments e2 ON (l.id_localitzacio = e2.id_establiment)
-                    WHERE id_localitzacio = (SELECT e.id_localitzacio)
+                    WHERE id_localitzacio = e.id_localitzacio
                 )                                                                        AS establiment,
                 id_esdeveniment_ajornat,
                 e.id_estat_esdeveniment,
                 (
                     SELECT estat
                     FROM estats_confirmacio
-                    WHERE id_estat_confirmacio = (SELECT e.id_estat_esdeveniment)
+                    WHERE id_estat_confirmacio = e.id_estat_esdeveniment
                 )                                                                        AS estat_esdeveniment,
                 e.id_estat_localitzacio,
                 (
                     SELECT estat
                     FROM estats_confirmacio
-                    WHERE id_estat_confirmacio = (SELECT e.id_estat_localitzacio)
+                    WHERE id_estat_confirmacio = e.id_estat_localitzacio
                 )                                                                        AS estat_localitzacio
 FROM esdeveniments e;
 
@@ -96,7 +96,7 @@ SELECT DISTINCT ee.*,
                                       ), '[]')
                     FROM formacions
                              INNER JOIN assajos_formacions USING (id_formacio)
-                    WHERE id_assaig = (SELECT a.id_assaig)
+                    WHERE id_assaig = a.id_assaig
                 )     AS formacions,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
@@ -109,7 +109,7 @@ SELECT DISTINCT ee.*,
                                       ), '[]')
                     FROM projectes
                              INNER JOIN assajos_projectes USING (id_projecte)
-                    WHERE id_assaig = (SELECT a.id_assaig)
+                    WHERE id_assaig = a.id_assaig
                 )     AS projectes
 FROM assajos a
          INNER JOIN assajos_son_parcials USING (id_assaig)
@@ -137,7 +137,7 @@ FROM assajos_estat ae;
 
 
 CREATE VIEW projectes_full AS
-SELECT DISTINCT projectes.id_projecte,
+SELECT DISTINCT p.id_projecte,
                 titol,
                 descripcio,
                 inicials,
@@ -145,8 +145,8 @@ SELECT DISTINCT projectes.id_projecte,
                 data_inici,
                 data_final,
                 id_curs,
-                YEAR(cursos.inici) AS any_inici_curs,
-                YEAR(cursos.final) AS any_final_curs,
+                YEAR(c.inici) AS any_inici_curs,
+                YEAR(c.final) AS any_final_curs,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -156,7 +156,7 @@ SELECT DISTINCT projectes.id_projecte,
                                       ), '[]')
                     FROM directors_projectes dp
                              INNER JOIN persones p ON (dp.id_director = p.id_persona)
-                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                    WHERE id_projecte = p.id_projecte
                 )                  AS directors,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
@@ -168,10 +168,10 @@ SELECT DISTINCT projectes.id_projecte,
                                       ), '[]')
                     FROM projectes_formacions
                              INNER JOIN formacions USING (id_formacio)
-                    WHERE id_projecte = (SELECT projectes.id_projecte)
+                    WHERE id_projecte = p.id_projecte
                 )                  AS formacions
-FROM projectes
-         INNER JOIN cursos USING (id_curs)
+FROM projectes p
+         INNER JOIN cursos c USING (id_curs)
 ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
 
 
@@ -281,7 +281,7 @@ SELECT o.id_obra,
                              ), '[]')
            FROM projectes
                     INNER JOIN moviments_projectes USING (id_projecte)
-           WHERE id_moviment = (SELECT m.id_moviment)
+           WHERE id_moviment = m.id_moviment
        )       AS projectes
 FROM moviments m
          INNER JOIN obres o USING (id_obra)
