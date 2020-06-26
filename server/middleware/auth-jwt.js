@@ -68,14 +68,15 @@ const verifyEmailToken = (req, res, next) => {
       return res.status(403).send({
         error: {
           status: 403,
-          message:
-            !err && email !== decoded.email
-              ? "Les adreces de correu no coincideixen"
-              : "Sense autorizació",
-          description: "Modifiqueu l’adreça de correu electrònic.",
-          okText: "Modificar les dades",
-          okOnly: true,
-          noAction: true,
+          ...(!err && email !== decoded.email
+            ? {
+                message: "Les adreces de correu no coincideixen",
+                description: "Modifiqueu l’adreça de correu electrònic.",
+                okText: "Modificar les dades",
+                okOnly: true,
+                noAction: true,
+              }
+            : { message: "Sense autorizació" }),
         },
       });
 
