@@ -36,30 +36,30 @@ export default () => {
       </Title>
       <PropersAssajos style={{ marginBottom: "2rem" }} />
 
-      <Title
-        level={4}
-        className="secondary-title"
-        style={{ marginBottom: "1.2rem" }}
-      >
-        Resum
-      </Title>
-      <Row type="flex" gutter={[32, 32]}>
-        <Authorized>
+      <Authorized>
+        <Title
+          level={4}
+          className="secondary-title"
+          style={{ marginBottom: "1.2rem" }}
+        >
+          Resum
+        </Title>
+        <Row type="flex" gutter={[32, 32]}>
           <Col xs={24} sm={12} md={6} flex={1}>
             <SocisCountStatistics />
           </Col>
-        </Authorized>
-        <Col xs={24} sm={12} md={6} flex={1}>
-          <ProjectesCountStatistics />
-        </Col>
-        <Col xs={24} sm={12} md={6} flex={1}>
-          <ConcertsCountStatistics />
-        </Col>
-        <Col xs={24} sm={12} md={6} flex={1}>
-          <AssajosCountStatistics />
-        </Col>
-      </Row>
-      <ChartAssistencia />
+          <Col xs={24} sm={12} md={6} flex={1}>
+            <ProjectesCountStatistics />
+          </Col>
+          <Col xs={24} sm={12} md={6} flex={1}>
+            <ConcertsCountStatistics />
+          </Col>
+          <Col xs={24} sm={12} md={6} flex={1}>
+            <AssajosCountStatistics />
+          </Col>
+        </Row>
+        <ChartAssistencia />
+      </Authorized>
     </SafeMargin>
   );
 };
