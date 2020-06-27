@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import { IdPropTypes } from "./index";
 
 export default PropTypes.shape({
-  id_persona: PropTypes.any,
+  id_persona: IdPropTypes,
   nom: PropTypes.string,
   cognoms: PropTypes.string,
   nom_complet: PropTypes.string,

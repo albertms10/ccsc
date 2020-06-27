@@ -5,4 +5,4 @@ export default PropTypes.shape({
   descripcio: PropTypes.string,
   form_name: PropTypes.string,
   requerida: PropTypes.bool,
-})
+});
