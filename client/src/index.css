@@ -20,6 +20,13 @@
   --min-width-lg: 1200px;
 }
 
+@media screen {
+  @page {
+    margin: 0;
+    size: 1280px 850px;
+  }
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
   :root {
     --horizontal-inset: 3rem;
