@@ -651,25 +651,27 @@ Table "tipus_agrupacions" {
   "nom" VARCHAR(50) [not null]
 }
 
-Table "formacions_agrupacio" {
-  "id_agrupacio" SMALLINT [not null]
+Table "formacions_agrupacions" {
   "id_formacio" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
 
 Indexes {
   (id_agrupacio, id_formacio) [pk]
 }
 }
 
-Table "adreces_agrupacio" {
+Table "adreces_agrupacions" {
   "id_adreca_agrupacio" SMALLINT [pk, not null, increment]
   "data_inici" DATE [not null]
   "id_localitzacio" SMALLINT [not null]
+  "id_agrupacio" SMALLINT [not null]
 }
 
-Table "adreces_electroniques_agrupacio" {
+Table "adreces_electroniques_agrupacions" {
   "id_adreca_electronica_agrupacio" SMALLINT [pk, not null, increment]
   "adreca_electronica" VARCHAR(50) [not null]
   "descripcio" VARCHAR(50) [not null]
+  "id_agrupacio" SMALLINT [not null]
 
 Indexes {
   adreca_electronica [unique]
@@ -1035,13 +1037,17 @@ Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
 
 Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
 
-Ref:"agrupacions"."id_agrupacio" < "formacions_agrupacio"."id_agrupacio"
+Ref:"formacions"."id_formacio" < "formacions_agrupacions"."id_formacio"
 
-Ref:"formacions"."id_formacio" < "formacions_agrupacio"."id_formacio"
+Ref:"agrupacions"."id_agrupacio" < "formacions_agrupacions"."id_agrupacio"
 
-Ref:"localitzacions"."id_localitzacio" < "adreces_agrupacio"."id_localitzacio"
+Ref:"localitzacions"."id_localitzacio" < "adreces_agrupacions"."id_localitzacio"
 
-Ref:"adreces_electroniques_agrupacio"."id_adreca_electronica_agrupacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_agrupacio"
+Ref:"agrupacions"."id_agrupacio" < "adreces_agrupacions"."id_agrupacio"
+
+Ref:"agrupacions"."id_agrupacio" < "adreces_electroniques_agrupacions"."id_agrupacio"
+
+Ref:"adreces_electroniques_agrupacions"."id_adreca_electronica_agrupacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_agrupacio"
 
 Ref:"socis"."id_soci" < "encarregats_adreces_electroniques"."id_soci"
 

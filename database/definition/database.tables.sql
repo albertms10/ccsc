@@ -999,35 +999,41 @@ CREATE TABLE IF NOT EXISTS tipus_agrupacions
     PRIMARY KEY (id_tipus_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS formacions_agrupacio
+CREATE TABLE IF NOT EXISTS formacions_agrupacions
 (
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
     id_formacio  SMALLINT UNSIGNED NOT NULL,
+    id_agrupacio SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_agrupacio, id_formacio),
-    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
-    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
+    FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS adreces_agrupacio
+CREATE TABLE IF NOT EXISTS adreces_agrupacions
 (
     id_adreca_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
     data_inici          DATE              NOT NULL,
 
     id_localitzacio     SMALLINT UNSIGNED NOT NULL,
+    id_agrupacio        SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_adreca_agrupacio),
-    FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
+    FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio)
 );
 
-CREATE TABLE IF NOT EXISTS adreces_electroniques_agrupacio
+CREATE TABLE IF NOT EXISTS adreces_electroniques_agrupacions
 (
     id_adreca_electronica_agrupacio SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    adreca_electronica              VARCHAR(50)       NOT NULL,
 
+    adreca_electronica              VARCHAR(50)       NOT NULL,
     descripcio                      VARCHAR(50)       NOT NULL,
 
+    id_agrupacio                    SMALLINT UNSIGNED NOT NULL,
+
     PRIMARY KEY (id_adreca_electronica_agrupacio),
+    FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
 
     UNIQUE (adreca_electronica)
 );
@@ -1042,7 +1048,7 @@ CREATE TABLE IF NOT EXISTS encarregats_adreces_electroniques
 
     PRIMARY KEY (id_adreca_electronica_agrupacio, id_soci, data_inici),
     FOREIGN KEY (id_adreca_electronica_agrupacio)
-        REFERENCES adreces_electroniques_agrupacio (id_adreca_electronica_agrupacio),
+        REFERENCES adreces_electroniques_agrupacions (id_adreca_electronica_agrupacio),
     FOREIGN KEY (id_soci) REFERENCES socis (id_soci)
 );
 
