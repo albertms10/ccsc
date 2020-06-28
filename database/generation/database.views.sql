@@ -76,16 +76,16 @@ FROM assajos_son_parcials asp
          JOIN veus v;
 
 
-
 CREATE VIEW assajos_estat AS
 SELECT DISTINCT ee.*,
                 id_assaig,
+                IF(es_parcial, CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS es_parcial,
                 CONCAT(
                         'Assaig',
                         IF(es_parcial, ' parcial', ''),
                         IF(es_general, ' general', ''),
                         IF(es_extra, ' extra', '')
-                    ) AS titol,
+                    )                                                   AS titol,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -97,7 +97,7 @@ SELECT DISTINCT ee.*,
                     FROM formacions
                              INNER JOIN assajos_formacions USING (id_formacio)
                     WHERE id_assaig = a.id_assaig
-                )     AS formacions,
+                )                                                       AS formacions,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -110,10 +110,10 @@ SELECT DISTINCT ee.*,
                     FROM projectes
                              INNER JOIN assajos_projectes USING (id_projecte)
                     WHERE id_assaig = a.id_assaig
-                )     AS projectes
+                )                                                       AS projectes
 FROM assajos a
-         INNER JOIN assajos_son_parcials USING (id_assaig)
-         INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig);
+         INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig)
+         LEFT JOIN assajos_son_parcials USING (id_assaig);
 
 
 CREATE VIEW assajos_estat_moviments AS
@@ -157,7 +157,7 @@ SELECT DISTINCT p.id_projecte,
                     FROM directors_projectes dp
                              INNER JOIN persones p ON (dp.id_director = p.id_persona)
                     WHERE id_projecte = p.id_projecte
-                )                  AS directors,
+                )             AS directors,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -169,7 +169,7 @@ SELECT DISTINCT p.id_projecte,
                     FROM projectes_formacions
                              INNER JOIN formacions USING (id_formacio)
                     WHERE id_projecte = p.id_projecte
-                )                  AS formacions
+                )             AS formacions
 FROM projectes p
          INNER JOIN cursos c USING (id_curs)
 ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
