@@ -100,3 +100,9 @@ VALUES (1, 'usuari'),
        (2, 'junta_directiva'),
        (3, 'director_musical'),
        (4, 'admin');
+
+
+INSERT IGNORE INTO estats_confirmacio (id_estat_confirmacio, estat)
+VALUES (1, 'Confirmat'),
+       (2, 'Pendent'),
+       (3, 'Cancel·lat');
