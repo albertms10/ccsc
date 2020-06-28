@@ -106,3 +106,12 @@ INSERT IGNORE INTO estats_confirmacio (id_estat_confirmacio, estat)
 VALUES (1, 'Confirmat'),
        (2, 'Pendent'),
        (3, 'Cancel·lat');
+
+
+INSERT IGNORE INTO veus (id_veu, nom, abreviatura)
+VALUES (1, 'Soprano', 'S'),
+       (2, 'Mezzosoprano', 'Mz'),
+       (3, 'Contralt', 'A'),
+       (4, 'Tenor', 'T'),
+       (5, 'Baríton', 'Br'),
+       (6, 'Baix', 'B')
