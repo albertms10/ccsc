@@ -7,6 +7,10 @@ FROM assajos_projectes
 WHERE id_projecte = @id_projecte;
 
 DELETE
+FROM moviments_projectes
+WHERE id_projecte = @id_projecte;
+
+DELETE
 FROM directors_projectes
 WHERE id_projecte = @id_projecte;
 
