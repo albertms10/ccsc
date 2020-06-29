@@ -1,9 +1,11 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 import React, { useContext } from "react";
+import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { useAPI } from "../../../../helpers";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { ContentList } from "../../../../standalone/content-list";
+import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { timeDuration } from "../../../../utils";
 import { ObraContext } from "../../detall-obra";
 import { ModalAfegirMoviment } from "../modal-afegir-moviment";
@@ -21,9 +23,15 @@ export default () => {
       loading={loadingMoviments}
       dataSource={moviments.map((moviment) => ({
         id: moviment.id_moviment,
-        title: moviment.titol,
+        title: moviment.titol_moviment,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
-        extra: timeDuration(moviment.durada),
+        actions: [
+          ...(moviment.projectes && moviment.projectes.length > 0
+            ? [<FixedTagsProjectes projectes={moviment.projectes} />]
+            : []),
+          timeDuration(moviment.durada),
+          <DropdownBorderlessButton />
+        ],
         avatar: (
           <Typography.Text type="secondary" style={{ fontSize: "small" }}>
             {moviment.ordre}
