@@ -20,9 +20,9 @@ exports.moviments_post = (req, res, next) => {
           moviment.id_obra,
           moviment.ordre || {
             toSqlString: () =>
-              `(SELECT MAX(ordre) + 1 FROM (SELECT * FROM moviments) m WHERE id_obra = ${pool.escape(
-                moviment.id_obra
-              )})`,
+              `(SELECT IFNULL(MAX(ordre) + 1, 1)
+                FROM (SELECT * FROM moviments) m
+                WHERE id_obra = ${pool.escape(moviment.id_obra)})`,
           },
           moviment.titol,
           moviment.durada,

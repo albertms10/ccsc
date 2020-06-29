@@ -260,7 +260,7 @@ WHERE ((
              INNER JOIN assajos_formacions USING (id_formacio)
     WHERE id_assaig = a.id_assaig
 )
-ORDER BY id_assaig, id_veu, cognoms, nom;
+ORDER BY id_veu, cognoms, nom;
 
 
 CREATE VIEW moviments_full AS
@@ -268,8 +268,8 @@ SELECT o.id_obra,
        num_cataleg,
        m.id_moviment,
        ordre,
-       m.titol AS titol_moviment,
-       o.titol AS titol_obra,
+       IFNULL(m.titol, o.titol) AS titol_moviment,
+       o.titol                  AS titol_obra,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
                                  JSON_OBJECT(
@@ -282,7 +282,7 @@ SELECT o.id_obra,
            FROM projectes
                     INNER JOIN moviments_projectes USING (id_projecte)
            WHERE id_moviment = m.id_moviment
-       )       AS projectes
+       )                        AS projectes
 FROM moviments m
          INNER JOIN obres o USING (id_obra)
 ORDER BY o.any_inici IS NULL, o.titol, m.ordre;

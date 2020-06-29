@@ -1,4 +1,4 @@
 SELECT *
-FROM moviments
+FROM moviments_full
 WHERE id_obra = ?
 ORDER BY ordre;

@@ -590,7 +590,7 @@ CREATE TABLE IF NOT EXISTS moviments
     id_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
     ordre       SMALLINT UNSIGNED NOT NULL,
-    titol       VARCHAR(100)      NOT NULL,
+    titol       VARCHAR(100),
     durada      TIME,
     tonalitat   VARCHAR(10),
 
