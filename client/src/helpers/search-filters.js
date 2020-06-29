@@ -14,6 +14,9 @@ export const searchFilterMoviment = (moviment) => ({
     moviment.titol_moviment,
     moviment.subtitol,
     moviment.num_cataleg,
+    ...(moviment.projectes
+      ? moviment.projectes.map((projecte) => projecte.titol)
+      : []),
   ],
 });
 
