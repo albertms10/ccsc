@@ -268,6 +268,7 @@ SELECT o.id_obra,
        num_cataleg,
        m.id_moviment,
        ordre,
+       durada,
        IFNULL(m.titol, o.titol) AS titol_moviment,
        o.titol                  AS titol_obra,
        (
