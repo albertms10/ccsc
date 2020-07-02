@@ -1,9 +1,9 @@
-CREATE VIEW usuaris AS
+CREATE OR REPLACE VIEW usuaris AS
 SELECT id_usuari, username, creacio, id_persona
 FROM usuaris_complet;
 
 
-CREATE VIEW esdeveniments_estat AS
+CREATE OR REPLACE VIEW esdeveniments_estat AS
 SELECT DISTINCT id_esdeveniment,
                 IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici)                    AS data_inici,
                 DATE_FORMAT(dia_inici, '%Y-%m-%d')                                       AS dia_inici,
@@ -48,7 +48,7 @@ SELECT DISTINCT id_esdeveniment,
 FROM esdeveniments e;
 
 
-CREATE VIEW assajos_son_parcials AS
+CREATE OR REPLACE VIEW assajos_son_parcials AS
 SELECT DISTINCT id_assaig,
                 IF(EXISTS(
                            SELECT id_veu
@@ -59,7 +59,7 @@ FROM assajos a
          JOIN veus v;
 
 
-CREATE VIEW assajos_veus AS
+CREATE OR REPLACE VIEW assajos_veus AS
 SELECT asp.*,
        IF(
                    NOT es_parcial
@@ -76,7 +76,7 @@ FROM assajos_son_parcials asp
          JOIN veus v;
 
 
-CREATE VIEW assajos_estat AS
+CREATE OR REPLACE VIEW assajos_estat AS
 SELECT DISTINCT ee.*,
                 id_assaig,
                 IF(es_parcial, CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS es_parcial,
@@ -116,7 +116,7 @@ FROM assajos a
          LEFT JOIN assajos_son_parcials USING (id_assaig);
 
 
-CREATE VIEW assajos_estat_moviments AS
+CREATE OR REPLACE VIEW assajos_estat_moviments AS
 SELECT *,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
@@ -136,7 +136,7 @@ SELECT *,
 FROM assajos_estat ae;
 
 
-CREATE VIEW projectes_full AS
+CREATE OR REPLACE VIEW projectes_full AS
 SELECT DISTINCT p.id_projecte,
                 titol,
                 descripcio,
@@ -175,7 +175,7 @@ FROM projectes p
 ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
 
 
-CREATE VIEW socis_veus AS
+CREATE OR REPLACE VIEW socis_veus AS
 SELECT id_soci,
        nom,
        cognoms,
@@ -207,7 +207,7 @@ FROM socis s
          INNER JOIN persones p ON (id_persona = id_soci);
 
 
-CREATE VIEW socis_convocats_assajos AS
+CREATE OR REPLACE VIEW socis_convocats_assajos AS
 SELECT sv.id_soci,
        nom,
        cognoms,
@@ -263,7 +263,7 @@ WHERE ((
 ORDER BY id_veu, cognoms, nom;
 
 
-CREATE VIEW moviments_full AS
+CREATE OR REPLACE VIEW moviments_full AS
 SELECT o.id_obra,
        num_cataleg,
        m.id_moviment,
