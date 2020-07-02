@@ -2,7 +2,7 @@
 
 Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat.
 
-El desplegament del programari està disponible a [cordecambrasantcugat.herokuapp.com](https://cordecambrasantcugat.herokuapp.com).
+L’aplicació està disponible a [cordecambrasantcugat.herokuapp.com](https://cordecambrasantcugat.herokuapp.com).
 
 ## Base de dades
 
