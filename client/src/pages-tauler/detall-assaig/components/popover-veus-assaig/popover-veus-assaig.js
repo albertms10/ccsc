@@ -1,4 +1,4 @@
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { FilterFilled } from "@ant-design/icons";
 import { Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
@@ -54,13 +54,13 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
         });
       }}
       action={
-        <BorderlessButton icon={<InfoCircleOutlined />}>
+        <BorderlessButton icon={<FilterFilled />}>
           {getVeusText()}
         </BorderlessButton>
       }
       elseElement={
         <Space style={{ marginLeft: "1rem" }}>
-          <InfoCircleOutlined />
+          <FilterFilled />
           {getVeusText()}
         </Space>
       }
