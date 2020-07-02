@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
@@ -20,11 +20,13 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
     [formacions]
   );
 
-  const formacionsElement = useMemo(
-    () => (
+  const formacionsElement = useCallback(
+    (textualAction) => (
       <>
         <span style={{ marginRight: 8 }}>
-          {formacionsFiltered.length > 0 ? "Formacions:" : "Sense formacions"}
+          {formacionsFiltered.length > 0
+            ? "Formacions"
+            : `${textualAction} formacions`}
         </span>
         <IconsFormacions formacions={formacionsFiltered} />
       </>
@@ -55,8 +57,10 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
           getFormacions();
         });
       }}
-      action={<BorderlessButton>{formacionsElement}</BorderlessButton>}
-      elseElement={formacionsElement}
+      action={
+        <BorderlessButton>{formacionsElement("Afegeix")}</BorderlessButton>
+      }
+      elseElement={formacionsElement("Sense")}
       needsAuthorization
     />
   );

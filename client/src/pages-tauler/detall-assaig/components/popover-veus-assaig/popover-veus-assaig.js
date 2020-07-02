@@ -24,7 +24,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
             .map((veu) => veu.abreviatura)
             .join("")
         : convocades.map((veu) => veu.abreviatura).join("")
-      : "Totes";
+      : "Totes les veus";
   }, [veus]);
 
   return (

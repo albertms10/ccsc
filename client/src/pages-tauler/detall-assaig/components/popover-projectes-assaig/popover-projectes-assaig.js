@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
@@ -21,11 +21,13 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
     [projectes]
   );
 
-  const projectesElement = useMemo(
-    () => (
+  const projectesElement = useCallback(
+    (textualAction) => (
       <>
         <span style={{ marginRight: 8 }}>
-          {projectesFiltered.length > 0 ? "Projectes:" : "Sense projectes"}
+          {projectesFiltered.length > 0
+            ? "Projectes"
+            : `${textualAction} projectes`}
         </span>
         <FixedTagsProjectes projectes={projectesFiltered} />
       </>
@@ -56,10 +58,10 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
       }}
       action={
         <BorderlessButton style={{ paddingRight: 0 }}>
-          {projectesElement}
+          {projectesElement("Afegeix")}
         </BorderlessButton>
       }
-      elseElement={projectesElement}
+      elseElement={projectesElement("Sense")}
       needsAuthorization
     />
   );
