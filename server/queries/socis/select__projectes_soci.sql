@@ -13,4 +13,5 @@ WHERE id_soci = @id_soci
                  INNER JOIN socis s ON (u.id_persona = s.id_soci)
         WHERE id_soci = @id_soci
           AND role IN (?)
-    );
+    )
+ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;

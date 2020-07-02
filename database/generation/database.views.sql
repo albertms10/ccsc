@@ -171,8 +171,7 @@ SELECT DISTINCT p.id_projecte,
                     WHERE id_projecte = p.id_projecte
                 )             AS formacions
 FROM projectes p
-         INNER JOIN cursos c USING (id_curs)
-ORDER BY data_inici IS NULL, data_inici, data_final IS NULL, data_final, titol;
+         INNER JOIN cursos c USING (id_curs);
 
 
 CREATE OR REPLACE VIEW socis_veus AS
@@ -259,8 +258,7 @@ WHERE ((
              INNER JOIN socis_formacions USING (id_soci)
              INNER JOIN assajos_formacions USING (id_formacio)
     WHERE id_assaig = a.id_assaig
-)
-ORDER BY id_veu, cognoms, nom;
+);
 
 
 CREATE OR REPLACE VIEW moviments_full AS
@@ -271,6 +269,7 @@ SELECT o.id_obra,
        durada,
        IFNULL(m.titol, o.titol) AS titol_moviment,
        o.titol                  AS titol_obra,
+       any_inici,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
                                  JSON_OBJECT(
@@ -285,5 +284,4 @@ SELECT o.id_obra,
            WHERE id_moviment = m.id_moviment
        )                        AS projectes
 FROM moviments m
-         INNER JOIN obres o USING (id_obra)
-ORDER BY o.any_inici IS NULL, o.titol, m.ordre;
+         INNER JOIN obres o USING (id_obra);
