@@ -125,7 +125,8 @@ SELECT *,
                                          'id_obra', id_obra,
                                          'titol_moviment', titol_moviment,
                                          'titol_obra', titol_obra,
-                                         'ordre', ordre
+                                         'ordre', ordre,
+                                         'unic_moviment', unic_moviment
                                      )
                              ), '[]')
            FROM moviments_full m
