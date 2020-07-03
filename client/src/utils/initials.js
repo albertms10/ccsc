@@ -15,7 +15,7 @@ export default (s, { minValue = 0, maxInitials = 0 } = {}) => {
 
   const words = s
     .trim()
-    .split(" ")
+    .split(/[ '’–-]+/)
     .filter((w) => w.length >= minValue);
 
   let initials = [];

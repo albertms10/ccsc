@@ -1,5 +1,5 @@
 import moment from "moment";
-import { stripAccents } from "./index";
+import { initials, stripAccents } from "./index";
 
 /**
  * @typedef {Object} SearchFilterFilters
@@ -22,14 +22,14 @@ export default (query, { texts = [], dates = [] } = {}) =>
           if (!text) return false;
 
           const strippedText = stripAccents(text.toString());
-          const initialsMatch = strippedText.match(/[A-Z]/g);
 
           return (
             strippedText
               .toLowerCase()
               .includes(stripAccents(frag.toLowerCase())) ||
-            (initialsMatch &&
-              initialsMatch.join("").toLowerCase().includes(frag.toLowerCase()))
+            initials(strippedText, { minValue: 3 })
+              .toLowerCase()
+              .includes(frag.toLowerCase())
           );
         })) ||
       (dates &&
