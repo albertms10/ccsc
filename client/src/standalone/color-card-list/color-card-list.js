@@ -14,6 +14,9 @@ const ColorCardList = ({ dataSource, loading, mapItem, ...rest }) => (
       xs: 1,
       sm: 2,
       md: 3,
+      lg: 3,
+      xl: 3,
+      xxl: 3,
     }}
     dataSource={dataSource}
     loading={loading}

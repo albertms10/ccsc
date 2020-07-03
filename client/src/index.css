@@ -7,8 +7,8 @@
   --container-box-shadow: 0 0 25px rgba(0, 0, 0, 0.03);
 
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --max-width-xs: 575.98px;
   --min-width-xs: 576px;
@@ -82,6 +82,10 @@
 
 .site-layout .ant-list:not(.no-hover) .ant-list-item:hover {
   background-color: rgba(0, 0, 0, 0.041);
+}
+
+.site-layout .ant-list .ant-col {
+  height: 100%;
 }
 
 .site-layout .action-text {
