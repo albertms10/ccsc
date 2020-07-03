@@ -9,9 +9,9 @@ import {
   yellow,
 } from "@ant-design/colors/lib";
 import { Card } from "antd";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAPI } from "../../../../helpers";
-import { dataSplit } from "../../../../utils";
+import { dataSplit, dateRange } from "../../../../utils";
 
 export default () => {
   const [assistenciaEstat, loadingAssistenciaEstat] = useAPI(
@@ -23,9 +23,22 @@ export default () => {
 
   const [key, setKey] = useState("estat");
 
+  const mapEsdeveniments = useCallback(
+    (esdeveniments) =>
+      esdeveniments.map((assaig) => ({
+        ...assaig,
+        assaig:
+          "\n" +
+          dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
+            long: false,
+          }).join(" · "),
+      })),
+    []
+  );
+
   const estatConfig = useMemo(
     () => ({
-      data: dataSplit(assistenciaEstat, "assaig", {
+      data: dataSplit(mapEsdeveniments(assistenciaEstat), "assaig", {
         confirmats_puntuals: "Confirmats puntuals",
         confirmats_retard: "Confirmats amb retard",
         pendents: "Pendents",
@@ -34,12 +47,12 @@ export default () => {
       color: [green.primary, yellow.primary, blue.primary, red.primary],
       loading: loadingAssistenciaEstat,
     }),
-    [assistenciaEstat, loadingAssistenciaEstat]
+    [mapEsdeveniments, assistenciaEstat, loadingAssistenciaEstat]
   );
 
   const veusConfig = useMemo(
     () => ({
-      data: dataSplit(assistenciaVeus, "assaig", {
+      data: dataSplit(mapEsdeveniments(assistenciaVeus), "assaig", {
         sopranos: "Sopranos",
         contralts: "Contralts",
         tenors: "Tenors",
@@ -48,7 +61,7 @@ export default () => {
       color: [blue.primary, magenta.primary, cyan.primary, gold.primary],
       loading: loadingAssistenciaVeus,
     }),
-    [assistenciaVeus, loadingAssistenciaVeus]
+    [mapEsdeveniments, assistenciaVeus, loadingAssistenciaVeus]
   );
 
   return (

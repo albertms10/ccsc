@@ -1,7 +1,6 @@
-SELECT CONCAT(
-               DATE_FORMAT(dia_inici, '%d/%m/%Y'),
-               IFNULL(CONCAT(' ', TIME_FORMAT(hora_inici, '%H:%i')), '')
-           )                                                      AS assaig,
+SELECT id_assaig,
+       CONCAT(dia_inici)                                          AS dia_inici,
+       hora_inici,
        COUNT(id_soci)                                             AS convocats,
        COUNT(CASE WHEN retard THEN id_soci END)                   AS confirmats_retard,
        COUNT(
