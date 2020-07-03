@@ -15,16 +15,23 @@ import { stripAccents } from "./index";
  * @returns {boolean}
  */
 export default (query, filters = { texts: [], dates: [] }) =>
-  query.split(" ").every(
+  query.split(/[ '’–-]+/).every(
     (frag) =>
       (filters.texts &&
-        filters.texts.some(
-          (text) =>
-            text &&
-            stripAccents(text.toString())
+        filters.texts.some((text) => {
+          if (!text) return false;
+
+          const strippedText = stripAccents(text.toString());
+          const initialsMatch = strippedText.match(/[A-Z]/g);
+
+          return (
+            strippedText
               .toLowerCase()
-              .includes(stripAccents(frag.toLowerCase()))
-        )) ||
+              .includes(stripAccents(frag.toLowerCase())) ||
+            (initialsMatch &&
+              frag.includes(initialsMatch.join("").toLowerCase()))
+          );
+        })) ||
       (filters.dates &&
         filters.dates.some((date) => {
           if (!date) return false;
