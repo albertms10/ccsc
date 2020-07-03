@@ -3,6 +3,7 @@ import { Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
 import { PopoverList } from "../../../../components/popover-list";
+import { searchFilterVeus } from "../../../../helpers/search-filters";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { AssaigContext } from "../../detall-assaig";
 import { useVeuAssaig, useVeus } from "./hooks";
@@ -40,9 +41,7 @@ const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
         value: veu.id_veu,
         label: veu.nom,
       }))}
-      searchFilters={(veu) => ({
-        texts: [veu.nom, veu.abreviatura],
-      })}
+      searchFilters={searchFilterVeus}
       loading={loadingVeus || loadingVeu}
       onChange={({ target }) => {
         changeVeuAssaig({

@@ -31,3 +31,7 @@ export const searchFilterProjecte = (projecte) => ({
     ...projecte.directors.map(({ nom }) => nom),
   ],
 });
+
+export const searchFilterVeus = (veu) => ({
+  texts: [veu.nom, veu.abreviatura],
+});
