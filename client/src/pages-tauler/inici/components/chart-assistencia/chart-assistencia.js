@@ -30,7 +30,8 @@ export default () => {
         assaig:
           "\n" +
           dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
-            long: false,
+            isLong: false,
+            includesYear: false,
           }).join(" · "),
       })),
     []

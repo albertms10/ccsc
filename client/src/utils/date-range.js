@@ -2,12 +2,18 @@ import moment from "moment";
 import { nIndexOf } from "./index";
 
 /**
+ * @typedef {Object} DateRangeOptions
+ * @property {boolean} [isLong]
+ * @property {boolean} [includesYear]
+ */
+
+/**
  * Returns the textual date and time range of two given dates
  * @param {string} dateStart
  * @param {string} [timeStart]
  * @param {string} [dateEnd]
  * @param {string} [timeEnd]
- * @param {Object} [options]
+ * @param {DateRangeOptions} [options]
  * @returns {string[]}
  */
 export default (
@@ -15,14 +21,14 @@ export default (
   timeStart,
   dateEnd,
   timeEnd,
-  options = { long: true }
+  options = { isLong: true, includesYear: true }
 ) => {
   const startFormat = moment(dateStart).format(
-    `${options.long ? "dddd, " : ""}LL`
+    `${options.isLong ? "dddd, " : ""}LL`
   );
 
   return [
-    options.long
+    options.includesYear
       ? startFormat
       : startFormat.substring(0, nIndexOf(startFormat, " de", 2)),
     ...(timeStart
