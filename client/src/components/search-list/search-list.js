@@ -1,6 +1,6 @@
 import { Input, List } from "antd";
 import PropTypes from "prop-types";
-import React, { createRef, useEffect, useState } from "react";
+import React, { createRef, useEffect, useMemo, useState } from "react";
 import { searchFilter } from "../../utils";
 import "./search-list.css";
 
@@ -25,6 +25,16 @@ const SearchList = ({
     }, 1);
   }, [checkToFocus, searchRef]);
 
+  const filteredData = useMemo(
+    () =>
+      searchValue.length > 0
+        ? dataSource.filter((item) =>
+            searchFilter(searchValue, searchFilters(item))
+          )
+        : dataSource,
+    [dataSource, searchFilters, searchValue]
+  );
+
   return (
     <>
       <Search
@@ -36,17 +46,7 @@ const SearchList = ({
         style={{ marginBottom: ".5rem" }}
       />
       <List
-        dataSource={
-          mapData
-            ? mapData(
-                searchValue.length > 0
-                  ? dataSource.filter((item) =>
-                      searchFilter(searchValue, searchFilters(item))
-                    )
-                  : dataSource
-              )
-            : dataSource
-        }
+        dataSource={mapData ? mapData(filteredData) : filteredData}
         loading={loading}
         size="small"
         split={false}
