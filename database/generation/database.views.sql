@@ -123,14 +123,13 @@ SELECT *,
                                  JSON_OBJECT(
                                          'id_moviment', id_moviment,
                                          'id_obra', id_obra,
-                                         'titol_moviment', m.titol,
-                                         'titol_obra', o.titol,
+                                         'titol_moviment', titol_moviment,
+                                         'titol_obra', titol_obra,
                                          'ordre', ordre
                                      )
                              ), '[]')
-           FROM moviments m
+           FROM moviments_full m
                     INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
-                    INNER JOIN obres o USING (id_obra)
            WHERE id_esdeveniment_musical = ae.id_assaig
        ) AS moviments
 FROM assajos_estat ae;

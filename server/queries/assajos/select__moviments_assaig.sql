@@ -1,7 +1,4 @@
-SELECT *,
-       m.titol AS titol_moviment,
-       o.titol AS titol_obra
-FROM moviments_esdeveniment_musical
-         INNER JOIN moviments m USING (id_moviment)
-         INNER JOIN obres o USING (id_obra)
+SELECT *
+FROM moviments_full
+         INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
 WHERE id_esdeveniment_musical = ?;
