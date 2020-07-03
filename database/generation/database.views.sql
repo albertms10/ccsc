@@ -267,6 +267,16 @@ SELECT o.id_obra,
        num_cataleg,
        m.id_moviment,
        ordre,
+       (
+           SELECT NOT EXISTS(
+                   (
+                       SELECT *
+                       FROM moviments
+                       WHERE id_obra = o.id_obra
+                         AND id_moviment <> m.id_moviment
+                   )
+               )
+       )                        AS unic_moviment,
        durada,
        IFNULL(m.titol, o.titol) AS titol_moviment,
        o.titol                  AS titol_obra,
