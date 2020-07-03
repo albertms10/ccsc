@@ -52,7 +52,7 @@ export default () => {
                 <TabPane tab="General" key="general">
                   <SociTabGeneral />
                 </TabPane>
-                <TabPane tab="Agrupació" key="agrupacio">
+                <TabPane tab="Entitat" key="entitat">
                   <SociTabAgrupacio />
                 </TabPane>
                 <TabPane tab="Musical" key="musical">

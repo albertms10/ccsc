@@ -102,8 +102,8 @@ export default () => {
       ],
     },
     {
-      key: "grup_agrupacio",
-      title: "Agrupació",
+      key: "grup_entitat",
+      title: "Entitat",
       groupedItems: [
         {
           title: "Socis",
