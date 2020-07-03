@@ -35,11 +35,13 @@ export default (query, { texts = [], dates = [] } = {}) =>
       (dates &&
         dates.some((date) => {
           if (!date) return false;
-          const d = moment(date);
+
+          const dateMoment = moment(date);
+
           return (
-            d.format("L").includes(frag) ||
-            d.format("LT").includes(frag) ||
-            d.format("LL").includes(frag)
+            dateMoment.format("L").includes(frag) ||
+            dateMoment.format("LT").includes(frag) ||
+            dateMoment.format("LL").includes(frag)
           );
         }))
   );
