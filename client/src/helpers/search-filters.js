@@ -26,6 +26,7 @@ export const searchFilterProjecte = (projecte) => ({
     projecte.descripcio,
     projecte.any_inici_curs,
     projecte.any_final_curs,
+    projecte.inicials,
     ...projecte.formacions.map(({ nom }) => nom),
     ...projecte.directors.map(({ nom }) => nom),
   ],
