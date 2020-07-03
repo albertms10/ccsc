@@ -5,6 +5,7 @@ import { nIndexOf } from "./index";
  * @typedef {Object} DateRangeOptions
  * @property {boolean} [isLong]
  * @property {boolean} [includesYear]
+ * @property {string} [connector]
  */
 
 /**
@@ -21,16 +22,21 @@ export default (
   timeStart,
   dateEnd,
   timeEnd,
-  options = { isLong: true, includesYear: true }
+  { isLong = true, includesYear = true, connector = " de" } = {}
 ) => {
-  const startFormat = moment(dateStart).format(
-    `${options.isLong ? "dddd, " : ""}LL`
-  );
+  const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
 
   return [
-    options.includesYear
+    includesYear
       ? startFormat
-      : startFormat.substring(0, nIndexOf(startFormat, " de", 2)),
+      : startFormat.substring(
+          0,
+          nIndexOf(
+            startFormat,
+            " de",
+            startFormat.match(new RegExp(connector, "g")).length
+          )
+        ),
     ...(timeStart
       ? [
           moment(`${dateStart} ${timeStart}`).format("LT") +
