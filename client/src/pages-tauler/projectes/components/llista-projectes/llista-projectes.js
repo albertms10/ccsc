@@ -9,7 +9,7 @@ import { FormacionsListContext } from "../../../../components/tauler-app/context
 import { searchFilterProjecte } from "../../../../helpers/search-filters";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { eventSearchFilter, literalList } from "../../../../utils";
+import { literalList, searchFilter } from "../../../../utils";
 import { useEliminarProjecte, useProjectes } from "./hooks";
 import "./llista-projectes.css";
 
@@ -38,7 +38,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
 
     return searchValue.length > 0
       ? list.filter((projecte) =>
-          eventSearchFilter(searchValue, searchFilterProjecte(projecte))
+          searchFilter(searchValue, searchFilterProjecte(projecte))
         )
       : list;
   }, [inactius, projectes, searchValue]);

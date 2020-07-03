@@ -2,7 +2,7 @@ import { Grid, Input, Table, Typography } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { SociPropTypes } from "../../typedef/prop-types";
-import { eventSearchFilter } from "../../utils";
+import { searchFilter } from "../../utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";
 import "./taula-socis.css";
@@ -76,7 +76,7 @@ const TaulaSocis = ({ socis, loading = false }) => {
         dataSource={
           searchValue.length > 0
             ? socis.filter((soci) =>
-                eventSearchFilter(searchValue, {
+                searchFilter(searchValue, {
                   texts: [
                     soci.nom_complet,
                     soci.username,

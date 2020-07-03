@@ -6,7 +6,7 @@ import { FormacioContext } from "../../pages-tauler/formacio/formacio";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { Container } from "../../standalone/container";
 import { SearchComplete } from "../../standalone/search-complete";
-import { eventSearchFilter } from "../../utils";
+import { searchFilter } from "../../utils";
 import "./calendari-formacio.css";
 import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";
@@ -66,7 +66,7 @@ export default () => {
                   data={esdeveniments}
                   onSelect={(value, option) => onChange(moment(option.date))}
                   filter={(value, option) =>
-                    eventSearchFilter(value, {
+                    searchFilter(value, {
                       texts: [option.titol],
                       dates: [option.data_inici],
                     })

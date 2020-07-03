@@ -1,7 +1,6 @@
 export { default as closestTimeValue } from "./closest-time-value";
 export { default as dataSplit } from "./data-split";
 export { default as dateRange } from "./date-range";
-export { default as eventSearchFilter } from "./event-search-filter";
 export { default as generateUsername } from "./generate-username";
 export { default as includesSome } from "./includes-some";
 export { default as initials } from "./initials";
@@ -10,6 +9,7 @@ export { default as literalList } from "./literal-list";
 export { default as mapFirstOfProperty } from "./map-first-of-property";
 export { default as nIndexOf } from "./n-index-of";
 export { default as pascalCase } from "./pascal-case";
+export { default as searchFilter } from "./search-filter";
 export { default as snakeCase } from "./snake-case";
 export { default as stripAccents } from "./strip-accents";
 export { default as timeDuration } from "./time-duration";

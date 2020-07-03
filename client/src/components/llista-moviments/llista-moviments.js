@@ -7,7 +7,7 @@ import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import { fetchMoviments } from "../../redux/moviments/moviments-actions";
 import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
-import { eventSearchFilter } from "../../utils";
+import { searchFilter } from "../../utils";
 import { Authorized } from "../authorized";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { useMoviments } from "./hooks";
@@ -41,7 +41,7 @@ const LlistaMoviments = ({ idProjecte }) => {
 
     return searchValue.length > 0
       ? filteredMoviments.filter((moviment) =>
-          eventSearchFilter(searchValue, searchFilterMoviment(moviment))
+          searchFilter(searchValue, searchFilterMoviment(moviment))
         )
       : filteredMoviments;
   }, [moviments, idProjecte, searchValue]);

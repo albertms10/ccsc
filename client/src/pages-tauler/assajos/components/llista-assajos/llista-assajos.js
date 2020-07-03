@@ -10,7 +10,7 @@ import { FormacionsListContext } from "../../../../components/tauler-app/context
 import { searchFilterAssaig } from "../../../../helpers/search-filters";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { eventSearchFilter, timeRange } from "../../../../utils";
+import { searchFilter, timeRange } from "../../../../utils";
 import { useAssajos, useEliminarAssaig } from "./hooks";
 
 const { Item } = List;
@@ -42,7 +42,7 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
 
     return searchValue.length > 0
       ? list.filter((assaig) =>
-          eventSearchFilter(searchValue, searchFilterAssaig(assaig))
+          searchFilter(searchValue, searchFilterAssaig(assaig))
         )
       : list;
   }, [anteriors, assajos, idProjecte, searchValue]);

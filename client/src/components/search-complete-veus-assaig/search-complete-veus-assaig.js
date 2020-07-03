@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { SearchComplete } from "../../standalone/search-complete";
-import { eventSearchFilter } from "../../utils";
 import { useVeus } from "../../pages-tauler/detall-assaig/components/popover-veus-assaig/hooks";
+import { SearchComplete } from "../../standalone/search-complete";
+import { searchFilter } from "../../utils";
 
 const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
   const [veus, loadingVeus, getVeus] = useVeus(idAssaig);
@@ -14,7 +14,7 @@ const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
         onSelect(value, option).then(() => getVeus());
       }}
       filter={(value, veu) =>
-        eventSearchFilter(value, {
+        searchFilter(value, {
           texts: [veu.nom, veu.abreviatura],
         })
       }

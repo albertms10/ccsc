@@ -14,11 +14,11 @@ import { stripAccents } from "./index";
  * @param {SearchFilterFilters} filters
  * @returns {boolean}
  */
-export default (query, filters = { texts: [], dates: [] }) =>
+export default (query, { texts = [], dates = [] } = {}) =>
   query.split(/[ '’–-]+/).every(
     (frag) =>
-      (filters.texts &&
-        filters.texts.some((text) => {
+      (texts &&
+        texts.some((text) => {
           if (!text) return false;
 
           const strippedText = stripAccents(text.toString());
@@ -32,8 +32,8 @@ export default (query, filters = { texts: [], dates: [] }) =>
               frag.includes(initialsMatch.join("").toLowerCase()))
           );
         })) ||
-      (filters.dates &&
-        filters.dates.some((date) => {
+      (dates &&
+        dates.some((date) => {
           if (!date) return false;
           const d = moment(date);
           return (

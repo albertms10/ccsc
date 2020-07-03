@@ -1,7 +1,7 @@
 import { Input, List } from "antd";
 import PropTypes from "prop-types";
 import React, { createRef, useEffect, useState } from "react";
-import { eventSearchFilter } from "../../utils";
+import { searchFilter } from "../../utils";
 import "./search-list.css";
 
 const { Search } = Input;
@@ -41,7 +41,7 @@ const SearchList = ({
             ? mapData(
                 searchValue.length > 0
                   ? dataSource.filter((item) =>
-                      eventSearchFilter(searchValue, searchFilters(item))
+                      searchFilter(searchValue, searchFilters(item))
                     )
                   : dataSource
               )

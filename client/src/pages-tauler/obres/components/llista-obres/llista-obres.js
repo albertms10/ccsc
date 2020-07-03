@@ -5,7 +5,7 @@ import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { eventSearchFilter } from "../../../../utils";
+import { searchFilter } from "../../../../utils";
 import { useEliminarObra, useObres } from "./hooks";
 
 const { Item } = List;
@@ -34,7 +34,7 @@ export default () => {
         dataSource={
           searchValue.length > 0
             ? obres.filter((obra) =>
-                eventSearchFilter(searchValue, {
+                searchFilter(searchValue, {
                   texts: [obra.titol],
                 })
               )

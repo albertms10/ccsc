@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSocis } from "../../redux/socis/socis-actions";
 import { SearchComplete } from "../../standalone/search-complete";
-import { eventSearchFilter, initials } from "../../utils";
+import { initials, searchFilter } from "../../utils";
 
 const SearchCompleteSocis = ({ onSelect }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const SearchCompleteSocis = ({ onSelect }) => {
       data={socis}
       onSelect={onSelect}
       filter={(value, option) =>
-        eventSearchFilter(value, {
+        searchFilter(value, {
           texts: [option.nom_complet],
         })
       }
