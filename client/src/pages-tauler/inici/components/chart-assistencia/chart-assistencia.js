@@ -27,12 +27,10 @@ export default () => {
     (esdeveniments) =>
       esdeveniments.map((assaig) => ({
         ...assaig,
-        assaig:
-          "\n" +
-          dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
-            isLong: false,
-            includesYear: false,
-          }).join(" · "),
+        assaig: dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
+          isLong: false,
+          includesYear: false,
+        }).join(" · "),
       })),
     []
   );
