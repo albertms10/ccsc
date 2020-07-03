@@ -175,7 +175,8 @@ FROM projectes p
 
 
 CREATE OR REPLACE VIEW socis_veus AS
-SELECT id_soci,
+SELECT id_persona,
+       id_soci,
        nom,
        cognoms,
        nom_complet,
@@ -207,7 +208,8 @@ FROM socis s
 
 
 CREATE OR REPLACE VIEW socis_convocats_assajos AS
-SELECT sv.id_soci,
+SELECT sv.id_persona,
+       sv.id_soci,
        nom,
        cognoms,
        nom_complet,
