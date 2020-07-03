@@ -4,21 +4,16 @@ const { queryFile } = require("../helpers");
 /*
  * VERIFY FUNCTIONS
  */
-const verifyAccessToken = (
-  req,
-  res,
-  next,
-  options = { hideMessage: false }
-) => {
+const verifyAccessToken = (req, res, next, { hideMessage = false } = {}) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
 
   if (!accessToken)
     return res.status(401).send({
       error: {
-        ...options,
         status: 401,
         message: "Cal proporcionar un token d’accés.",
+        hideMessage,
       },
     });
 
@@ -26,16 +21,15 @@ const verifyAccessToken = (
     if (err)
       return res.status(401).send({
         error: {
-          ...options,
           status: 401,
           message: "Sense autorizació",
+          hideMessage,
         },
       });
 
     if (decoded.email)
       return res.status(403).send({
         error: {
-          ...options,
           status: 403,
           message: "Encara no has acabat d’introduir les teves dades.",
           okText: "Torna a introduir-les",
@@ -43,6 +37,7 @@ const verifyAccessToken = (
             pathname: "/donar-alta",
             state: { email: decoded.email },
           },
+          hideMessage,
         },
       });
 

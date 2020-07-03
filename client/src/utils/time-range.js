@@ -12,10 +12,10 @@ import moment from "moment";
  * @param {TimeRangeOptions} [options]
  * @returns {string}
  */
-export default (start, end, options = { textual: false }) => {
+export default (start, end, { textual = false } = {}) => {
   if (start && end) {
-    const leading = options.textual ? "de " : "";
-    const separator = options.textual ? " a " : "–";
+    const leading = textual ? "de " : "";
+    const separator = textual ? " a " : "–";
 
     return (
       leading +
@@ -24,7 +24,7 @@ export default (start, end, options = { textual: false }) => {
       moment(end, "HH:mm:ss").format("LT")
     );
   } else if (start) {
-    const leading = options.textual ? "a les " : "";
+    const leading = textual ? "a les " : "";
 
     return leading + moment(start, "HH:mm:ss").format("LT");
   }
