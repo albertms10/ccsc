@@ -8,8 +8,8 @@ import moment from "moment";
 /**
  * Returns the textual time range of two given dates
  * @param {string} start
- * @param {string} end
- * @param {TimeRangeOptions} options
+ * @param {string} [end]
+ * @param {TimeRangeOptions} [options]
  * @returns {string}
  */
 export default (start, end, options = { textual: false }) => {
