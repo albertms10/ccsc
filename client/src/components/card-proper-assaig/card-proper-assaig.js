@@ -1,7 +1,7 @@
 import {
-  BookOutlined,
   InfoCircleOutlined,
   LayoutOutlined,
+  ReadOutlined,
 } from "@ant-design/icons";
 import { Card, Space, Tag, Typography } from "antd";
 import moment from "moment";
@@ -58,9 +58,18 @@ const CardProperAssaig = ({ assaig }) => (
         </Space>
       </EventLineItem>
       {assaig.moviments && assaig.moviments.length > 0 && (
-        <EventLineItem icon={<BookOutlined />}>
+        <EventLineItem icon={<ReadOutlined />}>
           {assaig.moviments.map((moviment) => (
-            <Tag key={moviment.id_moviment}>{moviment.titol_moviment}</Tag>
+            <Tag key={moviment.id_moviment}>
+              <Link
+                to={`/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`}
+              >
+                {!moviment.unic_moviment && (
+                  <b style={{ marginRight: 4 }}>{moviment.ordre}</b>
+                )}
+                {moviment.titol_moviment}
+              </Link>
+            </Tag>
           ))}
         </EventLineItem>
       )}
