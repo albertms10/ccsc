@@ -29,7 +29,7 @@ export default (query, { texts = [], dates = [] } = {}) =>
               .toLowerCase()
               .includes(stripAccents(frag.toLowerCase())) ||
             (initialsMatch &&
-              frag.includes(initialsMatch.join("").toLowerCase()))
+              initialsMatch.join("").toLowerCase().includes(frag.toLowerCase()))
           );
         })) ||
       (dates &&
