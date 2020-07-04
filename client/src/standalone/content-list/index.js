@@ -1,1 +1,1 @@
-export { default as ContentList } from "./content-list.js";
+export { default as ContentList } from "./content-list";

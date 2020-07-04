@@ -1,1 +1,1 @@
-export { default as MainMenu } from "./main-menu.js";
+export { default as MainMenu } from "./main-menu";

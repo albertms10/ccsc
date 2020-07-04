@@ -1,1 +1,1 @@
-export { default as ModalAfegirSoci } from "./modal-afegir-soci.js";
+export { default as ModalAfegirSoci } from "./modal-afegir-soci";
