@@ -31,8 +31,8 @@ const ContentListPersones = ({
           }}
         >
           <Avatar shape="circle">
-            {persona.nom[0]}
-            {persona.cognoms[0]}
+            {persona.nom.charAt(0)}
+            {persona.cognoms.charAt(0)}
           </Avatar>
         </SmallBadge>
       ),

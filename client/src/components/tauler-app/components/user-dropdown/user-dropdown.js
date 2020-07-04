@@ -29,7 +29,7 @@ export default () => {
     >
       <div className="user-menu-item">
         <Avatar size="large" className="user-menu-item-avatar">
-          {currentUser.nom[0] + currentUser.cognoms[0]}
+          {currentUser.nom.charAt(0) + currentUser.cognoms.charAt(0)}
         </Avatar>
       </div>
     </Dropdown>
