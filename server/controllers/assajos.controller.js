@@ -57,24 +57,24 @@ exports.assajos_post = async (req, res, next) => {
     .beginTransaction()
     .then(() => {
       connection
-        .query(queryFile("assajos/insert__esdeveniment"), [
+        .query(queryFile("assajos/insert__esdeveniments"), [
           [[assaig.dia_inici, ...assaig.hora]],
         ])
         .then(({ insertId: id_esdeveniment }) => {
           connection
-            .query(queryFile("assajos/insert__esdeveniment_musical"), [
+            .query(queryFile("assajos/insert__esdeveniments_musicals"), [
               [[id_esdeveniment]],
             ])
             .then(() => {
               connection
-                .query(queryFile("assajos/insert__assaig"), [
+                .query(queryFile("assajos/insert__assajos"), [
                   [[id_esdeveniment, !!assaig.es_general, !!assaig.es_extra]],
                 ])
                 .then(async () => {
                   try {
                     if (assaig.projectes.length > 0)
                       await connection.query(
-                        queryFile("assajos/insert__projectes_assaig"),
+                        queryFile("assajos/insert__assajos_projectes"),
                         [
                           assaig.projectes.map((projecte) => [
                             id_esdeveniment,
@@ -139,7 +139,7 @@ exports.assajos_detall_moviments_post = (req, res, next) => {
   const { id_moviment } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__moviment_assaig"), [
+    .query(queryFile("assajos/insert__moviments_esdeveniment_musical"), [
       [[id_assaig, id_moviment]],
     ])
     .then(() => res.status(204).send())
@@ -177,7 +177,7 @@ exports.assajos_detall_projectes_post = (req, res, next) => {
   const { id_projecte } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__projectes_assaig"), [
+    .query(queryFile("assajos/insert__assajos_projectes"), [
       [[id_assaig, id_projecte]],
     ])
     .then(() => res.status(204).send())
@@ -215,7 +215,7 @@ exports.assajos_detall_formacions_post = (req, res, next) => {
   const { id_formacio } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__formacio_assaig"), [
+    .query(queryFile("assajos/insert__assajos_formacions"), [
       [[id_assaig, id_formacio]],
     ])
     .then(() => res.status(204).send())
@@ -261,7 +261,9 @@ exports.assajos_detall_veus_post = (req, res, next) => {
   const { id_veu } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__veu_assaig"), [[[id_assaig, id_veu]]])
+    .query(queryFile("assajos/insert__veus_convocades_assaig"), [
+      [[id_assaig, id_veu]],
+    ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
 };

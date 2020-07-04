@@ -40,7 +40,7 @@ exports.obres_post = async (req, res, next) => {
     .beginTransaction()
     .then(() => {
       connection
-        .query(queryFile("obres/insert__obra"), [
+        .query(queryFile("obres/insert__obres"), [
           [[obra.titol, obra.subtitol, ...obra.anys, obra.id_idioma]],
         ])
         .then(() => {

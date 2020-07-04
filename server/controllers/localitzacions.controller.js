@@ -5,14 +5,18 @@ exports.localitzacions_post = (req, res, next) => {
   const { localitzacio } = req.body;
 
   pool
-    .query(queryFile("localitzacions/insert__localitzacio"), [
-      localitzacio.tipus_via,
-      localitzacio.carrer,
-      localitzacio.numero,
-      localitzacio.fins_numero,
-      localitzacio.codi_postal,
-      localitzacio.gmaps,
-      localitzacio.ciutat,
+    .query(queryFile("localitzacions/insert__localitzacions"), [
+      [
+        [
+          localitzacio.tipus_via,
+          localitzacio.carrer,
+          localitzacio.numero,
+          localitzacio.fins_numero,
+          localitzacio.codi_postal,
+          localitzacio.gmaps,
+          localitzacio.ciutat,
+        ],
+      ],
     ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));

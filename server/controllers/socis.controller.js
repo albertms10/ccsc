@@ -52,7 +52,7 @@ exports.socis_post = async (req, res, next) => {
     .beginTransaction()
     .then(() => {
       connection
-        .query(queryFile("socis/insert__persona"), [
+        .query(queryFile("socis/insert__persones"), [
           [
             [
               soci.nom,
@@ -70,12 +70,12 @@ exports.socis_post = async (req, res, next) => {
           const { salt, hash } = saltHashPassword({ password });
 
           connection
-            .query(queryFile("socis/insert__usuari_complet"), [
+            .query(queryFile("socis/insert__usuaris"), [
               [[soci.username, id_persona, salt, hash]],
             ])
             .then(({ insertId: id_usuari }) => {
               connection
-                .query(queryFile("socis/insert__role_usuari"), [
+                .query(queryFile("socis/insert__roles_usuari"), [
                   [[id_usuari, 1]],
                 ])
                 .catch(transactionRollback);
@@ -83,7 +83,7 @@ exports.socis_post = async (req, res, next) => {
             .catch(transactionRollback);
 
           connection
-            .query(queryFile("socis/insert__soci"), [
+            .query(queryFile("socis/insert__socis"), [
               [[id_persona, soci.experiencia_musical, soci.estudis_musicals]],
             ])
             .then(() => {

@@ -14,7 +14,7 @@ exports.moviments_post = (req, res, next) => {
   const { moviment } = req.body;
 
   pool
-    .query(queryFile("moviments/insert__moviment"), [
+    .query(queryFile("moviments/insert__moviments"), [
       [
         [
           moviment.id_obra,

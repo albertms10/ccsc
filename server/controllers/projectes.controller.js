@@ -53,7 +53,7 @@ exports.projectes_post = async (req, res, next) => {
 
   connection.beginTransaction().then(() =>
     connection
-      .query(queryFile("projectes/insert__projecte"), [
+      .query(queryFile("projectes/insert__projectes"), [
         [
           [
             projecte.titol,
@@ -69,7 +69,7 @@ exports.projectes_post = async (req, res, next) => {
         try {
           if (projecte.formacions.length > 0)
             await connection.query(
-              queryFile("projectes/insert__projecte_formacio"),
+              queryFile("projectes/insert__projectes_formacions"),
               [projecte.formacions.map((formacio) => [id_projecte, formacio])]
             );
         } catch (e) {
@@ -119,7 +119,7 @@ exports.projectes_detall_assajos_post = (req, res, next) => {
   const { id_assaig } = req.body;
 
   pool
-    .query(queryFile("assajos/insert__projectes_assaig"), [
+    .query(queryFile("assajos/insert__assajos_projectes"), [
       [[id_assaig, id_projecte]],
     ])
     .then(() => res.status(204).send())
