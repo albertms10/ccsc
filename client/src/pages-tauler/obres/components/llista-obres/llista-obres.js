@@ -1,23 +1,31 @@
 import { Input, List, Space } from "antd";
 import React, { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { useDeleteAPI } from "../../../../helpers";
+import { fetchObres } from "../../../../redux/obres/obres-actions";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { searchFilter } from "../../../../utils";
-import { useEliminarObra, useObres } from "./hooks";
+import { useObres } from "./hooks";
 
 const { Item } = List;
 const { Search } = Input;
 
 export default () => {
+  const dispatch = useDispatch();
   const formacions = useContext(FormacionsListContext);
 
   const [searchValue, setSearchValue] = useState("");
 
   const [obres, loading] = useObres();
-  const [showDeleteConfirm] = useEliminarObra();
+  const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
+    `/api/obres`,
+    "l’obra",
+    () => dispatch(fetchObres())
+  );
 
   return (
     <div className="llista-obres">
@@ -30,7 +38,7 @@ export default () => {
         style={{ width: "100%", marginBottom: "1rem" }}
       />
       <List
-        loading={loading}
+        loading={loading || loadingDelete}
         dataSource={
           searchValue.length > 0
             ? obres.filter((obra) =>

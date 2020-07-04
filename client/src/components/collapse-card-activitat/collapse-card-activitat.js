@@ -2,20 +2,24 @@ import { Button, List, Tooltip } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback } from "react";
+import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
 import { SociPropTypes } from "../../typedef/prop-types";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
-import { useActivitatSoci, useAltaSoci, useBaixaSoci } from "./hooks";
+import { useAltaSoci, useBaixaSoci } from "./hooks";
 
 const CollapseCardActivitat = ({ soci, active }) => {
-  const [activitatSoci, loadingActivitat, fetchActivitat] = useActivitatSoci(
-    soci
+  const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI(
+    `/api/socis/${soci.id_soci}/activitat`
   );
   const [loadingAlta, modalAltaSoci] = useAltaSoci(soci);
   const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci);
 
   const actionItem = useCallback(() => {
-    if (activitatSoci.length > 0 && activitatSoci[activitatSoci.length - 1].data_baixa) {
+    if (
+      activitatSoci.length > 0 &&
+      activitatSoci[activitatSoci.length - 1].data_baixa
+    ) {
       const disabled =
         moment(activitatSoci[activitatSoci.length - 1].data_alta).format(
           "L"

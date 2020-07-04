@@ -3,15 +3,16 @@ import { Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
 import { PopoverList } from "../../../../components/popover-list";
+import { useAPI } from "../../../../helpers";
 import { searchFilterVeus } from "../../../../helpers/search-filters";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { AssaigContext } from "../../detall-assaig";
-import { useVeuAssaig, useVeus } from "./hooks";
+import { useVeuAssaig } from "./hooks";
 
 const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   const { id_assaig } = useContext(AssaigContext);
 
-  const [veus, loadingVeus, getVeus] = useVeus(id_assaig);
+  const [veus, loadingVeus, getVeus] = useAPI(`/api/assajos/${id_assaig}/veus`);
   const [loadingVeu, changeVeuAssaig] = useVeuAssaig(id_assaig);
 
   const getVeusText = useCallback(() => {

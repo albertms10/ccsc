@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { useVeus } from "../../pages-tauler/detall-assaig/components/popover-veus-assaig/hooks";
+import { useAPI } from "../../helpers";
 import { SearchComplete } from "../../standalone/search-complete";
 import { searchFilter } from "../../utils";
 
 const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
-  const [veus, loadingVeus, getVeus] = useVeus(idAssaig);
+  const [veus, loadingVeus, getVeus] = useAPI(`/api/assajos/${idAssaig}/veus`);
 
   return (
     <SearchComplete

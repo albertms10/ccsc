@@ -2,12 +2,12 @@ import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { useAPI } from "../../helpers";
 import { Container } from "../../standalone/container";
 import { initials } from "../../utils";
 import { SociTabAgrupacio } from "./components/soci-tab-agrupacio";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";
-import { useSoci } from "./hooks";
 import "./perfil-soci.css";
 
 const { Title } = Typography;
@@ -17,9 +17,11 @@ export const SociContext = createContext(null);
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
+
   const history = useHistory();
   const { id } = useParams();
-  const [soci] = useSoci(id);
+
+  const [soci] = useAPI(`/api/socis/${id}`);
 
   useEffect(() => setPageHeader(soci.nom_complet), [
     setPageHeader,

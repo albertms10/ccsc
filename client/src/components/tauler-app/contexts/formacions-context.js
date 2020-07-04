@@ -1,11 +1,15 @@
 import React, { createContext } from "react";
-import { useFormacions } from "../hooks";
+import { useSelector } from "react-redux";
+import { useAPI } from "../../../helpers";
 
 export const FormacionsListContext = createContext(null);
 export const LoadingFormacionsContext = createContext(null);
 
 export default ({ children }) => {
-  const [formacions, loadingFormacions] = useFormacions();
+  const { id_persona } = useSelector((state) => state.user.currentUser);
+  const [formacions, loadingFormacions] = useAPI(
+    `/api/socis/${id_persona}/formacions`
+  );
 
   return (
     <FormacionsListContext.Provider value={formacions}>

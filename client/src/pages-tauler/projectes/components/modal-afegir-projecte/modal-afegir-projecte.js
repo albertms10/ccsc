@@ -21,8 +21,9 @@ import { CirclePicker } from "react-color";
 import { useSelector } from "react-redux";
 import { ModalButton } from "../../../../components/modal-button";
 import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
+import { useAPI } from "../../../../helpers";
 import { initials } from "../../../../utils";
-import { useAfegirProjecte, useCheckInicials, useCursos } from "./hooks";
+import { useAfegirProjecte, useCheckInicials } from "./hooks";
 
 const { Option } = Select;
 
@@ -37,7 +38,7 @@ export default () => {
     loadingInicials,
     checkInicials,
   ] = useCheckInicials();
-  const [cursos, loadingCursos] = useCursos();
+  const [cursos, loadingCursos] = useAPI("/api/agrupacio/cursos");
 
   const handleTitolChange = useCallback(
     ({ target }) => {

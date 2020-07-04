@@ -3,11 +3,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { useEliminarSoci } from "../../hooks";
 
-const DropdownRowSoci = ({ idPersona }) => {
+const DropdownRowSoci = ({ idPersona, showDeleteConfirm }) => {
   const { currentUser } = useSelector(({ user }) => user);
-  const [showDeleteConfirm] = useEliminarSoci();
 
   return (
     <DropdownBorderlessButton
@@ -33,6 +31,7 @@ const DropdownRowSoci = ({ idPersona }) => {
 
 DropdownRowSoci.propTypes = {
   idPersona: PropTypes.number,
+  showDeleteConfirm: PropTypes.func,
 };
 
 export default DropdownRowSoci;

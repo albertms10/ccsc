@@ -12,12 +12,12 @@ import {
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../helpers";
+import { fetchAPI, useAPI } from "../../../helpers";
 import { InfoCard } from "../../../standalone/info-card";
 import { upperCaseFirst } from "../../../utils";
 import { AvisAcceptacio } from "../../avis-acceptacio";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
-import { usePaisos, useUsername } from "./index";
+import { useUsername } from "./index";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -34,7 +34,7 @@ export default (
   const [username, loadingUsername, getUsername] = useUsername();
 
   const [dniValidation, setDniValidation] = useState("");
-  const [paisos, loadingPaisos] = usePaisos();
+  const [paisos, loadingPaisos] = useAPI("/api/localitzacions/paisos");
   const [selectedPais, setSelectedPais] = useState("");
 
   const [form] = Form.useForm();

@@ -1,11 +1,15 @@
 import { Card, Spin, Typography } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 import { CardProperAssaig } from "../../../../components/card-proper-assaig";
-import { usePropersAssajos } from "./hooks";
+import { useAPI } from "../../../../helpers";
 import "./propers-assajos.css";
 
 export default ({ style }) => {
-  const [propersAssajos, loadingPropersAssajos] = usePropersAssajos(1);
+  const { id_persona } = useSelector(({ user }) => user.currentUser);
+  const [propersAssajos, loadingPropersAssajos] = useAPI(
+    `/api/socis/${id_persona}/propers-assajos?limit=1`
+  );
 
   return (
     <div style={{ margin: "0 -1rem", ...style }}>

@@ -2,24 +2,34 @@ import { List, Space, Typography } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Authorized } from "../../../../components/authorized";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { useDeleteAPI } from "../../../../helpers";
 import { searchFilterProjecte } from "../../../../helpers/search-filters";
+import { fetchProjectes } from "../../../../redux/projectes/projectes-actions";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { literalList, searchFilter } from "../../../../utils";
-import { useEliminarProjecte, useProjectes } from "./hooks";
+import { useProjectes } from "./hooks";
 import "./llista-projectes.css";
 
 const { Item } = List;
 const { Text } = Typography;
 
 const LlistaProjectes = ({ searchValue, inactius }) => {
+  const dispatch = useDispatch();
+
   const formacions = useContext(FormacionsListContext);
+
   const [projectes, loading] = useProjectes();
-  const [showDeleteConfirm] = useEliminarProjecte();
+  const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
+    `/api/projectes`,
+    "el projecte",
+    () => dispatch(fetchProjectes())
+  );
 
   const getDataSource = useCallback(() => {
     const list = inactius
@@ -45,7 +55,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
 
   return (
     <List
-      loading={loading}
+      loading={loading || loadingDelete}
       dataSource={getDataSource()}
       renderItem={(projecte) => (
         <Item

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useMemo } from "react";
+import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
 import { InfoCard } from "../../standalone/info-card";
 import { AcceptacionsSociPropTypes } from "../../typedef/prop-types";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
 import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";
-import { useAvisAcceptacio } from "./hooks";
 
 const AvisAcceptacio = ({
   nameAvis,
@@ -14,7 +14,9 @@ const AvisAcceptacio = ({
   isForm = false,
   collapsible = false,
 }) => {
-  const [textAvisAcceptacio, loading] = useAvisAcceptacio(nameAvis);
+  const [textAvisAcceptacio, loading] = useAPI(
+    `/api/agrupacio/avisos/${nameAvis}`
+  );
 
   const content = useMemo(
     () => (

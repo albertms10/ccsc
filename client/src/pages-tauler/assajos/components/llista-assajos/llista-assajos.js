@@ -2,23 +2,33 @@ import { List } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useCallback, useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Authorized } from "../../../../components/authorized";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
+import { useDeleteAPI } from "../../../../helpers";
 import { searchFilterAssaig } from "../../../../helpers/search-filters";
+import { fetchAssajos } from "../../../../redux/assajos/assajos-actions";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { searchFilter, timeRange } from "../../../../utils";
-import { useAssajos, useEliminarAssaig } from "./hooks";
+import { useAssajos } from "./hooks";
 
 const { Item } = List;
 
 const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
+  const dispatch = useDispatch();
+
   const formacions = useContext(FormacionsListContext);
+
   const [assajos, loading] = useAssajos();
-  const [showDeleteConfirm] = useEliminarAssaig();
+  const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
+    "/api/assajos",
+    "l’assaig",
+    () => dispatch(fetchAssajos())
+  );
 
   const getDataSource = useCallback(() => {
     let list = anteriors
@@ -50,7 +60,7 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
   return (
     <List
       dataSource={getDataSource()}
-      loading={loading}
+      loading={loading || loadingDelete}
       renderItem={(assaig) => (
         <Item
           key={assaig.id_assaig}

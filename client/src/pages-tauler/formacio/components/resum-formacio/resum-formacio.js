@@ -1,5 +1,6 @@
 import { Col, Row, Typography } from "antd";
 import React, { useContext } from "react";
+import { useAPI } from "../../../../helpers";
 import { ColorCardList } from "../../../../standalone/color-card-list";
 import { Container } from "../../../../standalone/container";
 import { literalList } from "../../../../utils";
@@ -8,14 +9,20 @@ import { FormacioContext } from "../../formacio";
 import { ContentListAssajos } from "../content-list-assajos";
 import { ContentListConcerts } from "../content-list-concerts";
 import { ContentListPersones } from "../content-list-persones";
-import { useConcerts, useIntegrants, useProjectes } from "./hooks";
 
 export default () => {
   const { id_formacio } = useContext(FormacioContext);
+
   const [assajos, loadingAssajos] = useAssajos();
-  const [concerts, loadingConcerts] = useConcerts(id_formacio);
-  const [projectes, loadingProjectes] = useProjectes(id_formacio);
-  const [persones, loadingIntegrants] = useIntegrants(id_formacio);
+  const [concerts, loadingConcerts] = useAPI(
+    `/api/formacions/${id_formacio}/concerts`
+  );
+  const [projectes, loadingProjectes] = useAPI(
+    `/api/formacions/${id_formacio}/projectes`
+  );
+  const [integrants, loadingIntegrants] = useAPI(
+    `/api/formacions/${id_formacio}/integrants`
+  );
 
   return (
     <>
@@ -63,7 +70,7 @@ export default () => {
           <Col sm={24} lg={12} flex={1}>
             <ContentListPersones
               title="Integrants"
-              persones={persones}
+              persones={integrants}
               loading={loadingIntegrants}
             />
           </Col>

@@ -14,8 +14,9 @@ export default () => {
   const [moviments, loadingMoviments, getMovimentsAssaig] = useAPI(
     `/api/assajos/${assaig.id_assaig}/moviments`
   );
-  const [loadingDeleteMoviment, deleteMoviment] = useDeleteAPI(
-    `/api/assajos/${assaig.id_assaig}/moviments`
+  const [loadingDelete, deleteMoviment] = useDeleteAPI(
+    `/api/assajos/${assaig.id_assaig}/moviments`,
+    "el moviment"
   );
 
   return (
@@ -40,7 +41,7 @@ export default () => {
           />
         ),
       }))}
-      loading={loadingMoviments || loadingDeleteMoviment}
+      loading={loadingMoviments || loadingDelete}
       action={
         <Authorized>
           <ModalListMovimentsAssaig

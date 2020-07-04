@@ -3,12 +3,12 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link, Route, Switch, useHistory, useParams } from "react-router-dom";
 import { Authorized } from "../../components/authorized";
 import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
+import { useAPI } from "../../helpers";
 import { ColorCard } from "../../standalone/color-card";
 import { AssajosProjecte } from "./components/assajos-projecte";
 import { RepertoriProjecte } from "./components/repertori-projecte";
 import { ResumProjecte } from "./components/resum-projecte";
 import "./detall-projecte.css";
-import { useProjecte } from "./hooks";
 
 export const ProjecteContext = createContext({});
 export const SetActionContext = createContext((_) => {});
@@ -19,7 +19,7 @@ export default ({ match }) => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [projecte, loading] = useProjecte(id);
+  const [projecte, loading] = useAPI(`/api/projectes/${id}`);
 
   const [action, setAction] = useState(null);
 

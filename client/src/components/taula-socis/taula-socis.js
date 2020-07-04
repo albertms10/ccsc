@@ -1,6 +1,9 @@
 import { Grid, Input, Table, Typography } from "antd";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useDeleteAPI } from "../../helpers";
+import { fetchSocis } from "../../redux/socis/socis-actions";
 import { SociPropTypes } from "../../typedef/prop-types";
 import { searchFilter } from "../../utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
@@ -11,8 +14,16 @@ const { Paragraph } = Typography;
 const { Search } = Input;
 
 const TaulaSocis = ({ socis, loading = false }) => {
+  const dispatch = useDispatch();
   const breakpoint = Grid.useBreakpoint();
+
   const [searchValue, setSearchValue] = useState("");
+
+  const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
+    "/api/socis",
+    "la persona",
+    () => dispatch(fetchSocis())
+  );
 
   const columns = [
     {
@@ -51,7 +62,12 @@ const TaulaSocis = ({ socis, loading = false }) => {
       dataIndex: "id_persona",
       key: "id_persona",
       align: "right",
-      render: (idPersona) => <DropdownRowSoci idPersona={idPersona} />,
+      render: (idPersona) => (
+        <DropdownRowSoci
+          idPersona={idPersona}
+          showDeleteConfirm={showDeleteConfirm}
+        />
+      ),
     },
   ];
 
@@ -88,7 +104,7 @@ const TaulaSocis = ({ socis, loading = false }) => {
             : socis
         }
         rowKey="id_persona"
-        loading={loading}
+        loading={loading || loadingDelete}
         pagination={{ hideOnSinglePage: true, responsive: true }}
         columns={getResponsiveColumns(breakpoint)}
       />

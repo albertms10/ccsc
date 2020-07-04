@@ -6,11 +6,11 @@ import { EventLineItemData } from "../../components/event-line-item-data";
 import { EventLineItemLocalitzacio } from "../../components/event-line-item-localitzacio";
 import { EventLineItemNotes } from "../../components/event-line-item-notes";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { useAPI } from "../../helpers";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { Container } from "../../standalone/container";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
 import { ContentListMovimentsAssaig } from "./components/content-list-moviments-assaig";
-import { useAssaig } from "./hooks";
 
 const { Title } = Typography;
 
@@ -21,7 +21,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [assaig, loadingAssaig] = useAssaig(id);
+  const [assaig, loadingAssaig] = useAPI(`/api/assajos/${id}`);
 
   useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig.titol]);
 

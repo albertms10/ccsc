@@ -2,9 +2,9 @@ import { PageHeader, Spin, Typography } from "antd";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
+import { useAPI } from "../../helpers";
 import { Container } from "../../standalone/container";
 import { ContentListMoviments } from "./components/content-list-moviments";
-import { useObra } from "./hooks";
 
 const { Title } = Typography;
 
@@ -16,7 +16,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [obra, loadingObra] = useObra(id);
+  const [obra, loadingObra] = useAPI(`/api/obres/${id}`);
 
   useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra.titol]);
 

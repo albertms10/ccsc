@@ -1,11 +1,11 @@
 import { ChartCard, MiniBar } from "ant-design-pro/lib/Charts";
 import React from "react";
+import { useAPI } from "../../helpers";
 import { NumberInfo } from "../number-info";
-import { useCountConcerts, useHistorialConcerts } from "./hooks";
 
 export default () => {
-  const [countConcerts] = useCountConcerts();
-  const [historial] = useHistorialConcerts();
+  const [countConcerts] = useAPI("/api/concerts/count");
+  const [historial] = useAPI("/api/concerts/historial");
 
   return (
     <ChartCard title="Concerts">

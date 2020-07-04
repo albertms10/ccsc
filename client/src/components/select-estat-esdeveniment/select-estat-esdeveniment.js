@@ -1,8 +1,9 @@
 import { Checkbox, Select, Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useCallback, useState } from "react";
+import { useAPI } from "../../helpers";
 import { StatusIcon } from "../../standalone/status-icon";
-import { useEstatsConfirmacio, usePutAssistentEsdeveniment } from "./hooks";
+import { usePutAssistentEsdeveniment } from "./hooks";
 
 const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
   const [estatConfirmacio, setEstatConfirmacio] = useState(
@@ -12,7 +13,9 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     persona.retard ? "retard" : ""
   );
 
-  const [estats, loadingEstats] = useEstatsConfirmacio();
+  const [estats, loadingEstats] = useAPI(
+    "/api/esdeveniments/estats-confirmacio"
+  );
   const [
     loadingPutAssistent,
     putAssistentEsdeveniment,

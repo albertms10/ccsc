@@ -3,7 +3,8 @@ import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { ModalButton } from "../../../../components/modal-button";
-import { useAfegirObra, useIdiomes } from "./hooks";
+import { useAPI } from "../../../../helpers";
+import { useAfegirObra } from "./hooks";
 
 const { Option } = Select;
 
@@ -11,7 +12,7 @@ export default () => {
   const { loading } = useSelector(({ obres }) => obres);
 
   const [form, handleOk] = useAfegirObra();
-  const [idiomes, loadingIdiomes] = useIdiomes();
+  const [idiomes, loadingIdiomes] = useAPI("/api/obres/idiomes");
 
   return (
     <ModalButton

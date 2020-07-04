@@ -2,12 +2,13 @@ import { Space } from "antd";
 import React, { useContext } from "react";
 import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
 import { CollapseCardActivitat } from "../../../../components/collapse-card-activitat";
+import { useAPI } from "../../../../helpers";
 import { SociContext } from "../../perfil-soci";
-import { useAcceptacions } from "./hooks";
 
 export default () => {
   const soci = useContext(SociContext);
-  const [acceptacionsSoci] = useAcceptacions(soci);
+
+  const [acceptacionsSoci] = useAPI(`/api/socis/${soci.id_soci}/acceptacions`);
 
   return (
     <Space size="large" direction="vertical" style={{ width: "100%" }}>
