@@ -22,7 +22,7 @@ export default (soci) => {
 
   const modalBaixaSoci = (callback) => {
     Modal.confirm({
-      title: `Confirmes que vols donar de baixa el soci?`,
+      title: "Confirmes que vols donar de baixa el soci?",
       icon: <ExclamationCircleOutlined />,
       content: "Aquesta acció no es pot desfer.",
       okText: "Donar de baixa",
