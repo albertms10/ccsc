@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI, showDeleteConfirm } from "./index";
 
-export default (url, callback) => {
+export default (url, textualElement, callback) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +26,6 @@ export default (url, callback) => {
 
   return [
     loading,
-    (id) => showDeleteConfirm("el projecte", () => deleteData(id)),
+    (id) => showDeleteConfirm(textualElement || "l’ítem", () => deleteData(id)),
   ];
 };
