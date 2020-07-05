@@ -1,0 +1,100 @@
+.swagger-ui,
+.swagger-ui .border-box,
+.swagger-ui a:not(.nostyle),
+.swagger-ui article,
+.swagger-ui body,
+.swagger-ui code,
+.swagger-ui dd,
+.swagger-ui div,
+.swagger-ui dl,
+.swagger-ui dt,
+.swagger-ui fieldset,
+.swagger-ui footer,
+.swagger-ui form,
+.swagger-ui h1,
+.swagger-ui h2,
+.swagger-ui h3,
+.swagger-ui h4,
+.swagger-ui h5,
+.swagger-ui h6,
+.swagger-ui header,
+.swagger-ui html,
+.swagger-ui input[type="email"],
+.swagger-ui input[type="number"],
+.swagger-ui input[type="password"],
+.swagger-ui input[type="tel"],
+.swagger-ui input[type="text"],
+.swagger-ui input[type="url"],
+.swagger-ui legend,
+.swagger-ui li,
+.swagger-ui main,
+.swagger-ui ol,
+.swagger-ui p,
+.swagger-ui pre,
+.swagger-ui section,
+.swagger-ui table,
+.swagger-ui td,
+.swagger-ui textarea,
+.swagger-ui select,
+.swagger-ui th,
+.swagger-ui tr:not(.property-row),
+.swagger-ui ul,
+.swagger-ui .info .title,
+.swagger-ui .info .title small pre,
+.swagger-ui .info li,
+.swagger-ui .info p,
+.swagger-ui .info table,
+.swagger-ui .info a,
+.swagger-ui .topbar .download-url-wrapper .download-url-button,
+.swagger-ui .opblock .opblock-summary-description,
+.swagger-ui .btn,
+.swagger-ui .btn.cancel,
+.swagger-ui .opblock .opblock-summary-method,
+.swagger-ui table thead tr td,
+.swagger-ui table thead tr th,
+.swagger-ui .parameter__name,
+.swagger-ui .opblock .opblock-section-header h4,
+.swagger-ui .responses-inner h4,
+.swagger-ui .responses-inner h5,
+.swagger-ui .download-contents,
+.swagger-ui .response-col_links,
+.swagger-ui .model-title,
+.swagger-ui section.models h4,
+.swagger-ui .opblock-tag,
+.swagger-ui .opblock-description-wrapper p,
+.swagger-ui .opblock-external-docs-wrapper p,
+.swagger-ui .opblock-title_normal p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+code,
+.swagger-ui .opblock .opblock-summary-operation-id,
+.swagger-ui .opblock .opblock-summary-path,
+.swagger-ui .opblock .opblock-summary-path__deprecated,
+.swagger-ui .opblock-body pre.microlight,
+.content-type,
+.servers select,
+.swagger-ui .response-col_status,
+.swagger-ui .parameter__type,
+.swagger-ui .parameter__deprecated,
+.swagger-ui .parameter__extension,
+.swagger-ui .parameter__in,
+.swagger-ui .model,
+.swagger-ui .model .property-row td {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace !important;
+}
+
+.swagger-ui table.model tbody tr td {
+  padding: 0.5rem;
+}
+
+.swagger-ui table.model tbody tr td:first-of-type {
+  width: auto;
+  padding: 0.5rem;
+}
+
+.swagger-ui table.model tr.property-row .star {
+  margin-left: 0.5rem;
+}

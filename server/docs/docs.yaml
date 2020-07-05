@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: Associació Musical Catalana Crescendo
+  version: 0.2.0
+  description: Documentació de l’API per a l’Associació Musical Catalana Crescendo
+  contact:
+    name: Albert Mañosa
+    email: albertmasa2@gmail.com
+servers:
+  - url: "/api"
+consumes:
+  - application/json
+
+paths:
+  /agrupacions:
+    get:
+      summary: Llista d’agrupacions
+      tags: [Agrupacions]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Rep la llista d’agrupacions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Agrupacio"
+        "401":
+          description: Sense autorització
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /agrupacions/avisos/{id}:
+    get:
+      summary: Llista d’avisos
+      tags: [Agrupacions]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Id de l’avís
+      responses:
+        "200":
+          description: Rep la llista d’avisos
+        "401":
+          description: Sense autorització
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            status:
+              type: number
+            message:
+              type: string
+      example:
+        error:
+          status: 401
+          message: "Cal proporcionar un token d’accés."
+          hideMessage: false
+
+    Agrupacio:
+      type: object
+      required:
+        - id_agrupacio
+        - nom
+        - nif
+        - id_tipus_agrupacio
+        - tipus_agrupacio
+      properties:
+        id_agrupacio:
+          type: number
+        nom:
+          type: string
+        nif:
+          type: string
+        id_tipus_agrupacio:
+          type: number
+        tipus_agrupacio:
+          type: string
+      example:
+        id_agrupacio: 1
+        nom: Associació Musical Catalana Crescendo
+        nif: G6374673
+        id_tipus_agrupacio: 1
+        tipus_agrupacio: Associació

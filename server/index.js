@@ -2,6 +2,12 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
+const YAML = require("yamljs");
+const swaggerUi = require("swagger-ui-express");
+
+const PORT = process.env.PORT || 5000;
+const HOST = "0.0.0.0";
+
 process
   .on("unhandledRejection", (reason, p) => {
     console.error(reason, "Unhandled Rejection at Promise", p);
@@ -64,12 +70,24 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", require("./routes/auth.routes"));
 
+const swaggerDocument = YAML.load("./server/docs/docs.yaml");
+
+app.use(
+  "/api/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true,
+    customCssUrl: "../docs-styles.css",
+  })
+);
+
+app.get("/api/docs-styles.css", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./docs", "docs.css"));
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
-const PORT = process.env.PORT || 5000;
-const HOST = "0.0.0.0";
-
 app.listen(PORT, HOST);
-console.log(`Running on http://localhost:${PORT}`);
+console.log(`Running on https://${HOST}:${PORT}`);
