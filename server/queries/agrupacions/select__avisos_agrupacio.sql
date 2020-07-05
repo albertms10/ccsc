@@ -1,20 +1,20 @@
-SELECT tipus_avisos.nom AS titol,
+SELECT tipus_avisos.nom                                      AS titol,
        a.descripcio,
        titol_acceptacions,
-       requerit,
+       IF(requerit, CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS requerit,
        data_inici,
        data_final,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
                                  JSON_OBJECT(
-                                         'id', id_seccio_avis,
+                                         'id_seccio_avis', id_seccio_avis,
                                          'titol', titol,
                                          'descripcio', descripcio
                                      )
                              ), '[]')
            FROM seccions_avis
            WHERE id_avis = a.id_avis
-       )                AS seccions,
+       )                                                     AS seccions,
        (
            SELECT IFNULL(JSON_ARRAYAGG(
                                  JSON_OBJECT(
@@ -26,7 +26,7 @@ SELECT tipus_avisos.nom AS titol,
                              ), '[]')
            FROM acceptacions_avis
            WHERE id_avis = a.id_avis
-       )                AS acceptacions
+       )                                                     AS acceptacions
 FROM avisos a
          INNER JOIN tipus_avisos USING (id_tipus_avis)
 WHERE unique_name = ?

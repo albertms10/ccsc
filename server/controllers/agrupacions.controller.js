@@ -16,7 +16,11 @@ exports.agrupacions_avisos_detall = (req, res, next) => {
   pool
     .query(queryFile("agrupacions/select__avisos_agrupacio"), [id])
     .then(([avis]) =>
-      parseAndSendJSON(res, next, avis, ["seccions", "acceptacions"])
+      parseAndSendJSON(res, next, avis, [
+        "requerit",
+        "seccions",
+        "acceptacions",
+      ])
     )
     .catch((e) => next(e));
 };
