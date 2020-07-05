@@ -1,7 +1,9 @@
+import { stripAccents } from "./index";
+
 /**
  * @typedef {Object} InitialsOptions
- * @property {number} [minValue=0]
- * @property {number} [maxInitials=0]
+ * @property {number} [minValue]
+ * @property {number} [maxInitials]
  */
 
 /**
@@ -13,7 +15,7 @@
 export default (s, { minValue = 0, maxInitials = 0 } = {}) => {
   if (typeof s !== "string" || !s) return "";
 
-  const words = s
+  const words = stripAccents(s)
     .trim()
     .split(/[ '’–-]+/)
     .filter((w) => w.length >= minValue);
