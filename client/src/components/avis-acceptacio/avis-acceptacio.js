@@ -23,9 +23,15 @@ const AvisAcceptacio = ({
       <>
         <SeccioAvis descripcio={textAvisAcceptacio.descripcio} />
         {textAvisAcceptacio.hasOwnProperty("seccions") &&
-          textAvisAcceptacio.seccions.map(({ id, titol, descripcio }) => (
-            <SeccioAvis key={id} titol={titol} descripcio={descripcio} />
-          ))}
+          textAvisAcceptacio.seccions.map(
+            ({ id_seccio_avis, titol, descripcio }) => (
+              <SeccioAvis
+                key={id_seccio_avis}
+                titol={titol}
+                descripcio={descripcio}
+              />
+            )
+          )}
         <SeccioAvis titol={textAvisAcceptacio.titol_acceptacions}>
           {textAvisAcceptacio.hasOwnProperty("acceptacions") &&
             textAvisAcceptacio.acceptacions.map((acceptacio) =>
