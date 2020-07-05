@@ -76,7 +76,6 @@ app.use(
   "/api/docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
-    explorer: true,
     customCssUrl: "../docs-styles.css",
   })
 );

@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
   title: Associació Musical Catalana Crescendo
   version: 0.2.0
@@ -10,6 +10,8 @@ servers:
   - url: "/api"
 consumes:
   - application/json
+produces:
+  - application/json
 
 paths:
   /agrupacions:
@@ -17,14 +19,16 @@ paths:
       summary: Llista d’agrupacions
       tags: [Agrupacions]
       security:
-        - bearerAuth: []
+        - JWT: []
       responses:
         "200":
-          description: Rep la llista d’agrupacions
+          description: Obtén la llista d’agrupacions
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Agrupacio"
+                type: array
+                items:
+                  $ref: "#/components/schemas/Agrupacio"
         "401":
           description: Sense autorització
           content:
@@ -32,31 +36,111 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /agrupacions/avisos/{id}:
+  /agrupacions/avisos/{name}:
     get:
-      summary: Llista d’avisos
+      summary: Informació d’un avís
       tags: [Agrupacions]
-      security:
-        - bearerAuth: []
       parameters:
         - in: path
-          name: id
+          name: name
           schema:
-            type: number
+            type: string
           required: true
-          description: Id de l’avís
+          description: Nom de l’avís
       responses:
         "200":
-          description: Rep la llista d’avisos
-        "401":
-          description: Sense autorització
+          description: Obtén la informació de l’avís
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/Avis"
+
+  /agrupacions/cursos:
+    get:
+      summary: Llista de cursos
+      tags: [Agrupacions]
+      security:
+        - JWT: []
+      responses:
+        "200":
+          description: Obtén la llista de cursos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Curs"
 
 components:
   schemas:
+    Acceptacio:
+      type: object
+      properties:
+        titol:
+          type: string
+        form_name:
+          type: string
+        requerida:
+          type: boolean
+        descripcio:
+          type: string
+
+    Agrupacio:
+      type: object
+      properties:
+        id_agrupacio:
+          type: integer
+        nom:
+          type: string
+        nif:
+          type: string
+        id_tipus_agrupacio:
+          type: integer
+        tipus_agrupacio:
+          type: string
+
+    Avis:
+      type: object
+      properties:
+        titol:
+          type: string
+        descripcio:
+          type: string
+          nullable: true
+        titol_acceptacions:
+          type: string
+        requerit:
+          type: boolean
+        data_inici:
+          type: string
+          format: date
+          nullable: true
+        data_final:
+          type: string
+          format: date
+          nullable: true
+        seccions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Seccio"
+        acceptacions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Acceptacio"
+
+    Curs:
+      type: object
+      properties:
+        id_curs:
+          type: string
+          pattern: '^\d{2}-\d{2}$'
+        inici:
+          type: string
+          format: date
+        final:
+          type: string
+          format: date
+
     Error:
       type: object
       properties:
@@ -64,37 +148,22 @@ components:
           type: object
           properties:
             status:
-              type: number
+              type: integer
             message:
               type: string
-      example:
-        error:
-          status: 401
-          message: "Cal proporcionar un token d’accés."
-          hideMessage: false
 
-    Agrupacio:
+    Seccio:
       type: object
-      required:
-        - id_agrupacio
-        - nom
-        - nif
-        - id_tipus_agrupacio
-        - tipus_agrupacio
       properties:
-        id_agrupacio:
-          type: number
-        nom:
+        id_seccio_avis:
+          type: integer
+        titol:
           type: string
-        nif:
+        descripcio:
           type: string
-        id_tipus_agrupacio:
-          type: number
-        tipus_agrupacio:
-          type: string
-      example:
-        id_agrupacio: 1
-        nom: Associació Musical Catalana Crescendo
-        nif: G6374673
-        id_tipus_agrupacio: 1
-        tipus_agrupacio: Associació
+
+  securitySchemes:
+    JWT:
+      type: apiKey
+      name: JWT
+      in: header
