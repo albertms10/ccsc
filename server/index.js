@@ -40,7 +40,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/api/agrupacio", require("./routes/agrupacions.routes"));
+app.use("/api/agrupacions", require("./routes/agrupacions.routes"));
 app.use("/api/assajos", require("./routes/assajos.routes"));
 app.use("/api/concerts", require("./routes/concerts.routes"));
 app.use("/api/esdeveniments", require("./routes/esdeveniments.routes"));
