@@ -63,13 +63,15 @@
 .swagger-ui .opblock-tag,
 .swagger-ui .opblock-description-wrapper p,
 .swagger-ui .opblock-external-docs-wrapper p,
-.swagger-ui .opblock-title_normal p {
+.swagger-ui .opblock-title_normal p,
+.swagger-ui .errors-wrapper hgroup h4 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 code,
+pre,
 .swagger-ui .opblock .opblock-summary-operation-id,
 .swagger-ui .opblock .opblock-summary-path,
 .swagger-ui .opblock .opblock-summary-path__deprecated,
@@ -82,7 +84,8 @@ code,
 .swagger-ui .parameter__extension,
 .swagger-ui .parameter__in,
 .swagger-ui .model,
-.swagger-ui .model .property-row td {
+.swagger-ui .model .property-row td,
+.swagger-ui .errors-wrapper .errors h4 {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace !important;
 }
 
