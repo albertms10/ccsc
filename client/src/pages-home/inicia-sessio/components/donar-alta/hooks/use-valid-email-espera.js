@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { fetchAPI } from "../../../../../helpers";
 import { validatedInWaitingList } from "../../../../../redux";
 
 export default () => {
@@ -11,16 +12,9 @@ export default () => {
 
   const checkEmail = (email) => {
     setLoading(true);
-    fetch("/api/auth/email-espera", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then((res) => res.json())
-      .then(({ exists, message, accessToken }) => {
+    fetchAPI(
+      "/auth/email-espera",
+      ({ exists, message, accessToken }) => {
         setLoading(false);
         if (exists) {
           localStorage.setItem("access-token", accessToken);
@@ -29,7 +23,10 @@ export default () => {
         } else if (message) {
           setAlertMessage(message);
         }
-      });
+      },
+      dispatch,
+      { method: "POST", body: JSON.stringify({ email }) }
+    );
   };
 
   return [checkEmail, loading, alertMessage];

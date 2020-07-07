@@ -60,24 +60,19 @@ const logoutUser = () => ({
  * @param {User} user
  */
 export const signinUserFetch = (user) => (dispatch) => {
-  fetch("/auth/sign-in", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(user),
-  })
-    .then((res) => res.json())
-    .then((data) => {
+  fetchAPI(
+    "/auth/sign-in",
+    (data) => {
       if (data.hasOwnProperty("error")) {
         dispatch(signinUserFailure(data.error));
       } else {
         localStorage.setItem("access-token", data.accessToken);
         dispatch(signinUserSuccess(data.user));
       }
-    })
-    .catch((error) => error);
+    },
+    dispatch,
+    { method: "POST", body: JSON.stringify({ user }) }
+  );
 };
 
 /**
