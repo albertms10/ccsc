@@ -10,7 +10,6 @@ const createPool = async () =>
     database: process.env.DB_NAME,
     connectionLimit: process.env.DB_LIMIT,
     multipleStatements: true,
-    // charset: "utf8mb4",
     timezone: "Z",
     typeCast: (field, next) =>
       [
@@ -29,24 +28,4 @@ const createPool = async () =>
         : next(),
   });
 
-const ensureSchema = async (pool) => {
-  // await pool.query(
-  //   fs.readFileSync(
-  //     path.join(__dirname, "../../database/db-generator.sql"),
-  //     "utf8"
-  //   )
-  // );
-  // console.log("Ensured that all tables exist");
-};
-
-const poolPromise = createPool()
-  .then(async (pool) => {
-    if (process.env.NODE_ENV === "production") await ensureSchema(pool);
-    return pool;
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-
-module.exports = poolPromise;
+module.exports = createPool();
