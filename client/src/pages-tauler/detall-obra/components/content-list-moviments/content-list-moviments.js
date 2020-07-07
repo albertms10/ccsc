@@ -30,7 +30,7 @@ export default () => {
             ? [<FixedTagsProjectes projectes={moviment.projectes} />]
             : []),
           timeDuration(moviment.durada),
-          <DropdownBorderlessButton />
+          <DropdownBorderlessButton />,
         ],
         avatar: (
           <Typography.Text type="secondary" style={{ fontSize: "small" }}>

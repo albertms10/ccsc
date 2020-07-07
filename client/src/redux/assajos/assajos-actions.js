@@ -27,7 +27,8 @@ export const fetchAssajos = () => (dispatch, getState) => {
   fetchAPI(
     `/socis/${id_persona}/assajos`,
     (data) => {
-      if (data.hasOwnProperty("error")) dispatch(fetchAssajosFailure(data.error));
+      if (data.hasOwnProperty("error"))
+        dispatch(fetchAssajosFailure(data.error));
       else dispatch(fetchAssajosSuccess(data));
     },
     dispatch

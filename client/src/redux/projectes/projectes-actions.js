@@ -27,7 +27,8 @@ export const fetchProjectes = () => (dispatch, getState) => {
   fetchAPI(
     `/socis/${id_persona}/projectes`,
     (data) => {
-      if (data.hasOwnProperty("error")) dispatch(fetchProjectesFailure(data.error));
+      if (data.hasOwnProperty("error"))
+        dispatch(fetchProjectesFailure(data.error));
       else dispatch(fetchProjectesSuccess(data));
     },
     dispatch
