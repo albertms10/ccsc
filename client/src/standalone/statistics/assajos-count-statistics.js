@@ -4,7 +4,7 @@ import { useAPI } from "../../helpers";
 import { NumberInfo } from "../number-info";
 
 export default () => {
-  const [countAssajos] = useAPI("/assajos/count");
+  const [countAssajos] = useAPI("/assajos/count", 0);
   const [historial] = useAPI("/assajos/historial");
 
   return (
