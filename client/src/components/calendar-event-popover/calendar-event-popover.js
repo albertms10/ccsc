@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types";
+import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { EventLineItemData } from "../event-line-item-data";
 import { EventLineItemLocalitzacio } from "../event-line-item-localitzacio";
 import "./calendar-event-popover.css";

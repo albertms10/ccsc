@@ -3,7 +3,7 @@ import React from "react";
 import { joinComponents } from "../../helpers";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types";
+import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { dateRange } from "../../utils";
 
 const EventLineItemData = ({ esdeveniment }) => (

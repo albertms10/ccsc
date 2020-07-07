@@ -4,7 +4,7 @@ import { SociContext } from "../../../../pages-tauler/perfil-soci/perfil-soci";
 import {
   AcceptacionsSociPropTypes,
   AcceptacioPropTypes,
-} from "../../../../typedef/prop-types";
+} from "../../../../typedef/prop-types-definitions";
 import { usePutAvisAcceptacio } from "../../hooks";
 import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
 

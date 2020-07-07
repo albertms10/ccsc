@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteAPI } from "../../helpers";
 import { fetchSocis } from "../../redux/socis/socis-actions";
-import { SociPropTypes } from "../../typedef/prop-types";
+import { SociPropTypes } from "../../typedef/prop-types-definitions";
 import { searchFilter } from "../../utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";

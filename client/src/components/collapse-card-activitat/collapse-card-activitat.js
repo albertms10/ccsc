@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useCallback } from "react";
 import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
-import { SociPropTypes } from "../../typedef/prop-types";
+import { SociPropTypes } from "../../typedef/prop-types-definitions";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
 import { useAltaSoci, useBaixaSoci } from "./hooks";
 

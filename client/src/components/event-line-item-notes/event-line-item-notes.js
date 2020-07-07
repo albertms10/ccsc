@@ -3,7 +3,7 @@ import { Typography } from "antd";
 import React from "react";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { LinkButton } from "../../standalone/link-button";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types";
+import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { Authorized } from "../authorized";
 
 const { Text } = Typography;

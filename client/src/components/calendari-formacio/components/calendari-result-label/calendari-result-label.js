@@ -3,7 +3,7 @@ import moment from "moment";
 import React from "react";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { StatusIcon } from "../../../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../../../typedef/prop-types";
+import { EsdevenimentPropTypes } from "../../../../typedef/prop-types-definitions";
 
 const CalendariResultLabel = ({ esdeveniment }) => (
   <div className="search-complete-item">

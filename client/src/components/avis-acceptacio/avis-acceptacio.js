@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
 import { InfoCard } from "../../standalone/info-card";
-import { AcceptacionsSociPropTypes } from "../../typedef/prop-types";
+import { AcceptacionsSociPropTypes } from "../../typedef/prop-types-definitions";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
 import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";

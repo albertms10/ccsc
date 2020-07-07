@@ -1,7 +1,7 @@
 import { Avatar, Badge, Tooltip, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import { SociPropTypes } from "../../../../typedef/prop-types";
+import { SociPropTypes } from "../../../../typedef/prop-types-definitions";
 import { closestTimeValue } from "../../../../utils";
 
 const { Text } = Typography;

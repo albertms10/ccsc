@@ -1,7 +1,7 @@
 import { Checkbox, Typography } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
-import { AcceptacioPropTypes } from "../../../../typedef/prop-types";
+import { AcceptacioPropTypes } from "../../../../typedef/prop-types-definitions";
 import "./checkbox-acceptacio-item.css";
 
 const { Paragraph } = Typography;

@@ -2,7 +2,7 @@ import { Space } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
-import { EsdevenimentPropTypes } from "../../../../typedef/prop-types";
+import { EsdevenimentPropTypes } from "../../../../typedef/prop-types-definitions";
 
 const CalendariFormacioCell = ({ esdevenimentsActuals }) => (
   <Space size={-5} direction="vertical">

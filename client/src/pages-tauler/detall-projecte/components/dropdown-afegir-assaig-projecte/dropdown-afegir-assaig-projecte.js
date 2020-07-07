@@ -4,7 +4,7 @@ import moment from "moment";
 import React from "react";
 import { ModalSeleccionarAssaig } from "../../../../components/modal-seleccionar-assaig";
 import { usePostAPI } from "../../../../helpers";
-import { ProjectePropTypes } from "../../../../typedef/prop-types";
+import { ProjectePropTypes } from "../../../../typedef/prop-types-definitions";
 import { ModalAfegirAssaig } from "../../../assajos/components/modal-afegir-assaig";
 
 const DropdownAfegirAssaigProjecte = ({ projecte }) => {

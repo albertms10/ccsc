@@ -1,6 +1,6 @@
 import { Form } from "antd";
 import React from "react";
-import { AcceptacioPropTypes } from "../../../../typedef/prop-types";
+import { AcceptacioPropTypes } from "../../../../typedef/prop-types-definitions";
 import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
 
 const CheckboxAcceptacioForm = ({ acceptacio }) => (

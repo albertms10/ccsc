@@ -5,7 +5,7 @@ import { IconFormacio } from "../../assets/icons";
 import { CalendariFormacio } from "../../components/calendari-formacio";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { ContentHeader } from "../../standalone/content-header";
-import { FormacioPropTypes } from "../../typedef/prop-types";
+import { FormacioPropTypes } from "../../typedef/prop-types-definitions";
 import { ResumFormacio } from "./components/resum-formacio";
 import "./formacio.css";
 

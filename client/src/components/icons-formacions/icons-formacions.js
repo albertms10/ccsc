@@ -2,7 +2,7 @@ import { Space } from "antd";
 import PropTypes from "prop-types";
 import React from "react";
 import { IconFormacio } from "../../assets/icons";
-import { FormacioPropTypes } from "../../typedef/prop-types";
+import { FormacioPropTypes } from "../../typedef/prop-types-definitions";
 
 const IconsFormacions = ({ formacions = [] }) => (
   <Space>

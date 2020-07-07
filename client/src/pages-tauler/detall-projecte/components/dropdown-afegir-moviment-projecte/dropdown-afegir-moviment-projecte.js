@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { ModalSeleccionarMoviment } from "../../../../components/modal-seleccionar-moviment";
 import { usePostAPI } from "../../../../helpers";
 import { fetchMoviments } from "../../../../redux/moviments/moviments-actions";
-import { ProjectePropTypes } from "../../../../typedef/prop-types";
+import { ProjectePropTypes } from "../../../../typedef/prop-types-definitions";
 
 const DropdownAfegirMovimentProjecte = ({ projecte }) => {
   const dispatch = useDispatch();

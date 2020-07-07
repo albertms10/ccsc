@@ -11,7 +11,7 @@ import { joinComponents } from "../../helpers";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { AssaigPropTypes } from "../../typedef/prop-types";
+import { AssaigPropTypes } from "../../typedef/prop-types-definitions";
 import { dateRange, timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { IconsFormacions } from "../icons-formacions";
