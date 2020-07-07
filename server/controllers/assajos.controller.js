@@ -31,7 +31,7 @@ exports.assajos_historial = (req, res, next) => {
 
 exports.assajos_assistencia = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { group } = req.query;
+  const { "group-by": groupBy } = req.query;
 
   pool
     .query(
