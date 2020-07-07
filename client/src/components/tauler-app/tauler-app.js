@@ -7,7 +7,7 @@ import { FormacionsContext, SiderContext } from "./contexts";
 export const AgrupacioContext = createContext({});
 
 export default () => {
-  const [agrupacio] = useAPI("/api/agrupacions");
+  const [agrupacio] = useAPI("/agrupacions");
 
   return (
     <AgrupacioContext.Provider value={agrupacio}>

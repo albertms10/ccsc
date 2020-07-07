@@ -10,7 +10,7 @@ export default () => {
   const assaig = useContext(AssaigContext);
 
   const [convocats, loadingConvocats, getConvocatsAssaig] = useAPI(
-    `/api/assajos/${assaig.id_assaig}/convocats`
+    `/assajos/${assaig.id_assaig}/convocats`
   );
 
   return (

@@ -11,7 +11,7 @@ const DropdownAfegirMovimentProjecte = ({ projecte }) => {
   const dispatch = useDispatch();
 
   const [loadingPostMoviment, postMoviment] = usePostAPI(
-    `/api/projectes/${projecte.id_projecte}/moviments`
+    `/projectes/${projecte.id_projecte}/moviments`
   );
 
   return (

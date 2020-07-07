@@ -25,7 +25,7 @@ const { TextArea } = Input;
 export default (
   onSuccessCallback,
   selfCreation = false,
-  fetchURL = "/api/socis"
+  fetchURL = "/socis"
 ) => {
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ export default (
   const [username, loadingUsername, getUsername] = useUsername();
 
   const [dniValidation, setDniValidation] = useState("");
-  const [paisos, loadingPaisos] = useAPI("/api/localitzacions/paisos");
+  const [paisos, loadingPaisos] = useAPI("/localitzacions/paisos");
   const [selectedPais, setSelectedPais] = useState("");
 
   const [form] = Form.useForm();

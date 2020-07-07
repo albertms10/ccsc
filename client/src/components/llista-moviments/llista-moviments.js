@@ -24,10 +24,8 @@ const LlistaMoviments = ({ idProjecte }) => {
   const [
     loadingDeleteMoviment,
     showDeleteConfirm,
-  ] = useDeleteAPI(
-    `/api/projectes/${idProjecte}/moviments`,
-    "el moviment",
-    () => dispatch(fetchMoviments())
+  ] = useDeleteAPI(`/projectes/${idProjecte}/moviments`, "el moviment", () =>
+    dispatch(fetchMoviments())
   );
 
   const getDataSource = useCallback(() => {

@@ -1,12 +1,12 @@
 import { Carousel, Typography } from "antd";
 import React from "react";
+import { useAPI } from "../../../../helpers";
 import "./home-carousel.css";
-import { useTitulars } from "./hooks";
 
 const { Title } = Typography;
 
 export default () => {
-  const [titulars] = useTitulars();
+  const [titulars] = useAPI("/titulars");
 
   return (
     <Carousel easing="easeInOutElastic" draggable={true}>

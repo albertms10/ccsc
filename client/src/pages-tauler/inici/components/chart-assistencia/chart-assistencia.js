@@ -15,10 +15,10 @@ import { dataSplit, dateRange } from "../../../../utils";
 
 export default () => {
   const [assistenciaEstat, loadingAssistenciaEstat] = useAPI(
-    `/api/assajos/assistencia`
+    `/assajos/assistencia`
   );
   const [assistenciaVeus, loadingAssistenciaVeus] = useAPI(
-    `/api/assajos/assistencia?group=veus`
+    `/assajos/assistencia?group=veus`
   );
 
   const [key, setKey] = useState("estat");

@@ -26,7 +26,7 @@ const LlistaProjectes = ({ searchValue, inactius }) => {
 
   const [projectes, loading] = useProjectes();
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    `/api/projectes`,
+    `/projectes`,
     "el projecte",
     () => dispatch(fetchProjectes())
   );

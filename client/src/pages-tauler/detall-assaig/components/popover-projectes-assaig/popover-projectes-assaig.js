@@ -12,7 +12,7 @@ const PopoverProjectesAssaig = ({ getMovimentsAssaig }) => {
   const { id_assaig } = useContext(AssaigContext);
 
   const [projectes, loadingProjectes, getProjectes] = useAPI(
-    `/api/assajos/${id_assaig}/projectes`
+    `/assajos/${id_assaig}/projectes`
   );
   const [loadingProjecte, changeProjecteAssaig] = useProjecteAssaig(id_assaig);
 

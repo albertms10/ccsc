@@ -14,7 +14,7 @@ export default () => {
     const username = generateUsername(nom, cognoms);
 
     fetchAPI(
-      `/api/usuaris/${username}/first-available-num`,
+      `/usuaris/${username}/first-available-num`,
       (count) => {
         setUsername(`${username}${count > 0 ? count : ""}`);
         setLoadingUsername(false);

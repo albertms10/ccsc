@@ -60,7 +60,7 @@ const logoutUser = () => ({
  * @param {User} user
  */
 export const signinUserFetch = (user) => (dispatch) => {
-  fetch("/api/auth/sign-in", {
+  fetch("/auth/sign-in", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const getProfileFetch = () => (dispatch) => {
 
   if (accessToken) {
     fetchAPI(
-      "/api/auth/user",
+      "/auth/user",
       (data) => {
         if (data.hasOwnProperty("error")) {
           dispatch(signinUserFailure(data.error));

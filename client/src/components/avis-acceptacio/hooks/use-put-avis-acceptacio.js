@@ -13,7 +13,7 @@ export default (idSoci) => {
   const putAvisAcceptacio = (acceptacions, callback) => {
     setLoading(true);
     fetchAPI(
-      `/api/socis/${idSoci}/acceptacions`,
+      `/socis/${idSoci}/acceptacions`,
       (accepta) => {
         if (typeof callback === "function") callback(accepta);
       },

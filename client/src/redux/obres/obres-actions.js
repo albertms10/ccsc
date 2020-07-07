@@ -23,7 +23,7 @@ export const fetchObres = () => (dispatch) => {
   dispatch(fetchObresRequest());
 
   fetchAPI(
-    `/api/obres`,
+    `/obres`,
     (data) => {
       if (data.hasOwnProperty("error")) dispatch(fetchObresFailure(data.error));
       else dispatch(fetchObresSuccess(data));

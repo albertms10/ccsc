@@ -21,7 +21,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [assaig, loadingAssaig] = useAPI(`/api/assajos/${id}`);
+  const [assaig, loadingAssaig] = useAPI(`/assajos/${id}`);
 
   useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig.titol]);
 

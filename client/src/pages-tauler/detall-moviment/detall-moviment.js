@@ -15,9 +15,7 @@ export default () => {
   const history = useHistory();
   const { moviment: idMoviment } = useParams();
 
-  const [moviment, loadingMoviment] = useAPI(
-    `/api/moviments/${idMoviment}`
-  );
+  const [moviment, loadingMoviment] = useAPI(`/moviments/${idMoviment}`);
 
   useEffect(() => setPageHeader(moviment.titol_moviment), [
     setPageHeader,

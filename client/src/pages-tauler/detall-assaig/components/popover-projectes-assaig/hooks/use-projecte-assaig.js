@@ -9,16 +9,18 @@ export default (id) => {
   const changeProjecteAssaig = (projecte) => {
     setLoading(true);
     return projecte.checked
-      ? fetchAPI(`/api/assajos/${id}/projectes`, () => setLoading(false), dispatch, {
-        method: "POST",
-        body: JSON.stringify(projecte),
-      })
+      ? fetchAPI(
+          `/assajos/${id}/projectes`,
+          () => setLoading(false),
+          dispatch,
+          { method: "POST", body: JSON.stringify(projecte) }
+        )
       : fetchAPI(
-        `/api/assajos/${id}/projectes/${projecte.id_projecte}`,
-        () => setLoading(false),
-        dispatch,
-        { method: "DELETE" }
-      );
+          `/assajos/${id}/projectes/${projecte.id_projecte}`,
+          () => setLoading(false),
+          dispatch,
+          { method: "DELETE" }
+        );
   };
 
   return [loading, changeProjecteAssaig];

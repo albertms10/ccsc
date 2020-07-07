@@ -10,7 +10,7 @@ import { useAltaSoci, useBaixaSoci } from "./hooks";
 
 const CollapseCardActivitat = ({ soci, active }) => {
   const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI(
-    `/api/socis/${soci.id_soci}/activitat`
+    `/socis/${soci.id_soci}/activitat`
   );
   const [loadingAlta, modalAltaSoci] = useAltaSoci(soci);
   const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci);

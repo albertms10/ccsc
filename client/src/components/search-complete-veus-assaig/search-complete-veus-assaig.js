@@ -5,7 +5,7 @@ import { SearchComplete } from "../../standalone/search-complete";
 import { searchFilter } from "../../utils";
 
 const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
-  const [veus, loadingVeus, getVeus] = useAPI(`/api/assajos/${idAssaig}/veus`);
+  const [veus, loadingVeus, getVeus] = useAPI(`/assajos/${idAssaig}/veus`);
 
   return (
     <SearchComplete

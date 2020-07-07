@@ -9,7 +9,7 @@ export default () => {
   const [form] = Form.useForm();
 
   const postProjecte = (projecte) =>
-    fetchAPI("/api/projectes", () => dispatch(fetchProjectes()), dispatch, {
+    fetchAPI("/projectes", () => dispatch(fetchProjectes()), dispatch, {
       method: "POST",
       body: JSON.stringify({ projecte }),
     });

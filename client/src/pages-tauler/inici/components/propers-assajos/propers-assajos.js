@@ -8,7 +8,7 @@ import "./propers-assajos.css";
 export default ({ style }) => {
   const { id_persona } = useSelector(({ user }) => user.currentUser);
   const [propersAssajos, loadingPropersAssajos] = useAPI(
-    `/api/socis/${id_persona}/propers-assajos?limit=1`
+    `/socis/${id_persona}/propers-assajos?limit=1`
   );
 
   return (

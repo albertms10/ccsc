@@ -12,10 +12,10 @@ export default () => {
   const assaig = useContext(AssaigContext);
 
   const [moviments, loadingMoviments, getMovimentsAssaig] = useAPI(
-    `/api/assajos/${assaig.id_assaig}/moviments`
+    `/assajos/${assaig.id_assaig}/moviments`
   );
   const [loadingDelete, deleteMoviment] = useDeleteAPI(
-    `/api/assajos/${assaig.id_assaig}/moviments`,
+    `/assajos/${assaig.id_assaig}/moviments`,
     "el moviment"
   );
 

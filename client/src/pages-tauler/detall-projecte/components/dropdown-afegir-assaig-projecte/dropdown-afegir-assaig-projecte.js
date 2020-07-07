@@ -9,7 +9,7 @@ import { ModalAfegirAssaig } from "../../../assajos/components/modal-afegir-assa
 
 const DropdownAfegirAssaigProjecte = ({ projecte }) => {
   const [loadingPostAssaig, postAssaig] = usePostAPI(
-    `/api/projectes/${projecte.id_projecte}/assajos`
+    `/projectes/${projecte.id_projecte}/assajos`
   );
 
   return (

@@ -12,7 +12,7 @@ const ModalListMovimentsAssaig = ({
   const { id_assaig } = useContext(AssaigContext);
 
   const [loadingPostMoviment, postMoviment] = usePostAPI(
-    `/api/assajos/${id_assaig}/moviments`
+    `/assajos/${id_assaig}/moviments`
   );
 
   return (

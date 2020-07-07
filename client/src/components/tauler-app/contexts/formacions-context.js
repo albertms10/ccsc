@@ -8,7 +8,7 @@ export const LoadingFormacionsContext = createContext(null);
 export default ({ children }) => {
   const { id_persona } = useSelector((state) => state.user.currentUser);
   const [formacions, loadingFormacions] = useAPI(
-    `/api/socis/${id_persona}/formacions`
+    `/socis/${id_persona}/formacions`
   );
 
   return (

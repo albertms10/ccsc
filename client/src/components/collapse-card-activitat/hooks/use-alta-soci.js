@@ -11,7 +11,7 @@ export default (soci) => {
   const donarAltaSoci = () => {
     setLoading(true);
     return fetchAPI(
-      `/api/socis/${soci.id_soci}/alta`,
+      `/socis/${soci.id_soci}/alta`,
       () => {
         setLoading(false);
       },

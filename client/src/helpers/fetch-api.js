@@ -42,10 +42,10 @@ const modalWarn = (error, dispatch) => {
  * @param {string} url
  * @param {Function} callback
  * @param {Function} dispatch
- * @param {Object} [init={}]
+ * @param {Object} [init]
  */
 export default (url, callback, dispatch, init = {}) =>
-  fetch(url, {
+  fetch(`/api${url}`, {
     method: init.method ?? "GET",
     headers: {
       ...init.headers,

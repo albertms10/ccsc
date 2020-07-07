@@ -22,7 +22,7 @@ export default () => {
 
   const [obres, loading] = useObres();
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    `/api/obres`,
+    `/obres`,
     "l’obra",
     () => dispatch(fetchObres())
   );

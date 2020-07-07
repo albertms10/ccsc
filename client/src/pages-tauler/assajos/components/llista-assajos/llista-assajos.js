@@ -25,7 +25,7 @@ const LlistaAssajos = ({ idProjecte, searchValue, anteriors = false }) => {
 
   const [assajos, loading] = useAssajos();
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    "/api/assajos",
+    "/assajos",
     "l’assaig",
     () => dispatch(fetchAssajos())
   );

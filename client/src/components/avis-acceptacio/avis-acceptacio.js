@@ -15,7 +15,7 @@ const AvisAcceptacio = ({
   collapsible = false,
 }) => {
   const [textAvisAcceptacio, loading] = useAPI(
-    `/api/agrupacions/avisos/${nameAvis}`
+    `/agrupacions/avisos/${nameAvis}`
   );
 
   const content = useMemo(

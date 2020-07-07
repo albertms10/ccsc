@@ -9,16 +9,18 @@ export default (id) => {
   const changeFormacioAssaig = (formacio) => {
     setLoading(true);
     return formacio.checked
-      ? fetchAPI(`/api/assajos/${id}/formacions`, () => setLoading(false), dispatch, {
-        method: "POST",
-        body: JSON.stringify(formacio),
-      })
+      ? fetchAPI(
+          `/assajos/${id}/formacions`,
+          () => setLoading(false),
+          dispatch,
+          { method: "POST", body: JSON.stringify(formacio) }
+        )
       : fetchAPI(
-        `/api/assajos/${id}/formacions/${formacio.id_formacio}`,
-        () => setLoading(false),
-        dispatch,
-        { method: "DELETE" }
-      );
+          `/assajos/${id}/formacions/${formacio.id_formacio}`,
+          () => setLoading(false),
+          dispatch,
+          { method: "DELETE" }
+        );
   };
 
   return [loading, changeFormacioAssaig];

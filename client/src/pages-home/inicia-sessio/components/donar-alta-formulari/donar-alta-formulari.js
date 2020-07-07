@@ -23,7 +23,7 @@ export default () => {
       history.push({ pathname: "/inicia-sessio", state: { username } });
     },
     true,
-    "/api/socis/alta"
+    "/socis/alta"
   );
 
   return inWaitingList ? (

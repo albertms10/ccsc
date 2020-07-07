@@ -16,7 +16,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [obra, loadingObra] = useAPI(`/api/obres/${id}`);
+  const [obra, loadingObra] = useAPI(`/obres/${id}`);
 
   useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra.titol]);
 

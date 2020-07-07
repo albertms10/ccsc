@@ -4,8 +4,8 @@ import { useAPI } from "../../helpers";
 import { NumberInfo } from "../number-info";
 
 export default () => {
-  const [countAssajos] = useAPI("/api/assajos/count");
-  const [historial] = useAPI("/api/assajos/historial");
+  const [countAssajos] = useAPI("/assajos/count");
+  const [historial] = useAPI("/assajos/historial");
 
   return (
     <ChartCard title="Assajos">

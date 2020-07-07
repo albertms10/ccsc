@@ -20,7 +20,7 @@ const TaulaSocis = ({ socis, loading = false }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    "/api/socis",
+    "/socis",
     "la persona",
     () => dispatch(fetchSocis())
   );

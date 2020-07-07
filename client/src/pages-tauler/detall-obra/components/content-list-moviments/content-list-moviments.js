@@ -14,7 +14,7 @@ export default () => {
   const { id_obra, durada_total } = useContext(ObraContext);
 
   const [moviments, loadingMoviments, getMoviments] = useAPI(
-    `/api/obres/${id_obra}/moviments`
+    `/obres/${id_obra}/moviments`
   );
 
   return (

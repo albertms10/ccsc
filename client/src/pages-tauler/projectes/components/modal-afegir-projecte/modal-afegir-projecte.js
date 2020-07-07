@@ -38,7 +38,7 @@ export default () => {
     loadingInicials,
     checkInicials,
   ] = useCheckInicials();
-  const [cursos, loadingCursos] = useAPI("/api/agrupacions/cursos");
+  const [cursos, loadingCursos] = useAPI("/agrupacions/cursos");
 
   const handleTitolChange = useCallback(
     ({ target }) => {

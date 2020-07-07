@@ -8,7 +8,7 @@ export default (id) => {
 
   const putAssistentEsdeveniment = (assistent) =>
     fetchAPI(
-      `/api/esdeveniments/${id}/assistents`,
+      `/esdeveniments/${id}/assistents`,
       () => setLoading(false),
       dispatch,
       { method: "PUT", body: JSON.stringify(assistent) }

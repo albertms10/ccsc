@@ -23,7 +23,7 @@ export const fetchSocis = () => (dispatch) => {
   dispatch(fetchSocisRequest());
 
   fetchAPI(
-    `/api/socis`,
+    `/socis`,
     (data) => {
       if (data.hasOwnProperty("error")) dispatch(fetchSocisFailure(data.error));
       else dispatch(fetchSocisSuccess(data));

@@ -19,7 +19,7 @@ export default ({ match }) => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [projecte, loading] = useAPI(`/api/projectes/${id}`);
+  const [projecte, loading] = useAPI(`/projectes/${id}`);
 
   const [action, setAction] = useState(null);
 

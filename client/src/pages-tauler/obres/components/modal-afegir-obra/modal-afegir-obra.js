@@ -12,7 +12,7 @@ export default () => {
   const { loading } = useSelector(({ obres }) => obres);
 
   const [form, handleOk] = useAfegirObra();
-  const [idiomes, loadingIdiomes] = useAPI("/api/obres/idiomes");
+  const [idiomes, loadingIdiomes] = useAPI("/obres/idiomes");
 
   return (
     <ModalButton

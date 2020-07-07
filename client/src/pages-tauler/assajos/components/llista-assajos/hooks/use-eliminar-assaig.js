@@ -6,7 +6,7 @@ export default () => {
   const dispatch = useDispatch();
 
   const handleEliminar = (id) =>
-    fetchAPI(`/api/assajos/${id}`, () => dispatch(fetchAssajos()), dispatch, {
+    fetchAPI(`/assajos/${id}`, () => dispatch(fetchAssajos()), dispatch, {
       method: "DELETE",
     });
 

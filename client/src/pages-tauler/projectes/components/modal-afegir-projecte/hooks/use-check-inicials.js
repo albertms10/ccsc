@@ -10,7 +10,7 @@ export default () => {
   const checkInicials = (inicials) => {
     setLoading(true);
     fetchAPI(
-      `/api/projectes/check-inicials/${inicials}`,
+      `/projectes/check-inicials/${inicials}`,
       (disponible) => {
         setDisponible(disponible);
         setLoading(false);

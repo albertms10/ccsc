@@ -12,7 +12,7 @@ import { useVeuAssaig } from "./hooks";
 const PopoverVeusAssaig = ({ getConvocatsAssaig }) => {
   const { id_assaig } = useContext(AssaigContext);
 
-  const [veus, loadingVeus, getVeus] = useAPI(`/api/assajos/${id_assaig}/veus`);
+  const [veus, loadingVeus, getVeus] = useAPI(`/assajos/${id_assaig}/veus`);
   const [loadingVeu, changeVeuAssaig] = useVeuAssaig(id_assaig);
 
   const getVeusText = useCallback(() => {

@@ -9,12 +9,12 @@ export default (id) => {
   const changeVeuAssaig = (veu) => {
     setLoading(true);
     return veu.checked
-      ? fetchAPI(`/api/assajos/${id}/veus`, () => setLoading(false), dispatch, {
+      ? fetchAPI(`/assajos/${id}/veus`, () => setLoading(false), dispatch, {
           method: "POST",
           body: JSON.stringify(veu),
         })
       : fetchAPI(
-          `/api/assajos/${id}/veus/${veu.id_veu}`,
+          `/assajos/${id}/veus/${veu.id_veu}`,
           () => setLoading(false),
           dispatch,
           { method: "DELETE" }

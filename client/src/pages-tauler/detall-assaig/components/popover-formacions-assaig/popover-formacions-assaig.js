@@ -11,7 +11,7 @@ const PopoverFormacionsAssaig = ({ getConvocatsAssaig }) => {
   const { id_assaig } = useContext(AssaigContext);
 
   const [formacions, loadingFormacions, getFormacions] = useAPI(
-    `/api/assajos/${id_assaig}/formacions`
+    `/assajos/${id_assaig}/formacions`
   );
   const [loadingFormacio, changeFormacioAssaig] = useFormacioAssaig(id_assaig);
 

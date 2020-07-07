@@ -13,9 +13,7 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     persona.retard ? "retard" : ""
   );
 
-  const [estats, loadingEstats] = useAPI(
-    "/api/esdeveniments/estats-confirmacio"
-  );
+  const [estats, loadingEstats] = useAPI("/esdeveniments/estats-confirmacio");
   const [
     loadingPutAssistent,
     putAssistentEsdeveniment,

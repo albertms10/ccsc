@@ -8,7 +8,7 @@ import { SociContext } from "../../perfil-soci";
 export default () => {
   const soci = useContext(SociContext);
 
-  const [acceptacionsSoci] = useAPI(`/api/socis/${soci.id_soci}/acceptacions`);
+  const [acceptacionsSoci] = useAPI(`/socis/${soci.id_soci}/acceptacions`);
 
   return (
     <Space size="large" direction="vertical" style={{ width: "100%" }}>

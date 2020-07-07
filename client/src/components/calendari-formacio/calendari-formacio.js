@@ -15,7 +15,7 @@ import { CalendariResultLabel } from "./components/calendari-result-label";
 export default () => {
   const { id_formacio } = useContext(FormacioContext);
   const [esdeveniments, loading] = useAPI(
-    `/api/formacions/${id_formacio}/esdeveniments`
+    `/formacions/${id_formacio}/esdeveniments`
   );
 
   return (

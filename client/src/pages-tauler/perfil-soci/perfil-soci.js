@@ -21,7 +21,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [soci] = useAPI(`/api/socis/${id}`);
+  const [soci] = useAPI(`/socis/${id}`);
 
   useEffect(() => setPageHeader(soci.nom_complet), [
     setPageHeader,

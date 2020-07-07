@@ -15,13 +15,13 @@ export default () => {
 
   const [assajos, loadingAssajos] = useAssajos();
   const [concerts, loadingConcerts] = useAPI(
-    `/api/formacions/${id_formacio}/concerts`
+    `/formacions/${id_formacio}/concerts`
   );
   const [projectes, loadingProjectes] = useAPI(
-    `/api/formacions/${id_formacio}/projectes`
+    `/formacions/${id_formacio}/projectes`
   );
   const [integrants, loadingIntegrants] = useAPI(
-    `/api/formacions/${id_formacio}/integrants`
+    `/formacions/${id_formacio}/integrants`
   );
 
   return (
