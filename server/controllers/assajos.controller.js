@@ -36,9 +36,9 @@ exports.assajos_assistencia = (req, res, next) => {
   pool
     .query(
       queryFile(
-        group === "veus"
-          ? "assajos/select__assistencia_veus_assajos"
-          : "assajos/select__assistencia_assajos"
+        groupBy === "veus"
+          ? "assajos/select__assistencia_assajos_veus"
+          : "assajos/select__assistencia_assajos_estat"
       )
     )
     .then((assistencia) => res.json(assistencia))
