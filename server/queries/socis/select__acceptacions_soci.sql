@@ -1,5 +1,5 @@
 SELECT IFNULL(
-               JSON_OBJECTAGG(form_name, IF(accepta, CAST(TRUE AS JSON), CAST(FALSE AS JSON))),
+               JSON_OBJECTAGG(form_name, accepta),
                '{}'
            ) AS acceptacions
 FROM socis_acceptacions

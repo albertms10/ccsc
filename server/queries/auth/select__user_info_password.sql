@@ -26,18 +26,16 @@ SELECT id_usuari AS id,
                      AND id_soci = p.id_persona
                )
        )         AS avisos,
-       IF(
-               EXISTS(
-                       SELECT *
-                       FROM socis s
-                                INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
-                       WHERE id_soci = p.id_persona
-                         AND CURRENT_DATE
-                           BETWEEN data_alta
-                           AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)
-                       ORDER BY data_alta DESC
-                   ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
-           )     AS estat_actiu
+       EXISTS(
+               SELECT *
+               FROM socis s
+                        INNER JOIN historial_socis hs ON (s.id_soci = hs.id_historial_soci)
+               WHERE id_soci = p.id_persona
+                 AND CURRENT_DATE
+                   BETWEEN data_alta
+                   AND IFNULL(DATE_SUB(data_baixa, INTERVAL 1 DAY), CURRENT_DATE)
+               ORDER BY data_alta DESC
+           )     AS es_actiu
 FROM usuaris_complet uc
          LEFT JOIN persones p USING (id_persona)
 WHERE ?;

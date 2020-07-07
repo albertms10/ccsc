@@ -50,11 +50,11 @@ FROM esdeveniments e;
 
 CREATE OR REPLACE VIEW assajos_son_parcials AS
 SELECT DISTINCT id_assaig,
-                IF(EXISTS(
-                           SELECT id_veu
-                           FROM veus_convocades_assaig
-                           WHERE id_assaig = a.id_assaig
-                       ), TRUE, FALSE) AS es_parcial
+                EXISTS(
+                        SELECT id_veu
+                        FROM veus_convocades_assaig
+                        WHERE id_assaig = a.id_assaig
+                    ) AS es_parcial
 FROM assajos a
          JOIN veus v;
 
@@ -79,13 +79,13 @@ FROM assajos_son_parcials asp
 CREATE OR REPLACE VIEW assajos_estat AS
 SELECT DISTINCT ee.*,
                 id_assaig,
-                IF(es_parcial, CAST(TRUE AS JSON), CAST(FALSE AS JSON)) AS es_parcial,
+                es_parcial,
                 CONCAT(
                         'Assaig',
                         IF(es_parcial, ' parcial', ''),
                         IF(es_general, ' general', ''),
                         IF(es_extra, ' extra', '')
-                    )                                                   AS titol,
+                    ) AS titol,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -97,7 +97,7 @@ SELECT DISTINCT ee.*,
                     FROM formacions
                              INNER JOIN assajos_formacions USING (id_formacio)
                     WHERE id_assaig = a.id_assaig
-                )                                                       AS formacions,
+                )     AS formacions,
                 (
                     SELECT IFNULL(JSON_ARRAYAGG(
                                           JSON_OBJECT(
@@ -110,7 +110,7 @@ SELECT DISTINCT ee.*,
                     FROM projectes
                              INNER JOIN assajos_projectes USING (id_projecte)
                     WHERE id_assaig = a.id_assaig
-                )                                                       AS projectes
+                )     AS projectes
 FROM assajos a
          INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig)
          LEFT JOIN assajos_son_parcials USING (id_assaig);
@@ -214,7 +214,7 @@ SELECT sv.id_persona,
        cognoms,
        nom_complet,
        av.*,
-       IF(retard, TRUE, FALSE)            AS retard,
+       amb_retard,
        IFNULL(ec.id_estat_confirmacio, 1) AS id_estat_confirmacio,
        (
            SELECT estat

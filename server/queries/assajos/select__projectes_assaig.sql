@@ -1,13 +1,11 @@
 SET @id_assaig = ?;
 
 SELECT *,
-       IF(
-               EXISTS(
-                       SELECT *
-                       FROM assajos_projectes
-                       WHERE id_assaig = @id_assaig
-                         AND id_projecte = p.id_projecte
-                   ), CAST(TRUE AS JSON), CAST(FALSE AS JSON)
+       EXISTS(
+               SELECT *
+               FROM assajos_projectes
+               WHERE id_assaig = @id_assaig
+                 AND id_projecte = p.id_projecte
            ) AS convocada
 FROM projectes p,
      (

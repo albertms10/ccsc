@@ -12,6 +12,21 @@ const createPool = async () =>
     multipleStatements: true,
     // charset: "utf8mb4",
     timezone: "Z",
+    typeCast: (field, next) =>
+      [
+        "amb_retard",
+        "convocada",
+        "es_actiu",
+        "es_anonim",
+        "es_assaig_ordinari",
+        "es_dona",
+        "es_institucio",
+        "es_parcial",
+        "requerida",
+        "requerit",
+      ].includes(field.name)
+        ? field.string() === "1"
+        : next(),
   });
 
 const ensureSchema = async (pool) => {

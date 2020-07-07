@@ -165,9 +165,7 @@ exports.assajos_detall_projectes_get = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__projectes_assaig"), [id])
-    .then(([_, projectes]) =>
-      parseAndSendJSON(res, next, projectes, ["convocada"])
-    )
+    .then(([_, projectes]) => res.json(projectes))
     .catch((e) => next(e));
 };
 
@@ -203,9 +201,7 @@ exports.assajos_detall_formacions_get = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__formacions_assaig"), [id])
-    .then((formacions) =>
-      parseAndSendJSON(res, next, formacions, ["convocada"])
-    )
+    .then((formacions) => res.json(formacions))
     .catch((e) => next(e));
 };
 
@@ -241,7 +237,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__convocats_assaig"), [id])
-    .then((convocats) => parseAndSendJSON(res, next, convocats, ["amb_retard"]))
+    .then((convocats) => res.json(convocats))
     .catch((e) => next(e));
 };
 
@@ -251,7 +247,7 @@ exports.assajos_detall_veus_get = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__veus_assaig"), [id])
-    .then((veus) => parseAndSendJSON(res, next, veus, ["convocada"]))
+    .then((veus) => res.json(veus))
     .catch((e) => next(e));
 };
 

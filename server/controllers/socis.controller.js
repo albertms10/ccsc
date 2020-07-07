@@ -35,7 +35,7 @@ exports.socis_get = (req, res, next) => {
 
   pool
     .query(queryFile("socis/select__socis"))
-    .then((socis) => parseAndSendJSON(res, next, socis, ["estat_actiu"]))
+    .then((socis) => res.json(socis))
     .catch((e) => next(e));
 };
 
