@@ -11,6 +11,7 @@ const createPool = async () =>
     connectionLimit: process.env.DB_LIMIT,
     multipleStatements: true,
     timezone: "Z",
+    dateStrings: true,
     typeCast: (field, next) =>
       [
         "amb_retard",
