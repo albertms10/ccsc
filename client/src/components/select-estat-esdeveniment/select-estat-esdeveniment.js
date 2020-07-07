@@ -10,7 +10,7 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     persona.id_estat_confirmacio
   );
   const [retardAssistent, setRetardAssistent] = useState(
-    persona.retard ? "retard" : ""
+    persona.amb_retard ? "amb_retard" : ""
   );
 
   const [estats, loadingEstats] = useAPI("/esdeveniments/estats-confirmacio");
@@ -20,18 +20,18 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
   ] = usePutAssistentEsdeveniment(idEsdeveniment);
 
   const handleChange = useCallback(
-    ({ id_estat_confirmacio, retard }) => {
+    ({ id_estat_confirmacio, amb_retard }) => {
       const putEstat = id_estat_confirmacio || estatConfirmacio;
-      const putRetard = !!retard;
+      const putRetard = !!amb_retard;
 
       putAssistentEsdeveniment({
         id_soci: persona.id_soci,
         id_estat_confirmacio: putEstat,
-        retard: putRetard,
+        amb_retard: putRetard,
       }).then(() => {
         if (estatConfirmacio !== putEstat) setEstatConfirmacio(putEstat);
         if (retardAssistent !== putRetard)
-          setRetardAssistent(putRetard ? "retard" : "");
+          setRetardAssistent(putRetard ? "amb_retard" : "");
       });
     },
     [
@@ -47,7 +47,7 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
       {estatConfirmacio === 1 && (
         <Checkbox
           defaultChecked={retardAssistent}
-          onChange={({ target }) => handleChange({ retard: target.checked })}
+          onChange={({ target }) => handleChange({ amb_retard: target.checked })}
         >
           Amb retard
         </Checkbox>

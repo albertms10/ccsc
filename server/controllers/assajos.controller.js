@@ -241,7 +241,7 @@ exports.assajos_detall_convocats = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__convocats_assaig"), [id])
-    .then((convocats) => parseAndSendJSON(res, next, convocats, ["retard"]))
+    .then((convocats) => parseAndSendJSON(res, next, convocats, ["amb_retard"]))
     .catch((e) => next(e));
 };
 

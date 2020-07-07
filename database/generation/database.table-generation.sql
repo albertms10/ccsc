@@ -724,7 +724,7 @@ CREATE TABLE IF NOT EXISTS assistents_esdeveniment
 (
     id_esdeveniment      SMALLINT UNSIGNED            NOT NULL,
     id_soci              SMALLINT UNSIGNED            NOT NULL,
-    retard               TINYINT(1)       DEFAULT 0   NOT NULL,
+    amb_retard           TINYINT(1)       DEFAULT 0   NOT NULL,
     id_estat_confirmacio TINYINT UNSIGNED DEFAULT '2' NOT NULL,
     PRIMARY KEY (id_esdeveniment, id_soci),
     CONSTRAINT assistents_esdeveniment_ibfk_1
@@ -1287,7 +1287,7 @@ SELECT sv.id_soci                                                               
        av.id_veu                                                                              AS id_veu,
        av.nom_veu                                                                             AS nom_veu,
        av.abreviatura_veu                                                                     AS abreviatura_veu,
-       if(ae.retard, TRUE, FALSE)                                                             AS retard,
+       if(ae.amb_retard, TRUE, FALSE)                                                         AS amb_retard,
        ifnull(ec.id_estat_confirmacio, 1)                                                     AS id_estat_confirmacio,
        (SELECT estats_confirmacio.estat
         FROM estats_confirmacio

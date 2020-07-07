@@ -311,7 +311,7 @@ Table "estats_confirmacio" {
 Table "assistents_esdeveniment" {
   "id_esdeveniment" SMALLINT [not null]
   "id_soci" SMALLINT [not null]
-  "retard" BOOLEAN [not null, default: FALSE]
+  "amb_retard" BOOLEAN [not null, default: FALSE]
   "id_estat_confirmacio" TINYINT [not null, default: 2]
 
 Indexes {

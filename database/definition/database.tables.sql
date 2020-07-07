@@ -466,7 +466,7 @@ CREATE TABLE IF NOT EXISTS assistents_esdeveniment
     id_esdeveniment      SMALLINT UNSIGNED NOT NULL,
     id_soci              SMALLINT UNSIGNED NOT NULL,
 
-    retard               BOOLEAN           NOT NULL DEFAULT FALSE,
+    amb_retard           BOOLEAN           NOT NULL DEFAULT FALSE,
 
     id_estat_confirmacio TINYINT UNSIGNED  NOT NULL DEFAULT 2,
 
