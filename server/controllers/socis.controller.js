@@ -94,9 +94,11 @@ exports.socis_post = async (req, res, next) => {
                       id_persona,
                       {
                         toSqlString: () =>
-                          `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${connection.escape(
-                            acceptacio
-                          )})`,
+                          `(SELECT id_acceptacio_avis
+                            FROM acceptacions_avis 
+                            WHERE form_name = ${connection.escape(
+                              acceptacio
+                            )})`,
                       },
                       soci.acceptacions[acceptacio],
                     ]),
@@ -199,9 +201,9 @@ exports.socis_detall_acceptacions_put = (req, res, next) => {
         id,
         {
           toSqlString: () =>
-            `(SELECT id_acceptacio_avis FROM acceptacions_avis WHERE form_name = ${pool.escape(
-              acceptacio
-            )})`,
+            `(SELECT id_acceptacio_avis
+              FROM acceptacions_avis
+              WHERE form_name = ${pool.escape(acceptacio)})`,
         },
         acceptacions[acceptacio],
       ]),
