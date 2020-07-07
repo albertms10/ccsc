@@ -3,7 +3,9 @@ const { saltHashPassword, signJWT } = require("../utils");
 
 exports.signin = (req, res, next) => {
   const pool = req.app.get("pool");
-  const { username, password } = req.body;
+  const {
+    user: { username, password },
+  } = req.body;
 
   if (!username || !password)
     return res.status(401).send({
