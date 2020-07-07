@@ -45,7 +45,7 @@ export const SociPropTypes = PropTypes.shape({
   username: PropTypes.string,
   email: PropTypes.string,
   telefon: PropTypes.string,
-  estat_actiu: PropTypes.bool,
+  es_actiu: PropTypes.bool,
   data_actiu: PropTypes.string,
   data_inactiu: PropTypes.string,
   dies_activitat: PropTypes.number,

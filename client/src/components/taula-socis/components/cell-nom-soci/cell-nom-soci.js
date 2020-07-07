@@ -14,7 +14,7 @@ const CellNomSoci = ({ soci }) => (
           soci.data_inactiu ? "in" : ""
         }activitat`}
       >
-        <Badge dot status={soci.estat_actiu ? "success" : "danger"}>
+        <Badge dot status={soci.es_actiu ? "success" : "danger"}>
           <Avatar className="socis-table-avatar">
             {soci.nom.charAt(0)}
             {soci.cognoms.charAt(0)}

@@ -9,12 +9,12 @@ const trySendUser = (
     es_dona,
     id_persona,
     avisos,
-    estat_actiu,
+    es_actiu,
     roles
   },
   accessToken
 ) => {
-  if (!JSON.parse(estat_actiu))
+  if (!es_actiu)
     return res.status(403).send({
       error: {
         status: 403,

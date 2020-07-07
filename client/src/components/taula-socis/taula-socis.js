@@ -38,7 +38,7 @@ const TaulaSocis = ({ socis, loading = false }) => {
         { text: "Inactiu", value: false },
       ],
       filterMultiple: false,
-      onFilter: (value, record) => value === record.estat_actiu,
+      onFilter: (value, soci) => value === soci.es_actiu,
     },
     {
       title: "Adreça electrònica",
