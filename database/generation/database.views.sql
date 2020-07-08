@@ -126,7 +126,7 @@ SELECT *,
                                          'titol_moviment', titol_moviment,
                                          'titol_obra', titol_obra,
                                          'ordre', ordre,
-                                         'unic_moviment', unic_moviment
+                                         'es_unic_moviment', es_unic_moviment
                                      )
                              ), '[]')
            FROM moviments_full m
@@ -277,7 +277,7 @@ SELECT o.id_obra,
                          AND id_moviment <> m.id_moviment
                    )
                )
-       )                        AS unic_moviment,
+       )                        AS es_unic_moviment,
        durada,
        IFNULL(m.titol, o.titol) AS titol_moviment,
        o.titol                  AS titol_obra,

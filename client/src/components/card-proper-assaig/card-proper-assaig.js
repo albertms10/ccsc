@@ -64,7 +64,7 @@ const CardProperAssaig = ({ assaig }) => (
               <Link
                 to={`/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`}
               >
-                {!moviment.unic_moviment && (
+                {!moviment.es_unic_moviment && (
                   <b style={{ marginRight: 4 }}>{moviment.ordre}</b>
                 )}
                 {moviment.titol_moviment}

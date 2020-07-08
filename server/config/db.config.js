@@ -22,6 +22,7 @@ const createPool = async () =>
         "es_dona",
         "es_institucio",
         "es_parcial",
+        "es_unic_moviment",
         "requerida",
         "requerit",
       ].includes(field.name)
