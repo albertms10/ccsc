@@ -129,7 +129,7 @@ exports.assajos_detall_moviments_get = (req, res, next) => {
 
   pool
     .query(queryFile("assajos/select__moviments_assaig"), [id])
-    .then((moviments) => res.json(moviments))
+    .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
     .catch((e) => next(e));
 };
 
