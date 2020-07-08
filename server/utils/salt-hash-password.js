@@ -3,15 +3,13 @@ const crypto = require("crypto");
 /**
  * Generates a random string given the size of random
  * bytes and returns it using a HEX encoding.
- *
  * @param {number} size
  * @returns {string}
  */
 const randomString = (size) => crypto.randomBytes(size).toString("hex");
 
 /**
- * Generates a pair salt and hash for a given pass word.
- *
+ * Generates a pair salt and hash for a given password.
  * @param {Object} securePassword
  * @param {string} securePassword.password
  * @param {string} [securePassword.salt]
