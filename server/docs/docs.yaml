@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: Associació Musical Catalana Crescendo
   version: 0.2.0
@@ -8,48 +8,56 @@ info:
     email: albertmasa2@gmail.com
 servers:
   - url: "/api"
+basePath: /api
 consumes:
   - application/json
 produces:
   - application/json
 
+tags:
+  - name: Agrupacions
+  - name: Assajos
+  - name: Auth
+  - name: Concerts
+  - name: Esdeveniments
+  - name: Establiments
+  - name: Formacions
+  - name: Localitzacions
+  - name: Moviments
+  - name: Obres
+  - name: Projectes
+  - name: Socis
+  - name: Titulars
+  - name: Usuaris
+
 paths:
   /agrupacions:
     get:
-      summary: Llista d’agrupacions
+      summary: Obtén la llista d’agrupacions
       tags: [Agrupacions]
       security:
         - JWT: []
       responses:
-        "200":
-          description: Obtén la llista d’agrupacions
+        200:
+          description: Llista d’agrupacions
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Agrupacio"
-        "401":
-          description: Sense autorització
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+        401:
+          $ref: "#/components/responses/Unauthorized"
 
   /agrupacions/avisos/{name}:
     get:
-      summary: Informació d’un avís
+      summary: Obtén la informació d’un avís
       tags: [Agrupacions]
       parameters:
-        - in: path
-          name: name
-          schema:
-            type: string
-          required: true
-          description: Nom de l’avís
+        - $ref: "#/components/parameters/name"
       responses:
-        "200":
-          description: Obtén la informació de l’avís
+        200:
+          description: Informació de l’avís
           content:
             application/json:
               schema:
@@ -57,21 +65,311 @@ paths:
 
   /agrupacions/cursos:
     get:
-      summary: Llista de cursos
+      summary: Obtén la llista de cursos
       tags: [Agrupacions]
       security:
         - JWT: []
       responses:
-        "200":
-          description: Obtén la llista de cursos
+        200:
+          description: Llista de cursos
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Curs"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos:
+    post:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Afegeix un assaig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assaig:
+                  $ref: "#/components/schemas/AssaigPost"
+      responses:
+        204:
+          $ref: "#/components/responses/Posted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/count:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén el recompte d’assajos
+      responses:
+        200:
+          description: Recompte d’assajos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Count"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/historial:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén l’historial d’assajos
+      responses:
+        200:
+          description: Historial d’assajos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Historial"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/assistencia:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén l’assistència d’assajos
+      parameters:
+        - in: query
+          name: group-by
+          schema:
+            type: string
+            enum: [estat, veus]
+          description: Agrupació de les dades
+      responses:
+        200:
+          description: Assistència als assajos
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/AssistenciaAssajosEstat"
+                  - $ref: "#/components/schemas/AssistenciaAssajosVeus"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/{id}:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén la informació d’un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: Informació de l’assaig
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssaigComplet"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+    delete:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Elimina un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        204:
+          $ref: "#/components/responses/Deleted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/{id}/moviments:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén els moviments d’un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: Moviments de l’assaig
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Moviment"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+    post:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Afegeix un moviment a un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: integer
+      responses:
+        204:
+          $ref: "#/components/responses/Posted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/{id_assaig}/moviments/{id_moviment}:
+    delete:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Elimina un moviment d’un assaig
+      parameters:
+        - in: path
+          name: id_assaig
+          description: Identificador de l’assaig
+          type: integer
+        - in: path
+          name: id_moviment
+          description: Identificador del moviment
+          type: integer
+      responses:
+        204:
+          $ref: "#/components/responses/Deleted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/{id}/projectes:
+    get:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Obtén els projectes d’un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+    post:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Afegeix un projecte a un assaig
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: integer
+      responses:
+        204:
+          $ref: "#/components/responses/Posted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /assajos/{id_assaig}/projectes/{id_projecte}:
+    delete:
+      tags: [Assajos]
+      security:
+        - JWT: []
+      summary: Elimina un projecte d’un assaig
+      parameters:
+        - in: path
+          name: id_assaig
+          description: Identificador de l’assaig
+          type: integer
+        - in: path
+          name: id_moviment
+          description: Identificador del moviment
+          type: integer
+      responses:
+        204:
+          $ref: "#/components/responses/Deleted"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+
+  /auth/sign-in:
+    post:
+      tags: [Auth]
+      summary: Inicia la sessió
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: "#/components/schemas/Usuari"
+      responses:
+        200:
+          description: Informació de l’usuari
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/Usuari"
+                  accessToken:
+                    type: string
+
+        403:
+          $ref: "#/components/responses/Forbidden"
 
 components:
+  responses:
+    Deleted:
+      description: Recurs eliminat satisfactòriament
+
+    Forbidden:
+      description: Sense permís
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Posted:
+      description: Recurs afegit satisfactòriament
+
+    Unauthorized:
+      description: Sense autorització
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  parameters:
+    name:
+      in: path
+      name: name
+      schema:
+        type: string
+      required: true
+      description: Nom del recurs
+
+    id:
+      in: path
+      name: id
+      schema:
+        type: integer
+      required: true
+      description: Identificador del recurs
+
   schemas:
     Acceptacio:
       type: object
@@ -98,6 +396,113 @@ components:
           type: integer
         tipus_agrupacio:
           type: string
+
+    Assaig:
+      allOf:
+        - $ref: "#/components/schemas/Esdeveniment"
+        - type: object
+          properties:
+            id_assaig:
+              type: integer
+              readOnly: true
+            titol:
+              type: string
+              readOnly: true
+            es_general:
+              type: boolean
+            es_extra:
+              type: boolean
+            es_parcial:
+              type: boolean
+              readOnly: true
+
+    AssaigPost:
+      allOf:
+        - $ref: "#/components/schemas/Assaig"
+        - type: object
+          properties:
+            hora:
+              type: array
+              writeOnly: true
+              items:
+                type: string
+                format: time
+              minItems: 2
+              maxItems: 2
+            formacions:
+              type: array
+              writeOnly: true
+              items:
+                type: integer
+            projectes:
+              type: array
+              writeOnly: true
+              items:
+                type: integer
+
+    AssaigComplet:
+      allOf:
+        - $ref: "#/components/schemas/Assaig"
+        - type: object
+          properties:
+            formacions:
+              type: array
+              readOnly: true
+              items:
+                $ref: "#/components/schemas/Formacio"
+            projectes:
+              type: array
+              readOnly: true
+              items:
+                $ref: "#/components/schemas/Projecte"
+
+    Assistencia:
+      type: object
+      properties:
+        dia_inici:
+          type: string
+          format: date
+        hora_inici:
+          type: string
+          format: time
+        convocats:
+          type: integer
+
+    AssistenciaAssajos:
+      allOf:
+        - $ref: "#/components/schemas/Assistencia"
+        - type: object
+          properties:
+            id_assaig:
+              type: integer
+
+    AssistenciaAssajosEstat:
+      allOf:
+        - $ref: "#/components/schemas/AssistenciaAssajos"
+        - type: object
+          properties:
+            confirmats_retard:
+              type: integer
+            confirmats_puntuals:
+              type: integer
+            pendents:
+              type: integer
+            cancelats:
+              type: integers
+
+    AssistenciaAssajosVeus:
+      allOf:
+        - $ref: "#/components/schemas/AssistenciaAssajos"
+        - type: object
+          properties:
+            sopranos:
+              type: integer
+            contralts:
+              type: integer
+            tenors:
+              type: integer
+            baixos:
+              type: integers
 
     Avis:
       type: object
@@ -128,6 +533,9 @@ components:
           items:
             $ref: "#/components/schemas/Acceptacio"
 
+    Count:
+      type: integer
+
     Curs:
       type: object
       properties:
@@ -152,6 +560,120 @@ components:
             message:
               type: string
 
+    Esdeveniment:
+      type: object
+      properties:
+        id_esdeveniment:
+          type: integer
+          readOnly: true
+        data_inici:
+          type: string
+          format: date-time
+          readOnly: true
+        dia_inici:
+          type: string
+          format: date
+        hora_inici:
+          type: string
+          format: time
+          readOnly: true
+        data_final:
+          type: string
+          format: date-time
+          readOnly: true
+        dia_final:
+          type: string
+          format: date
+          readOnly: true
+        hora_final:
+          type: string
+          format: time
+          readOnly: true
+        localitzacio:
+          type: string
+          readOnly: true
+        establiment:
+          type: string
+          readOnly: true
+        id_esdeveniment_ajornat:
+          type: integer
+          readOnly: true
+        id_estat_esdeveniment:
+          type: integer
+        estat_esdeveniment:
+          type: string
+          readOnly: true
+        id_estat_localitzacio:
+          type: integer
+          readOnly: true
+        estat_localitzacio:
+          type: string
+          readOnly: true
+
+    Formacio:
+      type: object
+      properties:
+        id_formacio:
+          type: integer
+        nom:
+          type: string
+        nom_curs:
+          type: string
+          nullable: true
+
+    Historial:
+      type: array
+      items:
+        type: object
+        properties:
+          x:
+            type: string
+          y:
+            type: integer
+
+    Moviment:
+      type: object
+      properties:
+        id_moviment:
+          type: integer
+        id_obra:
+          type: integer
+        num_cataleg:
+          type: string
+        ordre:
+          type: integer
+        es_unic_moviment:
+          type: boolean
+        durada:
+          type: string
+          format: time
+        titol_moviment:
+          type: string
+        titol_obra:
+          type: string
+        any_inici:
+          type: integer
+        projectes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Projecte"
+        id_esdeveniment_musical:
+          type: integer
+
+    Projecte:
+      type: object
+      properties:
+        id_projecte:
+          type: integer
+        titol:
+          type: string
+        inicials:
+          type: string
+          pattern: "^[A-Z]{1,3}$"
+        color:
+          type: string
+          pattern: "^(?:[0-9a-fA-F]{3}){1,2}$"
+
     Seccio:
       type: object
       properties:
@@ -162,8 +684,49 @@ components:
         descripcio:
           type: string
 
+    Usuari:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+          writeOnly: true
+        nom:
+          type: string
+          readOnly: true
+        cognoms:
+          type: string
+          readOnly: true
+        es_dona:
+          type: boolean
+          readOnly: true
+        id_persona:
+          type: integer
+          readOnly: true
+        avisos:
+          type: array
+          readOnly: true
+          items:
+            type: integer
+        roles:
+          type: array
+          readOnly: true
+          items:
+            type: string
+            enum:
+              - ROLE_USUARI
+              - ROLE_JUNTA_DIRECTIVA
+              - ROLE_DIRECTOR
+              - ROLE_ADMIN
+
   securitySchemes:
     JWT:
       type: apiKey
-      name: JWT
       in: header
+      name: x-access-token
+      bearerFormat: JWT
