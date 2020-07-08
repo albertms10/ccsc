@@ -26,10 +26,10 @@ export default () => {
         title: moviment.titol_moviment,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
         actions: [
+          timeDuration(moviment.durada),
           ...(moviment.projectes && moviment.projectes.length > 0
             ? [<FixedTagsProjectes projectes={moviment.projectes} />]
             : []),
-          timeDuration(moviment.durada),
           <DropdownBorderlessButton />,
         ],
         avatar: (
