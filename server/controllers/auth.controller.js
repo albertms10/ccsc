@@ -8,10 +8,11 @@ exports.signin = (req, res, next) => {
   } = req.body;
 
   if (!username || !password)
-    return res.status(401).send({
+    return res.status(403).send({
       error: {
-        status: 401,
+        status: 403,
         message: "Introdueix el nom d’usuari i la contrasenya.",
+        okOnly: true,
       },
     });
 
@@ -30,10 +31,11 @@ exports.signin = (req, res, next) => {
       }
 
       if (!user || !passwordIsValid)
-        return res.status(401).send({
+        return res.status(403).send({
           error: {
-            status: 401,
+            status: 403,
             message: "Nom d’usuari o contrasenya incorrectes",
+            okOnly: true,
           },
         });
 
