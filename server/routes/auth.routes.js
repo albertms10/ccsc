@@ -10,12 +10,6 @@ router.route("/email-espera").post(controller.email_espera);
 
 router
   .route("/user")
-  .get(
-    [
-      (req, res, next) =>
-        authJWT.verifyAccessToken(req, res, next, { hideMessage: true }),
-    ],
-    controller.userInfo
-  );
+  .get([authJWT.verifyAccessTokenHidden], controller.userInfo);
 
 module.exports = router;

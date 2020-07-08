@@ -46,6 +46,9 @@ const verifyAccessToken = (req, res, next, { hideMessage = false } = {}) => {
   });
 };
 
+const verifyAccessTokenHidden = (req, res, next) =>
+  verifyAccessToken(req, res, next, { hideMessage: true });
+
 const verifyEmailToken = (req, res, next) => {
   /** @type {string} */
   const accessToken = req.headers["x-access-token"];
@@ -157,6 +160,7 @@ const isAdmin = async (req, res, next) =>
 
 module.exports = {
   verifyAccessToken,
+  verifyAccessTokenHidden,
   verifyEmailToken,
   isAuthor,
   isJuntaDirectiva,
