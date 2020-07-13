@@ -99,7 +99,8 @@ export const getProfileFetch = () => (dispatch) => {
 };
 
 /**
- * Removes the JWT access token from the localStorage and dispatches the user logout action.
+ * Removes the JWT access token from the localStorage
+ * and dispatches the user logout action.
  */
 export const logoutRemoveUser = () => (dispatch) => {
   localStorage.removeItem("access-token");
