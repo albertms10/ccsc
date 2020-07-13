@@ -7,7 +7,7 @@ info:
     name: Albert Mañosa
     email: albertmasa2@gmail.com
 servers:
-  - url: "/api"
+  - url: /api
 basePath: /api
 consumes:
   - application/json
@@ -259,6 +259,14 @@ paths:
       parameters:
         - $ref: "#/components/parameters/id"
       responses:
+        200:
+          description: Projectes de l’assaig
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Projecte"
         401:
           $ref: "#/components/responses/Unauthorized"
 
