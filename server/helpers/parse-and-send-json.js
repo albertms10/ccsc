@@ -7,6 +7,8 @@
  * @param {string[]} [properties = []]
  */
 const parseAndSendJSON = (res, next, data, properties = []) => {
+  if (!data) return;
+
   const parseArrayJSON = (properties, element) =>
     properties.forEach(
       (property) => (element[property] = JSON.parse(element[property]))
@@ -24,7 +26,7 @@ const parseAndSendJSON = (res, next, data, properties = []) => {
     return res.end();
   }
 
-  if (data) res.json(data);
+  res.json(data);
 };
 
 module.exports = parseAndSendJSON;
