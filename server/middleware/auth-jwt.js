@@ -6,7 +6,7 @@ const { queryFile } = require("../helpers");
  */
 const verifyAccessToken = (req, res, next, { hideMessage = false } = {}) => {
   /** @type {string} */
-  const accessToken = req.headers["x-access-token"];
+  const { authorization: accessToken } = req.headers;
 
   if (!accessToken)
     return res.status(401).send({
@@ -51,7 +51,7 @@ const verifyAccessTokenHidden = (req, res, next) =>
 
 const verifyEmailToken = (req, res, next) => {
   /** @type {string} */
-  const accessToken = req.headers["x-access-token"];
+  const { authorization: accessToken } = req.headers;
   const { email } = req.body.soci;
 
   if (!accessToken)

@@ -87,7 +87,7 @@ exports.userInfo = (req, res, next) => {
   /** @type {number} */
   const id_usuari = req.userId;
   /** @type {string} */
-  const accessToken = req.headers["x-access-token"];
+  const accessToken = req.headers["authorization"];
 
   pool
     .query(queryFile("auth/select__user_info"), { id_usuari })

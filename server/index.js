@@ -25,7 +25,7 @@ app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",
-    "x-access-token, Origin, Content-Type, Accept"
+    "Authorization, Origin, Content-Type, Accept"
   );
   next();
 });
@@ -48,6 +48,7 @@ app.use(async (req, res, next) => {
 
 app.use("/api/agrupacions", require("./routes/agrupacions.routes"));
 app.use("/api/assajos", require("./routes/assajos.routes"));
+app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/concerts", require("./routes/concerts.routes"));
 app.use("/api/esdeveniments", require("./routes/esdeveniments.routes"));
 app.use("/api/formacions", require("./routes/formacions.routes"));
@@ -59,16 +60,6 @@ app.use("/api/projectes", require("./routes/projectes.routes"));
 app.use("/api/socis", require("./routes/socis.routes"));
 app.use("/api/titulars", require("./routes/titulars.routes"));
 app.use("/api/usuaris", require("./routes/usuaris.routes"));
-
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Headers",
-    "x-access-token, Origin, Content-Type, Accept"
-  );
-  next();
-});
-
-app.use("/api/auth", require("./routes/auth.routes"));
 
 const swaggerDocument = YAML.load("./server/docs/docs.yaml");
 

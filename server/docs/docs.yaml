@@ -728,5 +728,5 @@ components:
     JWT:
       type: apiKey
       in: header
-      name: x-access-token
+      name: Authorization
       bearerFormat: JWT

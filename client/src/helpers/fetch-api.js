@@ -51,7 +51,7 @@ export default (url, callback, dispatch, init = {}) =>
       ...init.headers,
       "Content-Type": "application/json",
       Accept: "application/json",
-      "x-access-token": localStorage.getItem("access-token"),
+      Authorization: localStorage.getItem("access-token"),
     },
     body: init.body ?? null,
   })
