@@ -181,26 +181,25 @@ SELECT id_persona,
        cognoms,
        nom_complet,
        (
-           SELECT IFNULL(
+           SELECT COALESCE(
                           (
                               SELECT GROUP_CONCAT(id_veu)
                               FROM socis_veu_moviment_projectes
                                        INNER JOIN veus_moviments USING (id_veu_moviment)
                               WHERE id_soci = s.id_soci
-                          ), IFNULL(
-                                  (
-                                      SELECT GROUP_CONCAT(id_veu)
-                                      FROM socis_projectes_veu
-                                      WHERE id_soci = s.id_soci
-                                  ),
-                                  (
-                                      SELECT GROUP_CONCAT(id_veu)
-                                      FROM socis_formacions_veus
-                                               INNER JOIN socis_formacions USING (id_soci_formacio)
-                                               INNER JOIN formacions USING (id_formacio)
-                                      WHERE id_soci = s.id_soci
-                                  )
-                              )
+                          ),
+                          (
+                              SELECT GROUP_CONCAT(id_veu)
+                              FROM socis_projectes_veu
+                              WHERE id_soci = s.id_soci
+                          ),
+                          (
+                              SELECT GROUP_CONCAT(id_veu)
+                              FROM socis_formacions_veus
+                                       INNER JOIN socis_formacions USING (id_soci_formacio)
+                                       INNER JOIN formacions USING (id_formacio)
+                              WHERE id_soci = s.id_soci
+                          )
                       )
        ) AS id_veu
 FROM socis s
