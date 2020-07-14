@@ -99,7 +99,7 @@ export const verifyEmailToken = (
         },
       });
 
-    req.email = (decoded as EmailToken).email;
+    res.locals.email = (decoded as EmailToken).email;
     next();
   });
 };
