@@ -4,10 +4,10 @@ const config = require("../config/auth.config");
 /**
  * Signs a JWT token with the given payload and expiration time in seconds.
  * @param {Object} payload
- * @param {number} expiresIn
+ * @param {number} [expiresIn]
  * @returns {string}
  */
-const signJWT = ({ payload, expiresIn }) =>
+const signJWT = ({ payload, expiresIn = 10800 }) =>
   jwt.sign(payload, config.secret, { expiresIn });
 
 module.exports = signJWT;

@@ -39,10 +39,7 @@ exports.signin = (req, res, next) => {
           },
         });
 
-      const accessToken = signJWT({
-        payload: { id: user.id },
-        expiresIn: 10800, // 3 h
-      });
+      const accessToken = signJWT({ payload: { id: user.id } });
 
       trySendUser(res, next, user, accessToken);
     })
