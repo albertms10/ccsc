@@ -5,7 +5,7 @@
     "client-install": "cd ../client && npm install",
     "start": "node src",
     "build": "cd ../client && npm install && npm run build",
-    "server": "nodemon build",
+    "server": "tsc && nodemon build",
     "client": "cd .. && npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/express": "^4.17.7",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/yamljs": "^0.2.31",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "tslint": "^6.1.2",
