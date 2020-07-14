@@ -61,7 +61,7 @@ app.use("/api/socis", require("./routes/socis.routes"));
 app.use("/api/titulars", require("./routes/titulars.routes"));
 app.use("/api/usuaris", require("./routes/usuaris.routes"));
 
-const swaggerDocument = YAML.load("./server/docs/docs.yaml");
+const swaggerDocument = YAML.load("./src/docs/docs.yaml");
 
 app.use(
   "/api/docs",
