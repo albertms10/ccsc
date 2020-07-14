@@ -5,7 +5,8 @@ import * as path from "path";
 import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
-import * as poolPromise from "./config/db.config";
+import poolPromise from "./config/db.config";
+
 import agrupacions from "./routes/agrupacions.routes";
 import assajos from "./routes/assajos.routes";
 import auth from "./routes/auth.routes";
@@ -53,7 +54,7 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   if (pool) return next();
 
   try {
-    pool = await poolPromise.default;
+    pool = await poolPromise;
     app.set("pool", pool);
     next();
   } catch (err) {
