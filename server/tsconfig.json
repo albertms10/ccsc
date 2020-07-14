@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "build",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
