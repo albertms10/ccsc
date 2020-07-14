@@ -1,15 +1,12 @@
 import * as express from "express";
 import * as controller from "../controllers/localitzacions.controller";
-import * as authJWT from "../middleware/auth-jwt";
+import { isJuntaDirectiva, verifyAccessToken } from "../middleware/auth-jwt";
 
 const router = express.Router();
 
 router
   .route("/")
-  .post(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.localitzacions_post
-  );
+  .post([verifyAccessToken, isJuntaDirectiva], controller.localitzacions_post);
 
 router.route("/tipus-vies").get(controller.localitzacions_tipusvies_get);
 

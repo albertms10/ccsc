@@ -1,92 +1,77 @@
 import * as express from "express";
 import * as controller from "../controllers/socis.controller";
-import * as authJWT from "../middleware/auth-jwt";
+import {
+  isAuthor,
+  isAuthorOrJuntaDirectiva,
+  isJuntaDirectiva,
+  verifyAccessToken,
+  verifyEmailToken,
+} from "../middleware/auth-jwt";
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_get
-  )
-  .post(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_post
-  );
+  .get([verifyAccessToken, isJuntaDirectiva], controller.socis_get)
+  .post([verifyAccessToken, isJuntaDirectiva], controller.socis_post);
 
-router.route("/alta").post([authJWT.verifyEmailToken], controller.socis_post);
+router.route("/alta").post([verifyEmailToken], controller.socis_post);
 
 router
   .route("/count")
-  .get(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_count
-  );
+  .get([verifyAccessToken, isJuntaDirectiva], controller.socis_count);
 
 router
   .route("/historial")
-  .get(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_historial
-  );
+  .get([verifyAccessToken, isJuntaDirectiva], controller.socis_historial);
 
 router
   .route("/:id")
-  .get([authJWT.verifyAccessToken], controller.socis_detall)
-  .delete(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_delete
-  );
+  .get([verifyAccessToken], controller.socis_detall)
+  .delete([verifyAccessToken, isJuntaDirectiva], controller.socis_delete);
 
 router
   .route("/:id/formacions")
-  .get([authJWT.verifyAccessToken], controller.socis_detall_formacions);
+  .get([verifyAccessToken], controller.socis_detall_formacions);
 
 router
   .route("/:id/projectes")
-  .get([authJWT.verifyAccessToken], controller.socis_detall_projectes);
+  .get([verifyAccessToken], controller.socis_detall_projectes);
 
 router
   .route("/:id/assajos")
-  .get([authJWT.verifyAccessToken], controller.socis_detall_assajos);
+  .get([verifyAccessToken], controller.socis_detall_assajos);
 
 router
   .route("/:id/acceptacions")
   .get(
-    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    [verifyAccessToken, isAuthorOrJuntaDirectiva],
     controller.socis_detall_acceptacions_get
   )
-  .put(
-    [authJWT.verifyAccessToken, authJWT.isAuthor],
-    controller.socis_detall_acceptacions_put
-  );
+  .put([verifyAccessToken, isAuthor], controller.socis_detall_acceptacions_put);
 
 router
   .route("/:id/activitat")
   .get(
-    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    [verifyAccessToken, isAuthorOrJuntaDirectiva],
     controller.socis_detall_activitat
   );
 
 router
   .route("/:id/alta")
-  .post(
-    [authJWT.verifyAccessToken, authJWT.isJuntaDirectiva],
-    controller.socis_detall_alta
-  );
+  .post([verifyAccessToken, isJuntaDirectiva], controller.socis_detall_alta);
 
 router
   .route("/:id/baixa")
   .put(
-    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    [verifyAccessToken, isAuthorOrJuntaDirectiva],
     controller.socis_detall_baixa
   );
 
 router
   .route("/:id/propers-assajos")
   .get(
-    [authJWT.verifyAccessToken, authJWT.isAuthorOrJuntaDirectiva],
+    [verifyAccessToken, isAuthorOrJuntaDirectiva],
     controller.socis_detall_propersassajos
   );
 
