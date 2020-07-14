@@ -55,7 +55,7 @@ export const verifyAccessToken = (
         },
       });
 
-    req.userId = (decoded as UserToken).id;
+    res.locals.userId = (decoded as UserToken).id;
     next();
   });
 };
@@ -107,7 +107,7 @@ export const verifyEmailToken = (
 /*
  * CHECK FUNCTIONS
  */
-export const checkIsAuthor = async (req: Request) => {
+export const checkIsAuthor = async (req: Request, res: Response) => {
   const pool: Pool = req.app.get("pool");
   const { id }: { id?: number } = req.params;
 
@@ -115,12 +115,16 @@ export const checkIsAuthor = async (req: Request) => {
     id,
   ]);
 
-  return queryUsuari[0] && req.userId === queryUsuari[0].id_usuari;
+  return queryUsuari[0] && res.locals.userId === queryUsuari[0].id_usuari;
 };
 
-export const checkIsRole = async (req: Request, roles: Role[]) => {
+export const checkIsRole = async (
+  req: Request,
+  res: Response,
+  roles: Role[]
+) => {
   const pool: Pool = req.app.get("pool");
-  const { userId: id } = req;
+  const { userId: id } = res.locals;
 
   const [{ is_role }]: [{ is_role: boolean }] = await pool.query(
     queryFile("auth/select__exists_roles"),
@@ -138,7 +142,7 @@ export const isAuthor = async (
   res: Response,
   next: NextFunction
 ) =>
-  (await checkIsAuthor(req))
+  (await checkIsAuthor(req, res))
     ? next()
     : res
         .status(403)
@@ -150,7 +154,7 @@ export const isRole = async (
   next: NextFunction,
   roles: Role[]
 ) =>
-  (await checkIsRole(req, roles))
+  (await checkIsRole(req, res, roles))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "Sense permís" } });
 
@@ -175,8 +179,8 @@ export const isAuthorOrJuntaDirectiva = async (
   res: Response,
   next: NextFunction
 ) =>
-  (await checkIsAuthor(req)) ||
-  (await checkIsRole(req, ROLES_IS_JUNTA_DIRECTIVA))
+  (await checkIsAuthor(req, res)) ||
+  (await checkIsRole(req, res, ROLES_IS_JUNTA_DIRECTIVA))
     ? next()
     : res
         .status(403)
