@@ -1,5 +1,15 @@
 import { createHmac, randomBytes } from "crypto";
 
+interface PasswordSaltPair {
+  password: string;
+  salt?: string;
+}
+
+interface SaltHashPair {
+  salt: string;
+  hash: string;
+}
+
 /**
  * Generates a random string given the size of random
  * bytes and returns it using a HEX encoding.
@@ -13,10 +23,7 @@ const randomString = (size: number): string =>
 export default ({
   password,
   salt = randomString(4),
-}: {
-  password: string;
-  salt?: string;
-}): { salt: string; hash: string } => {
+}: PasswordSaltPair): SaltHashPair => {
   const hash = createHmac("sha512", salt).update(password);
   return { salt, hash: hash.digest("hex") };
 };
