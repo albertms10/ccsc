@@ -36,4 +36,4 @@ SELECT id_usuari AS id,
            )     AS es_actiu
 FROM usuaris u
          LEFT JOIN persones p USING (id_persona)
-WHERE ?;
+WHERE id_usuari = ?;
