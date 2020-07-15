@@ -4,6 +4,10 @@ import { parseAndSendJSON, queryFile } from "../helpers";
 import { ROLES_IS_JUNTA_DIRECTIVA } from "../middleware/auth-jwt";
 import { saltHashPassword } from "../utils";
 
+interface BooleanMap {
+  [key: string]: boolean;
+}
+
 export const socis_count = (
   req: Request,
   res: Response,
@@ -234,8 +238,7 @@ export const socis_detall_acceptacions_put = (
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
-  /** @type {Object<string, boolean>} */
-  const { acceptacions } = req.body;
+  const { acceptacions }: { acceptacions: BooleanMap } = req.body;
 
   pool
     .query(queryFile("socis/insert__acceptacions_soci"), [
