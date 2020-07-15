@@ -31,7 +31,7 @@ process
   .on("unhandledRejection", (reason, p) => {
     console.error(reason, "Unhandled Rejection at Promise", p);
   })
-  .on("uncaughtException", (err) => {
+  .on("uncaughtException", (err: Error) => {
     console.error(err, "Uncaught Exception thrown");
     process.exit(1);
   });
@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.header(
     "Access-Control-Allow-Headers",
     "Authorization, Origin, Content-Type, Accept"

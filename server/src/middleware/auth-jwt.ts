@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { VerifyErrors } from "jsonwebtoken";
 import { Pool } from "promise-mysql";
 import { queryFile } from "../helpers";
 import { verifyJWT } from "../utils";
@@ -31,33 +32,36 @@ export const verifyAccessToken = (
       },
     });
 
-  verifyJWT(accessToken, (err, decoded: UserToken | EmailToken) => {
-    if (err)
-      return res.status(401).send({
-        error: {
-          status: 401,
-          message: "Sense autorizació",
-          hideMessage,
-        },
-      });
-
-    if ((decoded as EmailToken).email)
-      return res.status(403).send({
-        error: {
-          status: 403,
-          message: "Encara no has acabat d’introduir les teves dades.",
-          okText: "Torna a introduir-les",
-          location: {
-            pathname: "/donar-alta",
-            state: { email: (decoded as EmailToken).email },
+  verifyJWT(
+    accessToken,
+    (err: VerifyErrors, decoded: UserToken | EmailToken) => {
+      if (err)
+        return res.status(401).send({
+          error: {
+            status: 401,
+            message: "Sense autorizació",
+            hideMessage,
           },
-          hideMessage,
-        },
-      });
+        });
 
-    res.locals.userId = (decoded as UserToken).id;
-    next();
-  });
+      if ((decoded as EmailToken).email)
+        return res.status(403).send({
+          error: {
+            status: 403,
+            message: "Encara no has acabat d’introduir les teves dades.",
+            okText: "Torna a introduir-les",
+            location: {
+              pathname: "/donar-alta",
+              state: { email: (decoded as EmailToken).email },
+            },
+            hideMessage,
+          },
+        });
+
+      res.locals.userId = (decoded as UserToken).id;
+      next();
+    }
+  );
 };
 
 export const verifyAccessTokenHidden = (
