@@ -2,13 +2,11 @@ import moment from "moment";
 
 /**
  * Returns the textual time duration of `time`.
- * @param {string} time
- * @returns {string}
  */
-export default (time) => {
+export default (time: string): string => {
   const timeMoment = moment(time, "HH:mm:ss");
 
-  if (!timeMoment._isValid) return "Sense durada";
+  if (!timeMoment.isValid) return "Sense durada";
 
   return [
     { format: "H", symbol: "h" },

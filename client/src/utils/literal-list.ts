@@ -1,10 +1,7 @@
 /**
  * Returns a concatenated comma-separated string with the specified last separator.
- * @param {string[]} items
- * @param {string} [lastSeparator]
- * @returns {string}
  */
-export default (items, lastSeparator = "i") => {
+export default (items: string[], lastSeparator: string = "i"): string => {
   if (!items) return "";
 
   const l = items.length;

@@ -1,11 +1,7 @@
 /**
  * Returns `true` if the array includes all given values.
- * @param {Array<T>} array
- * @param {Array<T>} values
- * @returns {boolean}
- * @template T
  */
-export default (array, values) =>
+export default <T>(array: T[], values: T[]): boolean =>
   array.length > 0 &&
   values.length > 0 &&
   array.some((value) => values.indexOf(value) !== -1);

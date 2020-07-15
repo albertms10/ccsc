@@ -1,20 +1,19 @@
 import moment from "moment";
 import { initials, stripAccents } from "./index";
 
-/**
- * @typedef {Object} SearchFilterFilters
- * @property {string[]} [texts]
- * @property {string[]} [dates]
- */
+interface SearchFilters {
+  texts?: string[];
+  dates?: string[];
+}
 
 /**
  * Returns `true` if the given query matches against
  * `texts` and `dates` arrays.
- * @param {string} query
- * @param {SearchFilterFilters} filters
- * @returns {boolean}
  */
-export default (query, { texts = [], dates = [] } = {}) =>
+export default (
+  query: string,
+  { texts = [], dates = [] }: SearchFilters = {}
+): boolean =>
   query.split(/[ '’–-]+/).every(
     (frag) =>
       (texts &&

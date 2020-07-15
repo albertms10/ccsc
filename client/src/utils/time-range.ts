@@ -1,18 +1,17 @@
 import moment from "moment";
 
-/**
- * @typedef {Object} TimeRangeOptions
- * @property {boolean} textual=false
- */
+interface TimeRangeOptions {
+  textual?: boolean;
+}
 
 /**
  * Returns the textual time range of two given dates
- * @param {string} start
- * @param {string} [end]
- * @param {TimeRangeOptions} [options]
- * @returns {string}
  */
-export default (start, end, { textual = false } = {}) => {
+export default (
+  start: string,
+  end: string,
+  { textual = false }: TimeRangeOptions = {}
+): string => {
   if (start && end) {
     const leading = textual ? "de " : "";
     const separator = textual ? " a " : "–";

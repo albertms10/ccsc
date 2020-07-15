@@ -1,29 +1,26 @@
 import moment from "moment";
 import { nIndexOf } from "./index";
 
-/**
- * @typedef {Object} DateRangeOptions
- * @property {boolean} [isLong]
- * @property {boolean} [includesYear]
- * @property {string} [connector]
- */
+interface DateRangeOptions {
+  isLong?: boolean;
+  includesYear?: boolean;
+  connector?: string;
+}
 
 /**
  * Returns the textual date and time range of two given dates
- * @param {string} dateStart
- * @param {string} [timeStart]
- * @param {string} [dateEnd]
- * @param {string} [timeEnd]
- * @param {DateRangeOptions} [options]
- * @returns {string[]}
  */
 export default (
-  dateStart,
-  timeStart,
-  dateEnd,
-  timeEnd,
-  { isLong = true, includesYear = true, connector = " de" } = {}
-) => {
+  dateStart: string,
+  timeStart: string,
+  dateEnd: string,
+  timeEnd: string,
+  {
+    isLong = true,
+    includesYear = true,
+    connector = " de",
+  }: DateRangeOptions = {}
+): string[] => {
   const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
 
   return [
@@ -34,7 +31,7 @@ export default (
           nIndexOf(
             startFormat,
             " de",
-            startFormat.match(new RegExp(connector, "g")).length
+            startFormat.match(new RegExp(connector, "g"))!.length
           )
         ),
     ...(timeStart

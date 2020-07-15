@@ -1,18 +1,15 @@
-/** @typedef {('s'|'min'|'h'|'d'|'m'|'y')} TimeUnit */
+type TimeUnit = "s" | "min" | "h" | "d" | "m" | "y";
 
 /**
  * Given an integer, finds the propper unit in order to express its value.
- * @param {number} value
- * @param {TimeUnit} unit
- * @returns {string}
  */
-export default (value, unit = "d") => {
+export default (value: number, unit: TimeUnit = "d"): string => {
   /** @type {TimeUnit[]} */
-  const units = ["s", "min", "h", "d", "m", "y"];
+  const units: TimeUnit[] = ["s", "min", "h", "d", "m", "y"];
   const durations = [60, 60, 24, 30, 12, 10];
 
   let num = value;
-  let i;
+  let i: number;
 
   for (
     i = units.indexOf(unit);
