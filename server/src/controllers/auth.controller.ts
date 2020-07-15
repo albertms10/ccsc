@@ -87,13 +87,11 @@ export const email_espera = (
 export const userInfo = (req: Request, res: Response, next: NextFunction) => {
   const pool: Pool = req.app.get("pool");
 
-  /** @type {number} */
-  const id_usuari = req.userId;
-  /** @type {string} */
+  const { userId } = res.locals;
   const { authorization: accessToken } = req.headers;
 
   pool
-    .query(queryFile("auth/select__user_info"), { id_usuari })
+    .query(queryFile("auth/select__user_info"), [userId])
     .then(([user]) =>
       user
         ? trySendUser(res, next, user, accessToken)

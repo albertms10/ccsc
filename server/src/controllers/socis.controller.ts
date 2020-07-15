@@ -59,7 +59,7 @@ export const socis_post = async (
   next: NextFunction
 ) => {
   const pool: Pool = req.app.get("pool");
-  const { email } = req;
+  const { email } = res.locals;
   const { soci } = req.body;
 
   const connection = await pool.getConnection();
