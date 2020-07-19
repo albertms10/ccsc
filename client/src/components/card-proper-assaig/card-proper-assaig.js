@@ -7,7 +7,7 @@ import { Card, Space, Tag, Typography } from "antd";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
-import { joinComponents } from "../../helpers";
+import { joinElements } from "../../helpers";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
@@ -34,7 +34,7 @@ const CardProperAssaig = ({ assaig }) => (
   >
     <Space direction="vertical">
       <EventLineItem>
-        {joinComponents(
+        {joinElements(
           dateRange(
             assaig.dia_inici,
             assaig.hora_inici,

@@ -1,6 +1,6 @@
 import { Space } from "antd";
 import React from "react";
-import { joinComponents } from "../../helpers";
+import { joinElements } from "../../helpers";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
@@ -10,7 +10,7 @@ const EventLineItemData = ({ esdeveniment }) => (
   <EventLineItem>
     <Space>
       <div>
-        {joinComponents(
+        {joinElements(
           dateRange(
             esdeveniment.dia_inici,
             esdeveniment.hora_inici,
