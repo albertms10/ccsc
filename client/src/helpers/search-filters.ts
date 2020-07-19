@@ -1,4 +1,6 @@
-export const searchFilterAssaig = (assaig) => ({
+import { Assaig, Moviment, Projecte, Veu } from "common";
+
+export const searchFilterAssaig = (assaig: Assaig) => ({
   texts: [
     assaig.titol,
     ...assaig.formacions.map((formacio) => formacio.nom_curt),
@@ -8,7 +10,7 @@ export const searchFilterAssaig = (assaig) => ({
   dates: [assaig.data_inici, ...(assaig.data_final ? [assaig.data_final] : [])],
 });
 
-export const searchFilterMoviment = (moviment) => ({
+export const searchFilterMoviment = (moviment: Moviment) => ({
   texts: [
     moviment.titol_obra,
     moviment.titol_moviment,
@@ -20,7 +22,7 @@ export const searchFilterMoviment = (moviment) => ({
   ],
 });
 
-export const searchFilterProjecte = (projecte) => ({
+export const searchFilterProjecte = (projecte: Projecte) => ({
   texts: [
     projecte.titol,
     projecte.descripcio,
@@ -32,6 +34,6 @@ export const searchFilterProjecte = (projecte) => ({
   ],
 });
 
-export const searchFilterVeus = (veu) => ({
+export const searchFilterVeus = (veu: Veu) => ({
   texts: [veu.nom, veu.abreviatura],
 });
