@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Pool } from "promise-mysql";
+import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common-constants";
 import { parseAndSendJSON, queryFile } from "../helpers";
-import { ROLES_IS_JUNTA_DIRECTIVA } from "../middleware/auth-jwt";
 import { saltHashPassword } from "../utils";
 
 interface BooleanMap {
@@ -173,7 +173,7 @@ export const socis_detall_formacions = (
   pool
     .query(queryFile("socis/select__formacions_soci"), [
       id,
-      ROLES_IS_JUNTA_DIRECTIVA,
+      ROLES_JUNTA_DIRECTIVA,
     ])
     .then(([_, formacions]) => res.json(formacions))
     .catch((e) => next(e));
@@ -190,7 +190,7 @@ export const socis_detall_projectes = (
   pool
     .query(queryFile("socis/select__projectes_soci"), [
       id,
-      ROLES_IS_JUNTA_DIRECTIVA,
+      ROLES_JUNTA_DIRECTIVA,
     ])
     .then(([_, projectes]) =>
       parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
@@ -207,10 +207,7 @@ export const socis_detall_assajos = (
   const { id } = req.params;
 
   pool
-    .query(queryFile("socis/select__assajos_soci"), [
-      id,
-      ROLES_IS_JUNTA_DIRECTIVA,
-    ])
+    .query(queryFile("socis/select__assajos_soci"), [id, ROLES_JUNTA_DIRECTIVA])
     .then(([_, assajos]) =>
       parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
     )
@@ -308,7 +305,7 @@ export const socis_detall_propersassajos = (
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
-  const { limit }: { limit?: number } = req.query;
+  const limit = parseInt(req.query.limit.toString());
 
   pool
     .query(queryFile("socis/select__propers_assajos_soci"), [id, limit || 4])

@@ -1,6 +1,12 @@
+import { Role } from "common";
 import { NextFunction, Request, Response } from "express";
 import { VerifyErrors } from "jsonwebtoken";
 import { Pool } from "promise-mysql";
+import {
+  ROLES_ADMIN,
+  ROLES_DIRECCIO_MUSICAL,
+  ROLES_JUNTA_DIRECTIVA,
+} from "../../../common/common-constants";
 import { queryFile } from "../helpers";
 import { verifyJWT } from "../utils";
 
@@ -166,19 +172,6 @@ export const isRole = async (
     : res.status(403).send({ error: { status: 403, message: "Sense permís" } });
 
 /*
- * ROLES
- */
-type Role = "usuari" | "junta_directiva" | "director_musical" | "admin";
-
-export const ROLES_IS_JUNTA_DIRECTIVA: Role[] = [
-  "junta_directiva",
-  "director_musical",
-  "admin",
-];
-export const ROLES_IS_DIRECTOR_MUSICAL: Role[] = ["director_musical", "admin"];
-export const ROLES_IS_ADMIN: Role[] = ["admin"];
-
-/*
  * `IS` FUNCTIONS
  */
 export const isAuthorOrJuntaDirectiva = async (
@@ -187,7 +180,7 @@ export const isAuthorOrJuntaDirectiva = async (
   next: NextFunction
 ) =>
   (await checkIsAuthor(req, res)) ||
-  (await checkIsRole(req, res, ROLES_IS_JUNTA_DIRECTIVA))
+  (await checkIsRole(req, res, ROLES_JUNTA_DIRECTIVA))
     ? next()
     : res
         .status(403)
@@ -197,16 +190,16 @@ export const isJuntaDirectiva = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => await isRole(req, res, next, ROLES_IS_JUNTA_DIRECTIVA);
+) => await isRole(req, res, next, ROLES_JUNTA_DIRECTIVA);
 
-export const isDirectorMusical = async (
+export const isDireccioMusical = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => await isRole(req, res, next, ROLES_IS_DIRECTOR_MUSICAL);
+) => await isRole(req, res, next, ROLES_DIRECCIO_MUSICAL);
 
 export const isAdmin = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => await isRole(req, res, next, ROLES_IS_ADMIN);
+) => await isRole(req, res, next, ROLES_ADMIN);
