@@ -18,10 +18,10 @@ interface EmailToken {
 export const verifyAccessToken = (
   req: Request,
   res: Response,
-  next: NextFunction,
-  { hideMessage = false } = {}
+  next: NextFunction
 ) => {
   const { authorization: accessToken } = req.headers;
+  const hideMessage = !!res.locals.hideMessage;
 
   if (!accessToken)
     return res.status(401).send({
@@ -68,7 +68,10 @@ export const verifyAccessTokenHidden = (
   req: Request,
   res: Response,
   next: NextFunction
-) => verifyAccessToken(req, res, next, { hideMessage: true });
+) => {
+  res.locals.hideMessage = true;
+  return verifyAccessToken(req, res, next);
+};
 
 export const verifyEmailToken = (
   req: Request,
