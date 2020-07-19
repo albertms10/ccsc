@@ -2,6 +2,7 @@
   "name": "ccsc",
   "version": "0.2.0",
   "description": "Cor de Cambra Sant Cugat",
+  "private": true,
   "engines": {
     "node": "12.x"
   },
