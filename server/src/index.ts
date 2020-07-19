@@ -6,21 +6,7 @@ import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
 import poolPromise from "./config/db.config";
-
-import agrupacions from "./routes/agrupacions.routes";
-import assajos from "./routes/assajos.routes";
-import auth from "./routes/auth.routes";
-import concerts from "./routes/concerts.routes";
-import esdeveniments from "./routes/esdeveniments.routes";
-import establiments from "./routes/establiments.routes";
-import formacions from "./routes/formacions.routes";
-import localitzacions from "./routes/localitzacions.routes";
-import moviments from "./routes/moviments.routes";
-import obres from "./routes/obres.routes";
-import projectes from "./routes/projectes.routes";
-import socis from "./routes/socis.routes";
-import titulars from "./routes/titulars.routes";
-import usuaris from "./routes/usuaris.routes";
+import * as routes from "./routes";
 
 const app = express();
 
@@ -63,32 +49,34 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-app.use("/api/agrupacions", agrupacions);
-app.use("/api/assajos", assajos);
-app.use("/api/auth", auth);
-app.use("/api/concerts", concerts);
-app.use("/api/esdeveniments", esdeveniments);
-app.use("/api/formacions", formacions);
-app.use("/api/establiments", establiments);
-app.use("/api/localitzacions", localitzacions);
-app.use("/api/moviments", moviments);
-app.use("/api/obres", obres);
-app.use("/api/projectes", projectes);
-app.use("/api/socis", socis);
-app.use("/api/titulars", titulars);
-app.use("/api/usuaris", usuaris);
+const BASE_PATH = "/api";
+
+app.use(`${BASE_PATH}/agrupacions`, routes.agrupacions);
+app.use(`${BASE_PATH}/assajos`, routes.assajos);
+app.use(`${BASE_PATH}/auth`, routes.auth);
+app.use(`${BASE_PATH}/concerts`, routes.concerts);
+app.use(`${BASE_PATH}/esdeveniments`, routes.esdeveniments);
+app.use(`${BASE_PATH}/formacions`, routes.formacions);
+app.use(`${BASE_PATH}/establiments`, routes.establiments);
+app.use(`${BASE_PATH}/localitzacions`, routes.localitzacions);
+app.use(`${BASE_PATH}/moviments`, routes.moviments);
+app.use(`${BASE_PATH}/obres`, routes.obres);
+app.use(`${BASE_PATH}/projectes`, routes.projectes);
+app.use(`${BASE_PATH}/socis`, routes.socis);
+app.use(`${BASE_PATH}/titulars`, routes.titulars);
+app.use(`${BASE_PATH}/usuaris`, routes.usuaris);
 
 const swaggerDocument = YAML.load("./docs/docs.yaml");
 
 app.use(
-  "/api/docs",
+  `${BASE_PATH}/docs`,
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCssUrl: "../docs-styles.css",
   })
 );
 
-app.get("/api/docs-styles.css", (req, res) => {
+app.get(`${BASE_PATH}/docs-styles.css`, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
