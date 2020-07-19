@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import {
-  isAdmin,
-  isDirectorMusical,
-  isJuntaDirectiva,
+  isRoleAdmin,
+  isRoleDireccioMusical,
+  isRoleJuntaDirectiva,
 } from "../../helpers/role-checker";
 
-const AUTHORITY_TYPES = ["juntaDirectiva", "directorMusical", "admin"];
+const AUTHORITY_TYPES = ["junta_directiva", "direccio_musical", "admin"];
 
 const Authorized = ({
   render,
@@ -25,14 +25,14 @@ const Authorized = ({
     : children;
 
   switch (authority) {
-    case "juntaDirectiva":
-      return isJuntaDirectiva(roles) ? returnItem : elseElement || "";
+    case "junta_directiva":
+      return isRoleJuntaDirectiva(roles) ? returnItem : elseElement || "";
 
-    case "directorMusical":
-      return isDirectorMusical(roles) ? returnItem : elseElement || "";
+    case "direccio_musical":
+      return isRoleDireccioMusical(roles) ? returnItem : elseElement || "";
 
     case "admin":
-      return isAdmin(roles) ? returnItem : elseElement || "";
+      return isRoleAdmin(roles) ? returnItem : elseElement || "";
 
     default:
       return elseElement || "";

@@ -59,7 +59,7 @@ export default () => {
               <List.Item.Meta
                 style={{ fontSize: "medium" }}
                 avatar={
-                  role === "director_musical" ? (
+                  role === "direccio_musical" ? (
                     <CustomerServiceOutlined
                       style={{ color: "rgba(0, 0, 0, 0.65)" }}
                     />

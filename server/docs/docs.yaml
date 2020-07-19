@@ -727,10 +727,10 @@ components:
           items:
             type: string
             enum:
-              - ROLE_USUARI
-              - ROLE_JUNTA_DIRECTIVA
-              - ROLE_DIRECTOR
-              - ROLE_ADMIN
+              - usuari
+              - junta_directiva
+              - direccio_musical
+              - admin
 
   securitySchemes:
     JWT:

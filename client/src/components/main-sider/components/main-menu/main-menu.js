@@ -109,7 +109,7 @@ export default () => {
           title: "Socis",
           icon: <TeamOutlined />,
           path: "/socis",
-          authority: "juntaDirectiva",
+          authority: "junta_directiva",
         },
         {
           title: "Reunions",
