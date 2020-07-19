@@ -3,7 +3,14 @@
     "baseUrl": "./",
     "outDir": "build",
     "allowJs": true,
-    "target": "es5"
+    "target": "es5",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "paths": {
+      "*": [
+        "../common/*"
+      ]
+    }
   },
   "include": [
     "./src/**/*.ts"
