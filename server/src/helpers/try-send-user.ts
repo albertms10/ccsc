@@ -21,9 +21,7 @@ export default (
     });
 
   try {
-    const roles: string[] = JSON.parse(user.roles as string).map(
-      (role: string) => "ROLE_" + role.toUpperCase()
-    );
+    const roles: string[] = JSON.parse(user.roles as string);
     const avisos: number[] = JSON.parse(user.avisos as string);
 
     res.send({
