@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "./index";
 
-export default (url, initialState = []) => {
+export default (url: string, initialState = []) => {
   const dispatch = useDispatch();
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ export default (url, initialState = []) => {
     setLoading(true);
     return fetchAPI(
       url,
-      (data) => {
+      (data: any) => {
         setData(data);
         setLoading(false);
       },

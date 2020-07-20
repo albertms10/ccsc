@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "./index";
 
-export default (url) => {
+export default (url: string) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 

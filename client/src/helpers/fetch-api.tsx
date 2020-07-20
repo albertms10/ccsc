@@ -1,15 +1,17 @@
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { message, Modal, Tooltip, Typography } from "antd";
+import { FetchError } from "common";
 import React from "react";
+import { AppThunkDispatch } from "../store/types";
 import { logoutRemoveUser } from "../store/user/thunks";
 
-const modalWarn = (error, dispatch) => {
+const modalWarn = (error: FetchError, dispatch: AppThunkDispatch) => {
   Modal.warn({
     title: error.message,
     content: (
       <>
         <Typography.Text>
-          {error.description ??
+          {error.description ||
             "Torna a iniciar sessió per comprovar la teva identitat."}
         </Typography.Text>
         {error.status && (
@@ -29,7 +31,7 @@ const modalWarn = (error, dispatch) => {
     cancelText: "Enrere",
     okCancel: !error.okOnly,
     onOk: error.noAction
-      ? null
+      ? undefined
       : () => {
           dispatch(logoutRemoveUser());
           Modal.destroyAll();
@@ -39,21 +41,22 @@ const modalWarn = (error, dispatch) => {
 
 /**
  * Fetches the API using the appropriate JWT Access Token.
- * @param {string} url
- * @param {Function} callback
- * @param {Function} dispatch
- * @param {Object} [init]
  */
-export default (url, callback, dispatch, init = {}) =>
+export default (
+  url: string,
+  callback: Function,
+  dispatch: AppThunkDispatch,
+  init: RequestInit = {}
+) =>
   fetch(`/api${url}`, {
     method: init.method ?? "GET",
     headers: {
       ...init.headers,
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: localStorage.getItem("access-token"),
+      Authorization: localStorage.getItem("access-token") || "",
     },
-    body: init.body ?? null,
+    body: init.body || null,
   })
     .then((res) => {
       const contentType = res.headers.get("content-type");
