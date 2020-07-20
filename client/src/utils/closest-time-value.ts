@@ -4,7 +4,6 @@ type TimeUnit = "s" | "min" | "h" | "d" | "m" | "y";
  * Given an integer, finds the propper unit in order to express its value.
  */
 export default (value: number, unit: TimeUnit = "d"): string => {
-  /** @type {TimeUnit[]} */
   const units: TimeUnit[] = ["s", "min", "h", "d", "m", "y"];
   const durations = [60, 60, 24, 30, 12, 10];
 
