@@ -1,10 +1,10 @@
+import { Usuari } from "common";
 import { NextFunction, Response } from "express";
-import User from "../typedef/user.interface";
 
 export default (
   res: Response,
   next: NextFunction,
-  user: User,
+  user: Usuari,
   accessToken: string
 ) => {
   if (!user.es_actiu)

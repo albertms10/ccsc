@@ -19,6 +19,20 @@ declare module "common" {
     id_director: number;
   }
 
+  export interface Usuari {
+    id_usuari: number;
+    id_persona: number;
+    username: string;
+    nom: string;
+    cognoms: string;
+    es_dona: boolean;
+    es_actiu: boolean;
+    avisos: string | number[];
+    roles: string | string[];
+    salt?: string;
+    encrypted_password?: string;
+  }
+
   export interface Formacio {
     id_formacio: number;
     nom: string;
