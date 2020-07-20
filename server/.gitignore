@@ -5,7 +5,6 @@
 
 # production
 /build
-/prev-build
 
 # misc
 .DS_Store
