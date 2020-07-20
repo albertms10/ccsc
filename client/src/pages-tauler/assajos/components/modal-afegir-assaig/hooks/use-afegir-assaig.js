@@ -2,7 +2,7 @@ import { Form } from "antd";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../../../helpers";
-import { fetchAssajos } from "../../../../../redux/assajos/assajos-actions";
+import { fetchAssajos } from "../../../../../store/assajos/thunks";
 
 export default () => {
   const dispatch = useDispatch();

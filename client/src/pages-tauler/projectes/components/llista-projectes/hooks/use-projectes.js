@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProjectes } from "../../../../../redux/projectes/projectes-actions";
+import { fetchProjectes } from "../../../../../store/projectes/thunks";
 
 export default () => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { LogoCorDeCambra } from "../../assets/icons";
-import { signinUserFetch } from "../../redux";
+import { signinUserFetch } from "../../store/user/thunks";
 import { Container } from "../../standalone/container";
 import { useIniciUsuari } from "./hooks";
 import "./inicia-sessio.css";

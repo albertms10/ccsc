@@ -2,7 +2,7 @@ import { Avatar, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logoutRemoveUser } from "../../../../redux";
+import { logoutRemoveUser } from "../../../../store/user/thunks";
 import "./user-dropdown.css";
 
 const { Item, Divider } = Menu;

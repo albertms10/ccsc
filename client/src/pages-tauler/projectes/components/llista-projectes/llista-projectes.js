@@ -9,7 +9,7 @@ import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { useDeleteAPI } from "../../../../helpers";
 import { searchFilterProjecte } from "../../../../helpers/search-filters";
-import { fetchProjectes } from "../../../../redux/projectes/projectes-actions";
+import { fetchProjectes } from "../../../../store/projectes/thunks";
 import { ColorCard } from "../../../../standalone/color-card";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { literalList, searchFilter } from "../../../../utils";

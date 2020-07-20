@@ -5,6 +5,19 @@ declare module "common" {
     | "direccio_musical"
     | "admin";
 
+  export interface FetchError {
+    status: number;
+    message: string;
+    description?: string;
+    okText?: string;
+    okOnly?: boolean;
+    noAction?: boolean;
+  }
+
+  export interface ResponseError {
+    error: FetchError;
+  }
+
   export interface Persona {
     id_persona: number;
     nom: string;
@@ -73,6 +86,11 @@ declare module "common" {
     titol: string;
     formacions: Formacio[];
     projectes: Projecte[];
+  }
+
+  export interface Obra {
+    id_obra: number;
+    titol: string;
   }
 
   export interface Veu {

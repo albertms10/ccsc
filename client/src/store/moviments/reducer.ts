@@ -2,16 +2,21 @@ import {
   FETCH_MOVIMENTS_FAILURE,
   FETCH_MOVIMENTS_REQUEST,
   FETCH_MOVIMENTS_SUCCESS,
-} from "./moviments-types";
+  MovimentsActionTypes,
+  MovimentsState,
+} from "./types";
 
-const initialState = {
+const initialState: MovimentsState = {
   moviments: [],
   loading: false,
   fetched: false,
   error: {},
 };
 
-export default (state = initialState, action) => {
+export default (
+  state = initialState,
+  action: MovimentsActionTypes
+): MovimentsState => {
   switch (action.type) {
     case FETCH_MOVIMENTS_REQUEST:
       return {
@@ -23,7 +28,7 @@ export default (state = initialState, action) => {
     case FETCH_MOVIMENTS_SUCCESS:
       return {
         ...state,
-        moviments: action.payload.moviments,
+        moviments: action.payload,
         loading: false,
         fetched: true,
         error: {},
@@ -34,7 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         fetched: true,
-        error: action.payload.error,
+        error: action.payload,
       };
 
     default:

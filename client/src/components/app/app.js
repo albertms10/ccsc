@@ -9,7 +9,7 @@ import { IniciaSessio } from "../../pages-home/inicia-sessio";
 import { DonarAlta } from "../../pages-home/inicia-sessio/components/donar-alta";
 import { DonarAltaFormulari } from "../../pages-home/inicia-sessio/components/donar-alta-formulari";
 import { AvisosInici } from "../../pages-home/inicia-sessio/components/avisos-inici";
-import store from "../../redux/store";
+import { store } from "../../store";
 import { HomeApp } from "../home-app";
 import { TaulerApp } from "../tauler-app";
 import { RouteTauler } from "./components/route-tauler";

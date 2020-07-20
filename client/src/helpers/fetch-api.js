@@ -1,7 +1,7 @@
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { message, Modal, Tooltip, Typography } from "antd";
 import React from "react";
-import { logoutRemoveUser } from "../redux";
+import { logoutRemoveUser } from "../store/user/thunks";
 
 const modalWarn = (error, dispatch) => {
   Modal.warn({

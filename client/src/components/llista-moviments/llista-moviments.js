@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
-import { fetchMoviments } from "../../redux/moviments/moviments-actions";
+import { fetchMoviments } from "../../store/moviments/thunks";
 import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
 import { searchFilter } from "../../utils";
 import { Authorized } from "../authorized";

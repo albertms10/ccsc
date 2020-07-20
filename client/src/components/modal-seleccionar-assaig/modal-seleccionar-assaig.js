@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFilterAssaig } from "../../helpers/search-filters";
-import { fetchAssajos } from "../../redux/assajos/assajos-actions";
+import { fetchAssajos } from "../../store/assajos/thunks";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { timeRange } from "../../utils";
 import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";

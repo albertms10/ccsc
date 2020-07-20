@@ -1,24 +1,24 @@
+import { Usuari } from "common";
 import {
   LOGOUT_USER,
   REMOVE_ACCEPTANCE_NOTICE,
   SIGNIN_USER_FAILURE,
   SIGNIN_USER_SUCCESS,
+  UserActionTypes,
+  UserState,
   VALIDATED_IN_WAITING_LIST,
-} from "./user-types";
+} from "./types";
 
-/** @type {UserState} */
-const initialState = {
+const initialState: UserState = {
   currentUser: {},
   error: {},
-  waitingList: { inWaitingList: false, email: "" },
+  waitingList: {
+    inWaitingList: false,
+    email: "",
+  },
 };
 
-/**
- * @param {UserState} state
- * @param {ReduxAction} action
- * @returns {UserState}
- */
-export default (state = initialState, action) => {
+export default (state = initialState, action: UserActionTypes): UserState => {
   switch (action.type) {
     case SIGNIN_USER_SUCCESS:
       return {
@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          avisos: state.currentUser.avisos.filter(
+          avisos: ((state.currentUser as Usuari).avisos as number[]).filter(
             (avis) => avis !== action.payload
           ),
         },

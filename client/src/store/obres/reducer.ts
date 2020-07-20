@@ -1,40 +1,42 @@
 import {
-  FETCH_PROJECTES_FAILURE,
-  FETCH_PROJECTES_REQUEST,
-  FETCH_PROJECTES_SUCCESS,
-} from "./projectes-types";
+  FETCH_OBRES_FAILURE,
+  FETCH_OBRES_REQUEST,
+  FETCH_OBRES_SUCCESS,
+  ObresActionTypes,
+  ObresState,
+} from "./types";
 
-const initialState = {
-  projectes: [],
+const initialState: ObresState = {
+  obres: [],
   loading: false,
   fetched: false,
   error: {},
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: ObresActionTypes): ObresState => {
   switch (action.type) {
-    case FETCH_PROJECTES_REQUEST:
+    case FETCH_OBRES_REQUEST:
       return {
         ...state,
         loading: true,
         error: {},
       };
 
-    case FETCH_PROJECTES_SUCCESS:
+    case FETCH_OBRES_SUCCESS:
       return {
         ...state,
-        projectes: action.payload.projectes,
+        obres: action.payload,
         loading: false,
         fetched: true,
         error: {},
       };
 
-    case FETCH_PROJECTES_FAILURE:
+    case FETCH_OBRES_FAILURE:
       return {
         ...state,
         loading: false,
         fetched: true,
-        error: action.payload.error,
+        error: action.payload,
       };
 
     default:

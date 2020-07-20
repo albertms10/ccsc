@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAssajos } from "../../../../../redux/assajos/assajos-actions";
+import { fetchAssajos } from "../../../../../store/assajos/thunks";
 
 export default () => {
   const dispatch = useDispatch();

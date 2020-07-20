@@ -5,8 +5,9 @@ import { Redirect } from "react-router-dom";
 import { LogoCorDeCambra } from "../../../../assets/icons";
 import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
 import { usePutAvisAcceptacio } from "../../../../components/avis-acceptacio/hooks";
-import { logoutRemoveUser, removeAcceptanceNotice } from "../../../../redux";
 import { Container } from "../../../../standalone/container";
+import { removeAcceptanceNotice } from "../../../../store/user/actions";
+import { logoutRemoveUser } from "../../../../store/user/thunks";
 
 export default () => {
   const currentUser = useSelector(({ user }) => user.currentUser);

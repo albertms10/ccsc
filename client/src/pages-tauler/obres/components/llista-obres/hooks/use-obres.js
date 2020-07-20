@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchObres } from "../../../../../redux/obres/obres-actions";
+import { fetchObres } from "../../../../../store/obres/thunks";
 
 export default () => {
   const dispatch = useDispatch();

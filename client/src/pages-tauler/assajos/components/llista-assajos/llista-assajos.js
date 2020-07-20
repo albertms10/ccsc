@@ -10,7 +10,7 @@ import { IconsFormacions } from "../../../../components/icons-formacions";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { useDeleteAPI } from "../../../../helpers";
 import { searchFilterAssaig } from "../../../../helpers/search-filters";
-import { fetchAssajos } from "../../../../redux/assajos/assajos-actions";
+import { fetchAssajos } from "../../../../store/assajos/thunks";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { searchFilter, timeRange } from "../../../../utils";

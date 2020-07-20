@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { getProfileFetch } from "../../../redux";
+import { getProfileFetch } from "../../../store/user/thunks";
 
 export default () => {
   const [fetched, setFetched] = useState(false);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchAPI } from "../../../../../helpers";
-import { validatedInWaitingList } from "../../../../../redux";
+import { validatedInWaitingList } from "../../../../../store/user/actions";
 
 export default () => {
   const dispatch = useDispatch();

@@ -1,40 +1,42 @@
 import {
-  FETCH_OBRES_FAILURE,
-  FETCH_OBRES_REQUEST,
-  FETCH_OBRES_SUCCESS,
-} from "./obres-types";
+  FETCH_SOCIS_FAILURE,
+  FETCH_SOCIS_REQUEST,
+  FETCH_SOCIS_SUCCESS,
+  SocisActionTypes,
+  SocisState,
+} from "./types";
 
-const initialState = {
-  obres: [],
+const initialState: SocisState = {
+  socis: [],
   loading: false,
   fetched: false,
   error: {},
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: SocisActionTypes): SocisState => {
   switch (action.type) {
-    case FETCH_OBRES_REQUEST:
+    case FETCH_SOCIS_REQUEST:
       return {
         ...state,
         loading: true,
         error: {},
       };
 
-    case FETCH_OBRES_SUCCESS:
+    case FETCH_SOCIS_SUCCESS:
       return {
         ...state,
-        obres: action.payload.obres,
+        socis: action.payload,
         loading: false,
         fetched: true,
         error: {},
       };
 
-    case FETCH_OBRES_FAILURE:
+    case FETCH_SOCIS_FAILURE:
       return {
         ...state,
         loading: false,
         fetched: true,
-        error: action.payload.error,
+        error: action.payload,
       };
 
     default:

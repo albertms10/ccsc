@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFilterMoviment } from "../../helpers/search-filters";
-import { fetchMoviments } from "../../redux/moviments/moviments-actions";
+import { fetchMoviments } from "../../store/moviments/thunks";
 import { mapFirstOfProperty, timeDuration } from "../../utils";
 import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";
 import ModalList from "../modal-list/modal-list";

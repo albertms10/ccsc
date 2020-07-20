@@ -6,7 +6,7 @@ import { IconFormacio } from "../../../../assets/icons";
 import { Authorized } from "../../../../components/authorized";
 import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
 import { useDeleteAPI } from "../../../../helpers";
-import { fetchObres } from "../../../../redux/obres/obres-actions";
+import { fetchObres } from "../../../../store/obres/thunks";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { searchFilter } from "../../../../utils";
 import { useObres } from "./hooks";

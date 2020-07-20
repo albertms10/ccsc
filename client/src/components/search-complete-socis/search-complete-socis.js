@@ -2,7 +2,7 @@ import { Avatar, Space } from "antd";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSocis } from "../../redux/socis/socis-actions";
+import { fetchSocis } from "../../store/socis/thunks";
 import { SearchComplete } from "../../standalone/search-complete";
 import { initials, searchFilter } from "../../utils";
 

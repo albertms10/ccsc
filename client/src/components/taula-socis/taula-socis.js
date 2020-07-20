@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteAPI } from "../../helpers";
-import { fetchSocis } from "../../redux/socis/socis-actions";
+import { fetchSocis } from "../../store/socis/thunks";
 import { SociPropTypes } from "../../typedef/prop-types-definitions";
 import { searchFilter } from "../../utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
