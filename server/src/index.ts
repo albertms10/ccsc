@@ -5,6 +5,7 @@ import * as path from "path";
 import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
+import { apiPath } from "../../common/common.functions";
 import poolPromise from "./config/db.config";
 import * as routes from "./routes";
 
@@ -49,34 +50,32 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-const BASE_PATH = "/api";
-
-app.use(`${BASE_PATH}/agrupacions`, routes.agrupacions);
-app.use(`${BASE_PATH}/assajos`, routes.assajos);
-app.use(`${BASE_PATH}/auth`, routes.auth);
-app.use(`${BASE_PATH}/concerts`, routes.concerts);
-app.use(`${BASE_PATH}/esdeveniments`, routes.esdeveniments);
-app.use(`${BASE_PATH}/formacions`, routes.formacions);
-app.use(`${BASE_PATH}/establiments`, routes.establiments);
-app.use(`${BASE_PATH}/localitzacions`, routes.localitzacions);
-app.use(`${BASE_PATH}/moviments`, routes.moviments);
-app.use(`${BASE_PATH}/obres`, routes.obres);
-app.use(`${BASE_PATH}/projectes`, routes.projectes);
-app.use(`${BASE_PATH}/socis`, routes.socis);
-app.use(`${BASE_PATH}/titulars`, routes.titulars);
-app.use(`${BASE_PATH}/usuaris`, routes.usuaris);
+app.use(apiPath("/agrupacions"), routes.agrupacions);
+app.use(apiPath("/assajos"), routes.assajos);
+app.use(apiPath("/auth"), routes.auth);
+app.use(apiPath("/concerts"), routes.concerts);
+app.use(apiPath("/esdeveniments"), routes.esdeveniments);
+app.use(apiPath("/formacions"), routes.formacions);
+app.use(apiPath("/establiments"), routes.establiments);
+app.use(apiPath("/localitzacions"), routes.localitzacions);
+app.use(apiPath("/moviments"), routes.moviments);
+app.use(apiPath("/obres"), routes.obres);
+app.use(apiPath("/projectes"), routes.projectes);
+app.use(apiPath("/socis"), routes.socis);
+app.use(apiPath("/titulars"), routes.titulars);
+app.use(apiPath("/usuaris"), routes.usuaris);
 
 const swaggerDocument = YAML.load("./docs/docs.yaml");
 
 app.use(
-  `${BASE_PATH}/docs`,
+  apiPath("/docs"),
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCssUrl: "../docs-styles.css",
   })
 );
 
-app.get(`${BASE_PATH}/docs-styles.css`, (req, res) => {
+app.get(apiPath("/docs-styles.css"), (req, res) => {
   res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
