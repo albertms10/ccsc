@@ -1,13 +1,13 @@
 import { Assaig, ResponseError, Usuari } from "common";
 import { fetchAPI } from "../../helpers";
-import { AppThunk } from "../index";
+import { AppThunkAction } from "../types";
 import {
   fetchAssajosFailure,
   fetchAssajosRequest,
   fetchAssajosSuccess,
 } from "./actions";
 
-export const fetchAssajos = (): AppThunk => (dispatch, getState) => {
+export const fetchAssajos = (): AppThunkAction => (dispatch, getState) => {
   const { id_persona } = getState().user.currentUser as Usuari;
 
   dispatch(fetchAssajosRequest());

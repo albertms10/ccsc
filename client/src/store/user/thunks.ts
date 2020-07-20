@@ -1,10 +1,12 @@
 import { ResponseError } from "common";
 import { fetchAPI } from "../../helpers";
-import { AppThunk } from "../index";
+import { AppThunkAction } from "../types";
 import { logoutUser, signinUserFailure, signinUserSuccess } from "./actions";
 import { SignInUser, UserResponse } from "./types";
 
-export const signinUserFetch = (user: SignInUser): AppThunk => (dispatch) => {
+export const signinUserFetch = (user: SignInUser): AppThunkAction => (
+  dispatch
+) => {
   fetchAPI(
     "/auth/sign-in",
     (data: UserResponse | ResponseError) => {
@@ -26,7 +28,7 @@ export const signinUserFetch = (user: SignInUser): AppThunk => (dispatch) => {
 /**
  * Fetches the API for a given JWT access token in `localStorage`.
  */
-export const getProfileFetch = (): AppThunk => (dispatch) => {
+export const getProfileFetch = (): AppThunkAction => (dispatch) => {
   const accessToken = localStorage.getItem("access-token");
 
   if (accessToken) {
@@ -50,7 +52,7 @@ export const getProfileFetch = (): AppThunk => (dispatch) => {
  * Removes the JWT access token from the localStorage
  * and dispatches the user logout action.
  */
-export const logoutRemoveUser = (): AppThunk => (dispatch) => {
+export const logoutRemoveUser = (): AppThunkAction => (dispatch) => {
   localStorage.removeItem("access-token");
   dispatch(logoutUser());
 };

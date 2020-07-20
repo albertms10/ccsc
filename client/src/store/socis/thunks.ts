@@ -1,13 +1,13 @@
 import { ResponseError, Soci } from "common";
 import { fetchAPI } from "../../helpers";
-import { AppThunk } from "../index";
+import { AppThunkAction } from "../types";
 import {
   fetchSocisFailure,
   fetchSocisRequest,
   fetchSocisSuccess,
 } from "./actions";
 
-export const fetchSocis = (): AppThunk => (dispatch) => {
+export const fetchSocis = (): AppThunkAction => (dispatch) => {
   dispatch(fetchSocisRequest());
 
   fetchAPI(

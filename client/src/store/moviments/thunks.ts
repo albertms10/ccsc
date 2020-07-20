@@ -1,13 +1,13 @@
 import { Moviment, ResponseError } from "common";
 import { fetchAPI } from "../../helpers";
-import { AppThunk } from "../index";
+import { AppThunkAction } from "../types";
 import {
   fetchMovimentsFailure,
   fetchMovimentsRequest,
   fetchMovimentsSuccess,
 } from "./actions";
 
-export const fetchMoviments = (): AppThunk => (dispatch) => {
+export const fetchMoviments = (): AppThunkAction => (dispatch) => {
   dispatch(fetchMovimentsRequest());
 
   fetchAPI(

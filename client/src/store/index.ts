@@ -1,5 +1,5 @@
-import { Action, applyMiddleware, combineReducers, createStore } from "redux";
-import thunk, { ThunkAction } from "redux-thunk";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import thunk from "redux-thunk";
 
 import assajos from "./assajos/reducer";
 import moviments from "./moviments/reducer";
@@ -8,7 +8,7 @@ import projectes from "./projectes/reducer";
 import socis from "./socis/reducer";
 import user from "./user/reducer";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   assajos,
   moviments,
   obres,
@@ -16,14 +16,5 @@ const rootReducer = combineReducers({
   socis,
   user,
 });
-
-export type RootState = ReturnType<typeof rootReducer>;
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

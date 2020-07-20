@@ -1,13 +1,13 @@
 import { Obra, ResponseError } from "common";
 import { fetchAPI } from "../../helpers";
-import { AppThunk } from "../index";
+import { AppThunkAction } from "../types";
 import {
   fetchObresFailure,
   fetchObresRequest,
   fetchObresSuccess,
 } from "./actions";
 
-export const fetchObres = (): AppThunk => (dispatch) => {
+export const fetchObres = (): AppThunkAction => (dispatch) => {
   dispatch(fetchObresRequest());
 
   fetchAPI(
