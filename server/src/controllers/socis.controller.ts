@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Pool } from "promise-mysql";
-import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common-constants";
+import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common.constants";
 import { parseAndSendJSON, queryFile } from "../helpers";
 import { saltHashPassword } from "../utils";
 

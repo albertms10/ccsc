@@ -6,7 +6,7 @@ import {
   ROLES_ADMIN,
   ROLES_DIRECCIO_MUSICAL,
   ROLES_JUNTA_DIRECTIVA,
-} from "../../../common/common-constants";
+} from "../../../common/common.constants";
 import { queryFile } from "../helpers";
 import { verifyJWT } from "../utils";
 
