@@ -1,4 +1,5 @@
-import { FetchError, Projecte } from "common";
+import { FetchError } from "common";
+import { Projecte } from "model";
 
 export const FETCH_PROJECTES_REQUEST = "FETCH_PROJECTES_REQUEST";
 export const FETCH_PROJECTES_SUCCESS = "FETCH_PROJECTES_SUCCESS";

@@ -1,4 +1,5 @@
-import { FetchError, Usuari } from "common";
+import { FetchError } from "common";
+import { Usuari } from "model";
 
 export const SIGNIN_USER_SUCCESS = "SIGNIN_USER_SUCCESS";
 export const SIGNIN_USER_FAILURE = "SIGNIN_USER_FAILURE";

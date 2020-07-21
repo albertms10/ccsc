@@ -1,4 +1,5 @@
-import { FetchError, Moviment } from "common";
+import { FetchError } from "common";
+import { Moviment } from "model";
 
 export const FETCH_MOVIMENTS_REQUEST = "FETCH_MOVIMENTS_REQUEST";
 export const FETCH_MOVIMENTS_SUCCESS = "FETCH_MOVIMENTS_SUCCESS";

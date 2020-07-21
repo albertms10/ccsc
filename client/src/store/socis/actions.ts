@@ -1,4 +1,5 @@
-import { FetchError, Soci } from "common";
+import { FetchError } from "common";
+import { Soci } from "model";
 import {
   FETCH_SOCIS_FAILURE,
   FETCH_SOCIS_REQUEST,

@@ -1,4 +1,5 @@
-import { FetchError, Projecte } from "common";
+import { FetchError } from "common";
+import { Projecte } from "model";
 import {
   FETCH_PROJECTES_FAILURE,
   FETCH_PROJECTES_REQUEST,

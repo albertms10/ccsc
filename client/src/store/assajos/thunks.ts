@@ -1,4 +1,5 @@
-import { Assaig, ResponseError, Usuari } from "common";
+import { ResponseError } from "common";
+import { Assaig, Usuari } from "model";
 import { fetchAPI } from "../../helpers";
 import { AppThunkAction } from "../types";
 import {

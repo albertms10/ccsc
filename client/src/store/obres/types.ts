@@ -1,4 +1,5 @@
-import { FetchError, Obra } from "common";
+import { FetchError } from "common";
+import { Obra } from "model";
 
 export const FETCH_OBRES_REQUEST = "FETCH_OBRES_REQUEST";
 export const FETCH_OBRES_SUCCESS = "FETCH_OBRES_SUCCESS";

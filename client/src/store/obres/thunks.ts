@@ -1,4 +1,5 @@
-import { Obra, ResponseError } from "common";
+import { ResponseError } from "common";
+import { Obra } from "model";
 import { fetchAPI } from "../../helpers";
 import { AppThunkAction } from "../types";
 import {

@@ -1,4 +1,5 @@
-import { FetchError, Obra } from "common";
+import { FetchError } from "common";
+import { Obra } from "model";
 import {
   FETCH_OBRES_FAILURE,
   FETCH_OBRES_REQUEST,

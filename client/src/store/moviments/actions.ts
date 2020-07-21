@@ -1,4 +1,5 @@
-import { FetchError, Moviment } from "common";
+import { FetchError } from "common";
+import { Moviment } from "model";
 import {
   FETCH_MOVIMENTS_FAILURE,
   FETCH_MOVIMENTS_REQUEST,

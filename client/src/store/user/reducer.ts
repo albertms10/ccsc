@@ -1,4 +1,4 @@
-import { Usuari } from "common";
+import { Usuari } from "model";
 import {
   LOGOUT_USER,
   REMOVE_ACCEPTANCE_NOTICE,

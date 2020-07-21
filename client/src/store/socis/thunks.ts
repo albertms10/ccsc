@@ -1,4 +1,5 @@
-import { ResponseError, Soci } from "common";
+import { ResponseError } from "common";
+import { Soci } from "model";
 import { fetchAPI } from "../../helpers";
 import { AppThunkAction } from "../types";
 import {

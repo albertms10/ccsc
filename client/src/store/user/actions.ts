@@ -1,4 +1,5 @@
-import { FetchError, Usuari } from "common";
+import { FetchError } from "common";
+import { Usuari } from "model";
 import {
   LOGOUT_USER,
   REMOVE_ACCEPTANCE_NOTICE,

@@ -1,4 +1,5 @@
-import { FetchError, Soci } from "common";
+import { FetchError } from "common";
+import { Soci } from "model";
 
 export const FETCH_SOCIS_REQUEST = "FETCH_SOCIS_REQUEST";
 export const FETCH_SOCIS_SUCCESS = "FETCH_SOCIS_SUCCESS";

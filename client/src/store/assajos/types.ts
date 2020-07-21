@@ -1,4 +1,5 @@
-import { Assaig, FetchError } from "common";
+import { FetchError } from "common";
+import { Assaig } from "model";
 
 export const FETCH_ASSAJOS_REQUEST = "FETCH_ASSAJOS_REQUEST";
 export const FETCH_ASSAJOS_SUCCESS = "FETCH_ASSAJOS_SUCCESS";

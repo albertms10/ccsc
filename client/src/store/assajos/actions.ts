@@ -1,4 +1,5 @@
-import { Assaig, FetchError } from "common";
+import { FetchError } from "common";
+import { Assaig } from "model";
 import {
   AssajosActionTypes,
   FETCH_ASSAJOS_FAILURE,
