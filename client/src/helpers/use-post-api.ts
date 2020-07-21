@@ -17,5 +17,5 @@ export default (url: string) => {
     [url, dispatch]
   );
 
-  return [loading, postData];
+  return [loading, postData] as const;
 };

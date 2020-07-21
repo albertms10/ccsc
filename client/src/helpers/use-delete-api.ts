@@ -28,5 +28,5 @@ export default (url: string, textualElement: string, callback: Function) => {
     loading,
     (id: number) =>
       showDeleteConfirm(textualElement || "l’ítem", () => deleteData(id)),
-  ];
+  ] as const;
 };
