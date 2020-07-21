@@ -15,18 +15,18 @@ declare module "model" {
   }
 
   export interface Avis {
-    id_avis?: number;
-    titol?: string;
-    descripcio?: string;
+    id_avis: number;
+    titol: string;
+    descripcio: string;
     titol_acceptacions?: string;
     seccions?: SeccioAvis[];
     acceptacions?: AcceptacioAvis[];
   }
 
   export interface Persona {
-    id_persona?: number;
-    nom?: string;
-    cognoms?: string;
+    id_persona: number;
+    nom: string;
+    cognoms: string;
     nom_complet?: string;
   }
 
@@ -40,12 +40,12 @@ declare module "model" {
   }
 
   export interface Usuari {
-    id_usuari?: number;
-    id_persona?: number;
-    username?: string;
-    nom?: string;
-    cognoms?: string;
-    es_dona?: boolean;
+    id_usuari: number;
+    id_persona: number;
+    username: string;
+    nom: string;
+    cognoms: string;
+    es_dona: boolean;
     es_actiu?: boolean;
     avisos?: string | number[];
     roles?: string | import("common").Role[];
@@ -57,6 +57,8 @@ declare module "model" {
     id_formacio: number;
     nom: string;
     nom_curt: string;
+    descripcio?: string;
+    num_persones?: number;
   }
 
   export interface Projecte {
@@ -66,6 +68,7 @@ declare module "model" {
     any_inici_curs: string;
     any_final_curs: string;
     inicials: string;
+    color: string;
     formacions: Formacio[];
     directors: Director[];
   }
@@ -81,18 +84,31 @@ declare module "model" {
 
   export interface Esdeveniment {
     id_esdeveniment: number;
+    titol: string;
     data_inici?: string;
     dia_inici: string;
     hora_inici: string;
     data_final?: string;
     hora_final: string;
+    tipus?: string;
   }
 
   export interface Assaig extends Esdeveniment {
     id_assaig: number;
-    titol: string;
     formacions: Formacio[];
     projectes: Projecte[];
+  }
+
+  export interface Concert extends Esdeveniment {
+    id_concert: number;
+  }
+
+  export interface Reunio extends Esdeveniment {
+    id_reunio: number;
+  }
+
+  export interface Assemblea extends Reunio {
+    id_assemblea: number;
   }
 
   export interface Obra {
