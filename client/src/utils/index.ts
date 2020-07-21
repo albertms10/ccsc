@@ -4,6 +4,7 @@ export { default as dateRange } from "./date-range";
 export { default as generateUsername } from "./generate-username";
 export { default as includesSome } from "./includes-some";
 export { default as initials } from "./initials";
+export { default as joinElements } from "./join-elements";
 export { default as kebabCase } from "./kebab-case";
 export { default as literalList } from "./literal-list";
 export { default as mapFirstOfProperty } from "./map-first-of-property";

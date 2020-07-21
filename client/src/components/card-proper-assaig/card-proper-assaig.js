@@ -7,12 +7,11 @@ import { Card, Space, Tag, Typography } from "antd";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
-import { joinElements } from "../../helpers";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
 import { AssaigPropTypes } from "../../typedef/prop-types-definitions";
-import { dateRange, timeRange } from "../../utils";
+import { dateRange, joinElements, timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { IconsFormacions } from "../icons-formacions";
 

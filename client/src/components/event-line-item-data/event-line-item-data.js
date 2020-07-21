@@ -1,10 +1,9 @@
 import { Space } from "antd";
 import React from "react";
-import { joinElements } from "../../helpers";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
-import { dateRange } from "../../utils";
+import { dateRange, joinElements } from "../../utils";
 
 const EventLineItemData = ({ esdeveniment }) => (
   <EventLineItem>
