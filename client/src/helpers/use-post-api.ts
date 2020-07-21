@@ -4,6 +4,7 @@ import { fetchAPI } from "./index";
 
 export default (url: string) => {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const postData = useCallback(

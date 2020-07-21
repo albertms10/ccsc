@@ -4,14 +4,15 @@ import { fetchAPI } from "./index";
 
 export default <T>(url: string, initialState: T) => {
   const dispatch = useDispatch();
+
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(false);
 
   const getData = useCallback(() => {
     setLoading(true);
-    return fetchAPI(
+    return fetchAPI<T>(
       url,
-      (data: any) => {
+      (data) => {
         setData(data);
         setLoading(false);
       },

@@ -4,6 +4,7 @@ import { fetchAPI, showDeleteConfirm } from "./index";
 
 export default (url: string, textualElement: string, callback: Function) => {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const deleteData = useCallback(

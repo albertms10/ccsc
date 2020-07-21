@@ -1,6 +1,6 @@
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { message, Modal, Tooltip, Typography } from "antd";
-import { FetchError } from "common";
+import { FetchError, ResponseError } from "common";
 import React from "react";
 import { AppThunkDispatch } from "../store/types";
 import { logoutRemoveUser } from "../store/user/thunks";
@@ -42,9 +42,9 @@ const modalWarn = (error: FetchError, dispatch: AppThunkDispatch) => {
 /**
  * Fetches the API using the appropriate JWT Access Token.
  */
-export default (
+export default <T,>(
   url: string,
-  callback: Function,
+  callback: (data: T) => void,
   dispatch: AppThunkDispatch,
   init: RequestInit = {}
 ) =>
@@ -61,12 +61,15 @@ export default (
     .then((res) => {
       const contentType = res.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1)
-        res.json().then((data) => {
-          if (data.hasOwnProperty("error") && !data.error.hideMessage)
-            modalWarn(data.error, dispatch);
-          else callback(data);
+        res.json().then((data: T | ResponseError) => {
+          if (
+            (data as ResponseError).error &&
+            !(data as ResponseError).error.hideMessage
+          )
+            modalWarn((data as ResponseError).error, dispatch);
+          else callback(data as T);
         });
-      else if (res.ok) callback();
+      else if (res.ok) callback({} as T);
       else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
       return res;
     })

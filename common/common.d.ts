@@ -12,6 +12,7 @@ declare module "common" {
   export interface FetchError {
     status: number;
     message: string;
+    hideMessage?: boolean;
     description?: string;
     okText?: string;
     okOnly?: boolean;
