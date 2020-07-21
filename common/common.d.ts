@@ -5,6 +5,10 @@ declare module "common" {
     | "direccio_musical"
     | "admin";
 
+  export interface BooleanMap {
+    [key: string]: boolean;
+  }
+
   export interface FetchError {
     status: number;
     message: string;
