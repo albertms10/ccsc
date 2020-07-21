@@ -1,9 +1,15 @@
 import { Form } from "antd";
+import { AcceptacioAvis } from "model";
 import React from "react";
-import { AcceptacioPropTypes } from "../../../../typedef/prop-types-definitions";
 import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
 
-const CheckboxAcceptacioForm = ({ acceptacio }) => (
+interface CheckboxAcceptacioFormProps {
+  acceptacio: AcceptacioAvis;
+}
+
+const CheckboxAcceptacioForm: React.FC<CheckboxAcceptacioFormProps> = ({
+  acceptacio,
+}) => (
   <Form.Item
     name={["acceptacions", acceptacio.form_name]}
     valuePropName="checked"
@@ -24,9 +30,5 @@ const CheckboxAcceptacioForm = ({ acceptacio }) => (
     <CheckboxAcceptacioItem acceptacio={acceptacio} />
   </Form.Item>
 );
-
-CheckboxAcceptacioForm.propTypes = {
-  acceptacio: AcceptacioPropTypes.isRequired,
-};
 
 export default CheckboxAcceptacioForm;

@@ -1,15 +1,15 @@
-import PropTypes from "prop-types";
 import React from "react";
 import "./sub-header.css";
 
-const SubHeader = ({ title, style }) => (
+interface SubHeaderProps {
+  title?: string;
+  style?: React.CSSProperties;
+}
+
+const SubHeader: React.FC<SubHeaderProps> = ({ title, style }) => (
   <div className="sub-header" style={style}>
     {title}
   </div>
 );
-
-SubHeader.propTypes = {
-  title: PropTypes.string,
-};
 
 export default SubHeader;

@@ -1,8 +1,19 @@
 import { Collapse, Spin } from "antd";
-import PropTypes from "prop-types";
 import React from "react";
 
-const CollapseCard = ({
+interface CollapseCardProps {
+  alert?: JSX.Element;
+  alertCondition?: boolean;
+  title?: string;
+  actionItem?: JSX.Element;
+  loading?: boolean;
+  active?: boolean;
+  disabled?: boolean;
+  showArrow?: boolean;
+  info?: JSX.Element;
+}
+
+const CollapseCard: React.FC<CollapseCardProps> = ({
   alert,
   alertCondition,
   title,
@@ -33,17 +44,5 @@ const CollapseCard = ({
     </Collapse>
   </Spin>
 );
-
-CollapseCard.propTypes = {
-  alert: PropTypes.node,
-  alertCondition: PropTypes.bool,
-  title: PropTypes.string,
-  actionItem: PropTypes.node,
-  loading: PropTypes.bool,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  showArrow: PropTypes.bool,
-  info: PropTypes.node,
-};
 
 export default CollapseCard;

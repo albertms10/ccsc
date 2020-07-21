@@ -1,9 +1,18 @@
 import { Card, Divider, Spin, Tooltip } from "antd";
-import PropTypes from "prop-types";
 import React from "react";
 import SubHeader from "../sub-header/sub-header";
 
-const InfoCard = ({
+interface InfoCardProps {
+  alert?: JSX.Element;
+  alertCondition?: boolean;
+  title?: string;
+  actionTooltip?: string;
+  actionItem?: JSX.Element;
+  loading?: boolean;
+  info?: JSX.Element;
+}
+
+const InfoCard: React.FC<InfoCardProps> = ({
   alert,
   alertCondition,
   title,
@@ -33,15 +42,6 @@ const InfoCard = ({
       </Card>
     </Spin>
   );
-};
-
-InfoCard.propTypes = {
-  alert: PropTypes.node,
-  alertCondition: PropTypes.bool,
-  title: PropTypes.string,
-  actionItem: PropTypes.node,
-  loading: PropTypes.bool,
-  info: PropTypes.node,
 };
 
 export default InfoCard;

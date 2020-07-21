@@ -1,4 +1,5 @@
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
+import { Soci } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
@@ -13,7 +14,7 @@ import "./perfil-soci.css";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-export const SociContext = createContext(null);
+export const SociContext = createContext<Soci>({});
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
@@ -21,7 +22,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [soci] = useAPI(`/socis/${id}`);
+  const [soci] = useAPI<Soci>(`/socis/${id}`, {});
 
   useEffect(() => setPageHeader(soci.nom_complet), [
     setPageHeader,
@@ -37,10 +38,10 @@ export default () => {
       />
       <Container>
         <div className="perfil-soci">
-          <Row type="flex" gutter={[41, 41]}>
+          <Row gutter={[41, 41]}>
             <Col xs={24} sm={6} flex={1}>
               <Avatar className="avatar-soci" shape="square">
-                {initials(soci.nom_complet)}
+                {initials(soci.nom_complet || "")}
               </Avatar>
             </Col>
             <Col xs={24} sm={18} flex={1}>

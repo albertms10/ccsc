@@ -6,9 +6,9 @@ import React from "react";
 import { Provider as StoreProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { IniciaSessio } from "../../pages-home/inicia-sessio";
+import { AvisosInici } from "../../pages-home/inicia-sessio/components/avisos-inici";
 import { DonarAlta } from "../../pages-home/inicia-sessio/components/donar-alta";
 import { DonarAltaFormulari } from "../../pages-home/inicia-sessio/components/donar-alta-formulari";
-import { AvisosInici } from "../../pages-home/inicia-sessio/components/avisos-inici";
 import { store } from "../../store";
 import { HomeApp } from "../home-app";
 import { TaulerApp } from "../tauler-app";
@@ -16,17 +16,13 @@ import { RouteTauler } from "./components/route-tauler";
 
 moment.locale("ca");
 
-export default () => (
+const App: React.FC = () => (
   <StoreProvider store={store}>
     <ConfigProvider locale={caES}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/inicia-sessio" component={IniciaSessio} />
-          <Route
-            exact
-            path="/inicia-sessio/avisos"
-            component={AvisosInici}
-          />
+          <Route exact path="/inicia-sessio/avisos" component={AvisosInici} />
           <Route exact path="/donar-alta" component={DonarAlta} />
           <Route
             exact
@@ -40,3 +36,5 @@ export default () => (
     </ConfigProvider>
   </StoreProvider>
 );
+
+export default App;

@@ -1,20 +1,17 @@
+import { BooleanMap } from "common";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
 
-/**
- * @param {number} idSoci
- * @returns {[Function, boolean]}
- */
-export default (idSoci) => {
+export default (idSoci: number) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const putAvisAcceptacio = (acceptacions, callback) => {
+  const putAvisAcceptacio = (acceptacions: BooleanMap, callback: Function) => {
     setLoading(true);
     fetchAPI(
       `/socis/${idSoci}/acceptacions`,
-      (accepta) => {
+      (accepta: BooleanMap) => {
         if (typeof callback === "function") callback(accepta);
       },
       dispatch,
@@ -25,5 +22,5 @@ export default (idSoci) => {
     ).finally(() => setLoading(false));
   };
 
-  return [putAvisAcceptacio, loading];
+  return [putAvisAcceptacio, loading] as const;
 };

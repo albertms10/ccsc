@@ -1,28 +1,36 @@
-import PropTypes from "prop-types";
+import { BooleanMap } from "common";
+import { Avis } from "model";
 import React, { useMemo } from "react";
 import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
 import { InfoCard } from "../../standalone/info-card";
-import { AcceptacionsSociPropTypes } from "../../typedef/prop-types-definitions";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
 import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";
 
-const AvisAcceptacio = ({
+interface AvisAcceptacioProps {
+  nameAvis: string;
+  acceptacionsSoci?: BooleanMap;
+  isForm?: boolean;
+  collapsible?: boolean;
+}
+
+const AvisAcceptacio: React.FC<AvisAcceptacioProps> = ({
   nameAvis,
   acceptacionsSoci = {},
   isForm = false,
   collapsible = false,
 }) => {
-  const [textAvisAcceptacio, loading] = useAPI(
-    `/agrupacions/avisos/${nameAvis}`
+  const [textAvisAcceptacio, loading] = useAPI<Avis>(
+    `/agrupacions/avisos/${nameAvis}`,
+    {}
   );
 
   const content = useMemo(
     () => (
       <>
         <SeccioAvis descripcio={textAvisAcceptacio.descripcio} />
-        {textAvisAcceptacio.hasOwnProperty("seccions") &&
+        {textAvisAcceptacio.seccions &&
           textAvisAcceptacio.seccions.map(
             ({ id_seccio_avis, titol, descripcio }) => (
               <SeccioAvis
@@ -33,7 +41,7 @@ const AvisAcceptacio = ({
             )
           )}
         <SeccioAvis titol={textAvisAcceptacio.titol_acceptacions}>
-          {textAvisAcceptacio.hasOwnProperty("acceptacions") &&
+          {textAvisAcceptacio.acceptacions &&
             textAvisAcceptacio.acceptacions.map((acceptacio) =>
               isForm ? (
                 <CheckboxAcceptacioForm
@@ -67,13 +75,6 @@ const AvisAcceptacio = ({
       {content}
     </InfoCard>
   );
-};
-
-AvisAcceptacio.propTypes = {
-  nameAvis: PropTypes.string.isRequired,
-  acceptacionsSoci: AcceptacionsSociPropTypes,
-  isForm: PropTypes.bool,
-  collapsible: PropTypes.bool,
 };
 
 export default AvisAcceptacio;

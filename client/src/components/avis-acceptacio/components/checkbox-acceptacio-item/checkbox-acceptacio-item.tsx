@@ -1,12 +1,19 @@
 import { Checkbox, Typography } from "antd";
-import PropTypes from "prop-types";
+import { CheckboxProps } from "antd/lib/checkbox";
+import { AcceptacioAvis } from "model";
 import React from "react";
-import { AcceptacioPropTypes } from "../../../../typedef/prop-types-definitions";
 import "./checkbox-acceptacio-item.css";
 
 const { Paragraph } = Typography;
 
-const CheckboxAcceptacioItem = ({ acceptacio, ...props }) => (
+interface CheckboxAcceptacioItemProps extends CheckboxProps {
+  acceptacio: AcceptacioAvis;
+}
+
+const CheckboxAcceptacioItem: React.FC<CheckboxAcceptacioItemProps> = ({
+  acceptacio,
+  ...props
+}) => (
   <Checkbox {...props}>
     <div style={{ display: "inline-grid" }}>
       <Paragraph style={{ marginBottom: 0 }}>{acceptacio.titol}</Paragraph>
@@ -18,12 +25,5 @@ const CheckboxAcceptacioItem = ({ acceptacio, ...props }) => (
     </div>
   </Checkbox>
 );
-
-CheckboxAcceptacioItem.propTypes = {
-  acceptacio: AcceptacioPropTypes.isRequired,
-  checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-};
 
 export default CheckboxAcceptacioItem;

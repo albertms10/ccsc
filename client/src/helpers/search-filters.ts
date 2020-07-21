@@ -1,4 +1,4 @@
-import { Assaig, Moviment, Projecte, Veu } from "common";
+import { Assaig, Moviment, Projecte, Veu } from "model";
 
 export const searchFilterAssaig = (assaig: Assaig) => ({
   texts: [
