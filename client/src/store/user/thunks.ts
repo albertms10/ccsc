@@ -7,9 +7,9 @@ import { SignInUser, UserResponse } from "./types";
 export const signinUserFetch = (user: SignInUser): AppThunkAction => (
   dispatch
 ) => {
-  fetchAPI(
+  fetchAPI<UserResponse>(
     "/auth/sign-in",
-    (data: UserResponse | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error")) {
         dispatch(signinUserFailure((data as ResponseError).error));
       } else {
@@ -32,7 +32,7 @@ export const getProfileFetch = (): AppThunkAction => (dispatch) => {
   const accessToken = localStorage.getItem("access-token");
 
   if (accessToken) {
-    fetchAPI(
+    fetchAPI<UserResponse>(
       "/auth/user",
       (data: UserResponse | ResponseError) => {
         if (data.hasOwnProperty("error")) {

@@ -13,9 +13,9 @@ export const fetchProjectes = (): AppThunkAction => (dispatch, getState) => {
 
   dispatch(fetchProjectesRequest());
 
-  fetchAPI(
+  fetchAPI<Projecte[]>(
     `/socis/${id_persona}/projectes`,
-    (data: Projecte[] | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchProjectesFailure((data as ResponseError).error));
       else dispatch(fetchProjectesSuccess(data as Projecte[]));

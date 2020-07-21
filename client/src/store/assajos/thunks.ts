@@ -13,9 +13,9 @@ export const fetchAssajos = (): AppThunkAction => (dispatch, getState) => {
 
   dispatch(fetchAssajosRequest());
 
-  fetchAPI(
+  fetchAPI<Assaig[]>(
     `/socis/${id_persona}/assajos`,
-    (data: Assaig[] | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchAssajosFailure((data as ResponseError).error));
       else dispatch(fetchAssajosSuccess(data as Assaig[]));

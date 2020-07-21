@@ -11,9 +11,9 @@ import {
 export const fetchSocis = (): AppThunkAction => (dispatch) => {
   dispatch(fetchSocisRequest());
 
-  fetchAPI(
+  fetchAPI<Soci[]>(
     `/socis`,
-    (data: Soci[] | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchSocisFailure((data as ResponseError).error));
       else dispatch(fetchSocisSuccess(data as Soci[]));

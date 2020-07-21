@@ -11,9 +11,9 @@ import {
 export const fetchMoviments = (): AppThunkAction => (dispatch) => {
   dispatch(fetchMovimentsRequest());
 
-  fetchAPI(
+  fetchAPI<Moviment[]>(
     `/moviments`,
-    (data: Moviment[] | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchMovimentsFailure((data as ResponseError).error));
       else dispatch(fetchMovimentsSuccess(data as Moviment[]));

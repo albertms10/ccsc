@@ -11,9 +11,9 @@ import {
 export const fetchObres = (): AppThunkAction => (dispatch) => {
   dispatch(fetchObresRequest());
 
-  fetchAPI(
+  fetchAPI<Obra[]>(
     `/obres`,
-    (data: Obra[] | ResponseError) => {
+    (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchObresFailure((data as ResponseError).error));
       else dispatch(fetchObresSuccess(data as Obra[]));

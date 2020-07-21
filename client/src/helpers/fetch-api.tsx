@@ -44,7 +44,7 @@ const modalWarn = (error: FetchError, dispatch: AppThunkDispatch) => {
  */
 export default <T,>(
   url: string,
-  callback: (data: T) => void,
+  callback: (data: ResponseError | T) => void,
   dispatch: AppThunkDispatch,
   init: RequestInit = {}
 ) =>
@@ -61,13 +61,13 @@ export default <T,>(
     .then((res) => {
       const contentType = res.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1)
-        res.json().then((data: T | ResponseError) => {
+        res.json().then((data: ResponseError | T) => {
           if (
             (data as ResponseError).error &&
             !(data as ResponseError).error.hideMessage
           )
             modalWarn((data as ResponseError).error, dispatch);
-          else callback(data as T);
+          else callback(data);
         });
       else if (res.ok) callback({} as T);
       else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
