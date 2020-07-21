@@ -1,25 +1,31 @@
 import { InfoCircleOutlined, LayoutFilled } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
+import { Assaig, Assemblea, Concert, Reunio } from "model";
 import React from "react";
 import { Link } from "react-router-dom";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { EventLineItemData } from "../event-line-item-data";
 import { EventLineItemLocalitzacio } from "../event-line-item-localitzacio";
 import "./calendar-event-popover.css";
 
-const CalendarEventPopover = ({ esdeveniment }) => (
+interface CalendarEventPopoverProps {
+  esdeveniment: Assaig | Concert | Reunio | Assemblea;
+}
+
+const CalendarEventPopover: React.FC<CalendarEventPopoverProps> = ({
+  esdeveniment,
+}) => (
   <div className="calendar-event-popover">
     <Space direction="vertical" style={{ width: "20rem" }}>
       <EventLineItem
         icon={
-          esdeveniment.tipus === "aniversari" && (
+          esdeveniment.tipus === "aniversari" ? (
             <StatusIcon
               size="large"
               esAniversari={esdeveniment.tipus === "aniversari"}
             />
-          )
+          ) : undefined
         }
         size="large"
       >
@@ -27,10 +33,10 @@ const CalendarEventPopover = ({ esdeveniment }) => (
       </EventLineItem>
       <EventLineItemData esdeveniment={esdeveniment} />
       <EventLineItemLocalitzacio esdeveniment={esdeveniment} />
-      {esdeveniment.projectes && (
+      {(esdeveniment as Assaig).projectes && (
         <EventLineItem icon={<LayoutFilled />} style={{ marginTop: ".5rem" }}>
           <Space direction="vertical">
-            {esdeveniment.projectes.map((projecte) => (
+            {(esdeveniment as Assaig).projectes.map((projecte) => (
               <Space key={projecte.id_projecte}>
                 <Avatar
                   size="small"
@@ -55,9 +61,5 @@ const CalendarEventPopover = ({ esdeveniment }) => (
     </Space>
   </div>
 );
-
-CalendarEventPopover.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired,
-};
 
 export default CalendarEventPopover;

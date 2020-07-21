@@ -8,6 +8,7 @@ const RouteTauler: React.FC<RouteProps> = ({
   ...rest
 }) => {
   const user = useSelector(({ user }: RootState) => user.currentUser);
+
   const prevLocation = useLocation();
 
   return (

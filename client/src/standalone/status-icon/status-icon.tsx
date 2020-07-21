@@ -6,14 +6,20 @@ import {
   WarningTwoTone,
 } from "@ant-design/icons";
 import { Tooltip } from "antd";
-import PropTypes from "prop-types";
 import React, { cloneElement } from "react";
 
-const SIZES = ["middle", "large"];
+interface StatusIconProps {
+  tooltip?: string;
+  size?: "middle" | "large";
+  statusId?: number;
+  esAniversari?: boolean;
+  label?: JSX.Element;
+  style?: React.CSSProperties;
+}
 
-const StatusIcon = ({
+const StatusIcon: React.FC<StatusIconProps> = ({
   tooltip,
-  size = SIZES[0],
+  size = "middle",
   statusId,
   esAniversari = false,
   label,
@@ -33,22 +39,16 @@ const StatusIcon = ({
 
   return (
     <Tooltip title={tooltip}>
-      {esAniversari ? (
-        <GiftTwoTone twoToneColor="#eb2f96" style={newStyle} />
-      ) : (
-        statusId && cloneElement(status[statusId - 1], { style: newStyle })
-      )}
-      {label && <span style={{ marginLeft: ".5rem" }}>{label}</span>}
+      <>
+        {esAniversari ? (
+          <GiftTwoTone twoToneColor="#eb2f96" style={newStyle} />
+        ) : (
+          statusId && cloneElement(status[statusId - 1], { style: newStyle })
+        )}
+        {label && <span style={{ marginLeft: ".5rem" }}>{label}</span>}
+      </>
     </Tooltip>
   );
-};
-
-StatusIcon.propTypes = {
-  tooltip: PropTypes.string,
-  size: PropTypes.oneOf(SIZES),
-  statusId: PropTypes.number,
-  esAniversari: PropTypes.bool,
-  label: PropTypes.string,
 };
 
 export default StatusIcon;

@@ -5,6 +5,7 @@ import { fetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const putAvisAcceptacio = (acceptacions: BooleanMap, callback: Function) => {

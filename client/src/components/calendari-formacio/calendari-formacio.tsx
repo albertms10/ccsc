@@ -1,5 +1,6 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space, Spin } from "antd";
+import { Esdeveniment, Formacio } from "model";
 import moment from "moment";
 import React, { useContext } from "react";
 import { useAPI } from "../../helpers";
@@ -13,9 +14,11 @@ import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";
 
 export default () => {
-  const { id_formacio } = useContext(FormacioContext);
-  const [esdeveniments, loading] = useAPI(
-    `/formacions/${id_formacio}/esdeveniments`
+  const { id_formacio } = useContext(FormacioContext) as Formacio;
+
+  const [esdeveniments, loading] = useAPI<Esdeveniment[]>(
+    `/formacions/${id_formacio}/esdeveniments`,
+    []
   );
 
   return (
@@ -34,10 +37,10 @@ export default () => {
           headerRender={({ value, onChange }) => (
             <div className="ant-picker-calendar-header">
               <Row align="middle" gutter={16}>
-                <Col type="flex">
+                <Col>
                   <Button onClick={() => onChange(moment())}>Avui</Button>
                 </Col>
-                <Col type="flex">
+                <Col>
                   <Space>
                     <BorderlessButton
                       shape="circle"
@@ -59,12 +62,12 @@ export default () => {
                     />
                   </Space>
                 </Col>
-                <Col type="flex" flex={2}>
-                  <div style={{ fontSize: "2rem", fontWeight: "300" }}>
+                <Col flex={2}>
+                  <div style={{ fontSize: "2rem", fontWeight: "lighter" }}>
                     {moment(value).format("MMMM [de] YYYY")}
                   </div>
                 </Col>
-                <Col type="flex" flex={1}>
+                <Col flex={1}>
                   <SearchComplete
                     data={esdeveniments}
                     onSelect={(value, option) => onChange(moment(option.date))}

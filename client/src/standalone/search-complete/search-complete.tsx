@@ -1,11 +1,23 @@
 import { AutoComplete, Input } from "antd";
-import PropTypes from "prop-types";
+import { OptionProps } from "antd/lib/select";
 import React, { useCallback, useEffect, useState } from "react";
 import "./search-complete.css";
 
 const { Search } = Input;
 
-const SearchComplete = ({
+interface SearchCompleteProps<T> {
+  data: T[];
+  filter: (value: string, option: T) => boolean;
+  loading?: boolean;
+  placeholder?: string;
+  optionRenderObject: (value: T, index: number, array: any[]) => any;
+  onSelect: (value: string, option: any) => void;
+  showAllResults?: boolean;
+}
+
+type SearchCompleteComponent<T = any> = React.FC<SearchCompleteProps<T>>;
+
+const SearchComplete: SearchCompleteComponent = <T,>({
   data,
   filter,
   loading = false,
@@ -13,11 +25,11 @@ const SearchComplete = ({
   optionRenderObject,
   onSelect,
   showAllResults = false,
-}) => {
-  const [options, setOptions] = useState([]);
+}: SearchCompleteProps<T>) => {
+  const [options, setOptions] = useState<OptionProps[]>([]);
 
   const searchOption = useCallback(
-    (value) =>
+    (value: string): OptionProps[] =>
       (!showAllResults && !value
         ? data
         : data.filter((option) => filter(value, option))
@@ -25,12 +37,13 @@ const SearchComplete = ({
     [data, filter, optionRenderObject, showAllResults]
   );
 
-  const handleSearch = useCallback((value) => setOptions(searchOption(value)), [
-    searchOption,
-  ]);
+  const handleSearch = useCallback(
+    (value: string) => setOptions(searchOption(value)),
+    [searchOption]
+  );
 
   useEffect(() => {
-    handleSearch();
+    handleSearch("");
   }, [handleSearch]);
 
   return (
@@ -50,16 +63,6 @@ const SearchComplete = ({
       </AutoComplete>
     </div>
   );
-};
-
-SearchComplete.propTypes = {
-  data: PropTypes.array.isRequired,
-  filter: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
-  placeholder: PropTypes.string,
-  optionRenderObject: PropTypes.func.isRequired,
-  onSelect: PropTypes.func,
-  showAllResults: PropTypes.bool,
 };
 
 export default SearchComplete;

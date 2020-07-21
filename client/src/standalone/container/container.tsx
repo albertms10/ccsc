@@ -1,8 +1,13 @@
-import PropTypes from "prop-types";
 import React from "react";
 import "./container.css";
 
-const Container = ({
+interface ContainerProps {
+  reducedPadding?: boolean;
+  noPadding?: boolean;
+  noBackground?: boolean;
+}
+
+const Container: React.FC<ContainerProps> = ({
   reducedPadding = false,
   noPadding = false,
   noBackground = false,
@@ -23,11 +28,5 @@ const Container = ({
     {...rest}
   />
 );
-
-Container.propTypes = {
-  reducedPadding: PropTypes.bool,
-  noPadding: PropTypes.bool,
-  noBackground: PropTypes.bool,
-};
 
 export default Container;

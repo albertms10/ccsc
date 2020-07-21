@@ -17,7 +17,9 @@ const CheckboxAcceptacioIndependent: React.FC<CheckboxAcceptacioIndependentProps
   acceptacionsSoci,
 }) => {
   const soci = useContext(SociContext);
+
   const [checked, setChecked] = useState(false);
+
   const [putAvisAcceptacio, loading] = usePutAvisAcceptacio(
     soci.id_soci as number
   );

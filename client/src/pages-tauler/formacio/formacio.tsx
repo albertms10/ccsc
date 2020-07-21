@@ -1,19 +1,23 @@
 import { Tabs } from "antd";
+import { Formacio } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { Sticky, StickyContainer } from "react-sticky";
 import { IconFormacio } from "../../assets/icons";
 import { CalendariFormacio } from "../../components/calendari-formacio";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
 import { ContentHeader } from "../../standalone/content-header";
-import { FormacioPropTypes } from "../../typedef/prop-types-definitions";
 import { ResumFormacio } from "./components/resum-formacio";
 import "./formacio.css";
 
-export const FormacioContext = createContext({});
+export const FormacioContext = createContext<{} | Formacio>({});
 
 const { TabPane } = Tabs;
 
-const Formacio = ({ formacio }) => {
+interface FormacioProps {
+  formacio: Formacio;
+}
+
+const Formacio: React.FC<FormacioProps> = ({ formacio }) => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   useEffect(() => setPageHeader(formacio.nom), [setPageHeader, formacio.nom]);
@@ -51,10 +55,6 @@ const Formacio = ({ formacio }) => {
       />
     </FormacioContext.Provider>
   );
-};
-
-Formacio.propTypes = {
-  formacio: FormacioPropTypes.isRequired,
 };
 
 export default Formacio;
