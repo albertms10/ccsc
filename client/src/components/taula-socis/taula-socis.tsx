@@ -1,10 +1,10 @@
-import { Grid, Input, Table, Typography } from "antd";
-import PropTypes from "prop-types";
+import { Input, Table, Typography } from "antd";
+import { ColumnsType } from "antd/lib/table/interface";
+import { Soci } from "model";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteAPI } from "../../helpers";
 import { fetchSocis } from "../../store/socis/thunks";
-import { SociPropTypes } from "../../typedef/prop-types-definitions";
 import { searchFilter } from "../../utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";
@@ -13,9 +13,13 @@ import "./taula-socis.css";
 const { Paragraph } = Typography;
 const { Search } = Input;
 
-const TaulaSocis = ({ socis, loading = false }) => {
+interface TaulaSocisProps {
+  socis: Soci[];
+  loading: boolean;
+}
+
+const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
   const dispatch = useDispatch();
-  const breakpoint = Grid.useBreakpoint();
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -25,20 +29,21 @@ const TaulaSocis = ({ socis, loading = false }) => {
     () => dispatch(fetchSocis())
   );
 
-  const columns = [
+  const columns: ColumnsType<object> = [
     {
       title: "Nom",
       dataIndex: "nom_complet",
       key: "nom_complet",
-      render: (_, soci) => <CellNomSoci soci={soci} />,
-      sorter: (a, b) => a.nom_complet.length - b.nom_complet.length,
+      render: (_, soci) => <CellNomSoci soci={soci as Soci} />,
+      sorter: (a, b) =>
+        (a as Soci).nom_complet.length - (b as Soci).nom_complet.length,
       sortDirections: ["descend", "ascend"],
       filters: [
         { text: "Actiu", value: true },
         { text: "Inactiu", value: false },
       ],
       filterMultiple: false,
-      onFilter: (value, soci) => value === soci.es_actiu,
+      onFilter: (value, soci) => value === (soci as Soci).es_actiu,
     },
     {
       title: "Adreça electrònica",
@@ -49,13 +54,13 @@ const TaulaSocis = ({ socis, loading = false }) => {
           {text}
         </Paragraph>
       ),
-      hideBreakpoint: "sm",
+      responsive: ["md"],
     },
     {
       title: "Telèfon",
       dataIndex: "telefon",
       key: "telefon",
-      hideBreakpoint: "md",
+      responsive: ["lg"],
     },
     {
       title: "",
@@ -70,13 +75,6 @@ const TaulaSocis = ({ socis, loading = false }) => {
       ),
     },
   ];
-
-  const getResponsiveColumns = (breakpoint) =>
-    columns.filter(
-      ({ hideBreakpoint }) =>
-        !(!breakpoint.md && hideBreakpoint === "sm") &&
-        !(!breakpoint.lg && hideBreakpoint === "md")
-    );
 
   return (
     <div className="socis-table">
@@ -106,15 +104,10 @@ const TaulaSocis = ({ socis, loading = false }) => {
         rowKey="id_persona"
         loading={loading || loadingDelete}
         pagination={{ hideOnSinglePage: true, responsive: true }}
-        columns={getResponsiveColumns(breakpoint)}
+        columns={columns}
       />
     </div>
   );
-};
-
-TaulaSocis.propTypes = {
-  socis: PropTypes.arrayOf(SociPropTypes).isRequired,
-  loading: PropTypes.bool,
 };
 
 export default TaulaSocis;

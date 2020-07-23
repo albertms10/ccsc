@@ -1,11 +1,19 @@
 import { Checkbox, Select, Space } from "antd";
-import PropTypes from "prop-types";
+import { Convocatoria, EstatConfirmacio, PersonaConvocada } from "model";
 import React, { useCallback, useState } from "react";
 import { useAPI } from "../../helpers";
 import { StatusIcon } from "../../standalone/status-icon";
 import { usePutAssistentEsdeveniment } from "./hooks";
 
-const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
+interface SelectEstatEsdevenimentProps {
+  idEsdeveniment: number;
+  persona: PersonaConvocada;
+}
+
+const SelectEstatEsdeveniment: React.FC<SelectEstatEsdevenimentProps> = ({
+  idEsdeveniment,
+  persona,
+}) => {
   const [estatConfirmacio, setEstatConfirmacio] = useState(
     persona.id_estat_confirmacio
   );
@@ -13,30 +21,33 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     persona.amb_retard ? "amb_retard" : ""
   );
 
-  const [estats, loadingEstats] = useAPI("/esdeveniments/estats-confirmacio");
+  const [estats, loadingEstats] = useAPI<EstatConfirmacio[]>(
+    "/esdeveniments/estats-confirmacio",
+    []
+  );
   const [
     loadingPutAssistent,
     putAssistentEsdeveniment,
   ] = usePutAssistentEsdeveniment(idEsdeveniment);
 
   const handleChange = useCallback(
-    ({ id_estat_confirmacio, amb_retard }) => {
+    ({ id_estat_confirmacio, amb_retard }: Convocatoria) => {
       const putEstat = id_estat_confirmacio || estatConfirmacio;
       const putRetard = !!amb_retard;
 
       putAssistentEsdeveniment({
-        id_soci: persona.id_soci,
+        id_persona: persona.id_persona,
         id_estat_confirmacio: putEstat,
         amb_retard: putRetard,
       }).then(() => {
         if (estatConfirmacio !== putEstat) setEstatConfirmacio(putEstat);
-        if (retardAssistent !== putRetard)
+        if (!!retardAssistent !== putRetard)
           setRetardAssistent(putRetard ? "amb_retard" : "");
       });
     },
     [
       estatConfirmacio,
-      persona.id_soci,
+      persona.id_persona,
       putAssistentEsdeveniment,
       retardAssistent,
     ]
@@ -46,8 +57,10 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
     <Space>
       {estatConfirmacio === 1 && (
         <Checkbox
-          defaultChecked={retardAssistent}
-          onChange={({ target }) => handleChange({ amb_retard: target.checked })}
+          defaultChecked={!!retardAssistent}
+          onChange={({ target }) =>
+            handleChange({ amb_retard: target.checked })
+          }
         >
           Amb retard
         </Checkbox>
@@ -70,11 +83,6 @@ const SelectEstatEsdeveniment = ({ idEsdeveniment, persona }) => {
       </Select>
     </Space>
   );
-};
-
-SelectEstatEsdeveniment.propTypes = {
-  idEsdeveniment: PropTypes.any,
-  persona: PropTypes.object,
 };
 
 export default SelectEstatEsdeveniment;

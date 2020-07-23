@@ -4,12 +4,12 @@ import React, { useContext } from "react";
 import { IconFormacio } from "../../assets/icons";
 import { FormacionsListContext } from "../tauler-app/contexts/formacions-context";
 
-export default () => {
+const TagSelectFormItemFormacions: React.FC = () => {
   const formacions = useContext(FormacionsListContext);
 
   return (
     <Form.Item name="formacions" label="Formacions">
-      <TagSelect className="" Option={null} hideCheckAll>
+      <TagSelect className="" Option={{}} hideCheckAll>
         {formacions.map((formacio) => (
           <TagSelect.Option
             key={formacio.id_formacio}
@@ -25,3 +25,5 @@ export default () => {
     </Form.Item>
   );
 };
+
+export default TagSelectFormItemFormacions;

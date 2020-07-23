@@ -1,30 +1,41 @@
 import { List, Space } from "antd";
+import { Assaig } from "model";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFilterAssaig } from "../../helpers/search-filters";
-import { fetchAssajos } from "../../store/assajos/thunks";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
+import { fetchAssajos } from "../../store/assajos/thunks";
+import { RootState } from "../../store/types";
 import { timeRange } from "../../utils";
-import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";
-import ModalList from "../modal-list/modal-list";
+import { FixedTagsProjectes } from "../fixed-tags-projectes";
+import { ModalList } from "../modal-list";
 
-const ModalSeleccionarAssaig = ({ dataFilter, onItemClick, ...rest }) => {
+interface ModalSeleccionarAssaigProps {
+  dataFilter: (value: Assaig, index: number, array: Assaig[]) => Assaig;
+  onItemClick: (item: Assaig) => Promise<any>;
+}
+
+const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
+  dataFilter,
+  onItemClick,
+  ...rest
+}) => {
   const dispatch = useDispatch();
-  const { assajos, fetched } = useSelector(({ assajos }) => assajos);
+
+  const { assajos, fetched } = useSelector(({ assajos }: RootState) => assajos);
 
   useEffect(() => {
     if (!fetched) dispatch(fetchAssajos());
   }, [fetched, dispatch]);
 
   return (
-    <ModalList
+    <ModalList<Assaig>
       title="Selecciona un assaig"
       dataSource={dataFilter ? assajos.filter(dataFilter) : assajos}
       searchPlaceholder="Cerca assajos"
       searchFilters={searchFilterAssaig}
-      renderItem={(assaig, setVisible) => (
+      renderItem={(assaig, index, setVisible) => (
         <List.Item
           onClick={() => {
             onItemClick(assaig).then(() => {
@@ -64,12 +75,6 @@ const ModalSeleccionarAssaig = ({ dataFilter, onItemClick, ...rest }) => {
       {...rest}
     />
   );
-};
-
-ModalSeleccionarAssaig.propTypes = {
-  loading: PropTypes.bool,
-  dataFilter: PropTypes.func,
-  onItemClick: PropTypes.func.isRequired,
 };
 
 export default ModalSeleccionarAssaig;

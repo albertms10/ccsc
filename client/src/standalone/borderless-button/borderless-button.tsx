@@ -4,8 +4,8 @@ import { TooltipPlacement } from "antd/lib/tooltip";
 import React, { forwardRef } from "react";
 
 interface BorderlessButtonProps extends ButtonProps {
-  tooltip: string;
-  tooltipPlacement: TooltipPlacement;
+  tooltip?: string;
+  tooltipPlacement?: TooltipPlacement;
   style?: React.CSSProperties;
 }
 

@@ -1,18 +1,29 @@
-import PropTypes from "prop-types";
+import { Veu } from "model";
 import React from "react";
 import { useAPI } from "../../helpers";
 import { SearchComplete } from "../../standalone/search-complete";
+import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
 import { searchFilter } from "../../utils";
 
-const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
-  const [veus, loadingVeus, getVeus] = useAPI(`/assajos/${idAssaig}/veus`);
+interface SearchCompleteVeusAssaigProps extends SearchCompleteBaseProps {
+  idAssaig: number;
+}
+
+const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
+  idAssaig,
+  onSelect,
+}) => {
+  const [veus, loadingVeus, getVeus] = useAPI<Veu[]>(
+    `/assajos/${idAssaig}/veus`,
+    []
+  );
 
   return (
     <SearchComplete
       data={veus}
-      onSelect={(value, option) => {
-        onSelect(value, option).then(() => getVeus());
-      }}
+      onSelect={(value, option) =>
+        onSelect(value, option).then(() => getVeus())
+      }
       filter={(value, veu) =>
         searchFilter(value, {
           texts: [veu.nom, veu.abreviatura],
@@ -27,11 +38,6 @@ const SearchCompleteVeusAssaig = ({ idAssaig, onSelect }) => {
       })}
     />
   );
-};
-
-SearchCompleteVeusAssaig.propTypes = {
-  idAssaig: PropTypes.any,
-  onSelect: PropTypes.func.isRequired,
 };
 
 export default SearchCompleteVeusAssaig;

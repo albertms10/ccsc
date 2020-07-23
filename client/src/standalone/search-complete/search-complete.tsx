@@ -1,23 +1,29 @@
 import { AutoComplete, Input } from "antd";
 import { OptionProps } from "antd/lib/select";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import "./search-complete.css";
 
 const { Search } = Input;
 
-interface SearchCompleteProps<T> {
+export interface SearchCompleteBaseProps {
+  onSelect: (value: string, option: any) => Promise<any>;
+}
+
+interface SearchCompleteProps<T> extends SearchCompleteBaseProps {
   data: T[];
   filter: (value: string, option: T) => boolean;
   loading?: boolean;
   placeholder?: string;
   optionRenderObject: (value: T, index: number, array: any[]) => any;
-  onSelect: (value: string, option: any) => void;
   showAllResults?: boolean;
 }
 
-type SearchCompleteComponent<T = any> = React.FC<SearchCompleteProps<T>>;
-
-const SearchComplete: SearchCompleteComponent = <T,>({
+const SearchComplete = <T,>({
   data,
   filter,
   loading = false,
@@ -25,7 +31,7 @@ const SearchComplete: SearchCompleteComponent = <T,>({
   optionRenderObject,
   onSelect,
   showAllResults = false,
-}: SearchCompleteProps<T>) => {
+}: PropsWithChildren<SearchCompleteProps<T>>) => {
   const [options, setOptions] = useState<OptionProps[]>([]);
 
   const searchOption = useCallback(

@@ -1,23 +1,42 @@
 import { Input, List } from "antd";
-import PropTypes from "prop-types";
-import React, { createRef, useEffect, useMemo, useState } from "react";
+import React, {
+  createRef,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { searchFilter } from "../../utils";
 import "./search-list.css";
 
 const { Search } = Input;
 
-const SearchList = ({
+export interface SearchListProps<T> {
+  searchPlaceholder: string;
+  dataSource: T[];
+  mapData?: (data: T[]) => any[];
+  loading?: boolean;
+  searchFilters: Function;
+  checkToFocus?: boolean;
+  renderItem: (
+    item: T,
+    index: number,
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  ) => React.ReactNode;
+}
+
+const SearchList = <T,>({
   searchPlaceholder,
   dataSource,
   mapData,
-  loading,
+  loading = false,
   searchFilters,
   checkToFocus = true,
   renderItem,
-}) => {
+}: PropsWithChildren<SearchListProps<T>>) => {
   const [searchValue, setSearchValue] = useState("");
 
-  const searchRef = createRef();
+  const searchRef: React.RefObject<Input> = createRef();
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,6 +54,7 @@ const SearchList = ({
     [dataSource, searchFilters, searchValue]
   );
 
+  // TODO: renderItem(item, index, [setVisible])
   return (
     <>
       <Search
@@ -56,16 +76,6 @@ const SearchList = ({
       />
     </>
   );
-};
-
-SearchList.propTypes = {
-  searchPlaceholder: PropTypes.string,
-  dataSource: PropTypes.array,
-  mapData: PropTypes.func,
-  loading: PropTypes.bool,
-  searchFilters: PropTypes.func,
-  checkToFocus: PropTypes.bool,
-  renderItem: PropTypes.func,
 };
 
 export default SearchList;

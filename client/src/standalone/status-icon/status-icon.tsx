@@ -13,7 +13,7 @@ interface StatusIconProps {
   size?: "middle" | "large";
   statusId?: number;
   esAniversari?: boolean;
-  label?: JSX.Element;
+  label?: React.ReactElement;
   style?: React.CSSProperties;
 }
 

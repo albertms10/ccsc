@@ -4,7 +4,7 @@ import { MainSider } from "../../../main-sider";
 import { SiderBrokenContext } from "../../contexts/sider-context";
 import { SiteLayout } from "../site-layout";
 
-export default () => {
+const MainLayout: React.FC = () => {
   const broken = useContext(SiderBrokenContext);
 
   return (
@@ -16,3 +16,5 @@ export default () => {
     </div>
   );
 };
+
+export default MainLayout;

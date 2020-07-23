@@ -1,11 +1,22 @@
-import PropTypes from "prop-types";
+import { Usuari } from "model";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
+import { RootState } from "../../../../store/types";
 
-const DropdownRowSoci = ({ idPersona, showDeleteConfirm }) => {
-  const { currentUser } = useSelector(({ user }) => user);
+interface DropdownRowSociProps {
+  idPersona: number;
+  showDeleteConfirm: (idPersona: number) => void;
+}
+
+const DropdownRowSoci: React.FC<DropdownRowSociProps> = ({
+  idPersona,
+  showDeleteConfirm,
+}) => {
+  const currentUser = useSelector(
+    ({ user }: RootState) => user.currentUser
+  ) as Usuari;
 
   return (
     <DropdownBorderlessButton
@@ -27,11 +38,6 @@ const DropdownRowSoci = ({ idPersona, showDeleteConfirm }) => {
       ]}
     />
   );
-};
-
-DropdownRowSoci.propTypes = {
-  idPersona: PropTypes.number,
-  showDeleteConfirm: PropTypes.func,
 };
 
 export default DropdownRowSoci;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 interface MenuItemProps {
   title: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   path: string;
 }
 

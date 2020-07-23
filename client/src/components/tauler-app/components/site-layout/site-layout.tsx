@@ -32,9 +32,11 @@ import "./site-layout.css";
 const { Content, Header } = Layout;
 const { Title } = Typography;
 
-export const SetPageHeaderContext = createContext((_) => {});
+export const SetPageHeaderContext = createContext<
+  React.Dispatch<React.SetStateAction<string>>
+>((_) => {});
 
-export default () => {
+const SiteLayout: React.FC = () => {
   const formacions = useContext(FormacionsListContext);
   const loadingFormacions = useContext(LoadingFormacionsContext);
   const collapsed = useContext(SiderCollapsedContext);
@@ -45,7 +47,7 @@ export default () => {
   const [pageHeader, setPageHeader] = useState("");
   const location = useLocation();
 
-  useScrollPosition(({ _, currPos }) => {
+  useScrollPosition(({ currPos }) => {
     if (currPos.y < -41) setScrolled(true);
     else setScrolled(false);
   });
@@ -125,3 +127,5 @@ export default () => {
     </SetPageHeaderContext.Provider>
   );
 };
+
+export default SiteLayout;

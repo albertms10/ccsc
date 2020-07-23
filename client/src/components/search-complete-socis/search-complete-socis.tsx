@@ -1,14 +1,21 @@
 import { Avatar, Space } from "antd";
-import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSocis } from "../../store/socis/thunks";
 import { SearchComplete } from "../../standalone/search-complete";
+import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
+import { fetchSocis } from "../../store/socis/thunks";
+import { RootState } from "../../store/types";
 import { initials, searchFilter } from "../../utils";
 
-const SearchCompleteSocis = ({ onSelect }) => {
+interface SearchCompleteSocisProps extends SearchCompleteBaseProps {}
+
+const SearchCompleteSocis: React.FC<SearchCompleteSocisProps> = ({
+  onSelect,
+}) => {
   const dispatch = useDispatch();
-  const { socis, fetched, loading } = useSelector(({ socis }) => socis);
+  const { socis, fetched, loading } = useSelector(
+    ({ socis }: RootState) => socis
+  );
 
   useEffect(() => {
     if (!fetched) dispatch(fetchSocis());
@@ -37,10 +44,6 @@ const SearchCompleteSocis = ({ onSelect }) => {
       })}
     />
   );
-};
-
-SearchCompleteSocis.propTypes = {
-  onSelect: PropTypes.func.isRequired,
 };
 
 export default SearchCompleteSocis;

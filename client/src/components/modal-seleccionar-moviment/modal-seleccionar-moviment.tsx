@@ -1,43 +1,50 @@
 import { List, Typography } from "antd";
-import PropTypes from "prop-types";
+import { Moviment } from "model";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import { fetchMoviments } from "../../store/moviments/thunks";
+import { RootState } from "../../store/types";
 import { mapFirstOfProperty, timeDuration } from "../../utils";
 import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";
 import ModalList from "../modal-list/modal-list";
 
-const ModalSeleccionarMoviment = ({
+interface ModalSeleccionarMovimentProps {
+  dataFilter: (value: Moviment, index: number, array: Moviment[]) => Moviment;
+  onItemClick: (item: Moviment) => Promise<any>;
+  thenAction?: Function;
+}
+
+const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
   dataFilter,
   onItemClick,
   thenAction,
   ...rest
 }) => {
   const dispatch = useDispatch();
-  const { moviments, fetched } = useSelector(({ moviments }) => moviments);
+  const { moviments, fetched } = useSelector(
+    ({ moviments }: RootState) => moviments
+  );
 
   useEffect(() => {
     if (!fetched) dispatch(fetchMoviments());
   }, [fetched, dispatch]);
 
   return (
-    <ModalList
+    <ModalList<Moviment>
       title="Selecciona un moviment"
       dataSource={dataFilter ? moviments.filter(dataFilter) : moviments}
-      mapData={(data) => mapFirstOfProperty(data, "id_obra")}
+      mapData={(data) => mapFirstOfProperty(data, "id_obra", "primer")}
       searchPlaceholder="Cerca moviments"
       searchFilters={searchFilterMoviment}
-      renderItem={(moviment, setVisible) => (
+      renderItem={(moviment, index, setVisible) => (
         <>
-          {moviment.first && (
+          {moviment.primer && (
             <div className="list-item-header">{moviment.titol_obra}</div>
           )}
           <List.Item
             onClick={() => {
-              onItemClick({
-                id_moviment: moviment.id_moviment,
-              }).then(() => {
+              onItemClick(moviment).then(() => {
                 if (typeof thenAction === "function") thenAction();
                 setVisible(false);
               });
@@ -63,12 +70,6 @@ const ModalSeleccionarMoviment = ({
       {...rest}
     />
   );
-};
-
-ModalSeleccionarMoviment.propTypes = {
-  loading: PropTypes.bool,
-  dataFilter: PropTypes.func,
-  onItemClick: PropTypes.func.isRequired,
 };
 
 export default ModalSeleccionarMoviment;

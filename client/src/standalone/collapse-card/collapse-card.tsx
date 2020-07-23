@@ -2,15 +2,15 @@ import { Collapse, Spin } from "antd";
 import React from "react";
 
 interface CollapseCardProps {
-  alert?: JSX.Element;
+  alert?: React.ReactElement;
   alertCondition?: boolean;
   title?: string;
-  actionItem?: JSX.Element;
+  actionItem?: React.ReactElement;
   loading?: boolean;
   active?: boolean;
   disabled?: boolean;
   showArrow?: boolean;
-  info?: JSX.Element;
+  info?: React.ReactElement;
 }
 
 const CollapseCard: React.FC<CollapseCardProps> = ({

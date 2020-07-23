@@ -1,18 +1,20 @@
+import { Convocatoria } from "model";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
 
-export default (id) => {
+export default (idEsdeveniment: number) => {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
-  const putAssistentEsdeveniment = (assistent) =>
+  const putAssistentEsdeveniment = (assistent: Convocatoria) =>
     fetchAPI(
-      `/esdeveniments/${id}/assistents`,
+      `/esdeveniments/${idEsdeveniment}/assistents`,
       () => setLoading(false),
       dispatch,
       { method: "PUT", body: JSON.stringify(assistent) }
     );
 
-  return [loading, putAssistentEsdeveniment];
+  return [loading, putAssistentEsdeveniment] as const;
 };

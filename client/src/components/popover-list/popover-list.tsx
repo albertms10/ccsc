@@ -1,13 +1,32 @@
 import { Checkbox, Popover } from "antd";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import { CheckboxValueType } from "antd/lib/checkbox/Group";
+import { TooltipPlacement } from "antd/lib/tooltip";
+import React, { PropsWithChildren, useState } from "react";
 import { ConditionalWrapper } from "../../standalone/conditional-wrapper";
 import { Authorized } from "../authorized";
 import { SearchList } from "../search-list";
+import { SearchListProps } from "../search-list/search-list";
 import { PopoverListCheckbox } from "./components/popover-list-checkbox";
+import { PopoverListCheckboxBaseProps } from "./components/popover-list-checkbox/popover-list-checkbox";
 import "./popover-list.css";
 
-const PopoverList = ({
+interface CheckboxItem {
+  value: string;
+  label: string;
+}
+
+interface PopoverListProps<T extends CheckboxItem>
+  extends PopoverListCheckboxBaseProps,
+    SearchListProps<T> {
+  action: React.ReactElement;
+  title: string;
+  placement?: TooltipPlacement;
+  defaultValue: CheckboxValueType[];
+  needsAuthorization?: boolean;
+  elseElement?: React.ReactElement;
+}
+
+const PopoverList = <T extends CheckboxItem>({
   action,
   title,
   placement = "bottomRight",
@@ -19,7 +38,7 @@ const PopoverList = ({
   onChange,
   needsAuthorization = false,
   elseElement,
-}) => {
+}: PropsWithChildren<PopoverListProps<T>>) => {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -41,7 +60,7 @@ const PopoverList = ({
             defaultValue={defaultValue}
             style={{ width: "100%", display: "block" }}
           >
-            <SearchList
+            <SearchList<T>
               searchPlaceholder={searchPlaceholder}
               dataSource={dataSource}
               loading={loading}
@@ -62,20 +81,6 @@ const PopoverList = ({
       </Popover>
     </ConditionalWrapper>
   );
-};
-
-PopoverList.propTypes = {
-  action: PropTypes.node,
-  title: PropTypes.string,
-  placement: PropTypes.string,
-  dataSource: PropTypes.array,
-  searchFilters: PropTypes.func,
-  defaultValue: PropTypes.array,
-  searchPlaceholder: PropTypes.string,
-  loading: PropTypes.bool,
-  onChange: PropTypes.func,
-  needsAuthorization: PropTypes.bool,
-  elseElement: PropTypes.node,
 };
 
 export default PopoverList;

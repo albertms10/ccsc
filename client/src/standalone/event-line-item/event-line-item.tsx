@@ -2,7 +2,7 @@ import React from "react";
 import "./event-line-item.css";
 
 interface EventLineItemProps {
-  icon?: JSX.Element;
+  icon?: React.ReactElement;
   size?: "middle" | "large";
   style?: React.CSSProperties;
 }

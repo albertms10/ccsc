@@ -37,7 +37,7 @@ const initialPaths = [
 
 interface MenuItem {
   title: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   path: string;
 }
 

@@ -9,6 +9,8 @@ import {
   Select,
   Space,
 } from "antd";
+import { ValidateStatus } from "antd/lib/form/FormItem";
+import { Pais } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -22,8 +24,15 @@ import { useUsername } from "./index";
 const { Option } = Select;
 const { TextArea } = Input;
 
+export interface FormStep {
+  key: string;
+  title: string;
+  selfCreationOnly: boolean;
+  content: React.ReactElement;
+}
+
 export default (
-  onSuccessCallback,
+  onSuccessCallback: Function,
   selfCreation = false,
   fetchURL = "/socis"
 ) => {
@@ -33,14 +42,14 @@ export default (
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [username, loadingUsername, getUsername] = useUsername();
 
-  const [dniValidation, setDniValidation] = useState("");
-  const [paisos, loadingPaisos] = useAPI("/localitzacions/paisos");
+  const [dniValidation, setDniValidation] = useState<ValidateStatus>("");
+  const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
   const [selectedPais, setSelectedPais] = useState("");
 
   const [form] = Form.useForm();
 
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
-  const validatorDniES = useCallback((rule, value) => {
+  const validatorDniES = useCallback((rule, value: string) => {
     const XIFRES = 8;
 
     const letter = value ? value.charAt(value.length - 1) : "";
@@ -66,8 +75,7 @@ export default (
     return Promise.reject("La lletra no es correspon amb el número del DNI.");
   }, []);
 
-  /** @type {FormStep[]} */
-  const steps = [
+  const steps: FormStep[] = [
     {
       key: "proteccio",
       title: "Protecció de dades",
@@ -81,7 +89,7 @@ export default (
       content: (
         <Space size="middle" direction="vertical">
           <InfoCard title="Dades personals">
-            <Row type="flex" gutter={[16, 16]}>
+            <Row gutter={[16, 16]}>
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="nom"
@@ -117,12 +125,12 @@ export default (
                     },
                   ]}
                 >
-                  <Select
+                  <Select<string>
                     showSearch
                     loading={loadingPaisos}
                     onSelect={(value) => setSelectedPais(value)}
                     filterOption={(input, option) =>
-                      option.children
+                      option!.children
                         .toLowerCase()
                         .indexOf(input.toLowerCase()) >= 0
                     }
@@ -172,7 +180,7 @@ export default (
             </Row>
           </InfoCard>
           <InfoCard title="Dades de contacte">
-            <Row type="flex" gutter={[16, 16]}>
+            <Row gutter={[16, 16]}>
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="email"
@@ -212,7 +220,7 @@ export default (
             </Row>
           </InfoCard>
           <InfoCard title="Informació musical">
-            <Row type="flex" gutter={[16, 16]}>
+            <Row gutter={[16, 16]}>
               <Col md={24} lg={12}>
                 <Form.Item
                   name="experiencia_musical"
@@ -262,12 +270,11 @@ export default (
     },
   ];
 
-  /** @type {FormStep[]} */
-  const stepsRef = selfCreation
+  const stepsRef: FormStep[] = selfCreation
     ? steps
     : steps.filter((step) => !step.selfCreationOnly);
 
-  const handleOk = (callback) => {
+  const handleOk = (callback: Function) => {
     form
       .validateFields()
       .then((soci) => {
@@ -294,10 +301,10 @@ export default (
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (_) =>
+  const handleValidateError = (_: Error) =>
     setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "dades"));
 
-  const handleChange = async (pageIndex) => {
+  const handleChange = async (pageIndex: number) => {
     if (pageIndex > stepsRef.findIndex(({ key }) => key === "dades"))
       try {
         const { nom, cognoms } = await form.validateFields();

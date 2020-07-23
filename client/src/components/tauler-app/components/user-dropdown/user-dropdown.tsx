@@ -1,15 +1,20 @@
 import { Avatar, Dropdown, Menu } from "antd";
+import { Usuari } from "model";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../../../../store/types";
 import { logoutRemoveUser } from "../../../../store/user/thunks";
 import "./user-dropdown.css";
 
 const { Item, Divider } = Menu;
 
-export default () => {
-  const currentUser = useSelector(({ user }) => user.currentUser);
+const UserDropdown: React.FC = () => {
   const dispatch = useDispatch();
+
+  const currentUser = useSelector(
+    ({ user }: RootState) => user.currentUser
+  ) as Usuari;
 
   return (
     <Dropdown
@@ -35,3 +40,5 @@ export default () => {
     </Dropdown>
   );
 };
+
+export default UserDropdown;

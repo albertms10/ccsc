@@ -1,9 +1,27 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
-import PropTypes from "prop-types";
 import React, { cloneElement, useState } from "react";
+import { useStatePair } from "react-types";
 
-const ModalButton = ({
+export interface ModalButtonBaseProps {
+  title: string;
+  button?: React.ReactElement;
+  wrapClassName?: string;
+}
+
+interface ModalButtonProps extends ModalButtonBaseProps {
+  okText?: string;
+  cancelText?: string;
+  confirmLoading?: boolean;
+  onOk?: Function;
+  onClick?: Function;
+  footer?: React.ReactElement | null;
+  renderModalBody: ([visible, setVisible]: useStatePair<
+    boolean
+  >) => React.ReactElement;
+}
+
+const ModalButton: React.FC<ModalButtonProps> = ({
   title,
   button = (
     <Button type="primary" icon={<PlusOutlined />}>
@@ -38,7 +56,7 @@ const ModalButton = ({
         okText={okText}
         cancelText={cancelText}
         confirmLoading={confirmLoading}
-        onOk={() => onOk(setVisible)}
+        onOk={() => onOk && onOk(setVisible)}
         footer={footer}
         wrapClassName={wrapClassName}
       >
@@ -46,18 +64,6 @@ const ModalButton = ({
       </Modal>
     </>
   );
-};
-
-ModalButton.propTypes = {
-  title: PropTypes.string,
-  button: PropTypes.node,
-  okText: PropTypes.string,
-  cancelText: PropTypes.string,
-  confirmLoading: PropTypes.bool,
-  onOk: PropTypes.func,
-  footer: PropTypes.node,
-  renderModalBody: PropTypes.func.isRequired,
-  wrapClassName: PropTypes.string,
 };
 
 export default ModalButton;

@@ -1,12 +1,23 @@
 import { Form, Steps } from "antd";
+import { FormInstance } from "antd/lib/form";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React from "react";
+import { FormStep } from "./hooks/use-steps-afegir-soci";
 import "./steps-afegir-soci.css";
 
 const { Step } = Steps;
 
-const StepsAfegirSoci = ({
+interface StepsAfegirSociProps {
+  steps: FormStep[];
+  form: FormInstance;
+  currentPageIndex: number;
+  handleChange: (current: number) => void;
+  initialValues: {
+    [key: string]: any;
+  };
+}
+
+const StepsAfegirSoci: React.FC<StepsAfegirSociProps> = ({
   steps,
   form,
   currentPageIndex,
@@ -38,18 +49,5 @@ const StepsAfegirSoci = ({
     </div>
   </>
 );
-
-StepsAfegirSoci.propTypes = {
-  steps: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.any.isRequired,
-      title: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  form: PropTypes.any.isRequired,
-  currentPageIndex: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  initialValues: PropTypes.object,
-};
 
 export default StepsAfegirSoci;

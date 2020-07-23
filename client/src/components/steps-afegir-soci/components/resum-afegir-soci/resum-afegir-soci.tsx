@@ -1,14 +1,24 @@
 import { Descriptions, Space, Spin } from "antd";
-import PropTypes from "prop-types";
+import { FormInstance } from "antd/lib/form";
 import React from "react";
 import { InfoCard } from "../../../../standalone/info-card";
 
-const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
+interface ResumAfegirSoci {
+  form: FormInstance;
+  username: string;
+  loadingUsername?: boolean;
+}
+
+const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
+  form,
+  username,
+  loadingUsername = false,
+}) => {
   const data = form.getFieldsValue();
 
   return (
     <Space direction="vertical">
-      <InfoCard title="Dades personals" disabled>
+      <InfoCard title="Dades personals">
         <Descriptions size="small">
           <Descriptions.Item label="Nom">{`${data.nom} ${data.cognoms}`}</Descriptions.Item>
           <Descriptions.Item label="Usuari">
@@ -23,7 +33,7 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
       {(data.experiencia_musical ||
         data.estudis_musicals ||
         data.data_alta) && (
-        <InfoCard title="Informació musical" disabled>
+        <InfoCard title="Informació musical">
           <Descriptions size="small">
             {data.experiencia_musical && (
               <Descriptions.Item label="Experiència musical" span={3}>
@@ -43,7 +53,7 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
           </Descriptions>
         </InfoCard>
       )}
-      <InfoCard title="Dades de contacte" disabled>
+      <InfoCard title="Dades de contacte">
         <Descriptions size="small">
           <Descriptions.Item label="Adreça electrònica" span={2}>
             {data.email}
@@ -57,12 +67,6 @@ const ResumAfegirSoci = ({ form, username, loadingUsername = false }) => {
       </InfoCard>
     </Space>
   );
-};
-
-ResumAfegirSoci.propTypes = {
-  form: PropTypes.any.isRequired,
-  username: PropTypes.string.isRequired,
-  loadingUsername: PropTypes.bool,
 };
 
 export default ResumAfegirSoci;
