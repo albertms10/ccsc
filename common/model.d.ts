@@ -1,6 +1,14 @@
 /// <reference path="./common.d.ts" />
 
 declare module "model" {
+  export interface Agrupacio {
+    id_agrupacio: number;
+    nom: string;
+    nif: string;
+    id_tipus_agrupacio: number;
+    tipus_agrupacio: string;
+  }
+
   export interface SeccioAvis {
     id_seccio_avis: number;
     titol: string;
@@ -23,6 +31,12 @@ declare module "model" {
     acceptacions?: AcceptacioAvis[];
   }
 
+  export interface Activitat {
+    data_alta: string;
+    data_baixa: string;
+    dies_activitat: number;
+  }
+
   export interface Persona {
     id_persona: number;
     nom: string;
@@ -31,7 +45,7 @@ declare module "model" {
   }
 
   export interface Soci extends Persona {
-    id_soci?: number;
+    id_soci: number;
     username?: string;
   }
 
@@ -75,10 +89,13 @@ declare module "model" {
 
   export interface Moviment {
     id_moviment: number;
+    id_obra: number;
     titol_moviment: string;
     titol_obra?: string;
     subtitol: string;
     num_cataleg: string;
+    ordre: number;
+    es_unic_moviment: boolean;
     projectes: Projecte[];
   }
 
@@ -88,15 +105,22 @@ declare module "model" {
     data_inici?: string;
     dia_inici: string;
     hora_inici: string;
+    dia_final?: string;
     data_final?: string;
     hora_final: string;
     tipus?: string;
+    id_estat_esdeveniment: number;
+    estat_esdeveniment: string;
+    establiment: string;
+    localitzacio: string;
+    notes: string;
   }
 
   export interface Assaig extends Esdeveniment {
     id_assaig: number;
     formacions: Formacio[];
     projectes: Projecte[];
+    moviments: Moviment[];
   }
 
   export interface Concert extends Esdeveniment {
