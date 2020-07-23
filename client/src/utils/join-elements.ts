@@ -1,11 +1,11 @@
 /**
- * Renders an array of `<T>` elements with a separator.
+ * Renders an array of elements with a separator.
  */
-export default <T>(
+export default <T, U>(
   elements: T[],
-  render: (element: T, index: number) => T,
-  renderSeparator: (key: string) => T
-): T[] =>
+  render: (element: T, index: number) => U,
+  renderSeparator: (key: string) => U
+): U[] =>
   elements.reduce(
     (result, element, index) =>
       index < elements.length - 1

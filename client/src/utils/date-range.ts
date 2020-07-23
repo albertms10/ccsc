@@ -13,8 +13,8 @@ interface DateRangeOptions {
 export default (
   dateStart: string,
   timeStart: string,
-  dateEnd: string,
-  timeEnd: string,
+  dateEnd?: string,
+  timeEnd?: string,
   {
     isLong = true,
     includesYear = true,

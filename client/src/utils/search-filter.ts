@@ -1,9 +1,9 @@
 import moment from "moment";
 import { initials, stripAccents } from "./index";
 
-interface SearchFilters {
-  texts?: string[];
-  dates?: string[];
+export interface SearchFilters {
+  texts?: (string | undefined)[];
+  dates?: (string | undefined)[];
 }
 
 /**
