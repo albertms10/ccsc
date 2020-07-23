@@ -1,3 +1,4 @@
+export { default as basenameFromPath } from "./basename-from-path";
 export { default as closestTimeValue } from "./closest-time-value";
 export { default as dataSplit } from "./data-split";
 export { default as dateRange } from "./date-range";
