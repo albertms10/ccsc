@@ -1,20 +1,24 @@
+type ObjectWithBoolean<T> = T & {
+  [key: string]: boolean;
+};
+
 /**
- * Returns a mapped array with a `first` boolean property
+ * Returns a mapped array with a `key`-named boolean property
  * that indicates if the given `property` has the first
- * value occurrence.
+ * value occurrence in the array.
  */
-export default (
-  items: any[],
-  property: string,
+export default <T>(
+  items: T[],
+  property: keyof T,
   key: string = "first"
-): any[] => {
-  const itemsProperty: any[] = [];
+): ObjectWithBoolean<T>[] => {
+  const itemsProperty: T[] = [];
 
   return items.map((item) => ({
     ...item,
     [key]:
-      !itemsProperty.includes(item[property]) &&
-      itemsProperty.push(item[property]) &&
+      !itemsProperty.includes(item[property] as any) &&
+      !!itemsProperty.push(item[property] as any) &&
       true,
   }));
 };
