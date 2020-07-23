@@ -37,16 +37,39 @@ declare module "model" {
     dies_activitat: number;
   }
 
-  export interface Persona {
-    id_persona: number;
+  export interface EstatConfirmacio {
+    id_estat_confirmacio: number;
+    estat: string;
+  }
+
+  export interface NomPila {
     nom: string;
     cognoms: string;
-    nom_complet?: string;
   }
+
+  export interface Persona extends NomPila {
+    id_persona: number;
+    nom_complet: string;
+    naixement: string;
+    dni: number;
+    email: string;
+    telefon: string;
+  }
+
+  export interface Convocatoria {
+    id_persona?: number;
+    id_estat_confirmacio?: number;
+    amb_retard?: boolean;
+  }
+
+  export interface PersonaConvocada extends Persona, Convocatoria {}
 
   export interface Soci extends Persona {
     id_soci: number;
     username?: string;
+    dies_activitat?: number;
+    data_inactiu?: string;
+    es_actiu?: boolean;
   }
 
   export interface Director extends Persona {
@@ -95,8 +118,15 @@ declare module "model" {
     subtitol: string;
     num_cataleg: string;
     ordre: number;
+    primer?: number;
     es_unic_moviment: boolean;
+    durada: string;
     projectes: Projecte[];
+  }
+
+  export interface Pais {
+    id_pais: number;
+    nom: string;
   }
 
   export interface Esdeveniment {
