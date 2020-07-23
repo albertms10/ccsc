@@ -1,11 +1,17 @@
 import { Space } from "antd";
+import { Esdeveniment } from "model";
 import moment from "moment";
 import React from "react";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { StatusIcon } from "../../../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../../../typedef/prop-types-definitions";
 
-const CalendariResultLabel = ({ esdeveniment }) => (
+interface CalendariResultLabelProps {
+  esdeveniment: Esdeveniment;
+}
+
+const CalendariResultLabel: React.FC<CalendariResultLabelProps> = ({
+  esdeveniment,
+}) => (
   <div className="search-complete-item">
     <Space>
       <StatusIcon
@@ -25,9 +31,5 @@ const CalendariResultLabel = ({ esdeveniment }) => (
     </Space>
   </div>
 );
-
-CalendariResultLabel.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired,
-};
 
 export default CalendariResultLabel;

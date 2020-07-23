@@ -1,11 +1,17 @@
 import { Timeline, Typography } from "antd";
+import { Activitat } from "model";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React from "react";
 import { closestTimeValue } from "../../../../utils";
 import "./timeline-activitat-soci.css";
 
-const TimelineActivitatSoci = ({ activitat }) => (
+interface TimelineActivitatSociProps {
+  activitat: Activitat;
+}
+
+const TimelineActivitatSoci: React.FC<TimelineActivitatSociProps> = ({
+  activitat,
+}) => (
   <div className="activitat-soci">
     {activitat.dies_activitat && (
       <Typography.Paragraph>
@@ -26,13 +32,5 @@ const TimelineActivitatSoci = ({ activitat }) => (
     </Timeline>
   </div>
 );
-
-TimelineActivitatSoci.propTypes = {
-  activitat: PropTypes.shape({
-    data_alta: PropTypes.string.isRequired,
-    data_baixa: PropTypes.string,
-    dies_activitat: PropTypes.number
-  }).isRequired
-};
 
 export default TimelineActivitatSoci;

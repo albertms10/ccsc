@@ -1,19 +1,25 @@
 import { EnvironmentFilled } from "@ant-design/icons";
 import { Typography } from "antd";
+import { Esdeveniment } from "model";
 import React from "react";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { LinkButton } from "../../standalone/link-button";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { Authorized } from "../authorized";
 
 const { Text } = Typography;
 
-const EventLineItemLocalitzacio = ({ esdeveniment }) => (
+interface EventLineItemLocalitzacioProps {
+  esdeveniment: Esdeveniment;
+}
+
+const EventLineItemLocalitzacio: React.FC<EventLineItemLocalitzacioProps> = ({
+  esdeveniment,
+}) => (
   <EventLineItem icon={<EnvironmentFilled />}>
     {esdeveniment.establiment || esdeveniment.localitzacio ? (
       <>
         {esdeveniment.establiment && <Text>{esdeveniment.establiment}</Text>}
-        <Text type={esdeveniment.establiment ? "secondary" : "primary"}>
+        <Text type={esdeveniment.establiment ? "secondary" : undefined}>
           {esdeveniment.localitzacio}
         </Text>
       </>
@@ -26,9 +32,5 @@ const EventLineItemLocalitzacio = ({ esdeveniment }) => (
     )}
   </EventLineItem>
 );
-
-EventLineItemLocalitzacio.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired,
-};
 
 export default EventLineItemLocalitzacio;

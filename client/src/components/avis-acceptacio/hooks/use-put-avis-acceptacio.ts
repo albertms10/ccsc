@@ -8,13 +8,14 @@ export default (idSoci: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const putAvisAcceptacio = (acceptacions: BooleanMap, callback: Function) => {
+  const putAvisAcceptacio = <T = BooleanMap>(
+    acceptacions: T,
+    callback: (accepta: T) => void
+  ) => {
     setLoading(true);
-    fetchAPI(
+    fetchAPI<T>(
       `/socis/${idSoci}/acceptacions`,
-      (accepta: BooleanMap) => {
-        if (typeof callback === "function") callback(accepta);
-      },
+      (accepta) => callback(accepta as T),
       dispatch,
       {
         method: "PUT",

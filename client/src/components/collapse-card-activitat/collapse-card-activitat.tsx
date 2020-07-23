@@ -1,19 +1,28 @@
 import { Button, List, Tooltip } from "antd";
+import { Activitat, Soci } from "model";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React, { useCallback } from "react";
 import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
-import { SociPropTypes } from "../../typedef/prop-types-definitions";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
 import { useAltaSoci, useBaixaSoci } from "./hooks";
 
-const CollapseCardActivitat = ({ soci, active }) => {
-  const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI(
-    `/socis/${soci.id_soci}/activitat`
+interface CollapseCardActivitatProps {
+  soci: Soci;
+  active: true;
+}
+
+const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
+  soci,
+  active,
+}) => {
+  const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI<Activitat[]>(
+    `/socis/${soci.id_soci}/activitat`,
+    []
   );
-  const [loadingAlta, modalAltaSoci] = useAltaSoci(soci);
-  const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci);
+
+  const [loadingAlta, modalAltaSoci] = useAltaSoci(soci.id_soci);
+  const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci.id_soci);
 
   const actionItem = useCallback(() => {
     if (
@@ -44,7 +53,7 @@ const CollapseCardActivitat = ({ soci, active }) => {
     } else {
       return (
         <Button
-          type="danger"
+          danger
           size="small"
           loading={loadingBaixa}
           onClick={(e) => {
@@ -78,11 +87,6 @@ const CollapseCardActivitat = ({ soci, active }) => {
       />
     </CollapseCard>
   );
-};
-
-CollapseCardActivitat.propTypes = {
-  soci: SociPropTypes.isRequired,
-  active: PropTypes.bool,
 };
 
 export default CollapseCardActivitat;

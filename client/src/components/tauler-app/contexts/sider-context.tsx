@@ -1,11 +1,15 @@
 import React, { createContext, useState } from "react";
 
-export const SiderBrokenContext = createContext(null);
-export const SiderSetBrokenContext = createContext((_) => {});
-export const SiderCollapsedContext = createContext(null);
-export const SiderSetCollapsedContext = createContext((_) => {});
+export const SiderBrokenContext = createContext(false);
+export const SiderSetBrokenContext = createContext<
+  React.Dispatch<React.SetStateAction<boolean>>
+>((_) => {});
+export const SiderCollapsedContext = createContext(false);
+export const SiderSetCollapsedContext = createContext<
+  React.Dispatch<React.SetStateAction<boolean>>
+>((_) => {});
 
-export default ({ children }) => {
+const SiderContext: React.FC = ({ children }) => {
   const [broken, setBroken] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -21,3 +25,5 @@ export default ({ children }) => {
     </SiderBrokenContext.Provider>
   );
 };
+
+export default SiderContext;

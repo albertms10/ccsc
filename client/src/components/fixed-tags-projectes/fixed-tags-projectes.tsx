@@ -1,10 +1,15 @@
-import PropTypes from "prop-types";
+import { Projecte } from "model";
 import React from "react";
 import { Link } from "react-router-dom";
 import { FixedTag } from "../../standalone/fixed-tag";
-import { ProjectePropTypes } from "../../typedef/prop-types-definitions";
 
-const FixedTagsProjectes = ({ projectes = [] }) => (
+interface FixedTagsProjectesProps {
+  projectes: Projecte[];
+}
+
+const FixedTagsProjectes: React.FC<FixedTagsProjectesProps> = ({
+  projectes = [],
+}) => (
   <>
     {projectes.map((projecte) => (
       <FixedTag
@@ -20,9 +25,5 @@ const FixedTagsProjectes = ({ projectes = [] }) => (
     ))}
   </>
 );
-
-FixedTagsProjectes.propTypes = {
-  projectes: PropTypes.arrayOf(ProjectePropTypes),
-};
 
 export default FixedTagsProjectes;

@@ -5,6 +5,7 @@ interface ContainerProps {
   reducedPadding?: boolean;
   noPadding?: boolean;
   noBackground?: boolean;
+  style?: React.CSSProperties;
 }
 
 const Container: React.FC<ContainerProps> = ({

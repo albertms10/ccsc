@@ -1,6 +1,6 @@
 import { Role } from "common";
 import { Usuari } from "model";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { useSelector } from "react-redux";
 import { ROLES_JUNTA_DIRECTIVA } from "../../constants/constants";
 import {
@@ -11,10 +11,10 @@ import {
 import { RootState } from "../../store/types";
 
 interface AuthorizedProps {
-  render: Function;
-  component: JSX.Element;
-  elseElement: JSX.Element;
-  authority: Role;
+  render?: (props: PropsWithChildren<any>) => JSX.Element;
+  component?: JSX.Element;
+  elseElement?: JSX.Element;
+  authority?: Role;
 }
 
 const Authorized: React.FC<AuthorizedProps> = ({
@@ -29,7 +29,7 @@ const Authorized: React.FC<AuthorizedProps> = ({
     ({ user }: RootState) => user.currentUser
   ) as Usuari;
 
-  const returnItem = render
+  const returnItem: any = render
     ? render({ authority, children, ...rest })
     : component
     ? component

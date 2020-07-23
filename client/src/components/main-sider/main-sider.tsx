@@ -15,7 +15,7 @@ import "./main-sider.css";
 
 const { Sider } = Layout;
 
-export default () => {
+const MainSider: React.FC = () => {
   const agrupacio = useContext(AgrupacioContext);
   const collapsed = useContext(SiderCollapsedContext);
   const setCollapsed = useContext(SiderSetCollapsedContext);
@@ -57,3 +57,5 @@ export default () => {
     </Sider>
   );
 };
+
+export default MainSider;

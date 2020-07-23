@@ -12,7 +12,7 @@ import "./home-app.css";
 
 const { Header, Content, Footer } = Layout;
 
-export default () => (
+const HomeApp: React.FC = () => (
   <Layout className="layout">
     <Header className="home-page-header">
       <Row gutter={24} justify="space-between">
@@ -41,3 +41,5 @@ export default () => (
     </Footer>
   </Layout>
 );
+
+export default HomeApp;

@@ -1,12 +1,12 @@
 import { Input, List } from "antd";
-import PropTypes from "prop-types";
+import { Moviment } from "model";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
-import { fetchMoviments } from "../../store/moviments/thunks";
 import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
+import { fetchMoviments } from "../../store/moviments/thunks";
 import { searchFilter } from "../../utils";
 import { Authorized } from "../authorized";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
@@ -15,7 +15,11 @@ import { useMoviments } from "./hooks";
 const { Search } = Input;
 const { Item } = List;
 
-const LlistaMoviments = ({ idProjecte }) => {
+interface LlistaMovimentsProps {
+  idProjecte: number;
+}
+
+const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState("");
@@ -29,13 +33,13 @@ const LlistaMoviments = ({ idProjecte }) => {
   );
 
   const getDataSource = useCallback(() => {
-    let filteredMoviments;
+    let filteredMoviments: Moviment[] = [];
     if (idProjecte)
       filteredMoviments = moviments.filter(
         (moviment) =>
           moviment.projectes &&
           moviment.projectes.find(
-            (projecte) => projecte.id_projecte === parseInt(idProjecte)
+            (projecte) => projecte.id_projecte == idProjecte
           )
       );
 
@@ -94,10 +98,6 @@ const LlistaMoviments = ({ idProjecte }) => {
       />
     </div>
   );
-};
-
-LlistaMoviments.propTypes = {
-  idProjecte: PropTypes.any,
 };
 
 export default LlistaMoviments;

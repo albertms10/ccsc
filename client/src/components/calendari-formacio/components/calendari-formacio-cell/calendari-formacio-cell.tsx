@@ -1,10 +1,15 @@
 import { Space } from "antd";
-import PropTypes from "prop-types";
+import { Esdeveniment } from "model";
 import React from "react";
 import { CalendarTag } from "../../../../standalone/calendar-tag";
-import { EsdevenimentPropTypes } from "../../../../typedef/prop-types-definitions";
 
-const CalendariFormacioCell = ({ esdevenimentsActuals }) => (
+interface CalendariFormacioCellProps {
+  esdevenimentsActuals: Esdeveniment[];
+}
+
+const CalendariFormacioCell: React.FC<CalendariFormacioCellProps> = ({
+  esdevenimentsActuals,
+}) => (
   <Space size={-5} direction="vertical">
     {esdevenimentsActuals.map((esdeveniment) => (
       <CalendarTag
@@ -15,9 +20,5 @@ const CalendariFormacioCell = ({ esdevenimentsActuals }) => (
     ))}
   </Space>
 );
-
-CalendariFormacioCell.propTypes = {
-  esdevenimentsActuals: PropTypes.arrayOf(EsdevenimentPropTypes).isRequired,
-};
 
 export default CalendariFormacioCell;

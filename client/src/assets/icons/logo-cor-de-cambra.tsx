@@ -7,7 +7,12 @@ const SVGLogoCorDeCambra: React.FC = () => (
   </svg>
 );
 
-const LogoCorDeCambra: React.FC = (props) => (
+interface LogoCorDeCambraProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const LogoCorDeCambra: React.FC<LogoCorDeCambraProps> = (props) => (
   <Icon {...props} component={SVGLogoCorDeCambra} />
 );
 

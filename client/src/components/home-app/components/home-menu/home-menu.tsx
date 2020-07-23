@@ -3,8 +3,15 @@ import { Menu } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../../../../store/types";
 
-const menuItems = [
+interface MenuItem {
+  key: string;
+  title: string;
+  path: string;
+}
+
+const menuItems: MenuItem[] = [
   {
     key: "inici",
     title: "Inici",
@@ -37,8 +44,8 @@ const menuItems = [
   },
 ];
 
-export default () => {
-  const user = useSelector(({ user }) => user.currentUser);
+const HomeMenu: React.FC = () => {
+  const user = useSelector(({ user }: RootState) => user.currentUser);
 
   return (
     <Menu
@@ -59,3 +66,5 @@ export default () => {
     </Menu>
   );
 };
+
+export default HomeMenu;

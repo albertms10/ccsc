@@ -1,12 +1,20 @@
 import { Typography } from "antd";
-import PropTypes from "prop-types";
 import React from "react";
 import { Container } from "../../../../standalone/container";
 import "./page-skeleton.css";
 
 const { Title } = Typography;
 
-const PageSkeleton = ({ title, children, ...rest }) => (
+interface PageSkeletonProps {
+  title: string;
+  style?: React.CSSProperties;
+}
+
+const PageSkeleton: React.FC<PageSkeletonProps> = ({
+  title,
+  children,
+  ...rest
+}) => (
   <Container
     {...rest}
     style={{ minHeight: "calc(100vh - var(--header-height))" }}
@@ -17,9 +25,5 @@ const PageSkeleton = ({ title, children, ...rest }) => (
     </div>
   </Container>
 );
-
-PageSkeleton.propTypes = {
-  title: PropTypes.string.isRequired,
-};
 
 export default PageSkeleton;

@@ -4,18 +4,22 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import { Card, Space, Tag, Typography } from "antd";
+import { Assaig } from "model";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { AssaigPropTypes } from "../../typedef/prop-types-definitions";
 import { dateRange, joinElements, timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { IconsFormacions } from "../icons-formacions";
 
-const CardProperAssaig = ({ assaig }) => (
+interface CardProperAssaigProps {
+  assaig: Assaig;
+}
+
+const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => (
   <Card
     title={
       <Space>
@@ -78,9 +82,5 @@ const CardProperAssaig = ({ assaig }) => (
     </Space>
   </Card>
 );
-
-CardProperAssaig.propTypes = {
-  assaig: AssaigPropTypes.isRequired,
-};
 
 export default CardProperAssaig;

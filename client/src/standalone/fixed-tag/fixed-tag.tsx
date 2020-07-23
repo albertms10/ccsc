@@ -1,8 +1,20 @@
 import { Tag, Tooltip } from "antd";
-import PropTypes from "prop-types";
 import React from "react";
 
-const FixedTag = ({ childKey, tooltip, color, style, children }) => (
+interface FixedTagProps {
+  childKey: any;
+  tooltip: string;
+  color: string;
+  style?: React.CSSProperties;
+}
+
+const FixedTag: React.FC<FixedTagProps> = ({
+  childKey,
+  tooltip,
+  color,
+  style,
+  children,
+}) => (
   <Tooltip key={childKey} title={tooltip}>
     <Tag
       color={color}
@@ -12,11 +24,5 @@ const FixedTag = ({ childKey, tooltip, color, style, children }) => (
     </Tag>
   </Tooltip>
 );
-
-FixedTag.propTypes = {
-  childKey: PropTypes.any,
-  tooltip: PropTypes.string,
-  color: PropTypes.string,
-};
 
 export default FixedTag;

@@ -1,11 +1,17 @@
 import { Space } from "antd";
+import { Esdeveniment } from "model";
 import React from "react";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
 import { dateRange, joinElements } from "../../utils";
 
-const EventLineItemData = ({ esdeveniment }) => (
+interface EventLineItemDataProps {
+  esdeveniment: Esdeveniment;
+}
+
+const EventLineItemData: React.FC<EventLineItemDataProps> = ({
+  esdeveniment,
+}) => (
   <EventLineItem>
     <Space>
       <div>
@@ -35,9 +41,5 @@ const EventLineItemData = ({ esdeveniment }) => (
     </Space>
   </EventLineItem>
 );
-
-EventLineItemData.propTypes = {
-  esdeveniment: EsdevenimentPropTypes.isRequired,
-};
 
 export default EventLineItemData;
