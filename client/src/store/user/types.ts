@@ -8,8 +8,8 @@ export const REMOVE_ACCEPTANCE_NOTICE = "REMOVE_ACCEPTANCE_NOTICE";
 export const LOGOUT_USER = "LOGOUT_USER";
 
 export interface UserState {
-  currentUser: Usuari | {};
-  error: FetchError | {};
+  currentUser: Usuari;
+  error: {} | FetchError;
   waitingList: {
     inWaitingList?: boolean;
     email?: string;
@@ -43,7 +43,7 @@ export interface ValidatedInWaitingListAction {
 
 export interface RemoveAcceptanceNoticeAction {
   type: typeof REMOVE_ACCEPTANCE_NOTICE;
-  payload: number;
+  payload: string;
 }
 
 export interface LogoutUserAction {

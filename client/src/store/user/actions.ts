@@ -24,9 +24,11 @@ export const validatedInWaitingList = (email: string): UserActionTypes => ({
   payload: email,
 });
 
-export const removeAcceptanceNotice = (noticeId: number): UserActionTypes => ({
+export const removeAcceptanceNotice = (
+  noticeUniqueName: string
+): UserActionTypes => ({
   type: REMOVE_ACCEPTANCE_NOTICE,
-  payload: noticeId,
+  payload: noticeUniqueName,
 });
 
 export const logoutUser = (): UserActionTypes => ({

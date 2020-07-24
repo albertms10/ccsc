@@ -9,7 +9,7 @@ export interface MovimentsState {
   moviments: Moviment[];
   loading: boolean;
   fetched: boolean;
-  error: FetchError | {};
+  error: {} | FetchError;
 }
 
 interface FetchMovimentsRequestAction {

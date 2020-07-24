@@ -10,7 +10,7 @@ import {
 } from "./types";
 
 const initialState: UserState = {
-  currentUser: {},
+  currentUser: {} as Usuari,
   error: {},
   waitingList: {
     inWaitingList: false,
@@ -30,7 +30,7 @@ export default (state = initialState, action: UserActionTypes): UserState => {
     case SIGNIN_USER_FAILURE:
       return {
         ...state,
-        currentUser: {},
+        currentUser: {} as Usuari,
         error: action.payload,
       };
 
@@ -45,7 +45,7 @@ export default (state = initialState, action: UserActionTypes): UserState => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          avisos: ((state.currentUser as Usuari).avisos as number[]).filter(
+          avisos: ((state.currentUser as Usuari).avisos as string[]).filter(
             (avis) => avis !== action.payload
           ),
         },
@@ -53,7 +53,7 @@ export default (state = initialState, action: UserActionTypes): UserState => {
 
     case LOGOUT_USER:
       return {
-        currentUser: {},
+        currentUser: {} as Usuari,
         error: {},
         waitingList: {},
       };
