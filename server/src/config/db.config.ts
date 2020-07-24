@@ -26,6 +26,7 @@ const createPool = async () =>
         "es_unic_moviment",
         "requerida",
         "requerit",
+        "treballat",
       ].includes(field.name)
         ? field.string() === "1"
         : next(),
