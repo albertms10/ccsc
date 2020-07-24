@@ -6,7 +6,7 @@ import moment from "moment";
 export default (time: string): string => {
   const timeMoment = moment(time, "HH:mm:ss");
 
-  if (!timeMoment.isValid) return "Sense durada";
+  if (!timeMoment.isValid()) return "Sense durada";
 
   return [
     { format: "H", symbol: "h" },
