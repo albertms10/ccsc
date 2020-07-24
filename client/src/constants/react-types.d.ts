@@ -3,4 +3,8 @@ declare module "react-types" {
     T,
     import("react").Dispatch<import("react").SetStateAction<T>>
   ];
+
+  export interface StyledComponent {
+    style?: import("react").CSSProperties;
+  }
 }
