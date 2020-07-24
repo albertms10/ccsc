@@ -1,7 +1,7 @@
 import { Space } from "antd";
 import { Esdeveniment } from "model";
 import React from "react";
-import { CalendarTag } from "../../../../standalone/calendar-tag";
+import { CalendarTag } from "../../../calendar-tag";
 
 interface CalendariFormacioCellProps {
   esdevenimentsActuals: Esdeveniment[];

@@ -2,9 +2,9 @@ import { Popover, Tag } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { CalendarEventPopover } from "../../components/calendar-event-popover";
+import { CalendarEventPopover } from "../calendar-event-popover";
 import { EsdevenimentPropTypes } from "../../typedef/prop-types-definitions";
-import { StatusIcon } from "../status-icon";
+import { StatusIcon } from "../../standalone/status-icon";
 import "./calendar-tag.css";
 
 const CalendarTag = ({ childKey, esdeveniment }) => {
