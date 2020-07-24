@@ -9,6 +9,7 @@
   "main": "",
   "scripts": {
     "dev": "cd server && npm run dev",
+    "build": "cd server && npm run build",
     "server": "cd server && npm run server"
   },
   "cacheDirectories": [
