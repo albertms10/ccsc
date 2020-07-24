@@ -6,7 +6,7 @@ SELECT *,
                FROM assajos_projectes
                WHERE id_assaig = @id_assaig
                  AND id_projecte = p.id_projecte
-           ) AS convocada
+           ) AS treballat
 FROM projectes p,
      (
          SELECT e.dia_inici
