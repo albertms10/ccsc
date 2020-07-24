@@ -2,11 +2,11 @@ import { Button, Tooltip } from "antd";
 import { ButtonProps } from "antd/lib/button";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import React, { forwardRef } from "react";
+import { StyledComponent } from "react-types";
 
-interface BorderlessButtonProps extends ButtonProps {
+interface BorderlessButtonProps extends ButtonProps, StyledComponent {
   tooltip?: string;
   tooltipPlacement?: TooltipPlacement;
-  style?: React.CSSProperties;
 }
 
 const BorderlessButton = forwardRef<HTMLButtonElement, BorderlessButtonProps>(

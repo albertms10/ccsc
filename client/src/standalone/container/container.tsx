@@ -1,11 +1,12 @@
 import React from "react";
 import "./container.css";
+import { StyledComponent } from "react-types";
 
-interface ContainerProps {
+interface ContainerProps extends StyledComponent {
   reducedPadding?: boolean;
   noPadding?: boolean;
   noBackground?: boolean;
-  style?: React.CSSProperties;
+  className?: string;
 }
 
 const Container: React.FC<ContainerProps> = ({

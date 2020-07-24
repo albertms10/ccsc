@@ -1,16 +1,18 @@
 import { List, Typography } from "antd";
 import { Moviment } from "model";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { searchFilterMoviment } from "../../helpers/search-filters";
-import { fetchMoviments } from "../../store/moviments/thunks";
-import { RootState } from "../../store/types";
 import { mapFirstOfProperty, timeDuration } from "../../utils";
-import FixedTagsProjectes from "../fixed-tags-projectes/fixed-tags-projectes";
-import ModalList from "../modal-list/modal-list";
+import { FixedTagsProjectes } from "../fixed-tags-projectes";
+import { useMoviments } from "../llista-moviments/hooks";
+import { ModalButtonBaseProps } from "../modal-button/modal-button";
+import { ModalList } from "../modal-list";
+import { SearchListBaseProps } from "../search-list/search-list";
 
-interface ModalSeleccionarMovimentProps {
-  dataFilter: (value: Moviment, index: number, array: Moviment[]) => Moviment;
+interface ModalSeleccionarMovimentProps
+  extends ModalButtonBaseProps,
+    SearchListBaseProps {
+  dataFilter: (value: Moviment, index: number, array: Moviment[]) => boolean;
   onItemClick: (item: Moviment) => Promise<any>;
   thenAction?: Function;
 }
@@ -21,14 +23,7 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
   thenAction,
   ...rest
 }) => {
-  const dispatch = useDispatch();
-  const { moviments, fetched } = useSelector(
-    ({ moviments }: RootState) => moviments
-  );
-
-  useEffect(() => {
-    if (!fetched) dispatch(fetchMoviments());
-  }, [fetched, dispatch]);
+  const [moviments, loading] = useMoviments();
 
   return (
     <ModalList<Moviment>
@@ -36,6 +31,7 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
       dataSource={dataFilter ? moviments.filter(dataFilter) : moviments}
       mapData={(data) => mapFirstOfProperty(data, "id_obra", "primer")}
       searchPlaceholder="Cerca moviments"
+      loading={loading}
       searchFilters={searchFilterMoviment}
       renderItem={(moviment, index, setVisible) => (
         <>

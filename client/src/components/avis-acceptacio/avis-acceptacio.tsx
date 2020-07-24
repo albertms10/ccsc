@@ -23,7 +23,7 @@ const AvisAcceptacio: React.FC<AvisAcceptacioProps> = ({
 }) => {
   const [textAvisAcceptacio, loading] = useAPI<Avis>(
     `/agrupacions/avisos/${nameAvis}`,
-    {}
+    {} as Avis
   );
 
   const content = useMemo(

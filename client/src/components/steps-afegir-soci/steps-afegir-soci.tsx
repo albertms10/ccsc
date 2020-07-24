@@ -12,7 +12,7 @@ interface StepsAfegirSociProps {
   form: FormInstance;
   currentPageIndex: number;
   handleChange: (current: number) => void;
-  initialValues: {
+  initialValues?: {
     [key: string]: any;
   };
 }

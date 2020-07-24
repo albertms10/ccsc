@@ -4,7 +4,7 @@ import React, { cloneElement, useState } from "react";
 import { useStatePair } from "react-types";
 
 export interface ModalButtonBaseProps {
-  title: string;
+  title?: string;
   button?: React.ReactElement;
   wrapClassName?: string;
 }
@@ -13,12 +13,12 @@ interface ModalButtonProps extends ModalButtonBaseProps {
   okText?: string;
   cancelText?: string;
   confirmLoading?: boolean;
-  onOk?: Function;
+  onOk?: (setVisible: React.Dispatch<React.SetStateAction<boolean>>) => void;
   onClick?: Function;
-  footer?: React.ReactElement | null;
+  footer?: React.ReactNode | null;
   renderModalBody: ([visible, setVisible]: useStatePair<
     boolean
-  >) => React.ReactElement;
+  >) => React.ReactNode;
 }
 
 const ModalButton: React.FC<ModalButtonProps> = ({

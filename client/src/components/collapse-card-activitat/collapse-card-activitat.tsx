@@ -9,12 +9,12 @@ import { useAltaSoci, useBaixaSoci } from "./hooks";
 
 interface CollapseCardActivitatProps {
   soci: Soci;
-  active: true;
+  active?: boolean;
 }
 
 const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
   soci,
-  active,
+  active = false,
 }) => {
   const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI<Activitat[]>(
     `/socis/${soci.id_soci}/activitat`,

@@ -21,8 +21,8 @@ import {
   SiderBrokenContext,
   SiderSetCollapsedContext,
 } from "../../../tauler-app/contexts/sider-context";
-import { MenuItem } from "../menu-item";
-import { MenuItemGroup } from "../menu-item-group";
+import { MainMenuItem } from "../menu-item";
+import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";
 
 const initialPaths = [
@@ -34,12 +34,6 @@ const initialPaths = [
   "/reunions",
   "/pagaments",
 ];
-
-interface MenuItem {
-  title: string;
-  icon: React.ReactElement;
-  path: string;
-}
 
 const MainMenu: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState("");
@@ -83,35 +77,51 @@ const MainMenu: React.FC = () => {
         if (broken) setCollapsed(true);
       }}
     >
-      <MenuItem title="Inici" icon={<HomeOutlined />} path="/" />
-      <MenuItemGroup
+      <MainMenuItem title="Inici" icon={<HomeOutlined />} key="/" path="/" />
+      <MainMenuItemGroup
         key="grup_formacions"
         title="Formacions"
         loading={loadingFormacions}
       >
         {formacions &&
-          formacions.map(({ nom_curt }) => (
-            <MenuItem
-              title={nom_curt}
-              icon={<IconFormacio name={nom_curt} />}
-              path={"/" + kebabCase(nom_curt)}
-            />
-          ))}
-      </MenuItemGroup>
-      <MenuItemGroup key="grup_gestio_musical" title="Gestió musical">
-        <MenuItem
+          formacions.map(({ nom_curt }) => {
+            const path = "/" + kebabCase(nom_curt);
+            return (
+              <MainMenuItem
+                title={nom_curt}
+                icon={<IconFormacio name={nom_curt} />}
+                key={path}
+                path={path}
+              />
+            );
+          })}
+      </MainMenuItemGroup>
+      <MainMenuItemGroup key="grup_gestio_musical" title="Gestió musical">
+        <MainMenuItem
           title="Projectes"
           icon={<ProjectOutlined />}
+          key="/projectes"
           path="/projectes"
         />
-        <MenuItem title="Assajos" icon={<BookOutlined />} path="/assajos" />
-        <MenuItem title="Obres" icon={<ReadOutlined />} path="/obres" />
-      </MenuItemGroup>
-      <MenuItemGroup key="grup_entitat" title="Entitat">
+        <MainMenuItem
+          title="Assajos"
+          icon={<BookOutlined />}
+          key="/assajos"
+          path="/assajos"
+        />
+        <MainMenuItem
+          title="Obres"
+          icon={<ReadOutlined />}
+          key="/obres"
+          path="/obres"
+        />
+      </MainMenuItemGroup>
+      <MainMenuItemGroup key="grup_entitat" title="Entitat">
         <Authorized
+          key="/socis"
           authority="junta_directiva"
           render={(props) => (
-            <MenuItem
+            <MainMenuItem
               {...props}
               title="Socis"
               icon={<TeamOutlined />}
@@ -119,17 +129,19 @@ const MainMenu: React.FC = () => {
             />
           )}
         />
-        <MenuItem
+        <MainMenuItem
           title="Reunions"
           icon={<SolutionOutlined />}
+          key="/reunions"
           path="/reunions"
         />
-        <MenuItem
+        <MainMenuItem
           title="Pagaments"
           icon={<ScheduleOutlined />}
+          key="/pagaments"
           path="/pagaments"
         />
-      </MenuItemGroup>
+      </MainMenuItemGroup>
     </Menu>
   );
 };

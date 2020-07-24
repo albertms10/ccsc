@@ -1,9 +1,9 @@
 import React from "react";
 import "./sub-header.css";
+import { StyledComponent } from "react-types";
 
-interface SubHeaderProps {
+interface SubHeaderProps extends StyledComponent {
   title?: string;
-  style?: React.CSSProperties;
 }
 
 const SubHeader: React.FC<SubHeaderProps> = ({ title, style }) => (

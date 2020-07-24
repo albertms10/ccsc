@@ -1,5 +1,9 @@
 import { Checkbox, Select, Space } from "antd";
-import { Convocatoria, EstatConfirmacio, PersonaConvocada } from "model";
+import {
+  ConvocatoriaGenerica,
+  EstatConfirmacio,
+  PersonaConvocada,
+} from "model";
 import React, { useCallback, useState } from "react";
 import { useAPI } from "../../helpers";
 import { StatusIcon } from "../../standalone/status-icon";
@@ -31,7 +35,7 @@ const SelectEstatEsdeveniment: React.FC<SelectEstatEsdevenimentProps> = ({
   ] = usePutAssistentEsdeveniment(idEsdeveniment);
 
   const handleChange = useCallback(
-    ({ id_estat_confirmacio, amb_retard }: Convocatoria) => {
+    ({ id_estat_confirmacio, amb_retard }: ConvocatoriaGenerica) => {
       const putEstat = id_estat_confirmacio || estatConfirmacio;
       const putRetard = !!amb_retard;
 

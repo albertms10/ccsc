@@ -23,7 +23,7 @@ interface PopoverListProps<T extends CheckboxItem>
   placement?: TooltipPlacement;
   defaultValue: CheckboxValueType[];
   needsAuthorization?: boolean;
-  elseElement?: React.ReactElement;
+  elseElement?: React.ReactNode;
 }
 
 const PopoverList = <T extends CheckboxItem>({

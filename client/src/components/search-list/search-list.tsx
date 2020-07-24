@@ -7,18 +7,22 @@ import React, {
   useState,
 } from "react";
 import { searchFilter } from "../../utils";
+import { SearchFilters } from "../../utils/search-filter";
 import "./search-list.css";
 
 const { Search } = Input;
 
-export interface SearchListProps<T> {
+export interface SearchListBaseProps {
+  loading?: boolean;
+}
+
+export interface SearchListProps<T> extends SearchListBaseProps {
   searchPlaceholder: string;
   dataSource: T[];
   mapData?: (data: T[]) => any[];
-  loading?: boolean;
-  searchFilters: Function;
+  searchFilters: (item: T) => SearchFilters;
   checkToFocus?: boolean;
-  renderItem: (
+  renderItem?: (
     item: T,
     index: number,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -54,7 +58,6 @@ const SearchList = <T,>({
     [dataSource, searchFilters, searchValue]
   );
 
-  // TODO: renderItem(item, index, [setVisible])
   return (
     <>
       <Search
@@ -71,6 +74,8 @@ const SearchList = <T,>({
         size="small"
         split={false}
         locale={{ emptyText: "No s’ha trobat cap ítem" }}
+        // TODO: renderItem(item, index, [setVisible])
+        // @ts-ignore
         renderItem={renderItem}
         style={{ borderTop: "1px solid var(--background-color)" }}
       />

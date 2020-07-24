@@ -3,13 +3,13 @@ import React from "react";
 import SubHeader from "../sub-header/sub-header";
 
 interface InfoCardProps {
-  alert?: React.ReactElement;
+  alert?: React.ReactNode;
   alertCondition?: boolean;
   title?: string;
   actionTooltip?: string;
   actionItem?: React.ReactElement;
   loading?: boolean;
-  info?: React.ReactElement;
+  info?: React.ReactNode;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({

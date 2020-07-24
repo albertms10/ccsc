@@ -1,10 +1,8 @@
 import { Avatar, Space } from "antd";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSocis } from "../../pages-tauler/socis/hooks";
 import { SearchComplete } from "../../standalone/search-complete";
 import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
-import { fetchSocis } from "../../store/socis/thunks";
-import { RootState } from "../../store/types";
 import { initials, searchFilter } from "../../utils";
 
 interface SearchCompleteSocisProps extends SearchCompleteBaseProps {}
@@ -12,14 +10,7 @@ interface SearchCompleteSocisProps extends SearchCompleteBaseProps {}
 const SearchCompleteSocis: React.FC<SearchCompleteSocisProps> = ({
   onSelect,
 }) => {
-  const dispatch = useDispatch();
-  const { socis, fetched, loading } = useSelector(
-    ({ socis }: RootState) => socis
-  );
-
-  useEffect(() => {
-    if (!fetched) dispatch(fetchSocis());
-  }, [fetched, dispatch]);
+  const [socis, loading] = useSocis();
 
   return (
     <SearchComplete

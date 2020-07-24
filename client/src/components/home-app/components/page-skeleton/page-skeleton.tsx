@@ -1,13 +1,13 @@
 import { Typography } from "antd";
 import React from "react";
+import { StyledComponent } from "react-types";
 import { Container } from "../../../../standalone/container";
 import "./page-skeleton.css";
 
 const { Title } = Typography;
 
-interface PageSkeletonProps {
+interface PageSkeletonProps extends StyledComponent {
   title: string;
-  style?: React.CSSProperties;
 }
 
 const PageSkeleton: React.FC<PageSkeletonProps> = ({

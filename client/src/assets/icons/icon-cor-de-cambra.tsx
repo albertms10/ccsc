@@ -1,5 +1,6 @@
 import Icon from "@ant-design/icons";
 import React, { forwardRef } from "react";
+import { StyledComponent } from "react-types";
 
 const SVGIconCorDeCambra: React.FC = () => (
   <svg viewBox="0 0 43.98 43.98" fill="currentColor" width="1em" height="1em">
@@ -7,9 +8,7 @@ const SVGIconCorDeCambra: React.FC = () => (
   </svg>
 );
 
-interface IconCorDeCambraProps {
-  style?: React.CSSProperties;
-}
+interface IconCorDeCambraProps extends StyledComponent {}
 
 const IconCorDeCambra = forwardRef<HTMLButtonElement, IconCorDeCambraProps>(
   (props, ref) => <Icon {...props} ref={ref} component={SVGIconCorDeCambra} />

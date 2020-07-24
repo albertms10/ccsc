@@ -1,5 +1,6 @@
 import Icon from "@ant-design/icons";
 import React from "react";
+import { StyledComponent } from "react-types";
 
 const SVGLogoCorDeCambra: React.FC = () => (
   <svg viewBox="0 0 463.3 194.5" fill="currentColor" width="6rem">
@@ -7,9 +8,8 @@ const SVGLogoCorDeCambra: React.FC = () => (
   </svg>
 );
 
-interface LogoCorDeCambraProps {
+interface LogoCorDeCambraProps extends StyledComponent {
   className?: string;
-  style?: React.CSSProperties;
 }
 
 const LogoCorDeCambra: React.FC<LogoCorDeCambraProps> = (props) => (

@@ -1,12 +1,12 @@
 import { LayoutOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import React, { forwardRef } from "react";
+import { StyledComponent } from "react-types";
 import IconCorDeCambra from "./icon-cor-de-cambra";
 
-interface IconFormacioProps {
+interface IconFormacioProps extends StyledComponent {
   name: string;
   hasTooltip?: boolean;
-  style?: React.CSSProperties;
 }
 
 type IconObject = {

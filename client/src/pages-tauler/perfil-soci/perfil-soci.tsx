@@ -14,7 +14,7 @@ import "./perfil-soci.css";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-export const SociContext = createContext<Soci>({});
+export const SociContext = createContext<Soci>({} as Soci);
 
 export default () => {
   const setPageHeader = useContext(SetPageHeaderContext);
@@ -22,7 +22,7 @@ export default () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [soci] = useAPI<Soci>(`/socis/${id}`, {});
+  const [soci] = useAPI<Soci>(`/socis/${id}`, {} as Soci);
 
   useEffect(() => setPageHeader(soci.nom_complet), [
     setPageHeader,

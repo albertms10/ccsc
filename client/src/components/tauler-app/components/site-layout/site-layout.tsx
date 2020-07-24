@@ -8,8 +8,8 @@ import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
 import { DetallMoviment } from "../../../../pages-tauler/detall-moviment";
 import { DetallObres } from "../../../../pages-tauler/detall-obra";
 import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
-import { Formacio } from "../../../../pages-tauler/formacio";
-import { Inici } from "../../../../pages-tauler/inici";
+import { DetallFormacio } from "../../../../pages-tauler/detall-formacio";
+import { IniciPage } from "../../../../pages-tauler/inici-page";
 import { Obres } from "../../../../pages-tauler/obres";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
 import { Projectes } from "../../../../pages-tauler/projectes";
@@ -87,7 +87,7 @@ const SiteLayout: React.FC = () => {
             style={{ marginInlineStart: startInset }}
           >
             <Switch>
-              <Route exact path="/" component={Inici} />
+              <Route exact path="/" component={IniciPage} />
               {!loadingFormacions &&
                 formacions.map((formacio) => (
                   <Route
@@ -95,7 +95,7 @@ const SiteLayout: React.FC = () => {
                     exact
                     path={"/" + kebabCase(formacio.nom_curt)}
                     render={(props) => (
-                      <Formacio {...props} formacio={formacio} />
+                      <DetallFormacio {...props} formacio={formacio} />
                     )}
                   />
                 ))}

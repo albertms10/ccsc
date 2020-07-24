@@ -1,6 +1,6 @@
 import { InfoCircleOutlined, LayoutFilled } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
-import { Assaig, Assemblea, Concert, Reunio } from "model";
+import { Assaig, TipusEsdeveniment } from "model";
 import React from "react";
 import { Link } from "react-router-dom";
 import { EventLineItem } from "../../standalone/event-line-item";
@@ -10,7 +10,7 @@ import { EventLineItemLocalitzacio } from "../event-line-item-localitzacio";
 import "./calendar-event-popover.css";
 
 interface CalendarEventPopoverProps {
-  esdeveniment: Assaig | Concert | Reunio | Assemblea;
+  esdeveniment: TipusEsdeveniment;
 }
 
 const CalendarEventPopover: React.FC<CalendarEventPopoverProps> = ({

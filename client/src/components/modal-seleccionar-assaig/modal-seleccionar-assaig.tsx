@@ -1,18 +1,22 @@
 import { List, Space } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { searchFilterAssaig } from "../../helpers/search-filters";
+import { useAssajos } from "../../pages-tauler/assajos/components/llista-assajos/hooks";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { fetchAssajos } from "../../store/assajos/thunks";
-import { RootState } from "../../store/types";
 import { timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
+import { ModalButtonBaseProps } from "../modal-button/modal-button";
 import { ModalList } from "../modal-list";
+import { SearchListBaseProps } from "../search-list/search-list";
 
-interface ModalSeleccionarAssaigProps {
-  dataFilter: (value: Assaig, index: number, array: Assaig[]) => Assaig;
+interface ModalSeleccionarAssaigProps
+  extends ModalButtonBaseProps,
+    SearchListBaseProps {
+  dataFilter: (value: Assaig, index: number, array: Assaig[]) => boolean;
   onItemClick: (item: Assaig) => Promise<any>;
 }
 
@@ -23,17 +27,14 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const { assajos, fetched } = useSelector(({ assajos }: RootState) => assajos);
-
-  useEffect(() => {
-    if (!fetched) dispatch(fetchAssajos());
-  }, [fetched, dispatch]);
+  const [assajos, loading] = useAssajos();
 
   return (
     <ModalList<Assaig>
       title="Selecciona un assaig"
       dataSource={dataFilter ? assajos.filter(dataFilter) : assajos}
       searchPlaceholder="Cerca assajos"
+      loading={loading}
       searchFilters={searchFilterAssaig}
       renderItem={(assaig, index, setVisible) => (
         <List.Item

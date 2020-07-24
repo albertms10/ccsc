@@ -25,6 +25,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const [moviments, loading] = useMoviments();
+
   const [
     loadingDeleteMoviment,
     showDeleteConfirm,
@@ -39,7 +40,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
         (moviment) =>
           moviment.projectes &&
           moviment.projectes.find(
-            (projecte) => projecte.id_projecte == idProjecte
+            (projecte) => projecte.id_projecte === idProjecte
           )
       );
 

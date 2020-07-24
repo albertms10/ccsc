@@ -28,7 +28,7 @@ export interface FormStep {
   key: string;
   title: string;
   selfCreationOnly: boolean;
-  content: React.ReactElement;
+  content: React.ReactNode;
 }
 
 export default (

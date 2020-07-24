@@ -11,9 +11,9 @@ import {
 import { RootState } from "../../store/types";
 
 interface AuthorizedProps {
-  render?: (props: PropsWithChildren<any>) => React.ReactElement;
-  component?: React.ReactElement;
-  elseElement?: React.ReactElement;
+  render?: (props: PropsWithChildren<any>) => React.ReactNode;
+  component?: React.ReactNode;
+  elseElement?: React.ReactNode;
   authority?: Role;
 }
 

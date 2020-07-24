@@ -1,11 +1,11 @@
 import { Tag, Tooltip } from "antd";
 import React from "react";
+import { StyledComponent } from "react-types";
 
-interface FixedTagProps {
-  childKey: any;
+interface FixedTagProps extends StyledComponent {
+  childKey?: any;
   tooltip: string;
   color: string;
-  style?: React.CSSProperties;
 }
 
 const FixedTag: React.FC<FixedTagProps> = ({

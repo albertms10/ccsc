@@ -7,14 +7,14 @@ import {
 } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import React, { cloneElement } from "react";
+import { StyledComponent } from "react-types";
 
-interface StatusIconProps {
+interface StatusIconProps extends StyledComponent {
   tooltip?: string;
   size?: "middle" | "large";
   statusId?: number;
   esAniversari?: boolean;
-  label?: React.ReactElement;
-  style?: React.CSSProperties;
+  label?: React.ReactNode;
 }
 
 const StatusIcon: React.FC<StatusIconProps> = ({

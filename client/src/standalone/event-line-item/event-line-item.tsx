@@ -1,10 +1,10 @@
 import React from "react";
 import "./event-line-item.css";
+import { StyledComponent } from "react-types";
 
-interface EventLineItemProps {
-  icon?: React.ReactElement;
+interface EventLineItemProps extends StyledComponent {
+  icon?: React.ReactNode;
   size?: "middle" | "large";
-  style?: React.CSSProperties;
 }
 
 const EventLineItem: React.FC<EventLineItemProps> = ({

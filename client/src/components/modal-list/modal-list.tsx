@@ -6,8 +6,10 @@ import { SearchList } from "../search-list";
 import { SearchListProps } from "../search-list/search-list";
 import "./modal-list.css";
 
-interface ModalListProps<T> extends ModalButtonBaseProps, SearchListProps<T> {
-  buttonIcon?: React.ReactElement;
+export interface ModalListProps<T>
+  extends ModalButtonBaseProps,
+    SearchListProps<T> {
+  buttonIcon?: React.ReactNode;
 }
 
 const ModalList = <T,>({
@@ -36,7 +38,11 @@ const ModalList = <T,>({
         loading={loading}
         searchFilters={searchFilters}
         checkToFocus={visible}
-        renderItem={(item: T, index) => renderItem(item, index, setVisible)}
+        renderItem={(item, index) => {
+          // TODO: renderItem(item, index, [setVisible])
+          // @ts-ignore
+          return renderItem(item, index, setVisible);
+        }}
       />
     )}
     {...rest}

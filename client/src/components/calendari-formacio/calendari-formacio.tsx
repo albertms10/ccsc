@@ -1,10 +1,10 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space, Spin } from "antd";
-import { Esdeveniment, Formacio } from "model";
+import { Formacio, TipusEsdeveniment } from "model";
 import moment from "moment";
 import React, { useContext } from "react";
 import { useAPI } from "../../helpers";
-import { FormacioContext } from "../../pages-tauler/formacio/formacio";
+import { FormacioContext } from "../../pages-tauler/detall-formacio/detall-formacio";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { Container } from "../../standalone/container";
 import { SearchComplete } from "../../standalone/search-complete";
@@ -16,7 +16,7 @@ import { CalendariResultLabel } from "./components/calendari-result-label";
 export default () => {
   const { id_formacio } = useContext(FormacioContext) as Formacio;
 
-  const [esdeveniments, loading] = useAPI<Esdeveniment[]>(
+  const [esdeveniments, loading] = useAPI<TipusEsdeveniment[]>(
     `/formacions/${id_formacio}/esdeveniments`,
     []
   );
@@ -70,7 +70,9 @@ export default () => {
                 <Col flex={1}>
                   <SearchComplete
                     data={esdeveniments}
-                    onSelect={(value, option) => onChange(moment(option.date))}
+                    onSelect={(value, option) =>
+                      new Promise(() => onChange(moment(option.date)))
+                    }
                     filter={(value, option) =>
                       searchFilter(value, {
                         texts: [option.titol],
