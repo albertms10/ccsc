@@ -5,6 +5,10 @@ declare module "common" {
     | "direccio_musical"
     | "admin";
 
+  export interface AnyMap {
+    [key: string]: any;
+  }
+
   export interface BooleanMap {
     [key: string]: boolean;
   }
@@ -21,5 +25,17 @@ declare module "common" {
 
   export interface ResponseError {
     error: FetchError;
+  }
+
+  export interface EmailEsperaBaseResponse {
+    exists: boolean;
+  }
+
+  export interface EmailEsperaSuccessResponse extends EmailEsperaBaseResponse {
+    accessToken: string;
+  }
+
+  export interface EmailEsperaFailureResponse extends EmailEsperaBaseResponse {
+    message: string;
   }
 }
