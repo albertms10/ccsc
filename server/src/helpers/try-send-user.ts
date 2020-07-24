@@ -1,5 +1,5 @@
-import { Usuari } from "common";
 import { NextFunction, Response } from "express";
+import { Usuari } from "model";
 
 export default (
   res: Response,
