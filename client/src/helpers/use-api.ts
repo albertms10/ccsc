@@ -13,7 +13,7 @@ export default <T>(url: string, initialState: T) => {
     return fetchAPI<T>(
       url,
       (data) => {
-        setData(data);
+        setData(data as T);
         setLoading(false);
       },
       dispatch

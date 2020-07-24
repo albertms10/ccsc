@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI, showDeleteConfirm } from "./index";
 
-export default (url: string, textualElement: string, callback: Function) => {
+export default (url: string, textualElement: string, callback?: Function) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
