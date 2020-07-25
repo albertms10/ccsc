@@ -385,7 +385,7 @@ Indexes {
 Table "moviments" {
   "id_moviment" SMALLINT [pk, not null, increment]
   "ordre" SMALLINT [not null]
-  "titol" VARCHAR(100) [not null]
+  "titol" VARCHAR(100)
   "durada" TIME
   "tonalitat" VARCHAR(10)
   "id_obra" SMALLINT [not null]
