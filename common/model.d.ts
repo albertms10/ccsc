@@ -125,7 +125,7 @@ declare module "model" {
     es_dona: boolean;
     es_actiu?: boolean;
     avisos: string | string[];
-    roles?: string | import("common").Role[];
+    roles?: string | Role[];
     salt?: string;
     encrypted_password?: string;
   }
