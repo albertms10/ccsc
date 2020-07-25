@@ -26,7 +26,9 @@ const ColorCardList: React.FC<ColorCardListProps> = ({
     {...rest}
     className="color-card-list no-hover"
     grid={{
-      gutter: 32,
+      // TODO: Issue sobre el tipat de gutter
+      // @ts-ignore
+      gutter: [24, 16],
       xs: 1,
       sm: 2,
       md: 3,
