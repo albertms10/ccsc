@@ -5,13 +5,16 @@ export default (name: string, surname: string): string =>
     name
       .trim()
       .split(" ")
-      .map((word, i) => (i > 0 ? word[0] : word))
+      .map((word, index) => (index > 0 ? word.charAt(0) : word))
       .join("")
       .toLowerCase() +
       surname
         .trim()
         .split(" ")
-        .map((word) => (word[0] === word[0].toUpperCase() ? word[0] : ""))
+        .map((word) => {
+          const first = word.charAt(0);
+          return first === first.toUpperCase() ? first : "";
+        })
         .join("")
         .toLowerCase()
   );
