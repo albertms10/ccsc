@@ -2,7 +2,6 @@ import { Role } from "common";
 import { Usuari } from "model";
 import React, { PropsWithChildren } from "react";
 import { useSelector } from "react-redux";
-import { ROLES_JUNTA_DIRECTIVA } from "../../constants/constants";
 import {
   isRoleAdmin,
   isRoleDireccioMusical,
@@ -21,7 +20,7 @@ const Authorized: React.FC<AuthorizedProps> = ({
   render,
   component,
   elseElement,
-  authority = ROLES_JUNTA_DIRECTIVA[0],
+  authority = "junta_directiva",
   children,
   ...rest
 }) => {
