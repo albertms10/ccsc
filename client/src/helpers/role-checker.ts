@@ -6,10 +6,10 @@ import {
 } from "../constants/constants";
 import { includesSome } from "../utils";
 
-export const isRoleJuntaDirectiva = (roles: Role[]) =>
+export const hasRoleJuntaDirectiva = (roles: Role[]) =>
   includesSome(roles, ROLES_JUNTA_DIRECTIVA);
 
-export const isRoleDireccioMusical = (roles: Role[]) =>
+export const hasRoleDireccioMusical = (roles: Role[]) =>
   includesSome(roles, ROLES_DIRECCIO_MUSICAL);
 
-export const isRoleAdmin = (roles: Role[]) => includesSome(roles, ROLES_ADMIN);
+export const hasRoleAdmin = (roles: Role[]) => includesSome(roles, ROLES_ADMIN);

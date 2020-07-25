@@ -3,9 +3,9 @@ import { Usuari } from "model";
 import React, { PropsWithChildren } from "react";
 import { useSelector } from "react-redux";
 import {
-  isRoleAdmin,
-  isRoleDireccioMusical,
-  isRoleJuntaDirectiva,
+  hasRoleAdmin,
+  hasRoleDireccioMusical,
+  hasRoleJuntaDirectiva,
 } from "../../helpers/role-checker";
 import { RootState } from "../../store/types";
 
@@ -36,17 +36,17 @@ const Authorized: React.FC<AuthorizedProps> = ({
 
   switch (authority) {
     case "junta_directiva":
-      return isRoleJuntaDirectiva(roles as Role[])
+      return hasRoleJuntaDirectiva(roles as Role[])
         ? returnItem
         : elseElement || "";
 
     case "direccio_musical":
-      return isRoleDireccioMusical(roles as Role[])
+      return hasRoleDireccioMusical(roles as Role[])
         ? returnItem
         : elseElement || "";
 
     case "admin":
-      return isRoleAdmin(roles as Role[]) ? returnItem : elseElement || "";
+      return hasRoleAdmin(roles as Role[]) ? returnItem : elseElement || "";
 
     default:
       return elseElement || "";
