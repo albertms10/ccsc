@@ -1,1 +1,1 @@
-web: server/src/index.ts
+web: npm run build
