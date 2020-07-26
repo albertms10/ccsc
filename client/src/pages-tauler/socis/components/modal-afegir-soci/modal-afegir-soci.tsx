@@ -1,7 +1,6 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { ModalButton } from "../../../../components/modal-button";
 import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
 import { fetchSocis } from "../../../../store/socis/thunks";
@@ -9,7 +8,7 @@ import { fetchSocis } from "../../../../store/socis/thunks";
 const ModalAfegirSoci: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [visible, setVisible] = useState(false);
+  const modalButtonRef = useRef(null);
 
   const {
     steps,
@@ -20,35 +19,27 @@ const ModalAfegirSoci: React.FC = () => {
     setCurrentPageIndex,
   } = useStepsAfegirSoci(() => {
     dispatch(fetchSocis());
-    setVisible(false);
+    // @ts-ignore
+    modalButtonRef.current!.setVisible();
     setCurrentPageIndex(0);
     form.resetFields();
   });
 
   return (
-    <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-      >
-        Afegeix un soci
-      </Button>
-      <Modal
-        title="Afegir soci"
-        width={720}
-        onCancel={() => setVisible(false)}
-        visible={visible}
-        footer={footerActions}
-      >
+    <ModalButton
+      ref={modalButtonRef}
+      title="Afegir persona associada"
+      width={720}
+      footer={footerActions}
+      renderModalBody={() => (
         <StepsAfegirSoci
           steps={steps}
           form={form}
           currentPageIndex={currentPageIndex}
           handleChange={handleChange}
         />
-      </Modal>
-    </>
+      )}
+    />
   );
 };
 

@@ -1,6 +1,5 @@
 import * as colors from "@ant-design/colors";
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Curs } from "model";
 import moment from "moment";
@@ -19,7 +18,7 @@ const { Option } = Select;
 const ModalAfegirProjecte: React.FC = () => {
   const { loading } = useSelector(({ projectes }: RootState) => projectes);
 
-  const [color, setColor] = useState<ColorResult>({} as ColorResult);
+  const [color, setColor] = useState({} as ColorResult);
 
   const [form, handleOk] = useAfegirProjecte();
 
@@ -50,11 +49,6 @@ const ModalAfegirProjecte: React.FC = () => {
     <ModalButton
       title="Afegir projecte"
       confirmLoading={loading}
-      button={
-        <Button type="primary" icon={<PlusOutlined />}>
-          Afegeix un projecte
-        </Button>
-      }
       onOk={(setVisible) => {
         handleOk().then(() => {
           setVisible(false);

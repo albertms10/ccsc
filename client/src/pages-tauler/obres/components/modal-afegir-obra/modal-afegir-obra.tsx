@@ -1,5 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import { Idioma } from "model";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -21,11 +20,6 @@ const ModalAfegirObra: React.FC = () => {
     <ModalButton
       title="Afegir obra"
       confirmLoading={loading}
-      button={
-        <Button type="primary" icon={<PlusOutlined />}>
-          Afegeix una obra
-        </Button>
-      }
       onOk={(setVisible) => {
         handleOk().then(() => {
           setVisible(false);
