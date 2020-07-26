@@ -23,10 +23,9 @@ interface ModalSeleccionarAssaigProps
 const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
   dataFilter,
   onItemClick,
+  thenAction,
   ...rest
 }) => {
-  const dispatch = useDispatch();
-
   const [assajos, loading] = useAssajos();
 
   return (
@@ -40,13 +39,13 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
         <List.Item
           onClick={() => {
             onItemClick(assaig).then(() => {
-              dispatch(fetchAssajos());
+              if (typeof thenAction === "function") thenAction();
               setVisible(false);
             });
           }}
           actions={[
             ...(assaig.projectes && assaig.projectes.length > 0
-              ? [<FixedTagsProjectes projectes={assaig.projectes} />]
+              ? [<FixedTagsProjectes projectes={assaig.projectes} noLink />]
               : []),
           ]}
         >

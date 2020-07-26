@@ -47,7 +47,7 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
             }}
             actions={[
               ...(moviment.projectes && moviment.projectes.length > 0
-                ? [<FixedTagsProjectes projectes={moviment.projectes} />]
+                ? [<FixedTagsProjectes projectes={moviment.projectes} noLink />]
                 : []),
             ]}
           >
