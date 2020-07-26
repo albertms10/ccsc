@@ -14,6 +14,7 @@ import { Pais } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { DATE_FORMAT } from "../../../constants/constants";
 import { fetchAPI, useAPI } from "../../../helpers";
 import { InfoCard } from "../../../standalone/info-card";
 import { upperCaseFirst } from "../../../utils";
@@ -283,10 +284,10 @@ export default (
         soci.username = username;
         soci.nom = upperCaseFirst(soci.nom);
         soci.cognoms = upperCaseFirst(soci.cognoms);
-        soci.naixement = soci.naixement.format("YYYY-MM-DD");
+        soci.naixement = soci.naixement.format(DATE_FORMAT);
         soci.data_alta = soci.data_alta
-          ? soci.data_alta.format("YYYY-MM-DD")
-          : moment().format("YYYY-MM-DD");
+          ? soci.data_alta.format(DATE_FORMAT)
+          : moment().format(DATE_FORMAT);
 
         fetchAPI(
           fetchURL,

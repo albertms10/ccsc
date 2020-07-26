@@ -2,6 +2,7 @@ import { Form } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import { useDispatch } from "react-redux";
+import { DATE_FORMAT } from "../../../../../constants/constants";
 import { fetchAPI } from "../../../../../helpers";
 import { fetchAssajos } from "../../../../../store/assajos/thunks";
 
@@ -18,7 +19,7 @@ export default () => {
 
   const handleOk = (idProjecte?: number) =>
     form.validateFields().then((assaig) => {
-      assaig.dia_inici = moment(assaig.dia_inici).format("YYYY-MM-DD");
+      assaig.dia_inici = moment(assaig.dia_inici).format(DATE_FORMAT);
       assaig.hora = assaig.hora
         ? assaig.hora.map((h: string) => h && moment(h).format("HH:mm"))
         : [null, null];

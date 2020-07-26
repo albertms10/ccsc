@@ -2,6 +2,7 @@ import { Form } from "antd";
 import { Projecte } from "model";
 import moment from "moment";
 import { useDispatch } from "react-redux";
+import { DATE_FORMAT } from "../../../../../constants/constants";
 import { fetchAPI } from "../../../../../helpers";
 import { fetchProjectes } from "../../../../../store/projectes/thunks";
 
@@ -22,7 +23,7 @@ export default () => {
         ? projecte.color.hex.substring(1, projecte.color.length)
         : "676767";
       projecte.data = projecte.data
-        ? projecte.data.map((d: string) => d && moment(d).format("YYYY-MM-DD"))
+        ? projecte.data.map((d: string) => d && moment(d).format(DATE_FORMAT))
         : [null, null];
 
       if (!projecte.formacions) projecte.formacions = [];
