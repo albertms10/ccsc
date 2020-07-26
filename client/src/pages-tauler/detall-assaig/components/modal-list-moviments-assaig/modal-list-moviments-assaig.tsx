@@ -17,9 +17,9 @@ const ModalListMovimentsAssaig: React.FC<ModalListMovimentsAssaigProps> = ({
 }) => {
   const { id_assaig } = useContext(AssaigContext);
 
-  const [loadingPostMoviment, postMoviment] = usePostAPI(
-    `/assajos/${id_assaig}/moviments`
-  );
+  const [loadingPostMoviment, postMoviment] = usePostAPI<{
+    id_moviment: number;
+  }>(`/assajos/${id_assaig}/moviments`);
 
   return (
     <ModalSeleccionarMoviment

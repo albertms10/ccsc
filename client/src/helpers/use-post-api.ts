@@ -2,15 +2,15 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "./index";
 
-export default (url: string) => {
+export default <T>(url: string) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
   const postData = useCallback(
-    (data) => {
+    (data: T) => {
       setLoading(true);
-      return fetchAPI(url, () => setLoading(false), dispatch, {
+      return fetchAPI<T>(url, () => setLoading(false), dispatch, {
         method: "POST",
         body: JSON.stringify(data),
       });

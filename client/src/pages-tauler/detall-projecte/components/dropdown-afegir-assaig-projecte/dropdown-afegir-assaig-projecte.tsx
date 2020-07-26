@@ -14,7 +14,9 @@ interface DropdownAfegirAssaigProjecteProps {
 const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> = ({
   projecte,
 }) => {
-  const [loadingPostAssaig, postAssaig] = usePostAPI(
+  const dispatch = useDispatch();
+
+  const [loadingPostAssaig, postAssaig] = usePostAPI<{ id_assaig: number }>(
     `/projectes/${projecte.id_projecte}/assajos`
   );
 

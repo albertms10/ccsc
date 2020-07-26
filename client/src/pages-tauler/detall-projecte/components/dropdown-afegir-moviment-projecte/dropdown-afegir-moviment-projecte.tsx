@@ -15,9 +15,9 @@ const DropdownAfegirMovimentProjecte: React.FC<DropdownAfegirMovimentProjectePro
 }) => {
   const dispatch = useDispatch();
 
-  const [loadingPostMoviment, postMoviment] = usePostAPI(
-    `/projectes/${projecte.id_projecte}/moviments`
-  );
+  const [loadingPostMoviment, postMoviment] = usePostAPI<{
+    id_moviment: number;
+  }>(`/projectes/${projecte.id_projecte}/moviments`);
 
   return (
     <ModalSeleccionarMoviment
