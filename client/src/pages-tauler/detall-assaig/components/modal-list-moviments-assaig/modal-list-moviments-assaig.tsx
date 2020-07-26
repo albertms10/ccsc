@@ -24,12 +24,13 @@ const ModalListMovimentsAssaig: React.FC<ModalListMovimentsAssaigProps> = ({
   return (
     <ModalSeleccionarMoviment
       dataFilter={(moviment) =>
-        !movimentsAssaig
-          .map((moviment) => moviment.id_moviment)
-          .includes(moviment.id_moviment)
+        !movimentsAssaig.find(
+          (movimentAssaig) =>
+            movimentAssaig.id_moviment === moviment.id_moviment
+        )
       }
       loading={loadingPostMoviment}
-      onItemClick={postMoviment}
+      onItemClick={({ id_moviment }) => postMoviment({ id_moviment })}
       thenAction={getMovimentsAssaig}
       {...rest}
     />

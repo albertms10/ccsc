@@ -2,11 +2,9 @@ import { List } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { searchFilterAssaig } from "../../helpers/search-filters";
 import { useAssajos } from "../../pages-tauler/assajos/components/llista-assajos/hooks";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
-import { fetchAssajos } from "../../store/assajos/thunks";
 import { timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { ModalButtonBaseProps } from "../modal-button/modal-button";
@@ -18,6 +16,7 @@ interface ModalSeleccionarAssaigProps
     SearchListBaseProps {
   dataFilter: (value: Assaig, index: number, array: Assaig[]) => boolean;
   onItemClick: (item: Assaig) => Promise<any>;
+  thenAction?: Function;
 }
 
 const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({

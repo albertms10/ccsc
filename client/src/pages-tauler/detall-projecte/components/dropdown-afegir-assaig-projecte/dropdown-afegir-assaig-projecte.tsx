@@ -2,9 +2,11 @@ import { Menu } from "antd";
 import { Projecte } from "model";
 import moment from "moment";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { ModalSeleccionarAssaig } from "../../../../components/modal-seleccionar-assaig";
 import { usePostAPI } from "../../../../helpers";
 import { ActionButton } from "../../../../standalone/action-button";
+import { fetchAssajos } from "../../../../store/assajos/thunks";
 import { ModalAfegirAssaig } from "../../../assajos/components/modal-afegir-assaig";
 
 interface DropdownAfegirAssaigProjecteProps {
@@ -30,9 +32,9 @@ const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> 
         button={<Menu.Item>Selecciona assaig</Menu.Item>}
         loading={loadingPostAssaig}
         dataFilter={(assaig) =>
-          !!assaig.projectes.find(
+          !assaig.projectes.find(
             (projecteAssaig) =>
-              projecteAssaig.id_projecte !== projecte.id_projecte
+              projecteAssaig.id_projecte === projecte.id_projecte
           ) &&
           (projecte.data_inici
             ? moment(assaig.data_inici).isBetween(
@@ -42,6 +44,7 @@ const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> 
             : true)
         }
         onItemClick={({ id_assaig }) => postAssaig({ id_assaig })}
+        thenAction={() => dispatch(fetchAssajos())}
       />
     </ActionButton>
   );

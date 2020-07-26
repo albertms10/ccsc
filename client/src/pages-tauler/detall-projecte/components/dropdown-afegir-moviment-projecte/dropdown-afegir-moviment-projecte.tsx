@@ -29,9 +29,8 @@ const DropdownAfegirMovimentProjecte: React.FC<DropdownAfegirMovimentProjectePro
             projecteMoviment.id_projecte === projecte.id_projecte
         )
       }
-      onItemClick={({ id_moviment }) =>
-        postMoviment({ id_moviment }).then(() => dispatch(fetchMoviments()))
-      }
+      onItemClick={({ id_moviment }) => postMoviment({ id_moviment })}
+      thenAction={() => dispatch(fetchMoviments())}
     />
   );
 };
