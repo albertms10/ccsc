@@ -4,7 +4,7 @@ import { SearchAssajosTabs } from "../../../assajos/components/search-assajos-ta
 import { ProjecteContext, SetActionContext } from "../../detall-projecte";
 import { DropdownAfegirAssaigProjecte } from "../dropdown-afegir-assaig-projecte";
 
-const AssajosProjecte:React.FC = () => {
+const AssajosProjecte: React.FC = () => {
   const projecte = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
@@ -20,4 +20,4 @@ const AssajosProjecte:React.FC = () => {
   );
 };
 
-export default AssajosProjecte
+export default AssajosProjecte;
