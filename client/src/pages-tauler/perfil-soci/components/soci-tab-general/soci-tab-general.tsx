@@ -57,7 +57,6 @@ const SociTabGeneral: React.FC = () => {
           renderItem={(role) => (
             <List.Item>
               <List.Item.Meta
-                style={{ fontSize: "medium" }}
                 avatar={
                   role === "direccio_musical" ? (
                     <CustomerServiceOutlined
@@ -70,6 +69,7 @@ const SociTabGeneral: React.FC = () => {
                   )
                 }
                 title={upperCaseFirst(role.split("_").join(" "))}
+                style={{ fontSize: "medium" }}
               />
             </List.Item>
           )}

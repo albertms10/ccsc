@@ -22,7 +22,7 @@ interface ModalButtonProps extends ModalButtonBaseProps {
   >) => React.ReactNode;
 }
 
-const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
+const ModalButton = forwardRef<{}, ModalButtonProps>(
   (
     {
       title,

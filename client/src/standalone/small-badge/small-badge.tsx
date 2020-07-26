@@ -13,10 +13,10 @@ const SmallBadge: React.FC<SmallBadgeProps> = (props) => (
       color: "#999",
       boxShadow: "0 0 0 1px #d9d9d9 inset",
       padding: 0,
-      fontSize: "9px",
-      minWidth: "16px",
-      height: "16px",
-      lineHeight: "16px",
+      fontSize: 9,
+      minWidth: 16,
+      height: 16,
+      lineHeight: 16,
     }}
   />
 );
