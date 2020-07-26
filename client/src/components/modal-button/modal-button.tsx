@@ -1,12 +1,13 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
-import React, { cloneElement, useState } from "react";
+import { Modal } from "antd";
+import React, { cloneElement, forwardRef, useEffect, useState } from "react";
 import { useStatePair } from "react-types";
+import { ActionButton } from "../../standalone/action-button";
 
 export interface ModalButtonBaseProps {
   title?: string;
   button?: React.ReactElement;
   wrapClassName?: string;
+  width?: number;
 }
 
 interface ModalButtonProps extends ModalButtonBaseProps {
@@ -21,49 +22,62 @@ interface ModalButtonProps extends ModalButtonBaseProps {
   >) => React.ReactNode;
 }
 
-const ModalButton: React.FC<ModalButtonProps> = ({
-  title,
-  button = (
-    <Button type="primary" icon={<PlusOutlined />}>
-      Afegeix
-    </Button>
-  ),
-  okText = "Afegeix",
-  cancelText = "Tanca",
-  confirmLoading = false,
-  onOk,
-  footer,
-  renderModalBody,
-  wrapClassName,
-  ...rest
-}) => {
-  const [visible, setVisible] = useState(false);
+const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
+  (
+    {
+      title,
+      button = <ActionButton mainAction={title as string} />,
+      okText = "Afegeix",
+      cancelText = "Tanca",
+      confirmLoading = false,
+      onOk,
+      width,
+      footer,
+      renderModalBody,
+      wrapClassName,
+      ...rest
+    },
+    ref
+  ) => {
+    const [visible, setVisible] = useState(false);
 
-  return (
-    <>
-      {cloneElement(button, {
-        ...rest,
-        onClick: () => {
-          if (button.props.onClick) button.props.onClick();
-          if (rest.onClick) rest.onClick();
-          setVisible(true);
-        },
-      })}
-      <Modal
-        title={title}
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        okText={okText}
-        cancelText={cancelText}
-        confirmLoading={confirmLoading}
-        onOk={() => onOk && onOk(setVisible)}
-        footer={footer}
-        wrapClassName={wrapClassName}
-      >
-        {renderModalBody([visible, setVisible])}
-      </Modal>
-    </>
-  );
-};
+    useEffect(() => {
+      // TODO: Trobar una millor manera d’assignar funcions a una `ref`
+      if (ref) {
+        // @ts-ignore
+        ref.current = {};
+        // @ts-ignore
+        ref.current.setVisible = setVisible;
+      }
+    }, [ref]);
+
+    return (
+      <>
+        {cloneElement(button, {
+          ...rest,
+          onClick: () => {
+            if (button.props.onClick) button.props.onClick();
+            if (rest.onClick) rest.onClick();
+            setVisible(true);
+          },
+        })}
+        <Modal
+          title={title}
+          visible={visible}
+          onCancel={() => setVisible(false)}
+          okText={okText}
+          cancelText={cancelText}
+          confirmLoading={confirmLoading}
+          onOk={() => onOk && onOk(setVisible)}
+          footer={footer}
+          width={width}
+          wrapClassName={wrapClassName}
+        >
+          {renderModalBody([visible, setVisible])}
+        </Modal>
+      </>
+    );
+  }
+);
 
 export default ModalButton;
