@@ -122,11 +122,9 @@ const ModalAfegirProjecte: React.FC = () => {
                 <DatePicker.RangePicker
                   format="L"
                   allowEmpty={[false, true]}
-                  onChange={(moments) => {
+                  onChange={([data_inici]) => {
                     const curs = cursos.find((curs) =>
-                      // TODO: Esperar que es corregeixi el tipat d’antd
-                      // @ts-ignore
-                      moment(moments[0]).isBetween(
+                      moment(data_inici).isBetween(
                         moment(curs.inici),
                         moment(curs.final)
                       )
