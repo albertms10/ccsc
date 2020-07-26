@@ -1,4 +1,4 @@
-import { List, Space } from "antd";
+import { List } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import React from "react";
@@ -50,27 +50,25 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
               : []),
           ]}
         >
-          <Space
-            size="large"
+          <List.Item.Meta
+            avatar={
+              <CalendarAvatar
+                moment={moment(assaig.data_inici)}
+                style={{
+                  transform: "scale(1.25)",
+                  position: "relative",
+                  top: 8,
+                }}
+              />
+            }
+            title={assaig.titol}
+            description={timeRange(assaig.hora_inici, assaig.hora_final, {
+              textual: true,
+            })}
             {...(moment().isAfter(moment(assaig.data_inici)) && {
               style: { opacity: 0.6 },
             })}
-          >
-            <CalendarAvatar
-              moment={moment(assaig.data_inici)}
-              style={{
-                transform: "scale(1.25)",
-                position: "relative",
-                left: "5px",
-              }}
-            />
-            <List.Item.Meta
-              title={assaig.titol}
-              description={timeRange(assaig.hora_inici, assaig.hora_final, {
-                textual: true,
-              })}
-            />
-          </Space>
+          />
         </List.Item>
       )}
       {...rest}
