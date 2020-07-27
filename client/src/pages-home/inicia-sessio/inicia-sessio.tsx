@@ -3,6 +3,7 @@ import { Button, Divider, Form, Input, message, Spin, Typography } from "antd";
 import { FetchError } from "common";
 import { Usuari } from "model";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { LogoCorDeCambra } from "../../assets/icons";
@@ -19,6 +20,8 @@ interface IniciaSessioHistory {
 }
 
 const IniciaSessio: React.FC = () => {
+  const { t } = useTranslation("sign-in");
+
   const userState = useSelector(({ user }: RootState) => user);
   const currentUser = userState.currentUser as Usuari;
   const error = userState.error as FetchError;
@@ -59,7 +62,7 @@ const IniciaSessio: React.FC = () => {
             type="link"
             icon={<LeftOutlined />}
           >
-            Inici
+            {t("common:Home")}
           </Button>
         </Link>
         <LogoCorDeCambra
@@ -76,35 +79,28 @@ const IniciaSessio: React.FC = () => {
           <Spin spinning={!fetched || loading}>
             <Form.Item
               name="username"
-              rules={[
-                { required: true, message: "Introdueix el nom d’usuari" },
-              ]}
+              rules={[{ required: true, message: t("Enter username") }]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Nom d’usuari"
+                placeholder={t("Username")}
                 autoFocus={!locationState || !locationState.username}
               />
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Si us plau, introdueix la contrasenya.",
-                },
-              ]}
+              rules={[{ required: true, message: t("Enter password") }]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="Contrasenya"
+                placeholder={t("Password")}
                 autoFocus={locationState && !!locationState.username}
               />
             </Form.Item>
             <Form.Item>
               <a className="signin-form-forgot" href="/#">
-                Has oblidat la contrasenya?
+                {t("Forgot password")}
               </a>
             </Form.Item>
             <Form.Item>
@@ -114,15 +110,15 @@ const IniciaSessio: React.FC = () => {
                 className="signin-form-button"
                 loading={loading}
               >
-                Inicia sessió
+                {t("Sign in")}
               </Button>
             </Form.Item>
           </Spin>
           <Divider />
           <Form.Item style={{ marginBottom: 0 }}>
-            <Paragraph>Encara no t’has donat d’alta?</Paragraph>
+            <Paragraph>{t("Sign up yet")}</Paragraph>
             <Link to="/donar-alta">
-              <Button className="signin-form-button">Donar-se d’alta</Button>
+              <Button className="signin-form-button">{t("Sign up")}</Button>
             </Link>
           </Form.Item>
         </Form>
