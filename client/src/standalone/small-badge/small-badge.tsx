@@ -16,7 +16,7 @@ const SmallBadge: React.FC<SmallBadgeProps> = (props) => (
       fontSize: 9,
       minWidth: 16,
       height: 16,
-      lineHeight: 16,
+      lineHeight: "16px",
     }}
   />
 );

@@ -63,7 +63,7 @@ export default () => {
                   </Space>
                 </Col>
                 <Col flex={2}>
-                  <div style={{ fontSize: "2rem", fontWeight: "lighter" }}>
+                  <div style={{ fontSize: "2rem", fontWeight: 300 }}>
                     {moment(value).format("MMMM [de] YYYY")}
                   </div>
                 </Col>
