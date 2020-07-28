@@ -49,11 +49,11 @@ export const esdeveniments_detall_assistents_put = (
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_esdeveniment } = req.params;
-  const { id_soci, id_estat_confirmacio, amb_retard } = req.body;
+  const { id_persona, id_estat_confirmacio, amb_retard } = req.body;
 
   pool
     .query(queryFile("esdeveniments/insert__assistents_esdeveniments"), [
-      [[id_esdeveniment, id_soci, id_estat_confirmacio, amb_retard]],
+      [[id_esdeveniment, id_persona, id_estat_confirmacio, amb_retard]],
     ])
     .then(() => res.status(204).send())
     .catch((e) => next(e));
