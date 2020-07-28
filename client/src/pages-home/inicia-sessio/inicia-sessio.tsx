@@ -20,7 +20,7 @@ interface IniciaSessioHistory {
 }
 
 const IniciaSessio: React.FC = () => {
-  const { t } = useTranslation("sign-in");
+  const { t } = useTranslation(["fields", "sign-in", "validation"]);
 
   const userState = useSelector(({ user }: RootState) => user);
   const currentUser = userState.currentUser as Usuari;
@@ -62,7 +62,7 @@ const IniciaSessio: React.FC = () => {
             type="link"
             icon={<LeftOutlined />}
           >
-            {t("common:Home")}
+            {t("home:home title")}
           </Button>
         </Link>
         <LogoCorDeCambra
@@ -72,35 +72,39 @@ const IniciaSessio: React.FC = () => {
         <Form
           className="signin-form"
           initialValues={{
-            username: locationState ? locationState.username : "",
+            username: locationState ? locationState.username : ""
           }}
           onFinish={onFinish}
         >
           <Spin spinning={!fetched || loading}>
             <Form.Item
               name="username"
-              rules={[{ required: true, message: t("Enter username") }]}
+              rules={[
+                { required: true, message: t("validation:enter username") }
+              ]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder={t("Username")}
+                placeholder={t("username")}
                 autoFocus={!locationState || !locationState.username}
               />
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[{ required: true, message: t("Enter password") }]}
+              rules={[
+                { required: true, message: t("validation:enter password") }
+              ]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder={t("Password")}
+                placeholder={t("password")}
                 autoFocus={locationState && !!locationState.username}
               />
             </Form.Item>
             <Form.Item>
               <a className="signin-form-forgot" href="/#">
-                {t("Forgot password")}
+                {t("sign-in:forgot password")}
               </a>
             </Form.Item>
             <Form.Item>
@@ -110,15 +114,17 @@ const IniciaSessio: React.FC = () => {
                 className="signin-form-button"
                 loading={loading}
               >
-                {t("Sign in")}
+                {t("sign-in:sign in")}
               </Button>
             </Form.Item>
           </Spin>
           <Divider />
           <Form.Item style={{ marginBottom: 0 }}>
-            <Paragraph>{t("Sign up yet")}</Paragraph>
+            <Paragraph>{t("sign-in:sign up yet")}</Paragraph>
             <Link to="/donar-alta">
-              <Button className="signin-form-button">{t("Sign up")}</Button>
+              <Button className="signin-form-button">
+                {t("sign-in:sign up")}
+              </Button>
             </Link>
           </Form.Item>
         </Form>

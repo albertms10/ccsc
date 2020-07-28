@@ -1,10 +1,6 @@
 {
-  "Sign in": "Sign in",
-  "Sign up": "Sign up",
-  "Sign up yet": "Haven’t signed up yet?",
-  "Username": "Username",
-  "Password": "Password",
-  "Enter username": "Enter your username",
-  "Enter password": "Enter your password",
-  "Forgot password": "Forgot your password?"
+  "sign in": "Sign in",
+  "sign up": "Sign up",
+  "sign up yet": "Haven’t signed up yet?",
+  "forgot password": "Forgot your password?"
 }

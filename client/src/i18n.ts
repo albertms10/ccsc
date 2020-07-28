@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    ns: ["sign-in", "common"],
+    ns: ["common", "fields", "home", "sign-in", "validation"],
     defaultNS: "common",
     fallbackLng: "ca",
     debug: true,

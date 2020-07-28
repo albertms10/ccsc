@@ -1,10 +1,6 @@
 {
-  "Sign in": "Inicia sesión",
-  "Sign up": "Darse de alta",
-  "Sign up yet": "¿Aún no te has dado de alta?",
-  "Username": "Nombre de usuario",
-  "Password": "Contraseña",
-  "Enter username": "Introduce el nombre de usuario",
-  "Enter password": "Introduce la contraseña",
-  "Forgot password": "¿Has olvidado la contraseña?"
+  "sign in": "Inicia sesión",
+  "sign up": "Darse de alta",
+  "sign up yet": "¿Aún no te has dado de alta?",
+  "forgot password": "¿Has olvidado la contraseña?"
 }

@@ -1,9 +1,11 @@
 import { DownCircleFilled } from "@ant-design/icons";
 import { Menu } from "antd";
-import React from "react";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../../store/types";
+import { kebabCase, stripAccents } from "../../../../utils";
 
 interface MenuItem {
   key: string;
@@ -11,41 +13,27 @@ interface MenuItem {
   path: string;
 }
 
-const menuItems: MenuItem[] = [
-  {
-    key: "inici",
-    title: "Inici",
-    path: "/",
-  },
-  {
-    key: "qui-som",
-    title: "Qui som?",
-    path: "/qui-som",
-  },
-  {
-    key: "concerts",
-    title: "Concerts",
-    path: "/concerts",
-  },
-  {
-    key: "premsa",
-    title: "Premsa",
-    path: "/premsa",
-  },
-  {
-    key: "contacte",
-    title: "Contacte",
-    path: "/contacte",
-  },
-  {
-    key: "inicia-sessio",
-    title: "Inicia sessió",
-    path: "/inicia-sessio",
-  },
-];
-
 const HomeMenu: React.FC = () => {
+  const { t } = useTranslation("home");
+
   const user = useSelector(({ user }: RootState) => user.currentUser);
+
+  const menuItems: MenuItem[] = useMemo(
+    () =>
+      [
+        t("home title"),
+        t("bio title"),
+        t("concerts title"),
+        t("press title"),
+        t("contact title"),
+        t("sign-in:sign in"),
+      ].map((item) => ({
+        key: item.toLowerCase(),
+        title: item,
+        path: `/${stripAccents(kebabCase(item))}`,
+      })),
+    [t]
+  );
 
   return (
     <Menu
@@ -57,8 +45,9 @@ const HomeMenu: React.FC = () => {
       {menuItems.map((item) => (
         <Menu.Item key={item.key}>
           <Link to={item.path}>
-            {item.key === "inicia-sessio" && Object.keys(user).length > 0
-              ? "Vés al tauler"
+            {item.key === stripAccents(kebabCase(t("sign-in:sign in"))) &&
+            Object.keys(user).length > 0
+              ? t("sign-in:go to dashboard")
               : item.title}
           </Link>
         </Menu.Item>
