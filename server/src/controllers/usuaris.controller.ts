@@ -15,5 +15,5 @@ export const usuaris_detall_firstavailablenum = (
     .then(([_, [{ first_available_num }]]) =>
       res.json(parseInt(first_available_num || 0))
     )
-    .catch((e) => next(e));
+    .catch(next);
 };

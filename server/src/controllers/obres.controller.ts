@@ -8,7 +8,7 @@ export const obres_get = (req: Request, res: Response, next: NextFunction) => {
   pool
     .query(queryFile("obres/select__obres"))
     .then((obres) => res.json(obres))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const obres_idiomes = (
@@ -21,7 +21,7 @@ export const obres_idiomes = (
   pool
     .query(queryFile("obres/select__idiomes"))
     .then((idiomes) => res.json(idiomes))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const obres_detall = (
@@ -35,7 +35,7 @@ export const obres_detall = (
   pool
     .query(queryFile("obres/select__obra"), [id])
     .then(([obra]) => res.json(obra))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const obres_post = async (
@@ -77,7 +77,7 @@ export const obres_delete = (
   pool
     .query(queryFile("obres/delete__obra"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const obres_detall_moviments = (
@@ -91,5 +91,5 @@ export const obres_detall_moviments = (
   pool
     .query(queryFile("obres/select__moviments_obra"), [id])
     .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
-    .catch((e) => next(e));
+    .catch(next);
 };

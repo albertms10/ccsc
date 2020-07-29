@@ -12,7 +12,7 @@ export const projectes_count = (
   pool
     .query(queryFile("projectes/select__count_projectes"))
     .then(([{ count }]) => res.json(count))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_historial = (
@@ -26,7 +26,7 @@ export const projectes_historial = (
   pool
     .query(queryFile("projectes/select__historial_projectes"))
     .then((historial) => res.json(historial))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_checkinicials = (
@@ -42,7 +42,7 @@ export const projectes_checkinicials = (
       inicials,
     })
     .then(([{ disponible }]) => res.json(!!disponible))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall = (
@@ -58,7 +58,7 @@ export const projectes_detall = (
     .then(([projecte]) =>
       parseAndSendJSON(res, next, projecte, ["directors", "formacions"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_post = async (
@@ -116,7 +116,7 @@ export const projectes_delete = (
   pool
     .query(queryFile("projectes/delete__projecte"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall_concerts = (
@@ -130,7 +130,7 @@ export const projectes_detall_concerts = (
   pool
     .query(queryFile("projectes/select__concerts_projecte"), [id])
     .then((concerts) => res.json(concerts))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall_participants = (
@@ -144,7 +144,7 @@ export const projectes_detall_participants = (
   pool
     .query(queryFile("projectes/select__participants_projecte"), [id])
     .then((participants) => res.json(participants))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall_assajos_post = (
@@ -161,7 +161,7 @@ export const projectes_detall_assajos_post = (
       [[id_assaig, id_projecte]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall_moviments_post = (
@@ -178,7 +178,7 @@ export const projectes_detall_moviments_post = (
       [[id_moviment, id_projecte]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const projectes_detall_moviments_delete = (
@@ -195,5 +195,5 @@ export const projectes_detall_moviments_delete = (
       id_moviment,
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };

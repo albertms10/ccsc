@@ -12,7 +12,7 @@ export const esdeveniments_get = (
   pool
     .query(queryFile("esdeveniments/select__esdeveniments"))
     .then((esdeveniments) => res.json(esdeveniments))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const esdeveniments_estatsconfirmacio = (
@@ -25,7 +25,7 @@ export const esdeveniments_estatsconfirmacio = (
   pool
     .query(queryFile("esdeveniments/select__estats_confirmacio"))
     .then((estats) => res.json(estats))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const esdeveniments_detall_assistents_get = (
@@ -39,7 +39,7 @@ export const esdeveniments_detall_assistents_get = (
   pool
     .query(queryFile("esdeveniments/select__assistents_esdeveniment"), [id])
     .then((assistents) => res.json(assistents))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const esdeveniments_detall_assistents_put = (
@@ -56,5 +56,5 @@ export const esdeveniments_detall_assistents_put = (
       [[id_esdeveniment, id_persona, id_estat_confirmacio, amb_retard]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };

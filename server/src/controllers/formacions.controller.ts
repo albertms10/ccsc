@@ -13,7 +13,7 @@ export const formacions_detall = (
   pool
     .query(queryFile("formacions/select__formacio"), [id])
     .then((rows) => res.json(rows))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const formacions_detall_esdeveniments = (
@@ -29,7 +29,7 @@ export const formacions_detall_esdeveniments = (
     .then(([_, esdeveniments]) =>
       parseAndSendJSON(res, next, esdeveniments, ["projectes"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const formacions_detall_concerts = (
@@ -43,7 +43,7 @@ export const formacions_detall_concerts = (
   pool
     .query(queryFile("formacions/select__concerts_formacio"), [id])
     .then((concerts) => res.json(concerts))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const formacions_detall_projectes = (
@@ -59,7 +59,7 @@ export const formacions_detall_projectes = (
     .then((projectes) =>
       parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const formacions_detall_integrants = (
@@ -73,5 +73,5 @@ export const formacions_detall_integrants = (
   pool
     .query(queryFile("formacions/select__integrants_formacio"), [id])
     .then((integrants) => res.json(integrants))
-    .catch((e) => next(e));
+    .catch(next);
 };

@@ -12,5 +12,5 @@ export const titulars_get = (
   pool
     .query(queryFile("titulars/select__titulars"))
     .then((titulars) => res.json(titulars))
-    .catch((e) => next(e));
+    .catch(next);
 };

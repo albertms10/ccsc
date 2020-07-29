@@ -14,7 +14,8 @@ export const assajos_detall = (
     .query(queryFile("assajos/select__assaig"), [id])
     .then(([assaig]) =>
       parseAndSendJSON(res, next, assaig, ["formacions", "projectes"])
-    );
+    )
+    .catch(next);
 };
 
 export const assajos_count = (
@@ -27,7 +28,7 @@ export const assajos_count = (
   pool
     .query(queryFile("assajos/select__count_assajos"))
     .then(([{ assajos_count }]) => res.json(assajos_count))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_historial = (
@@ -40,7 +41,7 @@ export const assajos_historial = (
   pool
     .query(queryFile("assajos/select__historial_assajos"))
     .then((historial) => res.json(historial))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_assistencia = (
@@ -60,7 +61,7 @@ export const assajos_assistencia = (
       )
     )
     .then((assistencia) => res.json(assistencia))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_post = async (
@@ -146,7 +147,7 @@ export const assajos_delete = async (
   pool
     .query(queryFile("assajos/delete__assaig"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_moviments_get = (
@@ -160,7 +161,7 @@ export const assajos_detall_moviments_get = (
   pool
     .query(queryFile("assajos/select__moviments_assaig"), [id])
     .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_moviments_post = (
@@ -177,7 +178,7 @@ export const assajos_detall_moviments_post = (
       [[id_assaig, id_moviment]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_moviments_delete = (
@@ -194,7 +195,7 @@ export const assajos_detall_moviments_delete = (
       id_moviment,
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_projectes_get = (
@@ -208,7 +209,7 @@ export const assajos_detall_projectes_get = (
   pool
     .query(queryFile("assajos/select__projectes_assaig"), [id])
     .then(([_, projectes]) => res.json(projectes))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_projectes_post = (
@@ -225,7 +226,7 @@ export const assajos_detall_projectes_post = (
       [[id_assaig, id_projecte]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_projectes_delete = (
@@ -242,7 +243,7 @@ export const assajos_detall_projectes_delete = (
       id_projecte,
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_formacions_get = (
@@ -256,7 +257,7 @@ export const assajos_detall_formacions_get = (
   pool
     .query(queryFile("assajos/select__formacions_assaig"), [id])
     .then((formacions) => res.json(formacions))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_formacions_post = (
@@ -273,7 +274,7 @@ export const assajos_detall_formacions_post = (
       [[id_assaig, id_formacio]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_formacions_delete = (
@@ -290,7 +291,7 @@ export const assajos_detall_formacions_delete = (
       id_formacio,
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_convocats = (
@@ -304,7 +305,7 @@ export const assajos_detall_convocats = (
   pool
     .query(queryFile("assajos/select__convocats_assaig"), [id])
     .then((convocats) => res.json(convocats))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_veus_get = (
@@ -318,7 +319,7 @@ export const assajos_detall_veus_get = (
   pool
     .query(queryFile("assajos/select__veus_assaig"), [id])
     .then((veus) => res.json(veus))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_veus_post = (
@@ -335,7 +336,7 @@ export const assajos_detall_veus_post = (
       [[id_assaig, id_veu]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const assajos_detall_veus_delete = (
@@ -349,5 +350,5 @@ export const assajos_detall_veus_delete = (
   pool
     .query(queryFile("assajos/delete__veu_assaig"), [id_assaig, id_veu])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };

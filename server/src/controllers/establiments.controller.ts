@@ -12,7 +12,7 @@ export const establiments_get = (
   pool
     .query(queryFile("establiments/select__establiments"))
     .then((establiments) => res.json(establiments))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const establiments_detall_esdeveniments = (
@@ -25,6 +25,6 @@ export const establiments_detall_esdeveniments = (
 
   pool
     .query(queryFile("establiments/select__esdeveniments_establiment"), [id])
-    .then((establiment) => res.json(establiment))
-    .catch((e) => next(e));
+    .then(([establiment]) => res.json(establiment))
+    .catch(next);
 };

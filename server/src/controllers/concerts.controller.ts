@@ -12,7 +12,7 @@ export const concerts_count = (
   pool
     .query(queryFile("concerts/select__count_concerts"))
     .then(([{ count }]) => res.json(count))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const concerts_historial = (
@@ -25,5 +25,5 @@ export const concerts_historial = (
   pool
     .query(queryFile("concerts/select__historial_concerts"))
     .then((historial) => res.json(historial))
-    .catch((e) => next(e));
+    .catch(next);
 };

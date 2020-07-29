@@ -12,7 +12,7 @@ export const moviments_get = (
   pool
     .query(queryFile("moviments/select__moviments"))
     .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const moviments_post = (
@@ -40,7 +40,7 @@ export const moviments_post = (
       ],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const moviments_detall = (
@@ -54,7 +54,7 @@ export const moviments_detall = (
   pool
     .query(queryFile("moviments/select__moviment"), [id])
     .then(([moviment]) => res.json(moviment))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const moviments_detall_delete = (
@@ -68,5 +68,5 @@ export const moviments_detall_delete = (
   pool
     .query(queryFile("moviments/delete__moviment"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };

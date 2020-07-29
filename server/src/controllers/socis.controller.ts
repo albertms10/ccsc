@@ -15,7 +15,7 @@ export const socis_count = (
   pool
     .query(queryFile("socis/select__count_socis"))
     .then(([counts]) => res.json(counts))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_historial = (
@@ -28,7 +28,7 @@ export const socis_historial = (
   pool
     .query(queryFile("socis/select__historial_socis"))
     .then((historial) => res.json(historial))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall = (
@@ -42,7 +42,7 @@ export const socis_detall = (
   pool
     .query(queryFile("socis/select__soci"), [id])
     .then(([soci]) => parseAndSendJSON(res, next, soci, ["roles"]))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_get = (req: Request, res: Response, next: NextFunction) => {
@@ -51,7 +51,7 @@ export const socis_get = (req: Request, res: Response, next: NextFunction) => {
   pool
     .query(queryFile("socis/select__socis"))
     .then((socis) => res.json(socis))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_post = async (
@@ -142,7 +142,7 @@ export const socis_post = async (
         })
         .catch(transactionRollback);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_delete = (
@@ -156,7 +156,7 @@ export const socis_delete = (
   pool
     .query(queryFile("socis/delete__soci"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_formacions = (
@@ -173,7 +173,7 @@ export const socis_detall_formacions = (
       ROLES_JUNTA_DIRECTIVA,
     ])
     .then(([_, formacions]) => res.json(formacions))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_projectes = (
@@ -192,7 +192,7 @@ export const socis_detall_projectes = (
     .then(([_, projectes]) =>
       parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_assajos = (
@@ -208,7 +208,7 @@ export const socis_detall_assajos = (
     .then(([_, assajos]) =>
       parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_acceptacions_get = (
@@ -222,7 +222,7 @@ export const socis_detall_acceptacions_get = (
   pool
     .query(queryFile("socis/select__acceptacions_soci"), [id])
     .then(([{ acceptacions }]) => parseAndSendJSON(res, next, acceptacions))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_acceptacions_put = (
@@ -248,7 +248,7 @@ export const socis_detall_acceptacions_put = (
       ]),
     ])
     .then(() => res.json(acceptacions))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_activitat = (
@@ -262,7 +262,7 @@ export const socis_detall_activitat = (
   pool
     .query(queryFile("socis/select__activitat_soci"), [id])
     .then((activitat) => res.json(activitat))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_alta = (
@@ -278,7 +278,7 @@ export const socis_detall_alta = (
       [[id, { toSqlString: () => `CURRENT_DATE` }]],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_baixa = (
@@ -292,7 +292,7 @@ export const socis_detall_baixa = (
   pool
     .query(queryFile("socis/update__baixa_historial_soci"), [id])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const socis_detall_propersassajos = (
@@ -313,5 +313,5 @@ export const socis_detall_propersassajos = (
         "moviments",
       ])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };

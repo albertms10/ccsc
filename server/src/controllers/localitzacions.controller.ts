@@ -25,7 +25,7 @@ export const localitzacions_post = (
       ],
     ])
     .then(() => res.status(204).send())
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const localitzacions_tipusvies_get = (
@@ -38,7 +38,7 @@ export const localitzacions_tipusvies_get = (
   pool
     .query(queryFile("localitzacions/select__tipus_vies"))
     .then((tipus_vies) => res.json(tipus_vies))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const localitzacions_detall = (
@@ -51,8 +51,8 @@ export const localitzacions_detall = (
 
   pool
     .query(queryFile("localitzacions/select__localitzacio"), [id])
-    .then((localitzacio) => res.json(localitzacio))
-    .catch((e) => next(e));
+    .then(([localitzacio]) => res.json(localitzacio))
+    .catch(next);
 };
 
 export const localitzacions_ciutats_get = (
@@ -65,7 +65,7 @@ export const localitzacions_ciutats_get = (
   pool
     .query(queryFile("localitzacions/select__ciutats"))
     .then((ciutats) => res.json(ciutats))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const localitzacions_provincies_get = (
@@ -78,7 +78,7 @@ export const localitzacions_provincies_get = (
   pool
     .query(queryFile("localitzacions/select__provincies"))
     .then((provincies) => res.json(provincies))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const localitzacions_paisos_get = (
@@ -91,5 +91,5 @@ export const localitzacions_paisos_get = (
   pool
     .query(queryFile("localitzacions/select__paisos"))
     .then((paisos) => res.json(paisos))
-    .catch((e) => next(e));
+    .catch(next);
 };

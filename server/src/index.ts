@@ -75,12 +75,18 @@ app.use(
   })
 );
 
-app.get(apiPath("/docs-styles.css"), (req, res) => {
+app.get(apiPath("/docs-styles.css"), (req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+app.get("/locales/*", (req: Request, res: Response) => {
+  res.json({});
+});
+
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(
+    path.resolve(__dirname, "../../../../client/build", "index.html")
+  );
 });
 
 app.listen(PORT, HOST);

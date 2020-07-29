@@ -12,7 +12,7 @@ export const agrupacions_get = (
   pool
     .query(queryFile("agrupacions/select__agrupacions"))
     .then(([agrupacio]) => res.json(agrupacio))
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const agrupacions_avisos_detall = (
@@ -28,7 +28,7 @@ export const agrupacions_avisos_detall = (
     .then(([avis]) =>
       parseAndSendJSON(res, next, avis, ["seccions", "acceptacions"])
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const agrupacions_cursos = (
@@ -41,5 +41,5 @@ export const agrupacions_cursos = (
   pool
     .query(queryFile("agrupacions/select__cursos_agrupacions"))
     .then((cursos) => res.json(cursos))
-    .catch((e) => next(e));
+    .catch(next);
 };

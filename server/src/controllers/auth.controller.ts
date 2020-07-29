@@ -45,7 +45,7 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
 
       trySendUser(res, next, user, accessToken);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const email_espera = (
@@ -79,9 +79,9 @@ export const email_espera = (
                 : "L’adreça no és a la llista d’espera.",
           });
         })
-        .catch((e) => next(e));
+        .catch(next);
     })
-    .catch((e) => next(e));
+    .catch(next);
 };
 
 export const userInfo = (req: Request, res: Response, next: NextFunction) => {
@@ -99,5 +99,5 @@ export const userInfo = (req: Request, res: Response, next: NextFunction) => {
             error: { status: 404, message: "L’usuari no s’ha trobat." },
           })
     )
-    .catch((e) => next(e));
+    .catch(next);
 };
