@@ -3,8 +3,7 @@ Table "usuaris_complet" {
   "username" VARCHAR(20) [not null]
   "creacio" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
   "id_persona" SMALLINT [not null]
-  "salt" VARCHAR(255) [not null]
-  "encrypted_password" VARCHAR(255) [not null]
+  "hash" VARCHAR(255) [not null]
 
 Indexes {
   id_persona [unique]

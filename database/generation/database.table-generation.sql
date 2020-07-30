@@ -989,9 +989,8 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
         PRIMARY KEY,
     username           VARCHAR(20)                         NOT NULL,
     creacio            TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    hash               VARCHAR(255)                        NOT NULL,
     id_persona         SMALLINT UNSIGNED                   NOT NULL,
-    salt               VARCHAR(255)                        NOT NULL,
-    encrypted_password VARCHAR(255)                        NOT NULL,
     CONSTRAINT id_persona
         UNIQUE (id_persona),
     CONSTRAINT usuaris_complet_ibfk_1

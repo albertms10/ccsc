@@ -10,8 +10,7 @@ SELECT id_usuari,
        cognoms,
        es_dona,
        id_persona,
-       salt,
-       encrypted_password,
+       hash,
        (
            SELECT JSON_ARRAYAGG(role)
            FROM roles_usuaris

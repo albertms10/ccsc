@@ -8,11 +8,9 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
 
     username           VARCHAR(20)       NOT NULL,
     creacio            TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    hash               VARCHAR(255)      NOT NULL,
 
     id_persona         SMALLINT UNSIGNED NOT NULL,
-
-    salt               VARCHAR(255)      NOT NULL,
-    encrypted_password VARCHAR(255)      NOT NULL,
 
     PRIMARY KEY (id_usuari),
     FOREIGN KEY (id_persona) REFERENCES persones (id_persona),
