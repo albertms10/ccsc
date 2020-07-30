@@ -126,8 +126,7 @@ declare module "model" {
     es_actiu?: boolean;
     avisos: string | string[];
     roles?: string | Role[];
-    salt?: string;
-    encrypted_password?: string;
+    hash?: string;
   }
 
   export interface BaseFormacio {

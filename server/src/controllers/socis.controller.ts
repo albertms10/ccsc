@@ -1,9 +1,9 @@
+import { hash } from "bcrypt";
 import { BooleanMap } from "common";
 import { NextFunction, Request, Response } from "express";
 import { Pool } from "promise-mysql";
 import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common.constants";
 import { parseAndSendJSON, queryFile } from "../helpers";
-import { saltHashPassword } from "../utils";
 
 export const socis_count = (
   req: Request,
@@ -84,13 +84,13 @@ export const socis_post = async (
             ],
           ],
         ])
-        .then(({ insertId: id_persona }) => {
+        .then(async ({ insertId: id_persona }) => {
           const password = soci.dni.match(/\d+/)[0];
-          const { salt, hash } = saltHashPassword({ password });
+          const hashedPassword = await hash(password, 14);
 
           connection
             .query(queryFile("socis/insert__usuaris"), [
-              [[soci.username, id_persona, salt, hash]],
+              [[soci.username, id_persona, hashedPassword]],
             ])
             .then(({ insertId: id_usuari }) => {
               connection

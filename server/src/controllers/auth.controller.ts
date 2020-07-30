@@ -1,8 +1,9 @@
+import * as bcrypt from "bcrypt";
 import { NextFunction, Request, Response } from "express";
 import { Usuari } from "model";
 import { Pool } from "promise-mysql";
 import { queryFile, trySendUser } from "../helpers";
-import { saltHashPassword, signJWT } from "../utils";
+import { signJWT } from "../utils";
 
 export const signIn = (req: Request, res: Response, next: NextFunction) => {
   const pool: Pool = req.app.get("pool");
@@ -21,19 +22,10 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
 
   pool
     .query(queryFile("auth/select__user_info_password"), { username })
-    .then(([user]: [Usuari]) => {
-      let isValidPassword = false;
+    .then(async ([user]: [Usuari]) => {
+      const isHashValid = await bcrypt.compare(password, user && user.hash);
 
-      if (user) {
-        const { hash } = saltHashPassword({
-          password,
-          salt: user.salt,
-        });
-
-        isValidPassword = hash === user.encrypted_password;
-      }
-
-      if (!user || !isValidPassword)
+      if (!user || !isHashValid)
         return res.status(403).send({
           error: {
             status: 403,
@@ -42,10 +34,9 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
           },
         });
 
-      const accessToken = signJWT({ payload: { id: user.id_usuari } });
+      delete user.hash;
 
-      delete user.salt;
-      delete user.encrypted_password;
+      const accessToken = signJWT({ payload: { id: user.id_usuari } });
 
       trySendUser(res, next, user, accessToken);
     })
