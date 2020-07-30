@@ -1,4 +1,5 @@
 import { ResponseError } from "common";
+import LogRocket from "logrocket";
 import { fetchAPI } from "../../helpers";
 import { AppThunkAction } from "../types";
 import { logoutUser, signinUserFailure, signinUserSuccess } from "./actions";
@@ -13,11 +14,15 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
       if (data.hasOwnProperty("error")) {
         dispatch(signinUserFailure((data as ResponseError).error));
       } else {
-        localStorage.setItem(
-          "access-token",
-          (data as UserResponse).accessToken
-        );
-        dispatch(signinUserSuccess((data as UserResponse).user));
+        const { user, accessToken } = data as UserResponse;
+
+        LogRocket.identify(user.id_usuari.toString(), {
+          name: `${user.nom} ${user.cognoms}`,
+          roles: (user.roles as string[]).join(", "),
+        });
+
+        localStorage.setItem("access-token", accessToken);
+        dispatch(signinUserSuccess(user));
       }
     },
     dispatch,
