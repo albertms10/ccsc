@@ -42,7 +42,10 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
           },
         });
 
-      const accessToken = signJWT({ payload: { id: user.id } });
+      const accessToken = signJWT({ payload: { id: user.id_usuari } });
+
+      delete user.salt;
+      delete user.encrypted_password;
 
       trySendUser(res, next, user, accessToken);
     })
