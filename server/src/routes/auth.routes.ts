@@ -4,9 +4,9 @@ import { verifyAccessTokenHidden } from "../middleware/auth-jwt";
 
 const router = express.Router();
 
-router.route("/sign-in").post(controller.signin);
+router.route("/sign-in").post(controller.signIn);
 
-router.route("/email-espera").post(controller.email_espera);
+router.route("/email-espera").post(controller.emailEspera);
 
 router.route("/user").get([verifyAccessTokenHidden], controller.userInfo);
 

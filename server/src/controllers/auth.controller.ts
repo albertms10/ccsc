@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
+import { Usuari } from "model";
 import { Pool } from "promise-mysql";
 import { queryFile, trySendUser } from "../helpers";
 import { saltHashPassword, signJWT } from "../utils";
 
-export const signin = (req: Request, res: Response, next: NextFunction) => {
+export const signIn = (req: Request, res: Response, next: NextFunction) => {
   const pool: Pool = req.app.get("pool");
   const {
     user: { username, password },
@@ -20,8 +21,8 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
 
   pool
     .query(queryFile("auth/select__user_info_password"), { username })
-    .then(([user]) => {
-      let passwordIsValid = false;
+    .then(([user]: [Usuari]) => {
+      let isValidPassword = false;
 
       if (user) {
         const { hash } = saltHashPassword({
@@ -29,10 +30,10 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
           salt: user.salt,
         });
 
-        passwordIsValid = hash === user.encrypted_password;
+        isValidPassword = hash === user.encrypted_password;
       }
 
-      if (!user || !passwordIsValid)
+      if (!user || !isValidPassword)
         return res.status(403).send({
           error: {
             status: 403,
@@ -48,7 +49,7 @@ export const signin = (req: Request, res: Response, next: NextFunction) => {
     .catch(next);
 };
 
-export const email_espera = (
+export const emailEspera = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -87,11 +88,11 @@ export const email_espera = (
 export const userInfo = (req: Request, res: Response, next: NextFunction) => {
   const pool: Pool = req.app.get("pool");
 
-  const { userId } = res.locals;
+  const { userId: id_usuari } = res.locals;
   const { authorization: accessToken } = req.headers;
 
   pool
-    .query(queryFile("auth/select__user_info"), [userId])
+    .query(queryFile("auth/select__user_info"), { id_usuari })
     .then(([user]) =>
       user
         ? trySendUser(res, next, user, accessToken)
