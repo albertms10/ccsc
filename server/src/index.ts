@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
+import RateLimit from "express-rate-limit";
 import * as path from "path";
 import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
@@ -75,12 +76,19 @@ app.use(
   })
 );
 
-app.get(apiPath("/docs-styles.css"), (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
-});
-
 app.get("/locales/*", (req: Request, res: Response) => {
   res.json({});
+});
+
+const limiter = new RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 10,
+});
+
+app.use(limiter);
+
+app.get(apiPath("/docs-styles.css"), (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
 app.get("*", (req: Request, res: Response) => {
