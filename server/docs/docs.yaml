@@ -695,7 +695,7 @@ components:
     Usuari:
       type: object
       properties:
-        id:
+        id_usuari:
           type: integer
           readOnly: true
         username:

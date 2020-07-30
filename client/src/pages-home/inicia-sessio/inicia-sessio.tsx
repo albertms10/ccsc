@@ -41,7 +41,7 @@ const IniciaSessio: React.FC = () => {
   );
 
   useEffect(() => {
-    if (currentUser.hasOwnProperty("id")) setLoading(false);
+    if (currentUser.id_usuari) setLoading(false);
   }, [currentUser]);
 
   useEffect(() => {

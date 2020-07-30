@@ -15,7 +15,7 @@ const RouteTauler: React.FC<RouteProps> = ({
     <Route
       {...rest}
       render={() =>
-        user.hasOwnProperty("id") ? (
+        user.id_usuari ? (
           // TODO: Esbrinar per què es queixa
           // @ts-ignore
           <Component />

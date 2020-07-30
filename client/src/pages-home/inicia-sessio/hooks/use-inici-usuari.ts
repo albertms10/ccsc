@@ -29,7 +29,7 @@ export default () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser && currentUser.hasOwnProperty("id")) {
+    if (currentUser && currentUser.id_usuari) {
       if (currentUser.avisos.length > 0) {
         history.push("/inicia-sessio/avisos");
       } else {
