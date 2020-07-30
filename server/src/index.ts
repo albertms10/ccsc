@@ -1,7 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
-import RateLimit from "express-rate-limit";
+import * as RateLimit from "express-rate-limit";
 import * as path from "path";
 import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
