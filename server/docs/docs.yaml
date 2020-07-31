@@ -8,11 +8,6 @@ info:
     email: albertmasa2@gmail.com
 servers:
   - url: /api
-basePath: /api
-consumes:
-  - application/json
-produces:
-  - application/json
 
 tags:
   - name: Agrupacions
@@ -239,11 +234,13 @@ paths:
         - in: path
           name: id_assaig
           description: Identificador de l’assaig
-          type: integer
+          schema:
+            type: integer
         - in: path
           name: id_moviment
           description: Identificador del moviment
-          type: integer
+          schema:
+            type: integer
       responses:
         204:
           $ref: "#/components/responses/Deleted"
@@ -299,11 +296,13 @@ paths:
         - in: path
           name: id_assaig
           description: Identificador de l’assaig
-          type: integer
+          schema:
+            type: integer
         - in: path
           name: id_moviment
           description: Identificador del moviment
-          type: integer
+          schema:
+            type: integer
       responses:
         204:
           $ref: "#/components/responses/Deleted"
