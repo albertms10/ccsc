@@ -22,7 +22,7 @@ const AvisAcceptacio: React.FC<AvisAcceptacioProps> = ({
   collapsible = false,
 }) => {
   const [textAvisAcceptacio, loading] = useAPI<Avis>(
-    `/agrupacions/avisos/${nameAvis}`,
+    `/entitats/avisos/${nameAvis}`,
     {} as Avis
   );
 

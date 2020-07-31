@@ -1,8 +1,9 @@
-INSERT IGNORE INTO tipus_agrupacions (id_tipus_agrupacio, nom)
-VALUES (1, 'associació');
+INSERT IGNORE INTO tipus_entitats (id_tipus_entitat, nom)
+VALUES (1, 'associació'),
+       (2, 'agrupació');
 
 
-INSERT IGNORE INTO agrupacions (id_agrupacio, nom, nif, id_tipus_agrupacio)
+INSERT IGNORE INTO entitats (id_entitat, nom, nif, id_tipus_entitat)
 VALUES (1, 'Associació Musical Catalana Crescendo', 'G63252407', '1');
 
 

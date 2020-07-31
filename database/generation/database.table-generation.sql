@@ -238,29 +238,6 @@ CREATE TABLE IF NOT EXISTS roles
 )
     CHARSET = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS tipus_agrupacions
-(
-    id_tipus_agrupacio SMALLINT UNSIGNED AUTO_INCREMENT
-        PRIMARY KEY,
-    nom                VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
-
-CREATE TABLE IF NOT EXISTS agrupacions
-(
-    id_agrupacio       SMALLINT UNSIGNED AUTO_INCREMENT
-        PRIMARY KEY,
-    nom                VARCHAR(100)                  NOT NULL,
-    nif                VARCHAR(12)                   NOT NULL,
-    id_tipus_agrupacio SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    CONSTRAINT agrupacions_ibfk_1
-        FOREIGN KEY (id_tipus_agrupacio) REFERENCES tipus_agrupacions (id_tipus_agrupacio)
-)
-    CHARSET = utf8mb4;
-
-CREATE INDEX id_tipus_agrupacio
-    ON agrupacions (id_tipus_agrupacio);
-
 CREATE TABLE IF NOT EXISTS tipus_avisos
 (
     id_tipus_avis SMALLINT UNSIGNED AUTO_INCREMENT
@@ -325,6 +302,29 @@ CREATE TABLE IF NOT EXISTS seccions_avis
 CREATE INDEX id_avis
     ON seccions_avis (id_avis);
 
+CREATE TABLE IF NOT EXISTS tipus_entitats
+(
+    id_tipus_entitat SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    nom              VARCHAR(50) NOT NULL
+)
+    CHARSET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS entitats
+(
+    id_entitat       SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    nom              VARCHAR(100)                  NOT NULL,
+    nif              VARCHAR(12)                   NOT NULL,
+    id_tipus_entitat SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    CONSTRAINT entitats_ibfk_1
+        FOREIGN KEY (id_tipus_entitat) REFERENCES tipus_entitats (id_tipus_entitat)
+)
+    CHARSET = utf8mb4;
+
+CREATE INDEX id_tipus_entitat
+    ON entitats (id_tipus_entitat);
+
 CREATE TABLE IF NOT EXISTS tipus_establiments
 (
     id_tipus_establiment SMALLINT UNSIGNED NOT NULL
@@ -360,20 +360,20 @@ CREATE TABLE IF NOT EXISTS formacions
 CREATE INDEX id_tipus_formacio
     ON formacions (id_tipus_formacio);
 
-CREATE TABLE IF NOT EXISTS formacions_agrupacions
+CREATE TABLE IF NOT EXISTS formacions_entitats
 (
-    id_formacio  SMALLINT UNSIGNED NOT NULL,
-    id_agrupacio SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_agrupacio, id_formacio),
-    CONSTRAINT formacions_agrupacions_ibfk_1
-        FOREIGN KEY (id_agrupacio) REFERENCES agrupacions (id_agrupacio),
-    CONSTRAINT formacions_agrupacions_ibfk_2
+    id_formacio SMALLINT UNSIGNED NOT NULL,
+    id_entitat  SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_entitat, id_formacio),
+    CONSTRAINT formacions_entitats_ibfk_1
+        FOREIGN KEY (id_entitat) REFERENCES entitats (id_entitat),
+    CONSTRAINT formacions_entitats_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
 )
     CHARSET = utf8mb4;
 
 CREATE INDEX id_formacio
-    ON formacions_agrupacions (id_formacio);
+    ON formacions_entitats (id_formacio);
 
 CREATE TABLE IF NOT EXISTS projectes_formacions
 (

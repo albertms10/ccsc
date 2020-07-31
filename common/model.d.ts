@@ -3,12 +3,12 @@
 declare module "model" {
   import { Role } from "common";
 
-  export interface Agrupacio {
-    id_agrupacio: number;
+  export interface Entitat {
+    id_entitat: number;
     nom: string;
     nif: string;
-    id_tipus_agrupacio: number;
-    tipus_agrupacio: string;
+    id_tipus_entitat: number;
+    tipus_entitat: string;
   }
 
   export interface SeccioAvis {

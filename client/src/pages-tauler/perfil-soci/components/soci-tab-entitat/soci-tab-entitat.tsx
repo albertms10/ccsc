@@ -6,7 +6,7 @@ import { CollapseCardActivitat } from "../../../../components/collapse-card-acti
 import { useAPI } from "../../../../helpers";
 import { SociContext } from "../../perfil-soci";
 
-const SociTabAgrupacio: React.FC = () => {
+const SociTabEntitat: React.FC = () => {
   const soci = useContext(SociContext);
 
   const [acceptacionsSoci] = useAPI<BooleanMap>(
@@ -31,4 +31,4 @@ const SociTabAgrupacio: React.FC = () => {
   );
 };
 
-export default SociTabAgrupacio;
+export default SociTabEntitat;

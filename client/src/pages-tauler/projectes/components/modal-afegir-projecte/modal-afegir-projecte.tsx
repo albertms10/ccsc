@@ -28,7 +28,7 @@ const ModalAfegirProjecte: React.FC = () => {
     checkInicials,
   ] = useCheckInicials();
 
-  const [cursos, loadingCursos] = useAPI<Curs[]>("/agrupacions/cursos", []);
+  const [cursos, loadingCursos] = useAPI<Curs[]>("/entitats/cursos", []);
 
   const handleTitolChange = useCallback(
     ({ target }) => {

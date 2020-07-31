@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Authorized } from "../../components/authorized";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { AgrupacioContext } from "../../components/tauler-app/tauler-app";
+import { EntitatContext } from "../../components/tauler-app/tauler-app";
 import { SafeMargin } from "../../standalone/safe-margin";
 import {
   AssajosCountStatistics,
@@ -24,7 +24,7 @@ const IniciPage: React.FC = () => {
     ({ user }: RootState) => user.currentUser
   ) as Usuari;
 
-  const { nom: nomAgrupacio } = useContext(AgrupacioContext);
+  const { nom: nomEntitat } = useContext(EntitatContext);
   const setPageHeader = useContext(SetPageHeaderContext);
 
   useEffect(() => setPageHeader("Inici"), [setPageHeader]);
@@ -33,7 +33,7 @@ const IniciPage: React.FC = () => {
     <SafeMargin style={{ marginTop: 8 }}>
       <div className="title-wrapper">
         <Title level={3}>Benvingu{es_dona ? "da" : "t"}</Title>
-        <Title>{nomAgrupacio}</Title>
+        <Title>{nomEntitat}</Title>
       </div>
 
       <Title level={4} className="secondary-title">

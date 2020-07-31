@@ -10,10 +10,10 @@ servers:
   - url: /api
 
 tags:
-  - name: Agrupacions
   - name: Assajos
   - name: Auth
   - name: Concerts
+  - name: Entitats
   - name: Esdeveniments
   - name: Establiments
   - name: Formacions
@@ -26,28 +26,28 @@ tags:
   - name: Usuaris
 
 paths:
-  /agrupacions:
+  /entitats:
     get:
-      summary: Obtén la llista d’agrupacions
-      tags: [Agrupacions]
+      summary: Obtén la llista d’entitats
+      tags: [Entitats]
       security:
         - JWT: []
       responses:
         200:
-          description: Llista d’agrupacions
+          description: Llista d’entitats
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Agrupacio"
+                  $ref: "#/components/schemas/Entitat"
         401:
           $ref: "#/components/responses/Unauthorized"
 
-  /agrupacions/avisos/{name}:
+  /entitats/avisos/{name}:
     get:
       summary: Obtén la informació d’un avís
-      tags: [Agrupacions]
+      tags: [Entitats]
       parameters:
         - $ref: "#/components/parameters/name"
       responses:
@@ -58,10 +58,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/Avis"
 
-  /agrupacions/cursos:
+  /entitats/cursos:
     get:
       summary: Obtén la llista de cursos
-      tags: [Agrupacions]
+      tags: [Entitats]
       security:
         - JWT: []
       responses:
@@ -390,18 +390,18 @@ components:
         descripcio:
           type: string
 
-    Agrupacio:
+    Entitat:
       type: object
       properties:
-        id_agrupacio:
+        id_entitat:
           type: integer
         nom:
           type: string
         nif:
           type: string
-        id_tipus_agrupacio:
+        id_tipus_entitat:
           type: integer
-        tipus_agrupacio:
+        tipus_entitat:
           type: string
 
     Assaig:

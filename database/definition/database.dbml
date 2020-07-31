@@ -637,39 +637,39 @@ Indexes {
 }
 }
 
-Table "agrupacions" {
-  "id_agrupacio" SMALLINT [pk, not null, increment]
+Table "entitats" {
+  "id_entitat" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(100) [not null]
   "nif" VARCHAR(12) [not null]
-  "id_tipus_agrupacio" SMALLINT [not null, default: 1]
+  "id_tipus_entitat" SMALLINT [not null, default: 1]
 }
 
-Table "tipus_agrupacions" {
-  "id_tipus_agrupacio" SMALLINT [pk, not null, increment]
+Table "tipus_entitats" {
+  "id_tipus_entitat" SMALLINT [pk, not null, increment]
   "nom" VARCHAR(50) [not null]
 }
 
-Table "formacions_agrupacions" {
+Table "formacions_entitats" {
   "id_formacio" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_entitat" SMALLINT [not null]
 
 Indexes {
-  (id_agrupacio, id_formacio) [pk]
+  (id_entitat, id_formacio) [pk]
 }
 }
 
-Table "adreces_agrupacions" {
-  "id_adreca_agrupacio" SMALLINT [pk, not null, increment]
+Table "adreces_entitats" {
+  "id_adreca_entitat" SMALLINT [pk, not null, increment]
   "data_inici" DATE [not null]
   "id_localitzacio" SMALLINT [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_entitat" SMALLINT [not null]
 }
 
-Table "adreces_electroniques_agrupacions" {
-  "id_adreca_electronica_agrupacio" SMALLINT [pk, not null, increment]
+Table "adreces_electroniques_entitats" {
+  "id_adreca_electronica_entitat" SMALLINT [pk, not null, increment]
   "adreca_electronica" VARCHAR(50) [not null]
   "descripcio" VARCHAR(50) [not null]
-  "id_agrupacio" SMALLINT [not null]
+  "id_entitat" SMALLINT [not null]
 
 Indexes {
   adreca_electronica [unique]
@@ -677,13 +677,13 @@ Indexes {
 }
 
 Table "encarregats_adreces_electroniques" {
-  "id_adreca_electronica_agrupacio" SMALLINT [not null]
+  "id_adreca_electronica_entitat" SMALLINT [not null]
   "id_soci" SMALLINT [not null]
   "data_inici" DATE [not null]
   "data_final" DATE
 
 Indexes {
-  (id_adreca_electronica_agrupacio, id_soci, data_inici) [pk]
+  (id_adreca_electronica_entitat, id_soci, data_inici) [pk]
 }
 }
 
@@ -1029,19 +1029,19 @@ Ref:"assajos"."id_assaig" < "assajos_formacions"."id_assaig"
 
 Ref:"formacions"."id_formacio" < "assajos_formacions"."id_formacio"
 
-Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
+Ref:"tipus_entitats"."id_tipus_entitat" < "entitats"."id_tipus_entitat"
 
-Ref:"formacions"."id_formacio" < "formacions_agrupacions"."id_formacio"
+Ref:"formacions"."id_formacio" < "formacions_entitats"."id_formacio"
 
-Ref:"agrupacions"."id_agrupacio" < "formacions_agrupacions"."id_agrupacio"
+Ref:"entitats"."id_entitat" < "formacions_entitats"."id_entitat"
 
-Ref:"localitzacions"."id_localitzacio" < "adreces_agrupacions"."id_localitzacio"
+Ref:"localitzacions"."id_localitzacio" < "adreces_entitats"."id_localitzacio"
 
-Ref:"agrupacions"."id_agrupacio" < "adreces_agrupacions"."id_agrupacio"
+Ref:"entitats"."id_entitat" < "adreces_entitats"."id_entitat"
 
-Ref:"agrupacions"."id_agrupacio" < "adreces_electroniques_agrupacions"."id_agrupacio"
+Ref:"entitats"."id_entitat" < "adreces_electroniques_entitats"."id_entitat"
 
-Ref:"adreces_electroniques_agrupacions"."id_adreca_electronica_agrupacio" < "encarregats_adreces_electroniques"."id_adreca_electronica_agrupacio"
+Ref:"adreces_electroniques_entitats"."id_adreca_electronica_entitat" < "encarregats_adreces_electroniques"."id_adreca_electronica_entitat"
 
 Ref:"socis"."id_soci" < "encarregats_adreces_electroniques"."id_soci"
 

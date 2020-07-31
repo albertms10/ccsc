@@ -51,10 +51,10 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-app.use(apiPath("/agrupacions"), routes.agrupacions);
 app.use(apiPath("/assajos"), routes.assajos);
 app.use(apiPath("/auth"), routes.auth);
 app.use(apiPath("/concerts"), routes.concerts);
+app.use(apiPath("/entitats"), routes.entitats);
 app.use(apiPath("/esdeveniments"), routes.esdeveniments);
 app.use(apiPath("/formacions"), routes.formacions);
 app.use(apiPath("/establiments"), routes.establiments);

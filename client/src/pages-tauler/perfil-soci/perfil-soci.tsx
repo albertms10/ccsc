@@ -6,7 +6,7 @@ import { SetPageHeaderContext } from "../../components/tauler-app/components/sit
 import { useAPI } from "../../helpers";
 import { Container } from "../../standalone/container";
 import { initials } from "../../utils";
-import { SociTabAgrupacio } from "./components/soci-tab-agrupacio";
+import { SociTabEntitat } from "./components/soci-tab-entitat";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";
 import "./perfil-soci.css";
@@ -56,7 +56,7 @@ export default () => {
                   <SociTabGeneral />
                 </TabPane>
                 <TabPane tab="Entitat" key="entitat">
-                  <SociTabAgrupacio />
+                  <SociTabEntitat />
                 </TabPane>
                 <TabPane tab="Musical" key="musical">
                   <SociTabMusical />

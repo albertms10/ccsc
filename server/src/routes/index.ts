@@ -1,7 +1,7 @@
-export { default as agrupacions } from "./agrupacions.routes";
 export { default as assajos } from "./assajos.routes";
 export { default as auth } from "./auth.routes";
 export { default as concerts } from "./concerts.routes";
+export { default as entitats } from "./entitats.routes";
 export { default as esdeveniments } from "./esdeveniments.routes";
 export { default as establiments } from "./establiments.routes";
 export { default as formacions } from "./formacions.routes";

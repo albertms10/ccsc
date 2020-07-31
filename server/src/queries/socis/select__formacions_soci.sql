@@ -8,7 +8,7 @@ SELECT DISTINCT id_formacio,
                 tipus_formacions.nom AS tipus_formacio
 FROM formacions
          INNER JOIN tipus_formacions USING (id_tipus_formacio)
-         INNER JOIN formacions_agrupacions USING (id_formacio)
+         INNER JOIN formacions_entitats USING (id_formacio)
          LEFT JOIN socis_formacions USING (id_formacio)
          LEFT JOIN socis s USING (id_soci)
          LEFT JOIN persones p ON (s.id_soci = p.id_persona)

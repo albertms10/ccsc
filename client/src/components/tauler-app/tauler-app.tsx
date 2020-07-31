@@ -1,17 +1,17 @@
-import { Agrupacio } from "model";
+import { Entitat } from "model";
 import React, { createContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { useAPI } from "../../helpers";
 import { MainLayout } from "./components/main-layout";
 import { FormacionsContext, SiderContext } from "./contexts";
 
-export const AgrupacioContext = createContext<Agrupacio>({} as Agrupacio);
+export const EntitatContext = createContext<Entitat>({} as Entitat);
 
 export default () => {
-  const [agrupacio] = useAPI<Agrupacio>("/agrupacions", {} as Agrupacio);
+  const [entitat] = useAPI<Entitat>("/entitats", {} as Entitat);
 
   return (
-    <AgrupacioContext.Provider value={agrupacio}>
+    <EntitatContext.Provider value={entitat}>
       <FormacionsContext>
         <SiderContext>
           <BrowserRouter basename="/tauler">
@@ -19,6 +19,6 @@ export default () => {
           </BrowserRouter>
         </SiderContext>
       </FormacionsContext>
-    </AgrupacioContext.Provider>
+    </EntitatContext.Provider>
   );
 };
