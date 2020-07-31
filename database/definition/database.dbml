@@ -2,8 +2,8 @@ Table "usuaris_complet" {
   "id_usuari" SMALLINT [pk, not null, increment]
   "username" VARCHAR(20) [not null]
   "creacio" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
-  "id_persona" SMALLINT [not null]
   "hash" VARCHAR(255) [not null]
+  "id_persona" SMALLINT [not null]
 
 Indexes {
   id_persona [unique]
@@ -282,11 +282,19 @@ Table "esdeveniments_musicals" {
 }
 
 Table "moviments_esdeveniment_musical" {
+  "id_moviment_esdeveniment_musical" SMALLINT [pk, not null, increment]
   "id_moviment" SMALLINT [not null]
   "id_esdeveniment_musical" SMALLINT [not null]
+}
+
+Table "compassos_moviment_esdeveniment_musical" {
+  "id_moviment_esdeveniment_musical" SMALLINT [not null]
+  "compas_inici" SMALLINT [not null, default: 1]
+  "compas_final" SMALLINT [not null]
+  "nota" TEXT
 
 Indexes {
-  (id_moviment, id_esdeveniment_musical) [pk]
+  (id_moviment_esdeveniment_musical, compas_inici) [pk]
 }
 }
 
@@ -626,15 +634,6 @@ Table "assajos_formacions" {
 
 Indexes {
   (id_assaig, id_formacio) [pk]
-}
-}
-
-Table "moviments_assajos" {
-  "id_moviment" SMALLINT [not null]
-  "id_assaig" SMALLINT [not null]
-
-Indexes {
-  (id_moviment, id_assaig) [pk]
 }
 }
 
@@ -1029,10 +1028,6 @@ Ref:"projectes"."id_projecte" < "assajos_projectes"."id_projecte"
 Ref:"assajos"."id_assaig" < "assajos_formacions"."id_assaig"
 
 Ref:"formacions"."id_formacio" < "assajos_formacions"."id_formacio"
-
-Ref:"moviments"."id_moviment" < "moviments_assajos"."id_moviment"
-
-Ref:"assajos"."id_assaig" < "moviments_assajos"."id_assaig"
 
 Ref:"tipus_agrupacions"."id_tipus_agrupacio" < "agrupacions"."id_tipus_agrupacio"
 

@@ -1,7 +1,4 @@
-DELIMITER //
-CREATE
-    DEFINER = root@localhost FUNCTION `ordered_uuid`(uuid BINARY(36))
-    RETURNS BINARY(16) DETERMINISTIC
+CREATE FUNCTION ordered_uuid(uuid BINARY(36)) RETURNS BINARY(16)
     RETURN UNHEX(CONCAT(
             SUBSTR(uuid, 15, 4),
             SUBSTR(uuid, 10, 4),
@@ -9,5 +6,3 @@ CREATE
             SUBSTR(uuid, 20, 4),
             SUBSTR(uuid, 25)
         ));
-//
-DELIMITER ;

@@ -4,13 +4,13 @@
 
 CREATE TABLE IF NOT EXISTS usuaris_complet
 (
-    id_usuari          SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_usuari  SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    username           VARCHAR(20)       NOT NULL,
-    creacio            TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    hash               VARCHAR(255)      NOT NULL,
+    username   VARCHAR(20)       NOT NULL,
+    creacio    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    hash       VARCHAR(255)      NOT NULL,
 
-    id_persona         SMALLINT UNSIGNED NOT NULL,
+    id_persona SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_usuari),
     FOREIGN KEY (id_persona) REFERENCES persones (id_persona),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS persones
     email           VARCHAR(50),
     telefon         VARCHAR(14),
     es_institucio   BOOLEAN           NOT NULL DEFAULT FALSE,
-    es_anonim       BOOLEAN           NOT NULL DEFAULT FALSE, /* TODO Cal afegir algun CHECK? */
+    es_anonim       BOOLEAN           NOT NULL DEFAULT FALSE,
 
     id_localitzacio SMALLINT UNSIGNED,
 
@@ -429,12 +429,25 @@ CREATE TABLE IF NOT EXISTS esdeveniments_musicals
 
 CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
 (
-    id_moviment             SMALLINT UNSIGNED NOT NULL,
-    id_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
+    id_moviment_esdeveniment_musical SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    PRIMARY KEY (id_moviment, id_esdeveniment_musical),
+    id_moviment                      SMALLINT UNSIGNED NOT NULL,
+    id_esdeveniment_musical          SMALLINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_moviment_esdeveniment_musical),
     FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
     FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
+);
+
+CREATE TABLE IF NOT EXISTS compassos_moviment_esdeveniment_musical
+(
+    id_moviment_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
+
+    compas_inici                     SMALLINT          NOT NULL DEFAULT 1,
+    compas_final                     SMALLINT          NOT NULL,
+    nota                             TEXT,
+
+    PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici)
 );
 
 CREATE TABLE IF NOT EXISTS horaris_curs
@@ -958,16 +971,6 @@ CREATE TABLE IF NOT EXISTS assajos_formacions
     PRIMARY KEY (id_assaig, id_formacio),
     FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
     FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-);
-
-CREATE TABLE IF NOT EXISTS moviments_assajos
-(
-    id_moviment SMALLINT UNSIGNED NOT NULL,
-    id_assaig   SMALLINT UNSIGNED NOT NULL,
-
-    PRIMARY KEY (id_moviment, id_assaig),
-    FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
-    FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig)
 );
 
 
