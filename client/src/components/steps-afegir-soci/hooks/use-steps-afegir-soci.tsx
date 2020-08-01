@@ -117,7 +117,7 @@ export default (
               </Col>
               <Col xs={24} sm={8}>
                 <Form.Item
-                  name="nacionalitat"
+                  name="id_pais"
                   label="País de nacionalitat"
                   rules={[
                     {

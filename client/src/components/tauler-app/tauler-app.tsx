@@ -8,7 +8,7 @@ import { FormacionsContext, SiderContext } from "./contexts";
 export const EntitatContext = createContext<Entitat>({} as Entitat);
 
 export default () => {
-  const [entitat] = useAPI<Entitat>("/entitats", {} as Entitat);
+  const [entitat] = useAPI<Entitat>("/entitats/1", {} as Entitat);
 
   return (
     <EntitatContext.Provider value={entitat}>

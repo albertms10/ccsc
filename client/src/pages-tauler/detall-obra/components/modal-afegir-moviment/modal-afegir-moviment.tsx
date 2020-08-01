@@ -37,7 +37,7 @@ const ModalAfegirMoviment: React.FC<ModalAfegirMovimentProps> = ({
               </Form.Item>
             </Col>
             <Col sm={18} md={20}>
-              <Form.Item name="titol" label="Títol">
+              <Form.Item name="titol_moviment" label="Títol">
                 <Input />
               </Form.Item>
             </Col>
