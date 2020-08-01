@@ -9,7 +9,7 @@ export interface ContentListItem {
   title: string;
   description?: string;
   link: string;
-  actions?: any[];
+  actions?: React.ReactNode[];
   avatar?: React.ReactNode;
   extra?: React.ReactNode;
 }
