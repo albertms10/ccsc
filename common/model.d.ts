@@ -24,11 +24,14 @@ declare module "model" {
     requerida: boolean;
   }
 
-  export interface Avis {
+  export interface BaseAvis {
     id_avis: number;
     titol: string;
     descripcio: string;
     titol_acceptacions: string;
+  }
+
+  export interface Avis extends BaseAvis {
     seccions: SeccioAvis[];
     acceptacions: AcceptacioAvis[];
   }
@@ -79,11 +82,12 @@ declare module "model" {
     id_persona: number;
     nom_complet: string;
     naixement: string;
-    dni: number;
+    dni: string;
     email: string;
     telefon: string;
     nom_veu?: string;
     abreviatura_veu?: string;
+    id_pais: number;
   }
 
   export interface ConvocatoriaGenerica {
@@ -103,12 +107,19 @@ declare module "model" {
     count_baixes: number;
   }
 
-  export interface Soci extends Persona {
+  export interface BaseSoci extends Persona {
     id_soci: number;
     username?: string;
     dies_activitat?: number;
     data_inactiu?: string;
     es_actiu?: boolean;
+    experiencia_musical: string;
+    estudis_musicals: string;
+    acceptacions: string[];
+    data_alta: string;
+  }
+
+  export interface Soci extends BaseSoci {
     roles?: Role[];
   }
 
@@ -141,12 +152,12 @@ declare module "model" {
     num_persones: number;
   }
 
-  export interface BaseProjecte {
+  export interface BaseProjecteTreballat {
     id_projecte: number;
     treballat?: boolean;
   }
 
-  export interface Projecte extends BaseProjecte {
+  export interface BaseProjecte extends BaseProjecteTreballat {
     titol: string;
     descripcio: string;
     data_inici: string;
@@ -155,11 +166,14 @@ declare module "model" {
     any_final_curs: string;
     inicials: string;
     color: string;
+  }
+
+  export interface Projecte extends BaseProjecte {
     formacions: Formacio[];
     directors: Director[];
   }
 
-  export interface Moviment {
+  export interface BaseMoviment {
     id_moviment: number;
     id_obra: number;
     titol_moviment: string;
@@ -171,12 +185,54 @@ declare module "model" {
     es_unic_moviment: boolean;
     durada: string;
     compassos: number;
+  }
+
+  export interface Moviment extends BaseMoviment {
     projectes: Projecte[];
   }
 
   export interface Pais {
     id_pais: number;
     nom: string;
+  }
+
+  export interface Provincia {
+    id_provincia: number;
+    nom: string;
+  }
+
+  export interface Ciutat {
+    id_ciutat: number;
+    nom: string;
+    id_provincia: number;
+  }
+
+  export interface Establiment {
+    id_establiment: number;
+    id_localitzacio: number;
+    nom: string;
+    descripcio: string;
+    lloc_web: string;
+    id_tipus_establiment: number;
+    tipus_establiment: string;
+  }
+
+  export interface Localitzacio {
+    id_localitzacio: number;
+    id_tipus_via: number;
+    tipus_via: string;
+    carrer: string;
+    numero: number;
+    fins_numero: number;
+    codi_postal: number;
+    gmaps: string;
+    id_ciutat: number;
+  }
+
+  export interface TipusVia {
+    id_tipus_via: number;
+    nom: string;
+    abreviatura: string;
   }
 
   export interface Esdeveniment {
@@ -196,7 +252,7 @@ declare module "model" {
     notes: string;
   }
 
-  export interface EsdevenimentMusical {
+  export interface EsdevenimentMusical extends Esdeveniment {
     formacions: Formacio[];
     moviments: Moviment[];
   }
@@ -204,6 +260,8 @@ declare module "model" {
   export interface Assaig extends EsdevenimentMusical {
     id_assaig: number;
     projectes: Projecte[];
+    es_general: boolean;
+    es_extra: boolean;
   }
 
   export interface AssistenciaEsdeveniment {
