@@ -39,6 +39,13 @@ router
   );
 
 router
+  .route("/:id_assaig/moviments/:id_moviment/fragments")
+  .get(
+    [verifyAccessToken],
+    controller.assajos_detall_moviments_fragments
+  );
+
+router
   .route("/:id/projectes")
   .get([verifyAccessToken], controller.assajos_detall_projectes_get)
   .post(

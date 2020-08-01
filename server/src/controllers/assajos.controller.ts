@@ -198,6 +198,23 @@ export const assajos_detall_moviments_delete = (
     .catch(next);
 };
 
+export const assajos_detall_moviments_fragments: RequestHandler = (
+  req,
+  res,
+  next
+) => {
+  const pool: Pool = req.app.get("pool");
+  const { id_assaig, id_moviment } = req.params;
+
+  pool
+    .query(queryFile("assajos/select__fragments_moviment_assaig"), [
+      id_assaig,
+      id_moviment
+    ])
+    .then(([fragments]) => res.json(fragments))
+    .catch(next);
+};
+
 export const assajos_detall_projectes_get = (
   req: Request,
   res: Response,

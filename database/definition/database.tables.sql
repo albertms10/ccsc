@@ -439,7 +439,7 @@ CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
     FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
 );
 
-CREATE TABLE IF NOT EXISTS compassos_moviment_esdeveniment_musical
+CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
 (
     id_moviment_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
 

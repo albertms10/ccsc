@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS ciutats
 CREATE INDEX id_provincia
     ON ciutats (id_provincia);
 
-CREATE TABLE IF NOT EXISTS compassos_moviment_esdeveniment_musical
+CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
 (
     id_moviment_esdeveniment_musical SMALLINT UNSIGNED  NOT NULL,
     compas_inici                     SMALLINT DEFAULT 1 NOT NULL,
