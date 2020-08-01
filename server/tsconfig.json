@@ -6,9 +6,11 @@
     "target": "es5",
     "module": "CommonJS",
     "moduleResolution": "node",
+    "downlevelIteration": true,
     "paths": {
       "*": [
-        "../common/*"
+        "../common/*",
+        "./raw-model/*"
       ]
     }
   },
