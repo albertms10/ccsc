@@ -1,4 +1,4 @@
-import { hash } from "bcrypt";
+import * as bcrypt from "bcrypt";
 import { BooleanMap } from "common";
 import { NextFunction, Request, Response } from "express";
 import { Pool } from "promise-mysql";
@@ -86,7 +86,7 @@ export const socis_post = async (
         ])
         .then(async ({ insertId: id_persona }) => {
           const password = soci.dni.match(/\d+/)[0];
-          const hashedPassword = await hash(password, 14);
+          const hashedPassword = await bcrypt.hash(password, 14);
 
           connection
             .query(queryFile("socis/insert__usuaris"), [
