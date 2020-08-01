@@ -1,5 +1,5 @@
 SELECT NOT EXISTS(
         SELECT *
         FROM projectes
-        WHERE ?
+        WHERE inicials = ?
     ) AS disponible;

@@ -1,5 +1,5 @@
 SELECT EXISTS(
                SELECT *
                FROM emails_espera
-               WHERE ?
+               WHERE email = ?
            ) AS email_exists;

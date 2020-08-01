@@ -1,2 +1,2 @@
-SELECT COUNT(*) AS assajos_count
+SELECT COUNT(*) AS count
 FROM assajos;
