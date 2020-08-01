@@ -170,6 +170,7 @@ declare module "model" {
     primer?: number;
     es_unic_moviment: boolean;
     durada: string;
+    compassos: number;
     projectes: Projecte[];
   }
 
@@ -195,11 +196,14 @@ declare module "model" {
     notes: string;
   }
 
-  export interface Assaig extends Esdeveniment {
-    id_assaig: number;
+  export interface EsdevenimentMusical {
     formacions: Formacio[];
-    projectes: Projecte[];
     moviments: Moviment[];
+  }
+
+  export interface Assaig extends EsdevenimentMusical {
+    id_assaig: number;
+    projectes: Projecte[];
   }
 
   export interface AssistenciaEsdeveniment {
@@ -232,7 +236,7 @@ declare module "model" {
     | AssistenciaAssaigEstat
     | AssistenciaAssaigVeus;
 
-  export interface Concert extends Esdeveniment {
+  export interface Concert extends EsdevenimentMusical {
     id_concert: number;
     id_projecte: number;
     titol_concert: string;
@@ -256,7 +260,17 @@ declare module "model" {
     titol: string;
     subtitol: string;
     durada_total: string;
+    compassos_totals: number;
     formacions?: Formacio[];
+  }
+
+  export interface FragmentMovimentEsdevenimentMusical {
+    id_fragment_esdeveniment_musical: number;
+    id_esdeveniment_musical: number;
+    id_moviment: number;
+    compas_inici: number;
+    compas_final: number;
+    nota: string;
   }
 
   export interface BaseVeu {
