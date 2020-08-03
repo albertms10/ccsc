@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "build",
-    "allowJs": true,
     "target": "es5",
     "module": "CommonJS",
     "moduleResolution": "node",
+    "strict": true,
     "downlevelIteration": true,
     "paths": {
       "*": [
