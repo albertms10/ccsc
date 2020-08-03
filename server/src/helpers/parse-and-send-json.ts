@@ -1,8 +1,9 @@
 import { NextFunction, Response } from "express";
 
-const parseArrayJSON = <T>(properties: (keyof T)[], element: T) => {
+const parsePropertiesJSON = <T>(properties: (keyof T)[], element: T) => {
   properties.forEach(
-    (property) => (element[property] = JSON.parse(element[property as string]))
+    (property) =>
+      (element[property] = JSON.parse((element as any)[property as string]))
   );
 };
 
@@ -14,7 +15,7 @@ type ArrayElement<T> = T extends Array<infer U> ? U : T;
  * Parses given properties of a data object
  * or array and sends a JSON response.
  */
-export default <T, R extends string | Object | Array<any>>(
+export default <T, R extends string | object | Array<any>>(
   res: Response<T>,
   next: NextFunction,
   data: R,
@@ -27,10 +28,10 @@ export default <T, R extends string | Object | Array<any>>(
 
     if (dataType === "[object Array]")
       (data as Array<any>).forEach((element) =>
-        parseArrayJSON(properties, element)
+        parsePropertiesJSON(properties, element)
       );
     else if (dataType === "[object Object]")
-      parseArrayJSON(properties, data as any);
+      parsePropertiesJSON(properties, data as any);
     else if (dataType === "[object String]") data = JSON.parse(data as string);
   } catch (e) {
     next(e);
