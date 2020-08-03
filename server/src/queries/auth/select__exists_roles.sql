@@ -4,4 +4,4 @@ SELECT EXISTS(
                         INNER JOIN roles_usuaris USING (id_role)
                WHERE id_usuari = ?
                  AND role IN (?)
-           ) AS is_role;
+           ) AS es_role;
