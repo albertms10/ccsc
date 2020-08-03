@@ -20,25 +20,8 @@ export default (
       },
     });
 
-  try {
-    const roles: string[] = JSON.parse(user.roles as string);
-    const avisos: number[] = JSON.parse(user.avisos as string);
-
-    res.send({
-      user: {
-        ...user,
-        avisos,
-        roles,
-      },
-      accessToken,
-    });
-  } catch (e) {
-    next(e);
-    res.status(500).send({
-      error: {
-        status: 500,
-        message: "Hi ha hagut un error en el processament de les dades.",
-      },
-    });
-  }
+  res.send({
+    user,
+    accessToken,
+  });
 };
