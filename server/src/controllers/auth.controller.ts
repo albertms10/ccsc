@@ -1,15 +1,21 @@
 import * as bcrypt from "bcrypt";
-import { NextFunction, Request, Response } from "express";
+import { ResponseError } from "common";
 import { Usuari } from "model";
-import { Pool } from "promise-mysql";
+import { Pool, RowDataPacket } from "mysql2/promise";
+import {
+  ControllerRequestHandler,
+  EmailResponse,
+  UsernamePasswordPost,
+} from "raw-model";
 import { queryFile, trySendUser } from "../helpers";
 import { signJWT } from "../utils";
 
-export const signIn = (req: Request, res: Response, next: NextFunction) => {
+export const signIn: ControllerRequestHandler<
+  Usuari | ResponseError,
+  UsernamePasswordPost
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
-  const {
-    user: { username, password },
-  } = req.body;
+  const { username, password } = req.body;
 
   if (!username || !password)
     return res.status(403).send({
@@ -21,9 +27,15 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
     });
 
   pool
-    .query(queryFile("auth/select__user_info_password"), { username })
-    .then(async ([user]: [Usuari]) => {
-      const isHashValid = await bcrypt.compare(password, user && user.hash);
+    .query<(Usuari & RowDataPacket)[]>(
+      queryFile("auth/select__user_info_password"),
+      { username }
+    )
+    .then(async ([[user]]) => {
+      const isHashValid = await bcrypt.compare(
+        password,
+        (user && user.hash) || ""
+      );
 
       if (!user || !isHashValid)
         return res.status(403).send({
@@ -43,53 +55,54 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
     .catch(next);
 };
 
-export const emailEspera = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const emailEspera: ControllerRequestHandler<EmailResponse, string> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
-  const { email } = req.body;
+  const email = req.body;
 
   pool
-    .query(queryFile("auth/select__exists_email_espera"), { email })
-    .then(([{ email_exists }]) => {
-      if (email_exists) {
-        const accessToken = signJWT({
-          payload: { email },
-          expiresIn: 1200, // 20 min
-        });
-
-        return res.json({ exists: !!email_exists, accessToken });
-      }
-
-      pool
-        .query(queryFile("auth/select__count_persones_email"), { email })
-        .then(([{ count }]) => {
-          res.json({
-            exists: !!email_exists,
-            message:
-              count > 0
-                ? "L’adreça ja està registrada."
-                : "L’adreça no és a la llista d’espera.",
-          });
-        })
-        .catch(next);
-    })
+    .query<({ email_exists: boolean } & RowDataPacket)[]>(
+      queryFile("auth/select__exists_email_espera"),
+      [email]
+    )
+    .then(([[{ email_exists }]]) =>
+      res.json({
+        exists: email_exists,
+        ...(email_exists
+          ? {
+              accessToken: signJWT({
+                payload: { email },
+                expiresIn: 1200, // 20 min
+              }),
+            }
+          : {
+              message:
+                "L’adreça no és a la llista d’espera o ja està registrada.",
+            }),
+      })
+    )
     .catch(next);
 };
 
-export const userInfo = (req: Request, res: Response, next: NextFunction) => {
+export const userInfo: ControllerRequestHandler<Usuari | ResponseError> = (
+  req,
+  res,
+  next
+) => {
   const pool: Pool = req.app.get("pool");
-
   const { userId: id_usuari } = res.locals;
   const { authorization: accessToken } = req.headers;
 
   pool
-    .query(queryFile("auth/select__user_info"), { id_usuari })
-    .then(([user]) =>
+    .query<(Usuari & RowDataPacket)[]>(queryFile("auth/select__user_info"), {
+      id_usuari,
+    })
+    .then(([[user]]) =>
       user
-        ? trySendUser(res, next, user, accessToken)
+        ? trySendUser(res, next, user, accessToken!)
         : res.status(404).send({
             error: { status: 404, message: "L’usuari no s’ha trobat." },
           })

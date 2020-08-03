@@ -1,17 +1,17 @@
-import { NextFunction, Request, Response } from "express";
-import { Pool } from "promise-mysql";
+import { Ciutat, Localitzacio, Pais, Provincia, TipusVia } from "model";
+import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
+import { ControllerRequestHandler } from "raw-model";
 import { queryFile } from "../helpers";
 
-export const localitzacions_post = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const localitzacions_post: ControllerRequestHandler<
+  null,
+  Localitzacio
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
-  const { localitzacio } = req.body;
+  const localitzacio = req.body;
 
   pool
-    .query(queryFile("localitzacions/insert__localitzacions"), [
+    .query<OkPacket>(queryFile("localitzacions/insert__localitzacions"), [
       [
         [
           localitzacio.tipus_via,
@@ -20,7 +20,7 @@ export const localitzacions_post = (
           localitzacio.fins_numero,
           localitzacio.codi_postal,
           localitzacio.gmaps,
-          localitzacio.ciutat,
+          localitzacio.id_ciutat,
         ],
       ],
     ])
@@ -28,68 +28,73 @@ export const localitzacions_post = (
     .catch(next);
 };
 
-export const localitzacions_tipusvies_get = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const localitzacions_tipusvies_get: ControllerRequestHandler<
+  TipusVia[]
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
 
   pool
-    .query(queryFile("localitzacions/select__tipus_vies"))
-    .then((tipus_vies) => res.json(tipus_vies))
+    .query<(TipusVia & RowDataPacket)[]>(
+      queryFile("localitzacions/select__tipus_vies")
+    )
+    .then(([tipus_vies]) => res.json(tipus_vies))
     .catch(next);
 };
 
-export const localitzacions_detall = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const localitzacions_detall: ControllerRequestHandler<Localitzacio> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("localitzacions/select__localitzacio"), [id])
-    .then(([localitzacio]) => res.json(localitzacio))
+    .query<(Localitzacio & RowDataPacket)[]>(
+      queryFile("localitzacions/select__localitzacio"),
+      [id]
+    )
+    .then(([[localitzacio]]) => res.json(localitzacio))
     .catch(next);
 };
 
-export const localitzacions_ciutats_get = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const localitzacions_ciutats_get: ControllerRequestHandler<Ciutat[]> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
 
   pool
-    .query(queryFile("localitzacions/select__ciutats"))
-    .then((ciutats) => res.json(ciutats))
+    .query<(Ciutat & RowDataPacket)[]>(
+      queryFile("localitzacions/select__ciutats")
+    )
+    .then(([ciutats]) => res.json(ciutats))
     .catch(next);
 };
 
-export const localitzacions_provincies_get = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const localitzacions_provincies_get: ControllerRequestHandler<
+  Provincia[]
+> = (req, res, next) => {
+  const pool: Pool = req.app.get("pool");
+
+  pool
+    .query<(Provincia & RowDataPacket)[]>(
+      queryFile("localitzacions/select__provincies")
+    )
+    .then(([provincies]) => res.json(provincies))
+    .catch(next);
+};
+
+export const localitzacions_paisos_get: ControllerRequestHandler<Pais[]> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
 
   pool
-    .query(queryFile("localitzacions/select__provincies"))
-    .then((provincies) => res.json(provincies))
-    .catch(next);
-};
-
-export const localitzacions_paisos_get = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const pool: Pool = req.app.get("pool");
-
-  pool
-    .query(queryFile("localitzacions/select__paisos"))
-    .then((paisos) => res.json(paisos))
+    .query<(Pais & RowDataPacket)[]>(queryFile("localitzacions/select__paisos"))
+    .then(([paisos]) => res.json(paisos))
     .catch(next);
 };

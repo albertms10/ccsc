@@ -1,19 +1,24 @@
-import { NextFunction, Request, Response } from "express";
-import { Pool } from "promise-mysql";
+import { Pool, RowDataPacket } from "mysql2/promise";
+import { ControllerRequestHandler } from "raw-model";
 import { queryFile } from "../helpers";
 
-export const usuaris_detall_firstavailablenum = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const usuaris_detall_firstavailablenum: ControllerRequestHandler<number> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { username } = req.params;
 
   pool
-    .query(queryFile("usuaris/select__first_available_num_usuari"), [username])
-    .then(([_, [{ first_available_num }]]) =>
-      res.json(parseInt(first_available_num || 0))
+    .query<({ first_available_num: number } & RowDataPacket)[][]>(
+      queryFile("usuaris/select__first_available_num_usuari"),
+      [username]
+    )
+    .then(([[_, [{ first_available_num }]]]) =>
+      res.json(
+        first_available_num ? parseInt(first_available_num.toString()) : 0
+      )
     )
     .catch(next);
 };

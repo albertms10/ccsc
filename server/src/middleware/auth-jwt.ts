@@ -1,7 +1,6 @@
-import { Role } from "common";
-import { NextFunction, Request, Response } from "express";
-import { VerifyErrors } from "jsonwebtoken";
-import { Pool } from "promise-mysql";
+import { ResponseError } from "common";
+import { Pool, RowDataPacket } from "mysql2/promise";
+import { ControllerRequestHandler } from "raw-model";
 import {
   ROLES_ADMIN,
   ROLES_DIRECCIO_MUSICAL,
@@ -11,21 +10,19 @@ import { queryFile } from "../helpers";
 import { verifyJWT } from "../utils";
 
 interface UserToken {
-  id: number;
+  id?: number;
 }
 
 interface EmailToken {
-  email: string;
+  email?: string;
 }
+
+type AuthRequestHandler = ControllerRequestHandler<ResponseError | any>;
 
 /*
  * VERIFY FUNCTIONS
  */
-export const verifyAccessToken = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
   const { authorization: accessToken } = req.headers;
   const hideMessage = !!res.locals.hideMessage;
 
@@ -38,54 +35,39 @@ export const verifyAccessToken = (
       },
     });
 
-  verifyJWT(
-    accessToken,
-    (err: VerifyErrors, decoded: UserToken | EmailToken) => {
-      if (err)
-        return res.status(401).send({
-          error: {
-            status: 401,
-            message: "Sense autorizació",
-            hideMessage,
-          },
-        });
+  verifyJWT(accessToken, (err, decoded: UserToken | EmailToken | undefined) => {
+    if (err)
+      return res.status(401).send({
+        error: {
+          status: 401,
+          message: "Sense autorizació",
+          hideMessage,
+        },
+      });
 
-      if ((decoded as EmailToken).email)
-        return res.status(403).send({
-          error: {
-            status: 403,
-            message: "Encara no has acabat d’introduir les teves dades.",
-            okText: "Torna a introduir-les",
-            location: {
-              pathname: "/donar-alta",
-              state: { email: (decoded as EmailToken).email },
-            },
-            hideMessage,
-          },
-        });
+    if ((decoded as EmailToken).email)
+      return res.status(403).send({
+        error: {
+          status: 403,
+          message: "Encara no has acabat d’introduir les teves dades.",
+          okText: "Torna a introduir-les",
+          hideMessage,
+        },
+      });
 
-      res.locals.userId = (decoded as UserToken).id;
-      next();
-    }
-  );
+    res.locals.userId = (decoded as UserToken).id;
+    next();
+  });
 };
 
-export const verifyAccessTokenHidden = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const verifyAccessTokenHidden: AuthRequestHandler = (req, res, next) => {
   res.locals.hideMessage = true;
   return verifyAccessToken(req, res, next);
 };
 
-export const verifyEmailToken = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
   const { authorization: accessToken } = req.headers;
-  const { email } = req.body.soci;
+  const email = req.body;
 
   if (!accessToken)
     return res.status(401).send({
@@ -95,7 +77,7 @@ export const verifyEmailToken = (
       },
     });
 
-  verifyJWT(accessToken, (err, decoded: UserToken | EmailToken) => {
+  verifyJWT(accessToken, (err, decoded: UserToken | EmailToken | undefined) => {
     if (err || email !== (decoded as EmailToken).email)
       return res.status(403).send({
         error: {
@@ -117,89 +99,74 @@ export const verifyEmailToken = (
   });
 };
 
+// TODO: Check for null values returned by queries
 /*
  * CHECK FUNCTIONS
  */
-export const checkIsAuthor = async (req: Request, res: Response) => {
+export const checkIsAuthor: AuthRequestHandler = async (req, res) => {
   const pool: Pool = req.app.get("pool");
-  const { id }: { id?: number } = req.params;
+  const { id } = req.params;
 
-  const queryUsuari = await pool.query(queryFile("auth/select__id_usuari"), [
-    id,
-  ]);
+  const queryUsuari = await pool.query<
+    ({ id_usuari: number } & RowDataPacket)[]
+  >(queryFile("auth/select__id_usuari"), [id]);
 
-  return queryUsuari[0] && res.locals.userId === queryUsuari[0].id_usuari;
+  return queryUsuari[0][0] && res.locals.userId === queryUsuari[0][0].id_usuari;
 };
 
-export const checkIsRole = async (
-  req: Request,
-  res: Response,
-  roles: Role[]
-) => {
+export const checkIsRole: AuthRequestHandler = async (req, res) => {
   const pool: Pool = req.app.get("pool");
-  const { userId: id } = res.locals;
+  const { userId: id, roles } = res.locals;
 
-  const [{ is_role }]: [{ is_role: boolean }] = await pool.query(
-    queryFile("auth/select__exists_roles"),
-    [id, roles]
-  );
+  const [[{ es_role }]] = await pool.query<
+    ({ es_role: boolean } & RowDataPacket)[]
+  >(queryFile("auth/select__exists_roles"), [id, roles]);
 
-  return !!is_role;
+  return es_role;
 };
 
 /*
  * IS HELPERS
  */
-export const isAuthor = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) =>
-  (await checkIsAuthor(req, res))
+export const isAuthor: AuthRequestHandler = async (req, res, next) =>
+  (await checkIsAuthor(req, res, next))
     ? next()
     : res
         .status(403)
         .send({ error: { status: 403, message: "Sense autorització" } });
 
-export const isRole = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-  roles: Role[]
-) =>
-  (await checkIsRole(req, res, roles))
+export const isRole: AuthRequestHandler = async (req, res, next) =>
+  (await checkIsRole(req, res, next))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "Sense permís" } });
 
 /*
  * `IS` FUNCTIONS
  */
-export const isAuthorOrJuntaDirectiva = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) =>
-  (await checkIsAuthor(req, res)) ||
-  (await checkIsRole(req, res, ROLES_JUNTA_DIRECTIVA))
+export const isAuthorOrJuntaDirectiva: AuthRequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  res.locals.roles = ROLES_JUNTA_DIRECTIVA;
+  (await checkIsAuthor(req, res, next)) || (await checkIsRole(req, res, next))
     ? next()
     : res
         .status(403)
         .send({ error: { status: 403, message: "Sense autorització" } });
+};
 
-export const isJuntaDirectiva = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => await isRole(req, res, next, ROLES_JUNTA_DIRECTIVA);
+export const isJuntaDirectiva: AuthRequestHandler = async (req, res, next) => {
+  res.locals.roles = ROLES_JUNTA_DIRECTIVA;
+  await isRole(req, res, next);
+};
 
-export const isDireccioMusical = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => await isRole(req, res, next, ROLES_DIRECCIO_MUSICAL);
+export const isDireccioMusical: AuthRequestHandler = async (req, res, next) => {
+  res.locals.roles = ROLES_DIRECCIO_MUSICAL;
+  await isRole(req, res, next);
+};
 
-export const isAdmin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => await isRole(req, res, next, ROLES_ADMIN);
+export const isAdmin: AuthRequestHandler = async (req, res, next) => {
+  res.locals.roles = ROLES_ADMIN;
+  await isRole(req, res, next);
+};

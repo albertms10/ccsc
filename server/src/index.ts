@@ -1,25 +1,23 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
-import { NextFunction, Request, Response } from "express";
 import * as RateLimit from "express-rate-limit";
 import * as path from "path";
-import { Pool } from "promise-mysql";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
 import { apiPath } from "../../common/common.functions";
-import poolPromise from "./config/db.config";
+import pool from "./config/db.config";
 import * as routes from "./routes";
 
 const app = express();
 
-const PORT = parseInt(process.env.PORT) || 5000;
+const PORT = parseInt(process.env.PORT || "5000");
 const HOST = "0.0.0.0";
 
 process
   .on("unhandledRejection", (reason, p) => {
     console.error(reason, "Unhandled Rejection at Promise", p);
   })
-  .on("uncaughtException", (err: Error) => {
+  .on("uncaughtException", (err) => {
     console.error(err, "Uncaught Exception thrown");
     process.exit(1);
   });
@@ -28,7 +26,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",
     "Authorization, Origin, Content-Type, Accept"
@@ -36,13 +34,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-let pool: Pool;
-
-app.use(async (req: Request, res: Response, next: NextFunction) => {
-  if (pool) return next();
-
+app.use((req, res, next) => {
   try {
-    pool = await poolPromise;
     app.set("pool", pool);
     next();
   } catch (err) {
@@ -76,22 +69,22 @@ app.use(
   })
 );
 
-app.get("/locales/*", (req: Request, res: Response) => {
+app.get("/locales/*", (req, res) => {
   res.json({});
 });
 
-const limiter = new RateLimit({
+const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 10,
 });
 
 app.use(limiter);
 
-app.get(apiPath("/docs-styles.css"), (req: Request, res: Response) => {
+app.get(apiPath("/docs-styles.css"), (req, res) => {
   res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
-app.get("*", (req: Request, res: Response) => {
+app.get("*", (req, res) => {
   res.sendFile(
     path.resolve(__dirname, "../../../../client/build", "index.html")
   );

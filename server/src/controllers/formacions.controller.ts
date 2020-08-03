@@ -1,77 +1,87 @@
-import { NextFunction, Request, Response } from "express";
-import { Pool } from "promise-mysql";
+import { Concert, Esdeveniment, Formacio, Persona, Projecte } from "model";
+import { Pool, RowDataPacket } from "mysql2/promise";
+import { ControllerRequestHandler, ProjecteRaw } from "raw-model";
 import { parseAndSendJSON, queryFile } from "../helpers";
 
-export const formacions_detall = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const formacions_detall: ControllerRequestHandler<Formacio> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("formacions/select__formacio"), [id])
-    .then((rows) => res.json(rows))
+    .query<(Formacio & RowDataPacket)[]>(
+      queryFile("formacions/select__formacio"),
+      [id]
+    )
+    .then(([[formacio]]) => res.json(formacio))
     .catch(next);
 };
 
-export const formacions_detall_esdeveniments = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const formacions_detall_esdeveniments: ControllerRequestHandler<
+  Esdeveniment[]
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("formacions/select__esdeveniments_formacio"), [id])
-    .then(([_, esdeveniments]) =>
+    .query<(Esdeveniment & RowDataPacket)[][]>(
+      queryFile("formacions/select__esdeveniments_formacio"),
+      [id]
+    )
+    .then(([[_, esdeveniments]]) =>
       parseAndSendJSON(res, next, esdeveniments, ["projectes"])
     )
     .catch(next);
 };
 
-export const formacions_detall_concerts = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const formacions_detall_concerts: ControllerRequestHandler<Concert[]> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("formacions/select__concerts_formacio"), [id])
-    .then((concerts) => res.json(concerts))
+    .query<(Concert & RowDataPacket)[]>(
+      queryFile("formacions/select__concerts_formacio"),
+      [id]
+    )
+    .then(([concerts]) => res.json(concerts))
     .catch(next);
 };
 
-export const formacions_detall_projectes = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const formacions_detall_projectes: ControllerRequestHandler<
+  Projecte[]
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("formacions/select__projectes_formacio"), [id])
-    .then((projectes) =>
+    .query<(ProjecteRaw & RowDataPacket)[]>(
+      queryFile("formacions/select__projectes_formacio"),
+      [id]
+    )
+    .then(([projectes]) =>
       parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
     )
     .catch(next);
 };
 
-export const formacions_detall_integrants = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const formacions_detall_integrants: ControllerRequestHandler<
+  Persona[]
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("formacions/select__integrants_formacio"), [id])
-    .then((integrants) => res.json(integrants))
+    .query<(Persona & RowDataPacket)[]>(
+      queryFile("formacions/select__integrants_formacio"),
+      [id]
+    )
+    .then(([integrants]) => res.json(integrants))
     .catch(next);
 };

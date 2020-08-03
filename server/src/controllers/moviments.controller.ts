@@ -1,30 +1,35 @@
-import { NextFunction, Request, Response } from "express";
-import { Pool } from "promise-mysql";
+import { Moviment } from "model";
+import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
+import { ControllerRequestHandler, MovimentRaw } from "raw-model";
 import { parseAndSendJSON, queryFile } from "../helpers";
 
-export const moviments_get = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const moviments_get: ControllerRequestHandler<Moviment[]> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
 
   pool
-    .query(queryFile("moviments/select__moviments"))
-    .then((moviments) => parseAndSendJSON(res, next, moviments, ["projectes"]))
+    .query<(MovimentRaw & RowDataPacket)[]>(
+      queryFile("moviments/select__moviments")
+    )
+    .then(([moviments]) =>
+      parseAndSendJSON(res, next, moviments, ["projectes"])
+    )
     .catch(next);
 };
 
-export const moviments_post = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const moviments_post: ControllerRequestHandler<null, Moviment> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
-  const { moviment } = req.body;
+  const moviment = req.body;
 
   pool
-    .query(queryFile("moviments/insert__moviments"), [
+    .query<OkPacket>(queryFile("moviments/insert__moviments"), [
       [
         [
           moviment.id_obra,
@@ -32,9 +37,12 @@ export const moviments_post = (
             toSqlString: () =>
               `(SELECT IFNULL(MAX(ordre) + 1, 1)
                 FROM (SELECT * FROM moviments) m
-                WHERE id_obra = ${pool.escape(moviment.id_obra)})`,
+                WHERE id_obra = ${
+                  // @ts-ignore
+                  pool.escape(moviment.id_obra)
+                })`,
           },
-          moviment.titol,
+          moviment.titol_moviment,
           moviment.durada,
         ],
       ],
@@ -43,30 +51,33 @@ export const moviments_post = (
     .catch(next);
 };
 
-export const moviments_detall = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const moviments_detall: ControllerRequestHandler<Moviment> = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("moviments/select__moviment"), [id])
-    .then(([moviment]) => res.json(moviment))
+    .query<(Moviment & RowDataPacket)[]>(
+      queryFile("moviments/select__moviment"),
+      [id]
+    )
+    .then(([[moviment]]) => res.json(moviment))
     .catch(next);
 };
 
-export const moviments_detall_delete = (
-  req: Request,
-  res: Response,
-  next: NextFunction
+export const moviments_detall_delete: ControllerRequestHandler = (
+  req,
+  res,
+  next
 ) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 
   pool
-    .query(queryFile("moviments/delete__moviment"), [id])
+    .query<OkPacket>(queryFile("moviments/delete__moviment"), [id])
     .then(() => res.status(204).send())
     .catch(next);
 };

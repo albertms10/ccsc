@@ -6,8 +6,10 @@ const router = express.Router();
 
 router.route("/").get([verifyAccessToken], controller.entitats_get);
 
-router.route("/avisos/:name").get(controller.entitats_avisos_detall);
+router.route("/:id").get([verifyAccessToken], controller.entitats_detall);
 
-router.route("/cursos").get([verifyAccessToken], controller.entitats_cursos);
+router.route("/avisos/:name").get(controller.entitats_detall_avisos_detall);
+
+router.route("/cursos").get([verifyAccessToken], controller.entitats_detall_cursos);
 
 export default router;

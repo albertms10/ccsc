@@ -1,25 +1,19 @@
 /// <reference path="../../common/model.d.ts" />
 
 declare module "raw-model" {
+  import { RequestHandler } from "express";
+  import { ParamsDictionary } from "express-serve-static-core";
   import { BaseAvis, BaseMoviment, BaseProjecte, Esdeveniment } from "model";
+  import { ParsedQs } from "qs";
 
-  export type ID = { id: string };
-  export type IDAssaig = { id_assaig: string };
-  export type IDMoviment = { id_moviment: string };
-  export type IDFormacio = { id_formacio: string };
-  export type IDProjecte = { id_projecte: string };
-  export type IDVeu = { id_veu: string };
+  export type ControllerRequestHandler<
+    ResBody = null,
+    ReqBody = null,
+    ReqQuery = ParsedQs
+  > = RequestHandler<ParamsDictionary, ResBody, ReqBody, ReqQuery>;
 
   export type Count = { count: number };
   export type Name = { name: string };
-  export type Inicials = { inicials: string };
-  export type Username = { username: string };
-
-  export type IDAssaigMoviment = IDAssaig & IDMoviment;
-  export type IDAssaigFormacio = IDAssaig & IDFormacio;
-  export type IDAssaigProjecte = IDAssaig & IDProjecte;
-  export type IDAssaigVeu = IDAssaig & IDVeu;
-  export type IDProjecteMoviment = IDProjecte & IDMoviment;
 
   export interface UsernamePasswordPost {
     username: string;
