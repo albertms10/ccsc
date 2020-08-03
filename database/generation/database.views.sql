@@ -18,7 +18,7 @@ SELECT id_usuari,
            WHERE id_usuari = uc.id_usuari
        )     AS roles,
        (
-           SELECT IFNULL(JSON_ARRAYAGG(unique_name), '[]')
+           SELECT CAST(IFNULL(JSON_ARRAYAGG(unique_name), '[]') AS JSON)
            FROM avisos
                     INNER JOIN tipus_avisos USING (id_tipus_avis)
                     INNER JOIN acceptacions_avis av USING (id_avis)
@@ -129,26 +129,26 @@ SELECT DISTINCT ee.*,
                         IF(es_extra, ' extra', '')
                     ) AS titol,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(
-                                          JSON_OBJECT(
-                                                  'id_formacio', id_formacio,
-                                                  'nom', nom,
-                                                  'nom_curt', IFNULL(nom_curt, nom)
-                                              )
-                                      ), '[]')
+                    SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                               JSON_OBJECT(
+                                                       'id_formacio', id_formacio,
+                                                       'nom', nom,
+                                                       'nom_curt', IFNULL(nom_curt, nom)
+                                                   )
+                                           ), '[]') AS JSON)
                     FROM formacions
                              INNER JOIN assajos_formacions USING (id_formacio)
                     WHERE id_assaig = a.id_assaig
                 )     AS formacions,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(
-                                          JSON_OBJECT(
-                                                  'id_projecte', id_projecte,
-                                                  'titol', titol,
-                                                  'inicials', inicials,
-                                                  'color', color
-                                              )
-                                      ), '[]')
+                    SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                               JSON_OBJECT(
+                                                       'id_projecte', id_projecte,
+                                                       'titol', titol,
+                                                       'inicials', inicials,
+                                                       'color', color
+                                                   )
+                                           ), '[]') AS JSON)
                     FROM projectes
                              INNER JOIN assajos_projectes USING (id_projecte)
                     WHERE id_assaig = a.id_assaig
@@ -161,16 +161,16 @@ FROM assajos a
 CREATE OR REPLACE VIEW assajos_estat_moviments AS
 SELECT *,
        (
-           SELECT IFNULL(JSON_ARRAYAGG(
-                                 JSON_OBJECT(
-                                         'id_moviment', id_moviment,
-                                         'id_obra', id_obra,
-                                         'titol_moviment', titol_moviment,
-                                         'titol_obra', titol_obra,
-                                         'ordre', ordre,
-                                         'es_unic_moviment', es_unic_moviment
-                                     )
-                             ), '[]')
+           SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                      JSON_OBJECT(
+                                              'id_moviment', id_moviment,
+                                              'id_obra', id_obra,
+                                              'titol_moviment', titol_moviment,
+                                              'titol_obra', titol_obra,
+                                              'ordre', ordre,
+                                              'es_unic_moviment', es_unic_moviment
+                                          )
+                                  ), '[]') AS JSON)
            FROM moviments_full m
                     INNER JOIN moviments_esdeveniment_musical USING (id_moviment)
            WHERE id_esdeveniment_musical = ae.id_assaig
@@ -190,24 +190,24 @@ SELECT DISTINCT p.id_projecte,
                 YEAR(c.inici) AS any_inici_curs,
                 YEAR(c.final) AS any_final_curs,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(
-                                          JSON_OBJECT(
-                                                  'id_director', id_director,
-                                                  'nom', nom_complet
-                                              )
-                                      ), '[]')
+                    SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                               JSON_OBJECT(
+                                                       'id_director', id_director,
+                                                       'nom', nom_complet
+                                                   )
+                                           ), '[]') AS JSON)
                     FROM directors_projectes dp
                              INNER JOIN persones p ON (dp.id_director = p.id_persona)
                     WHERE id_projecte = p.id_projecte
                 )             AS directors,
                 (
-                    SELECT IFNULL(JSON_ARRAYAGG(
-                                          JSON_OBJECT(
-                                                  'id_formacio', formacions.id_formacio,
-                                                  'nom', nom,
-                                                  'nom_curt', IFNULL(nom_curt, nom)
-                                              )
-                                      ), '[]')
+                    SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                               JSON_OBJECT(
+                                                       'id_formacio', formacions.id_formacio,
+                                                       'nom', nom,
+                                                       'nom_curt', IFNULL(nom_curt, nom)
+                                                   )
+                                           ), '[]') AS JSON)
                     FROM projectes_formacions
                              INNER JOIN formacions USING (id_formacio)
                     WHERE id_projecte = p.id_projecte
@@ -324,14 +324,14 @@ SELECT o.id_obra,
        o.titol                  AS titol_obra,
        any_inici,
        (
-           SELECT IFNULL(JSON_ARRAYAGG(
-                                 JSON_OBJECT(
-                                         'id_projecte', id_projecte,
-                                         'titol', titol,
-                                         'inicials', inicials,
-                                         'color', color
-                                     )
-                             ), '[]')
+           SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                      JSON_OBJECT(
+                                              'id_projecte', id_projecte,
+                                              'titol', titol,
+                                              'inicials', inicials,
+                                              'color', color
+                                          )
+                                  ), '[]') AS JSON)
            FROM projectes
                     INNER JOIN moviments_projectes USING (id_projecte)
            WHERE id_moviment = m.id_moviment
