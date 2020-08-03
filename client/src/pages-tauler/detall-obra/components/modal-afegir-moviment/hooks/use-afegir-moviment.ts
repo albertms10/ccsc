@@ -15,7 +15,7 @@ export default (idObra: number) => {
     setLoading(true);
     return fetchAPI(`/moviments`, () => setLoading(false), dispatch, {
       method: "POST",
-      body: JSON.stringify({ moviment }),
+      body: JSON.stringify(moviment),
     });
   };
 

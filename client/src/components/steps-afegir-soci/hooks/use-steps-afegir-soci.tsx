@@ -296,7 +296,7 @@ export default (
             if (typeof callback === "function") callback();
           },
           dispatch,
-          { method: "POST", body: JSON.stringify({ soci }) }
+          { method: "POST", body: JSON.stringify(soci) }
         ).finally(() => setConfirmLoading(false));
       })
       .catch(handleValidateError);

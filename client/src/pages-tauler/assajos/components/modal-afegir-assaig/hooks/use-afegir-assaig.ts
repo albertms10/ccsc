@@ -14,7 +14,7 @@ export default () => {
   const postAssaig = (assaig: Assaig) =>
     fetchAPI("/assajos", () => dispatch(fetchAssajos()), dispatch, {
       method: "POST",
-      body: JSON.stringify({ assaig }),
+      body: JSON.stringify(assaig),
     });
 
   const handleOk = (idProjecte?: number) =>

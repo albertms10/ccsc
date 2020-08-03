@@ -17,7 +17,10 @@ interface EmailToken {
   email?: string;
 }
 
-type AuthRequestHandler = ControllerRequestHandler<ResponseError | any>;
+type AuthRequestHandler = ControllerRequestHandler<
+  ResponseError | any,
+  { email: string } | null
+>;
 
 /*
  * VERIFY FUNCTIONS
@@ -67,7 +70,7 @@ export const verifyAccessTokenHidden: AuthRequestHandler = (req, res, next) => {
 
 export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
   const { authorization: accessToken } = req.headers;
-  const email = req.body;
+  const { email } = req.body!;
 
   if (!accessToken)
     return res.status(401).send({

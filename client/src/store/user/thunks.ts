@@ -26,7 +26,7 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
       }
     },
     dispatch,
-    { method: "POST", body: JSON.stringify({ user }) }
+    { method: "POST", body: JSON.stringify(user) }
   );
 };
 

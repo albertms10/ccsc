@@ -1,4 +1,4 @@
-import { BaseProjecte } from "model";
+import { BaseProjecteTreballat } from "model";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../../../helpers";
@@ -8,7 +8,7 @@ export default (idAssaig: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const changeProjecteAssaig = (projecte: BaseProjecte) => {
+  const changeProjecteAssaig = (projecte: BaseProjecteTreballat) => {
     setLoading(true);
     return projecte.treballat
       ? fetchAPI(
