@@ -1,7 +1,7 @@
 /// <reference path="./common.d.ts" />
 
 declare module "model" {
-  import { Role } from "common";
+  import { BooleanMap, Role } from "common";
 
   export interface Entitat {
     id_entitat: number;
@@ -115,7 +115,7 @@ declare module "model" {
     es_actiu?: boolean;
     experiencia_musical: string;
     estudis_musicals: string;
-    acceptacions: string[];
+    acceptacions: BooleanMap | string[];
     data_alta: string;
   }
 
