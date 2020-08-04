@@ -48,7 +48,7 @@ export const signIn: ControllerRequestHandler<
 
       delete user.hash;
 
-      const accessToken = signJWT({ payload: { id: user.id_usuari } });
+      const accessToken = signJWT({ id: user.id_usuari }, { expiresIn: 10800 });
 
       trySendUser(res, next, user, accessToken);
     })
@@ -72,12 +72,7 @@ export const emailEspera: ControllerRequestHandler<EmailResponse, string> = (
       res.json({
         exists: email_exists,
         ...(email_exists
-          ? {
-              accessToken: signJWT({
-                payload: { email },
-                expiresIn: 1200, // 20 min
-              }),
-            }
+          ? { accessToken: signJWT({ email }, { expiresIn: 1200 }) }
           : {
               message:
                 "L’adreça no és a la llista d’espera o ja està registrada.",
