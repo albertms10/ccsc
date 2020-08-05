@@ -26,6 +26,15 @@ import { MainMenuItem } from "../menu-item";
 import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";
 
+const getRouteProps = (title: string) => {
+  const path = `/${linkText(title)}`;
+  return {
+    key: path,
+    path,
+    title,
+  };
+};
+
 const MainMenu: React.FC = () => {
   const { t } = useTranslation("dashboard");
 
@@ -33,10 +42,10 @@ const MainMenu: React.FC = () => {
     () =>
       [
         "",
-        t("partners"),
         t("projects"),
         t("rehearsals"),
         t("works"),
+        t("partners"),
         t("meetings"),
         t("payments"),
       ].map((path) => `/${linkText(path)}`),
@@ -84,10 +93,15 @@ const MainMenu: React.FC = () => {
         if (broken) setCollapsed(true);
       }}
     >
-      <MainMenuItem title="Inici" icon={<HomeOutlined />} key="/" path="/" />
+      <MainMenuItem
+        title={t("home")}
+        icon={<HomeOutlined />}
+        key="/"
+        path="/"
+      />
       <MainMenuItemGroup
         key="grup_formacions"
-        title="Formacions"
+        title={t("formations")}
         loading={loadingFormacions}
       >
         {formacions &&
@@ -103,50 +117,35 @@ const MainMenu: React.FC = () => {
             );
           })}
       </MainMenuItemGroup>
-      <MainMenuItemGroup key="grup_gestio_musical" title="Gestió musical">
+      <MainMenuItemGroup
+        key="grup_gestio_musical"
+        title={t("musical management")}
+      >
         <MainMenuItem
-          title="Projectes"
+          {...getRouteProps(t("projects"))}
           icon={<ProjectOutlined />}
-          key="/projectes"
-          path="/projectes"
         />
         <MainMenuItem
-          title="Assajos"
+          {...getRouteProps(t("rehearsals"))}
           icon={<BookOutlined />}
-          key="/assajos"
-          path="/assajos"
         />
-        <MainMenuItem
-          title="Obres"
-          icon={<ReadOutlined />}
-          key="/obres"
-          path="/obres"
-        />
+        <MainMenuItem {...getRouteProps(t("works"))} icon={<ReadOutlined />} />
       </MainMenuItemGroup>
-      <MainMenuItemGroup key="grup_entitat" title="Entitat">
+      <MainMenuItemGroup key="grup_entitat" title={t("entity")}>
         <Authorized
-          key="/socis"
           authority="junta_directiva"
+          {...getRouteProps(t("partners"))}
           render={(props) => (
-            <MainMenuItem
-              {...props}
-              title="Socis"
-              icon={<TeamOutlined />}
-              path="/socis"
-            />
+            <MainMenuItem {...props} icon={<TeamOutlined />} />
           )}
         />
         <MainMenuItem
-          title="Reunions"
+          {...getRouteProps(t("meetings"))}
           icon={<SolutionOutlined />}
-          key="/reunions"
-          path="/reunions"
         />
         <MainMenuItem
-          title="Pagaments"
+          {...getRouteProps(t("payments"))}
           icon={<ScheduleOutlined />}
-          key="/pagaments"
-          path="/pagaments"
         />
       </MainMenuItemGroup>
     </Menu>

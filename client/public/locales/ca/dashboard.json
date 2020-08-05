@@ -1,9 +1,13 @@
 {
   "home": "Inici",
-  "partners": "Socis",
+  "formations": "Formacions",
+  "musical management": "Gestió musical",
   "projects": "Projectes",
   "rehearsals": "Assajos",
   "works": "Obres",
+  "movements": "Moviments",
+  "entity": "Entitat",
+  "partners": "Socis",
   "meetings": "Reunions",
   "payments": "Pagaments"
 }
