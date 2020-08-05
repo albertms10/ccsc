@@ -14,6 +14,7 @@ interface AuthorizedProps {
   component?: React.ReactNode;
   elseElement?: React.ReactNode;
   authority?: Role;
+  [key: string]: unknown;
 }
 
 const Authorized: React.FC<AuthorizedProps> = ({
