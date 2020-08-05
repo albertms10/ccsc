@@ -46,7 +46,7 @@ const ResumFormacio: React.FC = () => {
 
               return {
                 title: titol,
-                color: "#" + color,
+                color: `#${color}`,
                 description:
                   directors.length > 0
                     ? `Amb ${literalList(directors.map(({ nom }) => nom))}`

@@ -19,7 +19,7 @@ const FixedTagsProjectes: React.FC<FixedTagsProjectesProps> = ({
         key={projecte.id_projecte}
         childKey={projecte.id_projecte}
         tooltip={projecte.titol}
-        color={"#" + projecte.color}
+        color={`#${projecte.color}`}
       >
         <ConditionalWrapper
           condition={!noLink}

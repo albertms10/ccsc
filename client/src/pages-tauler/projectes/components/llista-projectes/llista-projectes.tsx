@@ -90,7 +90,7 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
           <Link to={`/projectes/${projecte.id_projecte}`}>
             <Item.Meta
               avatar={
-                <ColorCard hoverable={false} color={"#" + projecte.color} />
+                <ColorCard hoverable={false} color={`#${projecte.color}`} />
               }
               title={projecte.titol}
               description={

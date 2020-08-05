@@ -49,7 +49,7 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
             title={
               <Spin spinning={loading}>
                 <Space size="middle">
-                  <ColorCard hoverable={false} color={"#" + projecte.color} />
+                  <ColorCard hoverable={false} color={`#${projecte.color}`} />
                   {projecte.titol}
                 </Space>
               </Spin>

@@ -30,7 +30,7 @@ const ContentListConcerts: React.FC<ContentListConcertsProps> = ({
         extra: concert.titol_projecte ? (
           <FixedTag
             tooltip={`Projecte «${concert.titol_projecte}»`}
-            color={"#" + concert.color_projecte}
+            color={`#${concert.color_projecte}`}
           >
             <Link to={`/projectes/${concert.id_projecte}`}>
               {concert.inicials_projecte}

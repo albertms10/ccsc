@@ -93,7 +93,7 @@ const SiteLayout: React.FC = () => {
                   <Route
                     key={formacio.id_formacio}
                     exact
-                    path={"/" + linkText(formacio.nom_curt)}
+                    path={`/${linkText(formacio.nom_curt)}`}
                     render={(props) => (
                       <DetallFormacio {...props} formacio={formacio} />
                     )}

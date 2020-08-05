@@ -45,7 +45,7 @@ const CalendarEventPopover: React.FC<CalendarEventPopoverProps> = ({
                   <Avatar
                     size="small"
                     shape="square"
-                    style={{ backgroundColor: "#" + projecte.color }}
+                    style={{ backgroundColor: `#${projecte.color}` }}
                   >
                     {projecte.inicials}
                   </Avatar>

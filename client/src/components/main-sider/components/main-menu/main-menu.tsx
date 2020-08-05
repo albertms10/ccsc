@@ -59,7 +59,7 @@ const MainMenu: React.FC = () => {
         prevPaths.splice(
           1,
           0,
-          ...formacions.map(({ nom_curt }) => "/" + linkText(nom_curt))
+          ...formacions.map(({ nom_curt }) => `/${linkText(nom_curt)}`)
         );
         return prevPaths;
       });
@@ -92,7 +92,7 @@ const MainMenu: React.FC = () => {
       >
         {formacions &&
           formacions.map(({ nom_curt }) => {
-            const path = "/" + linkText(nom_curt);
+            const path = `/${linkText(nom_curt)}`;
             return (
               <MainMenuItem
                 title={nom_curt}
