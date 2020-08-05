@@ -26,7 +26,7 @@ const RouteTauler: React.FC<RouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: linkText(t("sign in")),
+              pathname: `/${linkText(t("sign in"))}`,
               state: { prevLocation },
             }}
           />
