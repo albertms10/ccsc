@@ -39,6 +39,10 @@ const modalWarn = (error: FetchError, dispatch: AppThunkDispatch) => {
   });
 };
 
+const catchError = (e: Error) => {
+  message.error(e.toString());
+};
+
 /**
  * Fetches the API using the appropriate JWT Access Token.
  */
@@ -60,19 +64,20 @@ export default <T,>(
   })
     .then((res) => {
       const contentType = res.headers.get("content-type");
+
       if (contentType && contentType.indexOf("application/json") !== -1)
-        res.json().then((data: ResponseError | T) => {
-          if (
-            (data as ResponseError).error &&
-            !(data as ResponseError).error.hideMessage
-          )
-            modalWarn((data as ResponseError).error, dispatch);
-          else callback(data);
-        });
+        res
+          .json()
+          .then((data: ResponseError | T) => {
+            const error = (data as ResponseError).error;
+
+            if (error && !error.hideMessage) modalWarn(error, dispatch);
+            else callback(data);
+          })
+          .catch(catchError);
       else if (res.ok) callback({} as T);
       else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
+
       return res;
     })
-    .catch((e) => {
-      message.error(e.toString());
-    });
+    .catch(catchError);
