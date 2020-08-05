@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../../store/types";
-import { kebabCase, stripAccents } from "../../../../utils";
+import { linkText } from "../../../../utils";
 
 interface MenuItem {
   key: string;
@@ -30,7 +30,7 @@ const HomeMenu: React.FC = () => {
       ].map((item) => ({
         key: item.toLowerCase(),
         title: item,
-        path: `/${stripAccents(kebabCase(item))}`,
+        path: `/${linkText(item)}`,
       })),
     [t]
   );
@@ -45,7 +45,7 @@ const HomeMenu: React.FC = () => {
       {menuItems.map((item) => (
         <Menu.Item key={item.key}>
           <Link to={item.path}>
-            {item.key === stripAccents(kebabCase(t("sign-in:sign in"))) &&
+            {item.key === linkText(t("sign-in:sign in")) &&
             Object.keys(user).length > 0
               ? t("sign-in:go to dashboard")
               : item.title}

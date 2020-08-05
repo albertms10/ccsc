@@ -5,17 +5,17 @@ import React, { createContext, useContext, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
+import { DetallFormacio } from "../../../../pages-tauler/detall-formacio";
 import { DetallMoviment } from "../../../../pages-tauler/detall-moviment";
 import { DetallObres } from "../../../../pages-tauler/detall-obra";
 import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
-import { DetallFormacio } from "../../../../pages-tauler/detall-formacio";
 import { IniciPage } from "../../../../pages-tauler/inici-page";
 import { Obres } from "../../../../pages-tauler/obres";
 import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
 import { Projectes } from "../../../../pages-tauler/projectes";
 import { Socis } from "../../../../pages-tauler/socis";
 import { ErrorBoundary } from "../../../../standalone/error-boundary";
-import { kebabCase } from "../../../../utils";
+import { linkText } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {
   FormacionsListContext,
@@ -93,7 +93,7 @@ const SiteLayout: React.FC = () => {
                   <Route
                     key={formacio.id_formacio}
                     exact
-                    path={"/" + kebabCase(formacio.nom_curt)}
+                    path={"/" + linkText(formacio.nom_curt)}
                     render={(props) => (
                       <DetallFormacio {...props} formacio={formacio} />
                     )}

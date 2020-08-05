@@ -11,7 +11,7 @@ import { Menu } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IconFormacio } from "../../../../assets/icons";
-import { basenameFromPath, kebabCase } from "../../../../utils";
+import { basenameFromPath, linkText } from "../../../../utils";
 import { Authorized } from "../../../authorized";
 import {
   FormacionsListContext,
@@ -52,7 +52,7 @@ const MainMenu: React.FC = () => {
         prevPaths.splice(
           1,
           0,
-          ...formacions.map(({ nom_curt }) => "/" + kebabCase(nom_curt))
+          ...formacions.map(({ nom_curt }) => "/" + linkText(nom_curt))
         );
         return prevPaths;
       });
@@ -85,7 +85,7 @@ const MainMenu: React.FC = () => {
       >
         {formacions &&
           formacions.map(({ nom_curt }) => {
-            const path = "/" + kebabCase(nom_curt);
+            const path = "/" + linkText(nom_curt);
             return (
               <MainMenuItem
                 title={nom_curt}
