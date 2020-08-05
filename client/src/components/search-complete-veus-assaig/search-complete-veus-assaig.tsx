@@ -1,5 +1,6 @@
 import { Veu } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
 import { SearchComplete } from "../../standalone/search-complete";
 import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
@@ -13,6 +14,8 @@ const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
   idAssaig,
   onSelect,
 }) => {
+  const { t } = useTranslation("actions");
+
   const [veus, loadingVeus, getVeus] = useAPI<Veu[]>(
     `/assajos/${idAssaig}/veus`,
     []
@@ -29,7 +32,7 @@ const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
           texts: [veu.nom, veu.abreviatura],
         })
       }
-      placeholder="Afegeix veus convocades"
+      placeholder={t("add announced voices")}
       loading={loadingVeus}
       optionRenderObject={(veu) => ({
         key: veu.id_veu,

@@ -1,6 +1,7 @@
 import { List, Typography } from "antd";
 import { Moviment } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import { mapFirstOfProperty, timeDuration } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
@@ -23,14 +24,16 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
   thenAction,
   ...rest
 }) => {
+  const { t } = useTranslation("actions");
+
   const [moviments, loading] = useMoviments();
 
   return (
     <ModalList<Moviment>
-      title="Selecciona un moviment"
+      title={t("select movement")}
       dataSource={dataFilter ? moviments.filter(dataFilter) : moviments}
       mapData={(data) => mapFirstOfProperty(data, "id_obra", "primer")}
-      searchPlaceholder="Cerca moviments"
+      searchPlaceholder={t("search movement")}
       loading={loading}
       searchFilters={searchFilterMoviment}
       renderItem={(moviment, index, setVisible) => (

@@ -1,5 +1,11 @@
 {
   "loading": "Carregant…",
   "more details": "Més detalls",
-  "delete": "Eliminar"
+  "delete": "Eliminar",
+  "add": "Afegir",
+  "close": "Tancar",
+  "search": "Cercar",
+  "no item found": "No s’ha trobat cap ítem",
+  "prev": "Anterior",
+  "next": "Següent"
 }

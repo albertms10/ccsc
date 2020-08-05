@@ -2,6 +2,7 @@ import { List } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { searchFilterAssaig } from "../../helpers/search-filters";
 import { useAssajos } from "../../pages-tauler/assajos/components/llista-assajos/hooks";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
@@ -25,13 +26,15 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
   thenAction,
   ...rest
 }) => {
+  const { t } = useTranslation("actions");
+
   const [assajos, loading] = useAssajos();
 
   return (
     <ModalList<Assaig>
-      title="Selecciona un assaig"
+      title={t("select rehearsal")}
       dataSource={dataFilter ? assajos.filter(dataFilter) : assajos}
-      searchPlaceholder="Cerca assajos"
+      searchPlaceholder={t("search rehearsal")}
       loading={loading}
       searchFilters={searchFilterAssaig}
       renderItem={(assaig, index, setVisible) => (

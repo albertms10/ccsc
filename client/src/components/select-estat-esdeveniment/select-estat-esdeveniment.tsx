@@ -5,6 +5,7 @@ import {
   PersonaConvocada,
 } from "model";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
 import { StatusIcon } from "../../standalone/status-icon";
 import { usePutAssistentEsdeveniment } from "./hooks";
@@ -18,6 +19,8 @@ const SelectEstatEsdeveniment: React.FC<SelectEstatEsdevenimentProps> = ({
   idEsdeveniment,
   persona,
 }) => {
+  const { t } = useTranslation("events");
+
   const [estatConfirmacio, setEstatConfirmacio] = useState(
     persona.id_estat_confirmacio
   );
@@ -66,7 +69,7 @@ const SelectEstatEsdeveniment: React.FC<SelectEstatEsdevenimentProps> = ({
             handleChange({ amb_retard: target.checked })
           }
         >
-          Amb retard
+          {t("is late")}
         </Checkbox>
       )}
       <Select

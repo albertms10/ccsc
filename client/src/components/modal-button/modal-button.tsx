@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import React, { cloneElement, forwardRef, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useStatePair } from "react-types";
 import { ActionButton } from "../../standalone/action-button";
 
@@ -27,8 +28,8 @@ const ModalButton = forwardRef<{}, ModalButtonProps>(
     {
       title,
       button = <ActionButton mainAction={title as string} />,
-      okText = "Afegeix",
-      cancelText = "Tanca",
+      okText,
+      cancelText,
       confirmLoading = false,
       onOk,
       width,
@@ -39,6 +40,8 @@ const ModalButton = forwardRef<{}, ModalButtonProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation("common");
+
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -65,8 +68,8 @@ const ModalButton = forwardRef<{}, ModalButtonProps>(
           title={title}
           visible={visible}
           onCancel={() => setVisible(false)}
-          okText={okText}
-          cancelText={cancelText}
+          okText={okText || t("add")}
+          cancelText={cancelText || t("close")}
           confirmLoading={confirmLoading}
           onOk={() => onOk && onOk(setVisible)}
           footer={footer}

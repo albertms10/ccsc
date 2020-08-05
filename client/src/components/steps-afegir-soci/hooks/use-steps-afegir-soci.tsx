@@ -13,6 +13,7 @@ import { ValidateStatus } from "antd/lib/form/FormItem";
 import { Pais } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { DATE_FORMAT } from "../../../constants/constants";
 import { fetchAPI, useAPI } from "../../../helpers";
@@ -37,6 +38,8 @@ export default (
   selfCreation = false,
   fetchURL = "/socis"
 ) => {
+  const { t } = useTranslation(["fields", "validation"]);
+
   const dispatch = useDispatch();
 
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -56,7 +59,7 @@ export default (
     const letter = value ? value.charAt(value.length - 1) : "";
     if (letter.match(/^[a-z]+$/)) {
       setDniValidation("warning");
-      return Promise.reject("Introdueixi la lletra amb majúscules.");
+      return Promise.reject(t("enter letter uppercase"));
     }
 
     const number = parseInt(value.substr(0, value.length - 1));
@@ -69,35 +72,35 @@ export default (
       }
     } else {
       setDniValidation("");
-      return Promise.reject(`El número ha de ser de ${XIFRES} xifres.`);
+      return Promise.reject(t("number must be", { number: XIFRES }));
     }
 
     setDniValidation("error");
-    return Promise.reject("La lletra no es correspon amb el número del DNI.");
+    return Promise.reject(t("letter does not correspond"));
   }, []);
 
   const steps: FormStep[] = [
     {
       key: "proteccio",
-      title: "Protecció de dades",
+      title: t("data protection"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="proteccio_dades" isForm />,
     },
     {
       key: "dades",
-      title: "Dades del soci",
+      title: t("partner data"),
       selfCreationOnly: false,
       content: (
         <Space size="middle" direction="vertical">
-          <InfoCard title="Dades personals">
+          <InfoCard title={t("personal data")}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="nom"
-                  label="Nom"
+                  label={t("name")}
                   rules={[
-                    { required: true, message: "Introdueix el nom" },
-                    { whitespace: true, message: "Introdueix el nom" },
+                    { required: true, message: t("enter name") },
+                    { whitespace: true, message: t("enter name") },
                   ]}
                 >
                   <Input autoComplete="given-name" autoFocus />
@@ -106,10 +109,10 @@ export default (
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="cognoms"
-                  label="Cognoms"
+                  label={t("surname")}
                   rules={[
-                    { required: true, message: "Introdueix els cognoms" },
-                    { whitespace: true, message: "Introdueix els cognoms" },
+                    { required: true, message: t("enter surname") },
+                    { whitespace: true, message: t("enter surname") },
                   ]}
                 >
                   <Input autoComplete="family-name" />
@@ -118,11 +121,11 @@ export default (
               <Col xs={24} sm={8}>
                 <Form.Item
                   name="id_pais"
-                  label="País de nacionalitat"
+                  label={t("country of nationality")}
                   rules={[
                     {
                       required: true,
-                      message: "Selecciona el país de nacionalitat",
+                      message: t("select country of nationality"),
                     },
                   ]}
                 >
@@ -147,12 +150,12 @@ export default (
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="dni"
-                  label="DNI"
+                  label={t("person id")}
                   hasFeedback
                   validateStatus={selectedPais === "es" ? dniValidation : ""}
                   rules={[
-                    { required: true, message: "Introdueix el DNI" },
-                    { whitespace: true, message: "Introdueix el DNI" },
+                    { required: true, message: t("enter person id") },
+                    { whitespace: true, message: t("enter person id") },
                     selectedPais === "es" ? { validator: validatorDniES } : {},
                   ]}
                 >
@@ -162,13 +165,8 @@ export default (
               <Col xs={24} sm={6}>
                 <Form.Item
                   name="naixement"
-                  label="Naixement"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Introdueix la data de naixement",
-                    },
-                  ]}
+                  label={t("birth date")}
+                  rules={[{ required: true, message: t("enter birth date") }]}
                 >
                   <DatePicker
                     format="L"
@@ -180,25 +178,16 @@ export default (
               </Col>
             </Row>
           </InfoCard>
-          <InfoCard title="Dades de contacte">
+          <InfoCard title={t("contact data")}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="email"
-                  label="Adreça electrònica"
+                  label={t("email")}
                   rules={[
-                    {
-                      type: "email",
-                      message: "Introdueix una adreça electrònica vàlida",
-                    },
-                    {
-                      required: true,
-                      message: "Introdueix l’adreça electrònica",
-                    },
-                    {
-                      whitespace: true,
-                      message: "Introdueix l’adreça electrònica",
-                    },
+                    { type: "email", message: t("enter valid email") },
+                    { required: true, message: t("enter email") },
+                    { whitespace: true, message: t("no whitespace") },
                   ]}
                 >
                   <Input />
@@ -207,37 +196,32 @@ export default (
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="telefon"
-                  label="Telèfon"
-                  rules={[
-                    {
-                      whitespace: true,
-                      message: "Introdueix un número de telèfon sense espais",
-                    },
-                  ]}
+                  label={t("phone")}
+                  rules={[{ whitespace: true, message: t("no whitespace") }]}
                 >
                   <Input type="tel" autoComplete="tel" />
                 </Form.Item>
               </Col>
             </Row>
           </InfoCard>
-          <InfoCard title="Informació musical">
+          <InfoCard title={t("musical info")}>
             <Row gutter={[16, 16]}>
               <Col md={24} lg={12}>
                 <Form.Item
                   name="experiencia_musical"
-                  label="Experiència musical"
+                  label={t("musical experience")}
                 >
                   <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
                 </Form.Item>
               </Col>
               <Col md={24} lg={12}>
-                <Form.Item label="Estudis musicals" name="estudis_musicals">
+                <Form.Item name="estudis_musicals" label={t("musical studies")}>
                   <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
                 </Form.Item>
               </Col>
               {!selfCreation && (
                 <Col>
-                  <Form.Item name="data_alta" label="Data d’alta">
+                  <Form.Item name="data_alta" label={t("subscribed date")}>
                     <DatePicker
                       format="L"
                       allowClear={false}
@@ -253,13 +237,13 @@ export default (
     },
     {
       key: "imatge",
-      title: "Drets d’imatge",
+      title: t("image rights"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="drets_imatge" isForm />,
     },
     {
       key: "resum",
-      title: "Resum",
+      title: t("summary"),
       selfCreationOnly: false,
       content: (
         <ResumAfegirSoci
@@ -292,7 +276,7 @@ export default (
         fetchAPI(
           fetchURL,
           () => {
-            message.success("S’ha realitzat l’alta de soci correctament.");
+            message.success(t("entity:subscription successful"));
             if (typeof callback === "function") callback();
           },
           dispatch,
@@ -327,7 +311,7 @@ export default (
       <div style={{ flex: 1, textAlign: "start" }}>
         {currentPageIndex > 0 && (
           <Button key="previous" onClick={previous}>
-            Anterior
+            {t("prev")}
           </Button>
         )}
       </div>
@@ -335,8 +319,8 @@ export default (
         {currentPageIndex < stepsRef.length - 1 ? (
           <Button key="next" type="primary" onClick={next}>
             {stepsRef[currentPageIndex].key === "proteccio"
-              ? "Ho he llegit i dono el meu consentiment"
-              : "Següent"}
+              ? t("entity:agree with the terms")
+              : t("next")}
           </Button>
         ) : (
           <Button
@@ -345,7 +329,7 @@ export default (
             onClick={() => handleOk(onSuccessCallback)}
             loading={confirmLoading}
           >
-            Donar d’alta
+            {t("modals:subscription action")}
           </Button>
         )}
       </Space>

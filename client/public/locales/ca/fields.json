@@ -1,5 +1,20 @@
 {
+  "personal data": "Dades personals",
   "name": "Nom",
   "username": "Nom d’usuari",
-  "password": "Contrasenya"
+  "password": "Contrasenya",
+  "person id": "DNI",
+  "birth date": "Naixement",
+  "musical info": "Informació musical",
+  "musical experience": "Experiència musical",
+  "musical studies": "Estudis musicals",
+  "subscribed date": "Data d’alta",
+  "contact data": "Dades de contacte",
+  "email": "Adreça electrònica",
+  "phone": "Telèfon",
+  "data protection": "Protecció de dades",
+  "image rights": "Drets d’imatge",
+  "partner data": "Dades del soci",
+  "country of nationality": "País de nacionalitat",
+  "summary": "Resum"
 }

@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { searchFilter } from "../../utils";
 import { SearchFilters } from "../../utils/search-filter";
 import "./search-list.css";
@@ -38,6 +39,8 @@ const SearchList = <T,>({
   checkToFocus = true,
   renderItem,
 }: PropsWithChildren<SearchListProps<T>>) => {
+  const { t } = useTranslation("common");
+
   const [searchValue, setSearchValue] = useState("");
 
   const searchRef: React.RefObject<Input> = createRef();
@@ -73,7 +76,7 @@ const SearchList = <T,>({
         loading={loading}
         size="small"
         split={false}
-        locale={{ emptyText: "No s’ha trobat cap ítem" }}
+        locale={{ emptyText: t("no item found") }}
         // TODO: renderItem(item, index, [setVisible])
         // @ts-ignore
         renderItem={renderItem}

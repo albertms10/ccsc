@@ -4,8 +4,16 @@
   "enter password": "Introdueix la contrasenya",
   "enter name": "Introdueix el nom",
   "enter email": "Introdueix l’adreça electrònica",
+  "enter valid email": "Introdueix una adreça electrònica vàlida",
   "enter message": "Introdueix el missatge",
   "must check": "Has de marcar la casella",
   "acceptance checked": "S’ha activat l’acceptació",
-  "acceptance unchecked": "S’ha desactivat l’acceptació"
+  "acceptance unchecked": "S’ha desactivat l’acceptació",
+  "enter letter uppercase": "Introdueix la lletra amb majúscules",
+  "number must be": "El número ha de ser de {{number}} xifres",
+  "letter does not correspond": "La lletra no es correspon amb el número del DNI",
+  "select country of nationality": "Selecciona el país de nacionalitat",
+  "enter person id": "Introdueix el DNI",
+  "enter birth date": "Introdueix la data de naixement",
+  "no whitespace": "Els caràcters en blanc no són vàlids"
 }

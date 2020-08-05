@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "../../standalone/borderless-button";
 import { ModalButton } from "../modal-button";
 import { ModalButtonBaseProps } from "../modal-button/modal-button";
@@ -14,7 +15,7 @@ export interface ModalListProps<T>
 
 const ModalList = <T,>({
   title,
-  searchPlaceholder = "Cerca",
+  searchPlaceholder,
   dataSource,
   mapData,
   loading = false,
@@ -24,29 +25,30 @@ const ModalList = <T,>({
   button = <BorderlessButton shape="circle" icon={buttonIcon} />,
   renderItem,
   ...rest
-}: PropsWithChildren<ModalListProps<T>>) => (
-  <ModalButton
-    title={title}
-    button={button}
-    footer={null}
-    wrapClassName={wrapClassName}
-    renderModalBody={([visible, setVisible]) => (
-      <SearchList
-        searchPlaceholder={searchPlaceholder}
-        dataSource={dataSource}
-        mapData={mapData}
-        loading={loading}
-        searchFilters={searchFilters}
-        checkToFocus={visible}
-        renderItem={(item, index) => {
+}: PropsWithChildren<ModalListProps<T>>) => {
+  const { t } = useTranslation("common");
+
+  return (
+    <ModalButton
+      title={title}
+      button={button}
+      footer={null}
+      wrapClassName={wrapClassName}
+      renderModalBody={([visible, setVisible]) => (
+        <SearchList
+          searchPlaceholder={searchPlaceholder || t("search")}
+          dataSource={dataSource}
+          mapData={mapData}
+          loading={loading}
+          searchFilters={searchFilters}
+          checkToFocus={visible}
           // TODO: renderItem(item, index, [setVisible])
           // @ts-ignore
-          return renderItem(item, index, setVisible);
-        }}
-      />
-    )}
-    {...rest}
-  />
-);
-
+          renderItem={(item, index) => renderItem(item, index, setVisible)}
+        />
+      )}
+      {...rest}
+    />
+  );
+};
 export default ModalList;

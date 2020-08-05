@@ -59,7 +59,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
   return (
     <div className="llista-moviments">
       <Search
-        placeholder={t("search repertoire")}
+        placeholder={t("actions:search repertoire")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}

@@ -1,6 +1,7 @@
 import { Descriptions, Space, Spin } from "antd";
 import { FormInstance } from "antd/lib/form";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { InfoCard } from "../../../../standalone/info-card";
 
 interface ResumAfegirSoci {
@@ -14,18 +15,24 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
   username,
   loadingUsername = false,
 }) => {
+  const { t } = useTranslation("fields");
+
   const data = form.getFieldsValue();
 
   return (
     <Space direction="vertical">
-      <InfoCard title="Dades personals">
+      <InfoCard title={t("personal data")}>
         <Descriptions size="small">
-          <Descriptions.Item label="Nom">{`${data.nom} ${data.cognoms}`}</Descriptions.Item>
-          <Descriptions.Item label="Usuari">
+          <Descriptions.Item
+            label={t("name")}
+          >{`${data.nom} ${data.cognoms}`}</Descriptions.Item>
+          <Descriptions.Item label={t("username")}>
             {loadingUsername ? <Spin size="small" /> : username}
           </Descriptions.Item>
-          <Descriptions.Item label="DNI">{data.dni}</Descriptions.Item>
-          <Descriptions.Item label="Naixement" span={2}>
+          <Descriptions.Item label={t("person id")}>
+            {data.dni}
+          </Descriptions.Item>
+          <Descriptions.Item label={t("birth date")} span={2}>
             {data.naixement && data.naixement.format("LL")}
           </Descriptions.Item>
         </Descriptions>
@@ -33,33 +40,33 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
       {(data.experiencia_musical ||
         data.estudis_musicals ||
         data.data_alta) && (
-        <InfoCard title="Informació musical">
+        <InfoCard title={t("musical info")}>
           <Descriptions size="small">
             {data.experiencia_musical && (
-              <Descriptions.Item label="Experiència musical" span={3}>
+              <Descriptions.Item label={t("musical experience")} span={3}>
                 {data.experiencia_musical}
               </Descriptions.Item>
             )}
             {data.estudis_musicals && (
-              <Descriptions.Item label="Estudis musicals" span={3}>
+              <Descriptions.Item label={t("musical studies")} span={3}>
                 {data.estudis_musicals}
               </Descriptions.Item>
             )}
             {data.data_alta && (
-              <Descriptions.Item label="Data d’alta">
+              <Descriptions.Item label={t("subscribed date")}>
                 {data.data_alta.format("LL")}
               </Descriptions.Item>
             )}
           </Descriptions>
         </InfoCard>
       )}
-      <InfoCard title="Dades de contacte">
+      <InfoCard title={t("contact data")}>
         <Descriptions size="small">
-          <Descriptions.Item label="Adreça electrònica" span={2}>
+          <Descriptions.Item label={t("email")} span={2}>
             {data.email}
           </Descriptions.Item>
           {data.telefon && (
-            <Descriptions.Item label="Telèfon">
+            <Descriptions.Item label={t("phone")}>
               {data.telefon}
             </Descriptions.Item>
           )}
