@@ -1,7 +1,11 @@
 {
+  "required": "Requerida",
   "enter username": "Introdueix el nom d’usuari",
   "enter password": "Introdueix la contrasenya",
   "enter name": "Introdueix el nom",
   "enter email": "Introdueix l’adreça electrònica",
-  "enter message": "Introdueix el missatge"
+  "enter message": "Introdueix el missatge",
+  "must check": "Has de marcar la casella",
+  "acceptance checked": "S’ha activat l’acceptació",
+  "acceptance unchecked": "S’ha desactivat l’acceptació"
 }

@@ -3,6 +3,7 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { BooleanMap } from "common";
 import { AcceptacioAvis } from "model";
 import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SociContext } from "../../../../pages-tauler/perfil-soci/perfil-soci";
 import { usePutAvisAcceptacio } from "../../hooks";
 import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
@@ -16,6 +17,8 @@ const CheckboxAcceptacioIndependent: React.FC<CheckboxAcceptacioIndependentProps
   acceptacio,
   acceptacionsSoci,
 }) => {
+  const { t } = useTranslation("validation");
+
   const soci = useContext(SociContext);
 
   const [checked, setChecked] = useState(false);
@@ -41,11 +44,15 @@ const CheckboxAcceptacioIndependent: React.FC<CheckboxAcceptacioIndependentProps
             { [acceptacio.form_name]: e.target.checked },
             (acceptacio: BooleanMap) => {
               const acceptacioKey = Object.keys(acceptacio)[0];
+
               setChecked(acceptacio[acceptacioKey]);
+
               message.success(
-                `S’ha ${
-                  acceptacio[acceptacioKey] ? "" : "des"
-                }activat l’acceptació.`
+                t(
+                  acceptacio[acceptacioKey]
+                    ? "acceptance checked"
+                    : "acceptance unchecked"
+                )
               );
             }
           );
