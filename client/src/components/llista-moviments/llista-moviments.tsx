@@ -1,13 +1,14 @@
 import { Input, List } from "antd";
 import { Moviment } from "model";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDeleteAPI } from "../../helpers";
 import { searchFilterMoviment } from "../../helpers/search-filters";
 import { DropdownBorderlessButton } from "../../standalone/dropdown-borderless-button";
 import { fetchMoviments } from "../../store/moviments/thunks";
-import { searchFilter } from "../../utils";
+import { linkText, searchFilter } from "../../utils";
 import { Authorized } from "../authorized";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { useMoviments } from "./hooks";
@@ -20,6 +21,8 @@ interface LlistaMovimentsProps {
 }
 
 const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
+  const { t } = useTranslation("modals");
+
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState("");
@@ -29,8 +32,10 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
   const [
     loadingDeleteMoviment,
     showDeleteConfirm,
-  ] = useDeleteAPI(`/projectes/${idProjecte}/moviments`, "el moviment", () =>
-    dispatch(fetchMoviments())
+  ] = useDeleteAPI(
+    `/projectes/${idProjecte}/moviments`,
+    t("the movement"),
+    () => dispatch(fetchMoviments())
   );
 
   const getDataSource = useCallback(() => {
@@ -54,7 +59,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
   return (
     <div className="llista-moviments">
       <Search
-        placeholder="Cerca repertori"
+        placeholder={t("search repertoire")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
@@ -75,8 +80,8 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
                 <DropdownBorderlessButton
                   items={[
                     {
-                      key: "eliminar",
-                      action: "Eliminar",
+                      key: linkText(t("common:delete")),
+                      action: t("common:delete"),
                       danger: true,
                       onClick: () => showDeleteConfirm(moviment.id_moviment),
                     },

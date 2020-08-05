@@ -3,6 +3,7 @@ import { Button, Calendar, Col, Row, Space, Spin } from "antd";
 import { Formacio, TipusEsdeveniment } from "model";
 import moment from "moment";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
 import { FormacioContext } from "../../pages-tauler/detall-formacio/detall-formacio";
 import { BorderlessButton } from "../../standalone/borderless-button";
@@ -14,6 +15,8 @@ import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";
 
 export default () => {
+  const { t } = useTranslation("events");
+
   const { id_formacio } = useContext(FormacioContext) as Formacio;
 
   const [esdeveniments, loading] = useAPI<TipusEsdeveniment[]>(
@@ -44,7 +47,7 @@ export default () => {
                   <Space>
                     <BorderlessButton
                       shape="circle"
-                      tooltip="Mes anterior"
+                      tooltip={t("prev month")}
                       tooltipPlacement="bottom"
                       icon={<LeftOutlined />}
                       onClick={() =>
@@ -53,7 +56,7 @@ export default () => {
                     />
                     <BorderlessButton
                       shape="circle"
-                      tooltip="Mes següent"
+                      tooltip={t("next month")}
                       tooltipPlacement="bottom"
                       icon={<RightOutlined />}
                       onClick={() =>
@@ -64,7 +67,7 @@ export default () => {
                 </Col>
                 <Col flex={2}>
                   <div style={{ fontSize: "2rem", fontWeight: 300 }}>
-                    {moment(value).format("MMMM [de] YYYY")}
+                    {moment(value).format(t("date pattern"))}
                   </div>
                 </Col>
                 <Col flex={1}>

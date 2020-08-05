@@ -28,7 +28,7 @@ const HomeMenu: React.FC = () => {
         t("contact title"),
         t("sign-in:sign in"),
       ].map((item) => ({
-        key: item.toLowerCase(),
+        key: linkText(item),
         title: item,
         path: `/${linkText(item)}`,
       })),

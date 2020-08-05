@@ -2,6 +2,7 @@ import { Button, List, Tooltip } from "antd";
 import { Activitat, Soci } from "model";
 import moment from "moment";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
 import { CollapseCard } from "../../standalone/collapse-card";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
@@ -16,6 +17,8 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
   soci,
   active = false,
 }) => {
+  const { t } = useTranslation("entity");
+
   const [activitatSoci, loadingActivitat, fetchActivitat] = useAPI<Activitat[]>(
     `/socis/${soci.id_soci}/activitat`,
     []
@@ -35,7 +38,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
         ) === moment().format("L");
 
       return (
-        <Tooltip title={disabled ? "Només es pot fer un cop al dia." : ""}>
+        <Tooltip title={disabled ? t("once per day") : ""}>
           <Button
             type="primary"
             size="small"
@@ -46,7 +49,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
               modalAltaSoci(fetchActivitat);
             }}
           >
-            Donar d’alta
+            {t("modals:subscription action")}
           </Button>
         </Tooltip>
       );
@@ -61,7 +64,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
             modalBaixaSoci(fetchActivitat);
           }}
         >
-          Donar de baixa
+          {t("modals:unsubscription action")}
         </Button>
       );
     }
@@ -72,10 +75,15 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
     loadingBaixa,
     modalAltaSoci,
     modalBaixaSoci,
+    t
   ]);
 
   return (
-    <CollapseCard title="Activitat" actionItem={actionItem()} active={active}>
+    <CollapseCard
+      title={t("activity")}
+      actionItem={actionItem()}
+      active={active}
+    >
       <List
         dataSource={activitatSoci}
         loading={loadingActivitat}

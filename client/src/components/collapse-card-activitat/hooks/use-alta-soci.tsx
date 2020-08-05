@@ -1,11 +1,15 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { fetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
+  const { t } = useTranslation("modals");
+
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const donarAltaSoci = () => {
@@ -22,10 +26,10 @@ export default (idSoci: number) => {
 
   const modalAltaSoci = (callback: () => void) => {
     Modal.confirm({
-      title: "Confirmes que vols donar d’alta el soci?",
+      title: t("confirm subscription"),
       icon: <ExclamationCircleOutlined />,
-      content: "Aquesta acció no es pot desfer.",
-      okText: "Donar d’alta",
+      content: t("action undone"),
+      okText: t("subscription action"),
       onOk: () => donarAltaSoci().finally(callback),
       onCancel: () => {},
     });

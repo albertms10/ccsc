@@ -8,7 +8,8 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { IconFormacio } from "../../../../assets/icons";
 import { basenameFromPath, linkText } from "../../../../utils";
@@ -25,17 +26,23 @@ import { MainMenuItem } from "../menu-item";
 import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";
 
-const initialPaths = [
-  "/",
-  "/socis",
-  "/projectes",
-  "/assajos",
-  "/obres",
-  "/reunions",
-  "/pagaments",
-];
-
 const MainMenu: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
+  const initialPaths = useMemo(
+    () =>
+      [
+        "",
+        t("partners"),
+        t("projects"),
+        t("rehearsals"),
+        t("works"),
+        t("meetings"),
+        t("payments"),
+      ].map((path) => `/${linkText(path)}`),
+    [t]
+  );
+
   const [selectedKey, setSelectedKey] = useState("");
   const [paths, setPaths] = useState(initialPaths);
 
