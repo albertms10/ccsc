@@ -8,13 +8,12 @@ import "./index.css";
 import * as serviceWorker from "./service-worker";
 import { CenteredSpin } from "./standalone/centered-spin";
 
-LogRocket.init(process.env.REACT_APP_LOGROCKET_APPID || "", {
-  dom: {
-    inputSanitizer: true,
-  },
-});
-
-console.log(process.env.LOG_ROCKET_APP_ID);
+if (process.env.NODE_ENV === "production")
+  LogRocket.init(process.env.REACT_APP_LOGROCKET_APPID || "", {
+    dom: {
+      inputSanitizer: true,
+    },
+  });
 
 ReactDOM.render(
   <Suspense fallback={<CenteredSpin />}>
