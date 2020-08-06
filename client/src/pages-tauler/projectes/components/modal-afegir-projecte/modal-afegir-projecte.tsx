@@ -1,4 +1,17 @@
-import * as colors from "@ant-design/colors";
+import {
+  blue,
+  cyan,
+  geekblue,
+  gold,
+  green,
+  grey,
+  lime,
+  magenta,
+  purple,
+  red,
+  volcano,
+  yellow,
+} from "@ant-design/colors";
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Curs } from "model";
@@ -95,19 +108,19 @@ const ModalAfegirProjecte: React.FC = () => {
               color={color.hex}
               onChangeComplete={setColor}
               colors={[
-                colors.red.primary as string,
-                colors.volcano.primary as string,
-                colors.gold.primary as string,
-                colors.yellow.primary as string,
-                colors.lime.primary as string,
-                colors.green.primary as string,
-                colors.cyan.primary as string,
-                colors.blue.primary as string,
-                colors.geekblue.primary as string,
-                colors.purple.primary as string,
-                colors.magenta.primary as string,
-                colors.grey.primary as string,
-              ]}
+                red,
+                volcano,
+                gold,
+                yellow,
+                lime,
+                green,
+                cyan,
+                blue,
+                geekblue,
+                purple,
+                magenta,
+                grey,
+              ].map((color) => color.primary as string)}
             />
           </Form.Item>
           <Row gutter={16}>

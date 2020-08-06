@@ -1,5 +1,13 @@
 import { StackedArea } from "@ant-design/charts";
-import * as colors from "@ant-design/colors";
+import {
+  blue,
+  cyan,
+  gold,
+  green,
+  magenta,
+  red,
+  yellow,
+} from "@ant-design/colors";
 import { Card } from "antd";
 import {
   AssistenciaAssaigEstat,
@@ -40,12 +48,7 @@ const ChartAssistencia: React.FC = () => {
         pendents: "Pendents",
         cancelats: "Cancel·lats",
       }),
-      color: [
-        colors.green.primary,
-        colors.yellow.primary,
-        colors.blue.primary,
-        colors.red.primary,
-      ],
+      color: [green, yellow, blue, red].map((color) => color.primary),
       loading: loadingAssistenciaAssajosEstat,
     }),
     [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat]
@@ -59,12 +62,7 @@ const ChartAssistencia: React.FC = () => {
         tenors: "Tenors",
         baixos: "Baixos",
       }),
-      color: [
-        colors.blue.primary,
-        colors.magenta.primary,
-        colors.cyan.primary,
-        colors.gold.primary,
-      ],
+      color: [blue, magenta, cyan, gold].map((color) => color.primary),
       loading: loadingAssistenciaAssajosVeus,
     }),
     [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus]
