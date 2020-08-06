@@ -1,5 +1,6 @@
 {
   "loading": "Carregant…",
+  "details": "Detalls",
   "more details": "Més detalls",
   "delete": "Eliminar",
   "add": "Afegir",
@@ -7,5 +8,7 @@
   "search": "Cercar",
   "no item found": "No s’ha trobat cap ítem",
   "prev": "Anterior",
-  "next": "Següent"
+  "next": "Següent",
+  "active": "Actiu",
+  "inactive": "Inactiu"
 }

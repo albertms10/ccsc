@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
+import { linkText } from "../../utils";
 import { EventLineItemData } from "../event-line-item-data";
 import { EventLineItemLocalitzacio } from "../event-line-item-localitzacio";
 import "./calendar-event-popover.css";
@@ -17,7 +18,7 @@ interface CalendarEventPopoverProps {
 const CalendarEventPopover: React.FC<CalendarEventPopoverProps> = ({
   esdeveniment,
 }) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("dashboard");
 
   return (
     <div className="calendar-event-popover">
@@ -57,8 +58,12 @@ const CalendarEventPopover: React.FC<CalendarEventPopoverProps> = ({
         )}
         {esdeveniment.tipus === "assaig" && (
           <EventLineItem icon={<InfoCircleOutlined />}>
-            <Link to={`/assajos/${esdeveniment.id_esdeveniment}`}>
-              {t("more details")}
+            <Link
+              to={`/${linkText(t("rehearsals"))}/${
+                esdeveniment.id_esdeveniment
+              }`}
+            >
+              {t("common:more details")}
             </Link>
           </EventLineItem>
         )}

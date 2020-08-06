@@ -5,5 +5,7 @@
   "once per day": "Només es pot fer un cop al dia",
   "activity": "Activitat",
   "subscription successful": "S’ha realitzat l’alta de soci correctament",
-  "agree with the terms": "Ho he llegit i dono el meu consentiment"
+  "agree with the terms": "Ho he llegit i dono el meu consentiment",
+  "activity days": "{{days}} d’activitat",
+  "inactivity days": "{{days}} d’inactivitat"
 }

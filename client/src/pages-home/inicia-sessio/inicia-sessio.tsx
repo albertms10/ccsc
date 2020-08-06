@@ -10,6 +10,7 @@ import { LogoCorDeCambra } from "../../assets/icons";
 import { Container } from "../../standalone/container";
 import { RootState } from "../../store/types";
 import { signinUserFetch } from "../../store/user/thunks";
+import { linkText } from "../../utils";
 import { useIniciUsuari } from "./hooks";
 import "./inicia-sessio.css";
 
@@ -72,7 +73,7 @@ const IniciaSessio: React.FC = () => {
         <Form
           className="signin-form"
           initialValues={{
-            username: locationState ? locationState.username : ""
+            username: locationState ? locationState.username : "",
           }}
           onFinish={onFinish}
         >
@@ -80,7 +81,7 @@ const IniciaSessio: React.FC = () => {
             <Form.Item
               name="username"
               rules={[
-                { required: true, message: t("validation:enter username") }
+                { required: true, message: t("validation:enter username") },
               ]}
             >
               <Input
@@ -92,7 +93,7 @@ const IniciaSessio: React.FC = () => {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: t("validation:enter password") }
+                { required: true, message: t("validation:enter password") },
               ]}
             >
               <Input
@@ -121,7 +122,7 @@ const IniciaSessio: React.FC = () => {
           <Divider />
           <Form.Item style={{ marginBottom: 0 }}>
             <Paragraph>{t("sign-in:sign up yet")}</Paragraph>
-            <Link to="/donar-alta">
+            <Link to={`/${linkText(t("sign-in:sign up short"))}`}>
               <Button className="signin-form-button">
                 {t("sign-in:sign up")}
               </Button>

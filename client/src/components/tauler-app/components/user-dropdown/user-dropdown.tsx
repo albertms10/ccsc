@@ -1,15 +1,19 @@
 import { Avatar, Dropdown, Menu } from "antd";
 import { Usuari } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../../store/types";
 import { logoutRemoveUser } from "../../../../store/user/thunks";
 import "./user-dropdown.css";
+import { linkText } from "../../../../utils";
 
 const { Item, Divider } = Menu;
 
 const UserDropdown: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const dispatch = useDispatch();
 
   const currentUser = useSelector(
@@ -23,7 +27,9 @@ const UserDropdown: React.FC = () => {
       overlay={
         <Menu>
           <Item>
-            <Link to={`/socis/${currentUser.id_persona}`}>Perfil</Link>
+            <Link to={`/${linkText(t("partners"))}/${currentUser.id_persona}`}>
+              Perfil
+            </Link>
           </Item>
           <Divider />
           <Item onClick={() => dispatch(logoutRemoveUser())}>

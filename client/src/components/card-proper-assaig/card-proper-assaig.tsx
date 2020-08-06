@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { EventLineItem } from "../../standalone/event-line-item";
 import { StatusIcon } from "../../standalone/status-icon";
-import { dateRange, joinElements, timeRange } from "../../utils";
+import { dateRange, joinElements, linkText, timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { IconsFormacions } from "../icons-formacions";
 
@@ -21,7 +21,7 @@ interface CardProperAssaigProps {
 }
 
 const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("dashboard");
 
   return (
     <Card
@@ -69,7 +69,9 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
             {assaig.moviments.map((moviment) => (
               <Tag key={moviment.id_moviment}>
                 <Link
-                  to={`/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`}
+                  to={`/${linkText(t("works"))}/${moviment.id_obra}/${linkText(
+                    t("movements")
+                  )}/${moviment.id_moviment}`}
                 >
                   {!moviment.es_unic_moviment && (
                     <b style={{ marginRight: 4 }}>{moviment.ordre}</b>
@@ -81,7 +83,9 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
           </EventLineItem>
         )}
         <EventLineItem icon={<InfoCircleOutlined />}>
-          <Link to={`/assajos/${assaig.id_assaig}`}>{t("more details")}</Link>
+          <Link to={`/${linkText(t("rehearsals"))}/${assaig.id_assaig}`}>
+            {t("common:more details")}
+          </Link>
         </EventLineItem>
       </Space>
     </Card>

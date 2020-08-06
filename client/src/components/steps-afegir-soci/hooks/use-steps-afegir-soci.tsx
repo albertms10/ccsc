@@ -53,31 +53,34 @@ export default (
   const [form] = Form.useForm();
 
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
-  const validatorDniES = useCallback((rule, value: string) => {
-    const XIFRES = 8;
+  const validatorDniES = useCallback(
+    (rule, value: string) => {
+      const XIFRES = 8;
 
-    const letter = value ? value.charAt(value.length - 1) : "";
-    if (letter.match(/^[a-z]+$/)) {
-      setDniValidation("warning");
-      return Promise.reject(t("enter letter uppercase"));
-    }
-
-    const number = parseInt(value.substr(0, value.length - 1));
-    const letters = "TRWAGMYFPDXBNJZSQVHLCKE";
-
-    if (number.toString().length === XIFRES) {
-      if (value === number + letters[number % letters.length]) {
-        setDniValidation("success");
-        return Promise.resolve();
+      const letter = value ? value.charAt(value.length - 1) : "";
+      if (letter.match(/^[a-z]+$/)) {
+        setDniValidation("warning");
+        return Promise.reject(t("enter letter uppercase"));
       }
-    } else {
-      setDniValidation("");
-      return Promise.reject(t("number must be", { number: XIFRES }));
-    }
 
-    setDniValidation("error");
-    return Promise.reject(t("letter does not correspond"));
-  }, []);
+      const number = parseInt(value.substr(0, value.length - 1));
+      const letters = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+      if (number.toString().length === XIFRES) {
+        if (value === number + letters[number % letters.length]) {
+          setDniValidation("success");
+          return Promise.resolve();
+        }
+      } else {
+        setDniValidation("");
+        return Promise.reject(t("number must be", { number: XIFRES }));
+      }
+
+      setDniValidation("error");
+      return Promise.reject(t("letter does not correspond"));
+    },
+    [t]
+  );
 
   const steps: FormStep[] = [
     {

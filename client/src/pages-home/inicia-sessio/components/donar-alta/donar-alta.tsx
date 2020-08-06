@@ -1,12 +1,16 @@
 import { LeftOutlined, MailOutlined } from "@ant-design/icons";
 import { Alert, Button, Form, Input } from "antd";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { LogoCorDeCambra } from "../../../../assets/icons";
 import { Container } from "../../../../standalone/container";
+import { linkText } from "../../../../utils";
 import { useValidEmailEspera } from "./hooks";
 
 const DonarAlta: React.FC = () => {
+  const { t } = useTranslation(["fields", "sign-in", "validation"]);
+
   const [checkEmail, loading, alertMessage] = useValidEmailEspera();
 
   const onFinish = useCallback(({ email }) => checkEmail(email), [checkEmail]);
@@ -14,13 +18,13 @@ const DonarAlta: React.FC = () => {
   return (
     <Container className="signin-container">
       <div className="signin-form-wrapper tight">
-        <Link to="/inicia-sessio">
+        <Link to={`/${linkText(t("sign in"))}`}>
           <Button
             className="signin-form-back-button"
             type="link"
             icon={<LeftOutlined />}
           >
-            Inicia sessió
+            {t("sign in")}
           </Button>
         </Link>
         <LogoCorDeCambra
@@ -31,17 +35,14 @@ const DonarAlta: React.FC = () => {
           <Form.Item
             name="email"
             rules={[
-              {
-                type: "email",
-                message: "Introdueix una adreça electrònica vàlida",
-              },
-              { required: true, message: "Introdueix l’adreça electrònica" },
-              { whitespace: true, message: "Introdueix l’adreça electrònica" },
+              { type: "email", message: t("enter valid email") },
+              { required: true, message: t("enter email") },
+              { whitespace: true, message: t("enter email") },
             ]}
           >
             <Input
               prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="Adreça electrònica"
+              placeholder={t("email")}
               autoFocus
             />
           </Form.Item>
@@ -52,7 +53,7 @@ const DonarAlta: React.FC = () => {
               className="signin-form-button"
               loading={loading}
             >
-              Endavant
+              {t("go ahead")}
             </Button>
           </Form.Item>
           {alertMessage ? <Alert type="warning" message={alertMessage} /> : ""}

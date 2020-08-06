@@ -19,9 +19,13 @@ const HomeMenu: React.FC = () => {
   const user = useSelector(({ user }: RootState) => user.currentUser);
 
   const menuItems: MenuItem[] = useMemo(
-    () =>
-      [
-        t("home title"),
+    () => [
+      {
+        key: "/",
+        title: t("home title"),
+        path: "/",
+      },
+      ...[
         t("bio title"),
         t("concerts title"),
         t("press title"),
@@ -32,6 +36,7 @@ const HomeMenu: React.FC = () => {
         title: item,
         path: `/${linkText(item)}`,
       })),
+    ],
     [t]
   );
 
@@ -40,7 +45,7 @@ const HomeMenu: React.FC = () => {
       theme="dark"
       mode="horizontal"
       overflowedIndicator={<DownCircleFilled style={{ color: "#fff" }} />}
-      defaultSelectedKeys={["inici"]}
+      defaultSelectedKeys={["/"]}
     >
       {menuItems.map((item) => (
         <Menu.Item key={item.key}>

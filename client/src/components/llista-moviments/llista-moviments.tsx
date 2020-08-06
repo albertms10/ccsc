@@ -91,7 +91,9 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
             ]}
           >
             <Link
-              to={`/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`}
+              to={`/${linkText(t("works"))}/${moviment.id_obra}/${linkText(
+                t("movements")
+              )}/${moviment.id_moviment}`}
             >
               <List.Item.Meta
                 avatar={moviment.ordre}

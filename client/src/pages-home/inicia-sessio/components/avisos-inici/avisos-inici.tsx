@@ -1,6 +1,7 @@
 import { Button, Form, Space } from "antd";
 import { Usuari } from "model";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { LogoCorDeCambra } from "../../../../assets/icons";
@@ -10,8 +11,11 @@ import { Container } from "../../../../standalone/container";
 import { RootState } from "../../../../store/types";
 import { removeAcceptanceNotice } from "../../../../store/user/actions";
 import { logoutRemoveUser } from "../../../../store/user/thunks";
+import { linkText } from "../../../../utils";
 
 const AvisosInici: React.FC = () => {
+  const { t } = useTranslation("sign-in");
+
   const dispatch = useDispatch();
 
   const currentUser = useSelector(
@@ -59,7 +63,7 @@ const AvisosInici: React.FC = () => {
       </Container>
     </Form>
   ) : (
-    <Redirect to="/inicia-sessio" />
+    <Redirect to={`/${linkText(t("sign in"))}`} />
   );
 };
 

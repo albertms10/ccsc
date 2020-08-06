@@ -1,9 +1,11 @@
 import { Usuari } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { RootState } from "../../../../store/types";
+import { linkText } from "../../../../utils";
 
 interface DropdownRowSociProps {
   idPersona: number;
@@ -14,6 +16,8 @@ const DropdownRowSoci: React.FC<DropdownRowSociProps> = ({
   idPersona,
   showDeleteConfirm,
 }) => {
+  const { t } = useTranslation("dashboard");
+
   const currentUser = useSelector(
     ({ user }: RootState) => user.currentUser
   ) as Usuari;
@@ -22,14 +26,18 @@ const DropdownRowSoci: React.FC<DropdownRowSociProps> = ({
     <DropdownBorderlessButton
       items={[
         {
-          key: "detalls",
-          action: <Link to={`/socis/${idPersona}`}>Detalls</Link>,
+          key: t("common:details"),
+          action: (
+            <Link to={`/${linkText(t("partners"))}/${idPersona}`}>
+              {t("common:details")}
+            </Link>
+          ),
         },
         ...(currentUser.id_persona !== idPersona
           ? [
               {
-                key: "eliminar",
-                action: "Eliminar",
+                key: t("common:delete"),
+                action: t("common:delete"),
                 danger: true,
                 onClick: () => showDeleteConfirm(idPersona),
               },

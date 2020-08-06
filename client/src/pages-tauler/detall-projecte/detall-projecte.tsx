@@ -1,6 +1,7 @@
 import { Layout, Menu, PageHeader, Space, Spin } from "antd";
 import { Projecte } from "model";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Link,
   Route,
@@ -13,6 +14,7 @@ import { Authorized } from "../../components/authorized";
 import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
 import { useAPI } from "../../helpers";
 import { ColorCard } from "../../standalone/color-card";
+import { linkText } from "../../utils";
 import { AssajosProjecte } from "./components/assajos-projecte";
 import { RepertoriProjecte } from "./components/repertori-projecte";
 import { ResumProjecte } from "./components/resum-projecte";
@@ -26,6 +28,8 @@ export const SetActionContext = createContext<
 interface DetallProjecteProps extends RouteComponentProps {}
 
 const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
+  const { t } = useTranslation("dashboard");
+
   const setCollapsed = useContext(SiderSetCollapsedContext);
 
   const history = useHistory();
@@ -64,16 +68,24 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
                   <Link to={`${match.url}`}>Resum</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to={`${match.url}/assajos`}>Assajos</Link>
+                  <Link to={`${match.url}/${linkText(t("rehearsals"))}`}>
+                    {t("rehearsals")}
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to={`${match.url}/repertori`}>Repertori</Link>
+                  <Link to={`${match.url}/${linkText(t("repertoire"))}`}>
+                    {t("repertoire")}
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to={`${match.url}/concerts`}>Concerts</Link>
+                  <Link to={`${match.url}/${linkText(t("concerts"))}`}>
+                    {t("concerts")}
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to={`${match.url}/participants`}>Participants</Link>
+                  <Link to={`${match.url}/${linkText(t("participants"))}`}>
+                    {t("participants")}
+                  </Link>
                 </Menu.Item>
               </Menu>
             </Layout.Sider>
@@ -81,11 +93,11 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
               <Switch>
                 <Route exact path={`${match.path}`} component={ResumProjecte} />
                 <Route
-                  path={`${match.path}/assajos`}
+                  path={`${match.path}/${linkText(t("rehearsals"))}`}
                   component={AssajosProjecte}
                 />
                 <Route
-                  path={`${match.path}/repertori`}
+                  path={`${match.path}/${linkText(t("repertoire"))}`}
                   component={RepertoriProjecte}
                 />
               </Switch>

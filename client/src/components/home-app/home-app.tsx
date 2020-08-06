@@ -8,6 +8,7 @@ import { Contacte } from "../../pages-home/contacte";
 import { HomePage } from "../../pages-home/home-page";
 import { Premsa } from "../../pages-home/premsa";
 import { QuiSom } from "../../pages-home/qui-som";
+import { linkText } from "../../utils";
 import { HomeMenu } from "./components/home-menu";
 import "./home-app.css";
 
@@ -35,10 +36,22 @@ const HomeApp: React.FC = () => {
       </Header>
       <Content>
         <Route exact path="/" component={HomePage} />
-        <Route exact path={`/${t("bio title")}`} component={QuiSom} />
-        <Route exact path={`/${t("concerts title")}`} component={Concerts} />
-        <Route exact path={`/${t("press title")}`} component={Premsa} />
-        <Route exact path={`/${t("contact title")}`} component={Contacte} />
+        <Route exact path={`/${linkText(t("bio title"))}`} component={QuiSom} />
+        <Route
+          exact
+          path={`/${linkText(t("concerts title"))}`}
+          component={Concerts}
+        />
+        <Route
+          exact
+          path={`/${linkText(t("press title"))}`}
+          component={Premsa}
+        />
+        <Route
+          exact
+          path={`/${linkText(t("contact title"))}`}
+          component={Contacte}
+        />
       </Content>
       <Footer style={{ textAlign: "center" }}>
         &copy; 2020 Cor de Cambra Sant Cugat

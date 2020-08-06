@@ -14,7 +14,7 @@ const QuiSom: React.FC = () => {
         De recent creació, el Cor de Cambra Sant Cugat reuneix un grup de
         cantaires amb una contrastada experiència en el cant coral, units pel
         desig de fer música amb la màxima qualitat i rigor. Els seus membres han
-        compartit altres expe­riències corals molt enriquidores.
+        compartit altres experiències corals molt enriquidores.
       </Paragraph>
       <Paragraph>
         A partir d’aquestes vivències artístiques, el Cor de Cambra Sant Cugat

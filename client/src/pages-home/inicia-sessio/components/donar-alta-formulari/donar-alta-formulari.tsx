@@ -1,14 +1,18 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Divider } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
 import { Container } from "../../../../standalone/container";
 import { RootState } from "../../../../store/types";
+import { linkText } from "../../../../utils";
 
 const DonarAltaFormulari: React.FC = () => {
+  const { t } = useTranslation("sign-in");
+
   const { inWaitingList, email } = useSelector(
     ({ user }: RootState) => user.waitingList
   );
@@ -25,7 +29,10 @@ const DonarAltaFormulari: React.FC = () => {
   } = useStepsAfegirSoci(
     () => {
       localStorage.removeItem("access-token");
-      history.push({ pathname: "/inicia-sessio", state: { username } });
+      history.push({
+        pathname: `/${linkText(t("sign in"))}`,
+        state: { username },
+      });
     },
     true,
     "/socis/alta"
@@ -34,13 +41,13 @@ const DonarAltaFormulari: React.FC = () => {
   return inWaitingList ? (
     <Container className="signin-container">
       <div className="signin-form-wrapper">
-        <Link to="/donar-alta">
+        <Link to={`/${linkText(t("sign up short"))}`}>
           <Button
             className="signin-form-back-button"
             type="link"
             icon={<LeftOutlined />}
           >
-            Tornar enrere
+            ${linkText(t('common:go back'))}
           </Button>
         </Link>
         <Divider />
@@ -55,7 +62,7 @@ const DonarAltaFormulari: React.FC = () => {
       </div>
     </Container>
   ) : (
-    <Redirect to="/donar-alta" />
+    <Redirect to={`/${linkText(t("sign up short"))}`} />
   );
 };
 

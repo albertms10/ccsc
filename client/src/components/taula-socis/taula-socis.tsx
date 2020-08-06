@@ -2,6 +2,7 @@ import { Input, Table, Typography } from "antd";
 import { ColumnsType } from "antd/lib/table/interface";
 import { Soci } from "model";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useDeleteAPI } from "../../helpers";
 import { fetchSocis } from "../../store/socis/thunks";
@@ -19,19 +20,21 @@ interface TaulaSocisProps {
 }
 
 const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
+  const { t } = useTranslation(["actions", "fields", "modals"]);
+
   const dispatch = useDispatch();
 
   const [searchValue, setSearchValue] = useState("");
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
     "/socis",
-    "la persona",
+    t("the person"),
     () => dispatch(fetchSocis())
   );
 
   const columns: ColumnsType<object> = [
     {
-      title: "Nom",
+      title: t("name"),
       dataIndex: "nom_complet",
       key: "nom_complet",
       render: (_, soci) => <CellNomSoci soci={soci as Soci} />,
@@ -39,14 +42,14 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
         (a as Soci).nom_complet.length - (b as Soci).nom_complet.length,
       sortDirections: ["descend", "ascend"],
       filters: [
-        { text: "Actiu", value: true },
-        { text: "Inactiu", value: false },
+        { text: t("common:active"), value: true },
+        { text: t("common:inactive"), value: false },
       ],
       filterMultiple: false,
       onFilter: (value, soci) => value === (soci as Soci).es_actiu,
     },
     {
-      title: "Adreça electrònica",
+      title: t("email"),
       dataIndex: "email",
       key: "email",
       render: (text) => (
@@ -57,7 +60,7 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
       responsive: ["md"],
     },
     {
-      title: "Telèfon",
+      title: t("phone"),
       dataIndex: "telefon",
       key: "telefon",
       responsive: ["lg"],
@@ -79,7 +82,7 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
   return (
     <div className="socis-table">
       <Search
-        placeholder="Cerca socis"
+        placeholder={t("search partners")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}

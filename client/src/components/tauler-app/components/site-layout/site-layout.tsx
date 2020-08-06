@@ -2,6 +2,7 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Layout, Typography } from "antd";
 import React, { createContext, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Assajos } from "../../../../pages-tauler/assajos";
 import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
@@ -37,6 +38,8 @@ export const SetPageHeaderContext = createContext<
 >((_) => {});
 
 const SiteLayout: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const formacions = useContext(FormacionsListContext);
   const loadingFormacions = useContext(LoadingFormacionsContext);
   const collapsed = useContext(SiderCollapsedContext);
@@ -99,27 +102,56 @@ const SiteLayout: React.FC = () => {
                     )}
                   />
                 ))}
-              <Route exact path="/projectes" component={Projectes} />
-              <Route path="/projectes/:id" component={DetallProjecte} />
-              <Route exact path="/assajos" component={Assajos} />
-              <Route exact path="/assajos/:id" component={DetallAssaig} />
-              <Route exact path="/obres" component={Obres} />
-              <Route exact path="/obres/:id" component={DetallObres} />
               <Route
                 exact
-                path="/obres/:obra/moviments/:moviment"
+                path={`/${linkText(t("projects"))}`}
+                component={Projectes}
+              />
+              <Route
+                path={`/${linkText(t("projects"))}/:id`}
+                component={DetallProjecte}
+              />
+              <Route
+                exact
+                path={`/${linkText(t("rehearsals"))}`}
+                component={Assajos}
+              />
+              <Route
+                exact
+                path={`/${linkText(t("rehearsals"))}/:id`}
+                component={DetallAssaig}
+              />
+              <Route
+                exact
+                path={`/${linkText(t("works"))}`}
+                component={Obres}
+              />
+              <Route
+                exact
+                path={`/${linkText(t("works"))}/:id`}
+                component={DetallObres}
+              />
+              <Route
+                exact
+                path={`/${linkText(t("works"))}/:obra/${linkText(
+                  t("movements")
+                )}/:moviment`}
                 component={DetallMoviment}
               />
               <Route
                 exact
-                path="/socis"
+                path={`/${linkText(t("partners"))}`}
                 render={() => (
                   <Authorized>
                     <Socis />
                   </Authorized>
                 )}
               />
-              <Route exact path="/socis/:id" component={PerfilSoci} />
+              <Route
+                exact
+                path={`/${linkText(t("partners"))}/:id`}
+                component={PerfilSoci}
+              />
             </Switch>
           </Content>
         </Layout>

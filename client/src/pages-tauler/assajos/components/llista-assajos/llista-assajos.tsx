@@ -2,6 +2,7 @@ import { List } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Authorized } from "../../../../components/authorized";
@@ -13,7 +14,7 @@ import { searchFilterAssaig } from "../../../../helpers/search-filters";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
 import { fetchAssajos } from "../../../../store/assajos/thunks";
-import { searchFilter, timeRange } from "../../../../utils";
+import { linkText, searchFilter, timeRange } from "../../../../utils";
 import { useAssajos } from "./hooks";
 
 const { Item } = List;
@@ -29,6 +30,8 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
   searchValue,
   anteriors = false,
 }) => {
+  const { t } = useTranslation("dashboard");
+
   const dispatch = useDispatch();
 
   const formacions = useContext(FormacionsListContext);
@@ -96,7 +99,7 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
             </Authorized>,
           ]}
         >
-          <Link to={`/assajos/${assaig.id_assaig}`}>
+          <Link to={`/${linkText(t("rehearsals"))}/${assaig.id_assaig}`}>
             <Item.Meta
               avatar={
                 <CalendarAvatar

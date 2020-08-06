@@ -1,11 +1,14 @@
 {
   "dashboard": "Tauler",
   "go to dashboard": "Ves al tauler",
+  "go back": "Enrere",
+  "go ahead": "Endavant",
   "sign in": "Inicia sessió",
   "sign up": "Donar-se d’alta",
   "sign up short": "Donar alta",
   "sign up yet": "Encara no t‘has donat d’alta?",
   "forgot password": "Has oblidat la contrasenya?",
   "notices": "Avisos",
-  "form": "Formulari"
+  "form": "Formulari",
+  "at": "a les"
 }
