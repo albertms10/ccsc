@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS carrecs_junta
     PRIMARY KEY (id_carrec_junta)
 );
 
-CREATE TABLE IF NOT EXISTS integrants_junta
+CREATE TABLE IF NOT EXISTS membres_junta
 (
     id_soci         SMALLINT UNSIGNED NOT NULL,
     id_carrec_junta TINYINT UNSIGNED  NOT NULL,

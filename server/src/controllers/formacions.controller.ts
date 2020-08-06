@@ -71,7 +71,7 @@ export const formacions_detall_projectes: ControllerRequestHandler<
     .catch(next);
 };
 
-export const formacions_detall_integrants: ControllerRequestHandler<
+export const formacions_detall_membres: ControllerRequestHandler<
   Persona[]
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
@@ -79,9 +79,9 @@ export const formacions_detall_integrants: ControllerRequestHandler<
 
   pool
     .query<(Persona & RowDataPacket)[]>(
-      queryFile("formacions/select__integrants_formacio"),
+      queryFile("formacions/select__membres_formacio"),
       [id]
     )
-    .then(([integrants]) => res.json(integrants))
+    .then(([membres]) => res.json(membres))
     .catch(next);
 };

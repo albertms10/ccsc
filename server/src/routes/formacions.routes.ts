@@ -19,7 +19,7 @@ router
   .get([verifyAccessToken], controller.formacions_detall_projectes);
 
 router
-  .route("/:id/integrants")
-  .get([verifyAccessToken], controller.formacions_detall_integrants);
+  .route("/:id/membres")
+  .get([verifyAccessToken], controller.formacions_detall_membres);
 
 export default router;

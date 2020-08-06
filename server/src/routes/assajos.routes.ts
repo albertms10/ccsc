@@ -76,7 +76,7 @@ router
   );
 
 router
-  .route("/:id/convocats")
+  .route("/:id/convocades")
   .get([verifyAccessToken], controller.assajos_detall_convocats);
 
 router

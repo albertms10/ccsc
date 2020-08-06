@@ -23,8 +23,8 @@ const ResumFormacio: React.FC = () => {
     `/formacions/${id_formacio}/projectes`,
     []
   );
-  const [integrants, loadingIntegrants] = useAPI<Persona[]>(
-    `/formacions/${id_formacio}/integrants`,
+  const [membres, loadingMembres] = useAPI<Persona[]>(
+    `/formacions/${id_formacio}/membres`,
     []
   );
 
@@ -74,9 +74,9 @@ const ResumFormacio: React.FC = () => {
           </Col>
           <Col sm={24} lg={12} flex={1}>
             <ContentListPersones
-              title="Integrants"
-              persones={integrants}
-              loading={loadingIntegrants}
+              title={t("members")}
+              persones={membres}
+              loading={loadingMembres}
             />
           </Col>
         </Row>

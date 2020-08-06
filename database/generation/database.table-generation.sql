@@ -807,22 +807,22 @@ CREATE INDEX id_curs
 CREATE INDEX id_soci
     ON insignies_socis_curs (id_soci);
 
-CREATE TABLE IF NOT EXISTS integrants_junta
+CREATE TABLE IF NOT EXISTS membres_junta
 (
     id_soci         SMALLINT UNSIGNED NOT NULL,
     id_carrec_junta TINYINT UNSIGNED  NOT NULL,
     data_inici      DATE              NOT NULL,
     data_final      DATE              NULL,
     PRIMARY KEY (id_soci, id_carrec_junta, data_inici),
-    CONSTRAINT integrants_junta_ibfk_1
+    CONSTRAINT membres_junta_ibfk_1
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
-    CONSTRAINT integrants_junta_ibfk_2
+    CONSTRAINT membres_junta_ibfk_2
         FOREIGN KEY (id_carrec_junta) REFERENCES carrecs_junta (id_carrec_junta)
 )
     CHARSET = utf8mb4;
 
 CREATE INDEX id_carrec_junta
-    ON integrants_junta (id_carrec_junta);
+    ON membres_junta (id_carrec_junta);
 
 CREATE TABLE IF NOT EXISTS responsables_activitats
 (

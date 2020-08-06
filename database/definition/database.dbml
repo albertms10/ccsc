@@ -189,7 +189,7 @@ Table "carrecs_junta" {
   "carrec" VARCHAR(20) [not null]
 }
 
-Table "integrants_junta" {
+Table "membres_junta" {
   "id_soci" SMALLINT [not null]
   "id_carrec_junta" TINYINT [not null]
   "data_inici" DATE [not null]
@@ -861,9 +861,9 @@ Ref:"localitzacions"."id_localitzacio" < "establiments"."id_establiment"
 
 Ref:"tipus_establiments"."id_tipus_establiment" < "establiments"."id_tipus_establiment"
 
-Ref:"socis"."id_soci" < "integrants_junta"."id_soci"
+Ref:"socis"."id_soci" < "membres_junta"."id_soci"
 
-Ref:"carrecs_junta"."id_carrec_junta" < "integrants_junta"."id_carrec_junta"
+Ref:"carrecs_junta"."id_carrec_junta" < "membres_junta"."id_carrec_junta"
 
 Ref:"socis"."id_soci" < "responsables_equips"."id_soci"
 
