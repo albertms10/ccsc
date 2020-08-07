@@ -14,9 +14,8 @@ import { Pais } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { DATE_FORMAT } from "../../../constants/constants";
-import { fetchAPI, useAPI } from "../../../helpers";
+import { useAPI, usePostAPI } from "../../../helpers";
 import { InfoCard } from "../../../standalone/info-card";
 import { upperCaseFirst } from "../../../utils";
 import { AvisAcceptacio } from "../../avis-acceptacio";
@@ -40,15 +39,15 @@ export default (
 ) => {
   const { t } = useTranslation(["fields", "validation"]);
 
-  const dispatch = useDispatch();
-
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [username, loadingUsername, getUsername] = useUsername();
-
   const [dniValidation, setDniValidation] = useState<ValidateStatus>("");
-  const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
   const [selectedPais, setSelectedPais] = useState("");
+
+  const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
+  const [loadingPostSoci, postSoci] = usePostAPI(fetchURL);
+
+  const [username, loadingUsername, getUsername] = useUsername();
 
   const [form] = Form.useForm();
 
@@ -262,7 +261,7 @@ export default (
     ? steps
     : steps.filter((step) => !step.selfCreationOnly);
 
-  const handleOk = (callback: Function) => {
+  const handleOk = (callback: () => void) => {
     form
       .validateFields()
       .then((soci) => {
@@ -276,15 +275,12 @@ export default (
           ? soci.data_alta.format(DATE_FORMAT)
           : moment().format(DATE_FORMAT);
 
-        fetchAPI(
-          fetchURL,
-          () => {
+        postSoci(soci)
+          .then(() => {
             message.success(t("entity:subscription successful"));
             if (typeof callback === "function") callback();
-          },
-          dispatch,
-          { method: "POST", body: JSON.stringify(soci) }
-        ).finally(() => setConfirmLoading(false));
+          })
+          .finally(() => setConfirmLoading(false));
       })
       .catch(handleValidateError);
   };
@@ -330,7 +326,7 @@ export default (
             key="ok"
             type="primary"
             onClick={() => handleOk(onSuccessCallback)}
-            loading={confirmLoading}
+            loading={confirmLoading || loadingPostSoci}
           >
             {t("modals:subscription action")}
           </Button>
