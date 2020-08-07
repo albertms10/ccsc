@@ -1,5 +1,6 @@
 import { Formacio } from "model";
 import React, { useCallback, useContext, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
@@ -14,6 +15,8 @@ interface PopoverFormacionsAssaigProps {
 const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
   getConvocatsAssaig,
 }) => {
+  const { t } = useTranslation("actions");
+
   const { id_assaig } = useContext(AssaigContext);
 
   const [formacions, loadingFormacions, getFormacions] = useAPI<Formacio[]>(
@@ -32,19 +35,19 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
       <>
         <span style={{ marginRight: 8 }}>
           {formacionsFiltered.length > 0
-            ? "Formacions"
-            : `${textualAction} formacions`}
+            ? t("dashboard:formations")
+            : textualAction}
         </span>
         <IconsFormacions formacions={formacionsFiltered} />
       </>
     ),
-    [formacionsFiltered]
+    [formacionsFiltered, t]
   );
 
   return (
     <PopoverList
-      title="Formacions convocades"
-      searchPlaceholder="Cerca formacions"
+      title={t("dashboard:announced formations")}
+      searchPlaceholder={t("search formations")}
       defaultValue={formacionsFiltered.map(
         ({ id_formacio }) => id_formacio as number
       )}
@@ -67,9 +70,11 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
         });
       }}
       action={
-        <BorderlessButton>{formacionsElement("Afegeix")}</BorderlessButton>
+        <BorderlessButton>
+          {formacionsElement(t("add formations"))}
+        </BorderlessButton>
       }
-      elseElement={formacionsElement("Sense")}
+      elseElement={formacionsElement(t("no formations"))}
       needsAuthorization
     />
   );

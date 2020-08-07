@@ -1,5 +1,6 @@
 import { Projecte } from "model";
 import React, { useCallback, useContext, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
@@ -15,6 +16,8 @@ interface PopoverProjectesAssaigProps {
 const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
   getMovimentsAssaig,
 }) => {
+  const { t } = useTranslation("actions");
+
   const { id_assaig } = useContext(AssaigContext);
 
   const [projectes, loadingProjectes, getProjectes] = useAPI<Projecte[]>(
@@ -33,19 +36,19 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
       <>
         <span style={{ marginRight: 8 }}>
           {projectesFiltered.length > 0
-            ? "Projectes"
-            : `${textualAction} projectes`}
+            ? t("dashboard:projects")
+            : textualAction}
         </span>
         <FixedTagsProjectes projectes={projectesFiltered} />
       </>
     ),
-    [projectesFiltered]
+    [projectesFiltered, t]
   );
 
   return (
     <PopoverList
-      title="Projectes"
-      searchPlaceholder="Cerca projectes"
+      title={t("dashboard:projects")}
+      searchPlaceholder={t("search projects")}
       defaultValue={projectesFiltered.map(({ id_projecte }) => id_projecte)}
       dataSource={projectes.map((projecte) => ({
         ...projecte,
@@ -65,10 +68,10 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
       }}
       action={
         <BorderlessButton style={{ paddingRight: 0 }}>
-          {projectesElement("Afegeix")}
+          {projectesElement(t("add projects"))}
         </BorderlessButton>
       }
-      elseElement={projectesElement("Sense")}
+      elseElement={projectesElement(t("no projects"))}
       needsAuthorization
     />
   );

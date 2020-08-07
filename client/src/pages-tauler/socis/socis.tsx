@@ -1,5 +1,6 @@
 import { PageHeader } from "antd";
 import React, { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Authorized } from "../../components/authorized";
 import { TaulaSocis } from "../../components/taula-socis";
 import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
@@ -8,18 +9,22 @@ import { ModalAfegirSoci } from "./components/modal-afegir-soci";
 import { useSocis } from "./hooks";
 
 const Socis: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const [socis, loading] = useSocis();
 
-  useEffect(() => setPageHeader("Socis"), [setPageHeader]);
+  useEffect(() => {
+    setPageHeader(t("partners"));
+  }, [setPageHeader, t]);
 
   return (
     <>
       <PageHeader
         className="main-page-header"
         ghost={false}
-        title="Socis"
+        title={t("partners")}
         extra={
           <Authorized>
             <ModalAfegirSoci />

@@ -11,10 +11,10 @@ export default (
     return res.status(403).send({
       error: {
         status: 403,
-        message: "Soci inactiu",
+        message: "inactive partner",
         description:
-          "Cal que un membre de la Junta Directiva torni a donar-te dalta.",
-        okText: "D’acord",
+          "a member must subscribe you again",
+        okText: "common:ok",
         okOnly: true,
         noAction: true,
       },

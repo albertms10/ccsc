@@ -2,6 +2,7 @@ import { PageHeader, Space, Spin, Typography } from "antd";
 import { Assaig } from "model";
 import moment from "moment";
 import React, { createContext, useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import { EventLineItemData } from "../../components/event-line-item-data";
 import { EventLineItemLocalitzacio } from "../../components/event-line-item-localitzacio";
@@ -18,6 +19,8 @@ const { Title } = Typography;
 export const AssaigContext = createContext<Assaig>({} as Assaig);
 
 const DetallAssaig: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
@@ -46,7 +49,7 @@ const DetallAssaig: React.FC = () => {
       />
       <Spin spinning={loadingAssaig}>
         <Container>
-          <Title level={4}>Informació</Title>
+          <Title level={4}>{t("information")}</Title>
           <Space direction="vertical">
             <EventLineItemData esdeveniment={assaig} />
             <EventLineItemLocalitzacio esdeveniment={assaig} />

@@ -207,7 +207,7 @@ export default (
               </Col>
             </Row>
           </InfoCard>
-          <InfoCard title={t("musical info")}>
+          <InfoCard title={t("musical information")}>
             <Row gutter={[16, 16]}>
               <Col md={24} lg={12}>
                 <Form.Item
@@ -246,7 +246,7 @@ export default (
     },
     {
       key: "resum",
-      title: t("summary"),
+      title: t("dashboard:summary"),
       selfCreationOnly: false,
       content: (
         <ResumAfegirSoci

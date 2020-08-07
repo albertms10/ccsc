@@ -30,7 +30,9 @@ const ContentListConcerts: React.FC<ContentListConcertsProps> = ({
         return {
           id: concert.id_concert,
           title: concert.titol_concert,
-          description: `${linkText(t("common:at"))} ${date.format("LT")}`,
+          description: concert.hora_inici
+            ? t("events:at time", { time: date.format("LT") })
+            : "",
           link: `/${linkText(t("projects"))}/${concert.id_projecte}/${linkText(
             t("concerts")
           )}/${concert.id_concert}`,

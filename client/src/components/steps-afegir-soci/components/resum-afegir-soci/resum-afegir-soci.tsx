@@ -40,7 +40,7 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
       {(data.experiencia_musical ||
         data.estudis_musicals ||
         data.data_alta) && (
-        <InfoCard title={t("musical info")}>
+        <InfoCard title={t("musical information")}>
           <Descriptions size="small">
             {data.experiencia_musical && (
               <Descriptions.Item label={t("musical experience")} span={3}>

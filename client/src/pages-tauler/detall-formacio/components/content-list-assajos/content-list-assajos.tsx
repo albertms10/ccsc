@@ -1,11 +1,13 @@
 import { Assaig, Formacio } from "model";
 import moment from "moment";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
 import { ContentList } from "../../../../standalone/content-list";
 import { ContentListBaseProps } from "../../../../standalone/content-list/content-list";
+import { linkText } from "../../../../utils";
 import { FormacioContext } from "../../detall-formacio";
 
 interface ContentListAssajosProps extends ContentListBaseProps {
@@ -13,15 +15,17 @@ interface ContentListAssajosProps extends ContentListBaseProps {
 }
 
 const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
-  title = "Assajos",
+  title,
   assajos,
   loading = false,
 }) => {
+  const { t } = useTranslation("dashboard");
+
   const { id_formacio } = useContext(FormacioContext) as Formacio;
 
   return (
     <ContentList
-      title={title}
+      title={title || t("rehearsals")}
       loading={loading}
       dataSource={assajos
         .filter(
@@ -39,8 +43,10 @@ const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
           return {
             id: assaig.id_assaig,
             title: assaig.titol,
-            description: assaig.hora_inici ? `a les ${date.format("LT")}` : "",
-            link: `/assajos/${assaig.id_assaig}`,
+            description: assaig.hora_inici
+              ? t("events:at time", { time: date.format("LT") })
+              : "",
+            link: `/${linkText(t("rehearsals"))}/${assaig.id_assaig}`,
             actions: [
               ...(filteredFormacions.length > 0
                 ? [<IconsFormacions formacions={filteredFormacions} />]

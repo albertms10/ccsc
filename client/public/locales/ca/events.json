@@ -6,5 +6,11 @@
   "no location": "Sense localització",
   "add notes": "Afegeix notes",
   "no notes": "Sense notes",
-  "is late": "Amb retard"
+  "is late": "Amb retard",
+  "at time": "a les {{time}}",
+  "with sb": "Amb {{sb}}",
+  "confirmed on time": "Confirmats puntuals",
+  "confirmed late": "Confirmats amb retard",
+  "pending": "Pendents",
+  "cancelled": "Cancel·lats"
 }

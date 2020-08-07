@@ -2,6 +2,7 @@ import { FilterFilled } from "@ant-design/icons";
 import { Space } from "antd";
 import { Veu } from "model";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { PopoverList } from "../../../../components/popover-list";
 import { useAPI } from "../../../../helpers";
 import { searchFilterVeus } from "../../../../helpers/search-filters";
@@ -16,6 +17,8 @@ interface PopoverVeusAssaigProps {
 const PopoverVeusAssaig: React.FC<PopoverVeusAssaigProps> = ({
   getConvocatsAssaig,
 }) => {
+  const { t } = useTranslation("actions");
+
   const { id_assaig } = useContext(AssaigContext);
 
   const [veus, loadingVeus, getVeus] = useAPI<Veu[]>(
@@ -29,19 +32,20 @@ const PopoverVeusAssaig: React.FC<PopoverVeusAssaigProps> = ({
 
     return convocades.length > 0 && convocades.length < veus.length
       ? convocades.length >= veus.length - 2
-        ? "Sense " +
-          veus
-            .filter((veu) => !convocades.includes(veu))
-            .map((veu) => veu.abreviatura)
-            .join("")
+        ? t("common:except value", {
+            value: veus
+              .filter((veu) => !convocades.includes(veu))
+              .map((veu) => veu.abreviatura)
+              .join(""),
+          })
         : convocades.map((veu) => veu.abreviatura).join("")
-      : "Totes les veus";
-  }, [veus]);
+      : t("dashboard:all voices");
+  }, [veus, t]);
 
   return (
     <PopoverList
-      title="Veus específiques"
-      searchPlaceholder="Cerca veus"
+      title={t("dashboard:specific voices")}
+      searchPlaceholder={t("search voices")}
       defaultValue={veus
         .filter((veu) => veu.convocada)
         .map((veu) => veu.id_veu)}

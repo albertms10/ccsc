@@ -33,7 +33,7 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
       title={t("select movement")}
       dataSource={dataFilter ? moviments.filter(dataFilter) : moviments}
       mapData={(data) => mapFirstOfProperty(data, "id_obra", "primer")}
-      searchPlaceholder={t("search movement")}
+      searchPlaceholder={t("search movements")}
       loading={loading}
       searchFilters={searchFilterMoviment}
       renderItem={(moviment, index, setVisible) => (

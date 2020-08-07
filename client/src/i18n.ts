@@ -8,9 +8,27 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    ns: ["common", "fields", "home", "sign-in", "validation"],
+    ns: [
+      "actions",
+      "common",
+      "dashboard",
+      "entity",
+      "events",
+      "fields",
+      "home",
+      "modals",
+      "sign-in",
+      "validation",
+      "voices",
+    ],
     defaultNS: "common",
-    fallbackLng: "ca",
+    backend: {
+      allowMultiLoading: true,
+    },
+    fallbackLng: {
+      "ca-ES": ["ca"],
+      default: ["ca"],
+    },
     debug: true,
   });
 

@@ -5,7 +5,7 @@
   "password": "Contrasenya",
   "person id": "DNI",
   "birth date": "Naixement",
-  "musical info": "Informació musical",
+  "musical information": "Informació musical",
   "musical experience": "Experiència musical",
   "musical studies": "Estudis musicals",
   "subscribed date": "Data d’alta",
@@ -16,5 +16,6 @@
   "image rights": "Drets d’imatge",
   "partner data": "Dades del soci",
   "country of nationality": "País de nacionalitat",
-  "summary": "Resum"
+  "day": "Dia",
+  "time": "Hora"
 }

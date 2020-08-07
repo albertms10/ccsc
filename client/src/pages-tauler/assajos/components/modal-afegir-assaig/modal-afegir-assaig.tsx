@@ -1,5 +1,6 @@
 import { Checkbox, Col, DatePicker, Form, Row, TimePicker } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { ModalButton } from "../../../../components/modal-button";
 import { ModalButtonBaseProps } from "../../../../components/modal-button/modal-button";
@@ -13,16 +14,18 @@ interface ModalAfegirAssaigProps extends ModalButtonBaseProps {
 
 const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
   idProjecte,
-  title = "Afegir assaig",
+  title,
   ...rest
 }) => {
+  const { t } = useTranslation(["fields", "validation"]);
+
   const { loading } = useSelector(({ assajos }: RootState) => assajos);
 
   const [form, handleOk] = useAfegirAssaig();
 
   return (
     <ModalButton
-      title={title}
+      title={title || t("actions:add rehearsal")}
       confirmLoading={loading}
       onOk={(setVisible) => {
         handleOk(idProjecte).then(() => {
@@ -36,14 +39,14 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
             <Col sm={24} md={8} flex={1}>
               <Form.Item
                 name="dia_inici"
-                label="Dia"
-                rules={[{ required: true, message: "Introdueix el dia" }]}
+                label={t("day")}
+                rules={[{ required: true, message: t("enter day") }]}
               >
                 <DatePicker format="L" />
               </Form.Item>
             </Col>
             <Col sm={24} md={16} flex={1}>
-              <Form.Item name="hora" label="Hora">
+              <Form.Item name="hora" label={t("time")}>
                 <TimePicker.RangePicker
                   picker="time"
                   format="HH:mm"
@@ -56,12 +59,12 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
           <Row>
             <Col>
               <Form.Item name="es_general" valuePropName="checked">
-                <Checkbox>General</Checkbox>
+                <Checkbox>{t("general")}</Checkbox>
               </Form.Item>
             </Col>
             <Col>
               <Form.Item name="es_extra" valuePropName="checked">
-                <Checkbox>Extra</Checkbox>
+                <Checkbox>{t("extra")}</Checkbox>
               </Form.Item>
             </Col>
           </Row>

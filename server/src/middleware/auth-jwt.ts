@@ -33,7 +33,7 @@ export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
     return res.status(401).send({
       error: {
         status: 401,
-        message: "Cal proporcionar un token d’accés.",
+        message: "provide access token",
         hideMessage,
       },
     });
@@ -43,7 +43,7 @@ export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
       return res.status(401).send({
         error: {
           status: 401,
-          message: "Sense autorizació",
+          message: "no auth",
           hideMessage,
         },
       });
@@ -52,8 +52,8 @@ export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
       return res.status(403).send({
         error: {
           status: 403,
-          message: "Encara no has acabat d’introduir les teves dades.",
-          okText: "Torna a introduir-les",
+          message: "not finished filling form",
+          okText: "go fill the form",
           hideMessage,
         },
       });
@@ -76,7 +76,7 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
     return res.status(401).send({
       error: {
         status: 401,
-        message: "Cal proporcionar un token d’accés.",
+        message: "provide access token",
       },
     });
 
@@ -89,13 +89,13 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
           status: 403,
           ...(!err && email !== decodedEmail
             ? {
-                message: "Les adreces de correu no coincideixen",
-                description: "Modifiqueu l’adreça de correu electrònic.",
-                okText: "Modificar les dades",
+                message: "emails do not match",
+                description: "change email",
+                okText: "edit data",
                 okOnly: true,
                 noAction: true,
               }
-            : { message: "Sense autorizació" }),
+            : { message: "no auth" }),
         },
       });
 
@@ -136,14 +136,12 @@ export const checkIsRole: AuthRequestHandler = async (req, res) => {
 export const isAuthor: AuthRequestHandler = async (req, res, next) =>
   (await checkIsAuthor(req, res, next))
     ? next()
-    : res
-        .status(403)
-        .send({ error: { status: 403, message: "Sense autorització" } });
+    : res.status(403).send({ error: { status: 403, message: "no auth" } });
 
 export const isRole: AuthRequestHandler = async (req, res, next) =>
   (await checkIsRole(req, res, next))
     ? next()
-    : res.status(403).send({ error: { status: 403, message: "Sense permís" } });
+    : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 
 /*
  * `IS` FUNCTIONS
@@ -156,9 +154,7 @@ export const isAuthorOrJuntaDirectiva: AuthRequestHandler = async (
   res.locals.roles = ROLES_JUNTA_DIRECTIVA;
   (await checkIsAuthor(req, res, next)) || (await checkIsRole(req, res, next))
     ? next()
-    : res
-        .status(403)
-        .send({ error: { status: 403, message: "Sense autorització" } });
+    : res.status(403).send({ error: { status: 403, message: "no auth" } });
 };
 
 export const isJuntaDirectiva: AuthRequestHandler = async (req, res, next) => {

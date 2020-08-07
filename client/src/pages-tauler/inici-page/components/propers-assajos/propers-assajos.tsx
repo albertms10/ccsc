@@ -1,6 +1,7 @@
 import { Card, Spin, Typography } from "antd";
 import { Assaig, Usuari } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { StyledComponent } from "react-types";
 import { CardProperAssaig } from "../../../../components/card-proper-assaig";
@@ -11,6 +12,8 @@ import "./propers-assajos.css";
 interface PropersAssajosProps extends StyledComponent {}
 
 const PropersAssajos: React.FC<PropersAssajosProps> = ({ style }) => {
+  const { t } = useTranslation("dashboard");
+
   const { id_persona } = useSelector(
     ({ user }: RootState) => user.currentUser
   ) as Usuari;
@@ -29,7 +32,7 @@ const PropersAssajos: React.FC<PropersAssajosProps> = ({ style }) => {
           ) : (
             <Card>
               <Typography.Text type="secondary">
-                Sense assajos propers
+                {t("no upcoming rehearsals")}
               </Typography.Text>
             </Card>
           )}

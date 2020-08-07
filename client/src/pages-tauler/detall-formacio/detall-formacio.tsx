@@ -1,6 +1,7 @@
 import { Tabs } from "antd";
 import { Formacio } from "model";
 import React, { createContext, useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Sticky, StickyContainer } from "react-sticky";
 import { IconFormacio } from "../../assets/icons";
 import { CalendariFormacio } from "../../components/calendari-formacio";
@@ -18,6 +19,8 @@ interface FormacioProps {
 }
 
 const DetallFormacio: React.FC<FormacioProps> = ({ formacio }) => {
+  const { t } = useTranslation("dashboard");
+
   const setPageHeader = useContext(SetPageHeaderContext);
 
   useEffect(() => setPageHeader(formacio.nom), [setPageHeader, formacio.nom]);
@@ -38,12 +41,12 @@ const DetallFormacio: React.FC<FormacioProps> = ({ formacio }) => {
                   </Sticky>
                 )}
               >
-                <TabPane tab="Resum" key="resum">
+                <TabPane tab={t("summary")} key="resum">
                   <ResumFormacio />
                 </TabPane>
                 <TabPane
-                  tab="Calendari"
-                  key="calendar"
+                  tab={t("calendar")}
+                  key="calendari"
                   style={{ backgroundColor: "var(--background-color)" }}
                 >
                   <CalendariFormacio />

@@ -40,7 +40,7 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
     "/assajos",
-    "l’assaig",
+    t("modals:the rehearsal"),
     () => dispatch(fetchAssajos())
   );
 
@@ -89,8 +89,8 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
               <DropdownBorderlessButton
                 items={[
                   {
-                    key: "eliminar",
-                    action: "Eliminar",
+                    key: t("common:delete"),
+                    action: t("common:delete"),
                     danger: true,
                     onClick: () => showDeleteConfirm(assaig.id_assaig),
                   },

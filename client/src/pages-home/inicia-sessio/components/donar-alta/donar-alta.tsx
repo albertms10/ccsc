@@ -53,7 +53,7 @@ const DonarAlta: React.FC = () => {
               className="signin-form-button"
               loading={loading}
             >
-              {t("go ahead")}
+              {t("common:go ahead")}
             </Button>
           </Form.Item>
           {alertMessage ? <Alert type="warning" message={alertMessage} /> : ""}

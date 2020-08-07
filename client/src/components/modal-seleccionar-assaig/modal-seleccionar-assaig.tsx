@@ -34,7 +34,7 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
     <ModalList<Assaig>
       title={t("select rehearsal")}
       dataSource={dataFilter ? assajos.filter(dataFilter) : assajos}
-      searchPlaceholder={t("search rehearsal")}
+      searchPlaceholder={t("search rehearsals")}
       loading={loading}
       searchFilters={searchFilterAssaig}
       renderItem={(assaig, index, setVisible) => (

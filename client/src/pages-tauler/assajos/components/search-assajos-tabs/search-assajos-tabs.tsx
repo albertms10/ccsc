@@ -1,5 +1,6 @@
 import { Input, Tabs } from "antd";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LlistaAssajos } from "../llista-assajos";
 
 const { Search } = Input;
@@ -12,12 +13,14 @@ interface SearchAssajosTabsProps {
 const SearchAssajosTabs: React.FC<SearchAssajosTabsProps> = ({
   idProjecte,
 }) => {
+  const { t } = useTranslation("actions");
+
   const [searchValue, setSearchValue] = useState("");
 
   return (
     <>
       <Search
-        placeholder="Cerca assajos"
+        placeholder={t("search rehearsals")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
@@ -25,10 +28,10 @@ const SearchAssajosTabs: React.FC<SearchAssajosTabsProps> = ({
         style={{ width: "100%", marginBottom: "1rem" }}
       />
       <Tabs>
-        <TabPane tab="Propers" key="assajos-propers">
+        <TabPane tab={t("dashboard:upcoming")} key="assajos-propers">
           <LlistaAssajos searchValue={searchValue} idProjecte={idProjecte} />
         </TabPane>
-        <TabPane tab="Anteriors" key="assajos-anteriors">
+        <TabPane tab={t("dashboard:previous")} key="assajos-anteriors">
           <LlistaAssajos
             searchValue={searchValue}
             idProjecte={idProjecte}

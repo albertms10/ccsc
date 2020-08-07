@@ -1,14 +1,18 @@
 {
+  "ok": "D’acord",
+  "close": "Tancar",
+  "go back": "Enrere",
+  "go ahead": "Endavant",
   "loading": "Carregant…",
   "details": "Detalls",
   "more details": "Més detalls",
   "delete": "Eliminar",
   "add": "Afegir",
-  "close": "Tancar",
   "search": "Cercar",
   "no item found": "No s’ha trobat cap ítem",
   "prev": "Anterior",
   "next": "Següent",
   "active": "Actiu",
-  "inactive": "Inactiu"
+  "inactive": "Inactiu",
+  "except value": "Sense {{value}}"
 }

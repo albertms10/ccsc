@@ -3,16 +3,18 @@ import { Assaig } from "model";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { DATE_FORMAT } from "../../../../../constants/constants";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 import { fetchAssajos } from "../../../../../store/assajos/thunks";
 
 export default () => {
   const dispatch = useDispatch();
 
+  const fetchAPI = useFetchAPI();
+
   const [form] = Form.useForm();
 
   const postAssaig = (assaig: Assaig) =>
-    fetchAPI("/assajos", () => dispatch(fetchAssajos()), dispatch, {
+    fetchAPI("/assajos", () => dispatch(fetchAssajos()), {
       method: "POST",
       body: JSON.stringify(assaig),
     });

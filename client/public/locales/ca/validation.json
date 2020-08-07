@@ -15,5 +15,6 @@
   "select country of nationality": "Selecciona el país de nacionalitat",
   "enter person id": "Introdueix el DNI",
   "enter birth date": "Introdueix la data de naixement",
-  "no whitespace": "Els caràcters en blanc no són vàlids"
+  "no whitespace": "Els caràcters en blanc no són vàlids",
+  "enter day": "Introdueix el dia"
 }

@@ -15,10 +15,13 @@ import {
   AssistenciesAssaig,
 } from "model";
 import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAPI } from "../../../../helpers";
 import { dataSplit, dateRange } from "../../../../utils";
 
 const ChartAssistencia: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const [assistenciaAssajosEstat, loadingAssistenciaAssajosEstat] = useAPI<
     AssistenciaAssaigEstat[]
   >(`/assajos/assistencia?group-by=estat`, []);
@@ -43,37 +46,37 @@ const ChartAssistencia: React.FC = () => {
   const estatConfig = useMemo(
     () => ({
       data: dataSplit(mapAssistencia(assistenciaAssajosEstat), "assaig", {
-        confirmats_puntuals: "Confirmats puntuals",
-        confirmats_retard: "Confirmats amb retard",
-        pendents: "Pendents",
-        cancelats: "Cancel·lats",
+        confirmats_puntuals: t("events:confirmed on time"),
+        confirmats_retard: t("events:confirmed late"),
+        pendents: t("events:pending"),
+        cancelats: t("events:cancelled"),
       }),
       color: [green, yellow, blue, red].map((color) => color.primary),
       loading: loadingAssistenciaAssajosEstat,
     }),
-    [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat]
+    [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat, t]
   );
 
   const veusConfig = useMemo(
     () => ({
       data: dataSplit(mapAssistencia(assistenciaAssajosVeus), "assaig", {
-        sopranos: "Sopranos",
-        contralts: "Contralts",
-        tenors: "Tenors",
-        baixos: "Baixos",
+        sopranos: t("voices:sopranos"),
+        contralts: t("voices:altos"),
+        tenors: t("voices:tenors"),
+        baixos: t("voices:basses"),
       }),
       color: [blue, magenta, cyan, gold].map((color) => color.primary),
       loading: loadingAssistenciaAssajosVeus,
     }),
-    [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus]
+    [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus, t]
   );
 
   return (
     <Card
-      title="Assistència"
+      title={t("assistance")}
       tabList={[
-        { key: "estat", tab: "Estat" },
-        { key: "veus", tab: "Veus" },
+        { key: "estat", tab: t("state") },
+        { key: "veus", tab: t("voices") },
       ]}
       activeTabKey={key}
       onTabChange={setKey}
