@@ -6,7 +6,7 @@ import { ObraContext } from "../../detall-obra";
 import { useAfegirMoviment } from "./hooks";
 
 interface ModalAfegirMovimentProps extends ModalButtonBaseProps {
-  getMoviments: Function;
+  getMoviments: () => void;
 }
 
 const ModalAfegirMoviment: React.FC<ModalAfegirMovimentProps> = ({

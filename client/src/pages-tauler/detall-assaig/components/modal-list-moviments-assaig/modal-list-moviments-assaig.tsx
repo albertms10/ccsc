@@ -7,7 +7,7 @@ import { AssaigContext } from "../../detall-assaig";
 
 interface ModalListMovimentsAssaigProps extends ModalButtonBaseProps {
   movimentsAssaig: Moviment[];
-  getMovimentsAssaig: Function;
+  getMovimentsAssaig: () => void;
 }
 
 const ModalListMovimentsAssaig: React.FC<ModalListMovimentsAssaigProps> = ({

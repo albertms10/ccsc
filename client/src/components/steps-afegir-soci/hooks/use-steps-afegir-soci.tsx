@@ -34,7 +34,7 @@ export interface FormStep {
 }
 
 export default (
-  onSuccessCallback: Function,
+  onSuccessCallback: () => void,
   selfCreation = false,
   fetchURL = "/socis"
 ) => {

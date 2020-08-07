@@ -17,7 +17,7 @@ interface ModalSeleccionarAssaigProps
     SearchListBaseProps {
   dataFilter: (value: Assaig, index: number, array: Assaig[]) => boolean;
   onItemClick: (item: Assaig) => Promise<any>;
-  thenAction?: Function;
+  thenAction?: () => void;
 }
 
 const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({

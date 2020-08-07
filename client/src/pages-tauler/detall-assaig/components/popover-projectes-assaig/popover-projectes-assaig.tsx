@@ -10,7 +10,7 @@ import { AssaigContext } from "../../detall-assaig";
 import { useProjecteAssaig } from "./hooks";
 
 interface PopoverProjectesAssaigProps {
-  getMovimentsAssaig: Function;
+  getMovimentsAssaig: () => void;
 }
 
 const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({

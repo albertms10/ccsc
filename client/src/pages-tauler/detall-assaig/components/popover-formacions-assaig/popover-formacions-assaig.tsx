@@ -9,7 +9,7 @@ import { AssaigContext } from "../../detall-assaig";
 import { useFormacioAssaig } from "./hooks";
 
 interface PopoverFormacionsAssaigProps {
-  getConvocatsAssaig: Function;
+  getConvocatsAssaig: () => void;
 }
 
 const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({

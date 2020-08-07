@@ -15,7 +15,7 @@ interface ModalSeleccionarMovimentProps
     SearchListBaseProps {
   dataFilter: (value: Moviment, index: number, array: Moviment[]) => boolean;
   onItemClick: (item: Moviment) => Promise<any>;
-  thenAction?: Function;
+  thenAction?: () => void;
 }
 
 const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({

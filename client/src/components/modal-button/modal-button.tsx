@@ -16,7 +16,7 @@ interface ModalButtonProps extends ModalButtonBaseProps {
   cancelText?: string;
   confirmLoading?: boolean;
   onOk?: (setVisible: React.Dispatch<React.SetStateAction<boolean>>) => void;
-  onClick?: Function;
+  onClick?: () => void;
   footer?: React.ReactNode | null;
   renderModalBody: ([visible, setVisible]: useStatePair<
     boolean

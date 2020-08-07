@@ -11,7 +11,7 @@ import { AssaigContext } from "../../detall-assaig";
 import { useVeuAssaig } from "./hooks";
 
 interface PopoverVeusAssaigProps {
-  getConvocatsAssaig: Function;
+  getConvocatsAssaig: () => void;
 }
 
 const PopoverVeusAssaig: React.FC<PopoverVeusAssaigProps> = ({
