@@ -4,7 +4,7 @@ import { FetchError } from "common";
 import { Usuari } from "model";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { LogoCorDeCambra } from "../../assets/icons";
 import { Container } from "../../standalone/container";
@@ -23,13 +23,15 @@ interface IniciaSessioHistory {
 const IniciaSessio: React.FC = () => {
   const { t } = useTranslation(["fields", "sign-in", "validation"]);
 
+  const dispatch = useDispatch()
+
   const userState = useSelector(({ user }: RootState) => user);
   const currentUser = userState.currentUser as Usuari;
   const error = userState.error as FetchError;
 
   const [loading, setLoading] = useState(false);
 
-  const [fetched, dispatch] = useIniciUsuari();
+  const [fetched] = useIniciUsuari();
 
   const { state: locationState } = useLocation<IniciaSessioHistory>();
 

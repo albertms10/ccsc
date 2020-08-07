@@ -48,5 +48,5 @@ export default () => {
     }
   }, [currentUser, history, location.state, t]);
 
-  return [fetched, dispatch] as const;
+  return [fetched] as const;
 };
