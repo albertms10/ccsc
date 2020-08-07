@@ -2,16 +2,18 @@ import { Form } from "antd";
 import { Obra } from "model";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 import { fetchObres } from "../../../../../store/obres/thunks";
 
 export default () => {
   const dispatch = useDispatch();
 
+  const fetchAPI = useFetchAPI();
+
   const [form] = Form.useForm();
 
   const postObra = (obra: Obra) =>
-    fetchAPI("/obres", () => dispatch(fetchObres()), dispatch, {
+    fetchAPI("/obres", () => dispatch(fetchObres()), {
       method: "POST",
       body: JSON.stringify(obra),
     });

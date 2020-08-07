@@ -1,6 +1,6 @@
 import { ResponseError } from "common";
 import { Projecte, Usuari } from "model";
-import { fetchAPI } from "../../helpers";
+import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import {
   fetchProjectesFailure,
@@ -13,7 +13,7 @@ export const fetchProjectes = (): AppThunkAction => (dispatch, getState) => {
 
   dispatch(fetchProjectesRequest());
 
-  fetchAPI<Projecte[]>(
+  baseFetchAPI<Projecte[]>(
     `/socis/${id_persona}/projectes`,
     (data) => {
       if (data.hasOwnProperty("error"))

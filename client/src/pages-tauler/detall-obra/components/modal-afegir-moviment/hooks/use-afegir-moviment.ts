@@ -2,18 +2,19 @@ import { Form } from "antd";
 import { Moviment } from "model";
 import moment from "moment";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 
 export default (idObra: number) => {
-  const dispatch = useDispatch();
+  const fetchAPI = useFetchAPI();
+
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState(false);
 
   const postMoviment = (moviment: Moviment) => {
     setLoading(true);
-    return fetchAPI(`/moviments`, () => setLoading(false), dispatch, {
+
+    return fetchAPI(`/moviments`, () => setLoading(false), {
       method: "POST",
       body: JSON.stringify(moviment),
     });

@@ -1,11 +1,10 @@
 import { NomPila } from "model";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../helpers";
+import { useFetchAPI } from "../../../helpers";
 import { generateUsername } from "../../../utils";
 
 export default () => {
-  const dispatch = useDispatch();
+  const fetchAPI = useFetchAPI();
 
   const [username, setUsername] = useState("");
   const [loadingUsername, setLoadingUsername] = useState(false);
@@ -15,14 +14,10 @@ export default () => {
 
     const username = generateUsername(nom, cognoms);
 
-    fetchAPI<number>(
-      `/usuaris/${username}/first-available-num`,
-      (count) => {
-        setUsername(`${username}${count > 0 ? count : ""}`);
-        setLoadingUsername(false);
-      },
-      dispatch
-    );
+    fetchAPI<number>(`/usuaris/${username}/first-available-num`, (count) => {
+      setUsername(`${username}${count > 0 ? count : ""}`);
+      setLoadingUsername(false);
+    });
   };
 
   return [username, loadingUsername, getUsername] as const;

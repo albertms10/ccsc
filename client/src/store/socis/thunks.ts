@@ -1,6 +1,6 @@
 import { ResponseError } from "common";
 import { Soci } from "model";
-import { fetchAPI } from "../../helpers";
+import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import {
   fetchSocisFailure,
@@ -11,7 +11,7 @@ import {
 export const fetchSocis = (): AppThunkAction => (dispatch) => {
   dispatch(fetchSocisRequest());
 
-  fetchAPI<Soci[]>(
+  baseFetchAPI<Soci[]>(
     `/socis`,
     (data) => {
       if (data.hasOwnProperty("error"))

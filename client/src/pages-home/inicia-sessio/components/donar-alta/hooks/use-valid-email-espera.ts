@@ -6,11 +6,13 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 import { validatedInWaitingList } from "../../../../../store/user/actions";
 
 export default () => {
   const dispatch = useDispatch();
+
+  const fetchAPI = useFetchAPI();
 
   const history = useHistory();
 
@@ -34,7 +36,6 @@ export default () => {
           setAlertMessage((data as EmailEsperaFailureResponse).message);
         }
       },
-      dispatch,
       { method: "POST", body: JSON.stringify({ email }) }
     );
   };

@@ -3,16 +3,18 @@ import { Projecte } from "model";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { DATE_FORMAT } from "../../../../../constants/constants";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 import { fetchProjectes } from "../../../../../store/projectes/thunks";
 
 export default () => {
   const dispatch = useDispatch();
 
+  const fetchAPI = useFetchAPI();
+
   const [form] = Form.useForm();
 
   const postProjecte = (projecte: Projecte) =>
-    fetchAPI("/projectes", () => dispatch(fetchProjectes()), dispatch, {
+    fetchAPI("/projectes", () => dispatch(fetchProjectes()), {
       method: "POST",
       body: JSON.stringify(projecte),
     });

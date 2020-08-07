@@ -1,28 +1,25 @@
 import { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI, showDeleteConfirm } from "./index";
+import { showDeleteConfirm, useFetchAPI } from "./index";
 
-export default (url: string, textualElement: string, callback?: Function) => {
-  const dispatch = useDispatch();
+export default (url: string, textualElement: string, callback?: () => void) => {
+  const fetchAPI = useFetchAPI();
 
   const [loading, setLoading] = useState(false);
 
   const deleteData = useCallback(
     (id) => {
       setLoading(true);
+
       return fetchAPI(
         `${url}/${id}`,
         () => {
           setLoading(false);
           if (typeof callback === "function") callback();
         },
-        dispatch,
-        {
-          method: "DELETE",
-        }
+        { method: "DELETE" }
       );
     },
-    [url, callback, dispatch]
+    [url, callback, fetchAPI]
   );
 
   return [

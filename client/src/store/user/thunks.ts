@@ -1,6 +1,6 @@
 import { ResponseError } from "common";
 import LogRocket from "logrocket";
-import { fetchAPI } from "../../helpers";
+import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import { logoutUser, signinUserFailure, signinUserSuccess } from "./actions";
 import { SignInUser, UserResponse } from "./types";
@@ -8,7 +8,7 @@ import { SignInUser, UserResponse } from "./types";
 export const signinUserFetch = (user: SignInUser): AppThunkAction => (
   dispatch
 ) => {
-  fetchAPI<UserResponse>(
+  baseFetchAPI<UserResponse>(
     "/auth/sign-in",
     (data) => {
       if (data.hasOwnProperty("error")) {
@@ -36,8 +36,8 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
 export const getProfileFetch = (): AppThunkAction => (dispatch) => {
   const accessToken = localStorage.getItem("access-token");
 
-  if (accessToken) {
-    fetchAPI<UserResponse>(
+  if (accessToken)
+    baseFetchAPI<UserResponse>(
       "/auth/user",
       (data: UserResponse | ResponseError) => {
         if (data.hasOwnProperty("error")) {
@@ -49,7 +49,7 @@ export const getProfileFetch = (): AppThunkAction => (dispatch) => {
       },
       dispatch
     );
-  }
+
   return Promise.resolve();
 };
 

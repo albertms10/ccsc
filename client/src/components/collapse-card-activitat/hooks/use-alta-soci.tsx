@@ -2,13 +2,12 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../helpers";
+import { useFetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
   const { t } = useTranslation("modals");
 
-  const dispatch = useDispatch();
+  const fetchAPI = useFetchAPI();
 
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +18,6 @@ export default (idSoci: number) => {
       () => {
         setLoading(false);
       },
-      dispatch,
       { method: "POST" }
     );
   };

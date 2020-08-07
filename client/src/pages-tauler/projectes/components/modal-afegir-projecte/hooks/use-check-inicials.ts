@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../../../helpers";
+import { useFetchAPI } from "../../../../../helpers";
 
 export default () => {
-  const dispatch = useDispatch();
+  const fetchAPI = useFetchAPI();
 
   const [disponible, setDisponible] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const checkInicials = (inicials: string) => {
     setLoading(true);
-    fetchAPI<boolean>(
-      `/projectes/check-inicials/${inicials}`,
-      (disponible) => {
-        setDisponible(disponible as boolean);
-        setLoading(false);
-      },
-      dispatch
-    );
+    fetchAPI<boolean>(`/projectes/check-inicials/${inicials}`, (disponible) => {
+      setDisponible(disponible as boolean);
+      setLoading(false);
+    });
   };
 
   return [disponible, loading, checkInicials] as const;

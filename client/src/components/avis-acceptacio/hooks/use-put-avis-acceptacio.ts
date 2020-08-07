@@ -1,10 +1,9 @@
 import { BooleanMap } from "common";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAPI } from "../../../helpers";
+import { useFetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
-  const dispatch = useDispatch();
+  const fetchAPI = useFetchAPI();
 
   const [loading, setLoading] = useState(false);
 
@@ -16,11 +15,7 @@ export default (idSoci: number) => {
     fetchAPI<T>(
       `/socis/${idSoci}/acceptacions`,
       (accepta) => callback(accepta as T),
-      dispatch,
-      {
-        method: "PUT",
-        body: JSON.stringify(acceptacions),
-      }
+      { method: "PUT", body: JSON.stringify(acceptacions) }
     ).finally(() => setLoading(false));
   };
 

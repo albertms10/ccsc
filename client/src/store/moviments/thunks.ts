@@ -1,6 +1,6 @@
 import { ResponseError } from "common";
 import { Moviment } from "model";
-import { fetchAPI } from "../../helpers";
+import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import {
   fetchMovimentsFailure,
@@ -11,7 +11,7 @@ import {
 export const fetchMoviments = (): AppThunkAction => (dispatch) => {
   dispatch(fetchMovimentsRequest());
 
-  fetchAPI<Moviment[]>(
+  baseFetchAPI<Moviment[]>(
     `/moviments`,
     (data) => {
       if (data.hasOwnProperty("error"))
