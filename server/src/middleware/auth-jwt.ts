@@ -81,11 +81,13 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
     });
 
   verifyJWT(accessToken, (err, decoded: UserToken | EmailToken | undefined) => {
-    if (err || email !== (decoded as EmailToken).email)
+    const decodedEmail = decoded && (decoded as EmailToken).email;
+
+    if (err || email !== decodedEmail)
       return res.status(403).send({
         error: {
           status: 403,
-          ...(!err && email !== (decoded as EmailToken).email
+          ...(!err && email !== decodedEmail
             ? {
                 message: "Les adreces de correu no coincideixen",
                 description: "Modifiqueu l’adreça de correu electrònic.",
@@ -97,7 +99,7 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
         },
       });
 
-    res.locals.email = (decoded as EmailToken).email;
+    res.locals.email = decodedEmail;
     next();
   });
 };
