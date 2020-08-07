@@ -31,7 +31,9 @@ const DetallAssaig: React.FC = () => {
     {} as Assaig
   );
 
-  useEffect(() => setPageHeader(assaig.titol), [setPageHeader, assaig.titol]);
+  useEffect(() => {
+    setPageHeader(assaig.titol);
+  }, [setPageHeader, assaig.titol]);
 
   return (
     <AssaigContext.Provider value={assaig}>

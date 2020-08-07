@@ -24,10 +24,9 @@ export default () => {
 
   const [soci] = useAPI<Soci>(`/socis/${id}`, {} as Soci);
 
-  useEffect(() => setPageHeader(soci.nom_complet), [
-    setPageHeader,
-    soci.nom_complet,
-  ]);
+  useEffect(() => {
+    setPageHeader(soci.nom_complet);
+  }, [setPageHeader, soci.nom_complet]);
 
   return (
     <SociContext.Provider value={soci}>

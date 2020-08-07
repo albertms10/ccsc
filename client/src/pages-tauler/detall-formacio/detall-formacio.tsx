@@ -23,7 +23,9 @@ const DetallFormacio: React.FC<FormacioProps> = ({ formacio }) => {
 
   const setPageHeader = useContext(SetPageHeaderContext);
 
-  useEffect(() => setPageHeader(formacio.nom), [setPageHeader, formacio.nom]);
+  useEffect(() => {
+    setPageHeader(formacio.nom);
+  }, [setPageHeader, formacio.nom]);
 
   return (
     <FormacioContext.Provider value={formacio}>

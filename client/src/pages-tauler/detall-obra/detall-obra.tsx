@@ -19,7 +19,9 @@ export default () => {
 
   const [obra, loadingObra] = useAPI<Obra>(`/obres/${id}`, {} as Obra);
 
-  useEffect(() => setPageHeader(obra.titol), [setPageHeader, obra.titol]);
+  useEffect(() => {
+    setPageHeader(obra.titol);
+  }, [setPageHeader, obra.titol]);
 
   return (
     <ObraContext.Provider value={obra}>

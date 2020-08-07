@@ -21,10 +21,9 @@ const DetallMoviment: React.FC = () => {
     {} as Moviment
   );
 
-  useEffect(() => setPageHeader(moviment.titol_moviment), [
-    setPageHeader,
-    moviment.titol_moviment,
-  ]);
+  useEffect(() => {
+    setPageHeader(moviment.titol_moviment);
+  }, [setPageHeader, moviment.titol_moviment]);
 
   return (
     <MovimentContext.Provider value={moviment}>
