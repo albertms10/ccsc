@@ -1,7 +1,10 @@
 {
+  "error code": "Codi d’error: {{status}}",
   "not allowed": "Sense permís",
   "no auth": "Sense autenticació",
   "provide access token": "Cal proporcionar un token d’accés",
+  "sign in again": "Torna a iniciar sessió",
+  "sign in again to check": "Torna a iniciar sessió per comprovar la teva identitat",
   "emails do not match": "Les adreces de correu no coincideixen",
   "not finish filling form": "Encara no has acabat d’introduir les teves dades",
   "go fill the form": "Torna a introduir-les",

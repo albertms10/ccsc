@@ -50,7 +50,7 @@ export const baseFetchAPI = <T,>(
  * Fetches the API using the appropriate JWT Access Token.
  */
 export default () => {
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation("server");
 
   const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ export default () => {
               {t(error.description || "sign in again to check")}
             </Typography.Text>
             {error.status && (
-              <Typography.Text type="secondary">
+              <Typography.Text type="secondary" style={{ marginLeft: 4 }}>
                 <Tooltip
                   placement="right"
                   overlay={t("error code", { status: error.status })}

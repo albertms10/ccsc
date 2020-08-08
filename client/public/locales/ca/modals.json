@@ -1,7 +1,4 @@
 {
-  "sign in again": "Torna a iniciar sessió",
-  "sign in again to check": "Torna a iniciar sessió per comprovar la teva identitat",
-  "error code": "Codi d’error: {{status}}",
   "confirm delete action": "Confirmes que vols eliminar {{element}} i totes les dades associades?",
   "confirm subscription": "Confirmes que vols donar d’alta?",
   "confirm unsubscription": "Confirmes que vols donar de baixa?",
