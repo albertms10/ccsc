@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { ResponseError } from "common";
 import { Obra } from "model";
 import { baseFetchAPI } from "../../helpers/use-fetch-api";
@@ -18,6 +19,6 @@ export const fetchObres = (): AppThunkAction => (dispatch) => {
         dispatch(fetchObresFailure((data as ResponseError).error));
       else dispatch(fetchObresSuccess(data as Obra[]));
     },
-    dispatch
+    (error) => message.error(error.message)
   );
 };

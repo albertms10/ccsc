@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { ResponseError } from "common";
 import { Assaig, Usuari } from "model";
 import { baseFetchAPI } from "../../helpers/use-fetch-api";
@@ -20,6 +21,6 @@ export const fetchAssajos = (): AppThunkAction => (dispatch, getState) => {
         dispatch(fetchAssajosFailure((data as ResponseError).error));
       else dispatch(fetchAssajosSuccess(data as Assaig[]));
     },
-    dispatch
+    (error) => message.error(error.message)
   );
 };

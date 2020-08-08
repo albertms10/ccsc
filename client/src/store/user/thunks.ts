@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { ResponseError } from "common";
 import LogRocket from "logrocket";
 import { baseFetchAPI } from "../../helpers/use-fetch-api";
@@ -47,7 +48,7 @@ export const getProfileFetch = (): AppThunkAction => (dispatch) => {
           dispatch(signinUserSuccess((data as UserResponse).user));
         }
       },
-      dispatch
+      (error) => message.error(error.message)
     );
 
   return Promise.resolve();

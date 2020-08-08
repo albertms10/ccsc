@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { ResponseError } from "common";
 import { Moviment } from "model";
 import { baseFetchAPI } from "../../helpers/use-fetch-api";
@@ -18,6 +19,6 @@ export const fetchMoviments = (): AppThunkAction => (dispatch) => {
         dispatch(fetchMovimentsFailure((data as ResponseError).error));
       else dispatch(fetchMovimentsSuccess(data as Moviment[]));
     },
-    dispatch
+    (error) => message.error(error.message)
   );
 };
