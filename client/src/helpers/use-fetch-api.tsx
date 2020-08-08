@@ -10,6 +10,9 @@ const catchError = (e: Error) => {
   message.error(e.toString());
 };
 
+/**
+ * Fetches the API using the appropriate JWT Access Token.
+ */
 export const baseFetchAPI = <T,>(
   url: string,
   callback: (data: ResponseError | T) => void,
@@ -64,7 +67,7 @@ export default () => {
               {t(error.description || "sign in again to check")}
             </Typography.Text>
             {error.status && (
-              <Typography.Text type="secondary" style={{ marginLeft: 4 }}>
+              <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
                 <Tooltip
                   placement="right"
                   overlay={t("error code", { status: error.status })}
