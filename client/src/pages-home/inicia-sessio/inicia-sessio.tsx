@@ -23,7 +23,7 @@ interface IniciaSessioHistory {
 const IniciaSessio: React.FC = () => {
   const { t } = useTranslation(["fields", "sign-in", "validation"]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const userState = useSelector(({ user }: RootState) => user);
   const currentUser = userState.currentUser as Usuari;
@@ -48,7 +48,7 @@ const IniciaSessio: React.FC = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    setLoading(false);
+    if (error.status) setLoading(false);
 
     if (!error.hideMessage)
       if (error.status >= 400 && error.status < 500)
