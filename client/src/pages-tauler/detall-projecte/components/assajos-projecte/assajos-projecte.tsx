@@ -8,10 +8,9 @@ const AssajosProjecte: React.FC = () => {
   const projecte = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
-  useEffect(
-    () => setAction(<DropdownAfegirAssaigProjecte projecte={projecte} />),
-    [setAction, projecte]
-  );
+  useEffect(() => {
+    setAction(<DropdownAfegirAssaigProjecte projecte={projecte} />);
+  }, [setAction, projecte]);
 
   return (
     <Container>

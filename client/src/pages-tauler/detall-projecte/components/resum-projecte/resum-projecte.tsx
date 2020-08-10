@@ -7,7 +7,9 @@ const ResumProjecte: React.FC = () => {
   const { formacions } = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
-  useEffect(() => setAction(<></>), [setAction]);
+  useEffect(() => {
+    setAction(<></>);
+  }, [setAction]);
 
   return (
     <Container>

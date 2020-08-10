@@ -8,10 +8,9 @@ const RepertoriProjecte: React.FC = () => {
   const projecte = useContext(ProjecteContext);
   const setAction = useContext(SetActionContext);
 
-  useEffect(
-    () => setAction(<DropdownAfegirMovimentProjecte projecte={projecte} />),
-    [setAction, projecte]
-  );
+  useEffect(() => {
+    setAction(<DropdownAfegirMovimentProjecte projecte={projecte} />);
+  }, [setAction, projecte]);
 
   return (
     <Container>

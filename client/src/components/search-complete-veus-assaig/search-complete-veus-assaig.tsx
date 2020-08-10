@@ -25,7 +25,7 @@ const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
     <SearchComplete
       data={veus}
       onSelect={(value, option) =>
-        onSelect(value, option).then(() => getVeus())
+        onSelect(value, option).then(getVeus)
       }
       filter={(value, veu) =>
         searchFilter(value, {

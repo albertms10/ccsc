@@ -10,6 +10,9 @@ const catchError = (e: Error) => {
   message.error(e.toString());
 };
 
+/**
+ * Avoids having multiple modal instances open.
+ */
 let hasError = false;
 
 /**

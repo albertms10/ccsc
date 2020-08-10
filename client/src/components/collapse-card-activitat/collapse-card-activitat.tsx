@@ -75,7 +75,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
     loadingBaixa,
     modalAltaSoci,
     modalBaixaSoci,
-    t
+    t,
   ]);
 
   return (

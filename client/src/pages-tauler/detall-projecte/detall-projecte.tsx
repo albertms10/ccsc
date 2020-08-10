@@ -42,7 +42,9 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
 
   const [action, setAction] = useState<React.ReactNode>(<></>);
 
-  useEffect(() => setCollapsed(true), [setCollapsed]);
+  useEffect(() => {
+    setCollapsed(true);
+  }, [setCollapsed]);
 
   return (
     <ProjecteContext.Provider value={projecte}>
