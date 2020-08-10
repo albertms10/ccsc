@@ -10,6 +10,8 @@ const catchError = (e: Error) => {
   message.error(e.toString());
 };
 
+let hasError = false;
+
 /**
  * Fetches the API using the appropriate JWT Access Token.
  */
@@ -49,9 +51,6 @@ export const baseFetchAPI = <T,>(
     })
     .catch(catchError);
 
-/**
- * Fetches the API using the appropriate JWT Access Token.
- */
 export default () => {
   const { t } = useTranslation("server");
 
@@ -81,6 +80,9 @@ export default () => {
         okText: t(error.okText || "sign in again"),
         cancelText: t("common:go back"),
         okCancel: !error.okOnly,
+        onCancel: () => {
+          hasError = false;
+        },
         onOk: error.noAction
           ? undefined
           : () => {
@@ -92,12 +94,22 @@ export default () => {
     [dispatch, t]
   );
 
+  const onError = useCallback(
+    (error) => {
+      if (!hasError) {
+        hasError = true;
+        modalWarn(error);
+      }
+    },
+    [modalWarn]
+  );
+
   return useCallback(
     <T,>(
       url: string,
       callback: (data: ResponseError | T) => void,
       init: RequestInit = {}
-    ) => baseFetchAPI(url, callback, modalWarn, init),
-    [modalWarn]
+    ) => baseFetchAPI(url, callback, onError, init),
+    [onError]
   );
 };
