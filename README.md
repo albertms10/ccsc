@@ -1,5 +1,9 @@
 # Desenvolupament d’una aplicació web per a la gestió d’una associació musical
 
+![Node.js CI](https://github.com/albertms10/ccsc/workflows/Node.js%20CI/badge.svg)
+![CodeQL](https://github.com/albertms10/ccsc/workflows/CodeQL/badge.svg)
+![OSSAR](https://github.com/albertms10/ccsc/workflows/OSSAR/badge.svg)
+
 Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat.
 
 L’aplicació està disponible a [cordecambrasantcugat.herokuapp.com](https://cordecambrasantcugat.herokuapp.com).
