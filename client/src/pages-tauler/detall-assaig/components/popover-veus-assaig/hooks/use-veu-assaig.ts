@@ -1,5 +1,5 @@
 import { BaseVeu } from "model";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useFetchAPI } from "../../../../../helpers";
 
 export default (idAssaig: number) => {
@@ -7,20 +7,23 @@ export default (idAssaig: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const changeVeuAssaig = (veu: BaseVeu) => {
-    setLoading(true);
+  const changeVeuAssaig = useCallback(
+    (veu: BaseVeu) => {
+      setLoading(true);
 
-    return veu.convocada
-      ? fetchAPI(`/assajos/${idAssaig}/veus`, () => setLoading(false), {
-          method: "POST",
-          body: JSON.stringify(veu),
-        })
-      : fetchAPI(
-          `/assajos/${idAssaig}/veus/${veu.id_veu}`,
-          () => setLoading(false),
-          { method: "DELETE" }
-        );
-  };
+      return veu.convocada
+        ? fetchAPI(`/assajos/${idAssaig}/veus`, () => setLoading(false), {
+            method: "POST",
+            body: JSON.stringify(veu),
+          })
+        : fetchAPI(
+            `/assajos/${idAssaig}/veus/${veu.id_veu}`,
+            () => setLoading(false),
+            { method: "DELETE" }
+          );
+    },
+    [fetchAPI, idAssaig]
+  );
 
   return [loading, changeVeuAssaig] as const;
 };

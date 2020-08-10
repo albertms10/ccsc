@@ -1,5 +1,5 @@
 import { NomPila } from "model";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useFetchAPI } from "../../../helpers";
 import { generateUsername } from "../../../utils";
 
@@ -9,16 +9,22 @@ export default () => {
   const [username, setUsername] = useState("");
   const [loadingUsername, setLoadingUsername] = useState(false);
 
-  const getUsername = ({ nom, cognoms }: NomPila) => {
-    setLoadingUsername(true);
+  const getUsername = useCallback(
+    ({ nom, cognoms }: NomPila) => {
+      setLoadingUsername(true);
 
-    const username = generateUsername(nom, cognoms);
+      const username = generateUsername(nom, cognoms);
 
-    fetchAPI<number>(`/usuaris/${username}/first-available-num`, (count) => {
-      setUsername(`${username}${count > 0 ? count : ""}`);
-      setLoadingUsername(false);
-    });
-  };
+      return fetchAPI<number>(
+        `/usuaris/${username}/first-available-num`,
+        (count) => {
+          setUsername(`${username}${count > 0 ? count : ""}`);
+          setLoadingUsername(false);
+        }
+      );
+    },
+    [fetchAPI]
+  );
 
   return [username, loadingUsername, getUsername] as const;
 };

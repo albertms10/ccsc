@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useFetchAPI } from "../../../helpers";
 
@@ -11,8 +11,9 @@ export default (idSoci: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const donarAltaSoci = () => {
+  const donarAltaSoci = useCallback(() => {
     setLoading(true);
+
     return fetchAPI(
       `/socis/${idSoci}/alta`,
       () => {
@@ -20,7 +21,7 @@ export default (idSoci: number) => {
       },
       { method: "POST" }
     );
-  };
+  }, [fetchAPI, idSoci]);
 
   const modalAltaSoci = (callback: () => void) => {
     Modal.confirm({

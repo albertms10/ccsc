@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { Moviment } from "model";
 import moment from "moment";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useFetchAPI } from "../../../../../helpers";
 
 export default (idObra: number) => {
@@ -11,22 +11,30 @@ export default (idObra: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const postMoviment = (moviment: Moviment) => {
-    setLoading(true);
+  const postMoviment = useCallback(
+    (moviment: Moviment) => {
+      setLoading(true);
 
-    return fetchAPI(`/moviments`, () => setLoading(false), {
-      method: "POST",
-      body: JSON.stringify(moviment),
-    });
-  };
+      return fetchAPI(`/moviments`, () => setLoading(false), {
+        method: "POST",
+        body: JSON.stringify(moviment),
+      });
+    },
+    [fetchAPI]
+  );
 
-  const handleOk = () =>
-    form.validateFields().then((moviment) => {
-      moviment.id_obra = idObra;
-      if (moviment.durada)
-        moviment.durada = moment(moviment.durada).format("HH:mm:ss");
-      return postMoviment(moviment as Moviment);
-    });
+  const handleOk = useCallback(
+    () =>
+      form.validateFields().then((moviment) => {
+        moviment.id_obra = idObra;
+
+        if (moviment.durada)
+          moviment.durada = moment(moviment.durada).format("HH:mm:ss");
+
+        return postMoviment(moviment as Moviment);
+      }),
+    [form, idObra, postMoviment]
+  );
 
   return [form, loading, handleOk] as const;
 };

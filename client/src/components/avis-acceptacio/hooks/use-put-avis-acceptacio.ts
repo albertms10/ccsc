@@ -1,5 +1,5 @@
 import { BooleanMap } from "common";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useFetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
@@ -7,17 +7,18 @@ export default (idSoci: number) => {
 
   const [loading, setLoading] = useState(false);
 
-  const putAvisAcceptacio = <T = BooleanMap>(
-    acceptacions: T,
-    callback: (accepta: T) => void
-  ) => {
-    setLoading(true);
-    fetchAPI<T>(
-      `/socis/${idSoci}/acceptacions`,
-      (accepta) => callback(accepta as T),
-      { method: "PUT", body: JSON.stringify(acceptacions) }
-    ).finally(() => setLoading(false));
-  };
+  const putAvisAcceptacio = useCallback(
+    <T = BooleanMap>(acceptacions: T, callback: (accepta: T) => void) => {
+      setLoading(true);
+
+      return fetchAPI<T>(
+        `/socis/${idSoci}/acceptacions`,
+        (accepta) => callback(accepta as T),
+        { method: "PUT", body: JSON.stringify(acceptacions) }
+      ).finally(() => setLoading(false));
+    },
+    [fetchAPI, idSoci]
+  );
 
   return [putAvisAcceptacio, loading] as const;
 };

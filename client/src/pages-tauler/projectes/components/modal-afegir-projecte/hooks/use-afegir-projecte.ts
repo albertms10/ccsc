@@ -1,6 +1,7 @@
 import { Form } from "antd";
 import { Projecte } from "model";
 import moment from "moment";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { DATE_FORMAT } from "../../../../../constants/constants";
 import { useFetchAPI } from "../../../../../helpers";
@@ -13,25 +14,31 @@ export default () => {
 
   const [form] = Form.useForm();
 
-  const postProjecte = (projecte: Projecte) =>
-    fetchAPI("/projectes", () => dispatch(fetchProjectes()), {
-      method: "POST",
-      body: JSON.stringify(projecte),
-    });
+  const postProjecte = useCallback(
+    (projecte: Projecte) =>
+      fetchAPI("/projectes", () => dispatch(fetchProjectes()), {
+        method: "POST",
+        body: JSON.stringify(projecte),
+      }),
+    [fetchAPI, dispatch]
+  );
 
-  const handleOk = () =>
-    form.validateFields().then((projecte) => {
-      projecte.color = projecte.color
-        ? projecte.color.hex.substring(1, projecte.color.length)
-        : "676767";
-      projecte.data = projecte.data
-        ? projecte.data.map((d: string) => d && moment(d).format(DATE_FORMAT))
-        : [null, null];
+  const handleOk = useCallback(
+    () =>
+      form.validateFields().then((projecte) => {
+        projecte.color = projecte.color
+          ? projecte.color.hex.substring(1, projecte.color.length)
+          : "676767";
+        projecte.data = projecte.data
+          ? projecte.data.map((d: string) => d && moment(d).format(DATE_FORMAT))
+          : [null, null];
 
-      if (!projecte.formacions) projecte.formacions = [];
+        if (!projecte.formacions) projecte.formacions = [];
 
-      return postProjecte(projecte as Projecte);
-    });
+        return postProjecte(projecte as Projecte);
+      }),
+    [form, postProjecte]
+  );
 
   return [form, handleOk] as const;
 };
