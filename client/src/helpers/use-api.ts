@@ -19,7 +19,7 @@ export default <T>(url: string, initialState: T) => {
 
           setLoading(false);
         },
-        ...(controller ? [{ signal: controller.signal }] : undefined)
+        ...(controller ? [{ signal: controller.signal }] : [])
       );
     },
     [fetchAPI, url]
