@@ -3,6 +3,7 @@
 ![Node.js CI](https://github.com/albertms10/ccsc/workflows/Node.js%20CI/badge.svg)
 ![CodeQL](https://github.com/albertms10/ccsc/workflows/CodeQL/badge.svg)
 ![OSSAR](https://github.com/albertms10/ccsc/workflows/OSSAR/badge.svg)
+![Heroku](https://heroku-badge.herokuapp.com/?app=cordecambrasantcugat&svg=1)
 
 Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat.
 
