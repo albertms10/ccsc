@@ -10,7 +10,7 @@ import {
   Soci,
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler } from "raw-model";
+import { ControllerRequestHandler } from "server-model";
 import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common.constants";
 import { queryFile } from "../helpers";
 

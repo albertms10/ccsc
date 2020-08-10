@@ -1,6 +1,6 @@
 /// <reference path="../../common/model.d.ts" />
 
-declare module "raw-model" {
+declare module "server-model" {
   import { RequestHandler } from "express";
   import { ParamsDictionary } from "express-serve-static-core";
   import { ParsedQs } from "qs";

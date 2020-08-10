@@ -1,6 +1,6 @@
 import { Idioma, Moviment, Obra } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, ObraPost } from "raw-model";
+import { ControllerRequestHandler, ObraPost } from "server-model";
 import { queryFile } from "../helpers";
 
 export const obres_get: ControllerRequestHandler<Obra[]> = (req, res, next) => {

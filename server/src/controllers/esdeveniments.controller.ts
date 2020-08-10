@@ -1,6 +1,6 @@
 import { Convocatoria, Esdeveniment, EstatConfirmacio, Persona } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler } from "raw-model";
+import { ControllerRequestHandler } from "server-model";
 import { queryFile } from "../helpers";
 
 export const esdeveniments_get: ControllerRequestHandler<Esdeveniment[]> = (

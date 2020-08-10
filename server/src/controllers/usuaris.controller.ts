@@ -1,5 +1,5 @@
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler } from "raw-model";
+import { ControllerRequestHandler } from "server-model";
 import { queryFile } from "../helpers";
 
 export const usuaris_detall_firstavailablenum: ControllerRequestHandler<number> = (

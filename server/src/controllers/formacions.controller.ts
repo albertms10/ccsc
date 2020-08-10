@@ -1,6 +1,6 @@
 import { Concert, Esdeveniment, Formacio, Persona, Projecte } from "model";
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler } from "raw-model";
+import { ControllerRequestHandler } from "server-model";
 import { queryFile } from "../helpers";
 
 export const formacions_detall: ControllerRequestHandler<Formacio> = (

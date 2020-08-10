@@ -6,7 +6,7 @@ import {
   ControllerRequestHandler,
   EmailResponse,
   UsernamePasswordPost,
-} from "raw-model";
+} from "server-model";
 import { queryFile, trySendUser } from "../helpers";
 import { signJWT } from "../utils";
 

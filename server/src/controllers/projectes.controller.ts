@@ -1,6 +1,6 @@
 import { Concert, ItemGrafica, Persona, Projecte } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, Count, ProjectePost } from "raw-model";
+import { ControllerRequestHandler, Count, ProjectePost } from "server-model";
 import { queryFile } from "../helpers";
 
 export const projectes_count: ControllerRequestHandler<number> = (

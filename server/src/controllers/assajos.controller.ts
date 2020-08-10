@@ -10,7 +10,7 @@ import {
   Veu,
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { AssaigPost, ControllerRequestHandler, Count } from "raw-model";
+import { AssaigPost, ControllerRequestHandler, Count } from "server-model";
 import { queryFile } from "../helpers";
 
 export const assajos_detall: ControllerRequestHandler<Assaig> = (

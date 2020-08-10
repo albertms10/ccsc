@@ -1,6 +1,6 @@
 import { ItemGrafica } from "model";
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, Count } from "raw-model";
+import { ControllerRequestHandler, Count } from "server-model";
 import { queryFile } from "../helpers";
 
 export const concerts_count: ControllerRequestHandler<number> = (

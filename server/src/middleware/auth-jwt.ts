@@ -1,6 +1,6 @@
 import { ResponseError } from "common";
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler } from "raw-model";
+import { ControllerRequestHandler } from "server-model";
 import {
   ROLES_ADMIN,
   ROLES_DIRECCIO_MUSICAL,
