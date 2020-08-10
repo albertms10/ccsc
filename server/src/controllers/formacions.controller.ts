@@ -1,7 +1,7 @@
 import { Concert, Esdeveniment, Formacio, Persona, Projecte } from "model";
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, ProjecteRaw } from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { ControllerRequestHandler } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const formacions_detall: ControllerRequestHandler<Formacio> = (
   req,
@@ -31,9 +31,7 @@ export const formacions_detall_esdeveniments: ControllerRequestHandler<
       queryFile("formacions/select__esdeveniments_formacio"),
       [id]
     )
-    .then(([[_, esdeveniments]]) =>
-      parseAndSendJSON(res, next, esdeveniments, ["projectes"])
-    )
+    .then(([[_, esdeveniments]]) => res.json(esdeveniments))
     .catch(next);
 };
 
@@ -61,19 +59,19 @@ export const formacions_detall_projectes: ControllerRequestHandler<
   const { id } = req.params;
 
   pool
-    .query<(ProjecteRaw & RowDataPacket)[]>(
+    .query<(Projecte & RowDataPacket)[]>(
       queryFile("formacions/select__projectes_formacio"),
       [id]
     )
-    .then(([projectes]) =>
-      parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
-    )
+    .then(([projectes]) => res.json(projectes))
     .catch(next);
 };
 
-export const formacions_detall_membres: ControllerRequestHandler<
-  Persona[]
-> = (req, res, next) => {
+export const formacions_detall_membres: ControllerRequestHandler<Persona[]> = (
+  req,
+  res,
+  next
+) => {
   const pool: Pool = req.app.get("pool");
   const { id } = req.params;
 

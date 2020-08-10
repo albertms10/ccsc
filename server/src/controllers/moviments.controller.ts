@@ -1,7 +1,7 @@
 import { Moviment } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, MovimentRaw } from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { ControllerRequestHandler } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const moviments_get: ControllerRequestHandler<Moviment[]> = (
   req,
@@ -11,12 +11,10 @@ export const moviments_get: ControllerRequestHandler<Moviment[]> = (
   const pool: Pool = req.app.get("pool");
 
   pool
-    .query<(MovimentRaw & RowDataPacket)[]>(
+    .query<(Moviment & RowDataPacket)[]>(
       queryFile("moviments/select__moviments")
     )
-    .then(([moviments]) =>
-      parseAndSendJSON(res, next, moviments, ["projectes"])
-    )
+    .then(([moviments]) => res.json(moviments))
     .catch(next);
 };
 

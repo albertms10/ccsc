@@ -10,14 +10,9 @@ import {
   Soci,
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import {
-  AssaigRaw,
-  ControllerRequestHandler,
-  ProjecteRaw,
-  SociRaw,
-} from "raw-model";
+import { ControllerRequestHandler } from "raw-model";
 import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common.constants";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { queryFile } from "../helpers";
 
 export const socis_count: ControllerRequestHandler<CountSocis> = (
   req,
@@ -58,8 +53,8 @@ export const socis_detall: ControllerRequestHandler<Soci> = (
   const { id } = req.params;
 
   pool
-    .query<(SociRaw & RowDataPacket)[]>(queryFile("socis/select__soci"), [id])
-    .then(([[soci]]) => parseAndSendJSON(res, next, soci, ["roles"]))
+    .query<(Soci & RowDataPacket)[]>(queryFile("socis/select__soci"), [id])
+    .then(([[soci]]) => res.json(soci))
     .catch(next);
 };
 
@@ -212,17 +207,15 @@ export const socis_detall_projectes: ControllerRequestHandler<Projecte[]> = (
   const { id } = req.params;
 
   pool
-    .query<(ProjecteRaw & RowDataPacket)[][]>(
+    .query<(Projecte & RowDataPacket)[][]>(
       queryFile("socis/select__projectes_soci"),
       [id, ROLES_JUNTA_DIRECTIVA]
     )
-    .then(([[_, projectes]]) =>
-      parseAndSendJSON(res, next, projectes, ["directors", "formacions"])
-    )
+    .then(([[_, projectes]]) => res.json(projectes))
     .catch(next);
 };
 
-export const socis_detall_assajos: ControllerRequestHandler<Assaig> = (
+export const socis_detall_assajos: ControllerRequestHandler<Assaig[]> = (
   req,
   res,
   next
@@ -231,13 +224,11 @@ export const socis_detall_assajos: ControllerRequestHandler<Assaig> = (
   const { id } = req.params;
 
   pool
-    .query<(AssaigRaw & RowDataPacket)[][]>(
+    .query<(Assaig & RowDataPacket)[][]>(
       queryFile("socis/select__assajos_soci"),
       [id, ROLES_JUNTA_DIRECTIVA]
     )
-    .then(([[_, assajos]]) =>
-      parseAndSendJSON(res, next, assajos, ["formacions", "projectes"])
-    )
+    .then(([[_, assajos]]) => res.json(assajos))
     .catch(next);
 };
 
@@ -254,7 +245,7 @@ export const socis_detall_acceptacions_get: ControllerRequestHandler<BooleanMap>
       queryFile("socis/select__acceptacions_soci"),
       [id]
     )
-    .then(([[{ acceptacions }]]) => parseAndSendJSON(res, next, acceptacions))
+    .then(([[{ acceptacions }]]) => res.json(acceptacions))
     .catch(next);
 };
 
@@ -339,16 +330,10 @@ export const socis_detall_propersassajos: ControllerRequestHandler<
   const limit = req.query.limit ? parseInt(req.query.limit.toString()) : 4;
 
   pool
-    .query<(AssaigRaw & RowDataPacket)[]>(
+    .query<(Assaig & RowDataPacket)[]>(
       queryFile("socis/select__propers_assajos_soci"),
       [id, limit]
     )
-    .then(([assajos]) =>
-      parseAndSendJSON(res, next, assajos, [
-        "formacions",
-        "projectes",
-        "moviments",
-      ])
-    )
+    .then(([assajos]) => res.json(assajos))
     .catch(next);
 };

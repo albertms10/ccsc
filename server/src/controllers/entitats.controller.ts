@@ -1,7 +1,7 @@
 import { Avis, Curs, Entitat } from "model";
 import { Pool, RowDataPacket } from "mysql2/promise";
-import { AvisRaw, ControllerRequestHandler } from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { ControllerRequestHandler } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const entitats_get: ControllerRequestHandler<Entitat[]> = (
   req,
@@ -41,13 +41,11 @@ export const entitats_detall_avisos_detall: ControllerRequestHandler<Avis> = (
   const { name } = req.params;
 
   pool
-    .query<(AvisRaw & RowDataPacket)[]>(
+    .query<(Avis & RowDataPacket)[]>(
       queryFile("entitats/select__avisos_entitat"),
       [name]
     )
-    .then(([[avis]]) =>
-      parseAndSendJSON(res, next, avis, ["seccions", "acceptacions"])
-    )
+    .then(([[avis]]) => res.json(avis))
     .catch(next);
 };
 

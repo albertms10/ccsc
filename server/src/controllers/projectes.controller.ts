@@ -1,12 +1,7 @@
 import { Concert, ItemGrafica, Persona, Projecte } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import {
-  ControllerRequestHandler,
-  Count,
-  ProjectePost,
-  ProjecteRaw,
-} from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { ControllerRequestHandler, Count, ProjectePost } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const projectes_count: ControllerRequestHandler<number> = (
   req,
@@ -65,13 +60,11 @@ export const projectes_detall: ControllerRequestHandler<Projecte> = (
   const { id } = req.params;
 
   pool
-    .query<(ProjecteRaw & RowDataPacket)[]>(
+    .query<(Projecte & RowDataPacket)[]>(
       queryFile("projectes/select__projecte"),
       [id]
     )
-    .then(([[projecte]]) =>
-      parseAndSendJSON(res, next, projecte, ["directors", "formacions"])
-    )
+    .then(([[projecte]]) => res.json(projecte))
     .catch(next);
 };
 

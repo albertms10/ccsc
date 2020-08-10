@@ -1,7 +1,7 @@
 import { Idioma, Moviment, Obra } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { ControllerRequestHandler, MovimentRaw, ObraPost } from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { ControllerRequestHandler, ObraPost } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const obres_get: ControllerRequestHandler<Obra[]> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
@@ -88,12 +88,10 @@ export const obres_detall_moviments: ControllerRequestHandler<Moviment[]> = (
   const { id } = req.params;
 
   pool
-    .query<(MovimentRaw & RowDataPacket)[]>(
+    .query<(Moviment & RowDataPacket)[]>(
       queryFile("obres/select__moviments_obra"),
       [id]
     )
-    .then(([moviments]) =>
-      parseAndSendJSON(res, next, moviments, ["projectes"])
-    )
+    .then(([moviments]) => res.json(moviments))
     .catch(next);
 };

@@ -3,7 +3,6 @@
 declare module "raw-model" {
   import { RequestHandler } from "express";
   import { ParamsDictionary } from "express-serve-static-core";
-  import { BaseAvis, BaseMoviment, BaseProjecte, Esdeveniment } from "model";
   import { ParsedQs } from "qs";
 
   export type ControllerRequestHandler<
@@ -26,21 +25,6 @@ declare module "raw-model" {
     message?: string;
   }
 
-  export interface AvisRaw extends BaseAvis {
-    seccions: string;
-    acceptacions: string;
-  }
-
-  export interface EsdevenimentMusicalRaw extends Esdeveniment {
-    formacions: string;
-    moviments: string;
-  }
-
-  export interface AssaigRaw extends EsdevenimentMusicalRaw {
-    id_assaig: number;
-    projectes: string;
-  }
-
   export interface AssaigPost {
     dia_inici: string;
     hora: [string, string];
@@ -48,15 +32,6 @@ declare module "raw-model" {
     es_extra: boolean;
     projectes: number[];
     formacions: number[];
-  }
-
-  export interface MovimentRaw extends BaseMoviment {
-    projectes: string;
-  }
-
-  export interface ProjecteRaw extends BaseProjecte {
-    formacions: string;
-    directors: string;
   }
 
   export interface ObraPost {
@@ -74,9 +49,5 @@ declare module "raw-model" {
     data: [string, string];
     id_curs: number;
     formacions: number[];
-  }
-
-  export interface SociRaw {
-    roles: string;
   }
 }

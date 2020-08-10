@@ -10,14 +10,8 @@ import {
   Veu,
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import {
-  AssaigPost,
-  AssaigRaw,
-  ControllerRequestHandler,
-  Count,
-  MovimentRaw,
-} from "raw-model";
-import { parseAndSendJSON, queryFile } from "../helpers";
+import { AssaigPost, ControllerRequestHandler, Count } from "raw-model";
+import { queryFile } from "../helpers";
 
 export const assajos_detall: ControllerRequestHandler<Assaig> = (
   req,
@@ -28,12 +22,10 @@ export const assajos_detall: ControllerRequestHandler<Assaig> = (
   const { id } = req.params;
 
   pool
-    .query<(AssaigRaw & RowDataPacket)[]>(queryFile("assajos/select__assaig"), [
+    .query<(Assaig & RowDataPacket)[]>(queryFile("assajos/select__assaig"), [
       id,
     ])
-    .then(([[assaig]]) =>
-      parseAndSendJSON(res, next, assaig, ["formacions", "projectes"])
-    )
+    .then(([[assaig]]) => res.json(assaig))
     .catch(next);
 };
 
@@ -177,13 +169,11 @@ export const assajos_detall_moviments_get: ControllerRequestHandler<
   const { id } = req.params;
 
   pool
-    .query<(MovimentRaw & RowDataPacket)[]>(
+    .query<(Moviment & RowDataPacket)[]>(
       queryFile("assajos/select__moviments_assaig"),
       [id]
     )
-    .then(([moviments]) =>
-      parseAndSendJSON(res, next, moviments, ["projectes"])
-    )
+    .then(([moviments]) => res.json(moviments))
     .catch(next);
 };
 
