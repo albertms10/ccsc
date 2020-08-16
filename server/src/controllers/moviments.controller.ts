@@ -1,4 +1,4 @@
-import { Moviment } from "model";
+import { FragmentMovimentEsdevenimentMusical, Moviment } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
 import { ControllerRequestHandler } from "server-model";
 import { queryFile } from "../helpers";
@@ -77,5 +77,20 @@ export const moviments_detall_delete: ControllerRequestHandler = (
   pool
     .query<OkPacket>(queryFile("moviments/delete__moviment"), [id])
     .then(() => res.status(204).send())
+    .catch(next);
+};
+
+export const moviments_detall_fragments: ControllerRequestHandler<
+  FragmentMovimentEsdevenimentMusical[]
+> = (req, res, next) => {
+  const pool: Pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query<(FragmentMovimentEsdevenimentMusical & RowDataPacket)[]>(
+      queryFile("moviments/select__fragments_moviment"),
+      [id]
+    )
+    .then(([fragments]) => res.json(fragments))
     .catch(next);
 };
