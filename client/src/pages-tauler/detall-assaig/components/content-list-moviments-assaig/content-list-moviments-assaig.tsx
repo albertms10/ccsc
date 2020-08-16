@@ -6,6 +6,7 @@ import { useAPI, useDeleteAPI } from "../../../../helpers";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
 import { ContentList } from "../../../../standalone/content-list";
 import { AssaigContext } from "../../detall-assaig";
+import { ModalFragmentsTreballatsMoviment } from "../modal-fragments-treballats-moviment";
 import { ModalListMovimentsAssaig } from "../modal-list-moviments-assaig";
 import { PopoverProjectesAssaig } from "../popover-projectes-assaig";
 
@@ -30,15 +31,16 @@ const ContentListMovimentsAssaig: React.FC = () => {
         title: moviment.titol_moviment,
         description: moviment.titol_obra,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
-        extra: (
+        extra: <ModalFragmentsTreballatsMoviment moviment={moviment} />,
+        actions: [
           <BorderlessButton
             size="small"
             shape="circle"
             tooltip="Eliminar de l’assaig"
             icon={<CloseOutlined />}
             onClick={() => deleteMoviment(moviment.id_moviment)}
-          />
-        ),
+          />,
+        ],
       }))}
       loading={loadingMoviments || loadingDelete}
       action={
