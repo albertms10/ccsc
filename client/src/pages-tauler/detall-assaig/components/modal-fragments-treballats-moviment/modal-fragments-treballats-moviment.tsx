@@ -45,11 +45,7 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
       footer={null}
       renderModalBody={() => (
         <>
-          <div style={{ display: "flex", height: 14 }}>
-            {compassosTreballats.map((compas, i) => (
-              <NumberHeatMap key={`compas-${i + 1}`} number={compas} />
-            ))}
-          </div>
+          <NumberHeatMap numbers={compassosTreballats} />
           <Divider />
           <List
             dataSource={fragmentsTreballats}
