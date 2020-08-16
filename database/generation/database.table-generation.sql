@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS moviments
     titol       VARCHAR(100)      NULL,
     durada      TIME              NULL,
     tonalitat   VARCHAR(10)       NULL,
+    compassos   SMALLINT UNSIGNED,
     id_obra     SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT moviments_ibfk_1
         FOREIGN KEY (id_obra) REFERENCES obres (id_obra)

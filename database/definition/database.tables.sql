@@ -606,6 +606,7 @@ CREATE TABLE IF NOT EXISTS moviments
     titol       VARCHAR(100),
     durada      TIME,
     tonalitat   VARCHAR(10),
+    compassos   SMALLINT UNSIGNED,
 
     id_obra     SMALLINT UNSIGNED NOT NULL,
 

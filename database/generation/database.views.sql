@@ -168,6 +168,7 @@ SELECT *,
                                               'titol_moviment', titol_moviment,
                                               'titol_obra', titol_obra,
                                               'ordre', ordre,
+                                              'compassos', compassos,
                                               'es_unic_moviment', es_unic_moviment
                                           )
                                   ), '[]') AS JSON)
@@ -323,6 +324,7 @@ SELECT o.id_obra,
        IFNULL(m.titol, o.titol) AS titol_moviment,
        o.titol                  AS titol_obra,
        any_inici,
+       compassos,
        (
            SELECT CAST(IFNULL(JSON_ARRAYAGG(
                                       JSON_OBJECT(

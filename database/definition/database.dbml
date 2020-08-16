@@ -396,6 +396,7 @@ Table "moviments" {
   "titol" VARCHAR(100)
   "durada" TIME
   "tonalitat" VARCHAR(10)
+  "compassos" SMALLINT
   "id_obra" SMALLINT [not null]
 }
 
