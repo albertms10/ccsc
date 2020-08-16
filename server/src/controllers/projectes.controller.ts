@@ -158,11 +158,11 @@ export const projectes_detall_participants: ControllerRequestHandler<
 
 export const projectes_detall_assajos_post: ControllerRequestHandler<
   null,
-  number
+  { id_assaig: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_projecte } = req.params;
-  const id_assaig = req.body;
+  const { id_assaig } = req.body;
 
   pool
     .query<OkPacket>(queryFile("assajos/insert__assajos_projectes"), [
@@ -174,7 +174,7 @@ export const projectes_detall_assajos_post: ControllerRequestHandler<
 
 export const projectes_detall_moviments_post: ControllerRequestHandler<
   null,
-  number
+  { id_moviment: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_projecte } = req.params;

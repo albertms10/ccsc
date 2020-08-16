@@ -179,11 +179,11 @@ export const assajos_detall_moviments_get: ControllerRequestHandler<
 
 export const assajos_detall_moviments_post: ControllerRequestHandler<
   null,
-  number
+  { id_moviment: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_assaig } = req.params;
-  const id_moviment = req.body;
+  const { id_moviment } = req.body;
 
   pool
     .query<OkPacket>(
@@ -243,11 +243,11 @@ export const assajos_detall_projectes_get: ControllerRequestHandler<
 
 export const assajos_detall_projectes_post: ControllerRequestHandler<
   null,
-  number
+  { id_projecte: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_assaig } = req.params;
-  const id_projecte = req.body;
+  const { id_projecte } = req.body;
 
   pool
     .query<OkPacket>(queryFile("assajos/insert__assajos_projectes"), [
@@ -291,11 +291,11 @@ export const assajos_detall_formacions_get: ControllerRequestHandler<
 
 export const assajos_detall_formacions_post: ControllerRequestHandler<
   null,
-  number
+  { id_formacio: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_assaig } = req.params;
-  const id_formacio = req.body;
+  const { id_formacio } = req.body;
 
   pool
     .query<OkPacket>(queryFile("assajos/insert__assajos_formacions"), [
@@ -355,11 +355,11 @@ export const assajos_detall_veus_get: ControllerRequestHandler<Veu[]> = (
 
 export const assajos_detall_veus_post: ControllerRequestHandler<
   null,
-  number
+  { id_veu: number }
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_assaig } = req.params;
-  const id_veu = req.body;
+  const { id_veu } = req.body;
 
   pool
     .query<OkPacket>(queryFile("assajos/insert__veus_convocades_assaig"), [
