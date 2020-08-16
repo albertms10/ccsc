@@ -14,5 +14,7 @@
   "next": "Següent",
   "active": "Actiu",
   "inactive": "Inactiu",
-  "except value": "Sense {{value}}"
+  "except value": "Sense {{value}}",
+  "start": "Inici",
+  "end": "Final"
 }
