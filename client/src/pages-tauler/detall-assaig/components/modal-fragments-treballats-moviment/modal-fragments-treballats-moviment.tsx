@@ -31,8 +31,6 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
 
   const [compassosTreballats] = useCompassosTreballats(moviment);
 
-  console.log(moviment.titol_moviment, compassosTreballats);
-
   return (
     <ModalButton
       title={t("worked fragments")}
