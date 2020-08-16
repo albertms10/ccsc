@@ -290,7 +290,8 @@ Table "moviments_esdeveniment_musical" {
 Table "fragments_moviment_esdeveniment_musical" {
   "id_moviment_esdeveniment_musical" SMALLINT [not null]
   "compas_inici" SMALLINT [not null, default: 1]
-  "compas_final" SMALLINT [not null]
+  "compas_final" SMALLINT
+  "pes" TINYINT [not null, default: 1]
   "nota" TEXT
 
 Indexes {
@@ -396,6 +397,20 @@ Table "moviments" {
   "durada" TIME
   "tonalitat" VARCHAR(10)
   "id_obra" SMALLINT [not null]
+}
+
+Table "parts_moviment" {
+  "id_part_moviment" SMALLINT [pk, not null, increment]
+  "id_moviment" SMALLINT [not null]
+  "compas_inici" SMALLINT [not null, default: 1]
+  "compas_final" SMALLINT
+}
+
+Table "parts_destacades_moviment" {
+  "id_part_destacada_moviment" SMALLINT [pk, not null, increment]
+  "id_moviment" SMALLINT [not null]
+  "compas_inici" SMALLINT [not null, default: 1]
+  "compas_final" SMALLINT
 }
 
 Table "llibrets_moviments" {
@@ -897,6 +912,8 @@ Ref:"moviments"."id_moviment" < "moviments_esdeveniment_musical"."id_moviment"
 
 Ref:"esdeveniments_musicals"."id_esdeveniment_musical" < "moviments_esdeveniment_musical"."id_esdeveniment_musical"
 
+Ref:"moviments_esdeveniment_musical"."id_moviment_esdeveniment_musical" < "fragments_moviment_esdeveniment_musical"."id_moviment_esdeveniment_musical"
+
 Ref:"cursos"."id_curs" < "horaris_curs"."id_curs"
 
 Ref:"esdeveniments"."id_esdeveniment" < "assistents_esdeveniment"."id_esdeveniment"
@@ -932,6 +949,10 @@ Ref:"tipus_autoria"."id_tipus_autoria" < "obres_tipus_autories"."id_tipus_autori
 Ref:"autors"."id_autor" < "obres_tipus_autories"."id_autoria"
 
 Ref:"obres"."id_obra" < "moviments"."id_obra"
+
+Ref:"moviments"."id_moviment" < "parts_moviment"."id_moviment"
+
+Ref:"moviments"."id_moviment" < "parts_destacades_moviment"."id_moviment"
 
 Ref:"moviments"."id_moviment" < "llibrets_moviments"."id_llibret_moviment"
 

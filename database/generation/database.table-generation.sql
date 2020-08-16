@@ -10,16 +10,14 @@ CREATE TABLE IF NOT EXISTS activitats
         PRIMARY KEY,
     nom          VARCHAR(50) NOT NULL,
     descripcio   TEXT        NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS carrecs_junta
 (
     id_carrec_junta TINYINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     carrec          VARCHAR(20) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS ciutats
 (
@@ -29,20 +27,10 @@ CREATE TABLE IF NOT EXISTS ciutats
     id_provincia SMALLINT UNSIGNED NULL,
     CONSTRAINT nom
         UNIQUE (nom, id_provincia)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_provincia
     ON ciutats (id_provincia);
-
-CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
-(
-    id_moviment_esdeveniment_musical SMALLINT UNSIGNED  NOT NULL,
-    compas_inici                     SMALLINT DEFAULT 1 NOT NULL,
-    compas_final                     SMALLINT           NOT NULL,
-    nota                             TEXT               NULL,
-    PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici)
-);
 
 CREATE TABLE IF NOT EXISTS cursos
 (
@@ -50,16 +38,14 @@ CREATE TABLE IF NOT EXISTS cursos
         PRIMARY KEY,
     inici   DATE       NOT NULL,
     final   DATE       NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS emails_espera
 (
     email VARCHAR(255) NOT NULL,
     CONSTRAINT emails_espera_email_uindex
         UNIQUE (email)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS equips
 (
@@ -67,16 +53,14 @@ CREATE TABLE IF NOT EXISTS equips
         PRIMARY KEY,
     nom        VARCHAR(100) NOT NULL,
     descripcio TEXT         NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS estats_confirmacio
 (
     id_estat_confirmacio TINYINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     estat                VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS feines_equips
 (
@@ -87,8 +71,7 @@ CREATE TABLE IF NOT EXISTS feines_equips
     id_equip       SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT feines_equips_ibfk_1
         FOREIGN KEY (id_equip) REFERENCES equips (id_equip)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_equip
     ON feines_equips (id_equip);
@@ -103,16 +86,14 @@ CREATE TABLE IF NOT EXISTS horaris_curs
     PRIMARY KEY (id_curs, periode_inici),
     CONSTRAINT horaris_curs_ibfk_1
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS idiomes
 (
     id_idioma CHAR(2)     NOT NULL
         PRIMARY KEY,
     nom       VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS insignies
 (
@@ -120,8 +101,7 @@ CREATE TABLE IF NOT EXISTS insignies
         PRIMARY KEY,
     nom         VARCHAR(100) NOT NULL,
     descripcio  VARCHAR(255) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS missatges
 (
@@ -131,8 +111,7 @@ CREATE TABLE IF NOT EXISTS missatges
     email       VARCHAR(255)                        NOT NULL,
     missatge    TEXT                                NOT NULL,
     data        TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS obres
 (
@@ -146,8 +125,7 @@ CREATE TABLE IF NOT EXISTS obres
     id_idioma   CHAR(2)           NULL,
     CONSTRAINT obres_ibfk_1
         FOREIGN KEY (id_idioma) REFERENCES idiomes (id_idioma)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS moviments
 (
@@ -160,8 +138,7 @@ CREATE TABLE IF NOT EXISTS moviments
     id_obra     SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT moviments_ibfk_1
         FOREIGN KEY (id_obra) REFERENCES obres (id_obra)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_obra
     ON moviments (id_obra);
@@ -174,8 +151,35 @@ CREATE TABLE IF NOT EXISTS paisos
     id_pais CHAR(2)     NOT NULL
         PRIMARY KEY,
     nom     VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
+
+CREATE TABLE IF NOT EXISTS parts_destacades_moviment
+(
+    id_part_destacada_moviment SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    id_moviment                SMALLINT UNSIGNED             NOT NULL,
+    compas_inici               SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    compas_final               SMALLINT UNSIGNED             NULL,
+    CONSTRAINT parts_destacades_moviment_ibfk_1
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
+);
+
+CREATE INDEX id_moviment
+    ON parts_destacades_moviment (id_moviment);
+
+CREATE TABLE IF NOT EXISTS parts_moviment
+(
+    id_part_moviment SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    id_moviment      SMALLINT UNSIGNED             NOT NULL,
+    compas_inici     SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    compas_final     SMALLINT UNSIGNED             NULL,
+    CONSTRAINT parts_moviment_ibfk_1
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
+);
+
+CREATE INDEX id_moviment
+    ON parts_moviment (id_moviment);
 
 CREATE TABLE IF NOT EXISTS projectes
 (
@@ -190,8 +194,7 @@ CREATE TABLE IF NOT EXISTS projectes
     id_curs     VARCHAR(5)  NOT NULL,
     CONSTRAINT projectes_ibfk_1
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS moviments_projectes
 (
@@ -202,8 +205,7 @@ CREATE TABLE IF NOT EXISTS moviments_projectes
         FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
     CONSTRAINT moviments_projectes_ibfk_2
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_projecte
     ON moviments_projectes (id_projecte);
@@ -220,8 +222,7 @@ CREATE TABLE IF NOT EXISTS provincies
         FOREIGN KEY (id_provincia) REFERENCES ciutats (id_ciutat),
     CONSTRAINT provincies_ibfk_2
         FOREIGN KEY (id_pais) REFERENCES paisos (id_pais)
-)
-    CHARSET = utf8mb4;
+);
 
 ALTER TABLE ciutats
     ADD CONSTRAINT ciutats_ibfk_1
@@ -235,8 +236,7 @@ CREATE TABLE IF NOT EXISTS roles
     id_role TINYINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     role    VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS tipus_avisos
 (
@@ -246,8 +246,7 @@ CREATE TABLE IF NOT EXISTS tipus_avisos
     unique_name   VARCHAR(50)  NOT NULL,
     CONSTRAINT tipus_avisos_form_name_uindex
         UNIQUE (unique_name)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS avisos
 (
@@ -262,8 +261,7 @@ CREATE TABLE IF NOT EXISTS avisos
     id_tipus_avis      SMALLINT UNSIGNED    NULL,
     CONSTRAINT avisos_ibfk_1
         FOREIGN KEY (id_tipus_avis) REFERENCES tipus_avisos (id_tipus_avis)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS acceptacions_avis
 (
@@ -278,8 +276,7 @@ CREATE TABLE IF NOT EXISTS acceptacions_avis
         UNIQUE (form_name),
     CONSTRAINT acceptacions_avis_ibfk_1
         FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_avis
     ON acceptacions_avis (id_avis);
@@ -296,8 +293,7 @@ CREATE TABLE IF NOT EXISTS seccions_avis
     id_avis        SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT seccions_avis_ibfk_1
         FOREIGN KEY (id_avis) REFERENCES avisos (id_avis)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_avis
     ON seccions_avis (id_avis);
@@ -307,8 +303,7 @@ CREATE TABLE IF NOT EXISTS tipus_entitats
     id_tipus_entitat SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom              VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS entitats
 (
@@ -319,8 +314,7 @@ CREATE TABLE IF NOT EXISTS entitats
     id_tipus_entitat SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
     CONSTRAINT entitats_ibfk_1
         FOREIGN KEY (id_tipus_entitat) REFERENCES tipus_entitats (id_tipus_entitat)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_tipus_entitat
     ON entitats (id_tipus_entitat);
@@ -330,16 +324,14 @@ CREATE TABLE IF NOT EXISTS tipus_establiments
     id_tipus_establiment SMALLINT UNSIGNED NOT NULL
         PRIMARY KEY,
     nom                  VARCHAR(100)      NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS tipus_formacions
 (
     id_tipus_formacio SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
     nom               VARCHAR(50) NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS formacions
 (
@@ -354,8 +346,7 @@ CREATE TABLE IF NOT EXISTS formacions
         UNIQUE (nom_curt),
     CONSTRAINT formacions_ibfk_1
         FOREIGN KEY (id_tipus_formacio) REFERENCES tipus_formacions (id_tipus_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_tipus_formacio
     ON formacions (id_tipus_formacio);
@@ -369,8 +360,7 @@ CREATE TABLE IF NOT EXISTS formacions_entitats
         FOREIGN KEY (id_entitat) REFERENCES entitats (id_entitat),
     CONSTRAINT formacions_entitats_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_formacio
     ON formacions_entitats (id_formacio);
@@ -384,8 +374,7 @@ CREATE TABLE IF NOT EXISTS projectes_formacions
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
     CONSTRAINT projectes_formacions_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_formacio
     ON projectes_formacions (id_formacio);
@@ -396,8 +385,7 @@ CREATE TABLE IF NOT EXISTS tipus_vies
         PRIMARY KEY,
     nom          VARCHAR(100) NOT NULL,
     abreviatura  VARCHAR(10)  NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS localitzacions
 (
@@ -414,8 +402,7 @@ CREATE TABLE IF NOT EXISTS localitzacions
         FOREIGN KEY (id_ciutat) REFERENCES ciutats (id_ciutat),
     CONSTRAINT localitzacions_ibfk_2
         FOREIGN KEY (id_tipus_via) REFERENCES tipus_vies (id_tipus_via)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS esdeveniments
 (
@@ -439,8 +426,7 @@ CREATE TABLE IF NOT EXISTS esdeveniments
         FOREIGN KEY (id_estat_localitzacio) REFERENCES estats_confirmacio (id_estat_confirmacio),
     CONSTRAINT esdeveniments_ibfk_5
         FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS classes_activitat
 (
@@ -451,8 +437,7 @@ CREATE TABLE IF NOT EXISTS classes_activitat
         FOREIGN KEY (id_classe_activitat) REFERENCES esdeveniments (id_esdeveniment),
     CONSTRAINT classes_activitat_ibfk_2
         FOREIGN KEY (id_activitat) REFERENCES activitats (id_activitat)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_activitat
     ON classes_activitat (id_activitat);
@@ -475,8 +460,7 @@ CREATE TABLE IF NOT EXISTS esdeveniments_musicals
         PRIMARY KEY,
     CONSTRAINT esdeveniments_musicals_ibfk_1
         FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments (id_esdeveniment)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS assajos
 (
@@ -486,8 +470,7 @@ CREATE TABLE IF NOT EXISTS assajos
     es_extra   TINYINT(1) DEFAULT 0 NOT NULL,
     CONSTRAINT assajos_ibfk_1
         FOREIGN KEY (id_assaig) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS assajos_formacions
 (
@@ -498,8 +481,7 @@ CREATE TABLE IF NOT EXISTS assajos_formacions
         FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
     CONSTRAINT assajos_formacions_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_formacio
     ON assajos_formacions (id_formacio);
@@ -513,8 +495,7 @@ CREATE TABLE IF NOT EXISTS assajos_projectes
         FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig),
     CONSTRAINT assajos_projectes_ibfk_2
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_projecte
     ON assajos_projectes (id_projecte);
@@ -529,8 +510,7 @@ CREATE TABLE IF NOT EXISTS concerts
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
     CONSTRAINT concerts_ibfk_3
         FOREIGN KEY (id_concert) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_projecte
     ON concerts (id_projecte);
@@ -547,8 +527,7 @@ CREATE TABLE IF NOT EXISTS establiments
         FOREIGN KEY (id_establiment) REFERENCES localitzacions (id_localitzacio),
     CONSTRAINT establiments_ibfk_2
         FOREIGN KEY (id_tipus_establiment) REFERENCES tipus_establiments (id_tipus_establiment)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_tipus_establiment
     ON establiments (id_tipus_establiment);
@@ -562,8 +541,7 @@ CREATE TABLE IF NOT EXISTS formacions_concerts
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio),
     CONSTRAINT formacions_concerts_ibfk_2
         FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_concert
     ON formacions_concerts (id_concert);
@@ -584,6 +562,18 @@ CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
         FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
     CONSTRAINT moviments_esdeveniment_musical_ibfk_2
         FOREIGN KEY (id_esdeveniment_musical) REFERENCES esdeveniments_musicals (id_esdeveniment_musical)
+);
+
+CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
+(
+    id_moviment_esdeveniment_musical SMALLINT UNSIGNED             NOT NULL,
+    compas_inici                     SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    compas_final                     SMALLINT UNSIGNED             NULL,
+    pes                              TINYINT UNSIGNED  DEFAULT '1' NOT NULL,
+    nota                             TEXT                          NULL,
+    PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici),
+    CONSTRAINT fragments_moviment_esdeveniment_musical_ibfk_1
+        FOREIGN KEY (id_moviment_esdeveniment_musical) REFERENCES moviments_esdeveniment_musical (id_moviment_esdeveniment_musical)
 );
 
 CREATE INDEX id_esdeveniment_musical
@@ -612,8 +602,7 @@ CREATE TABLE IF NOT EXISTS persones
         FOREIGN KEY (id_pais) REFERENCES paisos (id_pais),
     CONSTRAINT persones_ibfk_2
         FOREIGN KEY (id_localitzacio) REFERENCES localitzacions (id_localitzacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS autors
 (
@@ -623,8 +612,7 @@ CREATE TABLE IF NOT EXISTS autors
     cataleg  VARCHAR(10)       NULL,
     CONSTRAINT autors_ibfk_1
         FOREIGN KEY (id_autor) REFERENCES persones (id_persona)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS directors
 (
@@ -632,8 +620,7 @@ CREATE TABLE IF NOT EXISTS directors
         PRIMARY KEY,
     CONSTRAINT directors_ibfk_1
         FOREIGN KEY (id_director) REFERENCES persones (id_persona)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS directors_concerts
 (
@@ -644,8 +631,7 @@ CREATE TABLE IF NOT EXISTS directors_concerts
         FOREIGN KEY (id_director) REFERENCES directors (id_director),
     CONSTRAINT directors_concerts_ibfk_2
         FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_concert
     ON directors_concerts (id_concert);
@@ -659,8 +645,7 @@ CREATE TABLE IF NOT EXISTS directors_formacions
         FOREIGN KEY (id_director) REFERENCES directors (id_director),
     CONSTRAINT directors_formacions_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_formacio
     ON directors_formacions (id_formacio);
@@ -674,8 +659,7 @@ CREATE TABLE IF NOT EXISTS directors_projectes
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
     CONSTRAINT directors_projectes_ibfk_2
         FOREIGN KEY (id_director) REFERENCES directors (id_director)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_director
     ON directors_projectes (id_director);
@@ -692,8 +676,7 @@ CREATE TABLE IF NOT EXISTS reunions
         PRIMARY KEY,
     CONSTRAINT reunions_ibfk_1
         FOREIGN KEY (id_reunio) REFERENCES esdeveniments (id_esdeveniment)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS assemblees
 (
@@ -702,8 +685,7 @@ CREATE TABLE IF NOT EXISTS assemblees
     es_extraordinaria TINYINT(1) DEFAULT 0 NOT NULL,
     CONSTRAINT assemblees_ibfk_1
         FOREIGN KEY (id_assemblea) REFERENCES reunions (id_reunio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS punts_reunio
 (
@@ -715,8 +697,7 @@ CREATE TABLE IF NOT EXISTS punts_reunio
     id_reunio      SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT punts_reunio_ibfk_1
         FOREIGN KEY (id_reunio) REFERENCES reunions (id_reunio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_reunio
     ON punts_reunio (id_reunio);
@@ -729,8 +710,7 @@ CREATE TABLE IF NOT EXISTS socis
     estudis_musicals    TEXT              NULL,
     CONSTRAINT socis_ibfk_1
         FOREIGN KEY (id_soci) REFERENCES persones (id_persona)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS assistents_esdeveniment
 (
@@ -745,8 +725,7 @@ CREATE TABLE IF NOT EXISTS assistents_esdeveniment
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT assistents_esdeveniment_ibfk_3
         FOREIGN KEY (id_estat_confirmacio) REFERENCES estats_confirmacio (id_estat_confirmacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_estat_confirmacio
     ON assistents_esdeveniment (id_estat_confirmacio);
@@ -766,8 +745,7 @@ CREATE TABLE IF NOT EXISTS delegacionsvot_assemblea
         FOREIGN KEY (id_soci_delegat) REFERENCES socis (id_soci),
     CONSTRAINT delegacionsvot_assemblea_ibfk_3
         FOREIGN KEY (id_assemblea) REFERENCES assemblees (id_assemblea)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_assemblea
     ON delegacionsvot_assemblea (id_assemblea);
@@ -783,8 +761,7 @@ CREATE TABLE IF NOT EXISTS historial_socis
     PRIMARY KEY (id_historial_soci, data_alta),
     CONSTRAINT historial_socis_ibfk_1
         FOREIGN KEY (id_historial_soci) REFERENCES socis (id_soci)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS insignies_socis_curs
 (
@@ -798,8 +775,7 @@ CREATE TABLE IF NOT EXISTS insignies_socis_curs
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT insignies_socis_curs_ibfk_3
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_curs
     ON insignies_socis_curs (id_curs);
@@ -818,8 +794,7 @@ CREATE TABLE IF NOT EXISTS membres_junta
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT membres_junta_ibfk_2
         FOREIGN KEY (id_carrec_junta) REFERENCES carrecs_junta (id_carrec_junta)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_carrec_junta
     ON membres_junta (id_carrec_junta);
@@ -867,8 +842,7 @@ CREATE TABLE IF NOT EXISTS responsables_equips
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT responsables_equips_ibfk_2
         FOREIGN KEY (id_equip) REFERENCES equips (id_equip)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_equip
     ON responsables_equips (id_equip);
@@ -884,8 +858,7 @@ CREATE TABLE IF NOT EXISTS responsables_feines_equips
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT responsables_feines_equips_ibfk_2
         FOREIGN KEY (id_feina_equip) REFERENCES feines_equips (id_feina_equip)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_feina_equip
     ON responsables_feines_equips (id_feina_equip);
@@ -900,8 +873,7 @@ CREATE TABLE IF NOT EXISTS socis_acceptacions
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT socis_acceptacions_ibfk_2
         FOREIGN KEY (id_acceptacio_avis) REFERENCES acceptacions_avis (id_acceptacio_avis)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_acceptacio_avis
     ON socis_acceptacions (id_acceptacio_avis);
@@ -917,8 +889,7 @@ CREATE TABLE IF NOT EXISTS socis_activitats
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT socis_activitats_ibfk_2
         FOREIGN KEY (id_activitat) REFERENCES activitats (id_activitat)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_activitat
     ON socis_activitats (id_activitat);
@@ -933,8 +904,7 @@ CREATE TABLE IF NOT EXISTS socis_formacions
         FOREIGN KEY (id_soci) REFERENCES socis (id_soci),
     CONSTRAINT socis_formacions_ibfk_2
         FOREIGN KEY (id_formacio) REFERENCES formacions (id_formacio)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_formacio
     ON socis_formacions (id_formacio);
@@ -948,8 +918,7 @@ CREATE TABLE IF NOT EXISTS solistes
         PRIMARY KEY,
     CONSTRAINT solistes_ibfk_1
         FOREIGN KEY (id_solista) REFERENCES persones (id_persona)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS solistes_concerts
 (
@@ -960,8 +929,7 @@ CREATE TABLE IF NOT EXISTS solistes_concerts
         FOREIGN KEY (id_solista) REFERENCES solistes (id_solista),
     CONSTRAINT solistes_concerts_ibfk_2
         FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_concert
     ON solistes_concerts (id_concert);
@@ -976,8 +944,7 @@ CREATE TABLE IF NOT EXISTS titulars
     data_final DATETIME     NULL,
     link       VARCHAR(255) NULL,
     ordre      TINYINT      NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS trimestres
 (
@@ -989,8 +956,7 @@ CREATE TABLE IF NOT EXISTS trimestres
     id_curs      VARCHAR(5)       NOT NULL,
     CONSTRAINT trimestres_ibfk_1
         FOREIGN KEY (id_curs) REFERENCES cursos (id_curs)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_curs
     ON trimestres (id_curs);
@@ -1007,8 +973,7 @@ CREATE TABLE IF NOT EXISTS usuaris_complet
         UNIQUE (id_persona),
     CONSTRAINT usuaris_complet_ibfk_1
         FOREIGN KEY (id_persona) REFERENCES persones (id_persona)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS roles_usuaris
 (
@@ -1019,8 +984,7 @@ CREATE TABLE IF NOT EXISTS roles_usuaris
         FOREIGN KEY (id_usuari) REFERENCES usuaris_complet (id_usuari),
     CONSTRAINT roles_usuaris_ibfk_2
         FOREIGN KEY (id_role) REFERENCES roles (id_role)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_perfil
     ON roles_usuaris (id_role);
@@ -1031,8 +995,7 @@ CREATE TABLE IF NOT EXISTS veus
         PRIMARY KEY,
     nom         VARCHAR(20) NOT NULL,
     abreviatura VARCHAR(2)  NOT NULL
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS socis_formacions_veus
 (
@@ -1045,8 +1008,7 @@ CREATE TABLE IF NOT EXISTS socis_formacions_veus
         FOREIGN KEY (id_soci_formacio) REFERENCES socis_formacions (id_soci_formacio),
     CONSTRAINT socis_formacions_veus_ibfk_2
         FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_veu
     ON socis_formacions_veus (id_veu);
@@ -1063,8 +1025,7 @@ CREATE TABLE IF NOT EXISTS socis_projectes_veu
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte),
     CONSTRAINT socis_projectes_veu_ibfk_3
         FOREIGN KEY (id_veu) REFERENCES veus (id_veu)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_projecte
     ON socis_projectes_veu (id_projecte);
@@ -1079,8 +1040,7 @@ CREATE TABLE IF NOT EXISTS veus_convocades_assaig
     PRIMARY KEY (id_assaig, id_veu),
     CONSTRAINT veus_convocades_assaig_ibfk_1
         FOREIGN KEY (id_assaig) REFERENCES assajos (id_assaig)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS veus_moviments
 (
@@ -1093,8 +1053,7 @@ CREATE TABLE IF NOT EXISTS veus_moviments
         FOREIGN KEY (id_veu) REFERENCES veus (id_veu),
     CONSTRAINT veus_moviments_ibfk_2
         FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS socis_veu_moviment_projectes
 (
@@ -1108,8 +1067,7 @@ CREATE TABLE IF NOT EXISTS socis_veu_moviment_projectes
         FOREIGN KEY (id_veu_moviment) REFERENCES veus_moviments (id_veu_moviment),
     CONSTRAINT socis_veu_moviment_projectes_ibfk_3
         FOREIGN KEY (id_projecte) REFERENCES projectes (id_projecte)
-)
-    CHARSET = utf8mb4;
+);
 
 CREATE INDEX id_projecte
     ON socis_veu_moviment_projectes (id_projecte);

@@ -443,11 +443,13 @@ CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
 (
     id_moviment_esdeveniment_musical SMALLINT UNSIGNED NOT NULL,
 
-    compas_inici                     SMALLINT          NOT NULL DEFAULT 1,
-    compas_final                     SMALLINT          NOT NULL,
+    compas_inici                     SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+    compas_final                     SMALLINT UNSIGNED,
+    pes                              TINYINT UNSIGNED  NOT NULL DEFAULT 1,
     nota                             TEXT,
 
-    PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici)
+    PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici),
+    FOREIGN KEY (id_moviment_esdeveniment_musical) REFERENCES moviments_esdeveniment_musical (id_moviment_esdeveniment_musical)
 );
 
 CREATE TABLE IF NOT EXISTS horaris_curs
@@ -609,6 +611,30 @@ CREATE TABLE IF NOT EXISTS moviments
 
     PRIMARY KEY (id_moviment),
     FOREIGN KEY (id_obra) REFERENCES obres (id_obra)
+);
+
+CREATE TABLE IF NOT EXISTS parts_moviment
+(
+    id_part_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_moviment      SMALLINT UNSIGNED NOT NULL,
+
+    compas_inici     SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+    compas_final     SMALLINT UNSIGNED,
+
+    PRIMARY KEY (id_part_moviment),
+    FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
+);
+
+CREATE TABLE IF NOT EXISTS parts_destacades_moviment
+(
+    id_part_destacada_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_moviment                SMALLINT UNSIGNED NOT NULL,
+
+    compas_inici               SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+    compas_final               SMALLINT UNSIGNED,
+
+    PRIMARY KEY (id_part_destacada_moviment),
+    FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
 );
 
 CREATE TABLE IF NOT EXISTS llibrets_moviments
