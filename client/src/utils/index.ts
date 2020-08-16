@@ -10,6 +10,7 @@ export { default as kebabCase } from "./kebab-case";
 export { default as linkText } from "./link-text";
 export { default as literalList } from "./literal-list";
 export { default as mapFirstOfProperty } from "./map-first-of-property";
+export { default as mapNumber } from "./map-number";
 export { default as nIndexOf } from "./n-index-of";
 export { default as pascalCase } from "./pascal-case";
 export { default as searchFilter } from "./search-filter";
