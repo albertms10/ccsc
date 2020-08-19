@@ -1,4 +1,8 @@
-import { FragmentMovimentEsdevenimentMusical, Moviment } from "model";
+import {
+  FragmentMovimentEsdevenimentMusical,
+  Moviment,
+  SeccioMoviment,
+} from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
 import { ControllerRequestHandler } from "server-model";
 import { queryFile } from "../helpers";
@@ -92,5 +96,20 @@ export const moviments_detall_fragments: ControllerRequestHandler<
       [id]
     )
     .then(([fragments]) => res.json(fragments))
+    .catch(next);
+};
+
+export const moviments_detall_seccions: ControllerRequestHandler<
+  SeccioMoviment[]
+> = (req, res, next) => {
+  const pool: Pool = req.app.get("pool");
+  const { id } = req.params;
+
+  pool
+    .query<(SeccioMoviment & RowDataPacket)[]>(
+      queryFile("moviments/select__seccions_moviment"),
+      [id]
+    )
+    .then(([seccions]) => res.json(seccions))
     .catch(next);
 };
