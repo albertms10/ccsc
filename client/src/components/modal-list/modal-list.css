@@ -25,7 +25,7 @@
 .modal-list .ant-list:not(.no-hover) .ant-list-item {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: var(--transition-cubic-all);
   color: var(--background-color);
 }
 
