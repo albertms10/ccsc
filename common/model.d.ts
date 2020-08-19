@@ -191,6 +191,13 @@ declare module "model" {
     projectes: Projecte[];
   }
 
+  export interface SeccioMoviment {
+    id_seccio_moviment: number;
+    titol: string;
+    compas_inici: number;
+    compas_final?: number;
+  }
+
   export interface Pais {
     id_pais: number;
     nom: string;
@@ -327,7 +334,7 @@ declare module "model" {
     id_esdeveniment_musical: number;
     id_moviment: number;
     compas_inici: number;
-    compas_final: number;
+    compas_final?: number;
     nota: string;
   }
 
