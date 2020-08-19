@@ -1,5 +1,4 @@
 import { AnyMap } from "common";
-import { typeOf } from "./index";
 
 type KeyReplacementObject<T> = { [P in keyof T]?: string };
 
@@ -25,7 +24,7 @@ export default <T extends AnyMap>(
 
   const splitData: any[] = [];
 
-  const dataType = typeOf(keys);
+  const dataType = toString.call(keys);
 
   if (dataType === "[object Object]")
     Object.keys(keys).forEach((key) => {
