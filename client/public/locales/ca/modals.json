@@ -2,7 +2,7 @@
   "confirm delete action": "Confirmes que vols eliminar {{element}} i totes les dades associades?",
   "confirm subscription": "Confirmes que vols donar d’alta?",
   "confirm unsubscription": "Confirmes que vols donar de baixa?",
-  "action undone": "Aquesta acció no es pot desfer",
+  "action undone": "Aquesta acció no es pot desfer.",
   "subscription action": "Donar d’alta",
   "unsubscription action": "Donar de baixa",
   "the movement": "el moviment",
