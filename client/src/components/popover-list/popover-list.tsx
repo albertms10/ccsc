@@ -4,10 +4,11 @@ import { TooltipPlacement } from "antd/lib/tooltip";
 import React, { PropsWithChildren, useState } from "react";
 import { ConditionalWrapper } from "../../standalone/conditional-wrapper";
 import { Authorized } from "../authorized";
-import { SearchList } from "../search-list";
-import { SearchListProps } from "../search-list";
-import { PopoverListCheckbox } from "./components/popover-list-checkbox";
-import { PopoverListCheckboxBaseProps } from "./components/popover-list-checkbox";
+import { SearchList, SearchListProps } from "../search-list";
+import {
+  PopoverListCheckbox,
+  PopoverListCheckboxBaseProps,
+} from "./components/popover-list-checkbox";
 import "./popover-list.css";
 
 interface CheckboxItem {

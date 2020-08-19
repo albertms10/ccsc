@@ -5,8 +5,10 @@ import { useTranslation } from "react-i18next";
 import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
 import { IconsFormacions } from "../../../../components/icons-formacions";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
-import { ContentList } from "../../../../standalone/content-list";
-import { ContentListBaseProps } from "../../../../standalone/content-list";
+import {
+  ContentList,
+  ContentListBaseProps,
+} from "../../../../standalone/content-list";
 import { linkText } from "../../../../utils";
 import { FormacioContext } from "../../detall-formacio";
 

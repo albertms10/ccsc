@@ -1,7 +1,9 @@
 import { Col, Form, Input, Row, TimePicker } from "antd";
 import React, { useContext } from "react";
-import { ModalButton } from "../../../../components/modal-button";
-import { ModalButtonBaseProps } from "../../../../components/modal-button";
+import {
+  ModalButton,
+  ModalButtonBaseProps,
+} from "../../../../components/modal-button";
 import { ObraContext } from "../../detall-obra";
 import { useAfegirMoviment } from "./hooks";
 

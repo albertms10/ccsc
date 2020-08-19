@@ -2,8 +2,10 @@ import { Veu } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
-import { SearchComplete } from "../../standalone/search-complete";
-import { SearchCompleteBaseProps } from "../../standalone/search-complete";
+import {
+  SearchComplete,
+  SearchCompleteBaseProps,
+} from "../../standalone/search-complete";
 import { searchFilter } from "../../utils";
 
 interface SearchCompleteVeusAssaigProps extends SearchCompleteBaseProps {
@@ -24,9 +26,7 @@ const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
   return (
     <SearchComplete
       data={veus}
-      onSelect={(value, option) =>
-        onSelect(value, option).then(getVeus)
-      }
+      onSelect={(value, option) => onSelect(value, option).then(getVeus)}
       filter={(value, veu) =>
         searchFilter(value, {
           texts: [veu.nom, veu.abreviatura],

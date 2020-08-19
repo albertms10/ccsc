@@ -4,8 +4,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
-import { ContentList } from "../../../../standalone/content-list";
-import { ContentListBaseProps } from "../../../../standalone/content-list";
+import {
+  ContentList,
+  ContentListBaseProps,
+} from "../../../../standalone/content-list";
 import { FixedTag } from "../../../../standalone/fixed-tag";
 import { linkText } from "../../../../utils";
 
