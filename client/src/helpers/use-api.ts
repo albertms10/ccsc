@@ -16,11 +16,12 @@ export default <T>(url: string, initialState: T) => {
         (data) => {
           if (!controller || (controller && !controller.signal.aborted))
             setData(data as T);
-
-          setLoading(false);
         },
         ...(controller ? [{ signal: controller.signal }] : [])
-      );
+      ).finally(() => {
+        if (!controller || (controller && !controller.signal.aborted))
+          setLoading(false);
+      });
     },
     [fetchAPI, url]
   );
