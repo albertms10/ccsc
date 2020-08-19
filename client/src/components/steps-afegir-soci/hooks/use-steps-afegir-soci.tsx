@@ -42,7 +42,7 @@ export default (
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [dniValidation, setDniValidation] = useState<ValidateStatus>("");
-  const [selectedPais, setSelectedPais] = useState("");
+  const [selectedPais, setSelectedPais] = useState<Pais["nom"]>("");
 
   const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
   const [loadingPostSoci, postSoci] = usePostAPI(fetchURL);
