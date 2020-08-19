@@ -2,6 +2,7 @@ export { default as basenameFromPath } from "./basename-from-path";
 export { default as closestTimeValue } from "./closest-time-value";
 export { default as dataSplit } from "./data-split";
 export { default as dateRange } from "./date-range";
+export { default as gcd } from "./gcd";
 export { default as generateUsername } from "./generate-username";
 export { default as includesSome } from "./includes-some";
 export { default as initials } from "./initials";
