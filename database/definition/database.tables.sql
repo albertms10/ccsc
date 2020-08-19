@@ -614,15 +614,16 @@ CREATE TABLE IF NOT EXISTS moviments
     FOREIGN KEY (id_obra) REFERENCES obres (id_obra)
 );
 
-CREATE TABLE IF NOT EXISTS parts_moviment
+CREATE TABLE IF NOT EXISTS seccions_moviment
 (
-    id_part_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_moviment      SMALLINT UNSIGNED NOT NULL,
+    id_seccio_moviment SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_moviment        SMALLINT UNSIGNED NOT NULL,
 
-    compas_inici     SMALLINT UNSIGNED NOT NULL DEFAULT 1,
-    compas_final     SMALLINT UNSIGNED,
+    titol              VARCHAR(100),
+    compas_inici       SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+    compas_final       SMALLINT UNSIGNED,
 
-    PRIMARY KEY (id_part_moviment),
+    PRIMARY KEY (id_seccio_moviment),
     FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
 );
 
@@ -838,15 +839,15 @@ CREATE TABLE IF NOT EXISTS parts_concert
     FOREIGN KEY (id_concert) REFERENCES concerts (id_concert)
 );
 
-CREATE TABLE IF NOT EXISTS moviments_parts
+CREATE TABLE IF NOT EXISTS moviments_parts_concert
 (
-    id_moviment_part SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_moviment      SMALLINT UNSIGNED NOT NULL,
-    id_part          SMALLINT UNSIGNED NOT NULL,
+    id_moviment_part_concert SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_moviment              SMALLINT UNSIGNED NOT NULL,
+    id_part                  SMALLINT UNSIGNED NOT NULL,
 
-    es_bis           BOOLEAN           NOT NULL DEFAULT FALSE,
+    es_bis                   BOOLEAN           NOT NULL DEFAULT FALSE,
 
-    PRIMARY KEY (id_moviment_part),
+    PRIMARY KEY (id_moviment_part_concert),
     FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment),
     FOREIGN KEY (id_part) REFERENCES parts_concert (id_part_concert)
 );
@@ -866,7 +867,7 @@ CREATE TABLE IF NOT EXISTS instruments_interpretacio
     id_instrument    SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (id_moviment_part, id_instrument),
-    FOREIGN KEY (id_moviment_part) REFERENCES moviments_parts (id_moviment_part),
+    FOREIGN KEY (id_moviment_part) REFERENCES moviments_parts_concert (id_moviment_part_concert),
     FOREIGN KEY (id_instrument) REFERENCES instruments (id_instrument)
 );
 

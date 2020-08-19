@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS moviments
     titol       VARCHAR(100)      NULL,
     durada      TIME              NULL,
     tonalitat   VARCHAR(10)       NULL,
-    compassos   SMALLINT UNSIGNED,
+    compassos   SMALLINT UNSIGNED NULL,
     id_obra     SMALLINT UNSIGNED NOT NULL,
     CONSTRAINT moviments_ibfk_1
         FOREIGN KEY (id_obra) REFERENCES obres (id_obra)
@@ -167,20 +167,6 @@ CREATE TABLE IF NOT EXISTS parts_destacades_moviment
 
 CREATE INDEX id_moviment
     ON parts_destacades_moviment (id_moviment);
-
-CREATE TABLE IF NOT EXISTS parts_moviment
-(
-    id_part_moviment SMALLINT UNSIGNED AUTO_INCREMENT
-        PRIMARY KEY,
-    id_moviment      SMALLINT UNSIGNED             NOT NULL,
-    compas_inici     SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    compas_final     SMALLINT UNSIGNED             NULL,
-    CONSTRAINT parts_moviment_ibfk_1
-        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
-);
-
-CREATE INDEX id_moviment
-    ON parts_moviment (id_moviment);
 
 CREATE TABLE IF NOT EXISTS projectes
 (
@@ -238,6 +224,21 @@ CREATE TABLE IF NOT EXISTS roles
         PRIMARY KEY,
     role    VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS seccions_moviment
+(
+    id_seccio_moviment SMALLINT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    id_moviment        SMALLINT UNSIGNED             NOT NULL,
+    titol              VARCHAR(100)                  NULL,
+    compas_inici       SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    compas_final       SMALLINT UNSIGNED             NULL,
+    CONSTRAINT seccions_moviment_ibfk_1
+        FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
+);
+
+CREATE INDEX id_moviment
+    ON seccions_moviment (id_moviment);
 
 CREATE TABLE IF NOT EXISTS tipus_avisos
 (
@@ -1101,16 +1102,17 @@ SELECT DISTINCT ee.id_esdeveniment                                   AS id_esdev
                 assajos_son_parcials.es_parcial                      AS es_parcial,
                 concat('Assaig', if(assajos_son_parcials.es_parcial, ' parcial', ''), if(a.es_general, ' general', ''),
                        if(a.es_extra, ' extra', ''))                 AS titol,
-                (SELECT ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
-                                                         formacions.nom, 'nom_curt',
-                                                         ifnull(formacions.nom_curt, formacions.nom))), '[]')
+                (SELECT cast(ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
+                                                              formacions.nom, 'nom_curt',
+                                                              ifnull(formacions.nom_curt, formacions.nom))),
+                                    '[]') AS JSON)
                  FROM (formacions
                           JOIN assajos_formacions
                                ON ((formacions.id_formacio = assajos_formacions.id_formacio)))
                  WHERE (assajos_formacions.id_assaig = a.id_assaig)) AS formacions,
-                (SELECT ifnull(json_arrayagg(json_object('id_projecte', projectes.id_projecte, 'titol',
-                                                         projectes.titol, 'inicials', projectes.inicials,
-                                                         'color', projectes.color)), '[]')
+                (SELECT cast(ifnull(json_arrayagg(json_object('id_projecte', projectes.id_projecte, 'titol',
+                                                              projectes.titol, 'inicials', projectes.inicials,
+                                                              'color', projectes.color)), '[]') AS JSON)
                  FROM (projectes
                           JOIN assajos_projectes
                                ON ((projectes.id_projecte = assajos_projectes.id_projecte)))
@@ -1138,9 +1140,11 @@ SELECT ae.id_esdeveniment                                                       
        ae.titol                                                                        AS titol,
        ae.formacions                                                                   AS formacions,
        ae.projectes                                                                    AS projectes,
-       (SELECT ifnull(json_arrayagg(json_object('id_moviment', m.id_moviment, 'id_obra', m.id_obra, 'titol_moviment',
-                                                m.titol_moviment, 'titol_obra', m.titol_obra, 'ordre', m.ordre,
-                                                'es_unic_moviment', m.es_unic_moviment)), '[]')
+       (SELECT cast(ifnull(json_arrayagg(
+                                   json_object('id_moviment', m.id_moviment, 'id_obra', m.id_obra, 'titol_moviment',
+                                               m.titol_moviment, 'titol_obra', m.titol_obra, 'ordre', m.ordre,
+                                               'compassos', m.compassos, 'es_unic_moviment', m.es_unic_moviment)),
+                           '[]') AS JSON)
         FROM (moviments_full m
                  JOIN moviments_esdeveniment_musical
                       ON ((m.id_moviment = moviments_esdeveniment_musical.id_moviment)))
@@ -1215,9 +1219,11 @@ SELECT o.id_obra                                                               A
        ifnull(m.titol, o.titol)                                                AS titol_moviment,
        o.titol                                                                 AS titol_obra,
        o.any_inici                                                             AS any_inici,
-       (SELECT ifnull(json_arrayagg(
-                              json_object('id_projecte', projectes.id_projecte, 'titol', projectes.titol,
-                                          'inicials', projectes.inicials, 'color', projectes.color)), '[]')
+       m.compassos                                                             AS compassos,
+       (SELECT cast(ifnull(json_arrayagg(
+                                   json_object('id_projecte', projectes.id_projecte, 'titol', projectes.titol,
+                                               'inicials', projectes.inicials, 'color', projectes.color)),
+                           '[]') AS JSON)
         FROM (projectes
                  JOIN moviments_projectes ON ((projectes.id_projecte = moviments_projectes.id_projecte)))
         WHERE (moviments_projectes.id_moviment = m.id_moviment))               AS projectes
@@ -1225,32 +1231,31 @@ FROM (moviments m
          JOIN obres o ON ((m.id_obra = o.id_obra)));
 
 CREATE OR REPLACE VIEW projectes_full AS
-SELECT DISTINCT projectes.id_projecte                                                       AS id_projecte,
-                projectes.titol                                                             AS titol,
-                projectes.descripcio                                                        AS descripcio,
-                projectes.inicials                                                          AS inicials,
-                projectes.color                                                             AS color,
-                projectes.data_inici                                                        AS data_inici,
-                projectes.data_final                                                        AS data_final,
-                projectes.id_curs                                                           AS id_curs,
-                year(cursos.inici)                                                          AS any_inici_curs,
-                year(cursos.final)                                                          AS any_final_curs,
-                (SELECT ifnull(json_arrayagg(json_object('id_director', directors_projectes.id_director, 'nom',
-                                                         p.nom_complet)), '[]')
-                 FROM (directors_projectes
-                          JOIN persones p ON ((directors_projectes.id_director = p.id_persona)))
-                 WHERE (directors_projectes.id_projecte = (SELECT projectes.id_projecte)))  AS directors,
-                (SELECT ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
-                                                         formacions.nom, 'nom_curt',
-                                                         ifnull(formacions.nom_curt, formacions.nom))), '[]')
+SELECT DISTINCT p.id_projecte                                              AS id_projecte,
+                p.titol                                                    AS titol,
+                p.descripcio                                               AS descripcio,
+                p.inicials                                                 AS inicials,
+                p.color                                                    AS color,
+                p.data_inici                                               AS data_inici,
+                p.data_final                                               AS data_final,
+                p.id_curs                                                  AS id_curs,
+                year(c.inici)                                              AS any_inici_curs,
+                year(c.final)                                              AS any_final_curs,
+                (SELECT cast(ifnull(json_arrayagg(json_object('id_director', dp.id_director, 'nom', p.nom_complet)),
+                                    '[]') AS JSON)
+                 FROM (directors_projectes dp
+                          JOIN persones p ON ((dp.id_director = p.id_persona)))
+                 WHERE (dp.id_projecte = p.id_projecte))                   AS directors,
+                (SELECT cast(ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
+                                                              formacions.nom, 'nom_curt',
+                                                              ifnull(formacions.nom_curt, formacions.nom))),
+                                    '[]') AS JSON)
                  FROM (projectes_formacions
                           JOIN formacions
                                ON ((projectes_formacions.id_formacio = formacions.id_formacio)))
-                 WHERE (projectes_formacions.id_projecte = (SELECT projectes.id_projecte))) AS formacions
-FROM (projectes
-         JOIN cursos ON ((projectes.id_curs = cursos.id_curs)))
-ORDER BY (projectes.data_inici IS NULL), projectes.data_inici, (projectes.data_final IS NULL),
-         projectes.data_final, projectes.titol;
+                 WHERE (projectes_formacions.id_projecte = p.id_projecte)) AS formacions
+FROM (projectes p
+         JOIN cursos c ON ((p.id_curs = c.id_curs)));
 
 CREATE OR REPLACE VIEW socis_convocats_assajos AS
 SELECT sv.id_persona                                                                          AS id_persona,
@@ -1335,7 +1340,7 @@ SELECT uc.id_usuari                                                             
         FROM (roles_usuaris
                  JOIN roles ON ((roles_usuaris.id_role = roles.id_role)))
         WHERE (roles_usuaris.id_usuari = uc.id_usuari))                                                                 AS roles,
-       (SELECT ifnull(json_arrayagg(tipus_avisos.unique_name), '[]')
+       (SELECT cast(ifnull(json_arrayagg(tipus_avisos.unique_name), '[]') AS JSON)
         FROM ((avisos JOIN tipus_avisos ON ((avisos.id_tipus_avis = tipus_avisos.id_tipus_avis)))
                  JOIN acceptacions_avis av ON ((avisos.id_avis = av.id_avis)))
         WHERE (((0 <> av.requerida) IS TRUE) AND exists(SELECT 1

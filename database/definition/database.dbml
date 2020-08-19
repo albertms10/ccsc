@@ -400,9 +400,10 @@ Table "moviments" {
   "id_obra" SMALLINT [not null]
 }
 
-Table "parts_moviment" {
-  "id_part_moviment" SMALLINT [pk, not null, increment]
+Table "seccions_moviment" {
+  "id_seccio_moviment" SMALLINT [pk, not null, increment]
   "id_moviment" SMALLINT [not null]
+  "titol" VARCHAR(100)
   "compas_inici" SMALLINT [not null, default: 1]
   "compas_final" SMALLINT
 }
@@ -549,8 +550,8 @@ Table "parts_concert" {
   "part" TINYINT(1) [not null]
 }
 
-Table "moviments_parts" {
-  "id_moviment_part" SMALLINT [pk, not null, increment]
+Table "moviments_parts_concert" {
+  "id_moviment_part_concert" SMALLINT [pk, not null, increment]
   "id_moviment" SMALLINT [not null]
   "id_part" SMALLINT [not null]
   "es_bis" BOOLEAN [not null, default: FALSE]
@@ -951,7 +952,7 @@ Ref:"autors"."id_autor" < "obres_tipus_autories"."id_autoria"
 
 Ref:"obres"."id_obra" < "moviments"."id_obra"
 
-Ref:"moviments"."id_moviment" < "parts_moviment"."id_moviment"
+Ref:"moviments"."id_moviment" < "seccions_moviment"."id_moviment"
 
 Ref:"moviments"."id_moviment" < "parts_destacades_moviment"."id_moviment"
 
@@ -1009,11 +1010,11 @@ Ref:"concerts"."id_concert" < "formacions_concerts"."id_concert"
 
 Ref:"concerts"."id_concert" < "parts_concert"."id_concert"
 
-Ref:"moviments"."id_moviment" < "moviments_parts"."id_moviment"
+Ref:"moviments"."id_moviment" < "moviments_parts_concert"."id_moviment"
 
-Ref:"parts_concert"."id_part_concert" < "moviments_parts"."id_part"
+Ref:"parts_concert"."id_part_concert" < "moviments_parts_concert"."id_part"
 
-Ref:"moviments_parts"."id_moviment_part" < "instruments_interpretacio"."id_moviment_part"
+Ref:"moviments_parts_concert"."id_moviment_part_concert" < "instruments_interpretacio"."id_moviment_part"
 
 Ref:"instruments"."id_instrument" < "instruments_interpretacio"."id_instrument"
 
