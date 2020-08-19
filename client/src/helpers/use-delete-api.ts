@@ -1,10 +1,12 @@
 import { useCallback, useState } from "react";
-import { showDeleteConfirm, useFetchAPI } from "./index";
+import { useDeleteConfirm, useFetchAPI } from "./index";
 
 export default (url: string, textualElement: string, callback?: () => void) => {
   const fetchAPI = useFetchAPI();
 
   const [loading, setLoading] = useState(false);
+
+  const showDeleteConfirm = useDeleteConfirm();
 
   const deleteData = useCallback(
     (id) => {
