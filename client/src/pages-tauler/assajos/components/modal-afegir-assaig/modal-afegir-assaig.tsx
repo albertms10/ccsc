@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { ModalButton } from "../../../../components/modal-button";
-import { ModalButtonBaseProps } from "../../../../components/modal-button/modal-button";
+import { ModalButtonBaseProps } from "../../../../components/modal-button";
 import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
 import { RootState } from "../../../../store/types";
 import { useAfegirAssaig } from "./hooks";

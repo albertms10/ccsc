@@ -2,7 +2,7 @@ import { Avatar, Space } from "antd";
 import React from "react";
 import { useSocis } from "../../pages-tauler/socis/hooks";
 import { SearchComplete } from "../../standalone/search-complete";
-import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
+import { SearchCompleteBaseProps } from "../../standalone/search-complete";
 import { initials, searchFilter } from "../../utils";
 
 interface SearchCompleteSocisProps extends SearchCompleteBaseProps {}

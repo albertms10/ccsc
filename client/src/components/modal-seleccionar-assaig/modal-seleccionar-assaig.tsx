@@ -8,9 +8,9 @@ import { useAssajos } from "../../pages-tauler/assajos/components/llista-assajos
 import { CalendarAvatar } from "../../standalone/calendar-avatar";
 import { timeRange } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
-import { ModalButtonBaseProps } from "../modal-button/modal-button";
+import { ModalButtonBaseProps } from "../modal-button";
 import { ModalList } from "../modal-list";
-import { SearchListBaseProps } from "../search-list/search-list";
+import { SearchListBaseProps } from "../search-list";
 
 interface ModalSeleccionarAssaigProps
   extends ModalButtonBaseProps,

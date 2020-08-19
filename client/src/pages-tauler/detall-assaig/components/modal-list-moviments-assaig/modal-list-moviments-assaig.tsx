@@ -1,6 +1,6 @@
 import { Moviment } from "model";
 import React, { useContext } from "react";
-import { ModalButtonBaseProps } from "../../../../components/modal-button/modal-button";
+import { ModalButtonBaseProps } from "../../../../components/modal-button";
 import { ModalSeleccionarMoviment } from "../../../../components/modal-seleccionar-moviment";
 import { usePostAPI } from "../../../../helpers";
 import { AssaigContext } from "../../detall-assaig";

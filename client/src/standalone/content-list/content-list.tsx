@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { StyledComponent } from "react-types";
 import "./content-list.css";
 
-export interface ContentListItem {
+interface ContentListItem {
   id: number;
   title: string;
   description?: string;
@@ -21,9 +21,7 @@ export interface ContentListBaseProps {
   extra?: any;
 }
 
-export interface ContentListProps
-  extends ContentListBaseProps,
-    StyledComponent {
+interface ContentListProps extends ContentListBaseProps, StyledComponent {
   dataSource: ContentListItem[];
 }
 

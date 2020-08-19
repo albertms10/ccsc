@@ -6,9 +6,9 @@ import { searchFilterMoviment } from "../../helpers/search-filters";
 import { mapFirstOfProperty, timeDuration } from "../../utils";
 import { FixedTagsProjectes } from "../fixed-tags-projectes";
 import { useMoviments } from "../llista-moviments/hooks";
-import { ModalButtonBaseProps } from "../modal-button/modal-button";
+import { ModalButtonBaseProps } from "../modal-button";
 import { ModalList } from "../modal-list";
-import { SearchListBaseProps } from "../search-list/search-list";
+import { SearchListBaseProps } from "../search-list";
 
 interface ModalSeleccionarMovimentProps
   extends ModalButtonBaseProps,

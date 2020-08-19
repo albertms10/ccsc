@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAPI } from "../../helpers";
 import { SearchComplete } from "../../standalone/search-complete";
-import { SearchCompleteBaseProps } from "../../standalone/search-complete/search-complete";
+import { SearchCompleteBaseProps } from "../../standalone/search-complete";
 import { searchFilter } from "../../utils";
 
 interface SearchCompleteVeusAssaigProps extends SearchCompleteBaseProps {
