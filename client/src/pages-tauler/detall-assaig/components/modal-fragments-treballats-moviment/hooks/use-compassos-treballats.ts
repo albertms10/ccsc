@@ -3,10 +3,9 @@ import { useMemo } from "react";
 import { useAPI } from "../../../../../helpers";
 
 export default (moviment: Moviment) => {
-  const [totsFragments] = useAPI<FragmentMovimentEsdevenimentMusical[]>(
-    `/moviments/${moviment.id_moviment}/fragments`,
-    []
-  );
+  const [totsFragments, loadingTotsFragments] = useAPI<
+    FragmentMovimentEsdevenimentMusical[]
+  >(`/moviments/${moviment.id_moviment}/fragments`, []);
 
   const compassos = useMemo(() => {
     let high = 0;
@@ -17,7 +16,10 @@ export default (moviment: Moviment) => {
         let count = 0;
 
         totsFragments.forEach((fragment) => {
-          if (index >= fragment.compas_inici && index <= fragment.compas_final)
+          if (
+            index >= fragment.compas_inici &&
+            (fragment.compas_final ? index <= fragment.compas_final : true)
+          )
             count++;
         });
 
@@ -28,5 +30,5 @@ export default (moviment: Moviment) => {
       .map((valor) => (high > 0 ? valor / high : 0));
   }, [moviment.compassos, totsFragments]);
 
-  return [compassos] as const;
+  return [compassos, loadingTotsFragments] as const;
 };

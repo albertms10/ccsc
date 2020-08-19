@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { ModalButton } from "../../../../components/modal-button";
 import { useAPI } from "../../../../helpers";
 import { BorderlessButton } from "../../../../standalone/borderless-button";
+import { HeatMap } from "../../../../standalone/heat-map";
 import { LinkedInputNumbers } from "../../../../standalone/linked-input-numbers";
-import { NumberHeatMap } from "../../../../standalone/number-heat-map";
 import { AssaigContext } from "../../detall-assaig";
-import { useCompassosTreballats } from "./hooks";
+import { useCompassosTreballats, useSeccionsMoviments } from "./hooks";
 
 interface ModalFragmentsTreballatsMovimentProps {
   moviment: Moviment;
@@ -29,7 +29,13 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
     []
   );
 
-  const [compassosTreballats] = useCompassosTreballats(moviment);
+  const [seccionsMoviment, loadingSeccionsMoviment] = useSeccionsMoviments(
+    moviment
+  );
+  const [
+    compassosTreballats,
+    loadingCompassosTreballats,
+  ] = useCompassosTreballats(moviment);
 
   return (
     <ModalButton
@@ -45,7 +51,11 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
       footer={null}
       renderModalBody={() => (
         <>
-          <NumberHeatMap numbers={compassosTreballats} />
+          <HeatMap
+            sections={seccionsMoviment}
+            numbers={compassosTreballats}
+            loading={loadingSeccionsMoviment || loadingCompassosTreballats}
+          />
           <Divider />
           <List
             dataSource={fragmentsTreballats}
@@ -54,7 +64,10 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
               <List.Item
                 actions={[
                   <LinkedInputNumbers
-                    values={[fragment.compas_inici || 1, fragment.compas_final]}
+                    values={[
+                      fragment.compas_inici || 1,
+                      fragment.compas_final || null,
+                    ]}
                     placeholders={["common:start", "common:end"]}
                     max={moviment.compassos}
                   />,
