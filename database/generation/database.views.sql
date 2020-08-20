@@ -12,7 +12,7 @@ SELECT id_usuari,
        id_persona,
        hash,
        (
-           SELECT JSON_ARRAYAGG(role)
+           SELECT CAST(IFNULL(JSON_ARRAYAGG(role), '[]') AS JSON)
            FROM roles_usuaris
                     INNER JOIN roles USING (id_role)
            WHERE id_usuari = uc.id_usuari
