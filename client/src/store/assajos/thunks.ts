@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { ResponseError } from "common";
+import { baseFetchAPI } from "helpers/use-fetch-api";
 import { Assaig, Usuari } from "model";
-import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import {
   fetchAssajosFailure,

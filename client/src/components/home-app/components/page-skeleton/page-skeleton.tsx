@@ -1,7 +1,7 @@
 import { Typography } from "antd";
 import React from "react";
 import { StyledComponent } from "react-types";
-import { Container } from "../../../../standalone/container";
+import { Container } from "standalone/container";
 import "./page-skeleton.css";
 
 const { Title } = Typography;

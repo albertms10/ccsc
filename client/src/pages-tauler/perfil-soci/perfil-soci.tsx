@@ -1,11 +1,11 @@
 import { Avatar, Col, PageHeader, Row, Tabs, Typography } from "antd";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
+import { useAPI } from "helpers";
 import { Soci } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { useAPI } from "../../helpers";
-import { Container } from "../../standalone/container";
-import { initials } from "../../utils";
+import { Container } from "standalone/container";
+import { initials } from "utils";
 import { SociTabEntitat } from "./components/soci-tab-entitat";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";

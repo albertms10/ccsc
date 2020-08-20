@@ -1,7 +1,7 @@
 import { Carousel, Typography } from "antd";
+import { useAPI } from "helpers";
 import { Titular } from "model";
 import React from "react";
-import { useAPI } from "../../../../helpers";
 import "./home-carousel.css";
 
 const { Title } = Typography;

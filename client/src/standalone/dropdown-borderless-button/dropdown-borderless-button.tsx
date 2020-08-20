@@ -2,7 +2,7 @@ import { MoreOutlined } from "@ant-design/icons";
 import { Dropdown, Menu } from "antd";
 import { MenuItemProps } from "antd/lib/menu/MenuItem";
 import React from "react";
-import { BorderlessButton } from "../borderless-button";
+import { BorderlessButton } from "standalone/borderless-button";
 
 interface DropdownItem extends MenuItemProps {
   key: string;

@@ -1,10 +1,10 @@
 import { Checkbox, Popover } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import { TooltipPlacement } from "antd/lib/tooltip";
+import { Authorized } from "components/authorized";
+import { SearchList, SearchListProps } from "components/search-list";
 import React, { PropsWithChildren, useState } from "react";
-import { ConditionalWrapper } from "../../standalone/conditional-wrapper";
-import { Authorized } from "../authorized";
-import { SearchList, SearchListProps } from "../search-list";
+import { ConditionalWrapper } from "standalone/conditional-wrapper";
 import {
   PopoverListCheckbox,
   PopoverListCheckboxBaseProps,

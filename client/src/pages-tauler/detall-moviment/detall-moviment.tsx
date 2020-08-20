@@ -1,10 +1,10 @@
 import { PageHeader, Spin, Typography } from "antd";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
+import { useAPI } from "helpers";
 import { Moviment } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { useAPI } from "../../helpers";
-import { Container } from "../../standalone/container";
+import { Container } from "standalone/container";
 
 const { Title } = Typography;
 

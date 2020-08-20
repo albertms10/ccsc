@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { ResponseError } from "common";
+import { baseFetchAPI } from "helpers/use-fetch-api";
 import LogRocket from "logrocket";
-import { baseFetchAPI } from "../../helpers/use-fetch-api";
 import { AppThunkAction } from "../types";
 import { logoutUser, signinUserFailure, signinUserSuccess } from "./actions";
 import { SignInUser, UserResponse } from "./types";

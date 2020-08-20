@@ -1,1 +1,1 @@
-export { default as SiteLayout } from "./site-layout";
+export { default as SiteLayout, SetPageHeaderContext } from "./site-layout";

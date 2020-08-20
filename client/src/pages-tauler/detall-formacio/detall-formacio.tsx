@@ -1,12 +1,12 @@
 import { Tabs } from "antd";
+import { IconFormacio } from "assets/icons";
+import { CalendariFormacio } from "components/calendari-formacio";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
 import { Formacio } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Sticky, StickyContainer } from "react-sticky";
-import { IconFormacio } from "../../assets/icons";
-import { CalendariFormacio } from "../../components/calendari-formacio";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { ContentHeader } from "../../standalone/content-header";
+import { ContentHeader } from "standalone/content-header";
 import { ResumFormacio } from "./components/resum-formacio";
 import "./detall-formacio.css";
 

@@ -3,13 +3,10 @@ import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
-import {
-  ContentList,
-  ContentListBaseProps,
-} from "../../../../standalone/content-list";
-import { FixedTag } from "../../../../standalone/fixed-tag";
-import { linkText } from "../../../../utils";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { ContentList, ContentListBaseProps } from "standalone/content-list";
+import { FixedTag } from "standalone/fixed-tag";
+import { linkText } from "utils";
 
 interface ContentListConcertsProps extends ContentListBaseProps {
   concerts: Concert[];

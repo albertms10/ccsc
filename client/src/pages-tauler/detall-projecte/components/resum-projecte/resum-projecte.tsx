@@ -1,7 +1,10 @@
+import { IconFormacio } from "assets/icons";
+import {
+  ProjecteContext,
+  SetActionContext,
+} from "pages-tauler/detall-projecte";
 import React, { useContext, useEffect } from "react";
-import { IconFormacio } from "../../../../assets/icons";
-import { Container } from "../../../../standalone/container";
-import { ProjecteContext, SetActionContext } from "../../detall-projecte";
+import { Container } from "standalone/container";
 
 const ResumProjecte: React.FC = () => {
   const { formacions } = useContext(ProjecteContext);

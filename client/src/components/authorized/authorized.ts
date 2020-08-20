@@ -1,19 +1,20 @@
 import { Role } from "common";
-import { Usuari } from "model";
-import React, { PropsWithChildren } from "react";
-import { useSelector } from "react-redux";
 import {
   hasRoleAdmin,
   hasRoleDireccioMusical,
   hasRoleJuntaDirectiva,
-} from "../../helpers/role-checker";
-import { RootState } from "../../store/types";
+} from "helpers/role-checker";
+import { Usuari } from "model";
+import React, { PropsWithChildren } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "store/types";
 
 interface AuthorizedProps {
   render?: (props: PropsWithChildren<any>) => React.ReactNode;
   component?: React.ReactNode;
   elseElement?: React.ReactNode;
   authority?: Role;
+
   [key: string]: unknown;
 }
 

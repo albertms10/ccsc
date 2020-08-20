@@ -1,16 +1,13 @@
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { IconsFormacions } from "components/icons-formacions";
 import { Assaig, Formacio } from "model";
 import moment from "moment";
+import { FormacioContext } from "pages-tauler/detall-formacio";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
-import { IconsFormacions } from "../../../../components/icons-formacions";
-import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
-import {
-  ContentList,
-  ContentListBaseProps,
-} from "../../../../standalone/content-list";
-import { linkText } from "../../../../utils";
-import { FormacioContext } from "../../detall-formacio";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { ContentList, ContentListBaseProps } from "standalone/content-list";
+import { linkText } from "utils";
 
 interface ContentListAssajosProps extends ContentListBaseProps {
   assajos: Assaig[];

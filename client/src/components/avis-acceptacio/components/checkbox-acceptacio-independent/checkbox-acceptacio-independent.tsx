@@ -2,9 +2,9 @@ import { message, Spin } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import { BooleanMap } from "common";
 import { AcceptacioAvis } from "model";
+import { SociContext } from "pages-tauler/perfil-soci";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { SociContext } from "../../../../pages-tauler/perfil-soci/perfil-soci";
 import { usePutAvisAcceptacio } from "../../hooks";
 import { CheckboxAcceptacioItem } from "../checkbox-acceptacio-item";
 

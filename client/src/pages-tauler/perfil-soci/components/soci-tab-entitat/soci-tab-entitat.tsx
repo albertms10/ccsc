@@ -1,10 +1,10 @@
 import { Space } from "antd";
 import { BooleanMap } from "common";
+import { AvisAcceptacio } from "components/avis-acceptacio";
+import { CollapseCardActivitat } from "components/collapse-card-activitat";
+import { useAPI } from "helpers";
+import { SociContext } from "pages-tauler/perfil-soci";
 import React, { useContext } from "react";
-import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
-import { CollapseCardActivitat } from "../../../../components/collapse-card-activitat";
-import { useAPI } from "../../../../helpers";
-import { SociContext } from "../../perfil-soci";
 
 const SociTabEntitat: React.FC = () => {
   const soci = useContext(SociContext);

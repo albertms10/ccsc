@@ -1,6 +1,6 @@
+import { useAPI } from "helpers";
 import { FragmentMovimentEsdevenimentMusical, Moviment } from "model";
 import { useMemo } from "react";
-import { useAPI } from "../../../../../helpers";
 
 export default (moviment: Moviment) => {
   const [totsFragments, loadingTotsFragments] = useAPI<

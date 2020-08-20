@@ -1,11 +1,11 @@
 import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
+import { Authorized } from "components/authorized";
+import { useAPI, useDeleteAPI } from "helpers";
 import { Moviment } from "model";
+import { AssaigContext } from "pages-tauler/detall-assaig";
 import React, { useContext } from "react";
-import { Authorized } from "../../../../components/authorized";
-import { useAPI, useDeleteAPI } from "../../../../helpers";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { ContentList } from "../../../../standalone/content-list";
-import { AssaigContext } from "../../detall-assaig";
+import { BorderlessButton } from "standalone/borderless-button";
+import { ContentList } from "standalone/content-list";
 import { ModalFragmentsTreballatsMoviment } from "../modal-fragments-treballats-moviment";
 import { ModalListMovimentsAssaig } from "../modal-list-moviments-assaig";
 import { PopoverProjectesAssaig } from "../popover-projectes-assaig";

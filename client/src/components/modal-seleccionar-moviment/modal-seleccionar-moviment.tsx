@@ -1,14 +1,14 @@
 import { List, Typography } from "antd";
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { useMoviments } from "components/llista-moviments/hooks";
+import { ModalButtonBaseProps } from "components/modal-button";
+import { ModalList } from "components/modal-list";
+import { SearchListBaseProps } from "components/search-list";
+import { searchFilterMoviment } from "helpers/search-filters";
 import { Moviment } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { searchFilterMoviment } from "../../helpers/search-filters";
-import { mapFirstOfProperty, timeDuration } from "../../utils";
-import { FixedTagsProjectes } from "../fixed-tags-projectes";
-import { useMoviments } from "../llista-moviments/hooks";
-import { ModalButtonBaseProps } from "../modal-button";
-import { ModalList } from "../modal-list";
-import { SearchListBaseProps } from "../search-list";
+import { mapFirstOfProperty, timeDuration } from "utils";
 
 interface ModalSeleccionarMovimentProps
   extends ModalButtonBaseProps,

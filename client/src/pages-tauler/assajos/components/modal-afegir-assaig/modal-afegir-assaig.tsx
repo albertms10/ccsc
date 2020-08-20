@@ -1,13 +1,10 @@
 import { Checkbox, Col, DatePicker, Form, Row, TimePicker } from "antd";
+import { ModalButton, ModalButtonBaseProps } from "components/modal-button";
+import { TagSelectFormItemFormacions } from "components/tag-select-form-item-formacions";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import {
-  ModalButton,
-  ModalButtonBaseProps,
-} from "../../../../components/modal-button";
-import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
-import { RootState } from "../../../../store/types";
+import { RootState } from "store/types";
 import { useAfegirAssaig } from "./hooks";
 
 interface ModalAfegirAssaigProps extends ModalButtonBaseProps {

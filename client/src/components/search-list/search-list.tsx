@@ -7,8 +7,8 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { searchFilter } from "../../utils";
-import { SearchFilters } from "../../utils/search-filter";
+import { searchFilter } from "utils";
+import { SearchFilters } from "utils/search-filter";
 import "./search-list.css";
 
 const { Search } = Input;

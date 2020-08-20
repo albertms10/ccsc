@@ -1,6 +1,6 @@
+import { useFetchAPI } from "helpers";
 import { BaseFormacio } from "model";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../../../helpers";
 
 export default (idFormacio: number) => {
   const fetchAPI = useFetchAPI();

@@ -1,14 +1,14 @@
 import { BoxPlotOutlined } from "@ant-design/icons/lib";
 import { Divider, List } from "antd";
+import { ModalButton } from "components/modal-button";
+import { useAPI } from "helpers";
 import { FragmentMovimentEsdevenimentMusical, Moviment } from "model";
+import { AssaigContext } from "pages-tauler/detall-assaig";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { ModalButton } from "../../../../components/modal-button";
-import { useAPI } from "../../../../helpers";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { HeatMap } from "../../../../standalone/heat-map";
-import { LinkedInputNumbers } from "../../../../standalone/linked-input-numbers";
-import { AssaigContext } from "../../detall-assaig";
+import { BorderlessButton } from "standalone/borderless-button";
+import { HeatMap } from "standalone/heat-map";
+import { LinkedInputNumbers } from "standalone/linked-input-numbers";
 import { useCompassosTreballats, useSeccionsMoviments } from "./hooks";
 
 interface ModalFragmentsTreballatsMovimentProps {

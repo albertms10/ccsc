@@ -1,7 +1,7 @@
 import { Space } from "antd";
+import { CalendarTag } from "components/calendar-tag";
 import { TipusEsdeveniment } from "model";
 import React from "react";
-import { CalendarTag } from "../../../calendar-tag";
 
 interface CalendariFormacioCellProps {
   esdevenimentsActuals: TipusEsdeveniment[];

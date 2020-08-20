@@ -1,7 +1,10 @@
+import { LlistaMoviments } from "components/llista-moviments";
+import {
+  ProjecteContext,
+  SetActionContext,
+} from "pages-tauler/detall-projecte";
 import React, { useContext, useEffect } from "react";
-import { LlistaMoviments } from "../../../../components/llista-moviments";
-import { Container } from "../../../../standalone/container";
-import { ProjecteContext, SetActionContext } from "../../detall-projecte";
+import { Container } from "standalone/container";
 import { DropdownAfegirMovimentProjecte } from "../dropdown-afegir-moviment-projecte";
 
 const RepertoriProjecte: React.FC = () => {

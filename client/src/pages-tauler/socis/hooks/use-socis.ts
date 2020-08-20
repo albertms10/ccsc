@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSocis } from "../../../store/socis/thunks";
-import { RootState } from "../../../store/types";
+import { fetchSocis } from "store/socis/thunks";
+import { RootState } from "store/types";
 
 export default () => {
   const dispatch = useDispatch();

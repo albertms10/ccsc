@@ -2,12 +2,9 @@ import { Avatar } from "antd";
 import { Persona } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ContentList,
-  ContentListBaseProps,
-} from "../../../../standalone/content-list";
-import { SmallBadge } from "../../../../standalone/small-badge";
-import { linkText } from "../../../../utils";
+import { ContentList, ContentListBaseProps } from "standalone/content-list";
+import { SmallBadge } from "standalone/small-badge";
+import { linkText } from "utils";
 
 interface ContentListPersonesProps extends ContentListBaseProps {
   persones: Persona[];

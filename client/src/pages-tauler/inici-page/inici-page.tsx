@@ -1,19 +1,19 @@
 import { Col, Row, Typography } from "antd";
+import { Authorized } from "components/authorized";
+import { EntitatContext } from "components/tauler-app";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
 import { Usuari } from "model";
 import React, { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Authorized } from "../../components/authorized";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { EntitatContext } from "../../components/tauler-app/tauler-app";
-import { SafeMargin } from "../../standalone/safe-margin";
+import { SafeMargin } from "standalone/safe-margin";
 import {
   AssajosCountStatistics,
   ConcertsCountStatistics,
   ProjectesCountStatistics,
   SocisCountStatistics,
-} from "../../standalone/statistics";
-import { RootState } from "../../store/types";
+} from "standalone/statistics";
+import { RootState } from "store/types";
 import { ChartAssistencia } from "./components/chart-assistencia";
 import { PropersAssajos } from "./components/propers-assajos";
 import "./inici-page.css";

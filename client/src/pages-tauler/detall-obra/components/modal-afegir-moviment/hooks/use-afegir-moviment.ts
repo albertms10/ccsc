@@ -1,8 +1,8 @@
 import { Form } from "antd";
+import { useFetchAPI } from "helpers";
 import { Moviment } from "model";
 import moment from "moment";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../../../helpers";
 
 export default (idObra: number) => {
   const fetchAPI = useFetchAPI();

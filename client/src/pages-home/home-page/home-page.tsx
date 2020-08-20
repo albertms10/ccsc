@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import React from "react";
-import { Container } from "../../standalone/container";
+import { Container } from "standalone/container";
 import { HomeCarousel } from "./components/home-carousel";
 
 const HomePage: React.FC = () => (

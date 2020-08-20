@@ -1,1 +1,1 @@
-export { default as DetallFormacio } from "./detall-formacio";
+export { default as DetallFormacio, FormacioContext } from "./detall-formacio";

@@ -4,7 +4,7 @@ import { FetchError, ResponseError } from "common";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { logoutRemoveUser } from "../store/user/thunks";
+import { logoutRemoveUser } from "store/user/thunks";
 
 const catchError = (e: Error) => {
   message.error(e.toString());

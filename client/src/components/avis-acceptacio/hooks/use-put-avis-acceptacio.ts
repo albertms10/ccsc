@@ -1,6 +1,6 @@
 import { BooleanMap } from "common";
+import { useFetchAPI } from "helpers";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
   const fetchAPI = useFetchAPI();

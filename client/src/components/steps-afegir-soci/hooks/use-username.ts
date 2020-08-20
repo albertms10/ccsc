@@ -1,7 +1,7 @@
+import { useFetchAPI } from "helpers";
 import { NomPila } from "model";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../helpers";
-import { generateUsername } from "../../../utils";
+import { generateUsername } from "utils";
 
 export default () => {
   const fetchAPI = useFetchAPI();

@@ -1,5 +1,5 @@
+import { useFetchAPI } from "helpers";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../../../helpers";
 
 export default () => {
   const fetchAPI = useFetchAPI();

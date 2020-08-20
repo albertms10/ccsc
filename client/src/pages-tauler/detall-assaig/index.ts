@@ -1,1 +1,1 @@
-export { default as DetallAssaig } from "./detall-assaig";
+export { default as DetallAssaig, AssaigContext } from "./detall-assaig";

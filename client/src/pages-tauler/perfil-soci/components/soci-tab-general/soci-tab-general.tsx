@@ -4,12 +4,12 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Descriptions, List, Space, Typography } from "antd";
+import { SiderBrokenContext } from "components/tauler-app/contexts/sider-context";
 import moment from "moment";
+import { SociContext } from "pages-tauler/perfil-soci";
 import React, { useContext } from "react";
-import { SiderBrokenContext } from "../../../../components/tauler-app/contexts/sider-context";
-import { InfoCard } from "../../../../standalone/info-card";
-import { upperCaseFirst } from "../../../../utils";
-import { SociContext } from "../../perfil-soci";
+import { InfoCard } from "standalone/info-card";
+import { upperCaseFirst } from "utils";
 
 const { Item } = Descriptions;
 

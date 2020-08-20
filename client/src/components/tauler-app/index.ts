@@ -1,1 +1,1 @@
-export { default as TaulerApp } from "./tauler-app";
+export { default as TaulerApp, EntitatContext } from "./tauler-app";

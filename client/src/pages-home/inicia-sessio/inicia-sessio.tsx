@@ -1,16 +1,16 @@
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, message, Spin, Typography } from "antd";
+import { LogoCorDeCambra } from "assets/icons";
 import { FetchError } from "common";
 import { Usuari } from "model";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { LogoCorDeCambra } from "../../assets/icons";
-import { Container } from "../../standalone/container";
-import { RootState } from "../../store/types";
-import { signinUserFetch } from "../../store/user/thunks";
-import { linkText } from "../../utils";
+import { Container } from "standalone/container";
+import { RootState } from "store/types";
+import { signinUserFetch } from "store/user/thunks";
+import { linkText } from "utils";
 import { useIniciUsuari } from "./hooks";
 import "./inicia-sessio.css";
 

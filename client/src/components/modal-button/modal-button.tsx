@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import React, { cloneElement, forwardRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useStatePair } from "react-types";
-import { ActionButton } from "../../standalone/action-button";
+import { ActionButton } from "standalone/action-button";
 
 export interface ModalButtonBaseProps {
   title?: string;

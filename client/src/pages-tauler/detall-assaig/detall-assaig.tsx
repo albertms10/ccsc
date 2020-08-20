@@ -1,16 +1,16 @@
 import { PageHeader, Space, Spin, Typography } from "antd";
+import { EventLineItemData } from "components/event-line-item-data";
+import { EventLineItemLocalitzacio } from "components/event-line-item-localitzacio";
+import { EventLineItemNotes } from "components/event-line-item-notes";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
+import { useAPI } from "helpers";
 import { Assaig } from "model";
 import moment from "moment";
 import React, { createContext, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
-import { EventLineItemData } from "../../components/event-line-item-data";
-import { EventLineItemLocalitzacio } from "../../components/event-line-item-localitzacio";
-import { EventLineItemNotes } from "../../components/event-line-item-notes";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { useAPI } from "../../helpers";
-import { CalendarAvatar } from "../../standalone/calendar-avatar";
-import { Container } from "../../standalone/container";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { Container } from "standalone/container";
 import { ContentListConvocatsAssaig } from "./components/content-list-convocats-assaig";
 import { ContentListMovimentsAssaig } from "./components/content-list-moviments-assaig";
 

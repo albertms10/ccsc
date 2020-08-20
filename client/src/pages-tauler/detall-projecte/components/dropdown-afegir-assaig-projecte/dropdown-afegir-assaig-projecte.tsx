@@ -1,13 +1,13 @@
 import { Menu } from "antd";
+import { ModalSeleccionarAssaig } from "components/modal-seleccionar-assaig";
+import { usePostAPI } from "helpers";
 import { Projecte } from "model";
 import moment from "moment";
+import { ModalAfegirAssaig } from "pages-tauler/assajos/components/modal-afegir-assaig";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { ModalSeleccionarAssaig } from "../../../../components/modal-seleccionar-assaig";
-import { usePostAPI } from "../../../../helpers";
-import { ActionButton } from "../../../../standalone/action-button";
-import { fetchAssajos } from "../../../../store/assajos/thunks";
-import { ModalAfegirAssaig } from "../../../assajos/components/modal-afegir-assaig";
+import { ActionButton } from "standalone/action-button";
+import { fetchAssajos } from "store/assajos/thunks";
 
 interface DropdownAfegirAssaigProjecteProps {
   projecte: Projecte;

@@ -1,9 +1,9 @@
 import { BooleanMap } from "common";
+import { useAPI } from "helpers";
 import { Avis } from "model";
 import React, { useMemo } from "react";
-import { useAPI } from "../../helpers";
-import { CollapseCard } from "../../standalone/collapse-card";
-import { InfoCard } from "../../standalone/info-card";
+import { CollapseCard } from "standalone/collapse-card";
+import { InfoCard } from "standalone/info-card";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
 import { CheckboxAcceptacioIndependent } from "./components/checkbox-acceptacio-independent";
 import { SeccioAvis } from "./components/seccio-avis";

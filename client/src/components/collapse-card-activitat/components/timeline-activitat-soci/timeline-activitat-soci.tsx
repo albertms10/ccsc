@@ -3,7 +3,7 @@ import { Activitat } from "model";
 import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { closestTimeValue } from "../../../../utils";
+import { closestTimeValue } from "utils";
 import "./timeline-activitat-soci.css";
 
 interface TimelineActivitatSociProps {

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMoviments } from "../../../store/moviments/thunks";
-import { RootState } from "../../../store/types";
+import { fetchMoviments } from "store/moviments/thunks";
+import { RootState } from "store/types";
 
 export default () => {
   const dispatch = useDispatch();

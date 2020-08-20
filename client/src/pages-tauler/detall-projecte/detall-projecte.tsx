@@ -1,4 +1,7 @@
 import { Layout, Menu, PageHeader, Space, Spin } from "antd";
+import { Authorized } from "components/authorized";
+import { SiderSetCollapsedContext } from "components/tauler-app/contexts/sider-context";
+import { useAPI } from "helpers";
 import { Projecte } from "model";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,11 +13,8 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom";
-import { Authorized } from "../../components/authorized";
-import { SiderSetCollapsedContext } from "../../components/tauler-app/contexts/sider-context";
-import { useAPI } from "../../helpers";
-import { ColorCard } from "../../standalone/color-card";
-import { linkText } from "../../utils";
+import { ColorCard } from "standalone/color-card";
+import { linkText } from "utils";
 import { AssajosProjecte } from "./components/assajos-projecte";
 import { RepertoriProjecte } from "./components/repertori-projecte";
 import { ResumProjecte } from "./components/resum-projecte";

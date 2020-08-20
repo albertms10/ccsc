@@ -1,12 +1,12 @@
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { PopoverList } from "components/popover-list";
+import { useAPI } from "helpers";
+import { searchFilterProjecte } from "helpers/search-filters";
 import { Projecte } from "model";
+import { AssaigContext } from "pages-tauler/detall-assaig";
 import React, { useCallback, useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
-import { PopoverList } from "../../../../components/popover-list";
-import { useAPI } from "../../../../helpers";
-import { searchFilterProjecte } from "../../../../helpers/search-filters";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { AssaigContext } from "../../detall-assaig";
+import { BorderlessButton } from "standalone/borderless-button";
 import { useProjecteAssaig } from "./hooks";
 
 interface PopoverProjectesAssaigProps {

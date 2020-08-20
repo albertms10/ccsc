@@ -10,15 +10,15 @@ import {
   Space,
 } from "antd";
 import { ValidateStatus } from "antd/lib/form/FormItem";
+import { AvisAcceptacio } from "components/avis-acceptacio";
+import { DATE_FORMAT } from "constants/constants";
+import { useAPI, usePostAPI } from "helpers";
 import { Pais } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DATE_FORMAT } from "../../../constants/constants";
-import { useAPI, usePostAPI } from "../../../helpers";
-import { InfoCard } from "../../../standalone/info-card";
-import { upperCaseFirst } from "../../../utils";
-import { AvisAcceptacio } from "../../avis-acceptacio";
+import { InfoCard } from "standalone/info-card";
+import { upperCaseFirst } from "utils";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { useUsername } from "./index";
 

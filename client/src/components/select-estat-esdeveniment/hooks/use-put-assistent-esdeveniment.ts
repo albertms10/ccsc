@@ -1,6 +1,6 @@
+import { useFetchAPI } from "helpers";
 import { Convocatoria } from "model";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../helpers";
 
 export default (idEsdeveniment: number) => {
   const fetchAPI = useFetchAPI();

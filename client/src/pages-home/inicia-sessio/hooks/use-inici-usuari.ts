@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { RootState } from "../../../store/types";
-import { getProfileFetch } from "../../../store/user/thunks";
-import { linkText } from "../../../utils";
+import { RootState } from "store/types";
+import { getProfileFetch } from "store/user/thunks";
+import { linkText } from "utils";
 
 interface IniciUsuariHistory {
   prevLocation: {

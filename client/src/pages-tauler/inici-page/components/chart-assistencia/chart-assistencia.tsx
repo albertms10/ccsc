@@ -9,6 +9,7 @@ import {
   yellow,
 } from "@ant-design/colors";
 import { Card } from "antd";
+import { useAPI } from "helpers";
 import {
   AssistenciaAssaigEstat,
   AssistenciaAssaigVeus,
@@ -16,8 +17,7 @@ import {
 } from "model";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAPI } from "../../../../helpers";
-import { dataSplit, dateRange } from "../../../../utils";
+import { dataSplit, dateRange } from "utils";
 
 const ChartAssistencia: React.FC = () => {
   const { t } = useTranslation("dashboard");

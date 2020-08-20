@@ -1,7 +1,7 @@
 import { Space } from "antd";
+import { IconFormacio } from "assets/icons";
 import { Formacio } from "model";
 import React from "react";
-import { IconFormacio } from "../../assets/icons";
 
 interface IconsFormacionsProps {
   formacions: Formacio[];

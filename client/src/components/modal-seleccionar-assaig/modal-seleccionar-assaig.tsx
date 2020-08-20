@@ -1,16 +1,16 @@
 import { List } from "antd";
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { ModalButtonBaseProps } from "components/modal-button";
+import { ModalList } from "components/modal-list";
+import { SearchListBaseProps } from "components/search-list";
+import { searchFilterAssaig } from "helpers/search-filters";
 import { Assaig } from "model";
 import moment from "moment";
+import { useAssajos } from "pages-tauler/assajos/components/llista-assajos/hooks";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { searchFilterAssaig } from "../../helpers/search-filters";
-import { useAssajos } from "../../pages-tauler/assajos/components/llista-assajos/hooks";
-import { CalendarAvatar } from "../../standalone/calendar-avatar";
-import { timeRange } from "../../utils";
-import { FixedTagsProjectes } from "../fixed-tags-projectes";
-import { ModalButtonBaseProps } from "../modal-button";
-import { ModalList } from "../modal-list";
-import { SearchListBaseProps } from "../search-list";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { timeRange } from "utils";
 
 interface ModalSeleccionarAssaigProps
   extends ModalButtonBaseProps,

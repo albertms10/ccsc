@@ -1,10 +1,10 @@
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { ModalButton } from "components/modal-button";
+import { useAPI } from "helpers";
 import { Idioma } from "model";
 import React from "react";
 import { useSelector } from "react-redux";
-import { ModalButton } from "../../../../components/modal-button";
-import { useAPI } from "../../../../helpers";
-import { RootState } from "../../../../store/types";
+import { RootState } from "store/types";
 import { useAfegirObra } from "./hooks";
 
 const { Option } = Select;

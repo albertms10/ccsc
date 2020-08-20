@@ -1,14 +1,14 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { useAPI } from "helpers";
 import { Moviment } from "model";
+import { ObraContext } from "pages-tauler/detall-obra";
 import React, { useContext } from "react";
-import { FixedTagsProjectes } from "../../../../components/fixed-tags-projectes";
-import { useAPI } from "../../../../helpers";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { ContentList } from "../../../../standalone/content-list";
-import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { timeDuration } from "../../../../utils";
-import { ObraContext } from "../../detall-obra";
+import { BorderlessButton } from "standalone/borderless-button";
+import { ContentList } from "standalone/content-list";
+import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
+import { timeDuration } from "utils";
 import { ModalAfegirMoviment } from "../modal-afegir-moviment";
 
 const ContentListMoviments: React.FC = () => {

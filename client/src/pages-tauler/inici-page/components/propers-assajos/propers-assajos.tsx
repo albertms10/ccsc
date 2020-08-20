@@ -1,12 +1,12 @@
 import { Card, Spin, Typography } from "antd";
+import { CardProperAssaig } from "components/card-proper-assaig";
+import { useAPI } from "helpers";
 import { Assaig, Usuari } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { StyledComponent } from "react-types";
-import { CardProperAssaig } from "../../../../components/card-proper-assaig";
-import { useAPI } from "../../../../helpers";
-import { RootState } from "../../../../store/types";
+import { RootState } from "store/types";
 import "./propers-assajos.css";
 
 interface PropersAssajosProps extends StyledComponent {}

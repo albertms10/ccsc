@@ -1,12 +1,12 @@
+import { useAPI } from "helpers";
 import { Veu } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useAPI } from "../../helpers";
 import {
   SearchComplete,
   SearchCompleteBaseProps,
-} from "../../standalone/search-complete";
-import { searchFilter } from "../../utils";
+} from "standalone/search-complete";
+import { searchFilter } from "utils";
 
 interface SearchCompleteVeusAssaigProps extends SearchCompleteBaseProps {
   idAssaig: number;

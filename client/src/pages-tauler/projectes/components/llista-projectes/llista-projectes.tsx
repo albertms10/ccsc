@@ -1,17 +1,17 @@
 import { List, Space, Typography } from "antd";
+import { Authorized } from "components/authorized";
+import { IconsFormacions } from "components/icons-formacions";
+import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
+import { useDeleteAPI } from "helpers";
+import { searchFilterProjecte } from "helpers/search-filters";
 import moment from "moment";
 import React, { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Authorized } from "../../../../components/authorized";
-import { IconsFormacions } from "../../../../components/icons-formacions";
-import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
-import { useDeleteAPI } from "../../../../helpers";
-import { searchFilterProjecte } from "../../../../helpers/search-filters";
-import { ColorCard } from "../../../../standalone/color-card";
-import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { fetchProjectes } from "../../../../store/projectes/thunks";
-import { literalList, searchFilter } from "../../../../utils";
+import { ColorCard } from "standalone/color-card";
+import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
+import { fetchProjectes } from "store/projectes/thunks";
+import { literalList, searchFilter } from "utils";
 import { useProjectes } from "./hooks";
 import "./llista-projectes.css";
 

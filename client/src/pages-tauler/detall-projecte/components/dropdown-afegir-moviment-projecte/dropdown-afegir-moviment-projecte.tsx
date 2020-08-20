@@ -1,10 +1,10 @@
+import { ModalSeleccionarMoviment } from "components/modal-seleccionar-moviment";
+import { usePostAPI } from "helpers";
 import { Projecte } from "model";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { ModalSeleccionarMoviment } from "../../../../components/modal-seleccionar-moviment";
-import { usePostAPI } from "../../../../helpers";
-import { ActionButton } from "../../../../standalone/action-button";
-import { fetchMoviments } from "../../../../store/moviments/thunks";
+import { ActionButton } from "standalone/action-button";
+import { fetchMoviments } from "store/moviments/thunks";
 
 interface DropdownAfegirMovimentProjecteProps {
   projecte: Projecte;

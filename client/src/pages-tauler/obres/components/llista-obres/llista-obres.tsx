@@ -1,14 +1,14 @@
 import { Input, List, Space } from "antd";
+import { IconFormacio } from "assets/icons";
+import { Authorized } from "components/authorized";
+import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
+import { useDeleteAPI } from "helpers";
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { IconFormacio } from "../../../../assets/icons";
-import { Authorized } from "../../../../components/authorized";
-import { FormacionsListContext } from "../../../../components/tauler-app/contexts/formacions-context";
-import { useDeleteAPI } from "../../../../helpers";
-import { DropdownBorderlessButton } from "../../../../standalone/dropdown-borderless-button";
-import { fetchObres } from "../../../../store/obres/thunks";
-import { searchFilter } from "../../../../utils";
+import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
+import { fetchObres } from "store/obres/thunks";
+import { searchFilter } from "utils";
 import { useObres } from "./hooks";
 
 const { Item } = List;

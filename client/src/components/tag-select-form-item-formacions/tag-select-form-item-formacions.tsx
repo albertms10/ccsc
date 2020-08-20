@@ -1,9 +1,9 @@
 import TagSelect from "ant-design-pro/lib/TagSelect";
 import { Form, Space } from "antd";
+import { IconFormacio } from "assets/icons";
+import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { IconFormacio } from "../../assets/icons";
-import { FormacionsListContext } from "../tauler-app/contexts/formacions-context";
 
 const TagSelectFormItemFormacions: React.FC = () => {
   const { t } = useTranslation("dashboard");

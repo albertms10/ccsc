@@ -1,8 +1,8 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
+import { useFetchAPI } from "helpers";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useFetchAPI } from "../../../helpers";
 
 export default (idSoci: number) => {
   const { t } = useTranslation("modals");

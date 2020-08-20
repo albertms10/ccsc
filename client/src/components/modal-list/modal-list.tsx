@@ -1,8 +1,8 @@
+import { ModalButton, ModalButtonBaseProps } from "components/modal-button";
+import { SearchList, SearchListProps } from "components/search-list";
 import React, { PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
-import { BorderlessButton } from "../../standalone/borderless-button";
-import { ModalButton, ModalButtonBaseProps } from "../modal-button";
-import { SearchList, SearchListProps } from "../search-list";
+import { BorderlessButton } from "standalone/borderless-button";
 import "./modal-list.css";
 
 export interface ModalListProps<T>

@@ -2,8 +2,8 @@ import { Space } from "antd";
 import { Esdeveniment } from "model";
 import moment from "moment";
 import React from "react";
-import { CalendarAvatar } from "../../../../standalone/calendar-avatar";
-import { StatusIcon } from "../../../../standalone/status-icon";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { StatusIcon } from "standalone/status-icon";
 
 interface CalendariResultLabelProps {
   esdeveniment: Esdeveniment;

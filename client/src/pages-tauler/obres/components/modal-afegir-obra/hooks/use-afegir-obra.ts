@@ -1,10 +1,10 @@
 import { Form } from "antd";
+import { useFetchAPI } from "helpers";
 import { Obra } from "model";
 import moment from "moment";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { useFetchAPI } from "../../../../../helpers";
-import { fetchObres } from "../../../../../store/obres/thunks";
+import { fetchObres } from "store/obres/thunks";
 
 export default () => {
   const dispatch = useDispatch();

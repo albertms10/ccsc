@@ -1,10 +1,10 @@
+import { SelectEstatEsdeveniment } from "components/select-estat-esdeveniment";
+import { useAPI } from "helpers";
 import { PersonaConvocada } from "model";
+import { AssaigContext } from "pages-tauler/detall-assaig";
+import { ContentListPersones } from "pages-tauler/detall-formacio/components/content-list-persones";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { SelectEstatEsdeveniment } from "../../../../components/select-estat-esdeveniment";
-import { useAPI } from "../../../../helpers";
-import { ContentListPersones } from "../../../detall-formacio/components/content-list-persones";
-import { AssaigContext } from "../../detall-assaig";
 import { PopoverFormacionsAssaig } from "../popover-formacions-assaig";
 import { PopoverVeusAssaig } from "../popover-veus-assaig";
 

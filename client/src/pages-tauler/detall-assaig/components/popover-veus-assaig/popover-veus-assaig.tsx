@@ -1,13 +1,13 @@
 import { FilterFilled } from "@ant-design/icons";
 import { Space } from "antd";
+import { PopoverList } from "components/popover-list";
+import { useAPI } from "helpers";
+import { searchFilterVeus } from "helpers/search-filters";
 import { Veu } from "model";
+import { AssaigContext } from "pages-tauler/detall-assaig";
 import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { PopoverList } from "../../../../components/popover-list";
-import { useAPI } from "../../../../helpers";
-import { searchFilterVeus } from "../../../../helpers/search-filters";
-import { BorderlessButton } from "../../../../standalone/borderless-button";
-import { AssaigContext } from "../../detall-assaig";
+import { BorderlessButton } from "standalone/borderless-button";
 import { useVeuAssaig } from "./hooks";
 
 interface PopoverVeusAssaigProps {

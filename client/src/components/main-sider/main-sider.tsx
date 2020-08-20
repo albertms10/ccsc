@@ -1,15 +1,15 @@
 import { MenuOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
-import React, { useContext } from "react";
-import { ErrorBoundary } from "../../standalone/error-boundary";
-import { initials } from "../../utils";
+import { EntitatContext } from "components/tauler-app";
 import {
   SiderBrokenContext,
   SiderCollapsedContext,
   SiderSetBrokenContext,
   SiderSetCollapsedContext,
-} from "../tauler-app/contexts/sider-context";
-import { EntitatContext } from "../tauler-app/tauler-app";
+} from "components/tauler-app/contexts/sider-context";
+import React, { useContext } from "react";
+import { ErrorBoundary } from "standalone/error-boundary";
+import { initials } from "utils";
 import { MainMenu } from "./components/main-menu";
 import "./main-sider.css";
 
@@ -44,9 +44,7 @@ const MainSider: React.FC = () => {
           ""
         )}
         {collapsed || broken ? (
-          <div className="main-layout-title-short">
-            {initials(entitat.nom)}
-          </div>
+          <div className="main-layout-title-short">{initials(entitat.nom)}</div>
         ) : (
           <div className="main-layout-title-long">{entitat.nom}</div>
         )}

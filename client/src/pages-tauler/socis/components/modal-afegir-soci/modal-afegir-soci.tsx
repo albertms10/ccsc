@@ -1,9 +1,9 @@
+import { ModalButton } from "components/modal-button";
+import { StepsAfegirSoci } from "components/steps-afegir-soci";
+import { useStepsAfegirSoci } from "components/steps-afegir-soci/hooks";
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { ModalButton } from "../../../../components/modal-button";
-import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
-import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
-import { fetchSocis } from "../../../../store/socis/thunks";
+import { fetchSocis } from "store/socis/thunks";
 
 const ModalAfegirSoci: React.FC = () => {
   const dispatch = useDispatch();

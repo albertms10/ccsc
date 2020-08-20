@@ -1,14 +1,14 @@
 import { LeftOutlined } from "@ant-design/icons";
 import { Button, Divider } from "antd";
+import { StepsAfegirSoci } from "components/steps-afegir-soci";
+import { useStepsAfegirSoci } from "components/steps-afegir-soci/hooks";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import { StepsAfegirSoci } from "../../../../components/steps-afegir-soci";
-import { useStepsAfegirSoci } from "../../../../components/steps-afegir-soci/hooks";
-import { Container } from "../../../../standalone/container";
-import { RootState } from "../../../../store/types";
-import { linkText } from "../../../../utils";
+import { Container } from "standalone/container";
+import { RootState } from "store/types";
+import { linkText } from "utils";
 
 const DonarAltaFormulari: React.FC = () => {
   const { t } = useTranslation("sign-in");
@@ -47,7 +47,7 @@ const DonarAltaFormulari: React.FC = () => {
             type="link"
             icon={<LeftOutlined />}
           >
-            ${linkText(t('common:go back'))}
+            ${linkText(t("common:go back"))}
           </Button>
         </Link>
         <Divider />

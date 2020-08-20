@@ -1,4 +1,5 @@
 import { Checkbox, Select, Space } from "antd";
+import { useAPI } from "helpers";
 import {
   ConvocatoriaGenerica,
   EstatConfirmacio,
@@ -6,8 +7,7 @@ import {
 } from "model";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAPI } from "../../helpers";
-import { StatusIcon } from "../../standalone/status-icon";
+import { StatusIcon } from "standalone/status-icon";
 import { usePutAssistentEsdeveniment } from "./hooks";
 
 interface SelectEstatEsdevenimentProps {

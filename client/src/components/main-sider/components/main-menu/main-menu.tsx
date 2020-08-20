@@ -8,20 +8,20 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
-import { IconFormacio } from "../../../../assets/icons";
-import { basenameFromPath, linkText } from "../../../../utils";
-import { Authorized } from "../../../authorized";
+import { IconFormacio } from "assets/icons";
+import { Authorized } from "components/authorized";
 import {
   FormacionsListContext,
   LoadingFormacionsContext,
-} from "../../../tauler-app/contexts/formacions-context";
+} from "components/tauler-app/contexts/formacions-context";
 import {
   SiderBrokenContext,
   SiderSetCollapsedContext,
-} from "../../../tauler-app/contexts/sider-context";
+} from "components/tauler-app/contexts/sider-context";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import { basenameFromPath, linkText } from "utils";
 import { MainMenuItem } from "../menu-item";
 import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";

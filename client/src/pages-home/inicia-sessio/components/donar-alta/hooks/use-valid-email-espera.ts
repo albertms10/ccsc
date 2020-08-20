@@ -3,11 +3,11 @@ import {
   EmailEsperaFailureResponse,
   EmailEsperaSuccessResponse,
 } from "common";
+import { useFetchAPI } from "helpers";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useFetchAPI } from "../../../../../helpers";
-import { validatedInWaitingList } from "../../../../../store/user/actions";
+import { validatedInWaitingList } from "store/user/actions";
 
 export default () => {
   const dispatch = useDispatch();

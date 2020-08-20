@@ -1,8 +1,8 @@
+import { useAPI } from "helpers";
 import { Formacio, Usuari } from "model";
 import React, { createContext } from "react";
 import { useSelector } from "react-redux";
-import { useAPI } from "../../../helpers";
-import { RootState } from "../../../store/types";
+import { RootState } from "store/types";
 
 export const FormacionsListContext = createContext<Formacio[]>([]);
 export const LoadingFormacionsContext = createContext(false);

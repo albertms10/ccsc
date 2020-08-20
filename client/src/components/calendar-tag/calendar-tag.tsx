@@ -1,9 +1,9 @@
 import { Popover, Tag } from "antd";
+import { CalendarEventPopover } from "components/calendar-event-popover";
 import { TipusEsdeveniment } from "model";
 import moment from "moment";
 import React, { useState } from "react";
-import { StatusIcon } from "../../standalone/status-icon";
-import { CalendarEventPopover } from "../calendar-event-popover";
+import { StatusIcon } from "standalone/status-icon";
 import "./calendar-tag.css";
 
 interface CalendarTagProps {

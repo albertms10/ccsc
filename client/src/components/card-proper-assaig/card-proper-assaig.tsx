@@ -4,17 +4,17 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import { Card, Space, Tag, Typography } from "antd";
+import { FixedTagsProjectes } from "components/fixed-tags-projectes";
+import { IconsFormacions } from "components/icons-formacions";
 import { Assaig } from "model";
 import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { CalendarAvatar } from "../../standalone/calendar-avatar";
-import { EventLineItem } from "../../standalone/event-line-item";
-import { StatusIcon } from "../../standalone/status-icon";
-import { dateRange, joinElements, linkText, timeRange } from "../../utils";
-import { FixedTagsProjectes } from "../fixed-tags-projectes";
-import { IconsFormacions } from "../icons-formacions";
+import { CalendarAvatar } from "standalone/calendar-avatar";
+import { EventLineItem } from "standalone/event-line-item";
+import { StatusIcon } from "standalone/status-icon";
+import { dateRange, joinElements, linkText, timeRange } from "utils";
 
 interface CardProperAssaigProps {
   assaig: Assaig;

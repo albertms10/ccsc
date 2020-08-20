@@ -1,10 +1,10 @@
 import { Button, List, Tooltip } from "antd";
+import { useAPI } from "helpers";
 import { Activitat, Soci } from "model";
 import moment from "moment";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useAPI } from "../../helpers";
-import { CollapseCard } from "../../standalone/collapse-card";
+import { CollapseCard } from "standalone/collapse-card";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
 import { useAltaSoci, useBaixaSoci } from "./hooks";
 

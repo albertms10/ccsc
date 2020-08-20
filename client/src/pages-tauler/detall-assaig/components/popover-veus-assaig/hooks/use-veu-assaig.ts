@@ -1,6 +1,6 @@
+import { useFetchAPI } from "helpers";
 import { BaseVeu } from "model";
 import { useCallback, useState } from "react";
-import { useFetchAPI } from "../../../../../helpers";
 
 export default (idAssaig: number) => {
   const fetchAPI = useFetchAPI();

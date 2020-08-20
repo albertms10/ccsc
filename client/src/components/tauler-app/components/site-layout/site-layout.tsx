@@ -1,23 +1,23 @@
 import { MenuOutlined } from "@ant-design/icons";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Layout, Typography } from "antd";
+import { Authorized } from "components/authorized";
+import { Assajos } from "pages-tauler/assajos";
+import { DetallAssaig } from "pages-tauler/detall-assaig";
+import { DetallFormacio } from "pages-tauler/detall-formacio";
+import { DetallMoviment } from "pages-tauler/detall-moviment";
+import { DetallObres } from "pages-tauler/detall-obra";
+import { DetallProjecte } from "pages-tauler/detall-projecte";
+import { IniciPage } from "pages-tauler/inici-page";
+import { Obres } from "pages-tauler/obres";
+import { PerfilSoci } from "pages-tauler/perfil-soci";
+import { Projectes } from "pages-tauler/projectes";
+import { Socis } from "pages-tauler/socis";
 import React, { createContext, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { Assajos } from "../../../../pages-tauler/assajos";
-import { DetallAssaig } from "../../../../pages-tauler/detall-assaig";
-import { DetallFormacio } from "../../../../pages-tauler/detall-formacio";
-import { DetallMoviment } from "../../../../pages-tauler/detall-moviment";
-import { DetallObres } from "../../../../pages-tauler/detall-obra";
-import { DetallProjecte } from "../../../../pages-tauler/detall-projecte";
-import { IniciPage } from "../../../../pages-tauler/inici-page";
-import { Obres } from "../../../../pages-tauler/obres";
-import { PerfilSoci } from "../../../../pages-tauler/perfil-soci";
-import { Projectes } from "../../../../pages-tauler/projectes";
-import { Socis } from "../../../../pages-tauler/socis";
-import { ErrorBoundary } from "../../../../standalone/error-boundary";
-import { linkText } from "../../../../utils";
-import { Authorized } from "../../../authorized";
+import { ErrorBoundary } from "standalone/error-boundary";
+import { linkText } from "utils";
 import {
   FormacionsListContext,
   LoadingFormacionsContext,

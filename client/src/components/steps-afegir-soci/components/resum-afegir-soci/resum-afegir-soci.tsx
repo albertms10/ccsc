@@ -2,7 +2,7 @@ import { Descriptions, Space, Spin } from "antd";
 import { FormInstance } from "antd/lib/form";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { InfoCard } from "../../../../standalone/info-card";
+import { InfoCard } from "standalone/info-card";
 
 interface ResumAfegirSoci {
   form: FormInstance;

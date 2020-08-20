@@ -14,16 +14,16 @@ import {
 } from "@ant-design/colors";
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { ModalButton } from "components/modal-button";
+import { TagSelectFormItemFormacions } from "components/tag-select-form-item-formacions";
+import { useAPI } from "helpers";
 import { Curs } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useSelector } from "react-redux";
-import { ModalButton } from "../../../../components/modal-button";
-import { TagSelectFormItemFormacions } from "../../../../components/tag-select-form-item-formacions";
-import { useAPI } from "../../../../helpers";
-import { RootState } from "../../../../store/types";
-import { initials } from "../../../../utils";
+import { RootState } from "store/types";
+import { initials } from "utils";
 import { useAfegirProjecte, useCheckInicials } from "./hooks";
 
 const { Option } = Select;

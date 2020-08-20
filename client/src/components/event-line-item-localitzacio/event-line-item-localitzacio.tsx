@@ -1,11 +1,11 @@
 import { EnvironmentFilled } from "@ant-design/icons";
 import { Typography } from "antd";
+import { Authorized } from "components/authorized";
 import { Esdeveniment } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { EventLineItem } from "../../standalone/event-line-item";
-import { LinkButton } from "../../standalone/link-button";
-import { Authorized } from "../authorized";
+import { EventLineItem } from "standalone/event-line-item";
+import { LinkButton } from "standalone/link-button";
 
 const { Text } = Typography;
 

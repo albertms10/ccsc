@@ -1,1 +1,1 @@
-export { default as DetallObres } from "./detall-obra";
+export { default as DetallObres, ObraContext } from "./detall-obra";

@@ -1,7 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons/lib";
 import { Menu, Spin } from "antd";
+import { SiderCollapsedContext } from "components/tauler-app/contexts/sider-context";
 import React, { useContext } from "react";
-import { SiderCollapsedContext } from "../../../tauler-app/contexts/sider-context";
 
 interface MainMenuItemGroupProps {
   key: string;

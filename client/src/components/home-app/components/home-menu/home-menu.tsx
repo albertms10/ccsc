@@ -4,8 +4,8 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../../../store/types";
-import { linkText } from "../../../../utils";
+import { RootState } from "store/types";
+import { linkText } from "utils";
 
 interface MenuItem {
   key: string;

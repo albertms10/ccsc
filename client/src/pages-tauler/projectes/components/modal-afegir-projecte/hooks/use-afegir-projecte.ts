@@ -1,11 +1,11 @@
 import { Form } from "antd";
+import { DATE_FORMAT } from "constants/constants";
+import { useFetchAPI } from "helpers";
 import { Projecte } from "model";
 import moment from "moment";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { DATE_FORMAT } from "../../../../../constants/constants";
-import { useFetchAPI } from "../../../../../helpers";
-import { fetchProjectes } from "../../../../../store/projectes/thunks";
+import { fetchProjectes } from "store/projectes/thunks";
 
 export default () => {
   const dispatch = useDispatch();

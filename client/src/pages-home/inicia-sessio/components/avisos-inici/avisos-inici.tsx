@@ -1,17 +1,17 @@
 import { Button, Form, Space } from "antd";
+import { LogoCorDeCambra } from "assets/icons";
+import { AvisAcceptacio } from "components/avis-acceptacio";
+import { usePutAvisAcceptacio } from "components/avis-acceptacio/hooks";
 import { Usuari } from "model";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { LogoCorDeCambra } from "../../../../assets/icons";
-import { AvisAcceptacio } from "../../../../components/avis-acceptacio";
-import { usePutAvisAcceptacio } from "../../../../components/avis-acceptacio/hooks";
-import { Container } from "../../../../standalone/container";
-import { RootState } from "../../../../store/types";
-import { removeAcceptanceNotice } from "../../../../store/user/actions";
-import { logoutRemoveUser } from "../../../../store/user/thunks";
-import { linkText } from "../../../../utils";
+import { Container } from "standalone/container";
+import { RootState } from "store/types";
+import { removeAcceptanceNotice } from "store/user/actions";
+import { logoutRemoveUser } from "store/user/thunks";
+import { linkText } from "utils";
 
 const AvisosInici: React.FC = () => {
   const { t } = useTranslation("sign-in");

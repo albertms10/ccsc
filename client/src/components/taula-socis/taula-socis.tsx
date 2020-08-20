@@ -1,12 +1,12 @@
 import { Input, Table, Typography } from "antd";
 import { ColumnsType } from "antd/lib/table/interface";
+import { useDeleteAPI } from "helpers";
 import { Soci } from "model";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { useDeleteAPI } from "../../helpers";
-import { fetchSocis } from "../../store/socis/thunks";
-import { searchFilter } from "../../utils";
+import { fetchSocis } from "store/socis/thunks";
+import { searchFilter } from "utils";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";
 import "./taula-socis.css";

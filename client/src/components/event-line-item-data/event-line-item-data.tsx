@@ -1,9 +1,9 @@
 import { Space } from "antd";
 import { Esdeveniment } from "model";
 import React from "react";
-import { EventLineItem } from "../../standalone/event-line-item";
-import { StatusIcon } from "../../standalone/status-icon";
-import { dateRange, joinElements } from "../../utils";
+import { EventLineItem } from "standalone/event-line-item";
+import { StatusIcon } from "standalone/status-icon";
+import { dateRange, joinElements } from "utils";
 
 interface EventLineItemDataProps {
   esdeveniment: Esdeveniment;

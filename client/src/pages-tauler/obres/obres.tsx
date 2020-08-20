@@ -1,9 +1,9 @@
 import { PageHeader } from "antd";
+import { Authorized } from "components/authorized";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout/site-layout";
 import React, { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Authorized } from "../../components/authorized";
-import { SetPageHeaderContext } from "../../components/tauler-app/components/site-layout/site-layout";
-import { Container } from "../../standalone/container";
+import { Container } from "standalone/container";
 import { LlistaObres } from "./components/llista-obres";
 import { ModalAfegirObra } from "./components/modal-afegir-obra";
 

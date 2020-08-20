@@ -1,11 +1,11 @@
 import { LeftOutlined, MailOutlined } from "@ant-design/icons";
 import { Alert, Button, Form, Input } from "antd";
+import { LogoCorDeCambra } from "assets/icons";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { LogoCorDeCambra } from "../../../../assets/icons";
-import { Container } from "../../../../standalone/container";
-import { linkText } from "../../../../utils";
+import { Container } from "standalone/container";
+import { linkText } from "utils";
 import { useValidEmailEspera } from "./hooks";
 
 const DonarAlta: React.FC = () => {

@@ -4,10 +4,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../../../store/types";
-import { logoutRemoveUser } from "../../../../store/user/thunks";
+import { RootState } from "store/types";
+import { logoutRemoveUser } from "store/user/thunks";
+import { linkText } from "utils";
 import "./user-dropdown.css";
-import { linkText } from "../../../../utils";
 
 const { Item, Divider } = Menu;
 
