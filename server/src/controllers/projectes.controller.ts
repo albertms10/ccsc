@@ -178,7 +178,7 @@ export const projectes_detall_moviments_post: ControllerRequestHandler<
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
   const { id: id_projecte } = req.params;
-  const id_moviment = req.body;
+  const { id_moviment } = req.body;
 
   pool
     .query<OkPacket>(queryFile("projectes/insert__moviments_projecte"), [
