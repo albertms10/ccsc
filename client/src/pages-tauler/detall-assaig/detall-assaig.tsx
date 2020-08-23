@@ -24,7 +24,7 @@ const DetallAssaig: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const [assaig, loadingAssaig] = useAPI<Assaig>(
     `/assajos/${id}`,

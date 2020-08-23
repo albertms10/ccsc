@@ -20,7 +20,7 @@ const PerfilSoci: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const [soci] = useAPI<Soci>(`/socis/${id}`, {} as Soci);
 

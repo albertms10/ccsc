@@ -15,7 +15,7 @@ const DetallObra: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const [obra, loadingObra] = useAPI<Obra>(`/obres/${id}`, {} as Obra);
 

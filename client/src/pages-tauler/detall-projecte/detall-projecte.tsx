@@ -25,7 +25,7 @@ export const SetActionContext = createContext<
   React.Dispatch<React.SetStateAction<React.ReactNode>>
 >((_) => {});
 
-type DetallProjecteProps = RouteComponentProps
+type DetallProjecteProps = RouteComponentProps;
 
 const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
   const { t } = useTranslation("dashboard");
@@ -33,7 +33,7 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
   const setCollapsed = useContext(SiderSetCollapsedContext);
 
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const [projecte, loading] = useAPI<Projecte>(
     `/projectes/${id}`,

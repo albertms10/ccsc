@@ -14,7 +14,7 @@ const DetallMoviment: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
-  const { moviment: idMoviment } = useParams();
+  const { moviment: idMoviment } = useParams<{ moviment?: string }>();
 
   const [moviment, loadingMoviment] = useAPI<Moviment>(
     `/moviments/${idMoviment}`,
