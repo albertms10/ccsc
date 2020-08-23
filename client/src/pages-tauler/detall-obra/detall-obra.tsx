@@ -11,7 +11,7 @@ const { Title } = Typography;
 
 export const ObraContext = createContext<Obra>({} as Obra);
 
-export default () => {
+const DetallObra: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
@@ -42,3 +42,5 @@ export default () => {
     </ObraContext.Provider>
   );
 };
+
+export default DetallObra;

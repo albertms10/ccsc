@@ -34,6 +34,7 @@ const ContentListMovimentsAssaig: React.FC = () => {
         extra: <ModalFragmentsTreballatsMoviment moviment={moviment} />,
         actions: [
           <BorderlessButton
+            key="delete"
             size="small"
             shape="circle"
             tooltip="Eliminar de l’assaig"

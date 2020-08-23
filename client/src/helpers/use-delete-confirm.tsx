@@ -7,14 +7,13 @@ export default () => {
   const { t } = useTranslation("modals");
 
   return useCallback(
-    (element: string, onOk: (...args: any[]) => any) => {
+    (element: string, onOk: (...args: unknown[]) => unknown) => {
       Modal.confirm({
         title: t("confirm delete action", { element }),
         icon: <ExclamationCircleOutlined />,
         content: t("action undone"),
         okText: t("common:delete"),
         okButtonProps: { danger: true },
-        onCancel: () => {},
         onOk,
       });
     },

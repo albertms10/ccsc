@@ -25,4 +25,6 @@ const IconFormacio = forwardRef<HTMLButtonElement, IconFormacioProps>(
   }
 );
 
+IconFormacio.displayName = "IconFormacio";
+
 export default IconFormacio;

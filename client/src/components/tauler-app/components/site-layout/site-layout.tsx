@@ -35,7 +35,7 @@ const { Title } = Typography;
 
 export const SetPageHeaderContext = createContext<
   React.Dispatch<React.SetStateAction<string>>
->((_) => {});
+>(/* TODO: Default callable value */ (_) => {});
 
 const SiteLayout: React.FC = () => {
   const { t } = useTranslation("dashboard");

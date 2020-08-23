@@ -9,7 +9,7 @@ import { FormacionsContext, SiderContext } from "./contexts";
 
 export const EntitatContext = createContext<Entitat>({} as Entitat);
 
-export default () => {
+const TaulerApp: React.FC = () => {
   const { t } = useTranslation("dashboard");
 
   const [entitat] = useAPI<Entitat>("/entitats/1", {} as Entitat);
@@ -26,3 +26,5 @@ export default () => {
     </EntitatContext.Provider>
   );
 };
+
+export default TaulerApp;

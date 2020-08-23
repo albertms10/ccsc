@@ -24,7 +24,7 @@ const LlistaObres: React.FC = () => {
   const [obres, loading] = useObres();
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    `/obres`,
+    "/obres",
     "l’obra",
     () => dispatch(fetchObres())
   );
@@ -58,7 +58,7 @@ const LlistaObres: React.FC = () => {
               obra.formacions &&
               obra.formacions.length > 0
                 ? [
-                    <Space>
+                    <Space key="formacions">
                       {obra.formacions.map((formacio) => (
                         <IconFormacio
                           key={formacio.id_formacio}
@@ -68,7 +68,7 @@ const LlistaObres: React.FC = () => {
                     </Space>,
                   ]
                 : []),
-              <Authorized>
+              <Authorized key="more_options">
                 <DropdownBorderlessButton
                   items={[
                     {

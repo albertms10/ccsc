@@ -27,4 +27,6 @@ const BorderlessButton = forwardRef<HTMLButtonElement, BorderlessButtonProps>(
   )
 );
 
+BorderlessButton.displayName = "BorderlessButton";
+
 export default BorderlessButton;

@@ -3,7 +3,7 @@ import React from "react";
 import { StyledComponent } from "react-types";
 
 interface FixedTagProps extends StyledComponent {
-  childKey?: any;
+  childKey?: string;
   tooltip: string;
   color: string;
 }

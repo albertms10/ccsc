@@ -4,20 +4,30 @@ import {
   hasRoleDireccioMusical,
   hasRoleJuntaDirectiva,
 } from "helpers/role-checker";
-import { Usuari } from "model";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store/types";
 
-interface AuthorizedProps {
-  render?: (props: PropsWithChildren<any>) => React.ReactNode;
-  component?: React.ReactNode;
-  elseElement?: React.ReactNode;
-  authority?: Role;
+export interface AuthorizedRenderProps {
+  authority: Role;
+  children: React.ReactNode;
+}
 
+interface AuthorizedPropsRest {
   [key: string]: unknown;
 }
 
+interface AuthorizedProps extends AuthorizedPropsRest {
+  render?: (
+    props: PropsWithChildren<AuthorizedRenderProps & AuthorizedPropsRest>
+  ) => React.ReactNode;
+  component?: React.ReactNode;
+  elseElement?: React.ReactNode;
+  authority?: Role;
+}
+
+// TODO
+// @ts-ignore
 const Authorized: React.FC<AuthorizedProps> = ({
   render,
   component,
@@ -26,29 +36,29 @@ const Authorized: React.FC<AuthorizedProps> = ({
   children,
   ...rest
 }) => {
-  const { roles } = useSelector(
-    ({ user }: RootState) => user.currentUser
-  ) as Usuari;
+  const roles = useSelector(
+    ({ user }: RootState) => user.currentUser.roles
+  ) as Role[];
 
-  const returnItem: any = render
+  const returnItem = render
     ? render({ authority, children, ...rest })
-    : component
-    ? component
-    : children;
+    : component ?? children;
+
+  const checkRole = useCallback(
+    (fn: (roles: Role[]) => boolean) =>
+      fn(roles) ? returnItem : elseElement || "",
+    [roles, returnItem, elseElement]
+  );
 
   switch (authority) {
     case "junta_directiva":
-      return hasRoleJuntaDirectiva(roles as Role[])
-        ? returnItem
-        : elseElement || "";
+      return checkRole(hasRoleJuntaDirectiva);
 
     case "direccio_musical":
-      return hasRoleDireccioMusical(roles as Role[])
-        ? returnItem
-        : elseElement || "";
+      return checkRole(hasRoleDireccioMusical);
 
     case "admin":
-      return hasRoleAdmin(roles as Role[]) ? returnItem : elseElement || "";
+      return checkRole(hasRoleAdmin);
 
     default:
       return elseElement || "";

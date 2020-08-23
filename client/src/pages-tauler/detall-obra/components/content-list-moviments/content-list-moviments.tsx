@@ -1,5 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
+import { Authorized } from "components/authorized";
 import { FixedTagsProjectes } from "components/fixed-tags-projectes";
 import { useAPI } from "helpers";
 import { Moviment } from "model";
@@ -30,9 +31,25 @@ const ContentListMoviments: React.FC = () => {
         actions: [
           timeDuration(moviment.durada),
           ...(moviment.projectes && moviment.projectes.length > 0
-            ? [<FixedTagsProjectes projectes={moviment.projectes} />]
+            ? [
+                <FixedTagsProjectes
+                  key="fixed-tags-projectes"
+                  projectes={moviment.projectes}
+                />,
+              ]
             : []),
-          <DropdownBorderlessButton />,
+          <Authorized key="more_options">
+            <DropdownBorderlessButton
+              items={[
+                {
+                  key: "eliminar",
+                  action: "Eliminar",
+                  danger: true,
+                  onClick: undefined,
+                },
+              ]}
+            />
+          </Authorized>,
         ],
         avatar: (
           <Typography.Text type="secondary" style={{ fontSize: "small" }}>

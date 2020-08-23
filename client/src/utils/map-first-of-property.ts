@@ -10,7 +10,7 @@ type ObjectWithBoolean<T> = T & {
 export default <T>(
   items: T[],
   property: keyof T,
-  key: string = "first"
+  key = "first"
 ): ObjectWithBoolean<T>[] => {
   const itemsProperty: T[] = [];
 

@@ -13,7 +13,7 @@ export const fetchMoviments = (): AppThunkAction => (dispatch) => {
   dispatch(fetchMovimentsRequest());
 
   baseFetchAPI<Moviment[]>(
-    `/moviments`,
+    "/moviments",
     (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchMovimentsFailure((data as ResponseError).error));

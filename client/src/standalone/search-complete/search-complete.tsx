@@ -1,5 +1,5 @@
 import { AutoComplete, Input } from "antd";
-import { OptionProps } from "antd/lib/select";
+import { OptionData, OptionGroupData } from "rc-select/lib/interface";
 import React, {
   PropsWithChildren,
   useCallback,
@@ -11,7 +11,10 @@ import "./search-complete.css";
 const { Search } = Input;
 
 export interface SearchCompleteBaseProps {
-  onSelect: (value: string, option: any) => Promise<any>;
+  onSelect: (
+    value: string,
+    option: OptionData | OptionGroupData
+  ) => Promise<void | Response>;
 }
 
 interface SearchCompleteProps<T> extends SearchCompleteBaseProps {
@@ -19,7 +22,11 @@ interface SearchCompleteProps<T> extends SearchCompleteBaseProps {
   filter: (value: string, option: T) => boolean;
   loading?: boolean;
   placeholder?: string;
-  optionRenderObject: (value: T, index: number, array: any[]) => any;
+  optionRenderObject: <U>(
+    value: T,
+    index: number,
+    array: U[]
+  ) => OptionData | OptionGroupData;
   showAllResults?: boolean;
 }
 
@@ -31,11 +38,11 @@ const SearchComplete = <T,>({
   optionRenderObject,
   onSelect,
   showAllResults = false,
-}: PropsWithChildren<SearchCompleteProps<T>>) => {
-  const [options, setOptions] = useState<OptionProps[]>([]);
+}: PropsWithChildren<SearchCompleteProps<T>>): JSX.Element => {
+  const [options, setOptions] = useState<(OptionData | OptionGroupData)[]>([]);
 
   const searchOption = useCallback(
-    (value: string): OptionProps[] =>
+    (value: string) =>
       (!showAllResults && !value
         ? data
         : data.filter((option) => filter(value, option))

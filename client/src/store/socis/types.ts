@@ -9,7 +9,7 @@ export interface SocisState {
   socis: Soci[];
   loading: boolean;
   fetched: boolean;
-  error: {} | FetchError;
+  error: Record<string, unknown> | FetchError;
 }
 
 interface FetchSocisRequestAction {

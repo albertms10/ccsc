@@ -54,7 +54,8 @@ const ModalAfegirObra: React.FC = () => {
                   allowClear
                   loading={loadingIdiomes}
                   filterOption={(input, option) =>
-                    option!.children
+                    !!option &&
+                    option.children
                       .toLowerCase()
                       .indexOf(input.toLowerCase()) >= 0
                   }

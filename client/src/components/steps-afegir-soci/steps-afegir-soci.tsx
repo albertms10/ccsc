@@ -1,6 +1,7 @@
 import { Form, Steps } from "antd";
 import { FormInstance } from "antd/lib/form";
 import moment from "moment";
+import { Store } from "rc-field-form/lib/interface";
 import React from "react";
 import { FormStep } from "./hooks/use-steps-afegir-soci";
 import "./steps-afegir-soci.css";
@@ -12,9 +13,7 @@ interface StepsAfegirSociProps {
   form: FormInstance;
   currentPageIndex: number;
   handleChange: (current: number) => void;
-  initialValues?: {
-    [key: string]: any;
-  };
+  initialValues?: Store;
 }
 
 const StepsAfegirSoci: React.FC<StepsAfegirSociProps> = ({

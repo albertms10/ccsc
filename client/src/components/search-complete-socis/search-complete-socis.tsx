@@ -7,7 +7,7 @@ import {
 } from "standalone/search-complete";
 import { initials, searchFilter } from "utils";
 
-interface SearchCompleteSocisProps extends SearchCompleteBaseProps {}
+type SearchCompleteSocisProps = SearchCompleteBaseProps
 
 const SearchCompleteSocis: React.FC<SearchCompleteSocisProps> = ({
   onSelect,

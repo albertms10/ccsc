@@ -48,10 +48,20 @@ const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
             link: `/${linkText(t("rehearsals"))}/${assaig.id_assaig}`,
             actions: [
               ...(filteredFormacions.length > 0
-                ? [<IconsFormacions formacions={filteredFormacions} />]
+                ? [
+                    <IconsFormacions
+                      key="icons-formacions"
+                      formacions={filteredFormacions}
+                    />,
+                  ]
                 : []),
               ...(assaig.projectes && assaig.projectes.length > 0
-                ? [<FixedTagsProjectes projectes={assaig.projectes} />]
+                ? [
+                    <FixedTagsProjectes
+                      key="fixed-tags-projectes"
+                      projectes={assaig.projectes}
+                    />,
+                  ]
                 : []),
             ],
             avatar: <CalendarAvatar moment={date} />,

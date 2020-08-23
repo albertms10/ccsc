@@ -1,6 +1,6 @@
 // Source: https://www.w3resource.com/javascript-exercises/javascript-math-exercise-9.php
 
-export default (...numbers: number[]) => {
+export default (...numbers: number[]): number | null => {
   if (numbers.length < 1) return null;
 
   let a = numbers[0];
@@ -10,12 +10,12 @@ export default (...numbers: number[]) => {
   return a;
 };
 
-const gcdTwoNumbers = (x: number, y: number) => {
+const gcdTwoNumbers = (x: number, y: number): number => {
   x = Math.abs(x);
   y = Math.abs(y);
 
   while (y !== 0) {
-    let t = y;
+    const t = y;
     y = x % y;
     x = t;
   }

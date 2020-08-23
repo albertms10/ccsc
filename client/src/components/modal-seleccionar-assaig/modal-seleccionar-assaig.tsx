@@ -16,7 +16,7 @@ interface ModalSeleccionarAssaigProps
   extends ModalButtonBaseProps,
     SearchListBaseProps {
   dataFilter: (value: Assaig, index: number, array: Assaig[]) => boolean;
-  onItemClick: (item: Assaig) => Promise<any>;
+  onItemClick: (item: Assaig) => Promise<void | Response>;
   thenAction?: () => void;
 }
 
@@ -47,7 +47,13 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
           }}
           actions={[
             ...(assaig.projectes && assaig.projectes.length > 0
-              ? [<FixedTagsProjectes projectes={assaig.projectes} noLink />]
+              ? [
+                  <FixedTagsProjectes
+                    key="fixed-tags-projectes"
+                    projectes={assaig.projectes}
+                    noLink
+                  />,
+                ]
               : []),
           ]}
         >

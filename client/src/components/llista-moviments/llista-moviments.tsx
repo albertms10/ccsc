@@ -21,7 +21,7 @@ interface LlistaMovimentsProps {
 }
 
 const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
-  const { t } = useTranslation("modals");
+  const { t } = useTranslation(["dashboard", "modals"]);
 
   const dispatch = useDispatch();
 
@@ -74,9 +74,14 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
             key={moviment.id_moviment}
             actions={[
               ...(moviment.projectes && moviment.projectes.length > 0
-                ? [<FixedTagsProjectes projectes={moviment.projectes} />]
+                ? [
+                    <FixedTagsProjectes
+                      key="fixed-tags-projectes"
+                      projectes={moviment.projectes}
+                    />,
+                  ]
                 : []),
-              <Authorized>
+              <Authorized key="more_options">
                 <DropdownBorderlessButton
                   items={[
                     {

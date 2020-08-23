@@ -39,7 +39,7 @@ const PopoverList = <T extends CheckboxItem>({
   onChange,
   needsAuthorization = false,
   elseElement,
-}: PropsWithChildren<PopoverListProps<T>>) => {
+}: PropsWithChildren<PopoverListProps<T>>): JSX.Element => {
   const [visible, setVisible] = useState(false);
 
   return (

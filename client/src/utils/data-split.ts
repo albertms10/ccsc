@@ -2,6 +2,12 @@ import { AnyMap } from "common";
 
 type KeyReplacementObject<T> = { [P in keyof T]?: string };
 
+interface DataSplitObject {
+  value: unknown;
+
+  [key: string]: unknown;
+}
+
 /**
  * Returns an array of split data given the `pivot` key
  * and the keys to split the data into.
@@ -10,9 +16,9 @@ export default <T extends AnyMap>(
   data: T[],
   pivot: keyof T,
   keys: (keyof T)[] | KeyReplacementObject<T>,
-  splitKeyName: string = "type"
-): any[] => {
-  const pushData = (array: any[], key: string, keyName?: string): void => {
+  splitKeyName = "type"
+): DataSplitObject[] => {
+  const pushData = (array: unknown[], key: string, keyName?: string): void => {
     array.push(
       ...data.map((item) => ({
         [pivot]: item[pivot],
@@ -22,7 +28,7 @@ export default <T extends AnyMap>(
     );
   };
 
-  const splitData: any[] = [];
+  const splitData: DataSplitObject[] = [];
 
   const dataType = toString.call(keys);
 

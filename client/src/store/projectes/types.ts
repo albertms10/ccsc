@@ -9,7 +9,7 @@ export interface ProjectesState {
   projectes: Projecte[];
   loading: boolean;
   fetched: boolean;
-  error: {} | FetchError;
+  error: Record<string, unknown> | FetchError;
 }
 
 interface FetchProjectesRequestAction {

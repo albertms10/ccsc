@@ -9,7 +9,7 @@ export interface AssajosState {
   assajos: Assaig[];
   loading: boolean;
   fetched: boolean;
-  error: {} | FetchError;
+  error: Record<string, unknown> | FetchError;
 }
 
 interface FetchAssajosRequestAction {

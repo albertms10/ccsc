@@ -16,7 +16,7 @@ const { TabPane } = Tabs;
 
 export const SociContext = createContext<Soci>({} as Soci);
 
-export default () => {
+const PerfilSoci: React.FC = () => {
   const setPageHeader = useContext(SetPageHeaderContext);
 
   const history = useHistory();
@@ -68,3 +68,5 @@ export default () => {
     </SociContext.Provider>
   );
 };
+
+export default PerfilSoci;

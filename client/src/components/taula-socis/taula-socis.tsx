@@ -1,5 +1,6 @@
 import { Input, Table, Typography } from "antd";
-import { ColumnsType } from "antd/lib/table/interface";
+import { ColumnType } from "antd/es/table";
+import { ColumnsType } from "antd/lib/table";
 import { useDeleteAPI } from "helpers";
 import { Soci } from "model";
 import React, { useState } from "react";
@@ -32,52 +33,57 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
     () => dispatch(fetchSocis())
   );
 
-  const columns: ColumnsType<object> = [
+  const columns = [
     {
       title: t("name"),
       dataIndex: "nom_complet",
       key: "nom_complet",
-      render: (_, soci) => <CellNomSoci soci={soci as Soci} />,
-      sorter: (a, b) =>
-        (a as Soci).nom_complet.length - (b as Soci).nom_complet.length,
+      render(_, soci) {
+        return <CellNomSoci soci={soci} />;
+      },
+      sorter: (a, b) => a.nom_complet.length - b.nom_complet.length,
       sortDirections: ["descend", "ascend"],
       filters: [
         { text: t("common:active"), value: true },
         { text: t("common:inactive"), value: false },
       ],
       filterMultiple: false,
-      onFilter: (value, soci) => value === (soci as Soci).es_actiu,
-    },
+      onFilter: (value, soci) => value === soci.es_actiu,
+    } as ColumnType<Soci>,
     {
       title: t("email"),
       dataIndex: "email",
       key: "email",
-      render: (text) => (
-        <Paragraph className="action-text" copyable>
-          {text}
-        </Paragraph>
-      ),
+      render(text) {
+        return (
+          <Paragraph className="action-text" copyable>
+            {text}
+          </Paragraph>
+        );
+      },
       responsive: ["md"],
-    },
+    } as ColumnType<string>,
     {
       title: t("phone"),
       dataIndex: "telefon",
       key: "telefon",
       responsive: ["lg"],
-    },
+    } as ColumnType<string>,
     {
       title: "",
       dataIndex: "id_persona",
       key: "id_persona",
       align: "right",
-      render: (idPersona) => (
-        <DropdownRowSoci
-          idPersona={idPersona}
-          showDeleteConfirm={showDeleteConfirm}
-        />
-      ),
-    },
-  ];
+      render(idPersona) {
+        return (
+          <DropdownRowSoci
+            idPersona={idPersona}
+            showDeleteConfirm={showDeleteConfirm}
+          />
+        );
+      },
+    } as ColumnType<number>,
+  ] /* TODO: (Un)necessary type assertion */ as ColumnsType<Soci>;
 
   return (
     <div className="socis-table">

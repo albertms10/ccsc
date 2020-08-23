@@ -13,7 +13,7 @@ export const fetchSocis = (): AppThunkAction => (dispatch) => {
   dispatch(fetchSocisRequest());
 
   baseFetchAPI<Soci[]>(
-    `/socis`,
+    "/socis",
     (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchSocisFailure((data as ResponseError).error));

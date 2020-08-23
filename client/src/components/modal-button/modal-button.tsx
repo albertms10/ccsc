@@ -23,7 +23,7 @@ interface ModalButtonProps extends ModalButtonBaseProps {
   >) => React.ReactNode;
 }
 
-const ModalButton = forwardRef<{}, ModalButtonProps>(
+const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
   (
     {
       title,
@@ -82,5 +82,7 @@ const ModalButton = forwardRef<{}, ModalButtonProps>(
     );
   }
 );
+
+ModalButton.displayName = "ModalButton";
 
 export default ModalButton;

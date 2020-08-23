@@ -9,7 +9,7 @@ import { StyledComponent } from "react-types";
 import { RootState } from "store/types";
 import "./propers-assajos.css";
 
-interface PropersAssajosProps extends StyledComponent {}
+type PropersAssajosProps = StyledComponent
 
 const PropersAssajos: React.FC<PropersAssajosProps> = ({ style }) => {
   const { t } = useTranslation("dashboard");

@@ -23,7 +23,7 @@ const ModalList = <T,>({
   button = <BorderlessButton shape="circle" icon={buttonIcon} />,
   renderItem,
   ...rest
-}: PropsWithChildren<ModalListProps<T>>) => {
+}: PropsWithChildren<ModalListProps<T>>): JSX.Element => {
   const { t } = useTranslation("common");
 
   return (

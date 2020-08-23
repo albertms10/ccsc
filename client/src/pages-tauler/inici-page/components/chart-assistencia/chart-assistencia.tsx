@@ -1,4 +1,5 @@
 import { StackedArea } from "@ant-design/charts";
+import { StackedAreaConfig } from "@ant-design/charts/lib/stackedArea";
 import {
   blue,
   cyan,
@@ -24,10 +25,10 @@ const ChartAssistencia: React.FC = () => {
 
   const [assistenciaAssajosEstat, loadingAssistenciaAssajosEstat] = useAPI<
     AssistenciaAssaigEstat[]
-  >(`/assajos/assistencia?group-by=estat`, []);
+  >("/assajos/assistencia?group-by=estat", []);
   const [assistenciaAssajosVeus, loadingAssistenciaAssajosVeus] = useAPI<
     AssistenciaAssaigVeus[]
-  >(`/assajos/assistencia?group-by=veus`, []);
+  >("/assajos/assistencia?group-by=veus", []);
 
   const [key, setKey] = useState("estat");
 
@@ -44,30 +45,32 @@ const ChartAssistencia: React.FC = () => {
   );
 
   const estatConfig = useMemo(
-    () => ({
-      data: dataSplit(mapAssistencia(assistenciaAssajosEstat), "assaig", {
-        confirmats_puntuals: t("events:confirmed on time"),
-        confirmats_retard: t("events:confirmed late"),
-        pendents: t("events:pending"),
-        cancelats: t("events:cancelled"),
-      }),
-      color: [green, yellow, blue, red].map((color) => color.primary),
-      loading: loadingAssistenciaAssajosEstat,
-    }),
+    () =>
+      ({
+        data: dataSplit(mapAssistencia(assistenciaAssajosEstat), "assaig", {
+          confirmats_puntuals: t("events:confirmed on time"),
+          confirmats_retard: t("events:confirmed late"),
+          pendents: t("events:pending"),
+          cancelats: t("events:cancelled"),
+        }),
+        color: [green, yellow, blue, red].map((color) => color.primary),
+        loading: loadingAssistenciaAssajosEstat,
+      } as Partial<StackedAreaConfig>),
     [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat, t]
   );
 
   const veusConfig = useMemo(
-    () => ({
-      data: dataSplit(mapAssistencia(assistenciaAssajosVeus), "assaig", {
-        sopranos: t("voices:sopranos"),
-        contralts: t("voices:altos"),
-        tenors: t("voices:tenors"),
-        baixos: t("voices:basses"),
-      }),
-      color: [blue, magenta, cyan, gold].map((color) => color.primary),
-      loading: loadingAssistenciaAssajosVeus,
-    }),
+    () =>
+      ({
+        data: dataSplit(mapAssistencia(assistenciaAssajosVeus), "assaig", {
+          sopranos: t("voices:sopranos"),
+          contralts: t("voices:altos"),
+          tenors: t("voices:tenors"),
+          baixos: t("voices:basses"),
+        }),
+        color: [blue, magenta, cyan, gold].map((color) => color.primary),
+        loading: loadingAssistenciaAssajosVeus,
+      } as Partial<StackedAreaConfig>),
     [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus, t]
   );
 

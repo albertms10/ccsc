@@ -26,10 +26,10 @@ const StatusIcon: React.FC<StatusIconProps> = ({
   style,
 }) => {
   const status = [
-    <CheckCircleTwoTone twoToneColor="#52c41a" />,
-    <QuestionCircleTwoTone twoToneColor="#1890ff" />,
-    <CloseCircleTwoTone twoToneColor="#ff4d4f" />,
-    <WarningTwoTone twoToneColor="#faad14" />,
+    <CheckCircleTwoTone key="check" twoToneColor="#52c41a" />,
+    <QuestionCircleTwoTone key="question" twoToneColor="#1890ff" />,
+    <CloseCircleTwoTone key="close" twoToneColor="#ff4d4f" />,
+    <WarningTwoTone key="warning" twoToneColor="#faad14" />,
   ];
 
   const newStyle = {

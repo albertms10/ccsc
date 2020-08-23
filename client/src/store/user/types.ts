@@ -9,7 +9,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 
 export interface UserState {
   currentUser: Usuari;
-  error: {} | FetchError;
+  error: Record<string, unknown> | FetchError;
   waitingList: {
     inWaitingList?: boolean;
     email?: string;

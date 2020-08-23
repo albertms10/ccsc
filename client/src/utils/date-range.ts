@@ -23,16 +23,14 @@ export default (
 ): string[] => {
   const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
 
+  const formatMatch = startFormat.match(new RegExp(connector, "g"));
+
   return [
     includesYear
       ? startFormat
       : startFormat.substring(
           0,
-          nIndexOf(
-            startFormat,
-            " de",
-            startFormat.match(new RegExp(connector, "g"))!.length
-          )
+          nIndexOf(startFormat, " de", formatMatch ? formatMatch.length : 0)
         ),
     ...(timeStart
       ? [

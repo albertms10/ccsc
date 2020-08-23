@@ -34,7 +34,7 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
   const [projectes, loading] = useProjectes();
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
-    `/projectes`,
+    "/projectes",
     "el projecte",
     () => dispatch(fetchProjectes())
   );
@@ -71,9 +71,14 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
             ...(formacions.length > 1 &&
             projecte.formacions &&
             projecte.formacions.length > 0
-              ? [<IconsFormacions formacions={projecte.formacions} />]
+              ? [
+                  <IconsFormacions
+                    key="icons-formacions"
+                    formacions={projecte.formacions}
+                  />,
+                ]
               : []),
-            <Authorized>
+            <Authorized key="more_options">
               <DropdownBorderlessButton
                 items={[
                   {

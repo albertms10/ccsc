@@ -136,7 +136,8 @@ export default (
                     loading={loadingPaisos}
                     onSelect={(value) => setSelectedPais(value)}
                     filterOption={(input, option) =>
-                      option!.children
+                      !!option &&
+                      option.children
                         .toLowerCase()
                         .indexOf(input.toLowerCase()) >= 0
                     }
@@ -285,8 +286,10 @@ export default (
       .catch(handleValidateError);
   };
 
-  const handleValidateError = (_: Error) =>
+  const handleValidateError = (e: Error) => {
+    message.warning(e);
     setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "dades"));
+  };
 
   const handleChange = async (pageIndex: number) => {
     if (pageIndex > stepsRef.findIndex(({ key }) => key === "dades"))

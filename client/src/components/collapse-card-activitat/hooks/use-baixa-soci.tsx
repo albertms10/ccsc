@@ -31,7 +31,6 @@ export default (idSoci: number) => {
       okText: t("unsubscription action"),
       okButtonProps: { danger: true },
       onOk: () => donarBaixaSoci().finally(callback),
-      onCancel: () => {},
     });
   };
 

@@ -14,7 +14,7 @@ import "./calendari-formacio.css";
 import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";
 
-export default () => {
+const CalendariFormacio: React.FC = () => {
   const { t } = useTranslation("events");
 
   const { id_formacio } = useContext(FormacioContext) as Formacio;
@@ -84,11 +84,7 @@ export default () => {
                     }
                     optionRenderObject={(esdeveniment) => ({
                       key: esdeveniment.id_esdeveniment,
-                      value: (
-                        <span key={esdeveniment.id_esdeveniment}>
-                          {esdeveniment.titol}
-                        </span>
-                      ),
+                      value: esdeveniment.titol,
                       date: esdeveniment.dia_inici,
                       label: (
                         <CalendariResultLabel esdeveniment={esdeveniment} />
@@ -104,3 +100,5 @@ export default () => {
     </Container>
   );
 };
+
+export default CalendariFormacio;

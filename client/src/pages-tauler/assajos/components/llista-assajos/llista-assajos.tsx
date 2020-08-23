@@ -80,12 +80,22 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
             ...(formacions.length > 1 &&
             assaig.formacions &&
             assaig.formacions.length > 0
-              ? [<IconsFormacions formacions={assaig.formacions} />]
+              ? [
+                  <IconsFormacions
+                    key="icons-formacio"
+                    formacions={assaig.formacions}
+                  />,
+                ]
               : []),
             ...(assaig.projectes && assaig.projectes.length > 0
-              ? [<FixedTagsProjectes projectes={assaig.projectes} />]
+              ? [
+                  <FixedTagsProjectes
+                    key="fixed-tags-projectes"
+                    projectes={assaig.projectes}
+                  />,
+                ]
               : []),
-            <Authorized>
+            <Authorized key="more_options">
               <DropdownBorderlessButton
                 items={[
                   {

@@ -13,4 +13,4 @@ interface MapNumbersOptions {
 export default (
   value: number,
   { inMin = 0, inMax = 1, outMin = 0, outMax = 1 }: MapNumbersOptions
-) => ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+): number => ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;

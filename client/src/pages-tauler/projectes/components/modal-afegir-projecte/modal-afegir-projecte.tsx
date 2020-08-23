@@ -151,7 +151,8 @@ const ModalAfegirProjecte: React.FC = () => {
                   showSearch
                   loading={loadingCursos}
                   filterOption={(input, option) =>
-                    option!.children
+                    !!option &&
+                    option.children
                       .toLowerCase()
                       .indexOf(input.toLowerCase()) >= 0
                   }

@@ -64,6 +64,7 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
               <List.Item
                 actions={[
                   <LinkedInputNumbers
+                    key="compassos"
                     values={[
                       fragment.compas_inici || 1,
                       fragment.compas_final || null,
@@ -81,6 +82,7 @@ const ModalFragmentsTreballatsMoviment: React.FC<ModalFragmentsTreballatsMovimen
             style={{ opacity: 0.7 }}
             actions={[
               <LinkedInputNumbers
+                key="compassos"
                 values={[null, null]}
                 placeholders={["common:start", "common:end"]}
                 max={moviment.compassos}

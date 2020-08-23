@@ -20,7 +20,7 @@ const ModalAfegirSoci: React.FC = () => {
   } = useStepsAfegirSoci(() => {
     dispatch(fetchSocis());
     // @ts-ignore
-    modalButtonRef.current!.setVisible();
+    modalButtonRef.current && modalButtonRef.current.setVisible();
     setCurrentPageIndex(0);
     form.resetFields();
   });

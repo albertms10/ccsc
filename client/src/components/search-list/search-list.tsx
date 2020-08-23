@@ -20,7 +20,7 @@ export interface SearchListBaseProps {
 export interface SearchListProps<T> extends SearchListBaseProps {
   searchPlaceholder: string;
   dataSource: T[];
-  mapData?: (data: T[]) => any[];
+  mapData?: (data: T[]) => T[];
   searchFilters: (item: T) => SearchFilters;
   checkToFocus?: boolean;
   renderItem?: (
@@ -38,7 +38,7 @@ const SearchList = <T,>({
   searchFilters,
   checkToFocus = true,
   renderItem,
-}: PropsWithChildren<SearchListProps<T>>) => {
+}: PropsWithChildren<SearchListProps<T>>): JSX.Element => {
   const { t } = useTranslation("common");
 
   const [searchValue, setSearchValue] = useState("");

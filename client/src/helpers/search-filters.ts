@@ -1,9 +1,7 @@
 import { Assaig, Moviment, Projecte, Veu } from "model";
 import { SearchFilters } from "utils/search-filter";
 
-type SearchFilter = (...args: any) => SearchFilters;
-
-export const searchFilterAssaig: SearchFilter = (assaig: Assaig) => ({
+export const searchFilterAssaig = (assaig: Assaig): SearchFilters => ({
   texts: [
     assaig.titol,
     ...assaig.formacions.map((formacio) => formacio.nom_curt),
@@ -13,7 +11,7 @@ export const searchFilterAssaig: SearchFilter = (assaig: Assaig) => ({
   dates: [assaig.data_inici, ...(assaig.data_final ? [assaig.data_final] : [])],
 });
 
-export const searchFilterMoviment: SearchFilter = (moviment: Moviment) => ({
+export const searchFilterMoviment = (moviment: Moviment): SearchFilters => ({
   texts: [
     moviment.titol_obra,
     moviment.titol_moviment,
@@ -25,7 +23,7 @@ export const searchFilterMoviment: SearchFilter = (moviment: Moviment) => ({
   ],
 });
 
-export const searchFilterProjecte: SearchFilter = (projecte: Projecte) => ({
+export const searchFilterProjecte = (projecte: Projecte): SearchFilters => ({
   texts: [
     projecte.titol,
     projecte.descripcio,
@@ -37,6 +35,6 @@ export const searchFilterProjecte: SearchFilter = (projecte: Projecte) => ({
   ],
 });
 
-export const searchFilterVeus: SearchFilter = (veu: Veu) => ({
+export const searchFilterVeus = (veu: Veu): SearchFilters => ({
   texts: [veu.nom, veu.abreviatura],
 });

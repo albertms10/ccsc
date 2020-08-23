@@ -26,7 +26,13 @@ import { MainMenuItem } from "../menu-item";
 import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";
 
-const getRouteProps = (title: string) => {
+interface RouteProps {
+  key: string;
+  path: string;
+  title: string;
+}
+
+const getRouteProps = (title: string): RouteProps => {
   const path = `/${linkText(title)}`;
   return {
     key: path,
@@ -136,7 +142,8 @@ const MainMenu: React.FC = () => {
           authority="junta_directiva"
           {...getRouteProps(t("partners"))}
           render={(props) => (
-            <MainMenuItem {...props} icon={<TeamOutlined />} />
+            // TODO: Infer props from getRouteProps
+            <MainMenuItem key="" path="" {...props} icon={<TeamOutlined />} />
           )}
         />
         <MainMenuItem

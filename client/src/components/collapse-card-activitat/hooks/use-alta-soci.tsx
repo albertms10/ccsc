@@ -30,7 +30,6 @@ export default (idSoci: number) => {
       content: t("action undone"),
       okText: t("subscription action"),
       onOk: () => donarAltaSoci().finally(callback),
-      onCancel: () => {},
     });
   };
 

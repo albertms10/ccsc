@@ -22,7 +22,7 @@ const FixedTagsProjectes: React.FC<FixedTagsProjectesProps> = ({
       {projectes.map((projecte) => (
         <FixedTag
           key={projecte.id_projecte}
-          childKey={projecte.id_projecte}
+          childKey={projecte.id_projecte.toString()}
           tooltip={projecte.titol}
           color={`#${projecte.color}`}
         >

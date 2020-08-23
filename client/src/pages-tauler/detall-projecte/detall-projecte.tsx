@@ -25,7 +25,7 @@ export const SetActionContext = createContext<
   React.Dispatch<React.SetStateAction<React.ReactNode>>
 >((_) => {});
 
-interface DetallProjecteProps extends RouteComponentProps {}
+type DetallProjecteProps = RouteComponentProps
 
 const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
   const { t } = useTranslation("dashboard");

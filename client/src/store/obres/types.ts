@@ -9,7 +9,7 @@ export interface ObresState {
   obres: Obra[];
   loading: boolean;
   fetched: boolean;
-  error: {} | FetchError;
+  error: Record<string, unknown> | FetchError;
 }
 
 interface FetchObresRequestAction {

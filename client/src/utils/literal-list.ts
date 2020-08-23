@@ -1,7 +1,7 @@
 /**
  * Returns a concatenated comma-separated string with the specified last separator.
  */
-export default (items: string[], lastSeparator: string = "i"): string => {
+export default (items: string[], lastSeparator = "i"): string => {
   if (!items) return "";
 
   const l = items.length;

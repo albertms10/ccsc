@@ -8,10 +8,12 @@ const SVGIconCorDeCambra: React.FC = () => (
   </svg>
 );
 
-interface IconCorDeCambraProps extends StyledComponent {}
+type IconCorDeCambraProps = StyledComponent;
 
 const IconCorDeCambra = forwardRef<HTMLButtonElement, IconCorDeCambraProps>(
   (props, ref) => <Icon {...props} ref={ref} component={SVGIconCorDeCambra} />
 );
+
+IconCorDeCambra.displayName = "IconCorDeCambra";
 
 export default IconCorDeCambra;

@@ -14,7 +14,7 @@ interface ModalSeleccionarMovimentProps
   extends ModalButtonBaseProps,
     SearchListBaseProps {
   dataFilter: (value: Moviment, index: number, array: Moviment[]) => boolean;
-  onItemClick: (item: Moviment) => Promise<any>;
+  onItemClick: (item: Moviment) => Promise<void | Response>;
   thenAction?: () => void;
 }
 
@@ -50,7 +50,13 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
             }}
             actions={[
               ...(moviment.projectes && moviment.projectes.length > 0
-                ? [<FixedTagsProjectes projectes={moviment.projectes} noLink />]
+                ? [
+                    <FixedTagsProjectes
+                      key="fixed-tags-projectes"
+                      projectes={moviment.projectes}
+                      noLink
+                    />,
+                  ]
                 : []),
             ]}
           >

@@ -13,7 +13,7 @@ export const fetchObres = (): AppThunkAction => (dispatch) => {
   dispatch(fetchObresRequest());
 
   baseFetchAPI<Obra[]>(
-    `/obres`,
+    "/obres",
     (data) => {
       if (data.hasOwnProperty("error"))
         dispatch(fetchObresFailure((data as ResponseError).error));
