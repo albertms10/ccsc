@@ -1,6 +1,5 @@
 import { Input, Table, Typography } from "antd";
-import { ColumnType } from "antd/es/table";
-import { ColumnsType } from "antd/lib/table";
+import { ColumnsType, ColumnType } from "antd/lib/table";
 import { useDeleteAPI } from "helpers";
 import { Soci } from "model";
 import React, { useState } from "react";

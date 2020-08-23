@@ -13,7 +13,6 @@ import {
   yellow,
 } from "@ant-design/colors";
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
-import TextArea from "antd/es/input/TextArea";
 import { ModalButton } from "components/modal-button";
 import { TagSelectFormItemFormacions } from "components/tag-select-form-item-formacions";
 import { useAPI } from "helpers";
@@ -101,7 +100,7 @@ const ModalAfegirProjecte: React.FC = () => {
             </Col>
           </Row>
           <Form.Item name="descripcio" label="Breu descripció">
-            <TextArea autoSize />
+            <Input.TextArea autoSize />
           </Form.Item>
           <Form.Item name="color">
             <CirclePicker
