@@ -14,13 +14,9 @@ export default (idSoci: number) => {
   const donarAltaSoci = useCallback(() => {
     setLoading(true);
 
-    return fetchAPI(
-      `/socis/${idSoci}/alta`,
-      () => {
-        setLoading(false);
-      },
-      { method: "POST" }
-    );
+    return fetchAPI(`/socis/${idSoci}/alta`, null, {
+      method: "POST",
+    }).finally(() => setLoading(false));
   }, [fetchAPI, idSoci]);
 
   const modalAltaSoci = (callback: () => void) => {

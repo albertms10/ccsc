@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { ResponseError } from "common";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import { Projecte, Usuari } from "model";
 import { AppThunkAction } from "../types";
@@ -17,10 +16,11 @@ export const fetchProjectes = (): AppThunkAction => (dispatch, getState) => {
   baseFetchAPI<Projecte[]>(
     `/socis/${id_persona}/projectes`,
     (data) => {
-      if (data.hasOwnProperty("error"))
-        dispatch(fetchProjectesFailure((data as ResponseError).error));
-      else dispatch(fetchProjectesSuccess(data as Projecte[]));
+      dispatch(fetchProjectesSuccess(data));
     },
-    (error) => message.error(error.message)
+    (error) => {
+      dispatch(fetchProjectesFailure(error));
+      message.error(error.message);
+    }
   );
 };

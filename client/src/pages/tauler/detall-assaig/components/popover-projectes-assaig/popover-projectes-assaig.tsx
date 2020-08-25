@@ -49,7 +49,9 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
     <PopoverList
       title={t("dashboard:projects")}
       searchPlaceholder={t("search projects")}
-      defaultValue={projectesFiltered.map(({ id_projecte }) => id_projecte)}
+      defaultValue={projectesFiltered.map(({ id_projecte }) =>
+        id_projecte.toString()
+      )}
       dataSource={projectes.map((projecte) => ({
         ...projecte,
         value: projecte.id_projecte.toString(),

@@ -11,20 +11,17 @@ export default (idFormacio: number) => {
     (formacio: BaseFormacio) => {
       setLoading(true);
 
-      return formacio.convocada
-        ? fetchAPI(
-            `/assajos/${idFormacio}/formacions`,
-            () => setLoading(false),
-            {
-              method: "POST",
-              body: JSON.stringify(formacio),
-            }
-          )
+      return (formacio.convocada
+        ? fetchAPI(`/assajos/${idFormacio}/formacions`, null, {
+            method: "POST",
+            body: JSON.stringify(formacio),
+          })
         : fetchAPI(
             `/assajos/${idFormacio}/formacions/${formacio.id_formacio}`,
-            () => setLoading(false),
+            null,
             { method: "DELETE" }
-          );
+          )
+      ).finally(() => setLoading(false));
     },
     [fetchAPI, idFormacio]
   );

@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { ResponseError } from "common";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import LogRocket from "logrocket";
 import { AppThunkAction } from "../types";
@@ -11,22 +10,19 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
 ) => {
   baseFetchAPI<UserResponse>(
     "/auth/sign-in",
-    (data) => {
-      if (data.hasOwnProperty("error")) {
-        dispatch(signinUserFailure((data as ResponseError).error));
-      } else {
-        const { user, accessToken } = data as UserResponse;
+    ({ user, accessToken }) => {
+      LogRocket.identify(user.id_usuari.toString(), {
+        name: `${user.nom} ${user.cognoms}`,
+        roles: (user.roles as string[]).join(", "),
+      });
 
-        LogRocket.identify(user.id_usuari.toString(), {
-          name: `${user.nom} ${user.cognoms}`,
-          roles: (user.roles as string[]).join(", "),
-        });
-
-        localStorage.setItem("access-token", accessToken);
-        dispatch(signinUserSuccess(user));
-      }
+      localStorage.setItem("access-token", accessToken);
+      dispatch(signinUserSuccess(user));
     },
-    dispatch,
+    (error) => {
+      dispatch(signinUserFailure(error));
+      message.error(error.message);
+    },
     { method: "POST", body: JSON.stringify(user) }
   );
 };
@@ -40,15 +36,14 @@ export const getProfileFetch = (): AppThunkAction => (dispatch) => {
   if (accessToken)
     baseFetchAPI<UserResponse>(
       "/auth/user",
-      (data: UserResponse | ResponseError) => {
-        if (data.hasOwnProperty("error")) {
-          dispatch(signinUserFailure((data as ResponseError).error));
-          localStorage.removeItem("access-token");
-        } else {
-          dispatch(signinUserSuccess((data as UserResponse).user));
-        }
+      ({ user }) => {
+        dispatch(signinUserSuccess(user));
       },
-      (error) => message.error(error.message)
+      (error) => {
+        dispatch(signinUserFailure(error));
+        localStorage.removeItem("access-token");
+        message.error(error.message);
+      }
     );
 
   return Promise.resolve();

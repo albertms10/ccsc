@@ -31,6 +31,9 @@ export default () => {
           ? assaig.hora.map((h: string) => h && moment(h).format("HH:mm"))
           : [null, null];
         assaig.projectes = idProjecte ? [idProjecte] : [];
+        assaig.es_general = !!assaig.es_general;
+        assaig.es_extra = !!assaig.es_extra;
+
         if (!assaig.formacions) assaig.formacions = [];
 
         return postAssaig(assaig as Assaig);

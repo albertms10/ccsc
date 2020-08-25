@@ -25,7 +25,7 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
   );
   const [loadingFormacio, changeFormacioAssaig] = useFormacioAssaig(id_assaig);
 
-  const formacionsFiltered = useMemo(
+  const formacionsConvocades = useMemo(
     () => formacions && formacions.filter(({ convocada }) => convocada),
     [formacions]
   );
@@ -34,22 +34,22 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
     (textualAction) => (
       <>
         <span style={{ marginRight: 8 }}>
-          {formacionsFiltered.length > 0
+          {formacionsConvocades.length > 0
             ? t("dashboard:formations")
             : textualAction}
         </span>
-        <IconsFormacions formacions={formacionsFiltered} />
+        <IconsFormacions formacions={formacionsConvocades} />
       </>
     ),
-    [formacionsFiltered, t]
+    [formacionsConvocades, t]
   );
 
   return (
     <PopoverList
       title={t("dashboard:announced formations")}
       searchPlaceholder={t("search formations")}
-      defaultValue={formacionsFiltered.map(
-        ({ id_formacio }) => id_formacio as number
+      defaultValue={formacionsConvocades.map(({ id_formacio }) =>
+        id_formacio.toString()
       )}
       dataSource={formacions.map((formacio) => ({
         ...formacio,

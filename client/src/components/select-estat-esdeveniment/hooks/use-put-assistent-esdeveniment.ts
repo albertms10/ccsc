@@ -11,11 +11,10 @@ export default (idEsdeveniment: number) => {
     (assistent: Convocatoria) => {
       setLoading(true);
 
-      return fetchAPI(
-        `/esdeveniments/${idEsdeveniment}/assistents`,
-        () => setLoading(false),
-        { method: "PUT", body: JSON.stringify(assistent) }
-      );
+      return fetchAPI(`/esdeveniments/${idEsdeveniment}/assistents`, null, {
+        method: "PUT",
+        body: JSON.stringify(assistent),
+      }).finally(() => setLoading(false));
     },
     [fetchAPI, idEsdeveniment]
   );

@@ -11,16 +11,17 @@ export default (idAssaig: number) => {
     (projecte: BaseProjecteTreballat) => {
       setLoading(true);
 
-      return projecte.treballat
-        ? fetchAPI(`/assajos/${idAssaig}/projectes`, () => setLoading(false), {
+      return (projecte.treballat
+        ? fetchAPI(`/assajos/${idAssaig}/projectes`, null, {
             method: "POST",
             body: JSON.stringify(projecte),
           })
         : fetchAPI(
             `/assajos/${idAssaig}/projectes/${projecte.id_projecte}`,
-            () => setLoading(false),
+            null,
             { method: "DELETE" }
-          );
+          )
+      ).finally(() => setLoading(false));
     },
     [fetchAPI, idAssaig]
   );

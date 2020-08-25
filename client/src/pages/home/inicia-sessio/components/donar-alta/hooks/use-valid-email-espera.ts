@@ -26,7 +26,6 @@ export default () => {
       return fetchAPI<EmailEsperaSuccessResponse | EmailEsperaFailureResponse>(
         "/auth/email-espera",
         (data) => {
-          setLoading(false);
           if ((data as EmailEsperaBaseResponse).exists) {
             localStorage.setItem(
               "access-token",
@@ -39,7 +38,7 @@ export default () => {
           }
         },
         { method: "POST", body: JSON.stringify({ email }) }
-      );
+      ).finally(() => setLoading(false));
     },
     [fetchAPI, dispatch, history]
   );

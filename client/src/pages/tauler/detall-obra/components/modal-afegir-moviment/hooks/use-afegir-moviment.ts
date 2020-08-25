@@ -15,10 +15,10 @@ export default (idObra: number) => {
     (moviment: Moviment) => {
       setLoading(true);
 
-      return fetchAPI("/moviments", () => setLoading(false), {
+      return fetchAPI("/moviments", null, {
         method: "POST",
         body: JSON.stringify(moviment),
-      });
+      }).finally(() => setLoading(false));
     },
     [fetchAPI]
   );

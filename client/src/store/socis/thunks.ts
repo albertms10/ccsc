@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { ResponseError } from "common";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import { Soci } from "model";
 import { AppThunkAction } from "../types";
@@ -15,10 +14,11 @@ export const fetchSocis = (): AppThunkAction => (dispatch) => {
   baseFetchAPI<Soci[]>(
     "/socis",
     (data) => {
-      if (data.hasOwnProperty("error"))
-        dispatch(fetchSocisFailure((data as ResponseError).error));
-      else dispatch(fetchSocisSuccess(data as Soci[]));
+      dispatch(fetchSocisSuccess(data));
     },
-    (error) => message.error(error.message)
+    (error) => {
+      dispatch(fetchSocisFailure(error));
+      message.error(error.message);
+    }
   );
 };

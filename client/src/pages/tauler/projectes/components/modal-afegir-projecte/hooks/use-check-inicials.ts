@@ -13,11 +13,8 @@ export default () => {
 
       return fetchAPI<boolean>(
         `/projectes/check-inicials/${inicials}`,
-        (disponible) => {
-          setDisponible(disponible as boolean);
-          setLoading(false);
-        }
-      );
+        setDisponible
+      ).finally(() => setLoading(false));
     },
     [fetchAPI]
   );

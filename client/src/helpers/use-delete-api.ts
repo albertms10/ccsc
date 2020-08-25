@@ -15,11 +15,10 @@ export default (url: string, textualElement: string, callback?: () => void) => {
       return fetchAPI(
         `${url}/${id}`,
         () => {
-          setLoading(false);
           if (typeof callback === "function") callback();
         },
         { method: "DELETE" }
-      );
+      ).finally(() => setLoading(false));
     },
     [url, callback, fetchAPI]
   );

@@ -20,7 +20,7 @@ let hasError = false;
  */
 export const baseFetchAPI = <T,>(
   url: string,
-  callback: (data: ResponseError | T) => void,
+  onSuccess: ((data: T) => void) | null,
   onError: (error: FetchError) => void,
   init: RequestInit = {}
 ) =>
@@ -40,14 +40,14 @@ export const baseFetchAPI = <T,>(
       if (contentType && contentType.indexOf("application/json") !== -1)
         res
           .json()
-          .then((data: ResponseError | T) => {
+          .then((data: T | ResponseError) => {
             const error = (data as ResponseError).error;
 
             if (error && !error.hideMessage) onError(error);
-            else callback(data);
+            else if (typeof onSuccess === "function") onSuccess(data as T);
           })
           .catch(catchError);
-      else if (res.ok) callback({} as T);
+      else if (res.ok && typeof onSuccess === "function") onSuccess({} as T);
       else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
 
       return res;
@@ -110,9 +110,9 @@ export default () => {
   return useCallback(
     <T,>(
       url: string,
-      callback: (data: ResponseError | T) => void,
+      onSuccess: ((data: T) => void) | null,
       init: RequestInit = {}
-    ) => baseFetchAPI(url, callback, onError, init),
+    ) => baseFetchAPI(url, onSuccess, onError, init),
     [onError]
   );
 };

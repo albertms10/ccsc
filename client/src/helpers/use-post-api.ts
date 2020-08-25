@@ -10,10 +10,10 @@ export default <T>(url: string) => {
     (data: T) => {
       setLoading(true);
 
-      return fetchAPI<T>(url, () => setLoading(false), {
+      return fetchAPI<T>(url, null, {
         method: "POST",
         body: JSON.stringify(data),
-      });
+      }).finally(() => setLoading(false));
     },
     [url, fetchAPI]
   );

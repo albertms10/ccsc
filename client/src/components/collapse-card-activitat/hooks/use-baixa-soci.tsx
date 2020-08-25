@@ -14,13 +14,9 @@ export default (idSoci: number) => {
   const donarBaixaSoci = useCallback(() => {
     setLoading(true);
 
-    return fetchAPI(
-      `/socis/${idSoci}/baixa`,
-      () => {
-        setLoading(false);
-      },
-      { method: "PUT" }
-    );
+    return fetchAPI(`/socis/${idSoci}/baixa`, null, {
+      method: "PUT",
+    }).finally(() => setLoading(false));
   }, [fetchAPI, idSoci]);
 
   const modalBaixaSoci = (callback: () => void) => {

@@ -11,16 +11,15 @@ export default (idAssaig: number) => {
     (veu: BaseVeu) => {
       setLoading(true);
 
-      return veu.convocada
-        ? fetchAPI(`/assajos/${idAssaig}/veus`, () => setLoading(false), {
+      return (veu.convocada
+        ? fetchAPI(`/assajos/${idAssaig}/veus`, null, {
             method: "POST",
             body: JSON.stringify(veu),
           })
-        : fetchAPI(
-            `/assajos/${idAssaig}/veus/${veu.id_veu}`,
-            () => setLoading(false),
-            { method: "DELETE" }
-          );
+        : fetchAPI(`/assajos/${idAssaig}/veus/${veu.id_veu}`, null, {
+            method: "DELETE",
+          })
+      ).finally(() => setLoading(false));
     },
     [fetchAPI, idAssaig]
   );
