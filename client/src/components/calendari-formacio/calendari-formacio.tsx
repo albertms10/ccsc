@@ -3,7 +3,7 @@ import { Button, Calendar, Col, Row, Space, Spin } from "antd";
 import { useAPI } from "helpers";
 import { Formacio, TipusEsdeveniment } from "model";
 import moment from "moment";
-import { FormacioContext } from "pages-tauler/detall-formacio";
+import { FormacioContext } from "pages/tauler/detall-formacio";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";

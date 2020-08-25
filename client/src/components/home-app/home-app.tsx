@@ -1,10 +1,10 @@
 import { Col, Layout, Row } from "antd";
 import { LogoCorDeCambra } from "assets/icons";
-import { Concerts } from "pages-home/concerts";
-import { Contacte } from "pages-home/contacte";
-import { HomePage } from "pages-home/home-page";
-import { Premsa } from "pages-home/premsa";
-import { QuiSom } from "pages-home/qui-som";
+import { Concerts } from "pages/home/concerts";
+import { Contacte } from "pages/home/contacte";
+import { HomePage } from "pages/home/home-page";
+import { Premsa } from "pages/home/premsa";
+import { QuiSom } from "pages/home/qui-som";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Route } from "react-router-dom";

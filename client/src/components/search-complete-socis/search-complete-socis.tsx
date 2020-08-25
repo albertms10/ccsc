@@ -1,5 +1,5 @@
 import { Avatar, Space } from "antd";
-import { useSocis } from "pages-tauler/socis/hooks";
+import { useSocis } from "pages/tauler/socis/hooks";
 import React from "react";
 import {
   SearchComplete,
