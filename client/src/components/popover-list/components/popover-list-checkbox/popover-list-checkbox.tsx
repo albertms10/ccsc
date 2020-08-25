@@ -17,12 +17,7 @@ const PopoverListCheckbox: React.FC<PopoverListCheckboxProps> = ({
   onChange,
 }) => (
   <List.Item>
-    <Checkbox
-      key={value}
-      value={value}
-      defaultChecked
-      onChange={onChange}
-    >
+    <Checkbox key={value} value={value} defaultChecked onChange={onChange}>
       {label}
     </Checkbox>
   </List.Item>

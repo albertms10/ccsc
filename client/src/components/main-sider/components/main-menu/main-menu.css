@@ -17,7 +17,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: smaller;
-  color: rgba(255, 255, 255, .4);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .main-menu .ant-menu-item-group-title[title=""]::before {

@@ -14,13 +14,15 @@ import { store } from "store";
 import { linkText } from "utils";
 import { RouteTauler } from "./components/route-tauler";
 
-const HomeApp = lazy(() =>
-  import("components/home-app/home-app" /* webpackChunkName: "home-app" */)
+const HomeApp = lazy(
+  () =>
+    import("components/home-app/home-app" /* webpackChunkName: "home-app" */)
 );
-const TaulerApp = lazy(() =>
-  import(
-    "components/tauler-app/tauler-app" /* webpackChunkName: "tauler-app" */
-  )
+const TaulerApp = lazy(
+  () =>
+    import(
+      "components/tauler-app/tauler-app" /* webpackChunkName: "tauler-app" */
+    )
 );
 
 moment.locale("ca");

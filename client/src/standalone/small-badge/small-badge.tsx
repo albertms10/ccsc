@@ -2,7 +2,7 @@ import { Badge } from "antd";
 import { BadgeProps } from "antd/lib/badge";
 import React from "react";
 
-type SmallBadgeProps = BadgeProps
+type SmallBadgeProps = BadgeProps;
 
 const SmallBadge: React.FC<SmallBadgeProps> = (props) => (
   <Badge

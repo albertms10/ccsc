@@ -7,7 +7,7 @@
 .popover-list .ant-list {
   overflow-y: scroll;
   max-height: 175px;
-  margin-top: .2rem;
+  margin-top: 0.2rem;
 }
 
 .popover-list .ant-input-search {
@@ -30,4 +30,3 @@
   width: 100%;
   padding: 8px 16px;
 }
-

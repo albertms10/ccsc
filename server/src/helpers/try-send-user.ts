@@ -12,8 +12,7 @@ export default (
       error: {
         status: 403,
         message: "inactive partner",
-        description:
-          "a member must subscribe you again",
+        description: "a member must subscribe you again",
         okText: "common:ok",
         okOnly: true,
         noAction: true,

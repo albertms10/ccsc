@@ -40,10 +40,7 @@ router
 
 router
   .route("/:id_assaig/moviments/:id_moviment/fragments")
-  .get(
-    [verifyAccessToken],
-    controller.assajos_detall_moviments_fragments
-  );
+  .get([verifyAccessToken], controller.assajos_detall_moviments_fragments);
 
 router
   .route("/:id/projectes")
