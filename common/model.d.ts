@@ -344,7 +344,6 @@ declare module "model" {
   }
 
   export interface Veu extends BaseVeu {
-    id_veu: string;
     nom: string;
     abreviatura: string;
   }
