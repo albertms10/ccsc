@@ -6,7 +6,7 @@ import { BorderlessButton } from "standalone/borderless-button";
 
 interface DropdownItem extends MenuItemProps {
   key: string;
-  action: any;
+  action: React.ReactNode;
 }
 
 interface DropdownBorderlessButtonProps {

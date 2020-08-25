@@ -18,7 +18,7 @@ export interface ContentListBaseProps {
   title?: string;
   loading?: boolean;
   action?: React.ReactNode;
-  extra?: any;
+  extra?: React.ReactNode;
 }
 
 interface ContentListProps extends ContentListBaseProps, StyledComponent {
