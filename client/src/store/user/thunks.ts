@@ -27,10 +27,7 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
   );
 };
 
-/**
- * Fetches the API for a given JWT access token in `localStorage`.
- */
-export const getProfileFetch = (): AppThunkAction => (dispatch) =>
+export const getProfileFetch = (): AppThunkAction => (dispatch) => {
   baseFetchAPI<Usuari>(
     "/auth/user",
     (user) => {
@@ -41,10 +38,8 @@ export const getProfileFetch = (): AppThunkAction => (dispatch) =>
       showErrorMessage(error.status, error.message);
     }
   );
+};
 
-/**
- * Dispatches the user logout action.
- */
 export const logoutRemoveUser = (): AppThunkAction => (dispatch) => {
   baseFetchAPI(
     "/auth/sign-out",

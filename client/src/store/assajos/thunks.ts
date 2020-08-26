@@ -1,6 +1,6 @@
 import { showErrorMessage } from "helpers";
 import { baseFetchAPI } from "helpers/use-fetch-api";
-import { Assaig, Usuari } from "model";
+import { Assaig } from "model";
 import { AppThunkAction } from "../types";
 import {
   fetchAssajosFailure,
@@ -9,7 +9,7 @@ import {
 } from "./actions";
 
 export const fetchAssajos = (): AppThunkAction => (dispatch, getState) => {
-  const { id_persona } = getState().user.currentUser as Usuari;
+  const { id_persona } = getState().user.currentUser;
 
   dispatch(fetchAssajosRequest());
 

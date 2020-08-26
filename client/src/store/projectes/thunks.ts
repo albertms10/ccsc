@@ -1,6 +1,6 @@
 import { showErrorMessage } from "helpers";
 import { baseFetchAPI } from "helpers/use-fetch-api";
-import { Projecte, Usuari } from "model";
+import { Projecte } from "model";
 import { AppThunkAction } from "../types";
 import {
   fetchProjectesFailure,
@@ -9,7 +9,7 @@ import {
 } from "./actions";
 
 export const fetchProjectes = (): AppThunkAction => (dispatch, getState) => {
-  const { id_persona } = getState().user.currentUser as Usuari;
+  const { id_persona } = getState().user.currentUser;
 
   dispatch(fetchProjectesRequest());
 
