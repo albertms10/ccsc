@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { logoutRemoveUser } from "store/user/thunks";
 
-const catchError = (e: Error) => {
+const catchSimpleError = (e: Error) => {
   message.error(e.toString());
 };
 
@@ -46,13 +46,13 @@ export const baseFetchAPI = <T,>(
             if (error && !error.hideMessage) onError(error);
             else if (typeof onSuccess === "function") onSuccess(data as T);
           })
-          .catch(catchError);
+          .catch(catchSimpleError);
       else if (res.ok && typeof onSuccess === "function") onSuccess({} as T);
       else if (!res.ok) throw Error(`${res.status} (${res.statusText})`);
 
       return res;
     })
-    .catch(catchError);
+    .catch(catchSimpleError);
 
 export default () => {
   const { t } = useTranslation("server");
