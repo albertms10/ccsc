@@ -21,7 +21,7 @@ interface IniciaSessioHistory {
 }
 
 const IniciaSessio: React.FC = () => {
-  const { t } = useTranslation(["fields", "sign-in", "validation"]);
+  const { t } = useTranslation(["validation", "fields", "sign-in"]);
 
   const dispatch = useDispatch();
 
@@ -77,26 +77,22 @@ const IniciaSessio: React.FC = () => {
           <Spin spinning={!fetched || loading}>
             <Form.Item
               name="username"
-              rules={[
-                { required: true, message: t("validation:enter username") },
-              ]}
+              rules={[{ required: true, message: t("enter username") }]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder={t("username")}
+                placeholder={t("fields:username")}
                 autoFocus={!locationState || !locationState.username}
               />
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[
-                { required: true, message: t("validation:enter password") },
-              ]}
+              rules={[{ required: true, message: t("enter password") }]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder={t("password")}
+                placeholder={t("fields:password")}
                 autoFocus={locationState && !!locationState.username}
               />
             </Form.Item>

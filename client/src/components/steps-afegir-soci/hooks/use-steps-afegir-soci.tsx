@@ -26,7 +26,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 export interface FormStep {
-  key: string;
+  key: "protection" | "data" | "image" | "summary";
   title: string;
   selfCreationOnly: boolean;
   content: React.ReactNode;
@@ -37,7 +37,7 @@ export default (
   selfCreation = false,
   fetchURL = "/socis"
 ) => {
-  const { t } = useTranslation(["fields", "validation"]);
+  const { t } = useTranslation(["validation", "fields"]);
 
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
@@ -83,23 +83,23 @@ export default (
 
   const steps: FormStep[] = [
     {
-      key: "proteccio",
-      title: t("data protection"),
+      key: "protection",
+      title: t("fields:data protection"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="proteccio_dades" isForm />,
     },
     {
-      key: "dades",
-      title: t("partner data"),
+      key: "data",
+      title: t("fields:partner data"),
       selfCreationOnly: false,
       content: (
         <Space size="middle" direction="vertical">
-          <InfoCard title={t("personal data")}>
+          <InfoCard title={t("fields:personal data")}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="nom"
-                  label={t("name")}
+                  label={t("fields:name")}
                   rules={[
                     { required: true, message: t("enter name") },
                     { whitespace: true, message: t("enter name") },
@@ -111,7 +111,7 @@ export default (
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="cognoms"
-                  label={t("surname")}
+                  label={t("fields:surname")}
                   rules={[
                     { required: true, message: t("enter surname") },
                     { whitespace: true, message: t("enter surname") },
@@ -123,7 +123,7 @@ export default (
               <Col xs={24} sm={8}>
                 <Form.Item
                   name="id_pais"
-                  label={t("country of nationality")}
+                  label={t("fields:country of nationality")}
                   rules={[
                     {
                       required: true,
@@ -153,7 +153,7 @@ export default (
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="dni"
-                  label={t("person id")}
+                  label={t("fields:person id")}
                   hasFeedback
                   validateStatus={selectedPais === "es" ? dniValidation : ""}
                   rules={[
@@ -168,7 +168,7 @@ export default (
               <Col xs={24} sm={6}>
                 <Form.Item
                   name="naixement"
-                  label={t("birth date")}
+                  label={t("fields:birth date")}
                   rules={[{ required: true, message: t("enter birth date") }]}
                 >
                   <DatePicker
@@ -181,12 +181,12 @@ export default (
               </Col>
             </Row>
           </InfoCard>
-          <InfoCard title={t("contact data")}>
+          <InfoCard title={t("fields:contact data")}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="email"
-                  label={t("email")}
+                  label={t("fields:email")}
                   rules={[
                     { type: "email", message: t("enter valid email") },
                     { required: true, message: t("enter email") },
@@ -199,7 +199,7 @@ export default (
               <Col xs={24} sm={10}>
                 <Form.Item
                   name="telefon"
-                  label={t("phone")}
+                  label={t("fields:phone")}
                   rules={[{ whitespace: true, message: t("no whitespace") }]}
                 >
                   <Input type="tel" autoComplete="tel" />
@@ -207,24 +207,30 @@ export default (
               </Col>
             </Row>
           </InfoCard>
-          <InfoCard title={t("musical information")}>
+          <InfoCard title={t("fields:musical information")}>
             <Row gutter={[16, 16]}>
               <Col md={24} lg={12}>
                 <Form.Item
                   name="experiencia_musical"
-                  label={t("musical experience")}
+                  label={t("fields:musical experience")}
                 >
                   <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
                 </Form.Item>
               </Col>
               <Col md={24} lg={12}>
-                <Form.Item name="estudis_musicals" label={t("musical studies")}>
+                <Form.Item
+                  name="estudis_musicals"
+                  label={t("fields:musical studies")}
+                >
                   <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
                 </Form.Item>
               </Col>
               {!selfCreation && (
                 <Col>
-                  <Form.Item name="data_alta" label={t("subscribed date")}>
+                  <Form.Item
+                    name="data_alta"
+                    label={t("fields:subscribed date")}
+                  >
                     <DatePicker
                       format="L"
                       allowClear={false}
@@ -239,13 +245,13 @@ export default (
       ),
     },
     {
-      key: "imatge",
-      title: t("image rights"),
+      key: "image",
+      title: t("fields:image rights"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="drets_imatge" isForm />,
     },
     {
-      key: "resum",
+      key: "summary",
       title: t("dashboard:summary"),
       selfCreationOnly: false,
       content: (
@@ -288,14 +294,16 @@ export default (
 
   const handleValidateError = (e: Error) => {
     message.warning(e);
-    setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "dades"));
+    setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "data"));
   };
 
   const handleChange = async (pageIndex: number) => {
-    if (pageIndex > stepsRef.findIndex(({ key }) => key === "dades"))
+    if (pageIndex > stepsRef.findIndex(({ key }) => key === "data"))
       try {
         const { nom, cognoms } = await form.validateFields();
-        if (stepsRef[pageIndex].key === "resum") getUsername({ nom, cognoms });
+
+        if (stepsRef[pageIndex].key === "summary")
+          getUsername({ nom, cognoms });
       } catch (error) {
         handleValidateError(error);
         return;
@@ -320,7 +328,7 @@ export default (
       <Space>
         {currentPageIndex < stepsRef.length - 1 ? (
           <Button key="next" type="primary" onClick={next}>
-            {stepsRef[currentPageIndex].key === "proteccio"
+            {stepsRef[currentPageIndex].key === "protection"
               ? t("entity:agree with the terms")
               : t("next")}
           </Button>

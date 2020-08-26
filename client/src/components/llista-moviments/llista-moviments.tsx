@@ -34,7 +34,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
     showDeleteConfirm,
   ] = useDeleteAPI(
     `/projectes/${idProjecte}/moviments`,
-    t("the movement"),
+    t("modals:the movement"),
     () => dispatch(fetchMoviments())
   );
 

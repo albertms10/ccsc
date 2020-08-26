@@ -9,7 +9,7 @@ import { linkText } from "utils";
 import { useValidEmailEspera } from "./hooks";
 
 const DonarAlta: React.FC = () => {
-  const { t } = useTranslation(["fields", "sign-in", "validation"]);
+  const { t } = useTranslation(["validation", "sign-in", "fields"]);
 
   const [checkEmail, loading, alertMessage] = useValidEmailEspera();
 
@@ -18,13 +18,13 @@ const DonarAlta: React.FC = () => {
   return (
     <Container className="signin-container">
       <div className="signin-form-wrapper tight">
-        <Link to={`/${linkText(t("sign in"))}`}>
+        <Link to={`/${linkText(t("sign-in:sign in"))}`}>
           <Button
             className="signin-form-back-button"
             type="link"
             icon={<LeftOutlined />}
           >
-            {t("sign in")}
+            {t("sign-in:sign in")}
           </Button>
         </Link>
         <LogoCorDeCambra
@@ -42,7 +42,7 @@ const DonarAlta: React.FC = () => {
           >
             <Input
               prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder={t("email")}
+              placeholder={t("fields:email")}
               autoFocus
             />
           </Form.Item>

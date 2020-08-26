@@ -8,30 +8,30 @@ const { Paragraph } = Typography;
 const { TextArea } = Input;
 
 const Contacte: React.FC = () => {
-  const { t } = useTranslation(["home", "validation"]);
+  const { t } = useTranslation(["validation", "fields", "home"]);
 
   return (
-    <PageSkeleton title={t("contact title")}>
-      <Paragraph>{t("contact intro")}</Paragraph>
-      <Paragraph>{t("contact action")}</Paragraph>
+    <PageSkeleton title={t("home:contact title")}>
+      <Paragraph>{t("home:contact intro")}</Paragraph>
+      <Paragraph>{t("home:contact action")}</Paragraph>
       <Container>
         <Form layout="vertical" size="large">
           <Form.Item
-            label="Nom"
+            label={t("fields:name")}
             name="nom"
             rules={[{ required: true, message: t("enter name") }]}
           >
             <Input autoFocus />
           </Form.Item>
           <Form.Item
-            label="Adreça electrònica"
+            label={t("fields:email")}
             name="email"
             rules={[{ required: true, message: t("enter email") }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Missatge"
+            label={t("fields:message")}
             name="missatge"
             rules={[{ required: true, message: t("enter message") }]}
           >
@@ -40,11 +40,11 @@ const Contacte: React.FC = () => {
         </Form>
       </Container>
       <Paragraph>
-        {t("contact email")}{" "}
+        {t("home:contact email")}{" "}
         <a href="mailto:info@cordecambrasantcugat.cat">
           info@cordecambrasantcugat.cat
         </a>{" "}
-        {t("contact social")}
+        {t("home:contact social")}
       </Paragraph>
     </PageSkeleton>
   );

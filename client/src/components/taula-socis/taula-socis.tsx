@@ -20,7 +20,7 @@ interface TaulaSocisProps {
 }
 
 const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
-  const { t } = useTranslation(["actions", "fields", "modals"]);
+  const { t } = useTranslation(["fields", "actions", "modals"]);
 
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
     "/socis",
-    t("the person"),
+    t("modals:the person"),
     () => dispatch(fetchSocis())
   );
 
@@ -87,7 +87,7 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
   return (
     <div className="socis-table">
       <Search
-        placeholder={t("search partners")}
+        placeholder={t("actions:search partners")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
