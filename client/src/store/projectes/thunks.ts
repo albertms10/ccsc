@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { showErrorMessage } from "helpers";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import { Projecte, Usuari } from "model";
 import { AppThunkAction } from "../types";
@@ -20,7 +20,7 @@ export const fetchProjectes = (): AppThunkAction => (dispatch, getState) => {
     },
     (error) => {
       dispatch(fetchProjectesFailure(error));
-      message.error(error.message);
+      showErrorMessage(error.status, error.message);
     }
   );
 };

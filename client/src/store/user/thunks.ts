@@ -21,7 +21,7 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
     },
     (error) => {
       dispatch(signinUserFailure(error));
-      message.error(error.message);
+      showErrorMessage(error.status, error.message);
     },
     { method: "POST", body: JSON.stringify(user) }
   );

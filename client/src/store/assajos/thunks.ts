@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { showErrorMessage } from "helpers";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import { Assaig, Usuari } from "model";
 import { AppThunkAction } from "../types";
@@ -20,7 +20,7 @@ export const fetchAssajos = (): AppThunkAction => (dispatch, getState) => {
     },
     (error) => {
       dispatch(fetchAssajosFailure(error));
-      message.error(error.message);
+      showErrorMessage(error.status, error.message);
     }
   );
 };
