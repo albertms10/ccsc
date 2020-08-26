@@ -26,7 +26,7 @@ type AuthRequestHandler = ControllerRequestHandler<
  * VERIFY FUNCTIONS
  */
 export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
-  const { authorization: accessToken } = req.headers;
+  const { amcc_accesstoken: accessToken } = req.cookies;
   const hideMessage = !!res.locals.hideMessage;
 
   if (!accessToken)
@@ -69,7 +69,7 @@ export const verifyAccessTokenHidden: AuthRequestHandler = (req, res, next) => {
 };
 
 export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
-  const { authorization: accessToken } = req.headers;
+  const { amcc_accesstoken: accessToken } = req.cookies;
   const { email } = req.body!;
 
   if (!accessToken)

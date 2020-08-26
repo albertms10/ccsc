@@ -21,11 +21,6 @@ export interface SignInUser {
   password: string;
 }
 
-export interface UserResponse {
-  user: Usuari;
-  accessToken: string;
-}
-
 export interface SigninUserSuccessAction {
   type: typeof SIGNIN_USER_SUCCESS;
   payload: Usuari;

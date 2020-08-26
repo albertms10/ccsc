@@ -30,8 +30,8 @@ export const baseFetchAPI = <T,>(
       ...init.headers,
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: localStorage.getItem("access-token") || "",
     },
+    credentials: "include",
     body: init.body || null,
   })
     .then((res) => {

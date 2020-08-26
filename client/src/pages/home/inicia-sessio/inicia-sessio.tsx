@@ -1,5 +1,5 @@
 import { LeftOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, message, Spin, Typography } from "antd";
+import { Button, Divider, Form, Input, Spin, Typography } from "antd";
 import { LogoCorDeCambra } from "assets/icons";
 import { FetchError } from "common";
 import { Usuari } from "model";
@@ -49,11 +49,6 @@ const IniciaSessio: React.FC = () => {
 
   useEffect(() => {
     if (error.status) setLoading(false);
-
-    if (!error.hideMessage)
-      if (error.status >= 400 && error.status < 500)
-        message.warning(error.message);
-      else if (error.message) message.error(error.message);
   }, [error]);
 
   return (

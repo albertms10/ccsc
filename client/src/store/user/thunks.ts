@@ -1,22 +1,22 @@
-import { message } from "antd";
+import { showErrorMessage } from "helpers";
 import { baseFetchAPI } from "helpers/use-fetch-api";
 import LogRocket from "logrocket";
+import { Usuari } from "model";
 import { AppThunkAction } from "../types";
 import { logoutUser, signinUserFailure, signinUserSuccess } from "./actions";
-import { SignInUser, UserResponse } from "./types";
+import { SignInUser } from "./types";
 
 export const signinUserFetch = (user: SignInUser): AppThunkAction => (
   dispatch
 ) => {
-  baseFetchAPI<UserResponse>(
+  baseFetchAPI<Usuari>(
     "/auth/sign-in",
-    ({ user, accessToken }) => {
+    (user) => {
       LogRocket.identify(user.id_usuari.toString(), {
         name: `${user.nom} ${user.cognoms}`,
         roles: user.roles.join(", "),
       });
 
-      localStorage.setItem("access-token", accessToken);
       dispatch(signinUserSuccess(user));
     },
     (error) => {
@@ -30,30 +30,28 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
 /**
  * Fetches the API for a given JWT access token in `localStorage`.
  */
-export const getProfileFetch = (): AppThunkAction => (dispatch) => {
-  const accessToken = localStorage.getItem("access-token");
-
-  if (accessToken)
-    baseFetchAPI<UserResponse>(
-      "/auth/user",
-      ({ user }) => {
-        dispatch(signinUserSuccess(user));
-      },
-      (error) => {
-        dispatch(signinUserFailure(error));
-        localStorage.removeItem("access-token");
-        message.error(error.message);
-      }
-    );
-
-  return Promise.resolve();
-};
+export const getProfileFetch = (): AppThunkAction => (dispatch) =>
+  baseFetchAPI<Usuari>(
+    "/auth/user",
+    (user) => {
+      dispatch(signinUserSuccess(user));
+    },
+    (error) => {
+      dispatch(logoutRemoveUser());
+      showErrorMessage(error.status, error.message);
+    }
+  );
 
 /**
- * Removes the JWT access token from the localStorage
- * and dispatches the user logout action.
+ * Dispatches the user logout action.
  */
 export const logoutRemoveUser = (): AppThunkAction => (dispatch) => {
-  localStorage.removeItem("access-token");
-  dispatch(logoutUser());
+  baseFetchAPI(
+    "/auth/sign-out",
+    () => dispatch(logoutUser()),
+    (error) => {
+      showErrorMessage(error.status, error.message);
+    },
+    { method: "PUT" }
+  );
 };

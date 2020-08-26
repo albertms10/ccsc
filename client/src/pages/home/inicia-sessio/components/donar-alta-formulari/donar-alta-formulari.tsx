@@ -4,14 +4,17 @@ import { StepsAfegirSoci } from "components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "components/steps-afegir-soci/hooks";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { Container } from "standalone/container";
 import { RootState } from "store/types";
+import { logoutRemoveUser } from "store/user/thunks";
 import { linkText } from "utils";
 
 const DonarAltaFormulari: React.FC = () => {
   const { t } = useTranslation("sign-in");
+
+  const dispatch = useDispatch();
 
   const { inWaitingList, email } = useSelector(
     ({ user }: RootState) => user.waitingList
@@ -28,7 +31,7 @@ const DonarAltaFormulari: React.FC = () => {
     username,
   } = useStepsAfegirSoci(
     () => {
-      localStorage.removeItem("access-token");
+      dispatch(logoutRemoveUser());
       history.push({
         pathname: `/${linkText(t("sign in"))}`,
         state: { username },

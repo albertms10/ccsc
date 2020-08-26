@@ -27,15 +27,8 @@ declare module "common" {
     error: FetchError;
   }
 
-  export interface EmailEsperaBaseResponse {
+  export interface EmailEsperaResponse {
     exists: boolean;
-  }
-
-  export interface EmailEsperaSuccessResponse extends EmailEsperaBaseResponse {
-    accessToken: string;
-  }
-
-  export interface EmailEsperaFailureResponse extends EmailEsperaBaseResponse {
     message: string;
   }
 }

@@ -1,4 +1,5 @@
 import * as bodyParser from "body-parser";
+import * as cookieParser from "cookie-parser";
 import * as express from "express";
 import * as RateLimit from "express-rate-limit";
 import * as path from "path";
@@ -23,6 +24,7 @@ process
   });
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 

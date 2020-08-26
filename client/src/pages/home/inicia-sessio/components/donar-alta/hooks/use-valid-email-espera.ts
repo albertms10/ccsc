@@ -1,8 +1,4 @@
-import {
-  EmailEsperaBaseResponse,
-  EmailEsperaFailureResponse,
-  EmailEsperaSuccessResponse,
-} from "common";
+import { EmailEsperaResponse } from "common";
 import { useFetchAPI } from "helpers";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -23,18 +19,14 @@ export default () => {
     (email: string) => {
       setLoading(true);
 
-      return fetchAPI<EmailEsperaSuccessResponse | EmailEsperaFailureResponse>(
+      return fetchAPI<EmailEsperaResponse>(
         "/auth/email-espera",
         (data) => {
-          if ((data as EmailEsperaBaseResponse).exists) {
-            localStorage.setItem(
-              "access-token",
-              (data as EmailEsperaSuccessResponse).accessToken
-            );
+          if (data.exists) {
             dispatch(validatedInWaitingList(email));
             history.push("/donar-alta/formulari");
-          } else if ((data as EmailEsperaFailureResponse).message) {
-            setAlertMessage((data as EmailEsperaFailureResponse).message);
+          } else {
+            setAlertMessage(data.message);
           }
         },
         { method: "POST", body: JSON.stringify({ email }) }

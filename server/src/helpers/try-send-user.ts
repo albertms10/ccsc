@@ -19,8 +19,11 @@ export default (
       },
     });
 
-  res.send({
-    user,
-    accessToken,
+  res.cookie("amcc_accesstoken", accessToken, {
+    maxAge: 10800 * 1000,
+    httpOnly: true,
+    sameSite: true,
   });
+
+  res.send(user);
 };

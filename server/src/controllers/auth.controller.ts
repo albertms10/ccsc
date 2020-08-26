@@ -56,34 +56,38 @@ export const signIn: ControllerRequestHandler<
 };
 
 export const signOut: ControllerRequestHandler = (req, res) => {
-  res.clearCookie("ccsc_accesstoken");
+  res.clearCookie("amcc_accesstoken");
   res.status(200).send();
 };
 
-export const emailEspera: ControllerRequestHandler<EmailResponse, string> = (
-  req,
-  res,
-  next
-) => {
+export const emailEspera: ControllerRequestHandler<
+  EmailResponse,
+  { email: string }
+> = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
-  const email = req.body;
+  const { email } = req.body;
 
   pool
     .query<({ email_exists: boolean } & RowDataPacket)[]>(
       queryFile("auth/select__exists_email_espera"),
       [email]
     )
-    .then(([[{ email_exists }]]) =>
-      res.json({
-        exists: email_exists,
-        ...(email_exists
-          ? { accessToken: signJWT({ email }, { expiresIn: 1200 }) }
-          : {
-              message:
-                "L’adreça no és a la llista d’espera o ja està registrada.",
-            }),
-      })
-    )
+    .then(([[{ email_exists }]]) => {
+      const accessToken = signJWT({ email }, { expiresIn: 1200 });
+
+      res
+        .cookie("amcc_accesstoken", accessToken, {
+          maxAge: 1200 * 1000,
+          httpOnly: true,
+          sameSite: true,
+        })
+        .json({
+          exists: email_exists,
+          message: email_exists
+            ? "L’adreça no és a la llista d’espera o ja està registrada."
+            : "OK",
+        });
+    })
     .catch(next);
 };
 
@@ -94,7 +98,7 @@ export const userInfo: ControllerRequestHandler<Usuari | ResponseError> = (
 ) => {
   const pool: Pool = req.app.get("pool");
   const { userId: id_usuari } = res.locals;
-  const { authorization: accessToken } = req.headers;
+  const { amcc_accesstoken: accessToken } = req.cookies;
 
   pool
     .query<(Usuari & RowDataPacket)[]>(queryFile("auth/select__user_info"), {
