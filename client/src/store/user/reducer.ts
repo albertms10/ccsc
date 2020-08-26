@@ -45,7 +45,7 @@ export default (state = initialState, action: UserActionTypes): UserState => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          avisos: ((state.currentUser as Usuari).avisos as string[]).filter(
+          avisos: state.currentUser.avisos.filter(
             (avis) => avis !== action.payload
           ),
         },

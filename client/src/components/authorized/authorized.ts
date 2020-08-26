@@ -36,9 +36,7 @@ const Authorized: React.FC<AuthorizedProps> = ({
   children,
   ...rest
 }) => {
-  const roles = useSelector(
-    ({ user }: RootState) => user.currentUser.roles
-  ) as Role[];
+  const { roles } = useSelector(({ user }: RootState) => user.currentUser);
 
   const returnItem = render
     ? render({ authority, children, ...rest })

@@ -135,8 +135,8 @@ declare module "model" {
     cognoms: string;
     es_dona: boolean;
     es_actiu?: boolean;
-    avisos: string | string[];
-    roles?: string | Role[];
+    avisos: string[];
+    roles: Role[];
     hash?: string;
   }
 

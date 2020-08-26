@@ -13,7 +13,7 @@ export const signinUserFetch = (user: SignInUser): AppThunkAction => (
     ({ user, accessToken }) => {
       LogRocket.identify(user.id_usuari.toString(), {
         name: `${user.nom} ${user.cognoms}`,
-        roles: (user.roles as string[]).join(", "),
+        roles: user.roles.join(", "),
       });
 
       localStorage.setItem("access-token", accessToken);
