@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.route("/sign-in").post(controller.signIn);
 
+router.route("/sign-out").put([verifyAccessTokenHidden], controller.signOut);
+
 router.route("/email-espera").post(controller.emailEspera);
 
 router.route("/user").get([verifyAccessTokenHidden], controller.userInfo);

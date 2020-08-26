@@ -55,6 +55,11 @@ export const signIn: ControllerRequestHandler<
     .catch(next);
 };
 
+export const signOut: ControllerRequestHandler = (req, res) => {
+  res.clearCookie("ccsc_accesstoken");
+  res.status(200).send();
+};
+
 export const emailEspera: ControllerRequestHandler<EmailResponse, string> = (
   req,
   res,
