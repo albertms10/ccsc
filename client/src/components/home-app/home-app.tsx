@@ -7,7 +7,8 @@ import { Premsa } from "pages/home/premsa";
 import { QuiSom } from "pages/home/qui-som";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
+import { UnknownPage } from "standalone/unknown-page";
 import { linkText } from "utils";
 import { HomeMenu } from "./components/home-menu";
 import "./home-app.css";
@@ -35,23 +36,30 @@ const HomeApp: React.FC = () => {
         </Row>
       </Header>
       <Content>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path={`/${linkText(t("bio title"))}`} component={QuiSom} />
-        <Route
-          exact
-          path={`/${linkText(t("concerts title"))}`}
-          component={Concerts}
-        />
-        <Route
-          exact
-          path={`/${linkText(t("press title"))}`}
-          component={Premsa}
-        />
-        <Route
-          exact
-          path={`/${linkText(t("contact title"))}`}
-          component={Contacte}
-        />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route
+            exact
+            path={`/${linkText(t("bio title"))}`}
+            component={QuiSom}
+          />
+          <Route
+            exact
+            path={`/${linkText(t("concerts title"))}`}
+            component={Concerts}
+          />
+          <Route
+            exact
+            path={`/${linkText(t("press title"))}`}
+            component={Premsa}
+          />
+          <Route
+            exact
+            path={`/${linkText(t("contact title"))}`}
+            component={Contacte}
+          />
+          <Route component={UnknownPage} />
+        </Switch>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         &copy; 2020 Cor de Cambra Sant Cugat
