@@ -14,6 +14,7 @@ export { default as mapFirstOfProperty } from "./map-first-of-property";
 export { default as mapNumber } from "./map-number";
 export { default as nIndexOf } from "./n-index-of";
 export { default as pascalCase } from "./pascal-case";
+export { default as prettyString } from "./pretty-string";
 export { default as searchFilter } from "./search-filter";
 export { default as snakeCase } from "./snake-case";
 export { default as stripAccents } from "./strip-accents";
