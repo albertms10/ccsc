@@ -46,7 +46,7 @@ export const signIn: ControllerRequestHandler<
           },
         });
 
-      delete user.hash;
+      user.hash = undefined;
 
       const accessToken = signJWT({ id: user.id_usuari }, { expiresIn: 10800 });
 
