@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as controller from "../controllers/projectes.controller";
-import { isJuntaDirectiva, verifyAccessToken } from "../middleware/auth-jwt";
+import { isBoardOfDirectors, verifyAccessToken } from "../middleware/auth-jwt";
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router
 router
   .route("/:id")
   .get([verifyAccessToken], controller.projectes_detall)
-  .delete([verifyAccessToken, isJuntaDirectiva], controller.projectes_delete);
+  .delete([verifyAccessToken, isBoardOfDirectors], controller.projectes_delete);
 
 router
   .route("/:id/concerts")
@@ -32,21 +32,21 @@ router
 router
   .route("/:id/assajos")
   .post(
-    [verifyAccessToken, isJuntaDirectiva],
+    [verifyAccessToken, isBoardOfDirectors],
     controller.projectes_detall_assajos_post
   );
 
 router
   .route("/:id/moviments")
   .post(
-    [verifyAccessToken, isJuntaDirectiva],
+    [verifyAccessToken, isBoardOfDirectors],
     controller.projectes_detall_moviments_post
   );
 
 router
   .route("/:id_projecte/moviments/:id_moviment")
   .delete(
-    [verifyAccessToken, isJuntaDirectiva],
+    [verifyAccessToken, isBoardOfDirectors],
     controller.projectes_detall_moviments_delete
   );
 

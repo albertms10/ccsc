@@ -1,12 +1,12 @@
 /// <reference path="./common.d.ts" />
 import { Role } from "common";
 
-export const ROLES_JUNTA_DIRECTIVA: Role[] = [
-  "junta_directiva",
-  "direccio_musical",
+export const ROLES_BOARD_OF_DIRECTORS: Role[] = [
+  "board_of_directors",
+  "musical_management",
   "admin",
 ];
 
-export const ROLES_DIRECCIO_MUSICAL: Role[] = ["direccio_musical", "admin"];
+export const ROLES_MUSICAL_MANAGEMENT: Role[] = ["musical_management", "admin"];
 
 export const ROLES_ADMIN: Role[] = ["admin"];

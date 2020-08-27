@@ -1,8 +1,8 @@
 import { Role } from "common";
 import {
   hasRoleAdmin,
-  hasRoleDireccioMusical,
-  hasRoleJuntaDirectiva,
+  hasRoleMusicalManagement,
+  hasRoleBoardOfDirectors,
 } from "helpers/role-checker";
 import React, { PropsWithChildren, useCallback } from "react";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const Authorized: React.FC<AuthorizedProps> = ({
   render,
   component,
   elseElement,
-  authority = "junta_directiva",
+  authority = "board_of_directors",
   children,
   ...rest
 }) => {
@@ -49,11 +49,11 @@ const Authorized: React.FC<AuthorizedProps> = ({
   );
 
   switch (authority) {
-    case "junta_directiva":
-      return checkRole(hasRoleJuntaDirectiva);
+    case "board_of_directors":
+      return checkRole(hasRoleBoardOfDirectors);
 
-    case "direccio_musical":
-      return checkRole(hasRoleDireccioMusical);
+    case "musical_management":
+      return checkRole(hasRoleMusicalManagement);
 
     case "admin":
       return checkRole(hasRoleAdmin);

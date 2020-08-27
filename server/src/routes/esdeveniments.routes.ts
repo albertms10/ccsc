@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as controller from "../controllers/esdeveniments.controller";
-import { isJuntaDirectiva, verifyAccessToken } from "../middleware/auth-jwt";
+import { isBoardOfDirectors, verifyAccessToken } from "../middleware/auth-jwt";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router
   .route("/:id/assistents")
   .get([verifyAccessToken], controller.esdeveniments_detall_assistents_get)
   .put(
-    [verifyAccessToken, isJuntaDirectiva],
+    [verifyAccessToken, isBoardOfDirectors],
     controller.esdeveniments_detall_assistents_put
   );
 

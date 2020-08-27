@@ -11,7 +11,7 @@ import {
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
 import { ControllerRequestHandler } from "server-model";
-import { ROLES_JUNTA_DIRECTIVA } from "../../../common/common.constants";
+import { ROLES_BOARD_OF_DIRECTORS } from "../../../common/common.constants";
 import { queryFile } from "../helpers";
 
 export const socis_count: ControllerRequestHandler<CountSocis> = (
@@ -192,7 +192,7 @@ export const socis_detall_formacions: ControllerRequestHandler<Formacio[]> = (
   pool
     .query<(Formacio & RowDataPacket)[][]>(
       queryFile("socis/select__formacions_soci"),
-      [id, ROLES_JUNTA_DIRECTIVA]
+      [id, ROLES_BOARD_OF_DIRECTORS]
     )
     .then(([[_, formacions]]) => res.json(formacions))
     .catch(next);
@@ -209,7 +209,7 @@ export const socis_detall_projectes: ControllerRequestHandler<Projecte[]> = (
   pool
     .query<(Projecte & RowDataPacket)[][]>(
       queryFile("socis/select__projectes_soci"),
-      [id, ROLES_JUNTA_DIRECTIVA]
+      [id, ROLES_BOARD_OF_DIRECTORS]
     )
     .then(([[_, projectes]]) => res.json(projectes))
     .catch(next);
@@ -226,7 +226,7 @@ export const socis_detall_assajos: ControllerRequestHandler<Assaig[]> = (
   pool
     .query<(Assaig & RowDataPacket)[][]>(
       queryFile("socis/select__assajos_soci"),
-      [id, ROLES_JUNTA_DIRECTIVA]
+      [id, ROLES_BOARD_OF_DIRECTORS]
     )
     .then(([[_, assajos]]) => res.json(assajos))
     .catch(next);

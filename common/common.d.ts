@@ -1,8 +1,8 @@
 declare module "common" {
   export type Role =
-    | "usuari"
-    | "junta_directiva"
-    | "direccio_musical"
+    | "user"
+    | "board_of_directors"
+    | "musical_management"
     | "admin";
 
   export interface AnyMap {

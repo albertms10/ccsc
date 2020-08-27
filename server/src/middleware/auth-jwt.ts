@@ -3,8 +3,8 @@ import { Pool, RowDataPacket } from "mysql2/promise";
 import { ControllerRequestHandler } from "server-model";
 import {
   ROLES_ADMIN,
-  ROLES_DIRECCIO_MUSICAL,
-  ROLES_JUNTA_DIRECTIVA,
+  ROLES_MUSICAL_MANAGEMENT,
+  ROLES_BOARD_OF_DIRECTORS,
 } from "../../../common/common.constants";
 import { queryFile } from "../helpers";
 import { verifyJWT } from "../utils";
@@ -146,24 +146,24 @@ export const isRole: AuthRequestHandler = async (req, res, next) =>
 /*
  * `IS` FUNCTIONS
  */
-export const isAuthorOrJuntaDirectiva: AuthRequestHandler = async (
+export const isAuthorOrBoardOfDirectors: AuthRequestHandler = async (
   req,
   res,
   next
 ) => {
-  res.locals.roles = ROLES_JUNTA_DIRECTIVA;
+  res.locals.roles = ROLES_BOARD_OF_DIRECTORS;
   (await checkIsAuthor(req, res, next)) || (await checkIsRole(req, res, next))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "no auth" } });
 };
 
-export const isJuntaDirectiva: AuthRequestHandler = async (req, res, next) => {
-  res.locals.roles = ROLES_JUNTA_DIRECTIVA;
+export const isBoardOfDirectors: AuthRequestHandler = async (req, res, next) => {
+  res.locals.roles = ROLES_BOARD_OF_DIRECTORS;
   await isRole(req, res, next);
 };
 
-export const isDireccioMusical: AuthRequestHandler = async (req, res, next) => {
-  res.locals.roles = ROLES_DIRECCIO_MUSICAL;
+export const isMusicalManagement: AuthRequestHandler = async (req, res, next) => {
+  res.locals.roles = ROLES_MUSICAL_MANAGEMENT;
   await isRole(req, res, next);
 };
 

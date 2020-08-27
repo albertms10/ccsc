@@ -726,9 +726,9 @@ components:
           items:
             type: string
             enum:
-              - usuari
-              - junta_directiva
-              - direccio_musical
+              - user
+              - board_of_directors
+              - musical_management
               - admin
 
   securitySchemes:

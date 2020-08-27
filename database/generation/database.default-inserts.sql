@@ -97,9 +97,9 @@ VALUES (1, 'Gestió de l’associació', 'Tractament intern de les dades', 1, 'g
 
 
 INSERT IGNORE INTO roles (id_role, role)
-VALUES (1, 'usuari'),
-       (2, 'junta_directiva'),
-       (3, 'direccio_musical'),
+VALUES (1, 'user'),
+       (2, 'board_of_directors'),
+       (3, 'musical_management'),
        (4, 'admin');
 
 

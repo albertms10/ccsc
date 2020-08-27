@@ -1,16 +1,16 @@
 import { Role } from "common";
 import {
   ROLES_ADMIN,
-  ROLES_DIRECCIO_MUSICAL,
-  ROLES_JUNTA_DIRECTIVA,
+  ROLES_MUSICAL_MANAGEMENT,
+  ROLES_BOARD_OF_DIRECTORS,
 } from "constants/constants";
 import { includesSome } from "utils";
 
-export const hasRoleJuntaDirectiva = (roles: Role[]): boolean =>
-  includesSome(roles, ROLES_JUNTA_DIRECTIVA);
+export const hasRoleBoardOfDirectors = (roles: Role[]): boolean =>
+  includesSome(roles, ROLES_BOARD_OF_DIRECTORS);
 
-export const hasRoleDireccioMusical = (roles: Role[]): boolean =>
-  includesSome(roles, ROLES_DIRECCIO_MUSICAL);
+export const hasRoleMusicalManagement = (roles: Role[]): boolean =>
+  includesSome(roles, ROLES_MUSICAL_MANAGEMENT);
 
 export const hasRoleAdmin = (roles: Role[]): boolean =>
   includesSome(roles, ROLES_ADMIN);

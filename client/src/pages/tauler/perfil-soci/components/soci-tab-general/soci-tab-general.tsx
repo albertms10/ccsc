@@ -58,7 +58,7 @@ const SociTabGeneral: React.FC = () => {
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  role === "direccio_musical" ? (
+                  role === "musical_management" ? (
                     <CustomerServiceOutlined
                       style={{ color: "rgba(0, 0, 0, 0.65)" }}
                     />

@@ -139,7 +139,6 @@ const MainMenu: React.FC = () => {
       </MainMenuItemGroup>
       <MainMenuItemGroup key="grup_entitat" title={t("entity")}>
         <Authorized
-          authority="junta_directiva"
           {...getRouteProps(t("partners"))}
           render={(props) => (
             // TODO: Infer props from getRouteProps
