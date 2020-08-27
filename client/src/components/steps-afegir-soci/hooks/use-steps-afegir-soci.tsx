@@ -54,6 +54,8 @@ export default (
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
   const validatorDniES = useCallback(
     (rule, value: string) => {
+      if (!value) return Promise.reject();
+
       const XIFRES = 8;
 
       const letter = value ? value.charAt(value.length - 1) : "";
@@ -293,7 +295,7 @@ export default (
   };
 
   const handleValidateError = (e: Error) => {
-    message.warning(e);
+    if (e.toString() !== "[object Object]") message.warning(e.toString());
     setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "data"));
   };
 
@@ -304,8 +306,8 @@ export default (
 
         if (stepsRef[pageIndex].key === "summary")
           getUsername({ nom, cognoms });
-      } catch (error) {
-        handleValidateError(error);
+      } catch (e) {
+        handleValidateError(e);
         return;
       }
 
