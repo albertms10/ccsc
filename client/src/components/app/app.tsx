@@ -10,6 +10,7 @@ import React, { lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { Provider as StoreProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { UnknownPage } from "standalone/unknown-page";
 import { store } from "store";
 import { linkText } from "utils";
 import { RouteTauler } from "./components/route-tauler";
@@ -60,6 +61,7 @@ const App: React.FC = () => {
               component={TaulerApp}
             />
             <Route path="/" component={HomeApp} />
+            <Route component={UnknownPage} />
           </Switch>
         </BrowserRouter>
       </ConfigProvider>

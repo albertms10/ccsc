@@ -17,6 +17,7 @@ import React, { createContext, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { ErrorBoundary } from "standalone/error-boundary";
+import { UnknownPage } from "standalone/unknown-page";
 import { linkText } from "utils";
 import {
   FormacionsListContext,
@@ -142,7 +143,7 @@ const SiteLayout: React.FC = () => {
                 exact
                 path={`/${linkText(t("partners"))}`}
                 render={() => (
-                  <Authorized>
+                  <Authorized elseElement={<UnknownPage />}>
                     <Socis />
                   </Authorized>
                 )}
@@ -152,6 +153,7 @@ const SiteLayout: React.FC = () => {
                 path={`/${linkText(t("partners"))}/:id`}
                 component={PerfilSoci}
               />
+              <Route component={UnknownPage} />
             </Switch>
           </Content>
         </Layout>

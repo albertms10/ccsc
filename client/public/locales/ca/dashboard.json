@@ -1,5 +1,6 @@
 {
   "home": "Inici",
+  "go back home": "Torna a la pàgina d’inici",
   "dashboard": "Tauler",
   "formation": "Formació",
   "formations": "Formacions",
@@ -47,5 +48,6 @@
   "voices": "Veus",
   "no upcoming rehearsals": "Sense assajos propers",
   "m welcome": "Benvingut",
-  "f welcome": "Benvinguda"
+  "f welcome": "Benvinguda",
+  "unknown page": "Pàgina no trobada"
 }
