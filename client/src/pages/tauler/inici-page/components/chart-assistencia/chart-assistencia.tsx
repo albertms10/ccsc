@@ -43,7 +43,7 @@ const ChartAssistencia: React.FC = () => {
           connector: t("common:of connector"),
         }).join(" · "),
       })),
-    []
+    [t]
   );
 
   const estatConfig = useMemo(
