@@ -3,9 +3,11 @@ import { DATE_FORMAT } from "constants/constants";
 import { useFetchAPI } from "helpers";
 import { Projecte } from "model";
 import moment from "moment";
+import { useCheckInicials } from "pages/tauler/projectes/components/modal-afegir-projecte/hooks/index";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProjectes } from "store/projectes/thunks";
+import { initials } from "utils";
 
 export default () => {
   const dispatch = useDispatch();
@@ -13,6 +15,12 @@ export default () => {
   const fetchAPI = useFetchAPI();
 
   const [form] = Form.useForm();
+
+  const [
+    inicialsDisponibles,
+    loadingInicials,
+    checkInicials,
+  ] = useCheckInicials();
 
   const postProjecte = useCallback(
     (projecte: Projecte) =>
@@ -40,5 +48,38 @@ export default () => {
     [form, postProjecte]
   );
 
-  return [form, handleOk] as const;
+  const handleTitolChange = useCallback(
+    ({ target }) => {
+      const inicials = initials(target.value, {
+        minValue: 3,
+        maxInitials: 2,
+      }).toUpperCase();
+
+      if (inicials && form.getFieldValue("inicials") !== inicials) {
+        form.setFieldsValue({ inicials });
+        checkInicials(inicials);
+      }
+    },
+    [checkInicials, form]
+  );
+
+  const validateInicialsStatus = useCallback(() => {
+    const inicialsField = form.getFieldValue("inicials");
+
+    return loadingInicials
+      ? "validating"
+      : inicialsField && inicialsField.inicials
+      ? inicialsDisponibles
+        ? "success"
+        : "warning"
+      : "";
+  }, [form, inicialsDisponibles, loadingInicials]);
+
+  return [
+    form,
+    handleOk,
+    handleTitolChange,
+    checkInicials,
+    validateInicialsStatus,
+  ] as const;
 };

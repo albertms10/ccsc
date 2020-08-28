@@ -18,13 +18,12 @@ import { TagSelectFormItemFormacions } from "components/tag-select-form-item-for
 import { useAPI } from "helpers";
 import { Curs } from "model";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "store/types";
-import { initials } from "utils";
-import { useAfegirProjecte, useCheckInicials } from "./hooks";
+import { useAfegirProjecte } from "./hooks";
 
 const { Option } = Select;
 
@@ -35,30 +34,15 @@ const ModalAfegirProjecte: React.FC = () => {
 
   const [color, setColor] = useState({} as ColorResult);
 
-  const [form, handleOk] = useAfegirProjecte();
-
-  const [
-    inicialsDisponibles,
-    loadingInicials,
-    checkInicials,
-  ] = useCheckInicials();
-
   const [cursos, loadingCursos] = useAPI<Curs[]>("/entitats/cursos", []);
 
-  const handleTitolChange = useCallback(
-    ({ target }) => {
-      const inicials = initials(target.value, {
-        minValue: 3,
-        maxInitials: 2,
-      }).toUpperCase();
-
-      if (inicials && form.getFieldValue("inicials") !== inicials) {
-        form.setFieldsValue({ inicials });
-        checkInicials(inicials);
-      }
-    },
-    [checkInicials, form]
-  );
+  const [
+    form,
+    handleOk,
+    handleTitolChange,
+    checkInicials,
+    validateInicialsStatus,
+  ] = useAfegirProjecte();
 
   return (
     <ModalButton
@@ -85,16 +69,8 @@ const ModalAfegirProjecte: React.FC = () => {
             <Col sm={8} md={4}>
               <Form.Item
                 name="inicials"
-                label="Inicials"
-                validateStatus={
-                  loadingInicials
-                    ? "validating"
-                    : form.getFieldsValue(["inicials"]).inicials
-                    ? inicialsDisponibles
-                      ? "success"
-                      : "warning"
-                    : ""
-                }
+                label={t("fields:initials")}
+                validateStatus={validateInicialsStatus()}
                 hasFeedback
                 rules={[{ required: true, message: t("enter initials") }]}
               >
