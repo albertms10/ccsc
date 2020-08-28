@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import "./search-complete.css";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 
@@ -34,11 +35,13 @@ const SearchComplete = <T,>({
   data,
   filter,
   loading = false,
-  placeholder = "Cerca",
+  placeholder,
   optionRenderObject,
   onSelect,
   showAllResults = false,
 }: PropsWithChildren<SearchCompleteProps<T>>): JSX.Element => {
+  const { t } = useTranslation();
+
   const [options, setOptions] = useState<(OptionData | OptionGroupData)[]>([]);
 
   const searchOption = useCallback(
@@ -70,7 +73,7 @@ const SearchComplete = <T,>({
           className="search-complete-input"
           size="large"
           loading={loading}
-          placeholder={placeholder}
+          placeholder={placeholder || t("search")}
           allowClear
         />
       </AutoComplete>

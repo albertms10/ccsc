@@ -46,7 +46,7 @@ const ModalAfegirProjecte: React.FC = () => {
 
   return (
     <ModalButton
-      title="Afegir projecte"
+      title={t("actions:add project")}
       confirmLoading={loading}
       onOk={(setVisible) => {
         handleOk().then(() => {

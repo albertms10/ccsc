@@ -18,7 +18,7 @@ export default (
   {
     isLong = true,
     includesYear = true,
-    connector = " de",
+    connector = " ",
   }: DateRangeOptions = {}
 ): string[] => {
   const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
@@ -30,7 +30,7 @@ export default (
       ? startFormat
       : startFormat.substring(
           0,
-          nIndexOf(startFormat, " de", formatMatch ? formatMatch.length : 0)
+          nIndexOf(startFormat, connector, formatMatch ? formatMatch.length : 0)
         ),
     ...(timeStart
       ? [

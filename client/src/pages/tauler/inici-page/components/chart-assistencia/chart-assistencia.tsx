@@ -10,6 +10,7 @@ import {
   yellow,
 } from "@ant-design/colors";
 import { Card } from "antd";
+import { AssistenciaGroupBy } from "common";
 import { useAPI } from "helpers";
 import {
   AssistenciaAssaigEstat,
@@ -25,12 +26,12 @@ const ChartAssistencia: React.FC = () => {
 
   const [assistenciaAssajosEstat, loadingAssistenciaAssajosEstat] = useAPI<
     AssistenciaAssaigEstat[]
-  >("/assajos/assistencia?group-by=estat", []);
+  >("/assajos/assistencia?group-by=state", []);
   const [assistenciaAssajosVeus, loadingAssistenciaAssajosVeus] = useAPI<
     AssistenciaAssaigVeus[]
-  >("/assajos/assistencia?group-by=veus", []);
+  >("/assajos/assistencia?group-by=voices", []);
 
-  const [key, setKey] = useState("estat");
+  const [key, setKey] = useState<AssistenciaGroupBy>("state");
 
   const mapAssistencia = useCallback(
     (assistenciaAssajos: AssistenciesAssaig[]): AssistenciesAssaig[] =>
@@ -39,6 +40,7 @@ const ChartAssistencia: React.FC = () => {
         assaig: dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
           isLong: false,
           includesYear: false,
+          connector: t("common:of connector"),
         }).join(" · "),
       })),
     []
@@ -78,11 +80,11 @@ const ChartAssistencia: React.FC = () => {
     <Card
       title={t("assistance")}
       tabList={[
-        { key: "estat", tab: t("state") },
-        { key: "veus", tab: t("voices") },
+        { key: "state", tab: t("state") },
+        { key: "voices", tab: t("voices") },
       ]}
       activeTabKey={key}
-      onTabChange={setKey}
+      onTabChange={(key) => setKey(key as AssistenciaGroupBy)}
     >
       <StackedArea
         padding="auto"
@@ -91,7 +93,7 @@ const ChartAssistencia: React.FC = () => {
         yField="value"
         stackField="type"
         smooth
-        {...(key === "estat" ? estatConfig : veusConfig)}
+        {...(key === "state" ? estatConfig : veusConfig)}
       />
     </Card>
   );

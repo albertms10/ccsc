@@ -6,6 +6,7 @@ import { useDeleteAPI } from "helpers";
 import { searchFilterProjecte } from "helpers/search-filters";
 import moment from "moment";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ColorCard } from "standalone/color-card";
@@ -27,6 +28,8 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
   searchValue,
   inactius = false,
 }) => {
+  const { t } = useTranslation("dashboard");
+
   const dispatch = useDispatch();
 
   const formacions = useContext(FormacionsListContext);
@@ -35,7 +38,7 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
 
   const [loadingDelete, showDeleteConfirm] = useDeleteAPI(
     "/projectes",
-    "el projecte",
+    t("modals:the project"),
     () => dispatch(fetchProjectes())
   );
 
@@ -82,8 +85,8 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
               <DropdownBorderlessButton
                 items={[
                   {
-                    key: "eliminar",
-                    action: "Eliminar",
+                    key: t("common:delete"),
+                    action: t("common:delete"),
                     danger: true,
                     onClick: () => showDeleteConfirm(projecte.id_projecte),
                   },
@@ -100,20 +103,44 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
               title={projecte.titol}
               description={
                 <Space direction="vertical">
-                  {projecte.directors.length > 0 && (
-                    <div>
-                      <Text strong>Col·laboradors:</Text>{" "}
-                      {literalList(projecte.directors.map(({ nom }) => nom))}
-                    </div>
-                  )}
-                  {formacions.length > 1 && projecte.formacions.length > 0 && (
-                    <div>
-                      <Text strong>Formacions:</Text>{" "}
-                      {literalList(
-                        projecte.formacions.map(({ nom_curt }) => nom_curt)
-                      )}
-                    </div>
-                  )}
+                  {[
+                    ...(projecte.directors.length > 0
+                      ? [
+                          <div key="collaborators">
+                            <Text strong>
+                              {t(
+                                projecte.directors.length === 1
+                                  ? "collaborator"
+                                  : "collaborators"
+                              )}
+                              :
+                            </Text>{" "}
+                            {literalList(
+                              projecte.directors.map(({ nom }) => nom)
+                            )}
+                          </div>,
+                        ]
+                      : []),
+                    ...(formacions.length > 1 && projecte.formacions.length > 0
+                      ? [
+                          <div key="formations">
+                            <Text strong>
+                              {t(
+                                projecte.formacions.length === 1
+                                  ? "formation"
+                                  : "formations"
+                              )}
+                              :
+                            </Text>{" "}
+                            {literalList(
+                              projecte.formacions.map(
+                                ({ nom_curt }) => nom_curt
+                              )
+                            )}
+                          </div>,
+                        ]
+                      : []),
+                  ]}
                 </Space>
               }
               {...(inactius && { style: { opacity: 0.6 } })}

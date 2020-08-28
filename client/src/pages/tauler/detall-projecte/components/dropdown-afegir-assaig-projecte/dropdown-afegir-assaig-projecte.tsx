@@ -5,6 +5,7 @@ import { Projecte } from "model";
 import moment from "moment";
 import { ModalAfegirAssaig } from "pages/tauler/assajos/components/modal-afegir-assaig";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { ActionButton } from "standalone/action-button";
 import { fetchAssajos } from "store/assajos/thunks";
@@ -16,6 +17,8 @@ interface DropdownAfegirAssaigProjecteProps {
 const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> = ({
   projecte,
 }) => {
+  const { t } = useTranslation("actions");
+
   const dispatch = useDispatch();
 
   const [loadingPostAssaig, postAssaig] = usePostAPI<{ id_assaig: number }>(
@@ -23,13 +26,13 @@ const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> 
   );
 
   return (
-    <ActionButton mainAction="Afegir assaig">
+    <ActionButton mainAction={t("add rehearsal")}>
       <ModalAfegirAssaig
-        button={<Menu.Item>Nou assaig</Menu.Item>}
+        button={<Menu.Item>{t("new rehearsal")}</Menu.Item>}
         idProjecte={projecte.id_projecte}
       />
       <ModalSeleccionarAssaig
-        button={<Menu.Item>Selecciona assaig</Menu.Item>}
+        button={<Menu.Item>{t("select rehearsal")}</Menu.Item>}
         loading={loadingPostAssaig}
         dataFilter={(assaig) =>
           !assaig.projectes.find(

@@ -11,7 +11,7 @@ interface ModalAfegirMovimentProps extends ModalButtonBaseProps {
 
 const ModalAfegirMoviment: React.FC<ModalAfegirMovimentProps> = ({
   getMoviments,
-  title = "Afegir moviment",
+  title,
   ...rest
 }) => {
   const { t } = useTranslation("fields");
@@ -22,7 +22,7 @@ const ModalAfegirMoviment: React.FC<ModalAfegirMovimentProps> = ({
 
   return (
     <ModalButton
-      title={title}
+      title={title || t("actions:add movement")}
       confirmLoading={loading}
       onOk={(setVisible) => {
         handleOk().then(() => {

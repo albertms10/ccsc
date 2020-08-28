@@ -16,5 +16,8 @@
   "inactive": "Inactivo",
   "except value": "Sin {{value}}",
   "start": "Inicio",
-  "end": "Final"
+  "end": "Final",
+  "total items": "Total: {{items}}",
+  "no duration": "Sin duración",
+  "of connector": " de"
 }

@@ -46,7 +46,8 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
               assaig.dia_inici,
               assaig.hora_inici,
               assaig.dia_final,
-              assaig.hora_final
+              assaig.hora_final,
+              { connector: t("common:of connector") }
             ),
             (item, index) => (
               <span key={index}>{item}</span>

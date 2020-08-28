@@ -2,6 +2,7 @@ import { ModalSeleccionarMoviment } from "components/modal-seleccionar-moviment"
 import { usePostAPI } from "helpers";
 import { Projecte } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { ActionButton } from "standalone/action-button";
 import { fetchMoviments } from "store/moviments/thunks";
@@ -13,6 +14,8 @@ interface DropdownAfegirMovimentProjecteProps {
 const DropdownAfegirMovimentProjecte: React.FC<DropdownAfegirMovimentProjecteProps> = ({
   projecte,
 }) => {
+  const { t } = useTranslation("actions");
+
   const dispatch = useDispatch();
 
   const [loadingPostMoviment, postMoviment] = usePostAPI<{
@@ -21,7 +24,7 @@ const DropdownAfegirMovimentProjecte: React.FC<DropdownAfegirMovimentProjectePro
 
   return (
     <ModalSeleccionarMoviment
-      button={<ActionButton mainAction="Seleccionar moviment" />}
+      button={<ActionButton mainAction={t("select movement")} />}
       loading={loadingPostMoviment}
       dataFilter={(moviment) =>
         !moviment.projectes.find(

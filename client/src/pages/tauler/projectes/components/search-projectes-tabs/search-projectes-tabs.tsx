@@ -1,17 +1,20 @@
 import { Input, Tabs } from "antd";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LlistaProjectes } from "../llista-projectes";
 
 const { Search } = Input;
 const { TabPane } = Tabs;
 
 const SearchProjectesTabs: React.FC = () => {
+  const { t } = useTranslation("actions");
+
   const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className="llista-projectes">
       <Search
-        placeholder="Cerca projectes"
+        placeholder={t("search projects")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
@@ -19,10 +22,10 @@ const SearchProjectesTabs: React.FC = () => {
         style={{ width: "100%", marginBottom: "1rem" }}
       />
       <Tabs>
-        <TabPane tab="Actius" key="projectes-actius">
+        <TabPane tab={t("common:active")} key="projectes-actius">
           <LlistaProjectes searchValue={searchValue} />
         </TabPane>
-        <TabPane tab="Inactius" key="projectes-inactius">
+        <TabPane tab={t("common:inactive")} key="projectes-inactius">
           <LlistaProjectes searchValue={searchValue} inactius />
         </TabPane>
       </Tabs>

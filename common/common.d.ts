@@ -13,6 +13,8 @@ declare module "common" {
     [key: string]: boolean;
   }
 
+  export type AssistenciaGroupBy = "state" | "voices";
+
   export interface FetchError {
     status: number;
     message: string;

@@ -1,3 +1,4 @@
+import { AssistenciaGroupBy } from "common";
 import {
   Assaig,
   AssistenciesAssaig,
@@ -63,14 +64,14 @@ export const assajos_assistencia: ControllerRequestHandler<
   AssistenciesAssaig[]
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
-  const { "group-by": groupBy } = req.query;
+  const groupBy = req.query["group-by"] as AssistenciaGroupBy;
 
   pool
     .query<(AssistenciesAssaig & RowDataPacket)[]>(
       queryFile(
-        groupBy === "veus"
-          ? "assajos/select__assistencia_assajos_veus"
-          : "assajos/select__assistencia_assajos_estat"
+        groupBy === "state"
+          ? "assajos/select__assistencia_assajos_state"
+          : "assajos/select__assistencia_assajos_voices"
       )
     )
     .then(([assistencia]) => res.json(assistencia))

@@ -2,10 +2,13 @@ import { ModalButton } from "components/modal-button";
 import { StepsAfegirSoci } from "components/steps-afegir-soci";
 import { useStepsAfegirSoci } from "components/steps-afegir-soci/hooks";
 import React, { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { fetchSocis } from "store/socis/thunks";
 
 const ModalAfegirSoci: React.FC = () => {
+  const { t } = useTranslation("actions");
+
   const dispatch = useDispatch();
 
   const modalButtonRef = useRef(null);
@@ -28,7 +31,7 @@ const ModalAfegirSoci: React.FC = () => {
   return (
     <ModalButton
       ref={modalButtonRef}
-      title="Afegir persona associada"
+      title={t("add partner")}
       width={720}
       footer={footerActions}
       renderModalBody={() => (

@@ -16,5 +16,8 @@
   "inactive": "Inactiu",
   "except value": "Sense {{value}}",
   "start": "Inici",
-  "end": "Final"
+  "end": "Final",
+  "total items": "Total: {{items}}",
+  "no duration": "Sense durada",
+  "of connector": " de"
 }

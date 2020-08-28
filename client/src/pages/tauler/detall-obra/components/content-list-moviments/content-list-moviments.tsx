@@ -6,6 +6,7 @@ import { useAPI } from "helpers";
 import { Moviment } from "model";
 import { ObraContext } from "pages/tauler/detall-obra";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";
 import { ContentList } from "standalone/content-list";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
@@ -13,6 +14,8 @@ import { timeDuration } from "utils";
 import { ModalAfegirMoviment } from "../modal-afegir-moviment";
 
 const ContentListMoviments: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const { id_obra, durada_total } = useContext(ObraContext);
 
   const [moviments, loadingMoviments, getMoviments] = useAPI<Moviment[]>(
@@ -22,14 +25,14 @@ const ContentListMoviments: React.FC = () => {
 
   return (
     <ContentList
-      title="Moviments"
+      title={t("movements")}
       loading={loadingMoviments}
       dataSource={moviments.map((moviment) => ({
         id: moviment.id_moviment,
         title: moviment.titol_moviment,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
         actions: [
-          timeDuration(moviment.durada),
+          timeDuration(moviment.durada, t("common:no duration")),
           ...(moviment.projectes && moviment.projectes.length > 0
             ? [
                 <FixedTagsProjectes
@@ -42,8 +45,8 @@ const ContentListMoviments: React.FC = () => {
             <DropdownBorderlessButton
               items={[
                 {
-                  key: "eliminar",
-                  action: "Eliminar",
+                  key: t("common:delete"),
+                  action: t("common:delete"),
                   danger: true,
                   onClick: undefined,
                 },
@@ -63,7 +66,12 @@ const ContentListMoviments: React.FC = () => {
           getMoviments={getMoviments}
         />
       }
-      extra={durada_total && `Total: ${timeDuration(durada_total)}`}
+      extra={
+        durada_total &&
+        t("common:total items", {
+          items: timeDuration(durada_total, t("common:no duration")),
+        })
+      }
     />
   );
 };
