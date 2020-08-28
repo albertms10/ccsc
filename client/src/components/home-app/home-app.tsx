@@ -8,7 +8,7 @@ import { QuiSom } from "pages/home/qui-som";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Route, Switch } from "react-router-dom";
-import { UnknownPage } from "standalone/unknown-page";
+import { PageNotFound } from "standalone/page-not-found";
 import { linkText } from "utils";
 import { HomeMenu } from "./components/home-menu";
 import "./home-app.css";
@@ -58,7 +58,7 @@ const HomeApp: React.FC = () => {
             path={`/${linkText(t("contact title"))}`}
             component={Contacte}
           />
-          <Route component={UnknownPage} />
+          <Route component={PageNotFound} />
         </Switch>
       </Content>
       <Footer style={{ textAlign: "center" }}>
