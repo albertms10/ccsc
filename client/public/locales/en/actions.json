@@ -5,10 +5,12 @@
   "select rehearsal": "Select rehearsal",
   "search rehearsals": "Search rehearsals",
   "add rehearsal": "Add rehearsal",
+  "new rehearsal": "New rehearsal",
   "select movement": "Select movement",
   "search movements": "Search movements",
   "add announced voices": "Add announced voices",
   "search partners": "Search partners",
+  "add partner": "Add partner",
   "search formations": "Search formations",
   "add formations": "Add formations",
   "no formations": "No formations",
@@ -17,5 +19,6 @@
   "no projects": "No projects",
   "search voices": "Search voices",
   "add location": "Add location",
-  "add notes": "Add notes"
+  "add notes": "Add notes",
+  "delete from rehearsal": "Eliminar de l’assaig"
 }

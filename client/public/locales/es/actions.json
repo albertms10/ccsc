@@ -5,10 +5,12 @@
   "select rehearsal": "Seleccionar un ensayo",
   "search rehearsals": "Buscar ensayos",
   "add rehearsal": "Añadir ensayo",
+  "new rehearsal": "Nuevo ensayo",
   "select movement": "Seleccionar un movimiento",
   "search movements": "Buscar movimientos",
   "add announced voices": "Añadir voces convocadas",
   "search partners": "Buscar socios",
+  "add partner": "Añadir socio",
   "search formations": "Buscar formaciones",
   "add formations": "Añadir formaciones",
   "no formations": "Sin formaciones",
@@ -17,5 +19,6 @@
   "no projects": "Sin proyectos",
   "search voices": "Buscar voces",
   "add location": "Añadir localización",
-  "add notes": "Añadir notas"
+  "add notes": "Añadir notas",
+  "delete from rehearsal": "Eliminar del ensayo"
 }

@@ -4,6 +4,7 @@ import { useAPI, useDeleteAPI } from "helpers";
 import { Moviment } from "model";
 import { AssaigContext } from "pages/tauler/detall-assaig";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";
 import { ContentList } from "standalone/content-list";
 import { ModalFragmentsTreballatsMoviment } from "../modal-fragments-treballats-moviment";
@@ -11,6 +12,8 @@ import { ModalListMovimentsAssaig } from "../modal-list-moviments-assaig";
 import { PopoverProjectesAssaig } from "../popover-projectes-assaig";
 
 const ContentListMovimentsAssaig: React.FC = () => {
+  const { t } = useTranslation("dashboard");
+
   const assaig = useContext(AssaigContext);
 
   const [moviments, loadingMoviments, getMovimentsAssaig] = useAPI<Moviment[]>(
@@ -19,13 +22,13 @@ const ContentListMovimentsAssaig: React.FC = () => {
   );
   const [loadingDelete, deleteMoviment] = useDeleteAPI(
     `/assajos/${assaig.id_assaig}/moviments`,
-    "el moviment",
+    t("modals:the movement"),
     getMovimentsAssaig
   );
 
   return (
     <ContentList
-      title="Moviments"
+      title={t("movements")}
       dataSource={moviments.map((moviment) => ({
         id: moviment.id_moviment,
         title: moviment.titol_moviment,
@@ -37,7 +40,7 @@ const ContentListMovimentsAssaig: React.FC = () => {
             key="delete"
             size="small"
             shape="circle"
-            tooltip="Eliminar de l’assaig"
+            tooltip={t("actions:delete from rehearsal")}
             icon={<CloseOutlined />}
             onClick={() => deleteMoviment(moviment.id_moviment)}
           />,
