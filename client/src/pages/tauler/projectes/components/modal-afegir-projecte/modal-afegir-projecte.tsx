@@ -54,6 +54,7 @@ const ModalAfegirProjecte: React.FC = () => {
           form.resetFields();
         });
       }}
+      forceRender
       renderModalBody={() => (
         <Form form={form} layout="vertical">
           <Row gutter={16}>

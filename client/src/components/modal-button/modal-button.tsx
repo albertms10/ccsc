@@ -9,6 +9,7 @@ export interface ModalButtonBaseProps {
   button?: React.ReactElement;
   wrapClassName?: string;
   width?: number;
+  forceRender?: boolean;
 }
 
 interface ModalButtonProps extends ModalButtonBaseProps {
@@ -36,6 +37,7 @@ const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
       footer,
       renderModalBody,
       wrapClassName,
+      forceRender = false,
       ...rest
     },
     ref
@@ -75,6 +77,7 @@ const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
           footer={footer}
           width={width}
           wrapClassName={wrapClassName}
+          forceRender={forceRender}
         >
           {renderModalBody([visible, setVisible])}
         </Modal>
