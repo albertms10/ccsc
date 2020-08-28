@@ -323,16 +323,18 @@ export default (
       <div style={{ flex: 1, textAlign: "start" }}>
         {currentPageIndex > 0 && (
           <Button key="previous" onClick={previous}>
-            {t("prev")}
+            {t("common:prev")}
           </Button>
         )}
       </div>
       <Space>
         {currentPageIndex < stepsRef.length - 1 ? (
           <Button key="next" type="primary" onClick={next}>
-            {stepsRef[currentPageIndex].key === "protection"
-              ? t("entity:agree with the terms")
-              : t("next")}
+            {t(
+              stepsRef[currentPageIndex].key === "protection"
+                ? "entity:agree with the terms"
+                : "common:next"
+            )}
           </Button>
         ) : (
           <Button

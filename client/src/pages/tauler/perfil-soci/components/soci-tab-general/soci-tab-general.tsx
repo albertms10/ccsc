@@ -8,12 +8,14 @@ import { SiderBrokenContext } from "components/tauler-app/contexts/sider-context
 import moment from "moment";
 import { SociContext } from "pages/tauler/perfil-soci";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
-import { upperCaseFirst } from "utils";
 
 const { Item } = Descriptions;
 
 const SociTabGeneral: React.FC = () => {
+  const { t } = useTranslation("fields");
+
   const soci = useContext(SociContext);
   const broken = useContext(SiderBrokenContext);
 
@@ -21,37 +23,37 @@ const SociTabGeneral: React.FC = () => {
 
   return (
     <Space size="middle" direction="vertical" style={{ marginTop: ".5rem" }}>
-      <InfoCard title="Dades personals">
+      <InfoCard title={t("personal data")}>
         <Descriptions size={descriptionsSize} layout="vertical">
-          <Item label="DNI">
+          <Item label={t("person id")}>
             <Typography.Paragraph className="action-text" copyable>
               {soci.dni}
             </Typography.Paragraph>
           </Item>
-          <Item label="Naixement">
+          <Item label={t("birth date")}>
             <Typography.Paragraph className="action-text" copyable>
               {moment(soci.naixement).format("LL")}
             </Typography.Paragraph>
           </Item>
         </Descriptions>
       </InfoCard>
-      <InfoCard title="Dades de contacte">
+      <InfoCard title={t("contact data")}>
         <Descriptions size={descriptionsSize} layout="vertical">
           {soci.telefon && (
-            <Item label="Telèfon">
+            <Item label={t("phone")}>
               <Typography.Paragraph className="action-text" copyable>
                 {soci.telefon}
               </Typography.Paragraph>
             </Item>
           )}
-          <Item label="Adreça electrònica">
+          <Item label={t("email")}>
             <Typography.Paragraph className="action-text" copyable>
               {soci.email}
             </Typography.Paragraph>
           </Item>
         </Descriptions>
       </InfoCard>
-      <InfoCard title="Rols d’usuari">
+      <InfoCard title={t("user roles")}>
         <List
           dataSource={soci.roles}
           renderItem={(role) => (
@@ -68,7 +70,7 @@ const SociTabGeneral: React.FC = () => {
                     <UserOutlined style={{ color: "rgba(0, 0, 0, 0.65)" }} />
                   )
                 }
-                title={upperCaseFirst(role.split("_").join(" "))}
+                title={t(`sign-in:${role}`)}
                 style={{ fontSize: "medium" }}
               />
             </List.Item>

@@ -20,6 +20,7 @@ import { Curs } from "model";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "store/types";
 import { initials } from "utils";
@@ -28,6 +29,8 @@ import { useAfegirProjecte, useCheckInicials } from "./hooks";
 const { Option } = Select;
 
 const ModalAfegirProjecte: React.FC = () => {
+  const { t } = useTranslation(["validation", "fields"]);
+
   const { loading } = useSelector(({ projectes }: RootState) => projectes);
 
   const [color, setColor] = useState({} as ColorResult);
@@ -73,8 +76,8 @@ const ModalAfegirProjecte: React.FC = () => {
             <Col sm={16} md={20}>
               <Form.Item
                 name="titol"
-                label="Títol"
-                rules={[{ required: true, message: "Introdueix el títol" }]}
+                label={t("fields:title")}
+                rules={[{ required: true, message: t("enter title") }]}
               >
                 <Input onChange={handleTitolChange} />
               </Form.Item>
@@ -93,13 +96,13 @@ const ModalAfegirProjecte: React.FC = () => {
                     : ""
                 }
                 hasFeedback
-                rules={[{ required: true, message: "Introdueix les inicials" }]}
+                rules={[{ required: true, message: t("enter initials") }]}
               >
                 <Input onChange={({ target }) => checkInicials(target.value)} />
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="descripcio" label="Breu descripció">
+          <Form.Item name="descripcio" label={t("fields:short description")}>
             <Input.TextArea autoSize />
           </Form.Item>
           <Form.Item name="color">
@@ -124,7 +127,7 @@ const ModalAfegirProjecte: React.FC = () => {
           </Form.Item>
           <Row gutter={16}>
             <Col sm={24} md={16} flex={1}>
-              <Form.Item name="data" label="Data">
+              <Form.Item name="data" label={t("fields:date")}>
                 <DatePicker.RangePicker
                   format="L"
                   allowEmpty={[false, true]}
@@ -143,8 +146,8 @@ const ModalAfegirProjecte: React.FC = () => {
             <Col sm={24} md={8} flex={1}>
               <Form.Item
                 name="id_curs"
-                label="Curs"
-                rules={[{ required: true, message: "Introdueix el curs" }]}
+                label={t("fields:school year")}
+                rules={[{ required: true, message: t("enter school year") }]}
               >
                 <Select
                   showSearch

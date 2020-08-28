@@ -1,8 +1,9 @@
 {
   "required": "Requerida",
+  "enter name": "Introdueix el nom",
+  "enter surname": "Introdueix els cognoms",
   "enter username": "Introdueix el nom d’usuari",
   "enter password": "Introdueix la contrasenya",
-  "enter name": "Introdueix el nom",
   "enter email": "Introdueix l’adreça electrònica",
   "enter valid email": "Introdueix una adreça electrònica vàlida",
   "enter message": "Introdueix el missatge",
@@ -16,5 +17,8 @@
   "enter person id": "Introdueix el DNI",
   "enter birth date": "Introdueix la data de naixement",
   "no whitespace": "Els caràcters en blanc no són vàlids",
-  "enter day": "Introdueix el dia"
+  "enter day": "Introdueix el dia",
+  "enter title": "Introdueix el títol",
+  "enter initials": "Introdueix les inicials",
+  "enter school year": "Introdueix el curs"
 }

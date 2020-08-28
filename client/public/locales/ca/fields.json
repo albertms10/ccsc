@@ -1,6 +1,7 @@
 {
   "personal data": "Dades personals",
   "name": "Nom",
+  "surname": "Cognoms",
   "username": "Nom d’usuari",
   "password": "Contrasenya",
   "person id": "DNI",
@@ -19,5 +20,16 @@
   "day": "Dia",
   "time": "Hora",
   "general": "General",
-  "extra": "Extra"
+  "extra": "Extra",
+  "title": "Títol",
+  "subtitle": "Subtítol",
+  "years": "Anys",
+  "language": "Idioma",
+  "user roles": "Rols d’usuari",
+  "no.": "Núm.",
+  "duration": "Durada",
+  "initials": "Inicials",
+  "short description": "Descripció breu",
+  "date": "Data",
+  "school year": "Curs"
 }

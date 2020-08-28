@@ -3,6 +3,7 @@ import { ModalButton } from "components/modal-button";
 import { useAPI } from "helpers";
 import { Idioma } from "model";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "store/types";
 import { useAfegirObra } from "./hooks";
@@ -10,6 +11,8 @@ import { useAfegirObra } from "./hooks";
 const { Option } = Select;
 
 const ModalAfegirObra: React.FC = () => {
+  const { t } = useTranslation(["validation", "fields", "actions"]);
+
   const { loading } = useSelector(({ obres }: RootState) => obres);
 
   const [form, handleOk] = useAfegirObra();
@@ -18,7 +21,7 @@ const ModalAfegirObra: React.FC = () => {
 
   return (
     <ModalButton
-      title="Afegir obra"
+      title={t("actions:add work")}
       confirmLoading={loading}
       onOk={(setVisible) => {
         handleOk().then(() => {
@@ -30,17 +33,17 @@ const ModalAfegirObra: React.FC = () => {
         <Form form={form} layout="vertical">
           <Form.Item
             name="titol"
-            label="Títol"
-            rules={[{ required: true, message: "Introdueix el títol" }]}
+            label={t("fields:title")}
+            rules={[{ required: true, message: t("enter title") }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name="subtitol" label="Subtítol">
+          <Form.Item name="subtitol" label={t("fields:subtitle")}>
             <Input />
           </Form.Item>
           <Row>
             <Col span={14} flex={1}>
-              <Form.Item name="anys" label="Anys">
+              <Form.Item name="anys" label={t("fields:years")}>
                 <DatePicker.RangePicker
                   picker="year"
                   allowEmpty={[false, true]}
@@ -48,7 +51,7 @@ const ModalAfegirObra: React.FC = () => {
               </Form.Item>
             </Col>
             <Col span={10} flex={1}>
-              <Form.Item name="id_idioma" label="Idioma">
+              <Form.Item name="id_idioma" label={t("fields:language")}>
                 <Select
                   showSearch
                   allowClear

@@ -4,6 +4,7 @@ import { Authorized } from "components/authorized";
 import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
 import { useDeleteAPI } from "helpers";
 import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
@@ -15,6 +16,8 @@ const { Item } = List;
 const { Search } = Input;
 
 const LlistaObres: React.FC = () => {
+  const { t } = useTranslation("actions");
+
   const dispatch = useDispatch();
 
   const formacions = useContext(FormacionsListContext);
@@ -32,7 +35,7 @@ const LlistaObres: React.FC = () => {
   return (
     <div className="llista-obres">
       <Search
-        placeholder="Cerca obres"
+        placeholder={t("search works")}
         size="large"
         value={searchValue}
         onChange={({ target }) => setSearchValue(target.value)}
@@ -72,8 +75,8 @@ const LlistaObres: React.FC = () => {
                 <DropdownBorderlessButton
                   items={[
                     {
-                      key: "eliminar",
-                      action: "Eliminar",
+                      key: t("common:delete"),
+                      action: t("common:delete"),
                       danger: true,
                       onClick: () => showDeleteConfirm(obra.id_obra),
                     },

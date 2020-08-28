@@ -7,5 +7,9 @@
   "sign up yet": "Encara no t‘has donat d’alta?",
   "forgot password": "Has oblidat la contrasenya?",
   "notices": "Avisos",
-  "form": "Formulari"
+  "form": "Formulari",
+  "user": "Usuari",
+  "board_of_directors": "Junta directiva",
+  "musical_management": "Direcció musical",
+  "admin": "Administrador"
 }

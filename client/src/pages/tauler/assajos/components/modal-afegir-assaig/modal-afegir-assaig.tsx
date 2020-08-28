@@ -16,7 +16,7 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
   title,
   ...rest
 }) => {
-  const { t } = useTranslation(["fields", "validation"]);
+  const { t } = useTranslation(["validation", "fields"]);
 
   const { loading } = useSelector(({ assajos }: RootState) => assajos);
 
@@ -38,14 +38,14 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
             <Col sm={24} md={8} flex={1}>
               <Form.Item
                 name="dia_inici"
-                label={t("day")}
+                label={t("fields:day")}
                 rules={[{ required: true, message: t("enter day") }]}
               >
                 <DatePicker format="L" />
               </Form.Item>
             </Col>
             <Col sm={24} md={16} flex={1}>
-              <Form.Item name="hora" label={t("time")}>
+              <Form.Item name="hora" label={t("fields:time")}>
                 <TimePicker.RangePicker
                   picker="time"
                   format="HH:mm"
@@ -58,12 +58,12 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
           <Row>
             <Col>
               <Form.Item name="es_general" valuePropName="checked">
-                <Checkbox>{t("general")}</Checkbox>
+                <Checkbox>{t("fields:general")}</Checkbox>
               </Form.Item>
             </Col>
             <Col>
               <Form.Item name="es_extra" valuePropName="checked">
-                <Checkbox>{t("extra")}</Checkbox>
+                <Checkbox>{t("fields:extra")}</Checkbox>
               </Form.Item>
             </Col>
           </Row>
