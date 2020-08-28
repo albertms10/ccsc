@@ -1,0 +1,15 @@
+{
+  "error code": "Código de error: {{status}}",
+  "not allowed": "Sin permiso",
+  "not authenticated": "Sin autenticación",
+  "provide access token": "Se necesita un token de acceso",
+  "sign in again": "Volver a iniciar sesión",
+  "sign in again to check": "Vuelve a iniciar sesión para comprobar tu identidad",
+  "emails do not match": "Las direcciones electrónicas no coinciden",
+  "not finish filling form": "¿Aún no has acabado de rellenar el formulario?",
+  "go fill the form": "Volver a introducirlas",
+  "edit email address": "Editar la dirección electrónica",
+  "edit data": "Modificar los datos",
+  "inactive partner": "Socio inactivo",
+  "a member must subscribe you again": "Un miembro deberá darte de alta de nuevo"
+}

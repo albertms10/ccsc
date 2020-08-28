@@ -56,7 +56,7 @@ const App: React.FC = () => {
               component={DonarAltaFormulari}
             />
             <RouteTauler
-              path={`/${linkText(t("dashboard"))}`}
+              path={`/${linkText(t("dashboard:dashboard"))}`}
               component={TaulerApp}
             />
             <Route path="/" component={HomeApp} />

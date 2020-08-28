@@ -62,7 +62,7 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
       )}
       <InfoCard title={t("contact data")}>
         <Descriptions size="small">
-          <Descriptions.Item label={t("email")} span={2}>
+          <Descriptions.Item label={t("email address")} span={2}>
             {data.email}
           </Descriptions.Item>
           {data.telefon && (

@@ -1,3 +1,20 @@
 {
-  "loading": "Cargando…"
+  "ok": "De acuerdo",
+  "close": "Cerrar",
+  "go back": "Atrás",
+  "go ahead": "Adelante",
+  "loading": "Cargando…",
+  "details": "Detalles",
+  "more details": "Más detalles",
+  "delete": "Eliminar",
+  "add": "Añadir",
+  "search": "Buscar",
+  "no item found": "No se ha encontrado ningún ítem",
+  "prev": "Anterior",
+  "next": "Siguiente",
+  "active": "Activo",
+  "inactive": "Inactivo",
+  "except value": "Sin {{value}}",
+  "start": "Inicio",
+  "end": "Final"
 }

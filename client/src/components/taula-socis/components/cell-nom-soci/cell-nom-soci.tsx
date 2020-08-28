@@ -18,9 +18,12 @@ const CellNomSoci: React.FC<CellNomSociProps> = ({ soci }) => {
     <Link to={`/${linkText(t("dashboard:partners"))}/${soci.id_persona}`}>
       <div className="socis-table-username-wrapper">
         <Tooltip
-          title={t(soci.data_inactiu ? "activity days" : "inactivity days", {
-            days: closestTimeValue(soci.dies_activitat || 0),
-          })}
+          title={t(
+            soci.data_inactiu ? "days of activity" : "days of inactivity",
+            {
+              days: closestTimeValue(soci.dies_activitat || 0),
+            }
+          )}
         >
           <Badge dot status={soci.es_actiu ? "success" : "error"}>
             <Avatar className="socis-table-avatar">

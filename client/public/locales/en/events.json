@@ -1,0 +1,14 @@
+{
+  "prev month": "Previous month",
+  "next month": "Next month",
+  "date pattern": "MMMM YYYY",
+  "no location": "No location",
+  "no notes": "No notes",
+  "is late": "Is late",
+  "at time": "At {{time}}",
+  "with sb": "With {{sb}}",
+  "confirmed on time": "Confirmed on time",
+  "confirmed late": "Confirmed late",
+  "pending": "Pending",
+  "cancelled": "Cancelled"
+}

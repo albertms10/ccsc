@@ -1,6 +1,24 @@
 {
+  "required": "Requerida",
+  "enter name": "Introduce el nombre",
+  "enter surname": "Introduce los apellidos",
   "enter username": "Introduce el nombre de usuario",
   "enter password": "Introduce la contraseña",
-  "enter name": "Introduce el nombre",
-  "enter email": "Introduce la dirección de correo electrónico"
+  "enter email address": "Introduce la dirección electrónica",
+  "enter valid email address": "Introduce una dirección electrónica válida",
+  "enter message": "Introduce el mensaje",
+  "must check": "Debes marcar la casilla",
+  "acceptance checked": "Se ha activado la aceptación",
+  "acceptance unchecked": "Se ha desactivat la aceptación",
+  "enter letter uppercase": "Introduce la letra en mayúsculas",
+  "number must be": "El número debe ser de {{number}} cifras",
+  "letter does not correspond": "La letra no se corresponde con el número del DNI",
+  "select country of nationality": "Selecciona el país de nacionalidad",
+  "enter person id": "Introduce el DNI",
+  "enter birth date": "Introduce la fecha de nacimiento",
+  "no whitespace": "Los caracteres en blanc no son válidos",
+  "enter day": "Introduce el día",
+  "enter title": "Introduce el título",
+  "enter initials": "Introduce las iniciales",
+  "enter school year": "Introduce el curso"
 }

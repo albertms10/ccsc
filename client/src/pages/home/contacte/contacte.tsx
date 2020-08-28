@@ -24,9 +24,9 @@ const Contacte: React.FC = () => {
             <Input autoFocus />
           </Form.Item>
           <Form.Item
-            label={t("fields:email")}
+            label={t("fields:email address")}
             name="email"
-            rules={[{ required: true, message: t("enter email") }]}
+            rules={[{ required: true, message: t("enter email address") }]}
           >
             <Input />
           </Form.Item>

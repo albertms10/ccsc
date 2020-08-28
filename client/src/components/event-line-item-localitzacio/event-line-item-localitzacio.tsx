@@ -31,7 +31,7 @@ const EventLineItemLocalitzacio: React.FC<EventLineItemLocalitzacioProps> = ({
         <Authorized
           elseElement={<Text type="secondary">{t("no location")}</Text>}
         >
-          <LinkButton>{t("add location")}</LinkButton>
+          <LinkButton>{t("actions:add location")}</LinkButton>
         </Authorized>
       )}
     </EventLineItem>

@@ -1,6 +1,14 @@
 {
+  "go to dashboard": "Go to dashboard",
   "sign in": "Sign in",
   "sign up": "Sign up",
+  "sign up short": "Sign up",
   "sign up yet": "Haven’t signed up yet?",
-  "forgot password": "Forgot your password?"
+  "forgot password": "Forgot your password?",
+  "notices": "Notices",
+  "form": "Form",
+  "user": "User",
+  "board_of_directors": "Board of directors",
+  "musical_management": "Musical management",
+  "admin": "Administrator"
 }

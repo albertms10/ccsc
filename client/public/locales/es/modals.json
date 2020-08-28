@@ -1,0 +1,11 @@
+{
+  "confirm delete action": "¿Confirmas que quieres eliminar {{element}} y todos los datos asociados?",
+  "confirm subscription": "¿Confirmas que quieres dar de alta?",
+  "confirm unsubscription": "¿Confirmas que quieres dar de baja?",
+  "action undone": "Esta acción no se puede deshacer.",
+  "subscription action": "Dar de alta",
+  "unsubscription action": "Dar de baja",
+  "the movement": "el movimiento",
+  "the person": "la persona",
+  "the rehearsal": "el ensayo"
+}

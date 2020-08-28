@@ -1,0 +1,11 @@
+{
+  "period": "Periodo",
+  "subscribed": "Alta",
+  "unsubscribed": "Baja",
+  "once per day": "Solo se puede hacer una vez al día",
+  "activity": "Actividad",
+  "subscription successful": "Se ha dado de alta correctamente",
+  "agree with the terms": "Lo he leído y doy mi consentimiento",
+  "days of activity": "{{days}} de actividad",
+  "days of inactivity": "{{days}} de inactividad"
+}

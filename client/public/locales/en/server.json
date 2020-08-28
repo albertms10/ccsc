@@ -1,0 +1,15 @@
+{
+  "error code": "Error code: {{status}}",
+  "not allowed": "Not allowed",
+  "not authenticated": "Not authenticated",
+  "provide access token": "You must provide an access token",
+  "sign in again": "Sign in again",
+  "sign in again to check": "Sign in again to check your identity",
+  "emails do not match": "Emails do not match",
+  "not finish filling form": "Haven’t finished filling the form?",
+  "go fill the form": "Fill the form",
+  "edit email address": "Edit email address",
+  "edit data": "Edit data",
+  "inactive partner": "Inactive partner",
+  "a member must subscribe you again": "A member must subscribe you again"
+}

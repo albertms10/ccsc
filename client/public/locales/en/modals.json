@@ -1,0 +1,11 @@
+{
+  "confirm delete action": "Are you sure you want to delete {{element}} and all its related data?",
+  "confirm subscription": "Are you sure you want to subscribe?",
+  "confirm unsubscription": "Are you sure you want to unsubscribe?",
+  "action undone": "This action cannot be undone",
+  "subscription action": "Subscribe",
+  "unsubscription action": "Unsubscribe",
+  "the movement": "the movement",
+  "the person": "the person",
+  "the rehearsal": "the rehearsal"
+}

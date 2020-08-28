@@ -43,7 +43,7 @@ export const verifyAccessToken: AuthRequestHandler = (req, res, next) => {
       return res.status(401).send({
         error: {
           status: 401,
-          message: "no auth",
+          message: "not authenticated",
           hideMessage,
         },
       });
@@ -90,12 +90,12 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
           ...(!err && email !== decodedEmail
             ? {
                 message: "emails do not match",
-                description: "change email",
+                description: "change email address",
                 okText: "edit data",
                 okOnly: true,
                 noAction: true,
               }
-            : { message: "no auth" }),
+            : { message: "not authenticated" }),
         },
       });
 
@@ -136,7 +136,7 @@ export const checkIsRole: AuthRequestHandler = async (req, res) => {
 export const isAuthor: AuthRequestHandler = async (req, res, next) =>
   (await checkIsAuthor(req, res, next))
     ? next()
-    : res.status(403).send({ error: { status: 403, message: "no auth" } });
+    : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 
 export const isRole: AuthRequestHandler = async (req, res, next) =>
   (await checkIsRole(req, res, next))
@@ -154,15 +154,23 @@ export const isAuthorOrBoardOfDirectors: AuthRequestHandler = async (
   res.locals.roles = ROLES_BOARD_OF_DIRECTORS;
   (await checkIsAuthor(req, res, next)) || (await checkIsRole(req, res, next))
     ? next()
-    : res.status(403).send({ error: { status: 403, message: "no auth" } });
+    : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 };
 
-export const isBoardOfDirectors: AuthRequestHandler = async (req, res, next) => {
+export const isBoardOfDirectors: AuthRequestHandler = async (
+  req,
+  res,
+  next
+) => {
   res.locals.roles = ROLES_BOARD_OF_DIRECTORS;
   await isRole(req, res, next);
 };
 
-export const isMusicalManagement: AuthRequestHandler = async (req, res, next) => {
+export const isMusicalManagement: AuthRequestHandler = async (
+  req,
+  res,
+  next
+) => {
   res.locals.roles = ROLES_MUSICAL_MANAGEMENT;
   await isRole(req, res, next);
 };

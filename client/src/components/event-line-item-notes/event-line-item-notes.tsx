@@ -22,7 +22,7 @@ const EventLineItemNotes: React.FC<EventLineItemNotesProps> = ({
     <EventLineItem icon={<AlignRightOutlined />}>
       {esdeveniment.notes || (
         <Authorized elseElement={<Text type="secondary">{t("no notes")}</Text>}>
-          <LinkButton>{t("add notes")}</LinkButton>
+          <LinkButton>{t("actions:sadd notes")}</LinkButton>
         </Authorized>
       )}
     </EventLineItem>

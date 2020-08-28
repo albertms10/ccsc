@@ -46,7 +46,7 @@ const SociTabGeneral: React.FC = () => {
               </Typography.Paragraph>
             </Item>
           )}
-          <Item label={t("email")}>
+          <Item label={t("email address")}>
             <Typography.Paragraph className="action-text" copyable>
               {soci.email}
             </Typography.Paragraph>

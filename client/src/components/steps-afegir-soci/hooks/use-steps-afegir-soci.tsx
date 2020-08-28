@@ -188,10 +188,10 @@ export default (
               <Col xs={24} sm={14} flex={1}>
                 <Form.Item
                   name="email"
-                  label={t("fields:email")}
+                  label={t("fields:email address")}
                   rules={[
-                    { type: "email", message: t("enter valid email") },
-                    { required: true, message: t("enter email") },
+                    { type: "email", message: t("enter valid email address") },
+                    { required: true, message: t("enter email address") },
                     { whitespace: true, message: t("no whitespace") },
                   ]}
                 >

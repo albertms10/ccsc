@@ -35,14 +35,14 @@ const DonarAlta: React.FC = () => {
           <Form.Item
             name="email"
             rules={[
-              { type: "email", message: t("enter valid email") },
-              { required: true, message: t("enter email") },
-              { whitespace: true, message: t("enter email") },
+              { type: "email", message: t("enter valid email address") },
+              { required: true, message: t("enter email address") },
+              { whitespace: true, message: t("no whitespace") },
             ]}
           >
             <Input
               prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder={t("fields:email")}
+              placeholder={t("fields:email address")}
               autoFocus
             />
           </Form.Item>

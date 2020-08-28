@@ -1,0 +1,14 @@
+{
+  "prev month": "Mes anterior",
+  "next month": "Mes siguiente",
+  "date pattern": "MMMM [de] YYYY",
+  "no location": "Sin localización",
+  "no notes": "Sin notas",
+  "is late": "Con retraso",
+  "at time": "a las {{time}}",
+  "with sb": "Con {{sb}}",
+  "confirmed on time": "Confirmados puntuales",
+  "confirmed late": "Confirmados con retraso",
+  "pending": "Pendientes",
+  "cancelled": "Cancelados"
+}

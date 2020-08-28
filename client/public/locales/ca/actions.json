@@ -4,16 +4,18 @@
   "search repertoire": "Cercar repertori",
   "select rehearsal": "Seleccionar un assaig",
   "search rehearsals": "Cercar assajos",
+  "add rehearsal": "Afegir assaig",
   "select movement": "Seleccionar un moviment",
   "search movements": "Cercar moviments",
   "add announced voices": "Afegir veus convocades",
   "search partners": "Cercar socis",
-  "add rehearsal": "Afegir assaig",
   "search formations": "Cercar formacions",
   "add formations": "Afegir formacions",
   "no formations": "Sense formacions",
   "search projects": "Cercar projectes",
   "add projects": "Afegir projectes",
   "no projects": "Sense projectes",
-  "search voices": "Cercar veus"
+  "search voices": "Cercar veus",
+  "add location": "Afegir localització",
+  "add notes": "Afegir notes"
 }

@@ -1,0 +1,11 @@
+{
+  "period": "Period",
+  "subscribed": "Subscribed",
+  "unsubscribed": "Unsubscribed",
+  "once per day": "Can be done once per day",
+  "activity": "Activity",
+  "subscription successful": "Subscription successful",
+  "agree with the terms": "I agree with the terms",
+  "days of activity": "{{days}} of activity",
+  "days of inactivity": "{{days}} of activity"
+}

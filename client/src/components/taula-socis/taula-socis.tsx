@@ -50,7 +50,7 @@ const TaulaSocis: React.FC<TaulaSocisProps> = ({ socis, loading = false }) => {
       onFilter: (value, soci) => value === soci.es_actiu,
     } as ColumnType<Soci>,
     {
-      title: t("email"),
+      title: t("email address"),
       dataIndex: "email",
       key: "email",
       render(text) {
