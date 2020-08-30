@@ -4,10 +4,16 @@ import { Moviment } from "model";
 import moment from "moment";
 import { useCallback, useState } from "react";
 
+interface FormAfegirMoviment {
+  ordre?: number;
+  titol_moviment: string;
+  durada?: string;
+}
+
 export default (idObra: number) => {
   const fetchAPI = useFetchAPI();
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FormAfegirMoviment>();
 
   const [loading, setLoading] = useState(false);
 

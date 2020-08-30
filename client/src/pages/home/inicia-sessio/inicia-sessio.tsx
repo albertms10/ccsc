@@ -20,6 +20,11 @@ interface IniciaSessioHistory {
   username: string;
 }
 
+interface FormIniciaSessio {
+  username: string;
+  password: string;
+}
+
 const IniciaSessio: React.FC = () => {
   const { t } = useTranslation(["validation", "fields", "sign-in"]);
 
@@ -67,7 +72,7 @@ const IniciaSessio: React.FC = () => {
           className="signin-logo"
           style={{ color: "var(--primary-color)" }}
         />
-        <Form
+        <Form<FormIniciaSessio>
           className="signin-form"
           initialValues={{
             username: locationState ? locationState.username : "",

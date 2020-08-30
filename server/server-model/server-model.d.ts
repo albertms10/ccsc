@@ -27,7 +27,7 @@ declare module "server-model" {
 
   export interface AssaigPost {
     dia_inici: string;
-    hora: [string, string];
+    hora: [inici: string, final: string];
     es_general: boolean;
     es_extra: boolean;
     projectes: number[];
@@ -46,7 +46,7 @@ declare module "server-model" {
     descripcio: string;
     inicials: string;
     color: string;
-    data: [string, string];
+    data: [inici: string, final: string];
     id_curs: number;
     formacions: number[];
   }

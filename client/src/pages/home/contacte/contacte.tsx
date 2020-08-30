@@ -7,6 +7,12 @@ import { Container } from "standalone/container";
 const { Paragraph } = Typography;
 const { TextArea } = Input;
 
+interface FormContacte {
+  nom: string;
+  email: string;
+  missatge: string;
+}
+
 const Contacte: React.FC = () => {
   const { t } = useTranslation(["validation", "fields", "home"]);
 
@@ -15,7 +21,7 @@ const Contacte: React.FC = () => {
       <Paragraph>{t("home:contact intro")}</Paragraph>
       <Paragraph>{t("home:contact action")}</Paragraph>
       <Container>
-        <Form layout="vertical" size="large">
+        <Form<FormContacte> layout="vertical" size="large">
           <Form.Item
             label={t("fields:name")}
             name="nom"

@@ -1,5 +1,6 @@
 import { Form, Steps } from "antd";
 import { FormInstance } from "antd/lib/form";
+import { BooleanMap } from "common";
 import moment from "moment";
 import { Store } from "rc-field-form/lib/interface";
 import React from "react";
@@ -10,10 +11,24 @@ const { Step } = Steps;
 
 interface StepsAfegirSociProps {
   steps: FormStep[];
-  form: FormInstance;
+  form: FormInstance<FormAfegirSoci>;
   currentPageIndex: number;
   handleChange: (current: number) => void;
   initialValues?: Store;
+}
+
+export interface FormAfegirSoci {
+  nom: string;
+  cognoms: string;
+  id_pais: number;
+  dni: string;
+  naixement: string;
+  email: string;
+  telefon?: string;
+  experiencia_musical?: string;
+  estudis_musicals?: string;
+  data_alta: string;
+  acceptacions: BooleanMap;
 }
 
 const StepsAfegirSoci: React.FC<StepsAfegirSociProps> = ({

@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { ValidateStatus } from "antd/lib/form/FormItem";
 import { AvisAcceptacio } from "components/avis-acceptacio";
+import { FormAfegirSoci } from "components/steps-afegir-soci/steps-afegir-soci";
 import { DATE_FORMAT } from "constants/constants";
 import { useAPI, usePostAPI } from "helpers";
 import { Pais } from "model";
@@ -49,7 +50,7 @@ export default (
 
   const [username, loadingUsername, getUsername] = useUsername();
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FormAfegirSoci>();
 
   // TODO Extreure la lògica a `utils` i retornar una `Promise`
   const validatorDniES = useCallback(

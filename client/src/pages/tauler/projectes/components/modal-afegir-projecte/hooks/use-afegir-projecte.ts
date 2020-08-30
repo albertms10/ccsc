@@ -9,12 +9,22 @@ import { useDispatch } from "react-redux";
 import { fetchProjectes } from "store/projectes/thunks";
 import { initials } from "utils";
 
+interface FormAfegirProjecte {
+  titol: string;
+  inicials: string;
+  descripcio?: string;
+  color?: string;
+  data?: [inici: string, final: string | null];
+  id_curs?: string;
+  formacions?: number[];
+}
+
 export default () => {
   const dispatch = useDispatch();
 
   const fetchAPI = useFetchAPI();
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FormAfegirProjecte>();
 
   const [
     inicialsDisponibles,

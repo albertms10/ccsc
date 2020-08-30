@@ -6,12 +6,19 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchObres } from "store/obres/thunks";
 
+interface FormAfegirObra {
+  titol: string;
+  subtitol?: string;
+  anys?: [inici: string, final: string | null];
+  id_idioma?: number;
+}
+
 export default () => {
   const dispatch = useDispatch();
 
   const fetchAPI = useFetchAPI();
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FormAfegirObra>();
 
   const postObra = useCallback(
     (obra: Obra) =>

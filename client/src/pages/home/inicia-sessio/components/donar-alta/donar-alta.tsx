@@ -8,6 +8,10 @@ import { Container } from "standalone/container";
 import { linkText } from "utils";
 import { useValidEmailEspera } from "./hooks";
 
+interface FormDonarAlta {
+  email: string;
+}
+
 const DonarAlta: React.FC = () => {
   const { t } = useTranslation(["validation", "sign-in", "fields"]);
 
@@ -31,7 +35,7 @@ const DonarAlta: React.FC = () => {
           className="signin-logo"
           style={{ color: "var(--primary-color)" }}
         />
-        <Form className="signin-form" onFinish={onFinish}>
+        <Form<FormDonarAlta> className="signin-form" onFinish={onFinish}>
           <Form.Item
             name="email"
             rules={[

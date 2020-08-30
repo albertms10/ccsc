@@ -7,12 +7,20 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAssajos } from "store/assajos/thunks";
 
+interface FormAfegirAssaig {
+  dia_inici: string;
+  hora?: [inici: string, final: string | null];
+  es_general?: boolean;
+  es_extra?: boolean;
+  formacions?: number[];
+}
+
 export default () => {
   const dispatch = useDispatch();
 
   const fetchAPI = useFetchAPI();
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FormAfegirAssaig>();
 
   const postAssaig = useCallback(
     (assaig: Assaig) =>

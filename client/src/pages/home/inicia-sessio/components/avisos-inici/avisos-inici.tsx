@@ -1,5 +1,6 @@
 import { Button, Form, Space } from "antd";
 import { LogoCorDeCambra } from "assets/icons";
+import { BooleanMap } from "common";
 import { AvisAcceptacio } from "components/avis-acceptacio";
 import { usePutAvisAcceptacio } from "components/avis-acceptacio/hooks";
 import { Usuari } from "model";
@@ -26,7 +27,7 @@ const AvisosInici: React.FC = () => {
     currentUser.id_persona
   );
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<BooleanMap>();
 
   const onFinish = useCallback(
     ({ acceptacions }) => {
