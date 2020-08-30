@@ -136,10 +136,10 @@ export const socis_post: ControllerRequestHandler<null, Soci> = async (
                           {
                             toSqlString: () =>
                               `(SELECT id_acceptacio_avis
-                            FROM acceptacions_avis 
-                            WHERE form_name = ${connection.escape(
-                              acceptacio
-                            )})`,
+                                FROM acceptacions_avis 
+                                WHERE form_name = ${connection.escape(
+                                  acceptacio
+                                )})`,
                           },
                           (soci.acceptacions as BooleanMap)[acceptacio],
                         ]
