@@ -3,7 +3,7 @@ import { useAPI } from "helpers";
 import { ItemGrafica } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { NumberInfo } from "../number-info";
+import { NumberInfo } from "standalone/number-info";
 
 const ConcertsCountStatistics: React.FC = () => {
   const { t } = useTranslation("dashboard");

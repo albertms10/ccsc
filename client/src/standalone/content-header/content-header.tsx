@@ -1,6 +1,6 @@
 import { PageHeader } from "antd";
 import React from "react";
-import { HeaderTitle } from "../header-title";
+import { HeaderTitle } from "standalone/header-title";
 import "./content-header.css";
 
 interface ContentHeaderProps {

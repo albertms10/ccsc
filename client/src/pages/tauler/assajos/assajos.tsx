@@ -1,6 +1,6 @@
 import { PageHeader } from "antd";
 import { Authorized } from "components/authorized";
-import { SetPageHeaderContext } from "components/tauler-app/components/site-layout/site-layout";
+import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
 import React, { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Container } from "standalone/container";

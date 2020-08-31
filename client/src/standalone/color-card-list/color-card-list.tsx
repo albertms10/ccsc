@@ -2,7 +2,7 @@ import { List } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import { StyledComponent } from "react-types";
-import { ColorCard } from "../color-card";
+import { ColorCard } from "standalone/color-card";
 import "./color-card-list.css";
 
 interface ColorCardListItem {

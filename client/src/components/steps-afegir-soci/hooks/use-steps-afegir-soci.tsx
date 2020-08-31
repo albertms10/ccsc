@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { ValidateStatus } from "antd/lib/form/FormItem";
 import { AvisAcceptacio } from "components/avis-acceptacio";
-import { FormAfegirSoci } from "components/steps-afegir-soci/steps-afegir-soci";
+import { FormAfegirSoci } from "components/steps-afegir-soci";
 import { DATE_FORMAT } from "constants/constants";
 import { useAPI, usePostAPI } from "helpers";
 import { Pais } from "model";

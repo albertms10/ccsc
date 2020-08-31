@@ -1,6 +1,6 @@
 import { Card, Divider, Spin, Tooltip } from "antd";
 import React from "react";
-import SubHeader from "../sub-header/sub-header";
+import { SubHeader } from "standalone/sub-header";
 
 interface InfoCardProps {
   alert?: React.ReactNode;
