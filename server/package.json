@@ -3,10 +3,11 @@
   "private": true,
   "scripts": {
     "tsc": "tsc",
-    "build": "npm i && npm run tsc && cd ../client && npm i && npm run build",
+    "build": "npm i && cd ../client && npm i && npm run build",
     "server": "npm run tsc && nodemon build/server/src",
     "client": "cd .. && npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postinstall": "npm run tsc"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
