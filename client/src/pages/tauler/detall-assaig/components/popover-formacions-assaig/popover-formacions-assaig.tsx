@@ -33,7 +33,11 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
   const formacionsElement = useCallback(
     (textualAction) => (
       <>
-        <span style={{ marginRight: 8 }}>
+        <span
+          style={{
+            ...(formacionsConvocades.length > 0 ? { marginRight: 8 } : {}),
+          }}
+        >
           {formacionsConvocades.length > 0
             ? t("dashboard:formations")
             : textualAction}
