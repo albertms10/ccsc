@@ -2,8 +2,9 @@
   "name": "server",
   "private": true,
   "scripts": {
-    "build": "npm i && tsc && cd ../client && npm i && npm run build",
-    "server": "tsc && nodemon build/server/src",
+    "tsc": "tsc",
+    "build": "npm i && npm run tsc && cd ../client && npm i && npm run build",
+    "server": "npm run tsc && nodemon build/server/src",
     "client": "cd .. && npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
