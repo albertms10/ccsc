@@ -70,7 +70,7 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
       }}
       action={
         <BorderlessButton style={{ paddingRight: 0 }}>
-          {projectesElement(t("add projects"))}
+          {projectesElement(t("assign projects"))}
         </BorderlessButton>
       }
       elseElement={projectesElement(t("no projects"))}

@@ -71,7 +71,7 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
       }}
       action={
         <BorderlessButton>
-          {formacionsElement(t("add formations"))}
+          {formacionsElement(t("assign formations"))}
         </BorderlessButton>
       }
       elseElement={formacionsElement(t("no formations"))}
