@@ -35,9 +35,9 @@ export default () => {
     (idProjecte?: number) =>
       form.validateFields().then((assaig) => {
         assaig.dia_inici = moment(assaig.dia_inici).format(DATE_FORMAT);
-        assaig.hora = assaig.hora
-          ? assaig.hora.map((h: string) => h && moment(h).format("HH:mm"))
-          : [null, null];
+        assaig.hora = assaig.hora?.map(
+          (h: string) => h && moment(h).format("HH:mm")
+        ) ?? [null, null];
         assaig.projectes = idProjecte ? [idProjecte] : [];
         assaig.es_general = !!assaig.es_general;
         assaig.es_extra = !!assaig.es_extra;

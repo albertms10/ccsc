@@ -32,9 +32,9 @@ export default () => {
   const handleOk = useCallback(
     () =>
       form.validateFields().then((obra) => {
-        obra.anys = obra.anys
-          ? obra.anys.map((a: string) => a && moment(a).format("YYYY"))
-          : [null, null];
+        obra.anys = obra.anys?.map(
+          (a: string) => a && moment(a).format("YYYY")
+        ) ?? [null, null];
 
         return postObra(obra as Obra);
       }),

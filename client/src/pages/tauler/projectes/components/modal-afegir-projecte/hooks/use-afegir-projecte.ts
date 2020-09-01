@@ -44,12 +44,11 @@ export default () => {
   const handleOk = useCallback(
     () =>
       form.validateFields().then((projecte) => {
-        projecte.color = projecte.color
-          ? projecte.color.hex.substring(1, projecte.color.length)
-          : "676767";
-        projecte.data = projecte.data
-          ? projecte.data.map((d: string) => d && moment(d).format(DATE_FORMAT))
-          : [null, null];
+        projecte.color =
+          projecte.color?.hex.substring(1, projecte.color.length) ?? "676767";
+        projecte.data = projecte.data?.map(
+          (d: string) => d && moment(d).format(DATE_FORMAT)
+        ) ?? [null, null];
 
         if (!projecte.formacions) projecte.formacions = [];
 
