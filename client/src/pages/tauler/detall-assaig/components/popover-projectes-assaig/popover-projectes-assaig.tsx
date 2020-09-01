@@ -34,7 +34,7 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
   const projectesElement = useCallback(
     (textualAction) => (
       <>
-        <span style={{ marginRight: 8 }}>
+        <span style={{ marginRight: 8, marginLeft: 8 }}>
           {projectesFiltered.length > 0
             ? t("dashboard:projects")
             : textualAction}
@@ -69,7 +69,7 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
         });
       }}
       action={
-        <BorderlessButton style={{ paddingRight: 0 }}>
+        <BorderlessButton style={{ paddingRight: 0, paddingLeft: 0 }}>
           {projectesElement(t("assign projects"))}
         </BorderlessButton>
       }

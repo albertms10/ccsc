@@ -33,11 +33,7 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
   const formacionsElement = useCallback(
     (textualAction) => (
       <>
-        <span
-          style={{
-            ...(formacionsConvocades.length > 0 ? { marginRight: 8 } : {}),
-          }}
-        >
+        <span style={{ marginRight: 8, marginLeft: 8 }}>
           {formacionsConvocades.length > 0
             ? t("dashboard:formations")
             : textualAction}
@@ -74,7 +70,7 @@ const PopoverFormacionsAssaig: React.FC<PopoverFormacionsAssaigProps> = ({
         });
       }}
       action={
-        <BorderlessButton>
+        <BorderlessButton style={{ paddingRight: 0, paddingLeft: 0 }}>
           {formacionsElement(t("assign formations"))}
         </BorderlessButton>
       }
