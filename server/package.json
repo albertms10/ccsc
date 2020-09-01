@@ -2,8 +2,7 @@
   "name": "server",
   "private": true,
   "scripts": {
-    "client-install": "cd ../client && npm install",
-    "build": "cd ../client && npm install && npm run build",
+    "build": "tsc && cd ../client && npm install && npm run build",
     "server": "tsc && nodemon build/server/src",
     "client": "cd .. && npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
