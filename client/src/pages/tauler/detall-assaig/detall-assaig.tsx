@@ -41,7 +41,7 @@ const DetallAssaig: React.FC = () => {
         ghost={false}
         title={
           <Space size="middle">
-            <CalendarAvatar moment={moment(assaig.dia_inici)} />
+            <CalendarAvatar moment={moment(assaig.data)} />
             <Title level={3} style={{ marginBottom: 0 }}>
               {assaig.titol}
             </Title>

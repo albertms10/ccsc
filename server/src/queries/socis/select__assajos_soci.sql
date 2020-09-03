@@ -24,4 +24,4 @@ WHERE EXISTS(
         WHERE id_soci = @id_soci
           AND role IN (?)
     )
-ORDER BY dia_inici, hora_inici;
+ORDER BY data, hora_inici;

@@ -8,7 +8,10 @@ export const searchFilterAssaig = (assaig: Assaig): SearchFilters => ({
     ...assaig.projectes.map((projecte) => projecte.titol),
     ...(assaig.hora_inici ? [] : ["Hora a determinar"]),
   ],
-  dates: [assaig.data_inici, ...(assaig.data_final ? [assaig.data_final] : [])],
+  dates: [
+    assaig.datahora_inici,
+    ...(assaig.datahora_final ? [assaig.datahora_final] : []),
+  ],
 });
 
 export const searchFilterMoviment = (moviment: Moviment): SearchFilters => ({

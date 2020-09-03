@@ -21,9 +21,9 @@ const EventLineItemData: React.FC<EventLineItemDataProps> = ({
         <div>
           {joinElements(
             dateRange(
-              esdeveniment.dia_inici,
+              esdeveniment.data,
               esdeveniment.hora_inici,
-              esdeveniment.dia_final,
+              esdeveniment.data,
               esdeveniment.hora_final,
               { connector: t("of connector") }
             ),

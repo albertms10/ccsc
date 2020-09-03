@@ -97,7 +97,7 @@ export const assajos_post: ControllerRequestHandler<null, AssaigPost> = async (
     .then(() => {
       connection
         .query<OkPacket>(queryFile("assajos/insert__esdeveniments"), [
-          [[assaig.dia_inici, ...assaig.hora]],
+          [[assaig.data, ...assaig.hora]],
         ])
         .then(([{ insertId: id_esdeveniment }]) => {
           connection

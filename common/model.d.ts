@@ -40,8 +40,8 @@ declare module "model" {
     id_titular: number;
     titol: string;
     imatge: string;
-    data_inici: string;
-    data_final: string;
+    datahora_inici: string;
+    datahora_final: string;
     link: string;
     ordre: number;
   }
@@ -242,14 +242,16 @@ declare module "model" {
     abreviatura: string;
   }
 
-  export interface Esdeveniment {
+  export interface BaseEsdeveniment {
     id_esdeveniment: number;
-    titol: string;
-    data_inici?: string;
-    dia_inici: string;
+    data: string;
     hora_inici: string;
-    dia_final?: string;
-    data_final?: string;
+  }
+
+  export interface Esdeveniment extends BaseEsdeveniment {
+    titol: string;
+    datahora_inici?: string;
+    datahora_final?: string;
     hora_final: string;
     tipus?: string;
     id_estat_esdeveniment: number;
@@ -271,10 +273,7 @@ declare module "model" {
     es_extra: boolean;
   }
 
-  export interface AssistenciaEsdeveniment {
-    id_esdeveniment?: number;
-    dia_inici: string;
-    hora_inici: string;
+  export interface AssistenciaEsdeveniment extends BaseEsdeveniment {
     convocats: number;
   }
 

@@ -32,8 +32,8 @@ const CalendariFormacio: React.FC = () => {
           style={{ margin: "1rem" }}
           dateCellRender={(currentDay) => (
             <CalendariFormacioCell
-              esdevenimentsActuals={esdeveniments.filter(({ dia_inici }) =>
-                currentDay.isSame(dia_inici, "day")
+              esdevenimentsActuals={esdeveniments.filter(({ data }) =>
+                currentDay.isSame(data, "day")
               )}
             />
           )}
@@ -79,13 +79,13 @@ const CalendariFormacio: React.FC = () => {
                     filter={(value, option) =>
                       searchFilter(value, {
                         texts: [option.titol],
-                        dates: [option.data_inici],
+                        dates: [option.datahora_inici],
                       })
                     }
                     optionRenderObject={(esdeveniment) => ({
                       key: esdeveniment.id_esdeveniment,
                       value: esdeveniment.titol,
-                      date: esdeveniment.dia_inici,
+                      date: esdeveniment.data,
                       label: (
                         <CalendariResultLabel esdeveniment={esdeveniment} />
                       ),

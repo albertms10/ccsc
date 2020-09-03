@@ -24,7 +24,7 @@ const ContentListConcerts: React.FC<ContentListConcertsProps> = ({
       title={title || t("concerts")}
       loading={loading}
       dataSource={concerts.map((concert) => {
-        const date = moment(concert.data_inici);
+        const date = moment(concert.datahora_inici);
 
         return {
           id: concert.id_concert,

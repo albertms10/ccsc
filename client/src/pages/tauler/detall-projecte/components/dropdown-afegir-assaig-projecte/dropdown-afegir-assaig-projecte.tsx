@@ -40,7 +40,7 @@ const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> 
               projecteAssaig.id_projecte === projecte.id_projecte
           ) &&
           (projecte.data_inici
-            ? moment(assaig.data_inici).isBetween(
+            ? moment(assaig.datahora_inici).isBetween(
                 moment(projecte.data_inici),
                 moment(projecte.data_final)
               )

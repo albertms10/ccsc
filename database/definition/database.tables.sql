@@ -400,9 +400,8 @@ CREATE TABLE IF NOT EXISTS esdeveniments
 (
     id_esdeveniment         SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    dia_inici               DATE              NOT NULL,
+    data                    DATE              NOT NULL,
     hora_inici              TIME,
-    dia_final               DATE,
     hora_final              TIME,
     es_assaig_ordinari      BOOLEAN           NOT NULL DEFAULT FALSE,
     notes                   TEXT,
@@ -1219,23 +1218,16 @@ CREATE TABLE IF NOT EXISTS socis_acceptacions
 
 CREATE TABLE IF NOT EXISTS titulars
 (
-    id_titular
-               SMALLINT
-                   UNSIGNED
-                            NOT
-                                NULL
-        AUTO_INCREMENT,
-    titol
-               VARCHAR(255) NOT NULL,
-    imatge     VARCHAR(255),
-    data_inici DATETIME,
-    data_final DATETIME,
-    link       VARCHAR(255),
-    ordre      TINYINT(2),
-    PRIMARY KEY
-        (
-         id_titular
-            )
+    id_titular     SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    titol          VARCHAR(255)      NOT NULL,
+    imatge         VARCHAR(255),
+    datahora_inici DATETIME,
+    datahora_final DATETIME,
+    link           VARCHAR(255),
+    ordre          TINYINT(2),
+
+    PRIMARY KEY (id_titular)
 );
 
 CREATE TABLE IF NOT EXISTS entrades

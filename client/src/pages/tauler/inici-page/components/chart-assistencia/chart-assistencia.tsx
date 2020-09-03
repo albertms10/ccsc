@@ -37,7 +37,7 @@ const ChartAssistencia: React.FC = () => {
     (assistenciaAssajos: AssistenciesAssaig[]): AssistenciesAssaig[] =>
       assistenciaAssajos.map((assaig) => ({
         ...assaig,
-        assaig: dateRange(assaig.dia_inici, assaig.hora_inici, "", "", {
+        assaig: dateRange(assaig.data, assaig.hora_inici, "", "", {
           isLong: false,
           includesYear: false,
           connector: t("common:of connector"),

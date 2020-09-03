@@ -265,9 +265,8 @@ Indexes {
 
 Table "esdeveniments" {
   "id_esdeveniment" SMALLINT [pk, not null, increment]
-  "dia_inici" DATE [not null]
+  "data" DATE [not null]
   "hora_inici" TIME
-  "dia_final" DATE
   "hora_final" TIME
   "es_assaig_ordinari" BOOLEAN [not null, default: FALSE]
   "notes" TEXT
@@ -788,8 +787,8 @@ Table "titulars" {
   "id_titular" SMALLINT [pk, not null, increment]
   "titol" VARCHAR(255) [not null]
   "imatge" VARCHAR(255)
-  "data_inici" DATETIME
-  "data_final" DATETIME
+  "datahora_inici" DATETIME
+  "datahora_final" DATETIME
   "link" VARCHAR(255)
   "ordre" TINYINT(2)
 }

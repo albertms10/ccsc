@@ -28,7 +28,9 @@ const CalendarTag: React.FC<CalendarTagProps> = ({
       <Tag
         className="calendar-tag"
         key={childKey}
-        style={{ opacity: moment().isAfter(esdeveniment.data_inici) ? 0.6 : 1 }}
+        style={{
+          opacity: moment().isAfter(esdeveniment.datahora_inici) ? 0.6 : 1,
+        }}
       >
         <StatusIcon
           tooltip={esdeveniment.estat_esdeveniment}

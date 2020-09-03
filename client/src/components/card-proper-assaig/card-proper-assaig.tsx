@@ -27,7 +27,7 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
     <Card
       title={
         <Space>
-          <CalendarAvatar moment={moment(assaig.data_inici)} />
+          <CalendarAvatar moment={moment(assaig.datahora_inici)} />
           {assaig.titol}
           <StatusIcon
             tooltip={assaig.estat_esdeveniment}
@@ -43,9 +43,9 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
         <EventLineItem>
           {joinElements(
             dateRange(
-              assaig.dia_inici,
+              assaig.data,
               assaig.hora_inici,
-              assaig.dia_final,
+              assaig.data,
               assaig.hora_final,
               { connector: t("common:of connector") }
             ),

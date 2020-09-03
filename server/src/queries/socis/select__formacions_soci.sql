@@ -5,7 +5,7 @@ SELECT DISTINCT id_formacio,
                 IFNULL(nom_curt, formacions.nom) AS nom_curt,
                 descripcio,
                 num_persones,
-                tipus_formacions.nom AS tipus_formacio
+                tipus_formacions.nom             AS tipus_formacio
 FROM formacions
          INNER JOIN tipus_formacions USING (id_tipus_formacio)
          INNER JOIN formacions_entitats USING (id_formacio)

@@ -1,7 +1,6 @@
 SELECT id_esdeveniment,
-       dia_inici,
+       data,
        hora_inici,
-       dia_final,
        hora_final,
        id_estat_esdeveniment,
        (

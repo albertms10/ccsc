@@ -1,2 +1,2 @@
-INSERT INTO esdeveniments (dia_inici, hora_inici, hora_final)
+INSERT INTO esdeveniments (data, hora_inici, hora_final)
 VALUES ?;

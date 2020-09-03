@@ -37,7 +37,7 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
           <Row>
             <Col sm={24} md={8} flex={1}>
               <Form.Item
-                name="dia_inici"
+                name="data"
                 label={t("fields:day")}
                 rules={[{ required: true, message: t("enter day") }]}
               >

@@ -60,7 +60,7 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
           <List.Item.Meta
             avatar={
               <CalendarAvatar
-                moment={moment(assaig.data_inici)}
+                moment={moment(assaig.datahora_inici)}
                 style={{
                   transform: "scale(1.25)",
                   position: "relative",
@@ -72,7 +72,7 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
             description={timeRange(assaig.hora_inici, assaig.hora_final, {
               textual: true,
             })}
-            {...(moment().isAfter(moment(assaig.data_inici)) && {
+            {...(moment().isAfter(moment(assaig.data)) && {
               style: { opacity: 0.6 },
             })}
           />

@@ -466,7 +466,7 @@ components:
     Assistencia:
       type: object
       properties:
-        dia_inici:
+        data_inici:
           type: string
           format: date
         hora_inici:
@@ -573,24 +573,20 @@ components:
         id_esdeveniment:
           type: integer
           readOnly: true
-        data_inici:
+        data:
+          type: string
+          format: date
+        datahora_inici:
           type: string
           format: date-time
           readOnly: true
-        dia_inici:
-          type: string
-          format: date
         hora_inici:
           type: string
           format: time
           readOnly: true
-        data_final:
+        datahora_final:
           type: string
           format: date-time
-          readOnly: true
-        dia_final:
-          type: string
-          format: date
           readOnly: true
         hora_final:
           type: string

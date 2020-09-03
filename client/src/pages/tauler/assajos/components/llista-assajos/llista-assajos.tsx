@@ -48,12 +48,16 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
     let list: Assaig[] = anteriors
       ? assajos
           .filter((assaig) =>
-            moment(assaig.data_final || assaig.data_inici).isBefore(moment())
+            moment(assaig.datahora_final || assaig.datahora_inici).isBefore(
+              moment()
+            )
           )
-          .sort((a, b) => moment(b.data_inici).diff(moment(a.data_inici)))
+          .sort((a, b) =>
+            moment(b.datahora_inici).diff(moment(a.datahora_inici))
+          )
       : assajos.filter((assaig) =>
           moment().isSameOrBefore(
-            moment(assaig.data_final || assaig.data_inici)
+            moment(assaig.datahora_final || assaig.datahora_inici)
           )
         );
 
@@ -113,7 +117,7 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
             <Item.Meta
               avatar={
                 <CalendarAvatar
-                  moment={moment(assaig.data_inici)}
+                  moment={moment(assaig.datahora_inici)}
                   style={{
                     transform: "scale(1.25)",
                     position: "relative",

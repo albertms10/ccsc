@@ -26,7 +26,7 @@ declare module "server-model" {
   }
 
   export interface AssaigPost {
-    dia_inici: string;
+    data: string;
     hora: [inici: string, final: string];
     es_general: boolean;
     es_extra: boolean;

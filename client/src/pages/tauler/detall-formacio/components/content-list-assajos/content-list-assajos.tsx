@@ -31,10 +31,10 @@ const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
           (assaig) =>
             assaig.formacions.find(
               (formacio) => formacio.id_formacio === id_formacio
-            ) && moment().isSameOrBefore(moment(assaig.data_inici))
+            ) && moment().isSameOrBefore(moment(assaig.datahora_inici))
         )
         .map((assaig) => {
-          const date = moment(assaig.data_inici);
+          const date = moment(assaig.datahora_inici);
           const filteredFormacions = assaig.formacions.filter(
             (formacio) => formacio.id_formacio !== id_formacio
           );

@@ -410,9 +410,8 @@ CREATE TABLE IF NOT EXISTS esdeveniments
 (
     id_esdeveniment         SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    dia_inici               DATE                         NOT NULL,
+    data                    DATE                         NOT NULL,
     hora_inici              TIME                         NULL,
-    dia_final               DATE                         NULL,
     hora_final              TIME                         NULL,
     es_assaig_ordinari      TINYINT(1)       DEFAULT 0   NOT NULL,
     id_estat_esdeveniment   TINYINT UNSIGNED DEFAULT '2' NOT NULL,
@@ -938,14 +937,14 @@ CREATE INDEX id_concert
 
 CREATE TABLE IF NOT EXISTS titulars
 (
-    id_titular SMALLINT UNSIGNED AUTO_INCREMENT
+    id_titular     SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    titol      VARCHAR(255) NOT NULL,
-    imatge     VARCHAR(255) NULL,
-    data_inici DATETIME     NULL,
-    data_final DATETIME     NULL,
-    link       VARCHAR(255) NULL,
-    ordre      TINYINT      NULL
+    titol          VARCHAR(255) NOT NULL,
+    imatge         VARCHAR(255) NULL,
+    datahora_inici DATETIME     NULL,
+    datahora_final DATETIME     NULL,
+    link           VARCHAR(255) NULL,
+    ordre          TINYINT      NULL
 );
 
 CREATE TABLE IF NOT EXISTS trimestres
@@ -1085,11 +1084,10 @@ CREATE INDEX id_veu
 
 CREATE OR REPLACE VIEW assajos_estat AS
 SELECT DISTINCT ee.id_esdeveniment                                   AS id_esdeveniment,
-                ee.data_inici                                        AS data_inici,
-                ee.dia_inici                                         AS dia_inici,
+                ee.data                                              AS data,
+                ee.datahora_inici                                    AS datahora_inici,
                 ee.hora_inici                                        AS hora_inici,
-                ee.data_final                                        AS data_final,
-                ee.dia_final                                         AS dia_final,
+                ee.datahora_final                                    AS datahora_final,
                 ee.hora_final                                        AS hora_final,
                 ee.localitzacio                                      AS localitzacio,
                 ee.establiment                                       AS establiment,
@@ -1122,11 +1120,10 @@ FROM ((assajos a JOIN esdeveniments_estat ee ON ((ee.id_esdeveniment = a.id_assa
 
 CREATE OR REPLACE VIEW assajos_estat_moviments AS
 SELECT ae.id_esdeveniment                                                              AS id_esdeveniment,
-       ae.data_inici                                                                   AS data_inici,
-       ae.dia_inici                                                                    AS dia_inici,
+       ae.data                                                                         AS data,
+       ae.datahora_inici                                                               AS datahora_inici,
        ae.hora_inici                                                                   AS hora_inici,
-       ae.data_final                                                                   AS data_final,
-       ae.dia_final                                                                    AS dia_final,
+       ae.datahora_final                                                               AS datahora_final,
        ae.hora_final                                                                   AS hora_final,
        ae.localitzacio                                                                 AS localitzacio,
        ae.establiment                                                                  AS establiment,
@@ -1173,37 +1170,34 @@ FROM (assajos_son_parcials asp
          JOIN veus v);
 
 CREATE OR REPLACE VIEW esdeveniments_estat AS
-SELECT DISTINCT e.id_esdeveniment                                                                AS id_esdeveniment,
-                ifnull(concat(e.dia_inici, ' ', e.hora_inici), e.dia_inici)                      AS data_inici,
-                date_format(e.dia_inici, '%Y-%m-%d')                                             AS dia_inici,
-                e.hora_inici                                                                     AS hora_inici,
-                ifnull(concat(ifnull(e.dia_final, e.dia_inici), ' ', e.hora_final), e.dia_final) AS data_final,
-                date_format(ifnull(e.dia_final, e.dia_inici), '%Y-%m-%d')                        AS dia_final,
-                e.hora_final                                                                     AS hora_final,
+SELECT DISTINCT e.id_esdeveniment                                                           AS id_esdeveniment,
+                date_format(e.data, '%Y-%m-%d')                                             AS data,
+                ifnull(concat(e.data, ' ', e.hora_inici), e.data)                           AS datahora_inici,
+                e.hora_inici                                                                AS hora_inici,
+                concat(e.data, ' ', e.hora_final)                                           AS datahora_final,
+                e.hora_final                                                                AS hora_final,
                 (SELECT concat_ws(' ', tv.nom, concat(localitzacions.carrer, ','), concat(
                         ifnull(concat(localitzacions.numero, '–', localitzacions.fins_numero),
                                concat(localitzacions.numero)), ','), c.nom, concat('(', (SELECT ciutats.nom
                                                                                          FROM ciutats
-                                                                                         WHERE (ciutats.id_ciutat = (SELECT c.id_provincia))),
+                                                                                         WHERE (ciutats.id_ciutat = c.id_provincia)),
                                                                                    ')'))
                  FROM ((localitzacions JOIN tipus_vies tv ON ((localitzacions.id_tipus_via = tv.id_tipus_via)))
                           JOIN ciutats c ON ((localitzacions.id_ciutat = c.id_ciutat)))
-                 WHERE (localitzacions.id_localitzacio = (SELECT e.id_localitzacio)))            AS localitzacio,
+                 WHERE (localitzacions.id_localitzacio = e.id_localitzacio))                AS localitzacio,
                 (SELECT e2.nom
-                 FROM (localitzacions
-                          JOIN establiments e2 ON ((localitzacions.id_localitzacio = e2.id_establiment)))
-                 WHERE (localitzacions.id_localitzacio = (SELECT e.id_localitzacio)))            AS establiment,
-                e.id_esdeveniment_ajornat                                                        AS id_esdeveniment_ajornat,
-                e.id_estat_esdeveniment                                                          AS id_estat_esdeveniment,
+                 FROM (localitzacions l
+                          JOIN establiments e2 ON ((l.id_localitzacio = e2.id_establiment)))
+                 WHERE (l.id_localitzacio = e.id_localitzacio))                             AS establiment,
+                e.id_esdeveniment_ajornat                                                   AS id_esdeveniment_ajornat,
+                e.id_estat_esdeveniment                                                     AS id_estat_esdeveniment,
                 (SELECT estats_confirmacio.estat
                  FROM estats_confirmacio
-                 WHERE (estats_confirmacio.id_estat_confirmacio =
-                        (SELECT e.id_estat_esdeveniment)))                                       AS estat_esdeveniment,
-                e.id_estat_localitzacio                                                          AS id_estat_localitzacio,
+                 WHERE (estats_confirmacio.id_estat_confirmacio = e.id_estat_esdeveniment)) AS estat_esdeveniment,
+                e.id_estat_localitzacio                                                     AS id_estat_localitzacio,
                 (SELECT estats_confirmacio.estat
                  FROM estats_confirmacio
-                 WHERE (estats_confirmacio.id_estat_confirmacio =
-                        (SELECT e.id_estat_localitzacio)))                                       AS estat_localitzacio
+                 WHERE (estats_confirmacio.id_estat_confirmacio = e.id_estat_localitzacio)) AS estat_localitzacio
 FROM esdeveniments e;
 
 CREATE OR REPLACE VIEW moviments_full AS
@@ -1268,7 +1262,7 @@ SELECT sv.id_persona                                                            
        av.id_veu                                                                              AS id_veu,
        av.nom_veu                                                                             AS nom_veu,
        av.abreviatura_veu                                                                     AS abreviatura_veu,
-       if(ae.amb_retard, TRUE, FALSE)                                                         AS amb_retard,
+       ae.amb_retard                                                                          AS amb_retard,
        ifnull(ec.id_estat_confirmacio, 1)                                                     AS id_estat_confirmacio,
        (SELECT estats_confirmacio.estat
         FROM estats_confirmacio
@@ -1298,26 +1292,25 @@ WHERE (((exists(SELECT 1
                                                                                    WHERE (assajos_formacions.id_assaig = a.id_assaig)));
 
 CREATE OR REPLACE VIEW socis_veus AS
-SELECT p.id_persona                                                            AS id_persona,
-       s.id_soci                                                               AS id_soci,
-       p.nom                                                                   AS nom,
-       p.cognoms                                                               AS cognoms,
-       p.nom_complet                                                           AS nom_complet,
-       (SELECT ifnull((SELECT group_concat(veus_moviments.id_veu SEPARATOR ',')
-                       FROM (socis_veu_moviment_projectes
-                                JOIN veus_moviments ON ((socis_veu_moviment_projectes.id_veu_moviment =
-                                                         veus_moviments.id_veu_moviment)))
-                       WHERE (socis_veu_moviment_projectes.id_soci = s.id_soci)),
-                      ifnull((SELECT group_concat(socis_projectes_veu.id_veu SEPARATOR ',')
-                              FROM socis_projectes_veu
-                              WHERE (socis_projectes_veu.id_soci = s.id_soci)),
-                             (SELECT group_concat(socis_formacions_veus.id_veu SEPARATOR ',')
-                              FROM ((socis_formacions_veus JOIN socis_formacions ON ((
-                                      socis_formacions_veus.id_soci_formacio =
-                                      socis_formacions.id_soci_formacio)))
-                                       JOIN formacions
-                                            ON ((socis_formacions.id_formacio = formacions.id_formacio)))
-                              WHERE (socis_formacions.id_soci = s.id_soci))))) AS id_veu
+SELECT p.id_persona                                                      AS id_persona,
+       s.id_soci                                                         AS id_soci,
+       p.nom                                                             AS nom,
+       p.cognoms                                                         AS cognoms,
+       p.nom_complet                                                     AS nom_complet,
+       (SELECT coalesce((SELECT group_concat(veus_moviments.id_veu SEPARATOR ',')
+                         FROM (socis_veu_moviment_projectes
+                                  JOIN veus_moviments ON ((socis_veu_moviment_projectes.id_veu_moviment =
+                                                           veus_moviments.id_veu_moviment)))
+                         WHERE (socis_veu_moviment_projectes.id_soci = s.id_soci)),
+                        (SELECT group_concat(socis_projectes_veu.id_veu SEPARATOR ',')
+                         FROM socis_projectes_veu
+                         WHERE (socis_projectes_veu.id_soci = s.id_soci)),
+                        (SELECT group_concat(socis_formacions_veus.id_veu SEPARATOR ',')
+                         FROM ((socis_formacions_veus JOIN socis_formacions ON ((
+                                 socis_formacions_veus.id_soci_formacio = socis_formacions.id_soci_formacio)))
+                                  JOIN formacions
+                                       ON ((socis_formacions.id_formacio = formacions.id_formacio)))
+                         WHERE (socis_formacions.id_soci = s.id_soci)))) AS id_veu
 FROM (socis s
          JOIN persones p ON ((p.id_persona = s.id_soci)));
 
@@ -1336,7 +1329,7 @@ SELECT uc.id_usuari                                                             
        p.es_dona                                                                                                        AS es_dona,
        uc.id_persona                                                                                                    AS id_persona,
        uc.hash                                                                                                          AS hash,
-       (SELECT json_arrayagg(roles.role)
+       (SELECT cast(ifnull(json_arrayagg(roles.role), '[]') AS JSON)
         FROM (roles_usuaris
                  JOIN roles ON ((roles_usuaris.id_role = roles.id_role)))
         WHERE (roles_usuaris.id_usuari = uc.id_usuari))                                                                 AS roles,
@@ -1356,3 +1349,4 @@ SELECT uc.id_usuari                                                             
               ORDER BY hs.data_alta DESC)                                                                               AS es_actiu
 FROM (usuaris_complet uc
          LEFT JOIN persones p ON ((uc.id_persona = p.id_persona)));
+

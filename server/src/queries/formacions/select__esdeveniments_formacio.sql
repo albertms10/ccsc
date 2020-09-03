@@ -1,17 +1,16 @@
 SET @id_formacio = ?;
 
 SELECT ae.id_esdeveniment,
-       ae.data_inici,
-       ae.dia_inici,
+       ae.data,
+       ae.datahora_inici,
        ae.hora_inici,
-       ae.data_final,
-       ae.dia_final,
+       ae.datahora_final,
        ae.hora_final,
        ae.id_estat_esdeveniment,
        ae.id_estat_localitzacio,
        ae.estat_esdeveniment,
-       ae.estat_localitzacio,
-       ae.localitzacio,
+       ae.estat_localitzacio/*,
+       ae.localitzacio*/,
        ae.establiment,
        ae.id_esdeveniment_ajornat,
        ae.titol,
@@ -24,17 +23,16 @@ WHERE id_formacio = @id_formacio
 UNION
 
 SELECT ee.id_esdeveniment,
-       ee.data_inici,
-       ee.dia_inici,
+       ee.data,
+       ee.datahora_inici,
        ee.hora_inici,
-       ee.data_final,
-       ee.dia_final,
+       ee.datahora_final,
        ee.hora_final,
        ee.id_estat_esdeveniment,
        ee.id_estat_localitzacio,
        ee.estat_esdeveniment,
-       ee.estat_localitzacio,
-       ee.localitzacio,
+       ee.estat_localitzacio/*,
+       ee.localitzacio*/,
        ee.establiment,
        ee.id_esdeveniment_ajornat,
        CONCAT('Concert ', titol) AS titol,
@@ -56,4 +54,4 @@ FROM esdeveniments_estat ee
          INNER JOIN formacions_concerts USING (id_concert)
 WHERE id_formacio = @id_formacio
 
-ORDER BY dia_inici, hora_inici, dia_final, hora_final;
+ORDER BY data, hora_inici, hora_final;

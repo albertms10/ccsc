@@ -19,13 +19,13 @@ const CalendariResultLabel: React.FC<CalendariResultLabelProps> = ({
         statusId={esdeveniment.id_estat_esdeveniment}
         esAniversari={esdeveniment.tipus === "aniversari"}
       />
-      <CalendarAvatar moment={moment(esdeveniment.dia_inici)} borderless />
+      <CalendarAvatar moment={moment(esdeveniment.data)} borderless />
       <span>{esdeveniment.titol}</span>
     </Space>
     <Space>
       <span className="search-complete-item-extra">
         {esdeveniment.hora_inici
-          ? moment(esdeveniment.data_inici).format("LT")
+          ? moment(esdeveniment.datahora_inici).format("LT")
           : ""}
       </span>
     </Space>

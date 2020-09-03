@@ -47,11 +47,10 @@ FROM usuaris_complet uc
 
 CREATE OR REPLACE VIEW esdeveniments_estat AS
 SELECT DISTINCT id_esdeveniment,
-                IFNULL(CONCAT(dia_inici, ' ', hora_inici), dia_inici)                    AS data_inici,
-                DATE_FORMAT(dia_inici, '%Y-%m-%d')                                       AS dia_inici,
+                DATE_FORMAT(data, '%Y-%m-%d')               AS data,
+                IFNULL(CONCAT(data, ' ', hora_inici), data) AS datahora_inici,
                 hora_inici,
-                IFNULL(CONCAT(IFNULL(dia_final, dia_inici), ' ', hora_final), dia_final) AS data_final,
-                DATE_FORMAT(IFNULL(dia_final, dia_inici), '%Y-%m-%d')                    AS dia_final,
+                CONCAT(data, ' ', hora_final)               AS datahora_final,
                 hora_final,
                 (
                     SELECT CONCAT_WS(' ',
@@ -67,26 +66,26 @@ SELECT DISTINCT id_esdeveniment,
                              INNER JOIN tipus_vies tv USING (id_tipus_via)
                              INNER JOIN ciutats c USING (id_ciutat)
                     WHERE id_localitzacio = e.id_localitzacio
-                )                                                                        AS localitzacio,
+                )                                           AS localitzacio,
                 (
                     SELECT e2.nom
                     FROM localitzacions l
                              INNER JOIN establiments e2 ON (l.id_localitzacio = e2.id_establiment)
                     WHERE id_localitzacio = e.id_localitzacio
-                )                                                                        AS establiment,
+                )                                           AS establiment,
                 id_esdeveniment_ajornat,
                 e.id_estat_esdeveniment,
                 (
                     SELECT estat
                     FROM estats_confirmacio
                     WHERE id_estat_confirmacio = e.id_estat_esdeveniment
-                )                                                                        AS estat_esdeveniment,
+                )                                           AS estat_esdeveniment,
                 e.id_estat_localitzacio,
                 (
                     SELECT estat
                     FROM estats_confirmacio
                     WHERE id_estat_confirmacio = e.id_estat_localitzacio
-                )                                                                        AS estat_localitzacio
+                )                                           AS estat_localitzacio
 FROM esdeveniments e;
 
 
@@ -156,6 +155,43 @@ SELECT DISTINCT ee.*,
 FROM assajos a
          INNER JOIN esdeveniments_estat ee ON (ee.id_esdeveniment = a.id_assaig)
          LEFT JOIN assajos_son_parcials USING (id_assaig);
+
+
+CREATE OR REPLACE VIEW moviments_full AS
+SELECT o.id_obra,
+       num_cataleg,
+       m.id_moviment,
+       ordre,
+       (
+           SELECT NOT EXISTS(
+                   (
+                       SELECT *
+                       FROM moviments
+                       WHERE id_obra = o.id_obra
+                         AND id_moviment <> m.id_moviment
+                   )
+               )
+       )                        AS es_unic_moviment,
+       durada,
+       IFNULL(m.titol, o.titol) AS titol_moviment,
+       o.titol                  AS titol_obra,
+       any_inici,
+       compassos,
+       (
+           SELECT CAST(IFNULL(JSON_ARRAYAGG(
+                                      JSON_OBJECT(
+                                              'id_projecte', id_projecte,
+                                              'titol', titol,
+                                              'inicials', inicials,
+                                              'color', color
+                                          )
+                                  ), '[]') AS JSON)
+           FROM projectes
+                    INNER JOIN moviments_projectes USING (id_projecte)
+           WHERE id_moviment = m.id_moviment
+       )                        AS projectes
+FROM moviments m
+         INNER JOIN obres o USING (id_obra);
 
 
 CREATE OR REPLACE VIEW assajos_estat_moviments AS
@@ -303,40 +339,3 @@ WHERE ((
              INNER JOIN assajos_formacions USING (id_formacio)
     WHERE id_assaig = a.id_assaig
 );
-
-
-CREATE OR REPLACE VIEW moviments_full AS
-SELECT o.id_obra,
-       num_cataleg,
-       m.id_moviment,
-       ordre,
-       (
-           SELECT NOT EXISTS(
-                   (
-                       SELECT *
-                       FROM moviments
-                       WHERE id_obra = o.id_obra
-                         AND id_moviment <> m.id_moviment
-                   )
-               )
-       )                        AS es_unic_moviment,
-       durada,
-       IFNULL(m.titol, o.titol) AS titol_moviment,
-       o.titol                  AS titol_obra,
-       any_inici,
-       compassos,
-       (
-           SELECT CAST(IFNULL(JSON_ARRAYAGG(
-                                      JSON_OBJECT(
-                                              'id_projecte', id_projecte,
-                                              'titol', titol,
-                                              'inicials', inicials,
-                                              'color', color
-                                          )
-                                  ), '[]') AS JSON)
-           FROM projectes
-                    INNER JOIN moviments_projectes USING (id_projecte)
-           WHERE id_moviment = m.id_moviment
-       )                        AS projectes
-FROM moviments m
-         INNER JOIN obres o USING (id_obra);

@@ -1,5 +1,5 @@
 SELECT id_assaig,
-       CONCAT(dia_inici)                                          AS dia_inici,
+       CONCAT(data)                                               AS data,
        hora_inici,
        COUNT(id_soci)                                             AS convocats,
        COUNT(CASE WHEN amb_retard THEN id_soci END)               AS confirmats_retard,
@@ -11,5 +11,5 @@ SELECT id_assaig,
 FROM socis_convocats_assajos
          INNER JOIN esdeveniments ON (id_esdeveniment = id_assaig)
 WHERE NOT es_parcial
-GROUP BY id_assaig, dia_inici, hora_inici
-ORDER BY dia_inici, hora_inici;
+GROUP BY id_assaig, data, hora_inici
+ORDER BY data, hora_inici;

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchAssajos } from "store/assajos/thunks";
 
 interface FormAfegirAssaig {
-  dia_inici: string;
+  data: string;
   hora?: [inici: string, final: string | null];
   es_general?: boolean;
   es_extra?: boolean;
@@ -34,7 +34,7 @@ export default () => {
   const handleOk = useCallback(
     (idProjecte?: number) =>
       form.validateFields().then((assaig) => {
-        assaig.dia_inici = moment(assaig.dia_inici).format(DATE_FORMAT);
+        assaig.data = moment(assaig.data).format(DATE_FORMAT);
         assaig.hora = assaig.hora?.map(
           (h: string) => h && moment(h).format("HH:mm")
         ) ?? [null, null];
