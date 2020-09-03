@@ -47,7 +47,6 @@ const ModalAfegirAssaig: React.FC<ModalAfegirAssaigProps> = ({
             <Col sm={24} md={16} flex={1}>
               <Form.Item name="hora" label={t("fields:time")}>
                 <TimePicker.RangePicker
-                  picker="time"
                   format="HH:mm"
                   minuteStep={5}
                   allowEmpty={[false, true]}
