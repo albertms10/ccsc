@@ -1089,8 +1089,8 @@ SELECT DISTINCT ee.id_esdeveniment                                   AS id_esdev
                 ee.hora_inici                                        AS hora_inici,
                 ee.datahora_final                                    AS datahora_final,
                 ee.hora_final                                        AS hora_final,
-                ee.localitzacio                                      AS localitzacio,
-                ee.establiment                                       AS establiment,
+                ee.nom_localitzacio                                  AS nom_localitzacio,
+                ee.nom_establiment                                   AS nom_establiment,
                 ee.id_esdeveniment_ajornat                           AS id_esdeveniment_ajornat,
                 ee.id_estat_esdeveniment                             AS id_estat_esdeveniment,
                 ee.estat_esdeveniment                                AS estat_esdeveniment,
@@ -1125,8 +1125,8 @@ SELECT ae.id_esdeveniment                                                       
        ae.hora_inici                                                                   AS hora_inici,
        ae.datahora_final                                                               AS datahora_final,
        ae.hora_final                                                                   AS hora_final,
-       ae.localitzacio                                                                 AS localitzacio,
-       ae.establiment                                                                  AS establiment,
+       ae.nom_localitzacio                                                             AS nom_localitzacio,
+       ae.nom_establiment                                                              AS nom_establiment,
        ae.id_esdeveniment_ajornat                                                      AS id_esdeveniment_ajornat,
        ae.id_estat_esdeveniment                                                        AS id_estat_esdeveniment,
        ae.estat_esdeveniment                                                           AS estat_esdeveniment,
@@ -1184,11 +1184,11 @@ SELECT DISTINCT e.id_esdeveniment                                               
                                                                                    ')'))
                  FROM ((localitzacions JOIN tipus_vies tv ON ((localitzacions.id_tipus_via = tv.id_tipus_via)))
                           JOIN ciutats c ON ((localitzacions.id_ciutat = c.id_ciutat)))
-                 WHERE (localitzacions.id_localitzacio = e.id_localitzacio))                AS localitzacio,
+                 WHERE (localitzacions.id_localitzacio = e.id_localitzacio))                AS nom_localitzacio,
                 (SELECT e2.nom
                  FROM (localitzacions l
                           JOIN establiments e2 ON ((l.id_localitzacio = e2.id_establiment)))
-                 WHERE (l.id_localitzacio = e.id_localitzacio))                             AS establiment,
+                 WHERE (l.id_localitzacio = e.id_localitzacio))                             AS nom_establiment,
                 e.id_esdeveniment_ajornat                                                   AS id_esdeveniment_ajornat,
                 e.id_estat_esdeveniment                                                     AS id_estat_esdeveniment,
                 (SELECT estats_confirmacio.estat

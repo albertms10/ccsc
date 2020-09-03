@@ -20,11 +20,13 @@ const EventLineItemLocalitzacio: React.FC<EventLineItemLocalitzacioProps> = ({
 
   return (
     <EventLineItem icon={<EnvironmentFilled />}>
-      {esdeveniment.establiment || esdeveniment.localitzacio ? (
+      {esdeveniment.nom_establiment || esdeveniment.nom_localitzacio ? (
         <>
-          {esdeveniment.establiment && <Text>{esdeveniment.establiment}</Text>}
-          <Text type={esdeveniment.establiment ? "secondary" : undefined}>
-            {esdeveniment.localitzacio}
+          {esdeveniment.nom_establiment && (
+            <Text>{esdeveniment.nom_establiment}</Text>
+          )}
+          <Text type={esdeveniment.nom_establiment ? "secondary" : undefined}>
+            {esdeveniment.nom_localitzacio}
           </Text>
         </>
       ) : (

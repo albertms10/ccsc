@@ -256,8 +256,8 @@ declare module "model" {
     tipus?: string;
     id_estat_esdeveniment: number;
     estat_esdeveniment: string;
-    establiment: string;
-    localitzacio: string;
+    nom_establiment: string;
+    nom_localitzacio: string;
     notes: string;
   }
 

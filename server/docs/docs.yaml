@@ -29,9 +29,9 @@ paths:
   /entitats:
     get:
       summary: Obtén la llista d’entitats
-      tags: [Entitats]
+      tags: [ Entitats ]
       security:
-        - JWT: []
+        - JWT: [ ]
       responses:
         200:
           description: Llista d’entitats
@@ -47,7 +47,7 @@ paths:
   /entitats/avisos/{name}:
     get:
       summary: Obtén la informació d’un avís
-      tags: [Entitats]
+      tags: [ Entitats ]
       parameters:
         - $ref: "#/components/parameters/name"
       responses:
@@ -61,9 +61,9 @@ paths:
   /entitats/cursos:
     get:
       summary: Obtén la llista de cursos
-      tags: [Entitats]
+      tags: [ Entitats ]
       security:
-        - JWT: []
+        - JWT: [ ]
       responses:
         200:
           description: Llista de cursos
@@ -78,9 +78,9 @@ paths:
 
   /assajos:
     post:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Afegeix un assaig
       requestBody:
         required: true
@@ -99,9 +99,9 @@ paths:
 
   /assajos/count:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén el recompte d’assajos
       responses:
         200:
@@ -115,9 +115,9 @@ paths:
 
   /assajos/historial:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén l’historial d’assajos
       responses:
         200:
@@ -131,16 +131,16 @@ paths:
 
   /assajos/assistencia:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén l’assistència d’assajos
       parameters:
         - in: query
           name: group-by
           schema:
             type: string
-            enum: [estat, veus]
+            enum: [ estat, veus ]
           description: Agrupació de les dades
       responses:
         200:
@@ -156,9 +156,9 @@ paths:
 
   /assajos/{id}:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén la informació d’un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -173,9 +173,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
 
     delete:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Elimina un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -187,9 +187,9 @@ paths:
 
   /assajos/{id}/moviments:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén els moviments d’un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -206,9 +206,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
 
     post:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Afegeix un moviment a un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -226,9 +226,9 @@ paths:
 
   /assajos/{id_assaig}/moviments/{id_moviment}:
     delete:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Elimina un moviment d’un assaig
       parameters:
         - in: path
@@ -249,9 +249,9 @@ paths:
 
   /assajos/{id}/projectes:
     get:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Obtén els projectes d’un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -268,9 +268,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
 
     post:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Afegeix un projecte a un assaig
       parameters:
         - $ref: "#/components/parameters/id"
@@ -288,9 +288,9 @@ paths:
 
   /assajos/{id_assaig}/projectes/{id_projecte}:
     delete:
-      tags: [Assajos]
+      tags: [ Assajos ]
       security:
-        - JWT: []
+        - JWT: [ ]
       summary: Elimina un projecte d’un assaig
       parameters:
         - in: path
@@ -311,7 +311,7 @@ paths:
 
   /auth/sign-in:
     post:
-      tags: [Auth]
+      tags: [ Auth ]
       summary: Inicia la sessió
       requestBody:
         required: true
@@ -592,10 +592,10 @@ components:
           type: string
           format: time
           readOnly: true
-        localitzacio:
+        nom_localitzacio:
           type: string
           readOnly: true
-        establiment:
+        nom_establiment:
           type: string
           readOnly: true
         id_esdeveniment_ajornat:

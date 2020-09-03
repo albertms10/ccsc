@@ -66,13 +66,13 @@ SELECT DISTINCT id_esdeveniment,
                              INNER JOIN tipus_vies tv USING (id_tipus_via)
                              INNER JOIN ciutats c USING (id_ciutat)
                     WHERE id_localitzacio = e.id_localitzacio
-                )                                           AS localitzacio,
+                )                                           AS nom_localitzacio,
                 (
                     SELECT e2.nom
                     FROM localitzacions l
                              INNER JOIN establiments e2 ON (l.id_localitzacio = e2.id_establiment)
                     WHERE id_localitzacio = e.id_localitzacio
-                )                                           AS establiment,
+                )                                           AS nom_establiment,
                 id_esdeveniment_ajornat,
                 e.id_estat_esdeveniment,
                 (
