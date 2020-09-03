@@ -61,7 +61,7 @@ SELECT DISTINCT id_esdeveniment,
                                      CONCAT('(',
                                             (SELECT nom FROM ciutats WHERE id_ciutat = c.id_provincia),
                                             ')')
-                               )
+                               ) COLLATE utf8mb4_unicode_ci
                     FROM localitzacions
                              INNER JOIN tipus_vies tv USING (id_tipus_via)
                              INNER JOIN ciutats c USING (id_ciutat)
