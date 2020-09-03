@@ -19,7 +19,7 @@ import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
-import { upperCaseFirst } from "utils";
+import { personIdCheck, upperCaseFirst } from "utils";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { useUsername } from "./index";
 
@@ -52,34 +52,24 @@ export default (
 
   const [form] = Form.useForm<FormAfegirSoci>();
 
-  // TODO Extreure la lògica a `utils` i retornar una `Promise`
-  const validatorDniES = useCallback(
-    (rule, value: string) => {
-      if (!value) return Promise.reject();
+  const personIDValidator = useCallback(
+    async (rule, value) => {
+      try {
+        const result = await personIdCheck(value);
 
-      const XIFRES = 8;
+        if (result) setDniValidation(result.status);
 
-      const letter = value ? value.charAt(value.length - 1) : "";
-      if (letter.match(/^[a-z]+$/)) {
-        setDniValidation("warning");
-        return Promise.reject(t("enter letter uppercase"));
-      }
+        return Promise.resolve();
+      } catch (e) {
+        let res;
 
-      const number = parseInt(value.substr(0, value.length - 1));
-      const letters = "TRWAGMYFPDXBNJZSQVHLCKE";
-
-      if (number.toString().length === XIFRES) {
-        if (value === number + letters[number % letters.length]) {
-          setDniValidation("success");
-          return Promise.resolve();
+        if (e) {
+          setDniValidation(e.status);
+          res = t(e.reason || "", e.options);
         }
-      } else {
-        setDniValidation("");
-        return Promise.reject(t("number must be", { number: XIFRES }));
-      }
 
-      setDniValidation("error");
-      return Promise.reject(t("letter does not correspond"));
+        return Promise.reject(res);
+      }
     },
     [t]
   );
@@ -162,7 +152,7 @@ export default (
                   rules={[
                     { required: true, message: t("enter person id") },
                     { whitespace: true, message: t("enter person id") },
-                    selectedPais === "es" ? { validator: validatorDniES } : {},
+                    { validator: personIDValidator },
                   ]}
                 >
                   <Input />
@@ -280,10 +270,9 @@ export default (
         soci.username = username;
         soci.nom = upperCaseFirst(soci.nom);
         soci.cognoms = upperCaseFirst(soci.cognoms);
+        soci.dni = soci.dni.toUpperCase();
         soci.naixement = soci.naixement.format(DATE_FORMAT);
-        soci.data_alta = soci.data_alta
-          ? soci.data_alta.format(DATE_FORMAT)
-          : moment().format(DATE_FORMAT);
+        soci.data_alta = (soci.data_alta || moment()).format(DATE_FORMAT);
 
         postSoci(soci)
           .then(() => {
