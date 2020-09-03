@@ -35,6 +35,7 @@ const DetallProjecte: React.FC<DetallProjecteProps> = ({ match }) => {
   const history = useHistory();
   const { id } = useParams<{ id?: string }>();
 
+  // TODO: If ID is not provided, do not call useAPI
   const [projecte, loading] = useAPI<Projecte>(
     `/projectes/${id}`,
     {} as Projecte

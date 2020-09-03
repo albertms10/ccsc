@@ -4,20 +4,20 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
 
-interface ResumAfegirSoci {
+interface ResumAfegirSociProps {
   form: FormInstance;
   username: string;
   loadingUsername?: boolean;
 }
 
-const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
+const ResumAfegirSoci: React.FC<ResumAfegirSociProps> = ({
   form,
   username,
   loadingUsername = false,
 }) => {
   const { t } = useTranslation("fields");
 
-  const data = form.getFieldsValue();
+  const nouSoci = form.getFieldsValue();
 
   return (
     <Space direction="vertical">
@@ -25,36 +25,38 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
         <Descriptions size="small">
           <Descriptions.Item
             label={t("name")}
-          >{`${data.nom} ${data.cognoms}`}</Descriptions.Item>
+          >{`${nouSoci.nom} ${nouSoci.cognoms}`}</Descriptions.Item>
           <Descriptions.Item label={t("username")}>
-            {loadingUsername ? <Spin size="small" /> : username}
+            <Spin size="small" spinning={loadingUsername}>
+              {username}
+            </Spin>
           </Descriptions.Item>
           <Descriptions.Item label={t("person id")}>
-            {data.dni}
+            {nouSoci.dni && nouSoci.dni.toUpperCase()}
           </Descriptions.Item>
           <Descriptions.Item label={t("birth date")} span={2}>
-            {data.naixement && data.naixement.format("LL")}
+            {nouSoci.naixement && nouSoci.naixement.format("LL")}
           </Descriptions.Item>
         </Descriptions>
       </InfoCard>
-      {(data.experiencia_musical ||
-        data.estudis_musicals ||
-        data.data_alta) && (
+      {(nouSoci.experiencia_musical ||
+        nouSoci.estudis_musicals ||
+        nouSoci.data_alta) && (
         <InfoCard title={t("musical information")}>
           <Descriptions size="small">
-            {data.experiencia_musical && (
+            {nouSoci.experiencia_musical && (
               <Descriptions.Item label={t("musical experience")} span={3}>
-                {data.experiencia_musical}
+                {nouSoci.experiencia_musical}
               </Descriptions.Item>
             )}
-            {data.estudis_musicals && (
+            {nouSoci.estudis_musicals && (
               <Descriptions.Item label={t("musical studies")} span={3}>
-                {data.estudis_musicals}
+                {nouSoci.estudis_musicals}
               </Descriptions.Item>
             )}
-            {data.data_alta && (
+            {nouSoci.data_alta && (
               <Descriptions.Item label={t("subscribed date")}>
-                {data.data_alta.format("LL")}
+                {nouSoci.data_alta.format("LL")}
               </Descriptions.Item>
             )}
           </Descriptions>
@@ -63,11 +65,11 @@ const ResumAfegirSoci: React.FC<ResumAfegirSoci> = ({
       <InfoCard title={t("contact data")}>
         <Descriptions size="small">
           <Descriptions.Item label={t("email address")} span={2}>
-            {data.email}
+            {nouSoci.email}
           </Descriptions.Item>
-          {data.telefon && (
+          {nouSoci.telefon && (
             <Descriptions.Item label={t("phone")}>
-              {data.telefon}
+              {nouSoci.telefon}
             </Descriptions.Item>
           )}
         </Descriptions>

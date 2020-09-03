@@ -1,6 +1,6 @@
 import { AnyMap } from "common";
 
-type KeyReplacementObject<T> = { [P in keyof T]?: string };
+type KeyReplacementObject<T> = { [K in keyof T]?: string };
 
 interface DataSplitObject {
   value: unknown;
