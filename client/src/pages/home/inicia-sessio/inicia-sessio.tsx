@@ -75,7 +75,7 @@ const IniciaSessio: React.FC = () => {
         <Form<FormIniciaSessio>
           className="signin-form"
           initialValues={{
-            username: locationState ? locationState.username : "",
+            username: locationState?.username ?? "",
           }}
           onFinish={onFinish}
         >

@@ -8,11 +8,11 @@ export default <T, U>(
 ): U[] =>
   elements.reduce(
     (result, element, index) =>
-      index < elements.length - 1
-        ? result.concat(
-            render(element, index) as never,
-            renderSeparator(`${index}-separator`) as never
-          )
-        : result.concat(render(element, index) as never),
+      result.concat(
+        render(element, index) as never,
+        ...(index < elements.length - 1
+          ? [renderSeparator(`${index}-separator`) as never]
+          : [])
+      ),
     []
   );

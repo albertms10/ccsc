@@ -72,7 +72,7 @@ const SearchList = <T,>({
         style={{ marginBottom: ".5rem" }}
       />
       <List
-        dataSource={mapData ? mapData(filteredData) : filteredData}
+        dataSource={mapData?.(filteredData) ?? filteredData}
         loading={loading}
         size="small"
         split={false}

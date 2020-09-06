@@ -40,9 +40,7 @@ export default () => {
         let prevLocation;
         if (location.state) prevLocation = location.state.prevLocation;
         history.push(
-          prevLocation
-            ? prevLocation.pathname
-            : `/${linkText(t("dashboard:dashboard"))}`
+          prevLocation?.pathname ?? `/${linkText(t("dashboard:dashboard"))}`
         );
       }
     }

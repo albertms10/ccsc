@@ -60,7 +60,7 @@ const DonarAlta: React.FC = () => {
               {t("common:go ahead")}
             </Button>
           </Form.Item>
-          {alertMessage ? <Alert type="warning" message={alertMessage} /> : ""}
+          {alertMessage && <Alert type="warning" message={alertMessage} />}
         </Form>
       </div>
     </Container>
