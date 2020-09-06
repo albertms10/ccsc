@@ -51,6 +51,9 @@ export const personIdMatchers = [
   },
 ];
 
+/**
+ * Checks for the correct person ID pattern evaluation returning a `Promise`.
+ */
 export default (value: string): Promise<PersonIdCheckResponse> => {
   if (!value) return Promise.reject();
 

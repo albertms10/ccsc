@@ -9,7 +9,7 @@ import {
 } from "components/tauler-app/contexts/sider-context";
 import React, { useContext } from "react";
 import { ErrorBoundary } from "standalone/error-boundary";
-import { initials } from "utils";
+import { initials } from "utils/strings";
 import { MainMenu } from "./components/main-menu";
 import "./main-sider.css";
 

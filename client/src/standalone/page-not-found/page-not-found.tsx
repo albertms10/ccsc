@@ -2,7 +2,7 @@ import { Breadcrumb, Typography } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { prettyString, upperCaseFirst } from "utils";
+import { prettyString, upperCaseFirst } from "utils/strings";
 import "./page-not-found.css";
 
 const PageNotFound: React.FC = () => {

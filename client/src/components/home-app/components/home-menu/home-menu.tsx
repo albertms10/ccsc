@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "store/types";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface MenuItem {
   key: string;

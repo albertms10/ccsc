@@ -3,7 +3,7 @@ import { Entitat } from "model";
 import React, { createContext } from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { MainLayout } from "./components/main-layout";
 import { FormacionsContext, SiderContext } from "./contexts";
 

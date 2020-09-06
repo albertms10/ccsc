@@ -5,7 +5,7 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Container } from "standalone/container";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { useValidEmailEspera } from "./hooks";
 
 interface FormDonarAlta {

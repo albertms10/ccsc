@@ -9,7 +9,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Route, Switch } from "react-router-dom";
 import { PageNotFound } from "standalone/page-not-found";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { HomeMenu } from "./components/home-menu";
 import "./home-app.css";
 

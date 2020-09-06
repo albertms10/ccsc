@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";
 import { ContentList } from "standalone/content-list";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
-import { timeDuration } from "utils";
+import { timeDuration } from "utils/datetime";
 import { ModalAfegirMoviment } from "../modal-afegir-moviment";
 
 const ContentListMoviments: React.FC = () => {

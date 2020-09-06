@@ -1,5 +1,5 @@
 /**
- * Returns the index of the nth occurence of a value in a string.
+ * Returns the index of the `n`th occurence of a value in a string.
  */
 export default (
   string: string,

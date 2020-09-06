@@ -1,5 +1,8 @@
-import { stripAccents } from "./index";
+import { stripAccents } from "../strings";
 
+/**
+ * Returns a generated username from the given `name` and `surname`.
+ */
 export default (name: string, surname: string): string =>
   stripAccents(
     name

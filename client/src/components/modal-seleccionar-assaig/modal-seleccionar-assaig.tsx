@@ -10,7 +10,7 @@ import { useAssajos } from "pages/tauler/assajos/components/llista-assajos/hooks
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarAvatar } from "standalone/calendar-avatar";
-import { timeRange } from "utils";
+import { timeRange } from "utils/datetime";
 
 interface ModalSeleccionarAssaigProps
   extends ModalButtonBaseProps,

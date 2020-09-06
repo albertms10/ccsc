@@ -1,5 +1,5 @@
 import { Assaig, Moviment, Projecte, Veu } from "model";
-import { SearchFilters } from "utils/search-filter";
+import { SearchFilters } from "utils/misc/search-filter";
 
 export const searchFilterAssaig = (assaig: Assaig): SearchFilters => ({
   texts: [

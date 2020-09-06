@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { fetchSocis } from "store/socis/thunks";
-import { searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
 import { CellNomSoci } from "./components/cell-nom-soci";
 import { DropdownRowSoci } from "./components/dropdown-row-soci";
 import "./taula-socis.css";

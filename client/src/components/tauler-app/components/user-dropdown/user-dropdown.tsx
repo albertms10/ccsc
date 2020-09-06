@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "store/types";
 import { logoutRemoveUser } from "store/user/thunks";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import "./user-dropdown.css";
 
 const { Item, Divider } = Menu;

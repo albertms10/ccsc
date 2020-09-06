@@ -21,7 +21,8 @@ import {
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import { basenameFromPath, linkText } from "utils";
+import { basenameFromPath } from "utils/misc";
+import { linkText } from "utils/strings";
 import { MainMenuItem } from "../menu-item";
 import { MainMenuItemGroup } from "../menu-item-group";
 import "./main-menu.css";

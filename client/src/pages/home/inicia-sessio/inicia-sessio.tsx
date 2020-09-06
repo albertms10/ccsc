@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Container } from "standalone/container";
 import { RootState } from "store/types";
 import { signinUserFetch } from "store/user/thunks";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { useIniciUsuari } from "./hooks";
 import "./inicia-sessio.css";
 

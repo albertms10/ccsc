@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ConditionalWrapper } from "standalone/conditional-wrapper";
 import { FixedTag } from "standalone/fixed-tag";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface FixedTagsProjectesProps {
   projectes: Projecte[];

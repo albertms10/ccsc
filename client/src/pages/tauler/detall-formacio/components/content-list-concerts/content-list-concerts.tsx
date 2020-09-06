@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { ContentList, ContentListBaseProps } from "standalone/content-list";
 import { FixedTag } from "standalone/fixed-tag";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface ContentListConcertsProps extends ContentListBaseProps {
   concerts: Concert[];

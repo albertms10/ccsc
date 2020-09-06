@@ -19,7 +19,8 @@ import {
 } from "model";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { dataSplit, dateRange } from "utils";
+import { dateRange } from "utils/datetime";
+import { dataSplit } from "utils/lists";
 
 const ChartAssistencia: React.FC = () => {
   const { t } = useTranslation("dashboard");
@@ -40,7 +41,7 @@ const ChartAssistencia: React.FC = () => {
         assaig: dateRange(assaig.data, assaig.hora_inici, "", "", {
           isLong: false,
           includesYear: false,
-          connector: t("common:of connector"),
+          separator: t("common:of connector"),
         }).join(" · "),
       })),
     [t]

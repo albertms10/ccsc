@@ -1,5 +1,5 @@
 import moment from "moment";
-import { initials, stripAccents } from "./index";
+import { initials, stripAccents } from "../strings";
 
 export interface SearchFilters {
   texts?: (string | undefined)[];

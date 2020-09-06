@@ -8,7 +8,8 @@ import { searchFilterMoviment } from "helpers/search-filters";
 import { Moviment } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { mapFirstOfProperty, timeDuration } from "utils";
+import { timeDuration } from "utils/datetime";
+import { mapFirstOfProperty } from "utils/lists";
 
 interface ModalSeleccionarMovimentProps
   extends ModalButtonBaseProps,

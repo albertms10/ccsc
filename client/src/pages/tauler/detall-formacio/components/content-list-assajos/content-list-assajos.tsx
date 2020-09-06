@@ -7,7 +7,7 @@ import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { ContentList, ContentListBaseProps } from "standalone/content-list";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface ContentListAssajosProps extends ContentListBaseProps {
   assajos: Assaig[];

@@ -4,7 +4,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { EventLineItem } from "standalone/event-line-item";
 import { StatusIcon } from "standalone/status-icon";
-import { dateRange, joinElements } from "utils";
+import { dateRange } from "utils/datetime";
+import { joinElements } from "utils/lists";
 
 interface EventLineItemDataProps {
   esdeveniment: Esdeveniment;
@@ -25,7 +26,7 @@ const EventLineItemData: React.FC<EventLineItemDataProps> = ({
               esdeveniment.hora_inici,
               esdeveniment.data,
               esdeveniment.hora_final,
-              { connector: t("of connector") }
+              { separator: t("of connector") }
             ),
             (item, index) => (
               <span key={index}>{item}</span>

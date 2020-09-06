@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Redirect, Route, RouteProps, useLocation } from "react-router-dom";
 import { RootState } from "store/types";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 const RouteTauler: React.FC<RouteProps> = ({ component, ...rest }) => {
   const { t } = useTranslation("sign-in");

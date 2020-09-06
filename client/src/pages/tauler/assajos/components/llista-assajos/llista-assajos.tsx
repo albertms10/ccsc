@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { fetchAssajos } from "store/assajos/thunks";
-import { linkText, searchFilter, timeRange } from "utils";
+import { timeRange } from "utils/datetime";
+import { searchFilter } from "utils/misc";
+import { linkText } from "utils/strings";
 import { useAssajos } from "./hooks";
 
 const { Item } = List;

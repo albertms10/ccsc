@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { EventLineItem } from "standalone/event-line-item";
 import { StatusIcon } from "standalone/status-icon";
-import { dateRange, joinElements, linkText, timeRange } from "utils";
+import { dateRange, timeRange } from "utils/datetime";
+import { joinElements } from "utils/lists";
+import { linkText } from "utils/strings";
 
 interface CardProperAssaigProps {
   assaig: Assaig;
@@ -47,7 +49,7 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
               assaig.hora_inici,
               assaig.data,
               assaig.hora_final,
-              { connector: t("common:of connector") }
+              { separator: t("common:of connector") }
             ),
             (item, index) => (
               <span key={index}>{item}</span>

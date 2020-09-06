@@ -1,4 +1,4 @@
-import { stripAccents } from "./index";
+import { stripAccents } from "utils/strings/index";
 
 interface InitialsOptions {
   minValue?: number;
@@ -23,13 +23,13 @@ export default (
     const sorted = words.concat().sort((a, b) => b.length - a.length);
 
     for (let i = 0; i < maxInitials; i++)
-      pushed.push(words.find((w) => w === sorted[i]) || "");
-    initials = words.filter((w) => pushed.includes(w));
+      pushed.push(words.find((word) => word === sorted[i]) || "");
+    initials = words.filter((word) => pushed.includes(word));
   }
 
   if (initials.length === 0) initials = words;
   return initials
-    .map((w) => (w.length >= minValue ? w.charAt(0) : ""))
+    .map((words) => (words.length >= minValue ? words.charAt(0) : ""))
     .join("")
     .toUpperCase();
 };

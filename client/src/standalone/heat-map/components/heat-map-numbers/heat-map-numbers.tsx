@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledComponent } from "react-types";
-import { mapNumber } from "utils";
+import { mapNumber } from "utils/math";
 
 export interface HeatMapNumbersProps extends StyledComponent {
   numbers?: number[];

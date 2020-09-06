@@ -6,7 +6,7 @@ import {
   SearchComplete,
   SearchCompleteBaseProps,
 } from "standalone/search-complete";
-import { searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
 
 interface SearchCompleteVeusAssaigProps extends SearchCompleteBaseProps {
   idAssaig: number;

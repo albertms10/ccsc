@@ -1,10 +1,10 @@
 import { Role } from "common";
 import {
   ROLES_ADMIN,
-  ROLES_MUSICAL_MANAGEMENT,
   ROLES_BOARD_OF_DIRECTORS,
+  ROLES_MUSICAL_MANAGEMENT,
 } from "constants/constants";
-import { includesSome } from "utils";
+import { includesSome } from "utils/lists";
 
 export const hasRoleBoardOfDirectors = (roles: Role[]): boolean =>
   includesSome(roles, ROLES_BOARD_OF_DIRECTORS);

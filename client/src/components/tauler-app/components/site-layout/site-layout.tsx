@@ -14,7 +14,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import { CenteredSpin } from "standalone/centered-spin";
 import { ErrorBoundary } from "standalone/error-boundary";
 import { PageNotFound } from "standalone/page-not-found";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import {
   FormacionsListContext,
   LoadingFormacionsContext,

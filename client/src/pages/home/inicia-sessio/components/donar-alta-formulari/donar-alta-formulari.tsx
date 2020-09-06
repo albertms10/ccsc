@@ -9,7 +9,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { Container } from "standalone/container";
 import { RootState } from "store/types";
 import { logoutRemoveUser } from "store/user/thunks";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 const DonarAltaFormulari: React.FC = () => {
   const { t } = useTranslation("sign-in");

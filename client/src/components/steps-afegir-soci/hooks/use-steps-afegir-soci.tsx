@@ -19,8 +19,8 @@ import moment from "moment";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
-import { personIdCheck, upperCaseFirst } from "utils";
-import { personIdMatchers } from "utils/person-id-check";
+import { personIdCheck, personIdMatchers } from "utils/misc";
+import { upperCaseFirst } from "utils/strings";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { useUsername } from "./index";
 

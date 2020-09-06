@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { EventLineItem } from "standalone/event-line-item";
 import { StatusIcon } from "standalone/status-icon";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { EventLineItemData } from "../event-line-item-data";
 import { EventLineItemLocalitzacio } from "../event-line-item-localitzacio";
 import "./calendar-event-popover.css";

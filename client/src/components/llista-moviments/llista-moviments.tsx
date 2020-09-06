@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { fetchMoviments } from "store/moviments/thunks";
-import { linkText, searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
+import { linkText } from "utils/strings";
 import { useMoviments } from "./hooks";
 
 const { Search } = Input;

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { RootState } from "store/types";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface DropdownRowSociProps {
   idPersona: number;

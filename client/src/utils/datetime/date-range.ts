@@ -1,10 +1,10 @@
 import moment from "moment";
-import { nIndexOf } from "./index";
+import { nIndexOf } from "../misc";
 
 interface DateRangeOptions {
   isLong?: boolean;
   includesYear?: boolean;
-  connector?: string;
+  separator?: string;
 }
 
 /**
@@ -15,22 +15,18 @@ export default (
   timeStart: string,
   dateEnd?: string,
   timeEnd?: string,
-  {
-    isLong = true,
-    includesYear = true,
-    connector = " ",
-  }: DateRangeOptions = {}
+  { isLong = true, includesYear = true, separator = " " }: DateRangeOptions = {}
 ): string[] => {
   const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
 
-  const formatMatch = startFormat.match(new RegExp(connector, "g"));
+  const formatMatch = startFormat.match(new RegExp(separator, "g"));
 
   return [
     includesYear
       ? startFormat
       : startFormat.substring(
           0,
-          nIndexOf(startFormat, connector, formatMatch ? formatMatch.length : 0)
+          nIndexOf(startFormat, separator, formatMatch ? formatMatch.length : 0)
         ),
     ...(timeStart
       ? [

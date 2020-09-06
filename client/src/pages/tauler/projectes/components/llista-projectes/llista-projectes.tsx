@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { ColorCard } from "standalone/color-card";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { fetchProjectes } from "store/projectes/thunks";
-import { literalList, searchFilter } from "utils";
+import { literalList } from "utils/lists";
+import { searchFilter } from "utils/misc";
 import { useProjectes } from "./hooks";
 import "./llista-projectes.css";
 

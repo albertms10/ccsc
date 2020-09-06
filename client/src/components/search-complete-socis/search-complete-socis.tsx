@@ -5,7 +5,8 @@ import {
   SearchComplete,
   SearchCompleteBaseProps,
 } from "standalone/search-complete";
-import { initials, searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
+import { initials } from "utils/strings";
 
 type SearchCompleteSocisProps = SearchCompleteBaseProps;
 

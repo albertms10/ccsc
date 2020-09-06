@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { fetchObres } from "store/obres/thunks";
-import { searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
 import { useObres } from "./hooks";
 
 const { Item } = List;

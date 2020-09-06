@@ -8,7 +8,7 @@ interface MapNumbersOptions {
 }
 
 /**
- * Re-maps a number from one range to another.
+ * Re-maps a number from one range to another (default from 0 to 1).
  */
 export default (
   value: number,

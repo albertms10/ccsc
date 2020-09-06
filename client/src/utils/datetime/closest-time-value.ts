@@ -1,12 +1,10 @@
-type TimeUnit = "s" | "min" | "h" | "d" | "m" | "y";
+const units = ["s", "min", "h", "d", "m", "y"];
+const durations = [60, 60, 24, 30, 12, 10];
 
 /**
  * Given an integer, finds the propper unit in order to express its value.
  */
-export default (value: number, unit: TimeUnit = "d"): string => {
-  const units: TimeUnit[] = ["s", "min", "h", "d", "m", "y"];
-  const durations = [60, 60, 24, 30, 12, 10];
-
+export default (value: number, unit: typeof units[number] = "d"): string => {
   let num = value;
   let i: number;
 

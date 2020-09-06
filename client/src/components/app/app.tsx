@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Provider as StoreProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { store } from "store";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { RouteTauler } from "./components/route-tauler";
 
 const HomeApp = lazy(

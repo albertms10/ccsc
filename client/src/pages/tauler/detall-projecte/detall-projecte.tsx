@@ -14,7 +14,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { ColorCard } from "standalone/color-card";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 import { AssajosProjecte } from "./components/assajos-projecte";
 import { RepertoriProjecte } from "./components/repertori-projecte";
 import { ResumProjecte } from "./components/resum-projecte";

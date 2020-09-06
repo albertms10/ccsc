@@ -3,7 +3,8 @@ import { Soci } from "model";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { closestTimeValue, linkText } from "utils";
+import { closestTimeValue } from "utils/datetime";
+import { linkText } from "utils/strings";
 
 const { Text } = Typography;
 

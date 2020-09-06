@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";
 import { Container } from "standalone/container";
 import { SearchComplete } from "standalone/search-complete";
-import { searchFilter } from "utils";
+import { searchFilter } from "utils/misc";
 import "./calendari-formacio.css";
 import { CalendariFormacioCell } from "./components/calendari-formacio-cell";
 import { CalendariResultLabel } from "./components/calendari-result-label";

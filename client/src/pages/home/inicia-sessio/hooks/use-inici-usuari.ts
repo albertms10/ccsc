@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { RootState } from "store/types";
 import { getProfileFetch } from "store/user/thunks";
-import { linkText } from "utils";
+import { linkText } from "utils/strings";
 
 interface IniciUsuariHistory {
   prevLocation: {

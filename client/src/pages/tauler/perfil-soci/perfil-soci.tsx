@@ -5,7 +5,7 @@ import { Soci } from "model";
 import React, { createContext, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Container } from "standalone/container";
-import { initials } from "utils";
+import { initials } from "utils/strings";
 import { SociTabEntitat } from "./components/soci-tab-entitat";
 import { SociTabGeneral } from "./components/soci-tab-general";
 import { SociTabMusical } from "./components/soci-tab-musical";

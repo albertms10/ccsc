@@ -1,7 +1,7 @@
 import { useAPI } from "helpers";
 import { Moviment, SeccioMoviment } from "model";
 import { useMemo } from "react";
-import { gcd } from "utils";
+import { gcd } from "utils/math";
 
 export default (moviment: Moviment) => {
   const [seccionsMoviment, loadingSeccionsMoviment] = useAPI<SeccioMoviment[]>(

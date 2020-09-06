@@ -7,7 +7,7 @@ import { useCheckInicials } from "pages/tauler/projectes/components/modal-afegir
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProjectes } from "store/projectes/thunks";
-import { initials } from "utils";
+import { initials } from "utils/strings";
 
 interface FormAfegirProjecte {
   titol: string;
