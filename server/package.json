@@ -4,10 +4,10 @@
   "scripts": {
     "tsc": "tsc",
     "build": "npm i && cd ../client && npm i && npm run build",
-    "server": "npm run tsc && nodemon build/server/src",
+    "server": "npm run tsc",
     "client": "cd .. && npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "postinstall": "npm run tsc"
+    "dev": "concurrently \"nodemon src\" \"npm run client\"",
+    "postinstall": "npm run tsc && npx copyfiles -u 2 src/queries/**/*.sql build/server/src/queries"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",

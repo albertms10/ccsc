@@ -6,7 +6,10 @@ const router = express.Router();
 
 router
   .route("/")
-  .post([verifyAccessToken, isBoardOfDirectors], controller.localitzacions_post);
+  .post(
+    [verifyAccessToken, isBoardOfDirectors],
+    controller.localitzacions_post
+  );
 
 router.route("/tipus-vies").get(controller.localitzacions_tipusvies_get);
 
