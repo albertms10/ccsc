@@ -16,10 +16,11 @@ import { DATE_FORMAT } from "constants/constants";
 import { useAPI, usePostAPI } from "helpers";
 import { Pais } from "model";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
 import { personIdCheck, upperCaseFirst } from "utils";
+import { personIdMatchers } from "utils/person-id-check";
 import { ResumAfegirSoci } from "../components/resum-afegir-soci";
 import { useUsername } from "./index";
 
@@ -42,7 +43,9 @@ export default (
 
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const [dniValidation, setDniValidation] = useState<ValidateStatus>("");
+  const [dniValidateStatus, setDniValidateStatus] = useState<ValidateStatus>(
+    ""
+  );
   const [selectedPais, setSelectedPais] = useState<Pais["nom"]>("");
 
   const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
@@ -57,14 +60,14 @@ export default (
       try {
         const result = await personIdCheck(value);
 
-        if (result) setDniValidation(result.status);
+        if (result) setDniValidateStatus(result.status);
 
         return Promise.resolve();
       } catch (e) {
         let res;
 
         if (e) {
-          setDniValidation(e.status);
+          setDniValidateStatus(e.status);
           res = t(e.reason || "", e.options);
         }
 
@@ -74,14 +77,18 @@ export default (
     [t]
   );
 
-  const steps: FormStep[] = [
-    {
+  const stepProtection: FormStep = useMemo(
+    () => ({
       key: "protection",
       title: t("fields:data protection"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="proteccio_dades" isForm />,
-    },
-    {
+    }),
+    [t]
+  );
+
+  const stepData: FormStep = useMemo(
+    () => ({
       key: "data",
       title: t("fields:partner data"),
       selfCreationOnly: false,
@@ -148,7 +155,13 @@ export default (
                   name="dni"
                   label={t("fields:person id")}
                   hasFeedback
-                  validateStatus={selectedPais === "es" ? dniValidation : ""}
+                  validateStatus={
+                    personIdMatchers.find(
+                      (matcher) => matcher.state === selectedPais
+                    )
+                      ? dniValidateStatus
+                      : ""
+                  }
                   rules={[
                     { required: true, message: t("enter person id") },
                     { whitespace: true, message: t("enter person id") },
@@ -181,7 +194,10 @@ export default (
                   name="email"
                   label={t("fields:email address")}
                   rules={[
-                    { type: "email", message: t("enter valid email address") },
+                    {
+                      type: "email",
+                      message: t("enter valid email address"),
+                    },
                     { required: true, message: t("enter email address") },
                     { whitespace: true, message: t("no whitespace") },
                   ]}
@@ -236,14 +252,30 @@ export default (
           </InfoCard>
         </Space>
       ),
-    },
-    {
+    }),
+    [
+      t,
+      dniValidateStatus,
+      loadingPaisos,
+      paisos,
+      personIDValidator,
+      selectedPais,
+      selfCreation,
+    ]
+  );
+
+  const stepImage: FormStep = useMemo(
+    () => ({
       key: "image",
       title: t("fields:image rights"),
       selfCreationOnly: true,
       content: <AvisAcceptacio nameAvis="drets_imatge" isForm />,
-    },
-    {
+    }),
+    [t]
+  );
+
+  const stepSummary: FormStep = useMemo(
+    () => ({
       key: "summary",
       title: t("dashboard:summary"),
       selfCreationOnly: false,
@@ -254,94 +286,130 @@ export default (
           loadingUsername={loadingUsername}
         />
       ),
+    }),
+    [t, form, username, loadingUsername]
+  );
+
+  const steps: FormStep[] = useMemo(
+    () => [stepProtection, stepData, stepImage, stepSummary],
+    [stepProtection, stepData, stepImage, stepSummary]
+  );
+
+  const filteredSteps: FormStep[] = useMemo(
+    () =>
+      selfCreation ? steps : steps.filter((step) => !step.selfCreationOnly),
+    [steps, selfCreation]
+  );
+
+  const handleValidateError = useCallback(
+    (e: Error) => {
+      if (e.toString() !== "[object Object]") message.warning(e.toString());
+      setCurrentPageIndex(filteredSteps.findIndex(({ key }) => key === "data"));
     },
-  ];
+    [filteredSteps]
+  );
 
-  const stepsRef: FormStep[] = selfCreation
-    ? steps
-    : steps.filter((step) => !step.selfCreationOnly);
+  const handleOk = useCallback(
+    (callback: () => void) => {
+      form
+        .validateFields()
+        .then((soci) => {
+          setConfirmLoading(true);
 
-  const handleOk = (callback: () => void) => {
-    form
-      .validateFields()
-      .then((soci) => {
-        setConfirmLoading(true);
+          soci.username = username;
+          soci.nom = upperCaseFirst(soci.nom);
+          soci.cognoms = upperCaseFirst(soci.cognoms);
+          soci.dni = soci.dni.toUpperCase();
+          soci.naixement = soci.naixement.format(DATE_FORMAT);
+          soci.data_alta = (soci.data_alta || moment()).format(DATE_FORMAT);
 
-        soci.username = username;
-        soci.nom = upperCaseFirst(soci.nom);
-        soci.cognoms = upperCaseFirst(soci.cognoms);
-        soci.dni = soci.dni.toUpperCase();
-        soci.naixement = soci.naixement.format(DATE_FORMAT);
-        soci.data_alta = (soci.data_alta || moment()).format(DATE_FORMAT);
+          postSoci(soci)
+            .then(() => {
+              message.success(t("entity:subscription successful"));
+              if (typeof callback === "function") callback();
+            })
+            .finally(() => setConfirmLoading(false));
+        })
+        .catch(handleValidateError);
+    },
+    [t, form, handleValidateError, postSoci, username]
+  );
 
-        postSoci(soci)
-          .then(() => {
-            message.success(t("entity:subscription successful"));
-            if (typeof callback === "function") callback();
-          })
-          .finally(() => setConfirmLoading(false));
-      })
-      .catch(handleValidateError);
-  };
+  const handleChange = useCallback(
+    async (pageIndex: number) => {
+      if (pageIndex > filteredSteps.findIndex(({ key }) => key === "data"))
+        try {
+          const { nom, cognoms } = await form.validateFields();
 
-  const handleValidateError = (e: Error) => {
-    if (e.toString() !== "[object Object]") message.warning(e.toString());
-    setCurrentPageIndex(stepsRef.findIndex(({ key }) => key === "data"));
-  };
+          if (filteredSteps[pageIndex].key === "summary")
+            getUsername({ nom, cognoms });
+        } catch (e) {
+          handleValidateError(e);
+          return;
+        }
 
-  const handleChange = async (pageIndex: number) => {
-    if (pageIndex > stepsRef.findIndex(({ key }) => key === "data"))
-      try {
-        const { nom, cognoms } = await form.validateFields();
+      setCurrentPageIndex(pageIndex);
+    },
+    [filteredSteps, form, getUsername, handleValidateError]
+  );
 
-        if (stepsRef[pageIndex].key === "summary")
-          getUsername({ nom, cognoms });
-      } catch (e) {
-        handleValidateError(e);
-        return;
-      }
+  const next = useCallback(
+    async () => await handleChange(currentPageIndex + 1),
+    [currentPageIndex, handleChange]
+  );
 
-    setCurrentPageIndex(pageIndex);
-  };
+  const previous = useCallback(
+    async () => await handleChange(currentPageIndex - 1),
+    [currentPageIndex, handleChange]
+  );
 
-  const next = async () => await handleChange(currentPageIndex + 1);
-
-  const previous = async () => await handleChange(currentPageIndex - 1);
-
-  const footerActions = [
-    <div key="footer" style={{ display: "flex" }}>
-      <div style={{ flex: 1, textAlign: "start" }}>
-        {currentPageIndex > 0 && (
-          <Button key="previous" onClick={previous}>
-            {t("common:prev")}
-          </Button>
-        )}
-      </div>
-      <Space>
-        {currentPageIndex < stepsRef.length - 1 ? (
-          <Button key="next" type="primary" onClick={next}>
-            {t(
-              stepsRef[currentPageIndex].key === "protection"
-                ? "entity:agree with the terms"
-                : "common:next"
-            )}
-          </Button>
-        ) : (
-          <Button
-            key="ok"
-            type="primary"
-            onClick={() => handleOk(onSuccessCallback)}
-            loading={confirmLoading || loadingPostSoci}
-          >
-            {t("modals:subscription action")}
-          </Button>
-        )}
-      </Space>
-    </div>,
-  ];
+  const footerActions = useMemo(
+    () => [
+      <div key="footer" style={{ display: "flex" }}>
+        <div style={{ flex: 1, textAlign: "start" }}>
+          {currentPageIndex > 0 && (
+            <Button key="previous" onClick={previous}>
+              {t("common:prev")}
+            </Button>
+          )}
+        </div>
+        <Space>
+          {currentPageIndex < filteredSteps.length - 1 ? (
+            <Button key="next" type="primary" onClick={next}>
+              {t(
+                filteredSteps[currentPageIndex].key === "protection"
+                  ? "entity:agree with the terms"
+                  : "common:next"
+              )}
+            </Button>
+          ) : (
+            <Button
+              key="ok"
+              type="primary"
+              onClick={() => handleOk(onSuccessCallback)}
+              loading={confirmLoading || loadingPostSoci}
+            >
+              {t("modals:subscription action")}
+            </Button>
+          )}
+        </Space>
+      </div>,
+    ],
+    [
+      confirmLoading,
+      currentPageIndex,
+      filteredSteps,
+      handleOk,
+      loadingPostSoci,
+      next,
+      onSuccessCallback,
+      previous,
+      t,
+    ]
+  );
 
   return {
-    steps: stepsRef,
+    steps: filteredSteps,
     form,
     footerActions,
     handleChange,
