@@ -43,7 +43,7 @@ export const personIdCheckES = (value: string) =>
     }
   });
 
-const MATCHERS = [
+export const personIdMatchers = [
   {
     state: "es",
     matcher: /([XYZKLM][0-9]{1,7}|[0-9]{1,8})[A-Z]/i,
@@ -51,11 +51,14 @@ const MATCHERS = [
   },
 ];
 
-export default (value: string) => {
+export default (value: string): Promise<PersonIdCheckResponse> => {
   if (!value) return Promise.reject();
 
-  for (const { matcher, checker } of MATCHERS)
+  for (const { matcher, checker } of personIdMatchers)
     if (value.match(matcher)) return checker(value);
 
-  return Promise.reject({ reason: "number does not match with any pattern" });
+  return Promise.reject({
+    reason: "number does not match with any pattern",
+    status: "warning",
+  });
 };
