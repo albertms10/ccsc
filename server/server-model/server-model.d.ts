@@ -24,30 +24,4 @@ declare module "server-model" {
     accessToken?: string;
     message?: string;
   }
-
-  export interface AssaigPost {
-    data: string;
-    hora: [inici: string, final: string];
-    es_general: boolean;
-    es_extra: boolean;
-    projectes: number[];
-    formacions: number[];
-  }
-
-  export interface ObraPost {
-    titol: string;
-    subtitol: string;
-    anys: [number, number];
-    id_idioma: number;
-  }
-
-  export interface ProjectePost {
-    titol: string;
-    descripcio: string;
-    inicials: string;
-    color: string;
-    data: [inici: string, final: string];
-    id_curs: number;
-    formacions: number[];
-  }
 }

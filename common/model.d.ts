@@ -173,6 +173,16 @@ declare module "model" {
     directors: Director[];
   }
 
+  export interface ProjectePost {
+    titol: string;
+    descripcio: string;
+    inicials: string;
+    color: string;
+    data: [inici: string, final: string];
+    id_curs: number;
+    formacions: number[];
+  }
+
   export interface BaseMoviment {
     id_moviment: number;
     id_obra: number;
@@ -273,6 +283,15 @@ declare module "model" {
     es_extra: boolean;
   }
 
+  export interface AssaigPost {
+    data: string;
+    hora: [inici: string, final: string];
+    es_general: boolean;
+    es_extra: boolean;
+    projectes: number[];
+    formacions: number[];
+  }
+
   export interface AssistenciaEsdeveniment extends BaseEsdeveniment {
     convocats: number;
   }
@@ -326,6 +345,13 @@ declare module "model" {
     durada_total: string;
     compassos_totals: number;
     formacions?: Formacio[];
+  }
+
+  export interface ObraPost {
+    titol: string;
+    subtitol: string;
+    anys: [inici: number, final: number];
+    id_idioma: number;
   }
 
   export interface FragmentMovimentEsdevenimentMusical {

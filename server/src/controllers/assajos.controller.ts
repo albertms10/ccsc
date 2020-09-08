@@ -1,6 +1,7 @@
 import { AssistenciaGroupBy } from "common";
 import {
   Assaig,
+  AssaigPost,
   AssistenciesAssaig,
   Formacio,
   FragmentMovimentEsdevenimentMusical,
@@ -11,7 +12,7 @@ import {
   Veu,
 } from "model";
 import { OkPacket, Pool, RowDataPacket } from "mysql2/promise";
-import { AssaigPost, ControllerRequestHandler, Count } from "server-model";
+import { ControllerRequestHandler, Count } from "server-model";
 import { queryFile } from "../helpers";
 
 export const assajos_detall: ControllerRequestHandler<Assaig> = (
