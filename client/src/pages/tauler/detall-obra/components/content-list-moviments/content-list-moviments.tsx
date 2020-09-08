@@ -32,7 +32,9 @@ const ContentListMoviments: React.FC = () => {
         title: moviment.titol_moviment,
         link: `/obres/${moviment.id_obra}/moviments/${moviment.id_moviment}`,
         actions: [
-          timeDuration(moviment.durada, t("common:no duration")),
+          timeDuration(moviment.durada, {
+            defaultText: t("common:no duration"),
+          }),
           ...(moviment.projectes && moviment.projectes.length > 0
             ? [
                 <FixedTagsProjectes
@@ -69,7 +71,9 @@ const ContentListMoviments: React.FC = () => {
       extra={
         durada_total &&
         t("common:total items", {
-          items: timeDuration(durada_total, t("common:no duration")),
+          items: timeDuration(durada_total, {
+            defaultText: t("common:no duration"),
+          }),
         })
       }
     />

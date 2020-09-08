@@ -1,9 +1,18 @@
 import moment from "moment";
 
+interface TimeDurationOptions {
+  defaultText?: string;
+}
+
 /**
  * Returns the textual time duration of `time`.
  */
-export default (time: string, defaultText = ""): string => {
+export default (
+  time?: string,
+  { defaultText = "" }: TimeDurationOptions = {}
+): string => {
+  if (!time) return defaultText;
+
   const timeMoment = moment(time, "HH:mm:ss");
 
   if (!timeMoment.isValid()) return defaultText;

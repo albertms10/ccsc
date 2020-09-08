@@ -194,7 +194,7 @@ declare module "model" {
     ordre: number;
     primer?: number;
     es_unic_moviment: boolean;
-    durada: string;
+    durada?: string;
     compassos: number;
   }
 

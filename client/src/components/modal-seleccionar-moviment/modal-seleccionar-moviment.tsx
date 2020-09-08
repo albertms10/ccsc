@@ -68,10 +68,9 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
                 </Typography.Text>
               }
               title={moviment.titol_moviment}
-              description={timeDuration(
-                moviment.durada,
-                t("common:no duration")
-              )}
+              description={timeDuration(moviment.durada, {
+                defaultText: t("common:no duration"),
+              })}
             />
           </List.Item>
         </>
