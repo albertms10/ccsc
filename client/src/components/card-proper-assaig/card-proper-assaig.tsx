@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { EventLineItem } from "standalone/event-line-item";
 import { StatusIcon } from "standalone/status-icon";
-import { dateRange, timeRange } from "utils/datetime";
+import { dateRange, useTimeRange } from "utils/datetime";
 import { joinElements } from "utils/lists";
 import { linkText } from "utils/strings";
 
@@ -24,6 +24,8 @@ interface CardProperAssaigProps {
 
 const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
   const { t } = useTranslation("dashboard");
+
+  const timeRange = useTimeRange();
 
   return (
     <Card

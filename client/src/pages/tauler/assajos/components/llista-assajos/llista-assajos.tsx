@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { DropdownBorderlessButton } from "standalone/dropdown-borderless-button";
 import { fetchAssajos } from "store/assajos/thunks";
-import { timeRange } from "utils/datetime";
+import { useTimeRange } from "utils/datetime";
 import { searchFilter } from "utils/misc";
 import { linkText } from "utils/strings";
 import { useAssajos } from "./hooks";
@@ -35,6 +35,7 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
   const { t } = useTranslation("dashboard");
 
   const dispatch = useDispatch();
+  const timeRange = useTimeRange();
 
   const formacions = useContext(FormacionsListContext);
 
