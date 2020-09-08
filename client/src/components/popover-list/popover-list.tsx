@@ -11,9 +11,10 @@ import {
 } from "./components/popover-list-checkbox";
 import "./popover-list.css";
 
-interface CheckboxItem {
+export interface CheckboxItem {
   value: string;
   label: string;
+  status?: "success" | "processing" | "error" | "default" | "warning";
 }
 
 interface PopoverListProps<T extends CheckboxItem>
@@ -67,10 +68,11 @@ const PopoverList = <T extends CheckboxItem>({
               loading={loading}
               searchFilters={searchFilters}
               checkToFocus={visible}
-              renderItem={({ value, label }) => (
+              renderItem={({ value, label, status }) => (
                 <PopoverListCheckbox
                   value={value}
                   label={label}
+                  status={status}
                   onChange={onChange}
                 />
               )}

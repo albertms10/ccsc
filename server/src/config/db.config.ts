@@ -17,6 +17,7 @@ export default mysql.createPool({
       "amb_retard",
       "convocada",
       "disponible",
+      "dins_periode",
       "email_exists",
       "es_actiu",
       "es_anonim",

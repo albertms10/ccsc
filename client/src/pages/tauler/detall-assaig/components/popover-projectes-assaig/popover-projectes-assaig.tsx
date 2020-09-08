@@ -1,5 +1,5 @@
 import { FixedTagsProjectes } from "components/fixed-tags-projectes";
-import { PopoverList } from "components/popover-list";
+import { CheckboxItem, PopoverList } from "components/popover-list";
 import { useAPI } from "helpers";
 import { searchFilterProjecte } from "helpers/search-filters";
 import { Projecte } from "model";
@@ -56,6 +56,9 @@ const PopoverProjectesAssaig: React.FC<PopoverProjectesAssaigProps> = ({
         ...projecte,
         value: projecte.id_projecte.toString(),
         label: projecte.titol,
+        status: (projecte.dins_periode
+          ? "warning"
+          : undefined) as CheckboxItem["status"],
       }))}
       searchFilters={searchFilterProjecte}
       loading={loadingProjectes || loadingProjecte}

@@ -166,6 +166,7 @@ declare module "model" {
     any_final_curs: string;
     inicials: string;
     color: string;
+    dins_periode?: boolean;
   }
 
   export interface Projecte extends BaseProjecte {
