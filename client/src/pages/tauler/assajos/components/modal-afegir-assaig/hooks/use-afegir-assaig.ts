@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { DATE_FORMAT } from "constants/constants";
 import { useFetchAPI } from "helpers";
-import { Assaig } from "model";
+import { AssaigPost } from "model";
 import moment from "moment";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ export default () => {
   const [form] = Form.useForm<FormAfegirAssaig>();
 
   const postAssaig = useCallback(
-    (assaig: Assaig) =>
+    (assaig: AssaigPost) =>
       fetchAPI("/assajos", () => dispatch(fetchAssajos()), {
         method: "POST",
         body: JSON.stringify(assaig),
@@ -33,19 +33,19 @@ export default () => {
 
   const handleOk = useCallback(
     (idProjecte?: number) =>
-      form.validateFields().then((assaig) => {
-        assaig.data = moment(assaig.data).format(DATE_FORMAT);
-        assaig.hora = assaig.hora?.map(
-          (h: string) => h && moment(h).format("HH:mm")
-        ) ?? [null, null];
-        assaig.projectes = idProjecte ? [idProjecte] : [];
-        assaig.es_general = !!assaig.es_general;
-        assaig.es_extra = !!assaig.es_extra;
-
-        if (!assaig.formacions) assaig.formacions = [];
-
-        return postAssaig(assaig as Assaig);
-      }),
+      form.validateFields().then((assaig) =>
+        postAssaig({
+          ...(assaig as AssaigPost),
+          data: moment(assaig.data).format(DATE_FORMAT),
+          hora: assaig.hora?.map(
+            (h: string) => h && moment(h).format("HH:mm")
+          ) ?? [null, null],
+          projectes: idProjecte ? [idProjecte] : [],
+          formacions: assaig.formacions ?? [],
+          es_general: !!assaig.es_general,
+          es_extra: !!assaig.es_extra,
+        })
+      ),
     [form, postAssaig]
   );
 

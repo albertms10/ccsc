@@ -31,14 +31,15 @@ export default (idObra: number) => {
 
   const handleOk = useCallback(
     () =>
-      form.validateFields().then((moviment) => {
-        moviment.id_obra = idObra;
-
-        if (moviment.durada)
-          moviment.durada = moment(moviment.durada).format("HH:mm:ss");
-
-        return postMoviment(moviment as Moviment);
-      }),
+      form.validateFields().then((moviment) =>
+        postMoviment({
+          ...(moviment as Moviment),
+          id_obra: idObra,
+          durada: moviment.durada
+            ? moment(moviment.durada).format("HH:mm:ss")
+            : undefined,
+        })
+      ),
     [form, idObra, postMoviment]
   );
 

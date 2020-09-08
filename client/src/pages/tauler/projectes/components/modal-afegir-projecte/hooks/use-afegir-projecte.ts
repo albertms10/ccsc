@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { DATE_FORMAT } from "constants/constants";
 import { useFetchAPI } from "helpers";
-import { Projecte } from "model";
+import { ProjectePost } from "model";
 import moment from "moment";
 import { useCheckInicials } from "pages/tauler/projectes/components/modal-afegir-projecte/hooks/index";
 import { useCallback } from "react";
@@ -33,7 +33,7 @@ export default () => {
   ] = useCheckInicials();
 
   const postProjecte = useCallback(
-    (projecte: Projecte) =>
+    (projecte: ProjectePost) =>
       fetchAPI("/projectes", () => dispatch(fetchProjectes()), {
         method: "POST",
         body: JSON.stringify(projecte),
@@ -43,17 +43,17 @@ export default () => {
 
   const handleOk = useCallback(
     () =>
-      form.validateFields().then((projecte) => {
-        projecte.color =
-          projecte.color?.hex.substring(1, projecte.color.length) ?? "676767";
-        projecte.data = projecte.data?.map(
-          (d: string) => d && moment(d).format(DATE_FORMAT)
-        ) ?? [null, null];
-
-        if (!projecte.formacions) projecte.formacions = [];
-
-        return postProjecte(projecte as Projecte);
-      }),
+      form.validateFields().then((projecte) =>
+        postProjecte({
+          ...(projecte as ProjectePost),
+          color:
+            projecte.color?.hex.substring(1, projecte.color.length) ?? "676767",
+          data: projecte.data?.map(
+            (d: string) => d && moment(d).format(DATE_FORMAT)
+          ) ?? [null, null],
+          formacions: projecte.formacions ?? [],
+        })
+      ),
     [form, postProjecte]
   );
 
