@@ -1,6 +1,6 @@
 import { useAPI } from "helpers";
 import { Veu } from "model";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
   SearchComplete,
@@ -23,24 +23,33 @@ const SearchCompleteVeusAssaig: React.FC<SearchCompleteVeusAssaigProps> = ({
     []
   );
 
+  const filter = useCallback(
+    (value, veu) =>
+      searchFilter(value, {
+        texts: [veu.nom, veu.abreviatura],
+      }),
+    []
+  );
+
+  const optionRenderObject = useCallback(
+    (veu) => ({
+      key: veu.id_veu,
+      value: veu.id_veu.toString(),
+      label: veu.nom,
+    }),
+    []
+  );
+
   return (
     <SearchComplete
       data={veus}
       onSelect={(value, option) =>
         onSelect(value, option).then(() => getVeus())
       }
-      filter={(value, veu) =>
-        searchFilter(value, {
-          texts: [veu.nom, veu.abreviatura],
-        })
-      }
+      filter={filter}
       placeholder={t("add announced voices")}
       loading={loadingVeus}
-      optionRenderObject={(veu) => ({
-        key: veu.id_veu,
-        value: veu.id_veu.toString(),
-        label: veu.nom,
-      })}
+      optionRenderObject={optionRenderObject}
     />
   );
 };

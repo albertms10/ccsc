@@ -4,7 +4,7 @@ import { useAPI } from "helpers";
 import { Formacio, TipusEsdeveniment } from "model";
 import moment from "moment";
 import { FormacioContext } from "pages/tauler/detall-formacio";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { BorderlessButton } from "standalone/borderless-button";
 import { Container } from "standalone/container";
@@ -24,77 +24,90 @@ const CalendariFormacio: React.FC = () => {
     []
   );
 
+  const dateCellRender = useCallback(
+    (currentDay) => (
+      <CalendariFormacioCell
+        esdevenimentsActuals={esdeveniments.filter(({ data }) =>
+          currentDay.isSame(data, "day")
+        )}
+      />
+    ),
+    [esdeveniments]
+  );
+
+  const searchCompleteFilter = useCallback(
+    (value, option) =>
+      searchFilter(value, {
+        texts: [option.titol],
+        dates: [option.datahora_inici],
+      }),
+    []
+  );
+
+  const optionRenderObject = useCallback(
+    (esdeveniment) => ({
+      key: esdeveniment.id_esdeveniment,
+      value: esdeveniment.titol,
+      date: esdeveniment.data,
+      label: <CalendariResultLabel esdeveniment={esdeveniment} />,
+    }),
+    []
+  );
+
+  const headerRender = useCallback(
+    ({ value, onChange }) => (
+      <div className="ant-picker-calendar-header">
+        <Row align="middle" gutter={16}>
+          <Col>
+            <Button onClick={() => onChange(moment())}>Avui</Button>
+          </Col>
+          <Col>
+            <Space>
+              <BorderlessButton
+                shape="circle"
+                tooltip={t("prev month")}
+                tooltipPlacement="bottom"
+                icon={<LeftOutlined />}
+                onClick={() => onChange(value.clone().month(value.month() - 1))}
+              />
+              <BorderlessButton
+                shape="circle"
+                tooltip={t("next month")}
+                tooltipPlacement="bottom"
+                icon={<RightOutlined />}
+                onClick={() => onChange(value.clone().month(value.month() + 1))}
+              />
+            </Space>
+          </Col>
+          <Col flex={2}>
+            <div style={{ fontSize: "2rem", fontWeight: 300 }}>
+              {moment(value).format(t("date pattern"))}
+            </div>
+          </Col>
+          <Col flex={1}>
+            <SearchComplete
+              data={esdeveniments}
+              onSelect={(value, option) =>
+                new Promise(() => onChange(moment(option.date)))
+              }
+              filter={searchCompleteFilter}
+              optionRenderObject={optionRenderObject}
+            />
+          </Col>
+        </Row>
+      </div>
+    ),
+    [esdeveniments, optionRenderObject, searchCompleteFilter, t]
+  );
+
   return (
     <Container reducedPadding>
       <Spin spinning={loading}>
         <Calendar
           className="calendari-formacio"
           style={{ margin: "1rem" }}
-          dateCellRender={(currentDay) => (
-            <CalendariFormacioCell
-              esdevenimentsActuals={esdeveniments.filter(({ data }) =>
-                currentDay.isSame(data, "day")
-              )}
-            />
-          )}
-          headerRender={({ value, onChange }) => (
-            <div className="ant-picker-calendar-header">
-              <Row align="middle" gutter={16}>
-                <Col>
-                  <Button onClick={() => onChange(moment())}>Avui</Button>
-                </Col>
-                <Col>
-                  <Space>
-                    <BorderlessButton
-                      shape="circle"
-                      tooltip={t("prev month")}
-                      tooltipPlacement="bottom"
-                      icon={<LeftOutlined />}
-                      onClick={() =>
-                        onChange(value.clone().month(value.month() - 1))
-                      }
-                    />
-                    <BorderlessButton
-                      shape="circle"
-                      tooltip={t("next month")}
-                      tooltipPlacement="bottom"
-                      icon={<RightOutlined />}
-                      onClick={() =>
-                        onChange(value.clone().month(value.month() + 1))
-                      }
-                    />
-                  </Space>
-                </Col>
-                <Col flex={2}>
-                  <div style={{ fontSize: "2rem", fontWeight: 300 }}>
-                    {moment(value).format(t("date pattern"))}
-                  </div>
-                </Col>
-                <Col flex={1}>
-                  <SearchComplete
-                    data={esdeveniments}
-                    onSelect={(value, option) =>
-                      new Promise(() => onChange(moment(option.date)))
-                    }
-                    filter={(value, option) =>
-                      searchFilter(value, {
-                        texts: [option.titol],
-                        dates: [option.datahora_inici],
-                      })
-                    }
-                    optionRenderObject={(esdeveniment) => ({
-                      key: esdeveniment.id_esdeveniment,
-                      value: esdeveniment.titol,
-                      date: esdeveniment.data,
-                      label: (
-                        <CalendariResultLabel esdeveniment={esdeveniment} />
-                      ),
-                    })}
-                  />
-                </Col>
-              </Row>
-            </div>
-          )}
+          dateCellRender={dateCellRender}
+          headerRender={headerRender}
         />
       </Spin>
     </Container>

@@ -28,12 +28,12 @@ const UserDropdown: React.FC = () => {
         <Menu>
           <Item>
             <Link to={`/${linkText(t("partners"))}/${currentUser.id_persona}`}>
-              Perfil
+              {t("profile")}
             </Link>
           </Item>
           <Divider />
           <Item onClick={() => dispatch(logoutRemoveUser())}>
-            Tanca la sessió
+            {t("actions:sign out")}
           </Item>
         </Menu>
       }

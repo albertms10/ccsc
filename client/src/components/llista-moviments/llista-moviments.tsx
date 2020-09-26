@@ -57,6 +57,49 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
       : filteredMoviments;
   }, [moviments, idProjecte, searchValue]);
 
+  const renderItem = useCallback(
+    (moviment) => (
+      <Item
+        key={moviment.id_moviment}
+        actions={[
+          ...(moviment.projectes && moviment.projectes.length > 0
+            ? [
+                <FixedTagsProjectes
+                  key="fixed-tags-projectes"
+                  projectes={moviment.projectes}
+                />,
+              ]
+            : []),
+          <Authorized key="more_options">
+            <DropdownBorderlessButton
+              items={[
+                {
+                  key: linkText(t("common:delete")),
+                  action: t("common:delete"),
+                  danger: true,
+                  onClick: () => showDeleteConfirm(moviment.id_moviment),
+                },
+              ]}
+            />
+          </Authorized>,
+        ]}
+      >
+        <Link
+          to={`/${linkText(t("works"))}/${moviment.id_obra}/${linkText(
+            t("movements")
+          )}/${moviment.id_moviment}`}
+        >
+          <List.Item.Meta
+            avatar={moviment.ordre}
+            title={moviment.titol_moviment}
+            description={moviment.titol_obra}
+          />
+        </Link>
+      </Item>
+    ),
+    [showDeleteConfirm, t]
+  );
+
   return (
     <div className="llista-moviments">
       <Search
@@ -70,45 +113,7 @@ const LlistaMoviments: React.FC<LlistaMovimentsProps> = ({ idProjecte }) => {
       <List
         dataSource={getDataSource()}
         loading={loading || loadingDeleteMoviment}
-        renderItem={(moviment) => (
-          <Item
-            key={moviment.id_moviment}
-            actions={[
-              ...(moviment.projectes && moviment.projectes.length > 0
-                ? [
-                    <FixedTagsProjectes
-                      key="fixed-tags-projectes"
-                      projectes={moviment.projectes}
-                    />,
-                  ]
-                : []),
-              <Authorized key="more_options">
-                <DropdownBorderlessButton
-                  items={[
-                    {
-                      key: linkText(t("common:delete")),
-                      action: t("common:delete"),
-                      danger: true,
-                      onClick: () => showDeleteConfirm(moviment.id_moviment),
-                    },
-                  ]}
-                />
-              </Authorized>,
-            ]}
-          >
-            <Link
-              to={`/${linkText(t("works"))}/${moviment.id_obra}/${linkText(
-                t("movements")
-              )}/${moviment.id_moviment}`}
-            >
-              <List.Item.Meta
-                avatar={moviment.ordre}
-                title={moviment.titol_moviment}
-                description={moviment.titol_obra}
-              />
-            </Link>
-          </Item>
-        )}
+        renderItem={renderItem}
       />
     </div>
   );

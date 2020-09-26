@@ -3,7 +3,7 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import { Authorized } from "components/authorized";
 import { SearchList, SearchListProps } from "components/search-list";
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useCallback, useState } from "react";
 import { ConditionalWrapper } from "standalone/conditional-wrapper";
 import {
   PopoverListCheckbox,
@@ -43,6 +43,18 @@ const PopoverList = <T extends CheckboxItem>({
 }: PropsWithChildren<PopoverListProps<T>>): JSX.Element => {
   const [visible, setVisible] = useState(false);
 
+  const renderItem = useCallback(
+    ({ value, label, status }) => (
+      <PopoverListCheckbox
+        value={value}
+        label={label}
+        status={status}
+        onChange={onChange}
+      />
+    ),
+    [onChange]
+  );
+
   return (
     <ConditionalWrapper
       condition={needsAuthorization}
@@ -68,14 +80,7 @@ const PopoverList = <T extends CheckboxItem>({
               loading={loading}
               searchFilters={searchFilters}
               checkToFocus={visible}
-              renderItem={({ value, label, status }) => (
-                <PopoverListCheckbox
-                  value={value}
-                  label={label}
-                  status={status}
-                  onChange={onChange}
-                />
-              )}
+              renderItem={renderItem}
             />
           </Checkbox.Group>
         }

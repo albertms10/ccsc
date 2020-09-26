@@ -1,4 +1,4 @@
-import React, { createElement } from "react";
+import React, { createElement, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Redirect, Route, RouteProps, useLocation } from "react-router-dom";
@@ -12,23 +12,22 @@ const RouteTauler: React.FC<RouteProps> = ({ component, ...rest }) => {
 
   const prevLocation = useLocation();
 
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        user.id_usuari && component ? (
-          createElement(component)
-        ) : (
-          <Redirect
-            to={{
-              pathname: `/${linkText(t("sign in"))}`,
-              state: { prevLocation },
-            }}
-          />
-        )
-      }
-    />
+  const renderRoute = useCallback(
+    () =>
+      user.id_usuari && component ? (
+        createElement(component)
+      ) : (
+        <Redirect
+          to={{
+            pathname: `/${linkText(t("sign in"))}`,
+            state: { prevLocation },
+          }}
+        />
+      ),
+    [user.id_usuari, component, prevLocation, t]
   );
+
+  return <Route {...rest} render={renderRoute} />;
 };
 
 export default RouteTauler;

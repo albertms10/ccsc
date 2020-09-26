@@ -2,7 +2,7 @@ import { Button, List, Tooltip } from "antd";
 import { useAPI } from "helpers";
 import { Activitat, Soci } from "model";
 import moment from "moment";
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapseCard } from "standalone/collapse-card";
 import { TimelineActivitatSoci } from "./components/timeline-activitat-soci";
@@ -27,7 +27,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
   const [loadingAlta, modalAltaSoci] = useAltaSoci(soci.id_soci);
   const [loadingBaixa, modalBaixaSoci] = useBaixaSoci(soci.id_soci);
 
-  const actionItem = useCallback(() => {
+  const actionItem = useMemo(() => {
     if (
       activitatSoci.length > 0 &&
       activitatSoci[activitatSoci.length - 1].data_baixa
@@ -79,11 +79,7 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
   ]);
 
   return (
-    <CollapseCard
-      title={t("activity")}
-      actionItem={actionItem()}
-      active={active}
-    >
+    <CollapseCard title={t("activity")} actionItem={actionItem} active={active}>
       <List
         dataSource={activitatSoci}
         loading={loadingActivitat}

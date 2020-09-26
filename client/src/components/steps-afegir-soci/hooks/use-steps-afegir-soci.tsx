@@ -49,7 +49,9 @@ export default (
   const [selectedPais, setSelectedPais] = useState<Pais["nom"]>("");
 
   const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
-  const [loadingPostSoci, postSoci] = usePostAPI(fetchURL);
+  const [loadingPostSoci, postSoci] = usePostAPI<
+    FormAfegirSoci & { username: string }
+  >(fetchURL);
 
   const [username, loadingUsername, getUsername] = useUsername();
 
@@ -85,6 +87,14 @@ export default (
       content: <AvisAcceptacio nameAvis="proteccio_dades" isForm />,
     }),
     [t]
+  );
+
+  const validateStatus = useMemo(
+    () =>
+      personIdMatchers.find((matcher) => matcher.state === selectedPais)
+        ? dniValidateStatus
+        : "",
+    [selectedPais, dniValidateStatus]
   );
 
   const stepData: FormStep = useMemo(
@@ -155,13 +165,7 @@ export default (
                   name="dni"
                   label={t("fields:person id")}
                   hasFeedback
-                  validateStatus={
-                    personIdMatchers.find(
-                      (matcher) => matcher.state === selectedPais
-                    )
-                      ? dniValidateStatus
-                      : ""
-                  }
+                  validateStatus={validateStatus}
                   rules={[
                     { required: true, message: t("enter person id") },
                     { whitespace: true, message: t("enter person id") },
@@ -253,15 +257,7 @@ export default (
         </Space>
       ),
     }),
-    [
-      t,
-      dniValidateStatus,
-      loadingPaisos,
-      paisos,
-      personIDValidator,
-      selectedPais,
-      selfCreation,
-    ]
+    [t, loadingPaisos, paisos, personIDValidator, selfCreation, validateStatus]
   );
 
   const stepImage: FormStep = useMemo(
@@ -316,14 +312,15 @@ export default (
         .then((soci) => {
           setConfirmLoading(true);
 
-          soci.username = username;
-          soci.nom = upperCaseFirst(soci.nom);
-          soci.cognoms = upperCaseFirst(soci.cognoms);
-          soci.dni = soci.dni.toUpperCase();
-          soci.naixement = soci.naixement.format(DATE_FORMAT);
-          soci.data_alta = (soci.data_alta || moment()).format(DATE_FORMAT);
-
-          postSoci(soci)
+          postSoci({
+            ...(soci as FormAfegirSoci),
+            username,
+            nom: upperCaseFirst(soci.nom),
+            cognoms: upperCaseFirst(soci.cognoms),
+            dni: soci.dni.toUpperCase(),
+            naixement: soci.naixement.format(DATE_FORMAT),
+            data_alta: (soci.data_alta || moment()).format(DATE_FORMAT),
+          })
             .then(() => {
               message.success(t("entity:subscription successful"));
               if (typeof callback === "function") callback();

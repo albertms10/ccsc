@@ -1,7 +1,7 @@
 import { BooleanMap } from "common";
 import { useAPI } from "helpers";
 import { Avis } from "model";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { CollapseCard } from "standalone/collapse-card";
 import { InfoCard } from "standalone/info-card";
 import { CheckboxAcceptacioForm } from "./components/checkbox-acceptacio-form";
@@ -26,40 +26,43 @@ const AvisAcceptacio: React.FC<AvisAcceptacioProps> = ({
     {} as Avis
   );
 
+  const mapSeccions = useCallback(
+    ({ id_seccio_avis, titol, descripcio }) => (
+      <SeccioAvis key={id_seccio_avis} titol={titol} descripcio={descripcio} />
+    ),
+    []
+  );
+
+  const mapAcceptacions = useCallback(
+    (acceptacio) =>
+      isForm ? (
+        <CheckboxAcceptacioForm
+          key={acceptacio.form_name}
+          acceptacio={acceptacio}
+        />
+      ) : (
+        <CheckboxAcceptacioIndependent
+          key={acceptacio.form_name}
+          acceptacio={acceptacio}
+          acceptacionsSoci={acceptacionsSoci}
+        />
+      ),
+    [acceptacionsSoci, isForm]
+  );
+
   const content = useMemo(
     () => (
       <>
         <SeccioAvis descripcio={textAvisAcceptacio.descripcio} />
         {textAvisAcceptacio.seccions &&
-          textAvisAcceptacio.seccions.map(
-            ({ id_seccio_avis, titol, descripcio }) => (
-              <SeccioAvis
-                key={id_seccio_avis}
-                titol={titol}
-                descripcio={descripcio}
-              />
-            )
-          )}
+          textAvisAcceptacio.seccions.map(mapSeccions)}
         <SeccioAvis titol={textAvisAcceptacio.titol_acceptacions}>
           {textAvisAcceptacio.acceptacions &&
-            textAvisAcceptacio.acceptacions.map((acceptacio) =>
-              isForm ? (
-                <CheckboxAcceptacioForm
-                  key={acceptacio.form_name}
-                  acceptacio={acceptacio}
-                />
-              ) : (
-                <CheckboxAcceptacioIndependent
-                  key={acceptacio.form_name}
-                  acceptacio={acceptacio}
-                  acceptacionsSoci={acceptacionsSoci}
-                />
-              )
-            )}
+            textAvisAcceptacio.acceptacions.map(mapAcceptacions)}
         </SeccioAvis>
       </>
     ),
-    [acceptacionsSoci, isForm, textAvisAcceptacio]
+    [textAvisAcceptacio, mapSeccions, mapAcceptacions]
   );
 
   return collapsible ? (

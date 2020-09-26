@@ -6,7 +6,7 @@ import { ModalList } from "components/modal-list";
 import { SearchListBaseProps } from "components/search-list";
 import { searchFilterMoviment } from "helpers/search-filters";
 import { Moviment } from "model";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { timeDuration } from "utils/datetime";
 import { mapFirstOfProperty } from "utils/lists";
@@ -29,6 +29,48 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
 
   const [moviments, loading] = useMoviments();
 
+  const renderItem = useCallback(
+    (moviment, index, setVisible) => (
+      <>
+        {moviment.primer && (
+          <div className="list-item-header">{moviment.titol_obra}</div>
+        )}
+        <List.Item
+          onClick={() => {
+            onItemClick(moviment).then(() => {
+              if (typeof thenAction === "function") thenAction();
+              setVisible(false);
+            });
+          }}
+          actions={[
+            ...(moviment.projectes && moviment.projectes.length > 0
+              ? [
+                  <FixedTagsProjectes
+                    key="fixed-tags-projectes"
+                    projectes={moviment.projectes}
+                    noLink
+                  />,
+                ]
+              : []),
+          ]}
+        >
+          <List.Item.Meta
+            avatar={
+              <Typography.Text type="secondary">
+                {moviment.ordre}
+              </Typography.Text>
+            }
+            title={moviment.titol_moviment}
+            description={timeDuration(moviment.durada, {
+              defaultText: t("common:no duration"),
+            })}
+          />
+        </List.Item>
+      </>
+    ),
+    [onItemClick, t, thenAction]
+  );
+
   return (
     <ModalList<Moviment>
       title={t("select movement")}
@@ -37,44 +79,7 @@ const ModalSeleccionarMoviment: React.FC<ModalSeleccionarMovimentProps> = ({
       searchPlaceholder={t("search movements")}
       loading={loading}
       searchFilters={searchFilterMoviment}
-      renderItem={(moviment, index, setVisible) => (
-        <>
-          {moviment.primer && (
-            <div className="list-item-header">{moviment.titol_obra}</div>
-          )}
-          <List.Item
-            onClick={() => {
-              onItemClick(moviment).then(() => {
-                if (typeof thenAction === "function") thenAction();
-                setVisible(false);
-              });
-            }}
-            actions={[
-              ...(moviment.projectes && moviment.projectes.length > 0
-                ? [
-                    <FixedTagsProjectes
-                      key="fixed-tags-projectes"
-                      projectes={moviment.projectes}
-                      noLink
-                    />,
-                  ]
-                : []),
-            ]}
-          >
-            <List.Item.Meta
-              avatar={
-                <Typography.Text type="secondary">
-                  {moviment.ordre}
-                </Typography.Text>
-              }
-              title={moviment.titol_moviment}
-              description={timeDuration(moviment.durada, {
-                defaultText: t("common:no duration"),
-              })}
-            />
-          </List.Item>
-        </>
-      )}
+      renderItem={renderItem}
       {...rest}
     />
   );

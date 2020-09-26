@@ -19,15 +19,18 @@ export default (idSoci: number) => {
     }).finally(() => setLoading(false));
   }, [fetchAPI, idSoci]);
 
-  const modalAltaSoci = (callback: () => void) => {
-    Modal.confirm({
-      title: t("confirm subscription"),
-      icon: <ExclamationCircleOutlined />,
-      content: t("action undone"),
-      okText: t("subscription action"),
-      onOk: () => donarAltaSoci().finally(callback),
-    });
-  };
+  const modalAltaSoci = useCallback(
+    (callback: () => void) => {
+      Modal.confirm({
+        title: t("confirm subscription"),
+        icon: <ExclamationCircleOutlined />,
+        content: t("action undone"),
+        okText: t("subscription action"),
+        onOk: () => donarAltaSoci().finally(callback),
+      });
+    },
+    [donarAltaSoci, t]
+  );
 
   return [loading, modalAltaSoci] as const;
 };

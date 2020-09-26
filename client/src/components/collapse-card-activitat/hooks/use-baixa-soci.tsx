@@ -19,16 +19,19 @@ export default (idSoci: number) => {
     }).finally(() => setLoading(false));
   }, [fetchAPI, idSoci]);
 
-  const modalBaixaSoci = (callback: () => void) => {
-    Modal.confirm({
-      title: t("confirm unsubscription"),
-      icon: <ExclamationCircleOutlined />,
-      content: t("action undone"),
-      okText: t("unsubscription action"),
-      okButtonProps: { danger: true },
-      onOk: () => donarBaixaSoci().finally(callback),
-    });
-  };
+  const modalBaixaSoci = useCallback(
+    (callback: () => void) => {
+      Modal.confirm({
+        title: t("confirm unsubscription"),
+        icon: <ExclamationCircleOutlined />,
+        content: t("action undone"),
+        okText: t("unsubscription action"),
+        okButtonProps: { danger: true },
+        onOk: () => donarBaixaSoci().finally(callback),
+      });
+    },
+    [donarBaixaSoci, t]
+  );
 
   return [loading, modalBaixaSoci] as const;
 };

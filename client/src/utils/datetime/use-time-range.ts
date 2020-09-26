@@ -34,6 +34,6 @@ export default () => {
         ? t("from start to end", { start: timeStart, end: timeEnd })
         : `${timeStart}–${timeEnd}`;
     },
-    []
+    [t]
   );
 };
