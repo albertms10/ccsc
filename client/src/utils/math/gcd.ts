@@ -1,7 +1,7 @@
 // Source: https://www.w3resource.com/javascript-exercises/javascript-math-exercise-9.php
 
 /**
- * Returns the gratest common divisor (gcd) of the given numbers `x` and `y`.
+ * Returns the greatest common divisor (gcd) of the given numbers `x` and `y`.
  */
 const gcdTwoNumbers = (x: number, y: number): number => {
   x = Math.abs(x);
