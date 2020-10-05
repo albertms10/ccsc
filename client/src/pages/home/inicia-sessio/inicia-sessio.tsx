@@ -88,6 +88,7 @@ const IniciaSessio: React.FC = () => {
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder={t("fields:username")}
                 autoFocus={!locationState || !locationState.username}
+                autoComplete="username"
               />
             </Form.Item>
             <Form.Item
@@ -99,6 +100,7 @@ const IniciaSessio: React.FC = () => {
                 type="password"
                 placeholder={t("fields:password")}
                 autoFocus={locationState && !!locationState.username}
+                autoComplete="current-password"
               />
             </Form.Item>
             <Form.Item>
