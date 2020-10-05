@@ -58,7 +58,7 @@ const ChartAssistencia: React.FC = () => {
         }),
         color: [green, yellow, blue, red].map((color) => color.primary),
         loading: loadingAssistenciaAssajosEstat,
-      } as Partial<AreaConfig>),
+      } as AreaConfig),
     [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat, t]
   );
 
@@ -73,7 +73,7 @@ const ChartAssistencia: React.FC = () => {
         }),
         color: [blue, magenta, cyan, gold].map((color) => color.primary),
         loading: loadingAssistenciaAssajosVeus,
-      } as Partial<AreaConfig>),
+      } as AreaConfig),
     [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus, t]
   );
 
@@ -89,10 +89,9 @@ const ChartAssistencia: React.FC = () => {
     >
       <Area
         padding="auto"
-        forceFit
         xField="assaig"
         yField="value"
-        stackField="type"
+        seriesField="type"
         smooth
         {...(key === "state" ? estatConfig : veusConfig)}
       />
