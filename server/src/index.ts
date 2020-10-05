@@ -61,7 +61,7 @@ app.use(apiPath("/socis"), routes.socis);
 app.use(apiPath("/titulars"), routes.titulars);
 app.use(apiPath("/usuaris"), routes.usuaris);
 
-const swaggerDocument = YAML.load("./docs/docs.yaml");
+const swaggerDocument = YAML.load(path.resolve(__dirname, "../docs/docs.yaml"));
 
 app.use(
   apiPath("/docs"),
