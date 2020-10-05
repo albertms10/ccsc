@@ -1,5 +1,5 @@
-import { StackedArea } from "@ant-design/charts";
-import { StackedAreaConfig } from "@ant-design/charts/lib/stackedArea";
+import { Area } from "@ant-design/charts";
+import { AreaConfig } from "@ant-design/charts/lib/area";
 import {
   blue,
   cyan,
@@ -58,7 +58,7 @@ const ChartAssistencia: React.FC = () => {
         }),
         color: [green, yellow, blue, red].map((color) => color.primary),
         loading: loadingAssistenciaAssajosEstat,
-      } as Partial<StackedAreaConfig>),
+      } as Partial<AreaConfig>),
     [mapAssistencia, assistenciaAssajosEstat, loadingAssistenciaAssajosEstat, t]
   );
 
@@ -73,7 +73,7 @@ const ChartAssistencia: React.FC = () => {
         }),
         color: [blue, magenta, cyan, gold].map((color) => color.primary),
         loading: loadingAssistenciaAssajosVeus,
-      } as Partial<StackedAreaConfig>),
+      } as Partial<AreaConfig>),
     [mapAssistencia, assistenciaAssajosVeus, loadingAssistenciaAssajosVeus, t]
   );
 
@@ -87,7 +87,7 @@ const ChartAssistencia: React.FC = () => {
       activeTabKey={key}
       onTabChange={(key) => setKey(key as AssistenciaGroupBy)}
     >
-      <StackedArea
+      <Area
         padding="auto"
         forceFit
         xField="assaig"
