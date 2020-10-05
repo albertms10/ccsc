@@ -33,7 +33,7 @@ const UserDropdown: React.FC = () => {
           </Item>
           <Divider />
           <Item onClick={() => dispatch(logoutRemoveUser())}>
-            {t("actions:sign out")}
+            {t("sign-in:sign out")}
           </Item>
         </Menu>
       }

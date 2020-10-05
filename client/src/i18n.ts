@@ -25,6 +25,7 @@ i18n
     backend: {
       allowMultiLoading: true,
     },
+    keySeparator: false,
     fallbackLng: {
       "ca-ES": ["ca"],
       default: ["ca"],
