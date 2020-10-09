@@ -1,7 +1,7 @@
 import { Button, List, Tooltip } from "antd";
 import { useAPI } from "helpers";
 import { Activitat, Soci } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapseCard } from "standalone/collapse-card";
@@ -33,9 +33,9 @@ const CollapseCardActivitat: React.FC<CollapseCardActivitatProps> = ({
       activitatSoci[activitatSoci.length - 1].data_baixa
     ) {
       const disabled =
-        moment(activitatSoci[activitatSoci.length - 1].data_alta).format(
+        dayjs(activitatSoci[activitatSoci.length - 1].data_alta).format(
           "L"
-        ) === moment().format("L");
+        ) === dayjs().format("L");
 
       return (
         <Tooltip title={disabled ? t("once per day") : ""}>

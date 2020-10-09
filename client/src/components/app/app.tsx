@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd";
 import caES from "antd/es/locale/ca_ES";
-import moment from "moment";
-import "moment/locale/ca";
+import dayjs from "dayjs";
+import "dayjs/locale/ca";
 import { IniciaSessio } from "pages/home/inicia-sessio";
 import { AvisosInici } from "pages/home/inicia-sessio/components/avisos-inici";
 import { DonarAlta } from "pages/home/inicia-sessio/components/donar-alta";
@@ -25,7 +25,7 @@ const TaulerApp = lazy(
     )
 );
 
-moment.locale("ca");
+dayjs.locale("ca");
 
 const App: React.FC = () => {
   const { t } = useTranslation("sign-in");

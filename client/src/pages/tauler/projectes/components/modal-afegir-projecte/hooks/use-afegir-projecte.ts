@@ -2,7 +2,7 @@ import { Form } from "antd";
 import { DATE_FORMAT } from "constants/constants";
 import { useFetchAPI } from "helpers";
 import { ProjectePost } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useCheckInicials } from "pages/tauler/projectes/components/modal-afegir-projecte/hooks/index";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -49,7 +49,7 @@ export default () => {
           color:
             projecte.color?.hex.substring(1, projecte.color.length) ?? "676767",
           data: projecte.data?.map(
-            (d: string) => d && moment(d).format(DATE_FORMAT)
+            (d: string) => d && dayjs(d).format(DATE_FORMAT)
           ) ?? [null, null],
           formacions: projecte.formacions ?? [],
         })

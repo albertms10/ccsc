@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { useFetchAPI } from "helpers";
 import { Moviment } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useCallback, useState } from "react";
 
 interface FormAfegirMoviment {
@@ -36,7 +36,7 @@ export default (idObra: number) => {
           ...(moviment as Moviment),
           id_obra: idObra,
           durada: moviment.durada
-            ? moment(moviment.durada).format("HH:mm:ss")
+            ? dayjs(moviment.durada).format("HH:mm:ss")
             : undefined,
         })
       ),

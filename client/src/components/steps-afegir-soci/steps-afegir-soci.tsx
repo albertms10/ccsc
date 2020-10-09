@@ -1,7 +1,7 @@
 import { Form, Steps } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { BooleanMap } from "common";
-import moment, { Moment } from "moment";
+import dayjs, { Dayjs } from "dayjs";
 import { Store } from "rc-field-form/lib/interface";
 import React from "react";
 import { FormStep } from "./hooks/use-steps-afegir-soci";
@@ -19,7 +19,7 @@ export interface FormAfegirSoci {
   telefon?: string;
   experiencia_musical?: string;
   estudis_musicals?: string;
-  data_alta: Moment;
+  data_alta: Dayjs;
   acceptacions: BooleanMap;
 }
 
@@ -49,7 +49,7 @@ const StepsAfegirSoci: React.FC<StepsAfegirSociProps> = ({
         className="form-afegir-soci"
         colon={false}
         form={form}
-        initialValues={{ ...initialValues, data_alta: moment() }}
+        initialValues={{ ...initialValues, data_alta: dayjs() }}
       >
         {steps.map(({ key, content }, index) => (
           <div

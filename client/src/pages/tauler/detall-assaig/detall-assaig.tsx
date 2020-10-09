@@ -5,7 +5,7 @@ import { EventLineItemNotes } from "components/event-line-item-notes";
 import { SetPageHeaderContext } from "components/tauler-app/components/site-layout";
 import { useAPI } from "helpers";
 import { Assaig } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React, { createContext, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
@@ -41,7 +41,7 @@ const DetallAssaig: React.FC = () => {
         ghost={false}
         title={
           <Space size="middle">
-            <CalendarAvatar moment={moment(assaig.data)} />
+            <CalendarAvatar dayjs={dayjs(assaig.data)} />
             <Title level={3} style={{ marginBottom: 0 }}>
               {assaig.titol}
             </Title>

@@ -13,9 +13,9 @@ import { ValidateStatus } from "antd/lib/form/FormItem";
 import { AvisAcceptacio } from "components/avis-acceptacio";
 import { FormAfegirSoci } from "components/steps-afegir-soci";
 import { DATE_FORMAT } from "constants/constants";
+import dayjs, { Dayjs } from "dayjs";
 import { useAPI, usePostAPI } from "helpers";
 import { Pais } from "model";
-import moment from "moment";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InfoCard } from "standalone/info-card";
@@ -185,7 +185,7 @@ export default (
                     format="L"
                     allowClear={false}
                     showToday={false}
-                    disabledDate={(d) => !d || d.isAfter(moment())}
+                    disabledDate={(d) => !d || (d as Dayjs).isAfter(dayjs())}
                   />
                 </Form.Item>
               </Col>
@@ -247,7 +247,7 @@ export default (
                     <DatePicker
                       format="L"
                       allowClear={false}
-                      disabledDate={(d) => !d || d.isAfter(moment())}
+                      disabledDate={(d) => !d || (d as Dayjs).isAfter(dayjs())}
                     />
                   </Form.Item>
                 </Col>
@@ -319,7 +319,7 @@ export default (
             cognoms: upperCaseFirst(soci.cognoms),
             dni: soci.dni.toUpperCase(),
             naixement: soci.naixement.format(DATE_FORMAT),
-            data_alta: (soci.data_alta || moment()).format(DATE_FORMAT),
+            data_alta: (soci.data_alta || dayjs()).format(DATE_FORMAT),
           })
             .then(() => {
               message.success(t("entity:subscription successful"));

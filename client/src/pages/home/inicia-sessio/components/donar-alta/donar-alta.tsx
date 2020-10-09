@@ -33,7 +33,11 @@ const DonarAlta: React.FC = () => {
         </Link>
         <LogoCorDeCambra
           className="signin-logo"
-          style={{ color: "var(--primary-color)" }}
+          style={{
+            color: "var(--primary-color)",
+            fontSize: "7rem",
+            margin: "-.5rem 0 0",
+          }}
         />
         <Form<FormDonarAlta> className="signin-form" onFinish={onFinish}>
           <Form.Item

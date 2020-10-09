@@ -7,7 +7,7 @@ import { Card, Space, Tag, Typography } from "antd";
 import { FixedTagsProjectes } from "components/fixed-tags-projectes";
 import { IconsFormacions } from "components/icons-formacions";
 import { Assaig } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ const CardProperAssaig: React.FC<CardProperAssaigProps> = ({ assaig }) => {
     <Card
       title={
         <Space>
-          <CalendarAvatar moment={moment(assaig.datahora_inici)} />
+          <CalendarAvatar dayjs={dayjs(assaig.datahora_inici)} />
           {assaig.titol}
           <StatusIcon
             tooltip={assaig.estat_esdeveniment}

@@ -2,7 +2,7 @@ import { Form } from "antd";
 import { DATE_FORMAT } from "constants/constants";
 import { useFetchAPI } from "helpers";
 import { AssaigPost } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAssajos } from "store/assajos/thunks";
@@ -36,9 +36,9 @@ export default () => {
       form.validateFields().then((assaig) =>
         postAssaig({
           ...(assaig as AssaigPost),
-          data: moment(assaig.data).format(DATE_FORMAT),
+          data: dayjs(assaig.data).format(DATE_FORMAT),
           hora: assaig.hora?.map(
-            (h: string) => h && moment(h).format("HH:mm")
+            (h: string) => h && dayjs(h).format("HH:mm")
           ) ?? [null, null],
           projectes: idProjecte ? [idProjecte] : [],
           formacions: assaig.formacions ?? [],

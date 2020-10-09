@@ -1,6 +1,6 @@
 import { Space } from "antd";
 import { Esdeveniment } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { StatusIcon } from "standalone/status-icon";
@@ -19,13 +19,13 @@ const CalendariResultLabel: React.FC<CalendariResultLabelProps> = ({
         statusId={esdeveniment.id_estat_esdeveniment}
         esAniversari={esdeveniment.tipus === "aniversari"}
       />
-      <CalendarAvatar moment={moment(esdeveniment.data)} borderless />
+      <CalendarAvatar dayjs={dayjs(esdeveniment.data)} borderless />
       <span>{esdeveniment.titol}</span>
     </Space>
     <Space>
       <span className="search-complete-item-extra">
         {esdeveniment.hora_inici
-          ? moment(esdeveniment.datahora_inici).format("LT")
+          ? dayjs(esdeveniment.datahora_inici).format("LT")
           : ""}
       </span>
     </Space>

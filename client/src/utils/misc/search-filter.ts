@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import { initials, stripAccents } from "../strings";
 
 export interface SearchFilters {
@@ -35,12 +35,12 @@ export default (
         dates.some((date) => {
           if (!date) return false;
 
-          const dateMoment = moment(date);
+          const dateDayjs = dayjs(date);
 
           return (
-            dateMoment.format("L").includes(frag) ||
-            dateMoment.format("LT").includes(frag) ||
-            dateMoment.format("LL").includes(frag)
+            dateDayjs.format("L").includes(frag) ||
+            dateDayjs.format("LT").includes(frag) ||
+            dateDayjs.format("LL").includes(frag)
           );
         }))
   );

@@ -3,10 +3,11 @@ import { Authorized } from "components/authorized";
 import { FixedTagsProjectes } from "components/fixed-tags-projectes";
 import { IconsFormacions } from "components/icons-formacions";
 import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { useDeleteAPI } from "helpers";
 import { searchFilterAssaig } from "helpers/search-filters";
 import { Assaig } from "model";
-import moment from "moment";
 import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -18,6 +19,8 @@ import { useTimeRange } from "utils/datetime";
 import { searchFilter } from "utils/misc";
 import { linkText } from "utils/strings";
 import { useAssajos } from "./hooks";
+
+dayjs.extend(isSameOrBefore);
 
 const { Item } = List;
 
@@ -51,16 +54,14 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
     let list: Assaig[] = anteriors
       ? assajos
           .filter((assaig) =>
-            moment(assaig.datahora_final || assaig.datahora_inici).isBefore(
-              moment()
+            dayjs(assaig.datahora_final || assaig.datahora_inici).isBefore(
+              dayjs()
             )
           )
-          .sort((a, b) =>
-            moment(b.datahora_inici).diff(moment(a.datahora_inici))
-          )
+          .sort((a, b) => dayjs(b.datahora_inici).diff(dayjs(a.datahora_inici)))
       : assajos.filter((assaig) =>
-          moment().isSameOrBefore(
-            moment(assaig.datahora_final || assaig.datahora_inici)
+          dayjs().isSameOrBefore(
+            dayjs(assaig.datahora_final || assaig.datahora_inici)
           )
         );
 
@@ -120,7 +121,7 @@ const LlistaAssajos: React.FC<LlistaAssajosProps> = ({
             <Item.Meta
               avatar={
                 <CalendarAvatar
-                  moment={moment(assaig.datahora_inici)}
+                  dayjs={dayjs(assaig.datahora_inici)}
                   style={{
                     transform: "scale(1.25)",
                     position: "relative",

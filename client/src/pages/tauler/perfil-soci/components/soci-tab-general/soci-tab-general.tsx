@@ -5,7 +5,7 @@ import {
 } from "@ant-design/icons";
 import { Descriptions, List, Space, Typography } from "antd";
 import { SiderBrokenContext } from "components/tauler-app/contexts/sider-context";
-import moment from "moment";
+import dayjs from "dayjs";
 import { SociContext } from "pages/tauler/perfil-soci";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
@@ -32,7 +32,7 @@ const SociTabGeneral: React.FC = () => {
           </Item>
           <Item label={t("birth date")}>
             <Typography.Paragraph className="action-text" copyable>
-              {moment(soci.naixement).format("LL")}
+              {dayjs(soci.naixement).format("LL")}
             </Typography.Paragraph>
           </Item>
         </Descriptions>

@@ -1,5 +1,5 @@
 import { Concert } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ const ContentListConcerts: React.FC<ContentListConcertsProps> = ({
       title={title || t("concerts")}
       loading={loading}
       dataSource={concerts.map((concert) => {
-        const date = moment(concert.datahora_inici);
+        const date = dayjs(concert.datahora_inici);
 
         return {
           id: concert.id_concert,
@@ -45,7 +45,7 @@ const ContentListConcerts: React.FC<ContentListConcertsProps> = ({
               </Link>
             </FixedTag>
           ) : undefined,
-          avatar: <CalendarAvatar moment={date} />,
+          avatar: <CalendarAvatar dayjs={date} />,
         };
       })}
       style={{ marginTop: 32 }}

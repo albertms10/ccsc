@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import { nIndexOf } from "../misc";
 
 interface DateRangeOptions {
@@ -17,7 +17,7 @@ export default (
   timeEnd?: string,
   { isLong = true, includesYear = true, separator = " " }: DateRangeOptions = {}
 ): string[] => {
-  const startFormat = moment(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
+  const startFormat = dayjs(dateStart).format(`${isLong ? "dddd, " : ""}LL`);
 
   const formatMatch = startFormat.match(new RegExp(separator, "g"));
 
@@ -30,8 +30,8 @@ export default (
         ),
     ...(timeStart
       ? [
-          moment(`${dateStart} ${timeStart}`).format("LT") +
-            (timeEnd ? "–" + moment(`${dateEnd} ${timeEnd}`).format("LT") : ""),
+          dayjs(`${dateStart} ${timeStart}`).format("LT") +
+            (timeEnd ? "–" + dayjs(`${dateEnd} ${timeEnd}`).format("LT") : ""),
         ]
       : []),
   ];

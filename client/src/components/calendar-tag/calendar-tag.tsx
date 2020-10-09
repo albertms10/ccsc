@@ -1,7 +1,7 @@
 import { Popover, Tag } from "antd";
 import { CalendarEventPopover } from "components/calendar-event-popover";
 import { TipusEsdeveniment } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import { StatusIcon } from "standalone/status-icon";
 import "./calendar-tag.css";
@@ -29,7 +29,7 @@ const CalendarTag: React.FC<CalendarTagProps> = ({
         className="calendar-tag"
         key={childKey}
         style={{
-          opacity: moment().isAfter(esdeveniment.datahora_inici) ? 0.6 : 1,
+          opacity: dayjs().isAfter(dayjs(esdeveniment.datahora_inici)) ? 0.6 : 1,
         }}
       >
         <StatusIcon
@@ -40,7 +40,7 @@ const CalendarTag: React.FC<CalendarTagProps> = ({
         />
         {esdeveniment.hora_inici && (
           <span className="calendar-tag-time">
-            {moment(esdeveniment.hora_inici, "HH:mm:ss").format("LT")}
+            {dayjs(esdeveniment.hora_inici, "HH:mm:ss").format("LT")}
           </span>
         )}
         <span className="calendar-tag-title">{esdeveniment.titol}</span>

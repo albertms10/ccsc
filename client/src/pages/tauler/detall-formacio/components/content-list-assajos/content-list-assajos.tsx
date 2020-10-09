@@ -1,13 +1,16 @@
 import { FixedTagsProjectes } from "components/fixed-tags-projectes";
 import { IconsFormacions } from "components/icons-formacions";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { Assaig, Formacio } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { FormacioContext } from "pages/tauler/detall-formacio";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarAvatar } from "standalone/calendar-avatar";
 import { ContentList, ContentListBaseProps } from "standalone/content-list";
 import { linkText } from "utils/strings";
+
+dayjs.extend(isSameOrBefore);
 
 interface ContentListAssajosProps extends ContentListBaseProps {
   assajos: Assaig[];
@@ -31,10 +34,10 @@ const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
           (assaig) =>
             assaig.formacions.find(
               (formacio) => formacio.id_formacio === id_formacio
-            ) && moment().isSameOrBefore(moment(assaig.datahora_inici))
+            ) && dayjs().isSameOrBefore(dayjs(assaig.datahora_inici))
         )
         .map((assaig) => {
-          const date = moment(assaig.datahora_inici);
+          const date = dayjs(assaig.datahora_inici);
           const filteredFormacions = assaig.formacions.filter(
             (formacio) => formacio.id_formacio !== id_formacio
           );
@@ -64,7 +67,7 @@ const ContentListAssajos: React.FC<ContentListAssajosProps> = ({
                   ]
                 : []),
             ],
-            avatar: <CalendarAvatar moment={date} />,
+            avatar: <CalendarAvatar dayjs={date} />,
           };
         })}
     />

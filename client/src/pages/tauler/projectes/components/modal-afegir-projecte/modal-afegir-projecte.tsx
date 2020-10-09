@@ -15,15 +15,18 @@ import {
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import { ModalButton } from "components/modal-button";
 import { TagSelectFormItemFormacions } from "components/tag-select-form-item-formacions";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 import { useAPI } from "helpers";
 import { Curs } from "model";
-import moment from "moment";
 import React, { useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "store/types";
 import { useAfegirProjecte } from "./hooks";
+
+dayjs.extend(isBetween);
 
 const { Option } = Select;
 
@@ -110,9 +113,9 @@ const ModalAfegirProjecte: React.FC = () => {
                   allowEmpty={[false, true]}
                   onChange={([data_inici]) => {
                     const curs = cursos.find((curs) =>
-                      moment(data_inici).isBetween(
-                        moment(curs.inici),
-                        moment(curs.final)
+                      dayjs(data_inici as Dayjs).isBetween(
+                        dayjs(curs.inici),
+                        dayjs(curs.final)
                       )
                     );
                     if (curs) form.setFieldsValue({ id_curs: curs.id_curs });
@@ -138,8 +141,8 @@ const ModalAfegirProjecte: React.FC = () => {
                 >
                   {cursos.map((curs) => (
                     <Option key={curs.id_curs} value={curs.id_curs}>
-                      {moment(curs.inici).format("YYYY")}–
-                      {moment(curs.final).format("YY")}
+                      {dayjs(curs.inici).format("YYYY")}–
+                      {dayjs(curs.final).format("YY")}
                     </Option>
                   ))}
                 </Select>

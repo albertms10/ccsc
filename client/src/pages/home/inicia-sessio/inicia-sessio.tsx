@@ -70,7 +70,11 @@ const IniciaSessio: React.FC = () => {
         </Link>
         <LogoCorDeCambra
           className="signin-logo"
-          style={{ color: "var(--primary-color)", fontSize: "7rem" }}
+          style={{
+            color: "var(--primary-color)",
+            fontSize: "7rem",
+            margin: "-.5rem 0 0",
+          }}
         />
         <Form<FormIniciaSessio>
           className="signin-form"

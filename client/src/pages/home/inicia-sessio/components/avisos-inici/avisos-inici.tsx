@@ -47,7 +47,11 @@ const AvisosInici: React.FC = () => {
         <div className="signin-form-wrapper">
           <LogoCorDeCambra
             className="signin-logo"
-            style={{ color: "var(--primary-color)" }}
+            style={{
+              color: "var(--primary-color)",
+              fontSize: "7rem",
+              margin: "-.5rem 0 0",
+            }}
           />
           <AvisAcceptacio nameAvis={currentUser.avisos[0]} isForm />
           <div className="signin-footer-actions">

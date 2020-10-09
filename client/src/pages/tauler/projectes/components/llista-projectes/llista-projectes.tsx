@@ -2,9 +2,10 @@ import { List, Space, Typography } from "antd";
 import { Authorized } from "components/authorized";
 import { IconsFormacions } from "components/icons-formacions";
 import { FormacionsListContext } from "components/tauler-app/contexts/formacions-context";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { useDeleteAPI } from "helpers";
 import { searchFilterProjecte } from "helpers/search-filters";
-import moment from "moment";
 import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,8 @@ import { literalList } from "utils/lists";
 import { searchFilter } from "utils/misc";
 import { useProjectes } from "./hooks";
 import "./llista-projectes.css";
+
+dayjs.extend(isSameOrBefore);
 
 const { Item } = List;
 const { Text } = Typography;
@@ -46,15 +49,15 @@ const LlistaProjectes: React.FC<LlistaProjectesProps> = ({
   const getDataSource = useCallback(() => {
     const list = inactius
       ? projectes
-          .filter((projecte) => moment(projecte.data_final).isBefore(moment()))
+          .filter((projecte) => dayjs(projecte.data_final).isBefore(dayjs()))
           .sort((a, b) =>
-            b.data_inici ? moment(b.data_inici).diff(moment(a.data_inici)) : 0
+            b.data_inici ? dayjs(b.data_inici).diff(dayjs(a.data_inici)) : 0
           )
       : projectes.filter(
           (projecte) =>
             !projecte.data_inici ||
             !projecte.data_final ||
-            moment().isSameOrBefore(moment(projecte.data_final))
+            dayjs().isSameOrBefore(dayjs(projecte.data_final))
         );
 
     return searchValue.length > 0

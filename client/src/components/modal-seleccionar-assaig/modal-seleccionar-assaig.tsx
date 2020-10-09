@@ -5,7 +5,7 @@ import { ModalList } from "components/modal-list";
 import { SearchListBaseProps } from "components/search-list";
 import { searchFilterAssaig } from "helpers/search-filters";
 import { Assaig } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useAssajos } from "pages/tauler/assajos/components/llista-assajos/hooks";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,7 +56,7 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
         <List.Item.Meta
           avatar={
             <CalendarAvatar
-              moment={moment(assaig.datahora_inici)}
+              dayjs={dayjs(assaig.datahora_inici)}
               style={{
                 transform: "scale(1.25)",
                 position: "relative",
@@ -68,7 +68,7 @@ const ModalSeleccionarAssaig: React.FC<ModalSeleccionarAssaigProps> = ({
           description={timeRange(assaig.hora_inici, assaig.hora_final, {
             textual: true,
           })}
-          {...(moment().isAfter(moment(assaig.data)) && {
+          {...(dayjs().isAfter(dayjs(assaig.data)) && {
             style: { opacity: 0.6 },
           })}
         />

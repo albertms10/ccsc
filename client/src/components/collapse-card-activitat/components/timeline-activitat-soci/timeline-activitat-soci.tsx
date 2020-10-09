@@ -1,6 +1,6 @@
 import { Timeline, Typography } from "antd";
 import { Activitat } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { closestTimeValue } from "utils/datetime";
@@ -25,12 +25,12 @@ const TimelineActivitatSoci: React.FC<TimelineActivitatSociProps> = ({
       <Timeline>
         <Timeline.Item>
           <strong>{t("subscribed")}: </strong>
-          {moment(activitat.data_alta).format("LL")}
+          {dayjs(activitat.data_alta).format("LL")}
         </Timeline.Item>
         {activitat.data_baixa && (
           <Timeline.Item color="red">
             <strong>{t("unsubscribed")}: </strong>
-            {moment(activitat.data_baixa).format("LL")}
+            {dayjs(activitat.data_baixa).format("LL")}
           </Timeline.Item>
         )}
       </Timeline>

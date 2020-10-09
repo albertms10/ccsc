@@ -26,7 +26,12 @@ const HomeApp: React.FC = () => {
             <Link to="/">
               <LogoCorDeCambra
                 className="header-logo"
-                style={{ color: "#fff" }}
+                style={{
+                  color: "#fff",
+                  fontSize: "5rem",
+                  position: "relative",
+                  top: "-1.3rem",
+                }}
               />
             </Link>
           </Col>

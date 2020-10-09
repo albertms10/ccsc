@@ -1,14 +1,17 @@
 import { Menu } from "antd";
 import { ModalSeleccionarAssaig } from "components/modal-seleccionar-assaig";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 import { usePostAPI } from "helpers";
 import { Projecte } from "model";
-import moment from "moment";
 import { ModalAfegirAssaig } from "pages/tauler/assajos/components/modal-afegir-assaig";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { ActionButton } from "standalone/action-button";
 import { fetchAssajos } from "store/assajos/thunks";
+
+dayjs.extend(isBetween);
 
 interface DropdownAfegirAssaigProjecteProps {
   projecte: Projecte;
@@ -40,9 +43,9 @@ const DropdownAfegirAssaigProjecte: React.FC<DropdownAfegirAssaigProjecteProps> 
               projecteAssaig.id_projecte === projecte.id_projecte
           ) &&
           (projecte.data_inici
-            ? moment(assaig.datahora_inici).isBetween(
-                moment(projecte.data_inici),
-                moment(projecte.data_final)
+            ? dayjs(assaig.datahora_inici).isBetween(
+                dayjs(projecte.data_inici),
+                dayjs(projecte.data_final)
               )
             : true)
         }

@@ -2,7 +2,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Calendar, Col, Row, Space, Spin } from "antd";
 import { useAPI } from "helpers";
 import { Formacio, TipusEsdeveniment } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { FormacioContext } from "pages/tauler/detall-formacio";
 import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
@@ -59,7 +59,7 @@ const CalendariFormacio: React.FC = () => {
       <div className="ant-picker-calendar-header">
         <Row align="middle" gutter={16}>
           <Col>
-            <Button onClick={() => onChange(moment())}>Avui</Button>
+            <Button onClick={() => onChange(dayjs())}>Avui</Button>
           </Col>
           <Col>
             <Space>
@@ -81,14 +81,14 @@ const CalendariFormacio: React.FC = () => {
           </Col>
           <Col flex={2}>
             <div style={{ fontSize: "2rem", fontWeight: 300 }}>
-              {moment(value).format(t("date pattern"))}
+              {dayjs(value).format(t("date pattern"))}
             </div>
           </Col>
           <Col flex={1}>
             <SearchComplete
               data={esdeveniments}
               onSelect={(value, option) =>
-                new Promise(() => onChange(moment(option.date)))
+                new Promise(() => onChange(dayjs(option.date)))
               }
               filter={searchCompleteFilter}
               optionRenderObject={optionRenderObject}

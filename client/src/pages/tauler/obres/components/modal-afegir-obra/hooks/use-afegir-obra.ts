@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { useFetchAPI } from "helpers";
 import { ObraPost } from "model";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchObres } from "store/obres/thunks";
@@ -35,7 +35,7 @@ export default () => {
         postObra({
           ...(obra as ObraPost),
           anys: obra.anys?.map(
-            (a: string) => a && moment(a).format("YYYY")
+            (a: string) => a && dayjs(a).format("YYYY")
           ) ?? [null, null],
         })
       ),
