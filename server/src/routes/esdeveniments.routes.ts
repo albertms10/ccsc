@@ -1,6 +1,9 @@
 import * as express from "express";
 import * as controller from "../controllers/esdeveniments.controller";
-import { isBoardOfDirectors, verifyAccessToken } from "../middleware/auth-jwt";
+import {
+  isAuthorOrBoardOfDirectors,
+  verifyAccessToken,
+} from "../middleware/auth-jwt";
 
 const router = express.Router();
 
@@ -12,9 +15,12 @@ router
 
 router
   .route("/:id/assistents")
-  .get([verifyAccessToken], controller.esdeveniments_detall_assistents_get)
+  .get([verifyAccessToken], controller.esdeveniments_detall_assistents_get);
+
+router
+  .route("/:id_esdeveniment/assistents/:id_persona")
   .put(
-    [verifyAccessToken, isBoardOfDirectors],
+    [verifyAccessToken, isAuthorOrBoardOfDirectors],
     controller.esdeveniments_detall_assistents_put
   );
 

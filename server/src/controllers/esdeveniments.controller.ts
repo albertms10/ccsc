@@ -51,8 +51,8 @@ export const esdeveniments_detall_assistents_put: ControllerRequestHandler<
   Convocatoria
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
-  const { id: id_esdeveniment } = req.params;
-  const { id_persona, id_estat_confirmacio, amb_retard } = req.body;
+  const { id_esdeveniment, id_persona } = req.params;
+  const { id_estat_confirmacio, amb_retard } = req.body;
 
   pool
     .query<OkPacket>(
