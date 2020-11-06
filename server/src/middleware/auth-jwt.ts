@@ -110,7 +110,12 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
  */
 export const checkIsAuthor: AuthRequestHandler = async (req, res) => {
   const pool: Pool = req.app.get("pool");
-  const { id } = req.params;
+
+  const id =
+    req.params.id_persona ||
+    req.params.id_usuari ||
+    req.params.id_soci ||
+    req.params.id;
 
   const queryUsuari = await pool.query<
     ({ id_usuari: number } & RowDataPacket)[]
