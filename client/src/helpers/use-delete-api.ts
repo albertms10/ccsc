@@ -1,7 +1,10 @@
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDeleteConfirm, useFetchAPI } from "./index";
 
 export default (url: string, textualElement: string, callback?: () => void) => {
+  const { t } = useTranslation("modals");
+
   const fetchAPI = useFetchAPI();
 
   const [loading, setLoading] = useState(false);
@@ -26,6 +29,6 @@ export default (url: string, textualElement: string, callback?: () => void) => {
   return [
     loading,
     (id: number) =>
-      showDeleteConfirm(textualElement || "l’ítem", () => deleteData(id)),
+      showDeleteConfirm(textualElement || t("the item"), () => deleteData(id)),
   ] as const;
 };
