@@ -2,6 +2,12 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Layout, Typography } from "antd";
 import { Authorized } from "components/authorized";
+import { DetallAssaig } from "pages/tauler/detall-assaig";
+import { DetallFormacio } from "pages/tauler/detall-formacio";
+import { DetallMoviment } from "pages/tauler/detall-moviment";
+import { DetallObra } from "pages/tauler/detall-obra";
+import { DetallProjecte } from "pages/tauler/detall-projecte";
+import { PerfilSoci } from "pages/tauler/perfil-soci";
 import React, {
   createContext,
   lazy,
@@ -33,36 +39,6 @@ const { Title } = Typography;
 const Assajos = lazy(
   () => import("pages/tauler/assajos/assajos" /* webpackChunkName: "assajos" */)
 );
-const DetallAssaig = lazy(
-  () =>
-    import(
-      "pages/tauler/detall-assaig/detall-assaig" /* webpackChunkName: "detall-assaig" */
-    )
-);
-const DetallFormacio = lazy(
-  () =>
-    import(
-      "pages/tauler/detall-formacio/detall-formacio" /* webpackChunkName: "detall-formacio" */
-    )
-);
-const DetallMoviment = lazy(
-  () =>
-    import(
-      "pages/tauler/detall-moviment/detall-moviment" /* webpackChunkName: "detall-moviment" */
-    )
-);
-const DetallObra = lazy(
-  () =>
-    import(
-      "pages/tauler/detall-obra/detall-obra" /* webpackChunkName: "detall-obra" */
-    )
-);
-const DetallProjecte = lazy(
-  () =>
-    import(
-      "pages/tauler/detall-projecte/detall-projecte" /* webpackChunkName: "detall-projecte" */
-    )
-);
 const IniciPage = lazy(
   () =>
     import(
@@ -71,12 +47,6 @@ const IniciPage = lazy(
 );
 const Obres = lazy(
   () => import("pages/tauler/obres/obres" /* webpackChunkName: "obres" */)
-);
-const PerfilSoci = lazy(
-  () =>
-    import(
-      "pages/tauler/perfil-soci/perfil-soci" /* webpackChunkName: "perfil-soci" */
-    )
 );
 const Projectes = lazy(
   () =>
