@@ -144,3 +144,6 @@ export function unregister() {
       });
   }
 }
+
+// @ts-ignore
+self.__WB_MANIFEST
