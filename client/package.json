@@ -1,6 +1,7 @@
 {
   "name": "client",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/charts": "^1.0.4",
     "@ant-design/colors": "^4.0.5",

@@ -1,6 +1,7 @@
 {
   "name": "server",
   "private": true,
+  "homepage": ".",
   "scripts": {
     "tsc": "tsc",
     "build": "npm i && cd ../client && npm i && npm run build",
