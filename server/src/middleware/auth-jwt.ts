@@ -1,4 +1,5 @@
 import { ResponseError } from "common";
+import { Request, Response } from "express";
 import { Pool, RowDataPacket } from "mysql2/promise";
 import { ControllerRequestHandler } from "server-model";
 import {
@@ -108,7 +109,7 @@ export const verifyEmailToken: AuthRequestHandler = (req, res, next) => {
 /*
  * CHECK FUNCTIONS
  */
-export const checkIsAuthor: AuthRequestHandler = async (req, res) => {
+export const checkIsAuthor = async (req: Request, res: Response) => {
   const pool: Pool = req.app.get("pool");
 
   const id =
@@ -124,7 +125,7 @@ export const checkIsAuthor: AuthRequestHandler = async (req, res) => {
   return queryUsuari[0][0] && res.locals.userId === queryUsuari[0][0].id_usuari;
 };
 
-export const checkIsRole: AuthRequestHandler = async (req, res) => {
+export const checkIsRole = async (req: Request, res: Response) => {
   const pool: Pool = req.app.get("pool");
   const { userId: id, roles } = res.locals;
 
@@ -139,12 +140,12 @@ export const checkIsRole: AuthRequestHandler = async (req, res) => {
  * IS HELPERS
  */
 export const isAuthor: AuthRequestHandler = async (req, res, next) =>
-  (await checkIsAuthor(req, res, next))
+  (await checkIsAuthor(req, res))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 
 export const isRole: AuthRequestHandler = async (req, res, next) =>
-  (await checkIsRole(req, res, next))
+  (await checkIsRole(req, res))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 
@@ -157,7 +158,7 @@ export const isAuthorOrBoardOfDirectors: AuthRequestHandler = async (
   next
 ) => {
   res.locals.roles = ROLES_BOARD_OF_DIRECTORS;
-  (await checkIsAuthor(req, res, next)) || (await checkIsRole(req, res, next))
+  (await checkIsAuthor(req, res)) || (await checkIsRole(req, res))
     ? next()
     : res.status(403).send({ error: { status: 403, message: "not allowed" } });
 };
