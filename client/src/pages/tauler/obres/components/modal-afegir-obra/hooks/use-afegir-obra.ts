@@ -1,6 +1,6 @@
 import { Form } from "antd";
 import { useFetchAPI } from "helpers";
-import { ObraPost } from "model";
+import { ObraPost, ItemRange } from "model";
 import dayjs from "dayjs";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { fetchObres } from "store/obres/thunks";
 interface FormAfegirObra {
   titol: string;
   subtitol?: string;
-  anys?: [inici: string, final: string | null];
+  anys?: ItemRange<number>;
   id_idioma?: number;
 }
 
@@ -33,10 +33,11 @@ export default () => {
     () =>
       form.validateFields().then((obra) =>
         postObra({
-          ...(obra as ObraPost),
-          anys: obra.anys?.map(
-            (a: string) => a && dayjs(a).format("YYYY")
-          ) ?? [null, null],
+          ...obra,
+          anys: (obra.anys?.map((a) => a && dayjs(a).format("YYYY")) ?? [
+            null,
+            null,
+          ]) as ItemRange<number>,
         })
       ),
     [form, postObra]

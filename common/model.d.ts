@@ -3,6 +3,8 @@
 declare module "model" {
   import { BooleanMap, Role } from "common";
 
+  export type ItemRange<T> = [start: T | null, end: T | null];
+
   export interface Entitat {
     id_entitat: number;
     nom: string;
@@ -176,11 +178,11 @@ declare module "model" {
 
   export interface ProjectePost {
     titol: string;
-    descripcio: string;
+    descripcio?: string;
     inicials: string;
     color: string;
-    data: [inici: string, final: string];
-    id_curs: number;
+    data: ItemRange<string>;
+    id_curs?: string;
     formacions: number[];
   }
 
@@ -286,7 +288,7 @@ declare module "model" {
 
   export interface AssaigPost {
     data: string;
-    hora: [inici: string, final: string];
+    hora: ItemRange<string>;
     es_general: boolean;
     es_extra: boolean;
     projectes: number[];
@@ -350,9 +352,9 @@ declare module "model" {
 
   export interface ObraPost {
     titol: string;
-    subtitol: string;
-    anys: [inici: number, final: number];
-    id_idioma: number;
+    subtitol?: string;
+    anys: ItemRange<number>;
+    id_idioma?: number;
   }
 
   export interface FragmentMovimentEsdevenimentMusical {

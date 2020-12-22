@@ -1,10 +1,11 @@
 import { Form } from "antd";
 import { DATE_FORMAT } from "constants/constants";
-import { useFetchAPI } from "helpers";
-import { ProjectePost } from "model";
 import dayjs from "dayjs";
+import { useFetchAPI } from "helpers";
+import { ItemRange, ProjectePost } from "model";
 import { useCheckInicials } from "pages/tauler/projectes/components/modal-afegir-projecte/hooks/index";
 import { useCallback } from "react";
+import { ColorResult } from "react-color";
 import { useDispatch } from "react-redux";
 import { fetchProjectes } from "store/projectes/thunks";
 import { initials } from "utils/strings";
@@ -13,8 +14,8 @@ interface FormAfegirProjecte {
   titol: string;
   inicials: string;
   descripcio?: string;
-  color?: string;
-  data?: [inici: string, final: string | null];
+  color?: ColorResult;
+  data?: ItemRange<string>;
   id_curs?: string;
   formacions?: number[];
 }
@@ -45,12 +46,13 @@ export default () => {
     () =>
       form.validateFields().then((projecte) =>
         postProjecte({
-          ...(projecte as ProjectePost),
+          ...projecte,
           color:
-            projecte.color?.hex.substring(1, projecte.color.length) ?? "676767",
-          data: projecte.data?.map(
-            (d: string) => d && dayjs(d).format(DATE_FORMAT)
-          ) ?? [null, null],
+            projecte.color?.hex.substring(1, projecte.color.hex.length) ??
+            "676767",
+          data: (projecte.data?.map(
+            (d) => d && dayjs(d).format(DATE_FORMAT)
+          ) ?? [null, null]) as ItemRange<string>,
           formacions: projecte.formacions ?? [],
         })
       ),

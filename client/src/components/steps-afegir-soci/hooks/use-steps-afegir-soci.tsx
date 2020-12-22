@@ -34,6 +34,12 @@ export interface FormStep {
   content: React.ReactNode;
 }
 
+interface SociPost extends Omit<FormAfegirSoci, "naixement" | "data_alta"> {
+  username: string;
+  naixement: string;
+  data_alta: string;
+}
+
 export default (
   onSuccessCallback: () => void,
   selfCreation = false,
@@ -49,9 +55,7 @@ export default (
   const [selectedPais, setSelectedPais] = useState<Pais["nom"]>("");
 
   const [paisos, loadingPaisos] = useAPI<Pais[]>("/localitzacions/paisos", []);
-  const [loadingPostSoci, postSoci] = usePostAPI<
-    FormAfegirSoci & { username: string }
-  >(fetchURL);
+  const [loadingPostSoci, postSoci] = usePostAPI<SociPost>(fetchURL);
 
   const [username, loadingUsername, getUsername] = useUsername();
 
@@ -313,7 +317,7 @@ export default (
           setConfirmLoading(true);
 
           postSoci({
-            ...(soci as FormAfegirSoci),
+            ...soci,
             username,
             nom: upperCaseFirst(soci.nom),
             cognoms: upperCaseFirst(soci.cognoms),

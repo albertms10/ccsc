@@ -111,6 +111,7 @@ const ModalAfegirProjecte: React.FC = () => {
                 <DatePicker.RangePicker
                   format="L"
                   allowEmpty={[false, true]}
+                  // @ts-ignore
                   onChange={([data_inici]) => {
                     const curs = cursos.find((curs) =>
                       dayjs(data_inici as Dayjs).isBetween(

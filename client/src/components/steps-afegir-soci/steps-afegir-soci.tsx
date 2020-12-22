@@ -14,7 +14,7 @@ export interface FormAfegirSoci {
   cognoms: string;
   id_pais: number;
   dni: string;
-  naixement: string;
+  naixement: Dayjs;
   email: string;
   telefon?: string;
   experiencia_musical?: string;
