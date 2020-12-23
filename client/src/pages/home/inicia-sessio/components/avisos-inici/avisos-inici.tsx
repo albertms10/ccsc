@@ -57,10 +57,10 @@ const AvisosInici: React.FC = () => {
           <div className="signin-footer-actions">
             <Space>
               <Button onClick={() => dispatch(logoutRemoveUser())}>
-                Enrere
+                {t('common:go back')}
               </Button>
               <Button type="primary" htmlType="submit" loading={loading}>
-                Ho he llegit i dono el meu consentiment
+                {t('entity:agree with the terms')}
               </Button>
             </Space>
           </div>
