@@ -14,7 +14,9 @@ module.exports = override(
     style: true,
   }),
   addLessLoader({
-    javascriptEnabled: true,
-    modifyVars: themeVariables,
+    lessOptions: {
+      modifyVars: themeVariables,
+      javascriptEnabled: true,
+    },
   })
 );
