@@ -12,3 +12,29 @@ L’aplicació està disponible a [cordecambrasantcugat.herokuapp.com](https://c
 ## Base de dades
 
 La documentació detallada de la base de dades es pot trobar a [DBDocs](https://dbdocs.io/albertms10/AMCC).
+
+## Tauler
+
+### Inici de sessió
+
+![Inici de sessió](docs/img/inici_sessio.jpg)
+
+### Benvinguda al tauler
+
+![Tauler inici](docs/img/tauler_inici.jpg)
+
+### Formació
+
+![Formació](docs/img/formacio.jpg)
+
+![calendari](docs/img/calendari.jpg)
+
+### Assajos
+
+![Assajos](docs/img/assajos.jpg)
+
+![Detall assaig](docs/img/detall_assaig.jpg)
+
+### Projectes
+
+![Projectes](docs/img/projectes.jpg)
