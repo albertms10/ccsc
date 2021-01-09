@@ -86,6 +86,14 @@ app.get(apiPath("/docs-styles.css"), (req, res) => {
   res.sendFile(path.resolve(__dirname, "../docs", "docs.css"));
 });
 
-app.use(express.static(__dirname + "../../../../client/build"));
+if (process.env.NODE_ENV === "production") {
+  const buildPath = "../../../../client/build";
+
+  app.use(express.static(__dirname + buildPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, buildPath, "index.html"));
+  });
+}
 
 app.listen(PORT, HOST);
