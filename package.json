@@ -10,6 +10,7 @@
   "homepage": ".",
   "scripts": {
     "dev": "cd server && npm run dev",
+    "start": "cd server && npm run start",
     "build": "cd server && CI=false npm run build",
     "server": "cd server && npm run server"
   },
