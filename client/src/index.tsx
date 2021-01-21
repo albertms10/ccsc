@@ -22,4 +22,8 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+if (import.meta.hot) {
+  import.meta.hot.accept();
+}
+
 serviceWorker.unregister();
