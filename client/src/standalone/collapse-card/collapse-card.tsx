@@ -34,7 +34,7 @@ const CollapseCard: React.FC<CollapseCardProps> = ({
       <Collapse.Panel
         header={title}
         key="collapse-card"
-        disabled={disabled}
+        collapsible={disabled ? "disabled" : "header"}
         showArrow={showArrow}
         extra={actionItem}
       >
