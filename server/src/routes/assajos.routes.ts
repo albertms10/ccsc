@@ -74,7 +74,7 @@ router
 
 router
   .route("/:id/convocades")
-  .get([verifyAccessToken], controller.assajos_detall_convocats);
+  .get([verifyAccessToken], controller.assajos_detall_convocades);
 
 router
   .route("/:id/veus")

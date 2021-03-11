@@ -324,7 +324,7 @@ export const assajos_detall_formacions_delete: ControllerRequestHandler = (
     .catch(next);
 };
 
-export const assajos_detall_convocats: ControllerRequestHandler<
+export const assajos_detall_convocades: ControllerRequestHandler<
   PersonaConvocada[]
 > = (req, res, next) => {
   const pool: Pool = req.app.get("pool");
