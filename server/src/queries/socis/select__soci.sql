@@ -1,6 +1,6 @@
 SELECT *,
        (
-           SELECT CAST(IFNULL(JSON_ARRAYAGG(role), '[]') AS JSON)
+           SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(role) AS JSON), '[]') AS JSON)
            FROM roles
                     INNER JOIN roles_usuaris USING (id_role)
            WHERE id_usuari = u.id_usuari

@@ -37,14 +37,14 @@ SELECT ee.id_esdeveniment,
        ee.id_esdeveniment_ajornat,
        CONCAT('Concert ', titol) AS titol,
        (
-           SELECT CAST(IFNULL(JSON_ARRAYAGG(
-                                      JSON_OBJECT(
-                                              'id_projecte', id_projecte,
-                                              'titol', titol,
-                                              'inicials', inicials,
-                                              'color', color
-                                          )
-                                  ), '[]') AS JSON)
+           SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+                   JSON_OBJECT(
+                           'id_projecte', id_projecte,
+                           'titol', titol,
+                           'inicials', inicials,
+                           'color', color
+                       )
+               ) AS JSON), '[]') AS JSON)
            FROM projectes
            WHERE id_projecte = c.id_projecte
        )                         AS projectes,

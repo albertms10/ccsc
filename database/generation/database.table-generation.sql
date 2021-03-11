@@ -158,9 +158,9 @@ CREATE TABLE IF NOT EXISTS parts_destacades_moviment
 (
     id_part_destacada_moviment SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    id_moviment                SMALLINT UNSIGNED             NOT NULL,
-    compas_inici               SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    compas_final               SMALLINT UNSIGNED             NULL,
+    id_moviment                SMALLINT UNSIGNED           NOT NULL,
+    compas_inici               SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
+    compas_final               SMALLINT UNSIGNED           NULL,
     CONSTRAINT parts_destacades_moviment_ibfk_1
         FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
 );
@@ -229,10 +229,10 @@ CREATE TABLE IF NOT EXISTS seccions_moviment
 (
     id_seccio_moviment SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    id_moviment        SMALLINT UNSIGNED             NOT NULL,
-    titol              VARCHAR(100)                  NULL,
-    compas_inici       SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    compas_final       SMALLINT UNSIGNED             NULL,
+    id_moviment        SMALLINT UNSIGNED           NOT NULL,
+    titol              VARCHAR(100)                NULL,
+    compas_inici       SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
+    compas_final       SMALLINT UNSIGNED           NULL,
     CONSTRAINT seccions_moviment_ibfk_1
         FOREIGN KEY (id_moviment) REFERENCES moviments (id_moviment)
 );
@@ -311,9 +311,9 @@ CREATE TABLE IF NOT EXISTS entitats
 (
     id_entitat       SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    nom              VARCHAR(100)                  NOT NULL,
-    nif              VARCHAR(12)                   NOT NULL,
-    id_tipus_entitat SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
+    nom              VARCHAR(100)                NOT NULL,
+    nif              VARCHAR(12)                 NOT NULL,
+    id_tipus_entitat SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
     CONSTRAINT entitats_ibfk_1
         FOREIGN KEY (id_tipus_entitat) REFERENCES tipus_entitats (id_tipus_entitat)
 );
@@ -393,13 +393,13 @@ CREATE TABLE IF NOT EXISTS localitzacions
 (
     id_localitzacio SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    id_tipus_via    SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    carrer          VARCHAR(100)                  NOT NULL,
-    numero          SMALLINT UNSIGNED             NULL,
-    fins_numero     SMALLINT UNSIGNED             NULL,
-    codi_postal     SMALLINT UNSIGNED ZEROFILL    NOT NULL,
-    gmaps           VARCHAR(512)                  NULL,
-    id_ciutat       SMALLINT UNSIGNED             NULL,
+    id_tipus_via    SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
+    carrer          VARCHAR(100)                NOT NULL,
+    numero          SMALLINT UNSIGNED           NULL,
+    fins_numero     SMALLINT UNSIGNED           NULL,
+    codi_postal     SMALLINT UNSIGNED ZEROFILL  NOT NULL,
+    gmaps           VARCHAR(512)                NULL,
+    id_ciutat       SMALLINT UNSIGNED           NULL,
     CONSTRAINT localitzacions_ibfk_1
         FOREIGN KEY (id_ciutat) REFERENCES ciutats (id_ciutat),
     CONSTRAINT localitzacions_ibfk_2
@@ -410,15 +410,15 @@ CREATE TABLE IF NOT EXISTS esdeveniments
 (
     id_esdeveniment         SMALLINT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    data                    DATE                         NOT NULL,
-    hora_inici              TIME                         NULL,
-    hora_final              TIME                         NULL,
-    es_assaig_ordinari      TINYINT(1)       DEFAULT 0   NOT NULL,
-    id_estat_esdeveniment   TINYINT UNSIGNED DEFAULT '2' NOT NULL,
-    id_localitzacio         SMALLINT UNSIGNED            NULL,
-    id_estat_localitzacio   TINYINT UNSIGNED DEFAULT '2' NULL,
-    id_esdeveniment_ajornat SMALLINT UNSIGNED            NULL,
-    notes                   TEXT                         NULL,
+    data                    DATE                       NOT NULL,
+    hora_inici              TIME                       NULL,
+    hora_final              TIME                       NULL,
+    es_assaig_ordinari      TINYINT(1)       DEFAULT 0 NOT NULL,
+    id_estat_esdeveniment   TINYINT UNSIGNED DEFAULT 2 NOT NULL,
+    id_localitzacio         SMALLINT UNSIGNED          NULL,
+    id_estat_localitzacio   TINYINT UNSIGNED DEFAULT 2 NULL,
+    id_esdeveniment_ajornat SMALLINT UNSIGNED          NULL,
+    notes                   TEXT                       NULL,
     CONSTRAINT esdeveniments_ibfk_2
         FOREIGN KEY (id_esdeveniment_ajornat) REFERENCES esdeveniments (id_esdeveniment),
     CONSTRAINT esdeveniments_ibfk_3
@@ -567,11 +567,11 @@ CREATE TABLE IF NOT EXISTS moviments_esdeveniment_musical
 
 CREATE TABLE IF NOT EXISTS fragments_moviment_esdeveniment_musical
 (
-    id_moviment_esdeveniment_musical SMALLINT UNSIGNED             NOT NULL,
-    compas_inici                     SMALLINT UNSIGNED DEFAULT '1' NOT NULL,
-    compas_final                     SMALLINT UNSIGNED             NULL,
-    pes                              TINYINT UNSIGNED  DEFAULT '1' NOT NULL,
-    nota                             TEXT                          NULL,
+    id_moviment_esdeveniment_musical SMALLINT UNSIGNED           NOT NULL,
+    compas_inici                     SMALLINT UNSIGNED DEFAULT 1 NOT NULL,
+    compas_final                     SMALLINT UNSIGNED           NULL,
+    pes                              TINYINT UNSIGNED  DEFAULT 1 NOT NULL,
+    nota                             TEXT                        NULL,
     PRIMARY KEY (id_moviment_esdeveniment_musical, compas_inici),
     CONSTRAINT fragments_moviment_esdeveniment_musical_ibfk_1
         FOREIGN KEY (id_moviment_esdeveniment_musical) REFERENCES moviments_esdeveniment_musical (id_moviment_esdeveniment_musical)
@@ -589,7 +589,7 @@ CREATE TABLE IF NOT EXISTS persones
         PRIMARY KEY,
     nom             VARCHAR(50)          NOT NULL,
     cognoms         VARCHAR(50)          NOT NULL,
-    nom_complet     VARCHAR(101) AS (concat(nom, _utf8mb4' ', cognoms)),
+    nom_complet     VARCHAR(101) AS (CONCAT(nom, _utf8mb4' ', cognoms)),
     es_dona         TINYINT(1) DEFAULT 1 NOT NULL,
     naixement       DATE                 NULL,
     id_pais         CHAR(2)              NULL,
@@ -715,10 +715,10 @@ CREATE TABLE IF NOT EXISTS socis
 
 CREATE TABLE IF NOT EXISTS assistents_esdeveniment
 (
-    id_esdeveniment      SMALLINT UNSIGNED            NOT NULL,
-    id_soci              SMALLINT UNSIGNED            NOT NULL,
-    amb_retard           TINYINT(1)       DEFAULT 0   NOT NULL,
-    id_estat_confirmacio TINYINT UNSIGNED DEFAULT '2' NOT NULL,
+    id_esdeveniment      SMALLINT UNSIGNED          NOT NULL,
+    id_soci              SMALLINT UNSIGNED          NOT NULL,
+    amb_retard           TINYINT(1)       DEFAULT 0 NOT NULL,
+    id_estat_confirmacio TINYINT UNSIGNED DEFAULT 2 NOT NULL,
     PRIMARY KEY (id_esdeveniment, id_soci),
     CONSTRAINT assistents_esdeveniment_ibfk_1
         FOREIGN KEY (id_esdeveniment) REFERENCES esdeveniments (id_esdeveniment),
@@ -1098,22 +1098,24 @@ SELECT DISTINCT ee.id_esdeveniment                                   AS id_esdev
                 ee.estat_localitzacio                                AS estat_localitzacio,
                 a.id_assaig                                          AS id_assaig,
                 assajos_son_parcials.es_parcial                      AS es_parcial,
-                concat('Assaig', if(assajos_son_parcials.es_parcial, ' parcial', ''), if(a.es_general, ' general', ''),
-                       if(a.es_extra, ' extra', ''))                 AS titol,
-                (SELECT cast(ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
-                                                              formacions.nom, 'nom_curt',
-                                                              ifnull(formacions.nom_curt, formacions.nom))),
-                                    '[]') AS JSON)
+                CONCAT('Assaig', IF(assajos_son_parcials.es_parcial, ' parcial', ''), IF(a.es_general, ' general', ''),
+                       IF(a.es_extra, ' extra', ''))                 AS titol,
+                (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+                        JSON_OBJECT('id_formacio', formacions.id_formacio, 'nom',
+                                    formacions.nom, 'nom_curt', IFNULL(
+                                            formacions.nom_curt,
+                                            formacions.nom))) AS JSON), '[]') AS JSON)
                  FROM (formacions
-                          JOIN assajos_formacions
-                               ON ((formacions.id_formacio = assajos_formacions.id_formacio)))
+                          JOIN assajos_formacions ON ((formacions.id_formacio =
+                                                       assajos_formacions.id_formacio)))
                  WHERE (assajos_formacions.id_assaig = a.id_assaig)) AS formacions,
-                (SELECT cast(ifnull(json_arrayagg(json_object('id_projecte', projectes.id_projecte, 'titol',
-                                                              projectes.titol, 'inicials', projectes.inicials,
-                                                              'color', projectes.color)), '[]') AS JSON)
+                (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+                        JSON_OBJECT('id_projecte', projectes.id_projecte, 'titol',
+                                    projectes.titol, 'inicials', projectes.inicials,
+                                    'color', projectes.color)) AS JSON), '[]') AS JSON)
                  FROM (projectes
-                          JOIN assajos_projectes
-                               ON ((projectes.id_projecte = assajos_projectes.id_projecte)))
+                          JOIN assajos_projectes ON ((projectes.id_projecte =
+                                                      assajos_projectes.id_projecte)))
                  WHERE (assajos_projectes.id_assaig = a.id_assaig))  AS projectes
 FROM ((assajos a JOIN esdeveniments_estat ee ON ((ee.id_esdeveniment = a.id_assaig)))
          LEFT JOIN assajos_son_parcials ON ((a.id_assaig = assajos_son_parcials.id_assaig)));
@@ -1137,11 +1139,10 @@ SELECT ae.id_esdeveniment                                                       
        ae.titol                                                                        AS titol,
        ae.formacions                                                                   AS formacions,
        ae.projectes                                                                    AS projectes,
-       (SELECT cast(ifnull(json_arrayagg(
-                                   json_object('id_moviment', m.id_moviment, 'id_obra', m.id_obra, 'titol_moviment',
-                                               m.titol_moviment, 'titol_obra', m.titol_obra, 'ordre', m.ordre,
-                                               'compassos', m.compassos, 'es_unic_moviment', m.es_unic_moviment)),
-                           '[]') AS JSON)
+       (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+               JSON_OBJECT('id_moviment', m.id_moviment, 'id_obra', m.id_obra, 'titol_moviment', m.titol_moviment,
+                           'titol_obra', m.titol_obra, 'ordre', m.ordre, 'compassos', m.compassos, 'es_unic_moviment',
+                           m.es_unic_moviment)) AS JSON), '[]') AS JSON)
         FROM (moviments_full m
                  JOIN moviments_esdeveniment_musical
                       ON ((m.id_moviment = moviments_esdeveniment_musical.id_moviment)))
@@ -1150,77 +1151,85 @@ FROM assajos_estat ae;
 
 CREATE OR REPLACE VIEW assajos_son_parcials AS
 SELECT DISTINCT a.id_assaig                                                    AS id_assaig,
-                exists(SELECT veus_convocades_assaig.id_veu
+                EXISTS(SELECT veus_convocades_assaig.id_veu
                        FROM veus_convocades_assaig
                        WHERE (veus_convocades_assaig.id_assaig = a.id_assaig)) AS es_parcial
 FROM (assajos a
          JOIN veus v);
 
 CREATE OR REPLACE VIEW assajos_veus AS
-SELECT asp.id_assaig  AS id_assaig,
-       asp.es_parcial AS es_parcial,
-       if(((0 = asp.es_parcial) OR (0 <> (SELECT veus_convocades_assaig.id_veu
-                                          FROM veus_convocades_assaig
-                                          WHERE ((veus_convocades_assaig.id_veu = v.id_veu) AND
-                                                 (veus_convocades_assaig.id_assaig = asp.id_assaig))))), v.id_veu,
-          NULL)       AS id_veu,
-       v.nom          AS nom_veu,
-       v.abreviatura  AS abreviatura_veu
+SELECT asp.id_assaig      AS id_assaig,
+       asp.es_parcial     AS es_parcial,
+       IF(((NOT (asp.es_parcial)) OR (SELECT veus_convocades_assaig.id_veu
+                                      FROM veus_convocades_assaig
+                                      WHERE ((veus_convocades_assaig.id_veu = v.id_veu) AND
+                                             (veus_convocades_assaig.id_assaig = asp.id_assaig)))),
+          v.id_veu, NULL) AS id_veu,
+       v.nom              AS nom_veu,
+       v.abreviatura      AS abreviatura_veu
 FROM (assajos_son_parcials asp
          JOIN veus v);
 
 CREATE OR REPLACE VIEW esdeveniments_estat AS
-SELECT DISTINCT e.id_esdeveniment                                                           AS id_esdeveniment,
-                date_format(e.data, '%Y-%m-%d')                                             AS data,
-                ifnull(concat(e.data, ' ', e.hora_inici), e.data)                           AS datahora_inici,
-                e.hora_inici                                                                AS hora_inici,
-                concat(e.data, ' ', e.hora_final)                                           AS datahora_final,
-                e.hora_final                                                                AS hora_final,
-                (SELECT concat_ws(' ', tv.nom, concat(localitzacions.carrer, ','), concat(
-                        ifnull(concat(localitzacions.numero, '–', localitzacions.fins_numero),
-                               concat(localitzacions.numero)), ','), c.nom, concat('(', (SELECT ciutats.nom
-                                                                                         FROM ciutats
-                                                                                         WHERE (ciutats.id_ciutat = c.id_provincia)),
-                                                                                   ')'))
+SELECT DISTINCT e.id_esdeveniment                                            AS id_esdeveniment,
+                DATE_FORMAT(e.data, '%Y-%m-%d')                              AS data,
+                IFNULL(CONCAT(e.data, ' ', e.hora_inici), e.data)            AS datahora_inici,
+                e.hora_inici                                                 AS hora_inici,
+                CONCAT(e.data, ' ', e.hora_final)                            AS datahora_final,
+                e.hora_final                                                 AS hora_final,
+                (SELECT (CONCAT_WS(' ', tv.nom, CONCAT(localitzacions.carrer, ','), CONCAT(IFNULL(
+                                                                                                   CONCAT(
+                                                                                                           localitzacions.numero,
+                                                                                                           '–',
+                                                                                                           localitzacions.fins_numero),
+                                                                                                   CONCAT(localitzacions.numero)),
+                                                                                           ','), c.nom,
+                                   CONCAT('(', (SELECT ciutats.nom
+                                                FROM ciutats
+                                                WHERE (ciutats.id_ciutat = c.id_provincia)),
+                                          ')')) COLLATE utf8mb4_unicode_ci)
                  FROM ((localitzacions JOIN tipus_vies tv ON ((localitzacions.id_tipus_via = tv.id_tipus_via)))
                           JOIN ciutats c ON ((localitzacions.id_ciutat = c.id_ciutat)))
-                 WHERE (localitzacions.id_localitzacio = e.id_localitzacio))                AS nom_localitzacio,
+                 WHERE (localitzacions.id_localitzacio = e.id_localitzacio)) AS nom_localitzacio,
                 (SELECT e2.nom
                  FROM (localitzacions l
                           JOIN establiments e2 ON ((l.id_localitzacio = e2.id_establiment)))
-                 WHERE (l.id_localitzacio = e.id_localitzacio))                             AS nom_establiment,
-                e.id_esdeveniment_ajornat                                                   AS id_esdeveniment_ajornat,
-                e.id_estat_esdeveniment                                                     AS id_estat_esdeveniment,
+                 WHERE (l.id_localitzacio = e.id_localitzacio))              AS nom_establiment,
+                e.id_esdeveniment_ajornat                                    AS id_esdeveniment_ajornat,
+                e.id_estat_esdeveniment                                      AS id_estat_esdeveniment,
                 (SELECT estats_confirmacio.estat
                  FROM estats_confirmacio
-                 WHERE (estats_confirmacio.id_estat_confirmacio = e.id_estat_esdeveniment)) AS estat_esdeveniment,
-                e.id_estat_localitzacio                                                     AS id_estat_localitzacio,
+                 WHERE (estats_confirmacio.id_estat_confirmacio =
+                        e.id_estat_esdeveniment))                            AS estat_esdeveniment,
+                e.id_estat_localitzacio                                      AS id_estat_localitzacio,
                 (SELECT estats_confirmacio.estat
                  FROM estats_confirmacio
-                 WHERE (estats_confirmacio.id_estat_confirmacio = e.id_estat_localitzacio)) AS estat_localitzacio
+                 WHERE (estats_confirmacio.id_estat_confirmacio =
+                        e.id_estat_localitzacio))                            AS estat_localitzacio
 FROM esdeveniments e;
 
 CREATE OR REPLACE VIEW moviments_full AS
-SELECT o.id_obra                                                               AS id_obra,
-       o.num_cataleg                                                           AS num_cataleg,
-       m.id_moviment                                                           AS id_moviment,
-       m.ordre                                                                 AS ordre,
-       (SELECT (NOT exists(SELECT 1
-                           FROM moviments
-                           WHERE ((moviments.id_obra = o.id_obra) AND
-                                  (moviments.id_moviment <> m.id_moviment))))) AS es_unic_moviment,
-       m.durada                                                                AS durada,
-       ifnull(m.titol, o.titol)                                                AS titol_moviment,
-       o.titol                                                                 AS titol_obra,
-       o.any_inici                                                             AS any_inici,
-       m.compassos                                                             AS compassos,
-       (SELECT cast(ifnull(json_arrayagg(
-                                   json_object('id_projecte', projectes.id_projecte, 'titol', projectes.titol,
-                                               'inicials', projectes.inicials, 'color', projectes.color)),
-                           '[]') AS JSON)
+SELECT o.id_obra                                                                 AS id_obra,
+       o.num_cataleg                                                             AS num_cataleg,
+       m.id_moviment                                                             AS id_moviment,
+       m.ordre                                                                   AS ordre,
+       (SELECT (NOT (EXISTS(SELECT 1
+                            FROM moviments
+                            WHERE ((moviments.id_obra = o.id_obra) AND
+                                   (moviments.id_moviment <> m.id_moviment)))))) AS es_unic_moviment,
+       m.durada                                                                  AS durada,
+       IFNULL(m.titol, o.titol)                                                  AS titol_moviment,
+       o.titol                                                                   AS titol_obra,
+       o.any_inici                                                               AS any_inici,
+       m.compassos                                                               AS compassos,
+       (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+               JSON_OBJECT('id_projecte', projectes.id_projecte, 'titol',
+                           projectes.titol, 'inicials', projectes.inicials, 'color',
+                           projectes.color)) AS JSON), '[]') AS JSON)
         FROM (projectes
-                 JOIN moviments_projectes ON ((projectes.id_projecte = moviments_projectes.id_projecte)))
-        WHERE (moviments_projectes.id_moviment = m.id_moviment))               AS projectes
+                 JOIN moviments_projectes
+                      ON ((projectes.id_projecte = moviments_projectes.id_projecte)))
+        WHERE (moviments_projectes.id_moviment = m.id_moviment))                 AS projectes
 FROM (moviments m
          JOIN obres o ON ((m.id_obra = o.id_obra)));
 
@@ -1233,20 +1242,22 @@ SELECT DISTINCT p.id_projecte                                              AS id
                 p.data_inici                                               AS data_inici,
                 p.data_final                                               AS data_final,
                 p.id_curs                                                  AS id_curs,
-                year(c.inici)                                              AS any_inici_curs,
-                year(c.final)                                              AS any_final_curs,
-                (SELECT cast(ifnull(json_arrayagg(json_object('id_director', dp.id_director, 'nom', p.nom_complet)),
-                                    '[]') AS JSON)
+                YEAR(c.inici)                                              AS any_inici_curs,
+                YEAR(c.final)                                              AS any_final_curs,
+                (SELECT CAST(IFNULL(
+                        CAST(JSON_ARRAYAGG(JSON_OBJECT('id_director', dp.id_director, 'nom', p.nom_complet)) AS JSON),
+                        '[]') AS JSON)
                  FROM (directors_projectes dp
                           JOIN persones p ON ((dp.id_director = p.id_persona)))
                  WHERE (dp.id_projecte = p.id_projecte))                   AS directors,
-                (SELECT cast(ifnull(json_arrayagg(json_object('id_formacio', formacions.id_formacio, 'nom',
-                                                              formacions.nom, 'nom_curt',
-                                                              ifnull(formacions.nom_curt, formacions.nom))),
-                                    '[]') AS JSON)
+                (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(
+                        JSON_OBJECT('id_formacio', formacions.id_formacio, 'nom',
+                                    formacions.nom, 'nom_curt', IFNULL(
+                                            formacions.nom_curt,
+                                            formacions.nom))) AS JSON), '[]') AS JSON)
                  FROM (projectes_formacions
-                          JOIN formacions
-                               ON ((projectes_formacions.id_formacio = formacions.id_formacio)))
+                          JOIN formacions ON ((projectes_formacions.id_formacio =
+                                               formacions.id_formacio)))
                  WHERE (projectes_formacions.id_projecte = p.id_projecte)) AS formacions
 FROM (projectes p
          JOIN cursos c ON ((p.id_curs = c.id_curs)));
@@ -1263,33 +1274,37 @@ SELECT sv.id_persona                                                            
        av.nom_veu                                                                             AS nom_veu,
        av.abreviatura_veu                                                                     AS abreviatura_veu,
        ae.amb_retard                                                                          AS amb_retard,
-       ifnull(ec.id_estat_confirmacio, 1)                                                     AS id_estat_confirmacio,
+       IFNULL(ec.id_estat_confirmacio, 1)                                                     AS id_estat_confirmacio,
        (SELECT estats_confirmacio.estat
         FROM estats_confirmacio
-        WHERE (estats_confirmacio.id_estat_confirmacio = ifnull(ec.id_estat_confirmacio, 1))) AS estat
+        WHERE (estats_confirmacio.id_estat_confirmacio = IFNULL(ec.id_estat_confirmacio, 1))) AS estat
 FROM ((((assajos_veus av LEFT JOIN socis_veus sv ON ((av.id_veu = sv.id_veu))) LEFT JOIN assajos a ON ((av.id_assaig = a.id_assaig))) LEFT JOIN assistents_esdeveniment ae ON (((ae.id_soci = sv.id_soci) AND (ae.id_esdeveniment = a.id_assaig))))
          LEFT JOIN estats_confirmacio ec ON ((ec.id_estat_confirmacio = ae.id_estat_confirmacio)))
-WHERE (((exists(SELECT 1
-                FROM (assajos
-                         JOIN veus_convocades_assaig
-                              ON ((assajos.id_assaig = veus_convocades_assaig.id_assaig)))
-                WHERE (assajos.id_assaig = a.id_assaig)) IS FALSE AND exists(SELECT 1
-                                                                             FROM ((assajos JOIN assajos_formacions ON ((assajos.id_assaig = assajos_formacions.id_assaig)))
-                                                                                      JOIN socis_formacions
-                                                                                           ON ((assajos_formacions.id_formacio =
-                                                                                                socis_formacions.id_formacio)))
-                                                                             WHERE ((assajos.id_assaig = a.id_assaig) AND
-                                                                                    (socis_formacions.id_soci = sv.id_soci)))) OR
+WHERE ((((NOT (EXISTS(SELECT 1
+                      FROM (assajos
+                               JOIN veus_convocades_assaig ON ((assajos.id_assaig =
+                                                                veus_convocades_assaig.id_assaig)))
+                      WHERE (assajos.id_assaig = a.id_assaig)))) AND EXISTS(SELECT 1
+                                                                            FROM ((assajos JOIN assajos_formacions ON ((
+                                                                                    assajos.id_assaig =
+                                                                                    assajos_formacions.id_assaig)))
+                                                                                     JOIN socis_formacions
+                                                                                          ON ((assajos_formacions.id_formacio =
+                                                                                               socis_formacions.id_formacio)))
+                                                                            WHERE ((assajos.id_assaig = a.id_assaig) AND
+                                                                                   (socis_formacions.id_soci = sv.id_soci)))) OR
         sv.id_veu IN (SELECT DISTINCT veus_convocades_assaig.id_veu
                       FROM (assajos
-                               JOIN veus_convocades_assaig
-                                    ON ((assajos.id_assaig = veus_convocades_assaig.id_assaig)))
-                      WHERE (assajos.id_assaig = a.id_assaig))) AND sv.id_soci IN (SELECT socis.id_soci
-                                                                                   FROM ((socis JOIN socis_formacions ON ((socis.id_soci = socis_formacions.id_soci)))
-                                                                                            JOIN assajos_formacions
-                                                                                                 ON ((socis_formacions.id_formacio =
-                                                                                                      assajos_formacions.id_formacio)))
-                                                                                   WHERE (assajos_formacions.id_assaig = a.id_assaig)));
+                               JOIN veus_convocades_assaig ON ((assajos.id_assaig =
+                                                                veus_convocades_assaig.id_assaig)))
+                      WHERE (assajos.id_assaig = a.id_assaig))) AND
+       sv.id_soci IN (SELECT socis.id_soci
+                      FROM ((socis JOIN socis_formacions ON ((
+                          socis.id_soci = socis_formacions.id_soci)))
+                               JOIN assajos_formacions
+                                    ON ((socis_formacions.id_formacio =
+                                         assajos_formacions.id_formacio)))
+                      WHERE (assajos_formacions.id_assaig = a.id_assaig)));
 
 CREATE OR REPLACE VIEW socis_veus AS
 SELECT p.id_persona                                                      AS id_persona,
@@ -1297,19 +1312,21 @@ SELECT p.id_persona                                                      AS id_p
        p.nom                                                             AS nom,
        p.cognoms                                                         AS cognoms,
        p.nom_complet                                                     AS nom_complet,
-       (SELECT coalesce((SELECT group_concat(veus_moviments.id_veu SEPARATOR ',')
+       (SELECT COALESCE((SELECT GROUP_CONCAT(veus_moviments.id_veu SEPARATOR ',')
                          FROM (socis_veu_moviment_projectes
-                                  JOIN veus_moviments ON ((socis_veu_moviment_projectes.id_veu_moviment =
-                                                           veus_moviments.id_veu_moviment)))
+                                  JOIN veus_moviments
+                                       ON ((socis_veu_moviment_projectes.id_veu_moviment =
+                                            veus_moviments.id_veu_moviment)))
                          WHERE (socis_veu_moviment_projectes.id_soci = s.id_soci)),
-                        (SELECT group_concat(socis_projectes_veu.id_veu SEPARATOR ',')
+                        (SELECT GROUP_CONCAT(socis_projectes_veu.id_veu SEPARATOR ',')
                          FROM socis_projectes_veu
                          WHERE (socis_projectes_veu.id_soci = s.id_soci)),
-                        (SELECT group_concat(socis_formacions_veus.id_veu SEPARATOR ',')
+                        (SELECT GROUP_CONCAT(socis_formacions_veus.id_veu SEPARATOR ',')
                          FROM ((socis_formacions_veus JOIN socis_formacions ON ((
-                                 socis_formacions_veus.id_soci_formacio = socis_formacions.id_soci_formacio)))
-                                  JOIN formacions
-                                       ON ((socis_formacions.id_formacio = formacions.id_formacio)))
+                                 socis_formacions_veus.id_soci_formacio =
+                                 socis_formacions.id_soci_formacio)))
+                                  JOIN formacions ON ((socis_formacions.id_formacio =
+                                                       formacions.id_formacio)))
                          WHERE (socis_formacions.id_soci = s.id_soci)))) AS id_veu
 FROM (socis s
          JOIN persones p ON ((p.id_persona = s.id_soci)));
@@ -1322,31 +1339,34 @@ SELECT usuaris_complet.id_usuari  AS id_usuari,
 FROM usuaris_complet;
 
 CREATE OR REPLACE VIEW usuaris_info AS
-SELECT uc.id_usuari                                                                                                     AS id_usuari,
-       uc.username                                                                                                      AS username,
-       p.nom                                                                                                            AS nom,
-       p.cognoms                                                                                                        AS cognoms,
-       p.es_dona                                                                                                        AS es_dona,
-       uc.id_persona                                                                                                    AS id_persona,
-       uc.hash                                                                                                          AS hash,
-       (SELECT cast(ifnull(json_arrayagg(roles.role), '[]') AS JSON)
+SELECT uc.id_usuari                                                                                             AS id_usuari,
+       uc.username                                                                                              AS username,
+       p.nom                                                                                                    AS nom,
+       p.cognoms                                                                                                AS cognoms,
+       p.es_dona                                                                                                AS es_dona,
+       uc.id_persona                                                                                            AS id_persona,
+       uc.hash                                                                                                  AS hash,
+       (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(roles.role) AS JSON), '[]') AS JSON)
         FROM (roles_usuaris
-                 JOIN roles ON ((roles_usuaris.id_role = roles.id_role)))
-        WHERE (roles_usuaris.id_usuari = uc.id_usuari))                                                                 AS roles,
-       (SELECT cast(ifnull(json_arrayagg(tipus_avisos.unique_name), '[]') AS JSON)
-        FROM ((avisos JOIN tipus_avisos ON ((avisos.id_tipus_avis = tipus_avisos.id_tipus_avis)))
+                 JOIN roles
+                      ON ((roles_usuaris.id_role = roles.id_role)))
+        WHERE (roles_usuaris.id_usuari = uc.id_usuari))                                                         AS roles,
+       (SELECT CAST(IFNULL(CAST(JSON_ARRAYAGG(tipus_avisos.unique_name) AS JSON), '[]') AS JSON)
+        FROM ((avisos JOIN tipus_avisos ON ((avisos.id_tipus_avis =
+                                             tipus_avisos.id_tipus_avis)))
                  JOIN acceptacions_avis av ON ((avisos.id_avis = av.id_avis)))
-        WHERE (((0 <> av.requerida) IS TRUE) AND exists(SELECT 1
-                                                        FROM socis_acceptacions
-                                                        WHERE ((socis_acceptacions.id_acceptacio_avis = av.id_acceptacio_avis) AND
-                                                               ((0 <> socis_acceptacions.accepta) IS TRUE) AND
-                                                               (socis_acceptacions.id_soci = p.id_persona))) IS FALSE)) AS avisos,
-       exists(SELECT 1
+        WHERE ((av.requerida IS TRUE) AND (NOT (EXISTS(SELECT 1
+                                                       FROM socis_acceptacions
+                                                       WHERE ((socis_acceptacions.id_acceptacio_avis =
+                                                               av.id_acceptacio_avis) AND
+                                                              (socis_acceptacions.accepta IS TRUE) AND
+                                                              (socis_acceptacions.id_soci = p.id_persona))))))) AS avisos,
+       EXISTS(SELECT 1
               FROM (socis s
                        JOIN historial_socis hs ON ((s.id_soci = hs.id_historial_soci)))
               WHERE ((s.id_soci = p.id_persona) AND
-                     (curdate() BETWEEN hs.data_alta AND ifnull((hs.data_baixa - INTERVAL 1 DAY), curdate())))
-              ORDER BY hs.data_alta DESC)                                                                               AS es_actiu
+                     (CURDATE() BETWEEN hs.data_alta AND IFNULL((hs.data_baixa - INTERVAL 1 DAY), CURDATE())))
+              ORDER BY hs.data_alta DESC)                                                                       AS es_actiu
 FROM (usuaris_complet uc
          LEFT JOIN persones p ON ((uc.id_persona = p.id_persona)));
 
