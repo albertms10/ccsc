@@ -1,5 +1,5 @@
 {
-  "watch": ["server-model", "src"],
-  "ext": "ts",
+  "watch": ["docs", "server-model", "src"],
+  "ext": "ts,yaml",
   "exec": "ts-node"
 }
