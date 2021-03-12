@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Associació Musical Catalana Crescendo
-  version: 0.2.0
+  version: 0.3.1
   description: Documentació de l’API per a l’Associació Musical Catalana Crescendo
   contact:
     name: Albert Mañosa
