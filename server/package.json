@@ -5,10 +5,10 @@
   "scripts": {
     "tsc": "tsc",
     "build": "npm i && cd ../client && npm i && npm run build",
-    "server": "npm run tsc",
+    "server": "nodemon src",
     "start": "node build/server/src/index.js",
     "client": "cd .. && npm start --prefix client",
-    "dev": "concurrently \"nodemon src\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "postinstall": "npm run tsc && npx copyfiles -u 2 src/queries/**/*.sql build/server/src/queries && npx copyfiles docs/docs.* build/server"
   },
   "dependencies": {
