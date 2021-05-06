@@ -17,8 +17,7 @@ const SeccioAvis: React.FC<SeccioAvisProps> = ({
   <>
     <Title level={4}>{titol}</Title>
     <Paragraph>
-      {/* @ts-ignore */}
-      <ReactMarkdown>{descripcio}</ReactMarkdown>
+      <ReactMarkdown>{descripcio ?? ""}</ReactMarkdown>
       {children}
     </Paragraph>
   </>
