@@ -11,7 +11,7 @@ const ModalAfegirSoci: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const modalButtonRef = useRef(null);
+  const modalButtonRef = useRef<HTMLButtonElement>(null);
 
   const {
     steps,
