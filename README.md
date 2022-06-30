@@ -6,7 +6,7 @@
 ![OSSAR](https://github.com/albertms10/ccsc/workflows/OSSAR/badge.svg)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=cordecambrasantcugat&svg=1)
 
-Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat.
+Projecte per a l’Associació Musical Catalana Crescendo i el Cor de Cambra Sant Cugat, com a Treball de Fi de Grau del Grau en Multimèdia de la UPC–CITM. Podeu consultar la [documentació publicada a UPCommons](https://upcommons.upc.edu/handle/2117/346022).
 
 ## Base de dades
 
